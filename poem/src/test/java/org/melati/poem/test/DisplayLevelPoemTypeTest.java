@@ -31,7 +31,7 @@ public class DisplayLevelPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new DisplayLevelPoemType();

@@ -27,7 +27,7 @@ public class NullableBooleanPoemTypeTest extends NotNullableBooleanPoemTypeTest 
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BooleanPoemType(true);

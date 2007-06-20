@@ -27,7 +27,7 @@ public class NullableSetBigDecimalPoemTypeTest extends NotNullableSetBigDecimalP
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(true, 22, 2);

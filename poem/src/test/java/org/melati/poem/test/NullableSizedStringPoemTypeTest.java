@@ -10,7 +10,7 @@ import org.melati.poem.StringPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableSizedStringPoemTypeTest extends SizedAtomPoemTypeTest {
+public class NullableSizedStringPoemTypeTest extends SizedAtomPoemTypeSpec {
 
   /**
    * 
@@ -27,7 +27,7 @@ public class NullableSizedStringPoemTypeTest extends SizedAtomPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new StringPoemType(true, -1);

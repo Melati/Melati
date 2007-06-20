@@ -17,7 +17,7 @@ import org.melati.poem.TypeMismatchPoemException;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
+public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -34,7 +34,7 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new IntegerPoemType(false);
@@ -50,7 +50,7 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
   /**
    * Only way to get doubleChecked to throw. 
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#testRawOfCooked()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#testRawOfCooked()
    */
   public void testRawOfCooked() {
     super.testRawOfCooked();

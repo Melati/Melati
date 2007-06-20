@@ -34,7 +34,7 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new SearchabilityPoemType();

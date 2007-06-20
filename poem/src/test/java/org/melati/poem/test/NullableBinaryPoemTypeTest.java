@@ -27,7 +27,7 @@ public class NullableBinaryPoemTypeTest extends NotNullableBinaryPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BinaryPoemType(true, 20);

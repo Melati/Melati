@@ -27,7 +27,7 @@ public class NullableReferencePoemTypeTest extends NotNullableReferencePoemTypeT
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new ReferencePoemType(getDb().getCapabilityTable(), true);

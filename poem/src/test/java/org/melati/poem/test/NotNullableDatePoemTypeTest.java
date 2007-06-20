@@ -16,7 +16,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
+public class NotNullableDatePoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -33,7 +33,7 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new DatePoemType(false);

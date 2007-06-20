@@ -14,7 +14,7 @@ import org.melati.poem.SQLSeriousPoemException;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeTest {
+public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -31,7 +31,7 @@ public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(false);

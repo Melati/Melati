@@ -14,7 +14,7 @@ import org.melati.poem.SQLPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
+public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -31,7 +31,7 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BooleanPoemType(false);

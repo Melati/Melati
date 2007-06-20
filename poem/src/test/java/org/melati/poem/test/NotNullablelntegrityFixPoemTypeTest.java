@@ -16,7 +16,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
-public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeTest {
+public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -33,7 +33,7 @@ public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new IntegrityFixPoemType(false);

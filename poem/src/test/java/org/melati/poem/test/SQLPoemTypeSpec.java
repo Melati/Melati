@@ -19,21 +19,21 @@ import org.melati.poem.TypeMismatchPoemException;
  * @since 21 Dec 2006
  * 
  */
-abstract public class SQLPoemTypeTest extends PoemTestCase {
+abstract public class SQLPoemTypeSpec extends PoemTestCase {
 
   protected PoemType it = null;
 
   /**
    * @param name
    */
-  public SQLPoemTypeTest() {
+  public SQLPoemTypeSpec() {
     super();
   }
 
   /**
    * @param name
    */
-  public SQLPoemTypeTest(String name) {
+  public SQLPoemTypeSpec(String name) {
     super(name);
   }
 

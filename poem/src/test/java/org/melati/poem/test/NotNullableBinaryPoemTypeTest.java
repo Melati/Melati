@@ -18,7 +18,7 @@ import org.melati.poem.util.Base64;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeTest {
+public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
 
   /**
    * 
@@ -35,7 +35,7 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new BinaryPoemType(false, 20);

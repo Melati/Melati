@@ -15,7 +15,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
-public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
+public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -32,7 +32,7 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setUp()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
@@ -40,7 +40,7 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#tearDown()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#tearDown()
    */
   protected void tearDown() throws Exception {
     super.tearDown();
@@ -48,7 +48,7 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new ColumnTypePoemType(getDb());

@@ -15,7 +15,7 @@ import org.melati.poem.SQLPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
+public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec {
 
   /**
    * 
@@ -32,7 +32,7 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
+   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
   void setObjectUnderTest() {
     it = new LongPoemType(false);

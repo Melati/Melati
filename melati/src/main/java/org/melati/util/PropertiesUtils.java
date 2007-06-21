@@ -224,10 +224,14 @@ public final class PropertiesUtils {
       try {
         Class defaultClass = Class.forName(defaultName);
         return defaultClass.newInstance();
+      } catch (Exception e) {
+        throw new RuntimeException("Problem creating new instance of " + 
+                defaultName + " :" + e.toString());
+      } catch (Error e) { 
+        throw new RuntimeException("Problem creating new instance of " + 
+                defaultName + " :" + e.toString());
       }
-      catch (Exception e) {
-        throw new RuntimeException(e.toString());
-      }
+      
     return instanceOfNamedClass(className, interfaceClassName);
   }
 }

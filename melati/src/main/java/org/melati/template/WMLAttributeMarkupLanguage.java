@@ -46,6 +46,7 @@ package org.melati.template;
 
 import java.io.IOException;
 import org.melati.poem.AccessPoemException;
+import org.melati.util.MelatiWriter;
 
 /**
  * A WML based markup language suitable for markup within an attribute tag.

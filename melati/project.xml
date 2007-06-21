@@ -288,14 +288,21 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <dependencies>
     <dependency>
-      <groupId>org.melati</groupId>
+      <groupId>melati</groupId>
       <artifactId>poem</artifactId>
       <version>0.7.7-RC1</version>
-      <url>http://www.webmacro.org/</url>
+      <url>http://www.melati.org/</url>
       <properties>
-         <war.bundle>false</war.bundle>
+         <war.bundle>true</war.bundle>
          <scope>runtime</scope>
       </properties>
+    </dependency>
+    <!-- copied by hand from m2 build :( -->
+    <dependency>
+      <groupId>melati</groupId>
+      <artifactId>poem-tests</artifactId>
+      <version>0.7.7-RC1</version>
+      <url>http://www.melati.org/</url>
     </dependency>
     <dependency>
       <id>webmacro-classic</id>

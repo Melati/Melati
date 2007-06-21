@@ -135,14 +135,14 @@ public class TemplateServletTest extends PoemServletTest {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletContext.expectAndReturn("getMajorVersion", 2); 
     mockServletContext.expectAndReturn("getMinorVersion", 3); 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletConfig.expectAndReturn("getInitParameter","pathInfo", null); 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
 
     mockServletContext.expectAndReturn("hashCode", 17); 
@@ -165,8 +165,8 @@ public class TemplateServletTest extends PoemServletTest {
           new org.melati.test.TemplateServletTest();
     try {
       aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
-                     (HttpServletResponse) mockHttpServletResponse);
+      aServlet.doPost(mockHttpServletRequest,  
+                      mockHttpServletResponse);
       aServlet.destroy();
       
     } catch (Exception e) {
@@ -214,8 +214,8 @@ public class TemplateServletTest extends PoemServletTest {
            
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", "melatitest/user/1");
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
@@ -248,16 +248,16 @@ public class TemplateServletTest extends PoemServletTest {
         new HttpServletRequestParameters(mockHttpServletRequest));
         
 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     
     ExceptionTemplateServlet aServlet = 
           new ExceptionTemplateServlet();
     aServlet.init((ServletConfig)mockServletConfig.proxy());
-    aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
-                   (HttpServletResponse) mockHttpServletResponse);
+    aServlet.doPost( mockHttpServletRequest,  
+                     mockHttpServletResponse);
     assertTrue(mockHttpServletResponse.getWritten().indexOf("Melati Error Template") > 0);
     assertTrue(mockHttpServletResponse.getWritten().indexOf("java.lang.Exception: A problem") > 0);
     aServlet.destroy();
@@ -296,8 +296,8 @@ public class TemplateServletTest extends PoemServletTest {
            
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", "melatitest/user/1");
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
@@ -330,16 +330,16 @@ public class TemplateServletTest extends PoemServletTest {
         new HttpServletRequestParameters(mockHttpServletRequest));
         
 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     
     ClasspathRenderedExceptionTemplateServlet aServlet = 
           new ClasspathRenderedExceptionTemplateServlet();
     aServlet.init((ServletConfig)mockServletConfig.proxy());
-    aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
-                   (HttpServletResponse) mockHttpServletResponse);
+    aServlet.doPost(mockHttpServletRequest,  
+                    mockHttpServletResponse);
     System.err.println(mockHttpServletResponse.getWritten());
     assertTrue(mockHttpServletResponse.getWritten().indexOf("org.melati.servlet.test.ClasspathRenderedException: A problem") > 0);
     assertTrue(mockHttpServletResponse.getWritten().indexOf("Rendered using template from classpath") > 0);

@@ -52,17 +52,21 @@ import org.melati.poem.FieldAttributes;
 /**
  * Load a template to render an object based upon the object's class.
  */
-public class ClassNameTempletLoader implements TempletLoader {
+public final class ClassNameTempletLoader implements TempletLoader {
 
   /** The instance. */
-  public static final ClassNameTempletLoader it = new ClassNameTempletLoader();
+  private static ClassNameTempletLoader it = null;
 
-  private Hashtable templetForClassCache = new Hashtable();
-
-  private Hashtable specialTemplateNames = new Hashtable();
+  // NOTE It is not expected that templates will be added at runtime.
+  private static Hashtable templetForClassCache = new Hashtable();
+  private static Hashtable specialTemplateNames = new Hashtable();
+  
+  private static final Integer FOUND = new Integer(1);
+  private static final Integer NOT_FOUND = new Integer(0);
+  private static Hashtable lookedupTemplateNames = new Hashtable();
 
   /** Constructor. */
-  public ClassNameTempletLoader() {
+  private ClassNameTempletLoader() {
       // These templates cannot be overridden
     specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", 
                              "select");
@@ -78,7 +82,15 @@ public class ClassNameTempletLoader implements TempletLoader {
                              "select");
   }
 
-  protected String templetsPath(TemplateEngine templateEngine, 
+  /**
+   * @return the instance
+   */
+  public static ClassNameTempletLoader getInstance() {
+    if (it == null)
+      it = new ClassNameTempletLoader();
+    return it;
+  }
+  protected static String templetsPath(TemplateEngine templateEngine, 
                                 MarkupLanguage markupLanguage) {
     /*
     // Fails to find templates in jars!!
@@ -96,7 +108,10 @@ public class ClassNameTempletLoader implements TempletLoader {
     
     }
 
-  protected String templetPath(TemplateEngine templateEngine,
+  /**
+   * @return the path in the templets directory
+   */
+  protected static String templetsTempletPath(TemplateEngine templateEngine,
                                MarkupLanguage markupLanguage,
                                String purpose, String name) {
     if (purpose == null)
@@ -111,6 +126,9 @@ public class ClassNameTempletLoader implements TempletLoader {
                templateEngine.templateExtension();
   }
 
+  protected static String classpathTempletPath(Class clazz, TemplateEngine templateEngine) { 
+    return clazz.getName().replace('.', '/') + templateEngine.templateExtension();
+  }
   /**
    * Get a templet by name, with optional purpose. 
    * 
@@ -120,12 +138,12 @@ public class ClassNameTempletLoader implements TempletLoader {
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
                           String name) throws TemplateEngineException {
-    return templateEngine.template(templetPath(templateEngine, markupLanguage,
+    return templateEngine.template(templetsTempletPath(templateEngine, markupLanguage,
         purpose, name));
   }
 
   /**
-   * Get a templet by its name. 
+   * Get a templet by its name, looking only in the templets directory.
    * 
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, String)
@@ -137,7 +155,8 @@ public class ClassNameTempletLoader implements TempletLoader {
   }
 
   /**
-   * Get a templet based upon class name and optional purpose. 
+   * Get a templet based upon class name and optional purpose, 
+   * looking in the templets directory and also the classpath.
    * 
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, 
@@ -147,63 +166,87 @@ public class ClassNameTempletLoader implements TempletLoader {
                           MarkupLanguage markupLanguage, String purpose,
                           Class clazz)
       throws TemplateEngineException {
+    Class lookupClass = clazz;
+    Template templet = null;
+    Template fromCache = null;
+    String originalCacheKey = cacheKey(templateEngine, markupLanguage, purpose, lookupClass);
+    String lookupCacheKey = originalCacheKey;
+    while (lookupClass != null) {
+      fromCache = (Template)templetForClassCache.get(lookupCacheKey);
+      if (fromCache != null) {
+        templet = fromCache;
+        break;
+      } 
+      templet = getSpecialTemplate(lookupClass, purpose, markupLanguage, templateEngine);
+      if (templet != null)
+        break;
+      // Try to find one in the templets directory
+      String templetPath = templetsTempletPath(templateEngine, markupLanguage,
+              purpose, lookupClass.getName());
+      templet = getTemplate(templateEngine, templetPath);
+      if (templet != null)
+        break;
+      // Try to find one on classpath
+      templetPath = classpathTempletPath(lookupClass, templateEngine);
+      templet = getTemplate(templateEngine, templetPath);
+      if (templet != null)
+        break;
+      lookupClass = lookupClass.getSuperclass();
+      lookupCacheKey = cacheKey(templateEngine, markupLanguage, purpose, lookupClass);
+    }
+    if (templet == null) throw new NotFoundException(this, lookupClass);
+    if (fromCache == null)
+      templetForClassCache.put(originalCacheKey, templet);
+    if (!lookupCacheKey.equals(originalCacheKey)) { 
+      if (templetForClassCache.get(lookupCacheKey) == null) 
+        templetForClassCache.put(lookupCacheKey, templet);
+    } 
+    return templet;
+  }
 
-    String cacheKey = clazz + "/" + purpose + "/" + markupLanguage;
-    Template templet = (Template)templetForClassCache.get(cacheKey);
+  private String cacheKey(TemplateEngine templateEngine, MarkupLanguage markupLanguage, String purpose, Class lookupClass) {
+    String originalClassCacheKey = lookupClass + "/" + 
+                                   purpose + "/" + 
+                                   markupLanguage + "/" + 
+                                   templateEngine.getName();
+    return originalClassCacheKey;
+  }
 
-    if (templet == null && purpose == null) {
+  private Template getTemplate(TemplateEngine templateEngine, String templetPath) 
+      throws TemplateEngineException { 
+    Template templet = null;
+    try {
+      Object triedAlready = lookedupTemplateNames.get(templetPath);
+      if (triedAlready != NOT_FOUND ) {
+        templet = templateEngine.template(templetPath);
+        lookedupTemplateNames.put(templetPath, FOUND);
+      } 
+    } catch (NotFoundException e) {
+      lookedupTemplateNames.put(templetPath, NOT_FOUND);
+    }
+    return templet;
+  }
+  
+  private Template getSpecialTemplate(Class clazz, String purpose, 
+          MarkupLanguage markupLanguage, TemplateEngine templateEngine) {
+    Template templet = null;
+    if (purpose == null) {
       String specialTemplateName =
           (String)specialTemplateNames.get(clazz.getName());
       if (specialTemplateName != null) {
-        templet =
-            templet(templateEngine, markupLanguage, specialTemplateName);
+        try {
+          templet =
+              templet(templateEngine, markupLanguage, specialTemplateName);
+        } catch (TemplateEngineException e) {
+          templet = null;
+        }
       }
     }
-    if (templet == null) {
-      Class lookupClass = clazz;
-      while (lookupClass != null) {
-        try {
-          // try and find one in templets directory
-          templet = templet(templateEngine, markupLanguage,
-                            purpose, lookupClass.getName());
-          break;
-        } catch (NotFoundException e) {
-          // try the next one up
-          e = null; // shut PMD up          
-        }
-        // Try to find one in classpath
-        try {
-          templet = templet(templateEngine, lookupClass);
-          break;
-        } catch (NotFoundException e2) {
-          e2 = null; // shut PMD up
-        }
-        lookupClass = lookupClass.getSuperclass();
-      }
-      if (templet == null) throw new NotFoundException(this, clazz);
-      templetForClassCache.put(cacheKey, templet);
-    }
-
     return templet;
   }
 
   /**
-   * Try to find a template in the same place as a class file. 
-   * 
-   * @param templateEngine Our configured TemplateEngine.
-   * @param clazz 
-   * @return A Template if found, otherwise throws exception
-   * @throws TemplateEngineException 
-   */
-  private Template templet(TemplateEngine templateEngine, Class clazz) 
-      throws TemplateEngineException {
-    return templateEngine.template(
-               clazz.getName().replace('.', '/') + 
-               templateEngine.templateExtension());
-  }
-
-  /**
-   * Get a templet name based for a class.
+   * Get a templet for a class.
    * 
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)

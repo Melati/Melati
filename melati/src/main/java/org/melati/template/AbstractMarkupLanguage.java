@@ -466,27 +466,29 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    */
   protected void render(Object o, MelatiWriter writer)
       throws IOException {
-    try {
-      TemplateContext vars =
-        melati.getTemplateEngine().getTemplateContext(melati);
-      Template templet =
-        templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
-      vars.put("object", o);
-      // Not happy but 
-      if (o instanceof Field) vars.put("field", o);
-      vars.put("melati", melati);
-      vars.put("ml", melati.getMarkupLanguage());
-      expandTemplet(templet, vars, writer);
-    }
-    catch (NotFoundException e) {
-      // This will happen for Integer in 
-      // an Attribute Markup Language for example
-      render(o.toString(), writer);
-    }
-    catch (Exception f) {
-      System.err.println("MarkupLanguage failed to render an object:");
-      f.printStackTrace();
-      render(o.toString(),writer);
+    if (o == null)
+      throw new NullPointerException();
+    else {
+      try {
+        TemplateContext vars =
+          melati.getTemplateEngine().getTemplateContext(melati);
+        Template templet =
+          templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
+        vars.put("object", o);
+        // Not happy but 
+        if (o instanceof Field) vars.put("field", o);
+        vars.put("melati", melati);
+        vars.put("ml", melati.getMarkupLanguage());
+        expandTemplet(templet, vars, writer);
+      }
+      catch (NotFoundException e) {
+        render(o.toString(), writer);
+      }
+      catch (Exception f) {
+        System.err.println("MarkupLanguage failed to render an object:" + o);
+        f.printStackTrace();
+        render(o.toString(),writer);
+      }
     }
   }
 

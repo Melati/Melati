@@ -83,4 +83,13 @@ public class WMLAttributeMarkupLanguage extends WMLMarkupLanguage
 
     return "";
   }
+
+  /** 
+   * Attribute markup languages do not have templets, so don't look for one. 
+   * {@inheritDoc}
+   * @see org.melati.template.AbstractMarkupLanguage#render(java.lang.Object, org.melati.util.MelatiWriter)
+   */
+  protected void render(Object o, MelatiWriter writer) throws IOException {
+    render(o.toString(), writer);
+  }
 }

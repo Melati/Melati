@@ -1,8 +1,11 @@
 package org.melati.template.test;
 
+import org.melati.MelatiConfig;
 import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.WMLAttributeMarkupLanguage;
 import org.melati.template.WMLMarkupLanguage;
+import org.melati.template.webmacro.WebmacroTemplateEngine;
+import org.melati.util.MelatiException;
 import org.melati.poem.PoemLocale;
 
 
@@ -36,7 +39,7 @@ public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     super.setUp();
     ml = new WMLMarkupLanguage(
             m, 
-            new ClassNameTempletLoader(), 
+            ClassNameTempletLoader.getInstance(), 
             PoemLocale.HERE);
     aml = new WMLAttributeMarkupLanguage((WMLMarkupLanguage)ml);
     m.setMarkupLanguage(ml);
@@ -44,6 +47,12 @@ public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     assertEquals(aml.getClass(), m.getMarkupLanguage().getAttr().getClass());    
     }
 
+  protected void melatiConfig() throws MelatiException {
+    mc = new MelatiConfig();
+    if(mc.getTemplateEngine().getName() != "webmacro") {
+      mc.setTemplateEngine(new WebmacroTemplateEngine());
+    }
+  }
   
   /**
    * Test method for getName.

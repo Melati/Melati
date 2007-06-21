@@ -1,11 +1,14 @@
 package org.melati.template.test;
 
+import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.util.test.Node;
 import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.HTMLAttributeMarkupLanguage;
 import org.melati.template.HTMLMarkupLanguage;
+import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.JSStaticTree;
+import org.melati.util.MelatiException;
 import org.melati.poem.PoemLocale;
 import org.melati.util.Tree;
 import org.melati.util.test.TreeDatabase;
@@ -26,11 +29,18 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     super.setUp();
     ml = new HTMLMarkupLanguage(
             m, 
-            new ClassNameTempletLoader(), 
+            ClassNameTempletLoader.getInstance(), 
             PoemLocale.HERE);
     aml = new HTMLAttributeMarkupLanguage((HTMLMarkupLanguage)ml);
     m.setMarkupLanguage(ml);
     assertEquals(ml, m.getMarkupLanguage());    
+  }
+
+  protected void melatiConfig() throws MelatiException {
+    mc = new MelatiConfig();
+    if(mc.getTemplateEngine().getName() != "webmacro") {
+      mc.setTemplateEngine(new WebmacroTemplateEngine());
+    }
   }
   
   /**
@@ -66,7 +76,7 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
       m.setPoemContext(new PoemContext());
       
       String renderedTree = ml.rendered(tree);
-      System.err.println(renderedTree);
+      //System.err.println(renderedTree);
       assertTrue(renderedTree.indexOf("init") != -1);
     } catch (Exception e) {
       e.printStackTrace();

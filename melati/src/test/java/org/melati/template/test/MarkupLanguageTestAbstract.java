@@ -17,7 +17,6 @@ import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
-import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -73,13 +72,8 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
     m.setTemplateContext(templateContext);
   }
   
-  protected void melatiConfig() throws MelatiException {
-    mc = new MelatiConfig();
-    if(mc.getTemplateEngine().getName() != "webmacro") {
-      mc.setTemplateEngine(new WebmacroTemplateEngine());
-    }
-  }
-
+  abstract protected void melatiConfig() throws MelatiException ;
+  
   
   
   /**
@@ -95,7 +89,7 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
       assertEquals("java.lang.Exception",aml.rendered(new Exception()));
     } catch (Exception e) {
       e.printStackTrace();
-      fail();
+      fail(e.getMessage());
     }
 
     try {
@@ -107,17 +101,17 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
           "your access token _guest_ doesn&#39;t confer it") != -1);
     } catch (Exception e) {
       e.printStackTrace();
-      fail();
+      fail(e.getMessage());
     }
 
     try {
       AccessPoemException ape = new AccessPoemException();
       assertEquals("", aml.rendered(ape));
-      System.err.println(m.getWriter().toString());
+      //System.err.println(m.getWriter().toString());
       assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
     } catch (Exception e) {
       e.printStackTrace();
-      fail();
+      fail(e.getMessage());
     }
     try {
       AccessPoemException ape = new AccessPoemException(
@@ -130,7 +124,7 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
     } catch (Exception e) {
       System.err.println(m.getWriter().toString());
       e.printStackTrace();
-      fail();
+      fail(e.getMessage());
     }
 
   }
@@ -212,7 +206,7 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
       assertEquals("Fredd$", ml.rendered("Fredd$"));
     } catch (IOException e) {
       e.printStackTrace();
-      fail();
+      fail(e.getMessage());
     }
     try {
       // Note velocity seems to leave the line end on
@@ -536,20 +530,15 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#templet(Class)
    */
-  public void testTempletClass() {
-    try {
-      Template t = m.getMarkupLanguage().templet(new Integer("1").getClass());
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object", new Integer("1"));
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      // FIXME too much whitespace remaining
-      assertEquals("[1]", m.getWriter().toString().trim());
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+  public void testTempletClass() throws Exception {
+    Template t = m.getMarkupLanguage().templet(new Integer("1").getClass());
+    TemplateContext tc = m.getTemplateContext();
+    tc.put("melati", m);
+    tc.put("ml", ml);
+    tc.put("object", new Integer("1"));
+    t.write(m.getWriter(), tc, m.getTemplateEngine());
+    // FIXME too much whitespace remaining
+    assertEquals("[1]", m.getWriter().toString().trim());
   }
   
   /**

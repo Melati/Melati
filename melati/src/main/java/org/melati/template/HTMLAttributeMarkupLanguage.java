@@ -88,6 +88,8 @@ public class HTMLAttributeMarkupLanguage extends HTMLMarkupLanguage
   }
 
   /**
+   * Do entity substitution.
+   *
    * @see org.melati.template.AttributeMarkupLanguage#render(java.lang.String, 
    *          org.melati.util.MelatiWriter)
    */

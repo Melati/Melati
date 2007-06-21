@@ -58,6 +58,13 @@ public abstract class MelatiException extends Exception {
   public MelatiException(Exception subException) {
     this.subException = subException;
   }
+  /**
+   * Constructor with message and pre-java 1.4 initial cause.
+   */
+  public MelatiException(String message, Exception subException) {
+    super(message);
+    initCause(subException);
+  }
 
   /**
    * Constructor.

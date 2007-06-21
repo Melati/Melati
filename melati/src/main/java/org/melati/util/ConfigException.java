@@ -64,6 +64,15 @@ public class ConfigException extends MelatiException {
   }
 
   /**
+   * @param message A message
+   * @param subException the provoking exception 
+   */
+  public ConfigException(String message, Exception subException) {
+    super(message, subException);
+    this.error = message;
+  }
+
+  /**
    * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */

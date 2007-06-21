@@ -55,6 +55,7 @@ import org.melati.login.AccessHandler;
 import org.melati.poem.PoemLocale;
 import org.melati.poem.util.EnumUtils;
 import org.melati.servlet.FormDataAdaptorFactory;
+import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.SimpleDateAdaptor;
 import org.melati.template.TemplateEngine;
@@ -187,7 +188,12 @@ public class MelatiConfig {
                        "org.melati.servlet.FormDataAdaptorFactory",
                        "org.melati.servlet.MemoryDataAdaptorFactory"));
 
-      setTempletLoader((TempletLoader)PropertiesUtils.
+      String templetLoaderClassName =  (String)configuration.get(templetLoaderProp);
+      if(templetLoaderClassName == null || 
+         templetLoaderClassName.equals("org.melati.template.ClassNameTempletLoader")) {
+        setTempletLoader(ClassNameTempletLoader.getInstance());
+      } else
+        setTempletLoader((TempletLoader)PropertiesUtils.
           instanceOfNamedClass(
                           configuration,
                           templetLoaderProp,
@@ -245,7 +251,7 @@ public class MelatiConfig {
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +
-                                e.toString());
+                                e.toString(), e);
     }
 
   }

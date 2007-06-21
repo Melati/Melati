@@ -70,7 +70,7 @@ public class NotFoundException extends TemplateEngineException {
   /** Constructor. */
   public NotFoundException(TempletLoader loader, Class clazz) {
     super("Templet loader `" + loader + "' failed to find a templet for " +
-    "class `" + clazz + "'");
+    " `" + clazz + "'");
     this.loader = loader;
     this.clazz = clazz;
   }

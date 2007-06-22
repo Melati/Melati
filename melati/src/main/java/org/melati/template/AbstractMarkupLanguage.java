@@ -173,10 +173,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   public String rendered(Object o)
       throws IOException {
     MelatiStringWriter sw = getStringWriter();
-    System.err.print("Is a string:" );
-    System.err.println(o instanceof String);
-    System.err.print("Is a field:" );
-    System.err.println(o instanceof Field);
     if (o instanceof String)
       render((String)o, sw);
     else if (o instanceof Field) 
@@ -244,7 +240,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   /**
    * Render a Field Object in a MarkupLanguage specific way, 
    * rendering to the supplied MelatiWriter with a hidden limit 
-   * of {@link FIELD_POSSIBILITIES_LIMIT}. 
+   * of FIELD_POSSIBILITIES_LIMIT. 
    * 
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.

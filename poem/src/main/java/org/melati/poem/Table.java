@@ -2761,10 +2761,10 @@ public class Table implements Selectable {
                 // expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
                 column.unifyWithIndex(index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);
-              } else {
+              } //else {
                 //System.err.println("Not creating index because one exists with different name:" + 
                 //    mdIndexName.toUpperCase() + " != " + expectedIndex);
-              }
+                //}
             } 
             // else it is a compound index ??
           

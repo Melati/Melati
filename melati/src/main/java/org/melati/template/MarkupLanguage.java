@@ -103,22 +103,6 @@ public interface MarkupLanguage {
   String rendered(String s, int limit) throws IOException;
 
   /**
-   * Render a Date Field Object in a MarkupLanguage specific way, 
-   * returning a MEDIUM Date format String.
-   *
-   * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
-   * 
-   * @param field - the Field to be rendered
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  String rendered(Field field)
-          throws TemplateEngineException, IOException;
-
-  /**
    * Render a Field Object in a MarkupLanguage specific way, 
    * returning a String.
    * Defaults to a limit of 10,000,000. 
@@ -144,7 +128,7 @@ public interface MarkupLanguage {
    *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
-   * @param style - a style to format this Field.
+   * @param style - a DateFormat style to format this Field.
    * @param limit - the length to trim the rendered string to
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
@@ -152,65 +136,6 @@ public interface MarkupLanguage {
    *                                   ServletTemplateEngine
    */
   String rendered(Field field, int style, int limit)
-          throws TemplateEngineException, IOException;
-
-  /**
-   * Render a Date Field Object in a MarkupLanguage specific way, 
-   * returning a SHORT Date format String.
-   *
-   * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
-   * 
-   * @param field - the Field to be rendered
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  String renderedShort(Field field)
-          throws TemplateEngineException, IOException;
-
-  /**
-   * Render a Date Field Object in a MarkupLanguage specific way, 
-   * returning a MEDIUM Date format String.
-   *
-   * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
-   * 
-   * @param field - the Field to be rendered
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  String renderedMedium(Field field)
-          throws TemplateEngineException, IOException;
-
-  /**
-   * Render a Date Field Object in a MarkupLanguage specific way, 
-   * returning a LONG Date format String.
-   *
-   * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
-   * 
-   * @param field - the Field to be rendered
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
-   */
-  String renderedLong(Field field) throws IOException;
-
-  /**
-   * Render a Date Field Object in a MarkupLanguage specific way, 
-   * returning a FULL Date format String.
-   *
-   * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
-   * 
-   * @param field - the Field to be rendered
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
-   */
-  String renderedFull(Field field)
           throws TemplateEngineException, IOException;
 
   /**
@@ -262,42 +187,6 @@ public interface MarkupLanguage {
    */
   String searchInput(Field field, String nullValue)
           throws TemplateEngineException, IOException;
-
-  /**
-   * Retrieve a {@link Template} given its name.
-   * 
-   * @param templetName the string file name of the template
-   * @return a Template
-   * @throws TemplateEngineException 
-   *         if not template not found on template path or classpath
-   */
-  Template templet(String templetName)
-          throws TemplateEngineException;
-
-  /**
-   * Retrieve a class specific {@link Template} given it and 
-   * a purpose.
-   * 
-   * @param clazz the class we wish to render
-   * @return a Template
-   * @throws TemplateEngineException 
-   *         if not template not found on template path or classpath
-   */
-  Template templet(Class clazz)
-          throws TemplateEngineException;
-
-  /**
-   * Retrieve a class specific {@link Template} given it and 
-   * a purpose.
-   * 
-   * @param purpose for example 'error', 'input', 'display', '3d'
-   * @param clazz the class we wish to render
-   * @return a Template
-   * @throws TemplateEngineException 
-   *         if no template found on template path or classpath
-   */
-  Template templet(String purpose, Class clazz)
-          throws TemplateEngineException;
 
 
   /**

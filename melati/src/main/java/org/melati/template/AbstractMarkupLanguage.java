@@ -74,6 +74,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   protected Melati melati = null;
   protected PoemLocale locale = null;
 
+  /** The maximum number of field possibilites to render.  */
+  public static final int FIELD_POSSIBILITIES_LIMIT = 10000;
 
   private String name;
 
@@ -134,38 +136,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#rendered(java.lang.Object)
-   */
-  public String rendered(Object o)
-      throws IOException {
-    MelatiStringWriter sw = getStringWriter();
-    if (o instanceof String)
-      render((String)o, sw);
-    else if (o instanceof Field) 
-      render((Field)o, sw);
-    // There is now an org.melati.poem.Persistent template 
-    // which does this, also defaulting the date type in 
-    // the extraordinary situation that a Persistent has a Date as its 
-    // PrimaryDisplay column. 
-    //else if (o instanceof Persistent) 
-    //  render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), sw);
-    else
-      render(o, sw);
-    return sw.toString();
-  }
-
-  /**
-   * Render a String in a MarkupLanguage specific way
-   * to a supplied MelatiWriter.
-   *
-   * @param s - the string to be rendered
-   * @param writer - the MelatiWriter to render this String to
-   * @throws IOException - if there is a problem during rendering
-   */
-  protected abstract void render(String s, MelatiWriter writer) throws IOException;
-
-  /**
-   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.String, int)
    */
   public String rendered(String s, int limit) throws IOException {
@@ -173,6 +143,49 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     render(s,limit,sw);
     return sw.toString();
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int, int)
+   */
+  public String rendered(Field field, int style, int limit)
+      throws TemplateEngineException, IOException {
+    MelatiStringWriter sw = getStringWriter();
+    render(field, style, limit, sw);
+    return sw.toString();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int)
+   */
+  public String rendered(Field field, int style)
+      throws TemplateEngineException, IOException {
+    MelatiStringWriter sw = getStringWriter();
+    render(field, style, FIELD_POSSIBILITIES_LIMIT, sw);
+    return sw.toString();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#rendered(java.lang.Object)
+   */
+  public String rendered(Object o)
+      throws IOException {
+    MelatiStringWriter sw = getStringWriter();
+    System.err.print("Is a string:" );
+    System.err.println(o instanceof String);
+    System.err.print("Is a field:" );
+    System.err.println(o instanceof Field);
+    if (o instanceof String)
+      render((String)o, sw);
+    else if (o instanceof Field) 
+      render((Field)o, sw);
+    else
+      render(o, sw);
+    return sw.toString();
+  }
+
 
   /**
    * Render a String in a MarkupLanguage specific way, limiting it's length.
@@ -189,50 +202,25 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
-   * Render an Object in a MarkupLanguage specific way, rendering to
-   * the <code>MelatiWriter</code> supplied by <code>melati.getWriter()</code>.
+   * Render a String in a MarkupLanguage specific way
+   * to a supplied MelatiWriter.
    *
-   * @param o - the Object to be rendered
+   * @param s - the string to be rendered
+   * @param writer - the MelatiWriter to render this String to
    * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
    */
-  protected void render(Object o) throws TemplateEngineException, IOException {
-    MelatiWriter writer = melati.getWriter();
-    if (o instanceof String)
-      render((String)o, writer);
-    else if (o instanceof Field) 
-      render((Field)o, writer);
-    //else if (o instanceof Persistent) 
-    //  render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
-    else
-      render(o, writer);
-  }
+  protected abstract void render(String s, MelatiWriter writer) throws IOException;
 
   /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field)
+   * Render a Field Object in a MarkupLanguage specific way, 
+   * rendering to supplied MelatiWriter.
+   *
+   * @param field - the Field to be rendered
+   * @param writer - the MelatiWriter to render this Object to
+   * @throws IOException - if there is a problem during rendering
    */
-  public String rendered(Field field)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(field, sw);
-    return sw.toString();
-  }
-
   protected void render(Field field, MelatiWriter writer) throws IOException {
-    renderMedium(field, writer);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int, int)
-   */
-  public String rendered(Field field, int style, int limit)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(field, style, limit, sw);
-    return sw.toString();
+    render(field, DateFormat.MEDIUM, writer);
   }
 
   /**
@@ -252,95 +240,19 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     render(field.getCookedString(locale, style), limit, writer);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int)
-   */
-  public String rendered(Field field, int style)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(field, style, sw);
-    return sw.toString();
-  }
-
 
   /**
    * Render a Field Object in a MarkupLanguage specific way, 
    * rendering to the supplied MelatiWriter with a hidden limit 
-   * of 10,000,000. 
+   * of {@link FIELD_POSSIBILITIES_LIMIT}. 
    * 
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
    * @throws IOException - if there is a problem during rendering
-   * @see org.melati.template.MarkupLanguage#render(org.melati.poem.Field, int, org.melati.util.MelatiWriter)
    */
   protected void render(Field field, int style, MelatiWriter writer)
       throws IOException {
-    render(field, style, 10000000, writer);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#renderedShort(org.melati.poem.Field)
-   */
-  public String renderedShort(Field field)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    renderShort(field, sw);
-    return sw.toString();
-  }
-
-  protected void renderShort(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
-    render(field, DateFormat.SHORT, writer);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#renderedMedium(org.melati.poem.Field)
-   */
-  public String renderedMedium(Field field)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    renderMedium(field, sw);
-    return sw.toString();
-  }
-
-  protected void renderMedium(Field field, MelatiWriter writer)
-      throws IOException {
-    render(field, DateFormat.MEDIUM, writer);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#renderedLong(org.melati.poem.Field)
-   */
-  public String renderedLong(Field field)
-      throws IOException {
-    MelatiStringWriter sw = getStringWriter();
-    renderLong(field, sw);
-    return sw.toString();
-  }
-
-  protected void renderLong(Field field, MelatiWriter writer)
-      throws IOException {
-    render(field, DateFormat.LONG, writer);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#renderedFull(org.melati.poem.Field)
-   */
-  public String renderedFull(Field field)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    renderFull(field, sw);
-    return sw.toString();
-  }
-
-  protected void renderFull(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
-    render(field, DateFormat.FULL, writer);
+    render(field, style, FIELD_POSSIBILITIES_LIMIT, writer);
   }
 
   /**
@@ -360,13 +272,24 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     render(field, DateFormat.MEDIUM, 50, writer);
   }
 
-/*
-  public String rendered(Throwable e) throws IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(e, sw);
-    return sw.toString();
+  /**
+   * Render an Object in a MarkupLanguage specific way, rendering to
+   * the <code>MelatiWriter</code> supplied by <code>melati.getWriter()</code>.
+   *
+   * @param o - the Object to be rendered
+   * @throws IOException - if there is a problem during rendering
+   * @throws TemplateEngineException - if there is a problem with the
+   *                                   ServletTemplateEngine
+   */
+  protected void render(Object o) throws TemplateEngineException, IOException {
+    MelatiWriter writer = melati.getWriter();
+    if (o instanceof String)
+      render((String)o, writer);
+    else if (o instanceof Field) 
+      render((Field)o, writer);
+    else
+      render(o, writer);
   }
-*/
 
   /**
    * Render an Object in a MarkupLanguage specific way, rendering to
@@ -474,35 +397,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     vars.put("object", field);
     vars.put("field", field);
     return expandedTemplet(templet, vars);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#templet(java.lang.String)
-   */
-  public Template templet(String templetName) throws TemplateEngineException {
-    return templetLoader.templet(melati.getTemplateEngine(), this,
-                                 templetName);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#templet(java.lang.Class)
-   */
-  public Template templet(Class clazz)
-      throws TemplateEngineException {
-    return templetLoader.templet(melati.getTemplateEngine(), this, 
-                                 clazz);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.MarkupLanguage#templet(java.lang.String, java.lang.Class)
-   */
-  public Template templet(String purpose, Class clazz)
-      throws TemplateEngineException {
-    return templetLoader.templet(melati.getTemplateEngine(), this, 
-                                 purpose, clazz);
   }
 
   /**

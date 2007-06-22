@@ -329,7 +329,7 @@ public class Melati {
   }
 
   /**
-   * Set the ServletTemplateContext to be used for this Request.
+   * Set the TemplateContext to be used for this Request.
    *
    * @param tc - the template context to be used
    * @see org.melati.servlet.TemplateServlet

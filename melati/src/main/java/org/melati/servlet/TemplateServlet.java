@@ -195,8 +195,8 @@ public abstract class TemplateServlet extends PoemServlet {
         }
         catch (NotFoundException f) {
           try {
-            errorTemplate = melati.getMarkupLanguage().templet("error",
-                                                                 e.getClass());
+            errorTemplate = melati.getConfig().getTempletLoader().
+                templet(melati.getTemplateEngine(), melati.getMarkupLanguage(),"error", e.getClass());
           }
           catch (NotFoundException g) {
             // This should never be reached 

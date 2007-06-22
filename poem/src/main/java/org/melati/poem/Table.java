@@ -1595,10 +1595,8 @@ public class Table implements Selectable {
     }
 
     if (deletedColumn != null) {
-      if(! includeDeleted) {
-        if (whereClause.length() > 0) {
-          whereClause += " AND";
-        }
+      if(! includeDeleted && whereClause.length() > 0) {
+        whereClause += " AND";
       }
       whereClause += " NOT " + dbms().booleanTrueExpression(deletedColumn);
     }

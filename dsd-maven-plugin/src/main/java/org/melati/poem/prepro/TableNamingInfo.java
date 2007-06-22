@@ -95,7 +95,7 @@ public class TableNamingInfo {
   /**
    * Constructor.
    * @param packageNameIn  the fully qualified java name of this package
-   * @param projectName    the name of this project 
+   * @param projectNameIn  the name of this project 
    * @param name           the name of this table
    */
   public TableNamingInfo(String packageNameIn, String projectNameIn, String name) {

@@ -113,11 +113,11 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
               + dsdFile + " could not be found.");
         } else {
           throw new MojoExecutionException(
-                                           "DSD file could not be found on configured path "
-                                               + dsdPackage
-                                               + " in any of: \n"
-                                               + searchedLocations
-                                               + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
+              "DSD file could not be found on configured path "
+              + dsdPackage
+              + " in any of: \n"
+              + searchedLocations
+              + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
 
         }
       }
@@ -130,9 +130,9 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
             dsdFile);
       if (foundDsdName == null)
         throw new MojoExecutionException(
-                                         "DSD file could not be found in any of: \n"
-                                             + searchedLocations
-                                             + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
+             "DSD file could not be found in any of: \n"
+             + searchedLocations
+             + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
       getLog().info("Found DSD at " + foundDsdName + ":");
       dsdPath = foundDsdName;
     }

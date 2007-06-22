@@ -148,7 +148,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, String)
    */
-  public final Template templet(TemplateEngine templateEngine,
+  public Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, String name)
       throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, name);
@@ -204,7 +204,10 @@ public final class ClassNameTempletLoader implements TempletLoader {
     return templet;
   }
 
-  private String cacheKey(TemplateEngine templateEngine, MarkupLanguage markupLanguage, String purpose, Class lookupClass) {
+  private String cacheKey(TemplateEngine templateEngine, 
+          MarkupLanguage markupLanguage, 
+          String purpose, 
+          Class lookupClass) {
     String originalClassCacheKey = lookupClass + "/" + 
                                    purpose + "/" + 
                                    markupLanguage + "/" + 
@@ -217,7 +220,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
     Template templet = null;
     try {
       Object triedAlready = lookedupTemplateNames.get(templetPath);
-      if (triedAlready != NOT_FOUND ) {
+      if (triedAlready != NOT_FOUND) {
         templet = templateEngine.template(templetPath);
         lookedupTemplateNames.put(templetPath, FOUND);
       } 
@@ -251,7 +254,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)
    */
-  public final Template templet(TemplateEngine templateEngine,
+  public Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, Class clazz)
       throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, clazz);

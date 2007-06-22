@@ -1,12 +1,9 @@
 package org.melati.template.test;
 
-import java.io.IOException;
-
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.AccessToken;
 import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
@@ -85,47 +82,26 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    */
   public void testRenderedAccessPoemException() throws Exception {
     
-    try {
-      assertEquals("java.lang.Exception",aml.rendered(new Exception()));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
+    assertEquals("java.lang.Exception",aml.rendered(new Exception()));
 
-    try {
-      AccessPoemException ape = new AccessPoemException(
-          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
-      assertTrue(ml.rendered(ape).indexOf(
+    AccessPoemException ape = new AccessPoemException(
+          getDb().getUserTable().guestUser(), new Capability("Cool"));
+    assertTrue(ml.rendered(ape).indexOf(
           "org.melati.poem.AccessPoemException: " + 
           "You need the capability Cool but " + 
           "your access token _guest_ doesn&#39;t confer it") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
 
-    try {
-      AccessPoemException ape = new AccessPoemException();
-      assertEquals("", aml.rendered(ape));
-      //System.err.println(m.getWriter().toString());
-      assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
-    try {
-      AccessPoemException ape = new AccessPoemException(
-          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
-      assertEquals("", aml.rendered(ape));
+    ape = new AccessPoemException();
+    assertEquals("", aml.rendered(ape));
+    //System.err.println(m.getWriter().toString());
+    assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
+    ape = new AccessPoemException(
+          getDb().getUserTable().guestUser(), new Capability("Cool"));
+    assertEquals("", aml.rendered(ape));
       // NB Not at all sure how this value changed 
       //System.err.println(m.getWriter().toString());
       //assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
-      assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);
-    } catch (Exception e) {
-      System.err.println(m.getWriter().toString());
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
+    assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);
 
   }
 
@@ -162,16 +138,11 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.HTMLLikeMarkupLanguage#escaped(String)
    */
-  public void testEscapedString() {
-    try {
+  public void testEscapedString() throws Exception {
       // FIXME
-      //assertEquals("&amp;&percent;&pound;", ml.rendered("&%�"));
+      //assertEquals("&amp;&percent;&pound;", ml.rendered("&%�"));
       assertEquals("&amp;%£", ml.rendered("&%£"));
       assertEquals("&amp;%£", aml.rendered("&%£"));
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    }
 
   }
 
@@ -202,26 +173,11 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    */
   public void testRenderedObject() throws Exception {
-    try {
-      assertEquals("Fredd$", ml.rendered("Fredd$"));
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
-    try {
-      // Note velocity seems to leave the line end on
-      assertEquals("[1]", ml.rendered(new Integer("1")).trim());
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertEquals("Fredd$", ml.rendered("Fredd$"));
+    // Note velocity seems to leave the line end on
+    assertEquals("[1]", ml.rendered(new Integer("1")).trim());
     
-    try { 
-      assertEquals("1", ml.getAttr().rendered(new Integer("1")));
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertEquals("1", ml.getAttr().rendered(new Integer("1")));
     try { 
       ml.getAttr().rendered(new Bomber());
       fail("Should have bombed");
@@ -299,14 +255,8 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(String, int)
    */
-  public void testRenderedStringInt() {
-    try {
+  public void testRenderedStringInt() throws Exception {
       assertEquals("Fre...", ml.rendered("Fredd$", 3));
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    }
-
   }
 
   /**
@@ -333,14 +283,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(Field, int, int)
    */
-  public void testRenderedFieldIntInt() {
+  public void testRenderedFieldIntInt() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_gu...", ml.rendered(userName,3,3));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertEquals("_gu...", ml.rendered(userName,3,3));
   }
 
 
@@ -349,15 +294,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#renderedStart(Field)
    */
-  public void testRenderedStart() {
+  public void testRenderedStart() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.renderedStart(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
+    assertEquals("_guest_", ml.renderedStart(userName));
   }
 
   /**
@@ -365,14 +304,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
-  public void testInputField() {
+  public void testInputField() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
       assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
     /*
      * FIXME fails for hsqldb 
     Field owningTable = db.getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
@@ -390,20 +324,15 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#inputAs(Field, String)
    */
-  public void testInputAs() {
+  public void testInputAs() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.inputAs(userName, "nonExistantTemplateName").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-      fail();
+      fail("Should have bombed");
     } catch (Exception e) {
       e = null;
     }
-    try {
-      assertTrue(ml.inputAs(userName, "org.melati.poem.StringPoemType").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertTrue(ml.inputAs(userName, "org.melati.poem.StringPoemType").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
 
   /**

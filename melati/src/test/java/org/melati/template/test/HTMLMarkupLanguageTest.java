@@ -20,7 +20,7 @@ import org.melati.util.test.TreeDatabase;
  * @author timp
  * @since 18-May-2006
  */
-public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
+public class HTMLMarkupLanguageTest extends MarkupLanguageSpec {
   
   /**
    * @see MarkupLanguageAbstract#setUp()

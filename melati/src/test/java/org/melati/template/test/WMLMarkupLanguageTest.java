@@ -2,6 +2,7 @@ package org.melati.template.test;
 
 import org.melati.MelatiConfig;
 import org.melati.template.ClassNameTempletLoader;
+import org.melati.template.TemplateEngineException;
 import org.melati.template.WMLAttributeMarkupLanguage;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
@@ -15,7 +16,7 @@ import org.melati.poem.PoemLocale;
  * @author timp
  * @since 18-May-2006
  */
-public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
+public class WMLMarkupLanguageTest extends MarkupLanguageSpec {
 
   /**
    * Constructor for PoemTest.
@@ -62,6 +63,20 @@ public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
   public void testGetName() {
     assertEquals("wml", ml.getName());
     assertEquals("wml_attr", aml.getName());
+  }
+
+  /** 
+   * There is no SelectionWindow template for WML.
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#testSpecialTemplateFound()
+   */
+  public void testSpecialTemplateFound() throws Exception {
+    try { 
+      super.testSpecialTemplateFound();
+      fail("Should have bombed");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    }
   }
 
 

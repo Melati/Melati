@@ -7,16 +7,15 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.AccessToken;
+import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Capability;
+import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.util.test.Node;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
-import org.melati.template.NotFoundException;
-import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -29,7 +28,7 @@ import junit.framework.TestCase;
  * @author timp
  * @since 14-May-2006
  */
-abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
+abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   protected static MelatiConfig mc = null;
   protected static TemplateEngine templateEngine = null;
@@ -41,13 +40,13 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * Constructor for PoemTest.
    * @param arg0
    */
-  public MarkupLanguageTestAbstract(String arg0) {
+  public MarkupLanguageSpec(String arg0) {
     super(arg0);
   }
   /**
    * Constructor.
    */
-  public MarkupLanguageTestAbstract() {
+  public MarkupLanguageSpec() {
     super();
   }
   
@@ -63,9 +62,10 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
     templateEngine = mc.getTemplateEngine();
     if (templateEngine != null)
       templateEngine.init(mc);
-    else fail();
+    else fail("Template engine is null");
     m = new Melati(mc, new MelatiStringWriter());
     m.setTemplateEngine(templateEngine);
+    m.setPoemContext(new PoemContext());
     assertNotNull(m.getTemplateEngine());
     TemplateContext templateContext =
       templateEngine.getTemplateContext(m);
@@ -165,7 +165,7 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
   public void testEscapedString() {
     try {
       // FIXME
-      //assertEquals("&amp;&percent;&pound;", ml.rendered("&%£"));
+      //assertEquals("&amp;&percent;&pound;", ml.rendered("&%�"));
       assertEquals("&amp;%£", ml.rendered("&%£"));
       assertEquals("&amp;%£", aml.rendered("&%£"));
     } catch (IOException e) {
@@ -201,7 +201,7 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    */
-  public void testRenderedObject() {
+  public void testRenderedObject() throws Exception {
     try {
       assertEquals("Fredd$", ml.rendered("Fredd$"));
     } catch (IOException e) {
@@ -236,20 +236,37 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
       e = null;
     }
     
-    try {
+    Node persistent = (Node)getDb().getTable("node").newPersistent();
+    persistent.setName("Mum");
+    persistent.makePersistent();
+    m.setPoemContext(new PoemContext());
+     
+    String renderedPersistent = ml.rendered(persistent);
+    assertEquals("Mum", renderedPersistent);
 
-      Node persistent = (Node)getDb().getTable("node").newPersistent();
-      persistent.setName("Mum");
-      persistent.makePersistent();
-      m.setPoemContext(new PoemContext());
-      
-      String renderedPersistent = ml.rendered(persistent);
-      assertEquals("Mum", renderedPersistent);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
+  }
+  
+  /**
+   * Test that we can find a template on the classpath.
+   */
+  public void testTemplateFoundOnClasspath() throws Exception { 
+    Templated templated = new Templated();
+    String rendered = ml.rendered(templated);
+  
+    assertEquals("Hi, this is from a template.", rendered);
+    
+  }
+  
+  /**
+   * Test that special templets are found.
+   */
+  public void testSpecialTemplateFound() throws Exception { 
+    Column column = getDb().getGroupMembershipTable().getUserColumn();
+    BaseFieldAttributes fa = new BaseFieldAttributes(column, column.getType());
+    Field field = new Field(getDb().getUserTable().administratorUser().troid(), fa);
+    Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
+    assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
+    assertTrue(ml.input(field).indexOf("add_rule(\"field_user\",") != -1);
   }
 
   /**
@@ -273,13 +290,8 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(String)
    */
-  public void testRenderedString() {
-    try {
-      assertEquals("Fredd$", ml.rendered("Fredd$"));
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    }
+  public void testRenderedString() throws Exception {
+    assertEquals("Fredd$", ml.rendered("Fredd$"));
   }
 
   /**
@@ -302,30 +314,20 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(Field)
    */
-  public void testRenderedField() {
+  public void testRenderedField() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.rendered(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertEquals("_guest_", ml.rendered(userName));
   }
   /**
    * Test method for rendered(Field, int).
    * 
    * @see org.melati.template.MarkupLanguage#rendered(Field, int)
    */
-  public void testRenderedFieldInt() {
+  public void testRenderedFieldInt() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.rendered(userName,3));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
+    assertEquals("_guest_", ml.rendered(userName,3));
   }
+
   /**
    * Test method for rendered(Field, int, int).
    * 
@@ -341,67 +343,6 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
     }
   }
 
-  /**
-   * Test method for renderedShort(Field).
-   * 
-   * @see org.melati.template.MarkupLanguage#renderedShort(Field)
-   */
-  public void testRenderedShort() {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.renderedShort(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-  }
-
-  /**
-   * Test method for renderedMedium(Field).
-   * 
-   * @see org.melati.template.MarkupLanguage#renderedMedium(Field)
-   */
-  public void testRenderedMedium() {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.renderedMedium(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-  }
-
-  /**
-   * Test method for renderedLong(Field).
-   * 
-   * @see org.melati.template.MarkupLanguage#renderedLong(Field)
-   */
-  public void testRenderedLong() {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.renderedLong(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-  }
-
-  /**
-   * Test method for renderedFull(Field).
-   * 
-   * @see org.melati.template.MarkupLanguage#renderedFull(Field)
-   */
-  public void testRenderedFull() {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertEquals("_guest_", ml.renderedFull(userName));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-  }
 
   /**
    * Test method for renderedStart(Field).
@@ -470,146 +411,9 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
    * 
    * @see org.melati.template.MarkupLanguage#searchInput(Field, String)
    */
-  public void testSearchInput() {
+  public void testSearchInput() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-    try {
-      assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-  }
-
-  /**
-   * Test method for templet.
-   * 
-   * @see org.melati.template.MarkupLanguage#templet(String)
-   */
-  public void testTempletString() {
-    try {
-      Template t = m.getMarkupLanguage().templet(new Integer("1").getClass().getName());
-      if(t != null) t = null;
-    } catch (NotFoundException e) {
-      // pass
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    try {
-      Template t = m.getMarkupLanguage().templet(new Object().getClass().getName());
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object", new Object());
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      // FIXME why is webmacro putting a line break at the front?
-      assertTrue(m.getWriter().toString().trim().startsWith("[java.lang.Object@"));
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    try {
-      Template t = m.getMarkupLanguage().templet("select");
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      Field nullable = getDb().getColumnInfoTable().
-                           getColumnInfoObject(0).getField("nullable");
-      tc.put("object", nullable);
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().toLowerCase().indexOf("<select name=") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-  }
-
-  /**
-   * Test method for templet(Class).
-   * 
-   * @see org.melati.template.MarkupLanguage#templet(Class)
-   */
-  public void testTempletClass() throws Exception {
-    Template t = m.getMarkupLanguage().templet(new Integer("1").getClass());
-    TemplateContext tc = m.getTemplateContext();
-    tc.put("melati", m);
-    tc.put("ml", ml);
-    tc.put("object", new Integer("1"));
-    t.write(m.getWriter(), tc, m.getTemplateEngine());
-    // FIXME too much whitespace remaining
-    assertEquals("[1]", m.getWriter().toString().trim());
-  }
-  
-  /**
-   * Test method for templet.
-   * 
-   * @see org.melati.template.MarkupLanguage#templet(String, Class)
-   */
-  public void testTempletStringClass() {
-    try {
-      Template t = m.getMarkupLanguage().templet("unknown",new Integer("1").getClass());
-      if(t != null) t = null;
-      fail();
-    } catch (NotFoundException e) {
-      // Pass
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    try {
-      Template t = m.getMarkupLanguage().templet("error",new Integer("1").getClass());
-      if(t != null) t = null;
-      fail();
-    } catch (NotFoundException e) {
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-    try {
-      Template t = m.getMarkupLanguage().templet("error", new Exception().getClass());
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object", new Integer("1"));
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      if (m.getTemplateEngine().getName().equals("webmacro")) 
-        // FIXME what is velocity doing
-        if (m.getMarkupLanguage().getName().startsWith("html")) 
-        fail();
-    } catch (TemplateEngineException e) {
-      // Pass - we should have passed in an exception as the object
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-    try {
-      Template t = m.getMarkupLanguage().templet("error",new Exception().getClass());
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object",new Exception("A message"));
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().indexOf("A message") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-
-    try {
-      Template t = m.getMarkupLanguage().templet("error",new AccessPoemException().getClass());
-      TemplateContext tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object", new AccessPoemException());
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().indexOf("You need the capability") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+    assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
 
 

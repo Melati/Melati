@@ -45,13 +45,13 @@
 
 package org.melati.template;
 
-import org.melati.util.MelatiException;
+import org.melati.util.MelatiRuntimeException;
 
 /**
  * Thrown when the {@link ServletTemplateEngine} itself throws an 
  * <code>Exception</code>.
  */
-public class TemplateEngineException extends MelatiException {
+public class TemplateEngineException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
   String message;

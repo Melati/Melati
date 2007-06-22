@@ -55,7 +55,6 @@ import java.io.File;
  * @goal generate
  * @description Process a DSD file to generate java sources.
  * @phase process-sources
- * @todo Look in jar
  */
 public class MelatiDsdProcessorMojo extends AbstractMojo {
   /**

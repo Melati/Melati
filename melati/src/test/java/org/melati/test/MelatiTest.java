@@ -255,17 +255,12 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getContextUtil(String)
    */
-  public void testGetContextUtil() {
+  public void testGetContextUtil() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
     Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
     assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
     try { 

@@ -185,6 +185,8 @@ public final class HTMLUtils {
       case '\n': return mapBR ? "<BR>\n" : null;
       case '<': return "&lt;";
       case '>': return "&gt;";
+      case '£': return "&pound;";
+      case '%': return "&percent;";
       case '&': return "&amp;";
       case '"': return "&quot;";
       case '\'': return "&#39;";

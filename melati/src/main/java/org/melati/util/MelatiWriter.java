@@ -115,7 +115,7 @@ public abstract class MelatiWriter extends Writer {
   /**
    * @return a PrintWriter from the output
    */
-  public PrintWriter getPrintWriter() throws IOException {
+  public PrintWriter getPrintWriter()  {
     return new PrintWriter(out);
   }
 

@@ -70,15 +70,24 @@ public abstract class MelatiException extends Exception {
    * Constructor.
    */
   public MelatiException() {
-    this(null);
+    this((Exception)null);
   }
 
+  /**
+   * Constructor with message.
+   * @param message a text 
+   */
+  public MelatiException(String message) { 
+    super(message);
+  }
   /**
    * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {
-    return this.getClass().getName() + "\n" + subException;
+    return this.getClass().getName() +
+    (super.getMessage() == null ? "" : ": " + super.getMessage()) +
+    (subException == null ? "" : "\n" + subException);
   }
 
   /**

@@ -45,12 +45,16 @@
 
 package org.melati.template;
 
+import org.melati.util.MelatiException;
+
 
 /**
  * A templet loader could not find a templet.
  */
-public class NotFoundException extends TemplateEngineException {
+public class NotFoundException extends MelatiException {
   private static final long serialVersionUID = 1L;
+
+  String message;
 
   /** The TempletLoader we are using. */
   public TempletLoader loader;

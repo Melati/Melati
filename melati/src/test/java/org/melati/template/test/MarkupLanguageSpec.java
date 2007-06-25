@@ -1,5 +1,7 @@
 package org.melati.template.test;
 
+import java.util.Properties;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -86,11 +88,12 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    assertTrue(ml.rendered(ape).indexOf(
-          "org.melati.poem.AccessPoemException: " + 
-          "You need the capability Cool but " + 
-          "your access token _guest_ doesn&#39;t confer it") != -1);
-
+    System.err.println(ml.rendered(ape));
+    //assertTrue(ml.rendered(ape).indexOf(
+    //      "org.melati.poem.AccessPoemException: " + 
+    //      "You need the capability Cool but " + 
+    //      "your access token _guest_ doesn&#39;t confer it") != -1);
+    assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));
     //System.err.println(m.getWriter().toString());
@@ -139,11 +142,15 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.HTMLLikeMarkupLanguage#escaped(String)
    */
   public void testEscapedString() throws Exception {
-      // FIXME
-      //assertEquals("&amp;&percent;&pound;", ml.rendered("&%�"));
-      assertEquals("&amp;%£", ml.rendered("&%£"));
-      assertEquals("&amp;%£", aml.rendered("&%£"));
 
+  }
+  
+  /**
+   * Test entity substitution
+   */
+  public void testEntitySubstitution() throws Exception { 
+    assertEquals("&amp;&percent;&pound;", ml.rendered("&%£"));
+    assertEquals("&amp;&percent;&pound;", aml.rendered("&%£"));
   }
 
   /**
@@ -208,11 +215,21 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testTemplateFoundOnClasspath() throws Exception { 
     Templated templated = new Templated();
     String rendered = ml.rendered(templated);
-  
+    
     assertEquals("Hi, this is from a template.", rendered);
     
   }
   
+  /**
+   * Test that toString is used if no template found.
+   */
+  public void testUntemplatedObjectUsesToString() throws Exception { 
+    
+    String rendered = ml.rendered(new Properties());
+    System.err.println(":" + rendered +":");
+    // Webmacro, incorrectly, puts a newline at front
+    assertEquals("[{}]", rendered.trim());
+  }
   /**
    * Test that special templets are found.
    */
@@ -250,6 +267,18 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertEquals("Fredd$", ml.rendered("Fredd$"));
   }
 
+  /**
+   * Test NPE thrown.
+   */
+  public void testNull() throws Exception {
+    try { 
+      ml.rendered(null);
+      fail("should have bombed");      
+    } catch (NullPointerException e) { 
+      e = null;
+    }
+    
+  }
   /**
    * Test method for rendered(String, int).
    * 
@@ -306,17 +335,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    */
   public void testInputField() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
-      assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-    /*
-     * FIXME fails for hsqldb 
-    Field owningTable = db.getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
-    try {
-      assertTrue(ml.input(owningTable).toLowerCase().indexOf("<select name=") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    */
+    assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
+    Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
+    assertTrue(ml.input(owningTable).toLowerCase().indexOf("<select name=") != -1);
   }
 
   /**
@@ -344,6 +365,5 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
-
 
 }

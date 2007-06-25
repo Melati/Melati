@@ -52,8 +52,8 @@ import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiWriter;
-import org.webmacro.ContextException;
 import org.webmacro.Context;
+import org.webmacro.PropertyException;
 
 /**
  * A Template for use with Melati.
@@ -74,18 +74,16 @@ public class WebmacroTemplate implements Template {
   /**
    * Write to the given output.
    * @param out a {@link MelatiWebmacroWriter}.
+   * @throws IOException If WebMacro does
    */
   public void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException {
+                    TemplateEngine engine) throws IOException {
     try {
       Object o = template.evaluateAsString((Context)templateContext.getContext());
       out.write(o.toString());
-    } catch (ContextException e) {
+    } catch (PropertyException e) {
       throw new TemplateEngineException(e);
     } 
-    catch (IOException e) {
-      throw new TemplateEngineException(e);
-    }    
   }
 
 }

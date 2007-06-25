@@ -7,6 +7,8 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.AccessToken;
+import org.melati.poem.Capability;
 import org.melati.poem.Field;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.template.ClassNameTempletLoader;
@@ -80,20 +82,6 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     m.setTemplateContext(tc);
     t.write(m.getWriter(), m.getTemplateContext(), templateEngine);
     try {
-      ClassNameTempletLoader.getInstance().templet(
-              templateEngine, ml, "unknown", new Integer("1").getClass());
-      fail("Should have bombed");
-    } catch (NotFoundException e) {
-      e = null;
-    } 
-    try {
-      ClassNameTempletLoader.getInstance().templet(
-              templateEngine, ml, "error", new Integer("1").getClass());
-      fail("Should have bombed");
-    } catch (NotFoundException e) {
-      e = null;
-    } 
-    try {
       t = ClassNameTempletLoader.getInstance().templet(
               templateEngine, ml, "error", new Exception().getClass());
       tc = m.getTemplateContext();
@@ -114,6 +102,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("melati", m);
     tc.put("ml", ml);
     tc.put("object",new Exception("A message"));
+    m.setTemplateContext(tc);
     t.write(m.getWriter(),tc, m.getTemplateEngine());
     assertTrue(m.getWriter().toString().indexOf("A message") != -1);
 
@@ -121,10 +110,11 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
             templateEngine, ml, "error",new AccessPoemException().getClass());
     tc = m.getTemplateContext();
     tc.put("melati", m);
-    tc.put("ml", ml);
-    tc.put("object", new AccessPoemException());
+    tc.put("ml", m.getMarkupLanguage());
+    tc.put("object", new AccessPoemException(getDb().getUserTable().guestUser(),new Capability("Cool")));
+    m.setTemplateContext(tc);
     t.write(m.getWriter(),tc, m.getTemplateEngine());
-    assertTrue(m.getWriter().toString().indexOf("You need the capability") != -1);
+    assertTrue(m.getWriter().toString().indexOf("Access denied to Melati guest user") != -1);
     
   }
 

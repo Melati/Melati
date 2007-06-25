@@ -318,8 +318,12 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletContext.expectAndReturn("getResource", 
         "/org/melati/servlet/test/ClasspathRenderedException.wm", 
         new URL("file://org/melati/servlet/test/ClasspathRenderedException.wm")); 
+    mockServletContext.expectAndReturn("getResource", 
+        "/org/melati/servlet/test/ClasspathRenderedException.wm", 
+        new URL("file://org/melati/template/webmacro/templets/html/error/ClasspathRenderedException.wm")); 
     mockServletContext.expectAndReturn("log", new IsInstanceOf(String.class), null);
 //        "WebMacro:resource\tWARNING\tBrokerTemplateProvider:\tTemplate not found:\tjava/lang/Exception.wm", null);
+    mockServletContext.expectAndReturn("getResource", "/org/melati/template/webmacro/templets/html/error/org.melati.servlet.test.ClasspathRenderedException.wm", null); 
     mockServletContext.expectAndReturn("getResource", "/org/melati/template/webmacro/templets/html/error/java.lang.Exception.wm", null); 
 
     mockHttpServletRequest.setSession(mockSession.proxy());

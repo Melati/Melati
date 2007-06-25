@@ -59,7 +59,6 @@ import org.melati.template.ServletTemplateContext;
 import org.melati.template.MultipartTemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.Template;
-import org.melati.template.NotFoundException;
 
 /**
  * Base class to use Melati with a Template Engine.
@@ -189,22 +188,8 @@ public abstract class TemplateServlet extends PoemServlet {
         templateContext.put("sysAdminEmail", getSysAdminEmail());
 
         Template errorTemplate;
-        try {
-          // Look on the classpath for template
-          errorTemplate = templateEngine.template(e.getClass());
-        }
-        catch (NotFoundException f) {
-          try {
-            errorTemplate = melati.getConfig().getTempletLoader().
-                templet(melati.getTemplateEngine(), melati.getMarkupLanguage(),"error", e.getClass());
-          }
-          catch (NotFoundException g) {
-            // This should never be reached 
-            // as the above should always find java.lang.Exception.wm
-            errorTemplate = templateEngine.template(
-                "error" + templateEngine.templateExtension());
-          }
-        }
+        errorTemplate = melati.getConfig().getTempletLoader().
+              templet(melati.getTemplateEngine(), melati.getMarkupLanguage(),"error", e.getClass());
         templateEngine.expandTemplate(mw, errorTemplate, templateContext);
         melati.write();
       } catch (Exception f) {

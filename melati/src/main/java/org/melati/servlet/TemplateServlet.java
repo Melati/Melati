@@ -155,6 +155,16 @@ public abstract class TemplateServlet extends PoemServlet {
    
   /**
    * Send an error message.
+   * 
+   * Single call to the templet loader giving purpose (error) and 
+   * Exception class.
+   *
+   * This will look in the purpose directory, 
+   * the standard templet directory and the classpath, in that order, 
+   * for a templet.
+   * This can no longer fail with NotFoundException, 
+   * as the Object templet will always be found 
+   * (or this is a broken installation).
    *
    * @param melati the {@link Melati}
    * @param e      the {@link Exception} to report

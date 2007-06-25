@@ -130,7 +130,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     return getName() + "/" + locale.toString();
   }
   
-  private MelatiStringWriter getStringWriter() throws IOException {
+  private MelatiStringWriter getStringWriter() {
     return (MelatiStringWriter)melati.getStringWriter();
   }
 
@@ -216,7 +216,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    */
   protected void render(Field field, MelatiWriter writer) throws IOException {
-    render(field, DateFormat.MEDIUM, writer);
+    render(field, DateFormat.MEDIUM, FIELD_POSSIBILITIES_LIMIT, writer);
   }
 
   /**
@@ -238,25 +238,11 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
 
   /**
-   * Render a Field Object in a MarkupLanguage specific way, 
-   * rendering to the supplied MelatiWriter with a hidden limit 
-   * of FIELD_POSSIBILITIES_LIMIT. 
-   * 
-   * @param field - the Field to be rendered
-   * @param style - a style to format this Field.
-   * @throws IOException - if there is a problem during rendering
-   */
-  protected void render(Field field, int style, MelatiWriter writer)
-      throws IOException {
-    render(field, style, FIELD_POSSIBILITIES_LIMIT, writer);
-  }
-
-  /**
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedStart(org.melati.poem.Field)
    */
   public String renderedStart(Field field)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     MelatiStringWriter sw = getStringWriter();
     renderStart(field, sw);
     return sw.toString();
@@ -264,7 +250,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
 
   protected void renderStart(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     render(field, DateFormat.MEDIUM, 50, writer);
   }
 
@@ -277,14 +263,9 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  protected void render(Object o) throws TemplateEngineException, IOException {
+  protected void render(Object o) throws IOException {
     MelatiWriter writer = melati.getWriter();
-    if (o instanceof String)
-      render((String)o, writer);
-    else if (o instanceof Field) 
-      render((Field)o, writer);
-    else
-      render(o, writer);
+    render(o, writer);
   }
 
   /**
@@ -293,16 +274,11 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *
    * @param o - the Object to be rendered
    * @param writer - the MelatiWriter to render this Object to
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
    */
-  protected void render(Object o, MelatiWriter writer)
-      throws IOException {
+  protected void render(Object o, MelatiWriter writer) throws IOException {
     if (o == null)
       throw new NullPointerException();
     else {
-      try {
         TemplateContext vars =
           melati.getTemplateEngine().getTemplateContext(melati);
         Template templet =
@@ -313,15 +289,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
         vars.put("melati", melati);
         vars.put("ml", melati.getMarkupLanguage());
         expandTemplet(templet, vars, writer);
-      }
-      catch (NotFoundException e) {
-        render(o.toString(), writer);
-      }
-      catch (Exception f) {
-        System.err.println("MarkupLanguage failed to render an object:" + o);
-        f.printStackTrace();
-        render(o.toString(),writer);
-      }
     }
   }
 
@@ -338,7 +305,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    */
   public String input(Field field)
       throws TemplateEngineException,
-             IOException {
+             IOException, NotFoundException {
     return input(field, null, "", false);
   }
 
@@ -348,7 +315,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    */
   public String inputAs(Field field, String templetName)
       throws TemplateEngineException,
-             IOException {
+             IOException, NotFoundException {
     return input(field, templetName, "", false);
   }
 
@@ -358,7 +325,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    */
   public String searchInput(Field field, String nullValue)
       throws TemplateEngineException,
-             IOException{
+             IOException, NotFoundException{
     return input(field, null, nullValue, true);
   }
 
@@ -366,19 +333,13 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
                          String templetName,
                          String nullValue,
                          boolean overrideNullable)
-       throws TemplateEngineException,
-              IOException {
+       throws IOException, NotFoundException {
 
     Template templet;
-    try {
-      templet =
-        templetName == null ?
-          templetLoader.templet(melati.getTemplateEngine(), this, field) :
-          templetLoader.templet(melati.getTemplateEngine(), this, templetName);
-    }
-    catch (NotFoundException e) {
-      throw new TemplateEngineException(e);
-    }
+    templet =
+      templetName == null ?
+        templetLoader.templet(melati.getTemplateEngine(), this, field) :
+        templetLoader.templet(melati.getTemplateEngine(), this, templetName);
 
     TemplateContext vars =
         melati.getTemplateEngine().getTemplateContext(melati);
@@ -401,11 +362,10 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @param templet {@link Template} to interpolate
    * @param tc {@link ServletTemplateContext} against which to instantiate variables
    * @return the expanded template as a String
-   * @throws TemplateEngineException if something unexpected happens
-   * @throws IOException if templet cannot be found
+   * @throws IOException if TemplateEngine does
    */
   protected String expandedTemplet(Template templet, TemplateContext tc)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     return melati.getTemplateEngine().expandedTemplate(templet,tc);
   }
   
@@ -416,11 +376,9 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @param tc {@link TemplateContext} against which to instantiate variables
    * @param out {@link MelatiWriter} to write results to 
    * @throws TemplateEngineException if something unexpected happens
-   * @throws IOException if templet cannot be found
    */
   protected void expandTemplet(Template templet, TemplateContext tc,
-                               MelatiWriter out)
-      throws TemplateEngineException, IOException {
+                               MelatiWriter out) throws IOException {
     melati.getTemplateEngine().expandTemplate(out, templet, tc);
   }
 }

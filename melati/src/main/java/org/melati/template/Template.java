@@ -45,6 +45,8 @@
 
 package org.melati.template;
 
+import java.io.IOException;
+
 import org.melati.util.MelatiWriter;
 
 /**
@@ -59,8 +61,9 @@ public interface Template {
    * @param out the MelatiWroter to write to 
    * @param templateContext the Context to interpolate the Template with regard to
    * @param engine the engine to interpolate the template with
-   * @throws TemplateEngineException if any problem is caught
+   * @throws TemplateEngineException if thrown by TemplateEngine
+   * @throws IOException If Templateengine does
    */
   void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException;
+                    TemplateEngine engine) throws TemplateEngineException, IOException;
 }

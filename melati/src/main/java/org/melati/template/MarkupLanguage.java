@@ -150,7 +150,7 @@ public interface MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    */
   String renderedStart(Field field)
-          throws TemplateEngineException, IOException;
+          throws IOException;
 
   
   
@@ -164,9 +164,10 @@ public interface MarkupLanguage {
    * 
    * @param field The Field
    * @return The default input widget for the Field type
+   * @throws NotFoundException if template not found
    */
   String input(Field field) throws TemplateEngineException,
-          IOException;
+          IOException, NotFoundException;
 
   /**
    * Get an input widget for this Field defined by name.
@@ -174,9 +175,10 @@ public interface MarkupLanguage {
    * @param field The Field
    * @param templetName the templet to use instead of the default
    * @return The specified input widget for the Field type
+   * @throws NotFoundException if template not found
    */
   String inputAs(Field field, String templetName)
-          throws TemplateEngineException, IOException;
+          throws TemplateEngineException, IOException, NotFoundException;
 
   /**
    * Get an input widget for this Field specifying the null value.
@@ -184,9 +186,10 @@ public interface MarkupLanguage {
    * @param field The Field
    * @param nullValue the value to use for null for example in a dropdown. 
    * @return The default input widget for the Field type with a specified null value
+   * @throws NotFoundException if template not found
    */
   String searchInput(Field field, String nullValue)
-          throws TemplateEngineException, IOException;
+          throws TemplateEngineException, IOException, NotFoundException;
 
 
   /**

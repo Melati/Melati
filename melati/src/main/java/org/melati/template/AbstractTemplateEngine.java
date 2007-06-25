@@ -43,6 +43,8 @@
  */
 package org.melati.template;
 
+import java.io.IOException;
+
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
@@ -65,10 +67,10 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    *
    * @param clazz the class name to translate into a template name 
    * @return a template
-   * @throws TemplateEngineException 
+   * @throws NotFoundException if template not found
    */
   public org.melati.template.Template template(Class clazz)
-      throws NotFoundException, TemplateEngineException {
+      throws IOException, NotFoundException {
 
     // Note File.separator will not find templates in jars
     // so we use forward slash
@@ -81,13 +83,14 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
 
   /**
    * {@inheritDoc}
+   * @throws IOException 
    * @see org.melati.template.TemplateEngine#
    *  expandTemplate(org.melati.util.MelatiWriter, 
    *                 org.melati.template.Template, 
    *                 org.melati.template.TemplateContext)
    */
   public abstract void expandTemplate(MelatiWriter out, Template template,
-      TemplateContext templateContext) throws TemplateEngineException;
+      TemplateContext templateContext) throws IOException;
   
   /**
    * {@inheritDoc}
@@ -96,7 +99,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    *          org.melati.template.TemplateContext)
    */
   public abstract String expandedTemplate(Template template,
-      TemplateContext templateContext) throws TemplateEngineException;
+      TemplateContext templateContext) throws TemplateEngineException, IOException;
 
 
   /**

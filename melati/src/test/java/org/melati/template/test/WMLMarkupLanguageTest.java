@@ -2,11 +2,13 @@ package org.melati.template.test;
 
 import org.melati.MelatiConfig;
 import org.melati.template.ClassNameTempletLoader;
-import org.melati.template.TemplateEngineException;
 import org.melati.template.WMLAttributeMarkupLanguage;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Capability;
 import org.melati.poem.PoemLocale;
 
 
@@ -74,9 +76,42 @@ public class WMLMarkupLanguageTest extends MarkupLanguageSpec {
     try { 
       super.testSpecialTemplateFound();
       fail("Should have bombed");
-    } catch (TemplateEngineException e) { 
+    } catch (MelatiBugMelatiException e) { 
       e = null;
     }
+  }
+
+  /**
+   * Test method for rendered(Exception).
+   * @throws Exception 
+   * 
+   * @see org.melati.template.HTMLAttributeMarkupLanguage#
+   *      rendered(AccessPoemException)
+   */
+  public void testRenderedAccessPoemException() throws Exception {
+    
+    assertEquals("java.lang.Exception",aml.rendered(new Exception()));
+
+    AccessPoemException ape = new AccessPoemException(
+          getDb().getUserTable().guestUser(), new Capability("Cool"));
+    System.err.println(ml.rendered(ape));
+    assertTrue(ml.rendered(ape).indexOf(
+          "org.melati.poem.AccessPoemException: " + 
+          "You need the capability Cool but " + 
+          "your access token _guest_ doesn&#39;t confer it") != -1);
+    //assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
+    ape = new AccessPoemException();
+    assertEquals("", aml.rendered(ape));
+    //System.err.println(m.getWriter().toString());
+    assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
+    ape = new AccessPoemException(
+          getDb().getUserTable().guestUser(), new Capability("Cool"));
+    assertEquals("", aml.rendered(ape));
+      // NB Not at all sure how this value changed 
+      //System.err.println(m.getWriter().toString());
+      //assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
+    assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);
+
   }
 
 

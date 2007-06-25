@@ -152,7 +152,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     context.put(VelocityTemplateContext.REQUEST, req);
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, melati.getResponse());
-    return (ServletTemplateContext)new VelocityTemplateContext(context);
+    return new VelocityTemplateContext(context);
   }
 
   /**
@@ -164,7 +164,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    */
   public TemplateContext getTemplateContext(Melati melati) {
     VelocityContext context = new VelocityContext();
-    return (TemplateContext)new VelocityTemplateContext(context);
+    return new VelocityTemplateContext(context);
   }
 
   /**
@@ -189,9 +189,10 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @param templateName
    *        the name of the template to find
    * @return a template
+   * @throws NotFoundException if template not found
    */
   public org.melati.template.Template template(String templateName)
-      throws NotFoundException, TemplateEngineException {
+      throws IOException, NotFoundException {
     try {
       return new VelocityTemplate(templateName);
     } catch (ResourceNotFoundException e) {
@@ -206,15 +207,14 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
           throw new MelatiBugMelatiException(
               "Problem converting a WebMacro template to a Velocity template",
               p);
-        } catch (Exception f) {
-          throw new NotFoundException(f);
-        }
-      } else {
-        throw new NotFoundException(e);
+        } catch (ResourceNotFoundException e2) {
+            throw new NotFoundException(e2);
+        } 
       }
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
+    return null;
   }
 
   /**
@@ -226,17 +226,13 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the name of the template to expand
    * @param templateContext
    *        the {@link TemplateContext} to expand the template against
-   * @throws TemplateEngineException
-   *         if any problem occurs with the engine
+   * @throws IOException if TemplateEngine does
+   * @throws NotFoundException if template not found
    */
   public void expandTemplate(MelatiWriter out, String templateName,
       TemplateContext templateContext)
-      throws TemplateEngineException {
-    try {
-      expandTemplate(out, template(templateName), templateContext);
-    } catch (NotFoundException e) {
-      throw new TemplateEngineException(e);
-    }
+      throws IOException, NotFoundException {
+    expandTemplate(out, template(templateName), templateContext);
   }
 
   /**
@@ -253,7 +249,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    */
   public void expandTemplate(MelatiWriter out,
       org.melati.template.Template template, TemplateContext templateContext)
-      throws TemplateEngineException {
+      throws IOException {
     try {
       template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
@@ -279,15 +275,14 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
    *        the {@link ServletTemplateContext} to expand the template against
-   * @throws TemplateEngineException
-   *         if any problem occurs with the engine
+   * @throws IOException if TemplateEngine does
    * @return the interpolated template as a String
    * {@inheritDoc}
    * @see org.melati.template.TemplateEngine#expandedTemplate
    */
   public String expandedTemplate(org.melati.template.Template template,
       TemplateContext templateContext)
-      throws TemplateEngineException {
+      throws IOException {
     MelatiStringWriter s = new MelatiStringWriter();
     expandTemplate(s, template, templateContext);
     return s.toString();

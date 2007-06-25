@@ -43,6 +43,8 @@
  */
 package org.melati.template;
 
+import java.io.IOException;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiStringWriter;
@@ -92,24 +94,26 @@ public interface TemplateEngine {
    * Get a template given it's name.
    * 
    * @param templateName the name of the template to find
-   * @throws NotFoundException 
-   *         if no template found
-   * @throws TemplateEngineException 
-   *         if any other error occurs
+   * @throws IOException if TemplateEngine does
+   * @throws NotFoundException if template not found
    * @return a template
    */
   Template template(String templateName) 
-      throws NotFoundException, TemplateEngineException;
+      throws IOException, NotFoundException;
 
   /** 
-   * Get a template for a given class.
+   * Get a template for a given class, looking for a template 
+   * with the same name as the class in the classe's resource directory and 
+   * also in a Melati directory; giving a full template path as:  
+   * <code>org/melati/template/TEMPLATE_ENGINE_NAME/MARKUP_LANGUAGE/java.lang.Object.wm</code>
+   * which is the lowest possible template and is always found. 
    *
    * @param clazz the class name to translate into a template name 
-   * @throws TemplateEngineException 
-   *         if not template not found
    * @return a template
+   * @throws IOException if TemplateEngine does
+   * @throws NotFoundException if template not found
    */
-  Template template(Class clazz) throws TemplateEngineException;
+  Template template(Class clazz) throws IOException, NotFoundException;
 
   /** 
    * Expand the Template against the context.
@@ -118,10 +122,11 @@ public interface TemplateEngine {
    * @param templateName    the name of the template to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
-   * @throws TemplateEngineException if any problem occurs with the engine
+   * @throws IOException if TemplateEngine does
+   * @throws NotFoundException if template not found
    */
   void expandTemplate(MelatiWriter out, String templateName,
-      TemplateContext templateContext) throws TemplateEngineException;
+      TemplateContext templateContext) throws IOException, NotFoundException;
 
   /** 
    * Expand the Template against the context.
@@ -130,10 +135,10 @@ public interface TemplateEngine {
    * @param template        the {@link Template} to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
-   * @throws TemplateEngineException if any problem occurs with the engine
+   * @throws IOException if TemplateEngine does
    */
   void expandTemplate(MelatiWriter out, Template template,
-      TemplateContext templateContext) throws TemplateEngineException;
+      TemplateContext templateContext) throws IOException;
 
   /** 
    * Expand the Template against the context and return the expansion as a string.
@@ -142,10 +147,10 @@ public interface TemplateEngine {
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @return the interpolated template as a String
-   * @throws TemplateEngineException if any problem occurs with the engine
+   * @throws IOException if TemplateEngine does
    */
   String expandedTemplate(Template template, TemplateContext templateContext)
-      throws TemplateEngineException;
+      throws IOException;
 
   /** 
    * Get a variable exception handler for use if there is 

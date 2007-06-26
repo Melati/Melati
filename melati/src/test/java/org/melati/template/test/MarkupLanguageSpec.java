@@ -88,7 +88,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    System.err.println(ml.rendered(ape));
     //assertTrue(ml.rendered(ape).indexOf(
     //      "org.melati.poem.AccessPoemException: " + 
     //      "You need the capability Cool but " + 
@@ -226,7 +225,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testUntemplatedObjectUsesToString() throws Exception { 
     
     String rendered = ml.rendered(new Properties());
-    System.err.println(":" + rendered +":");
     // Webmacro, incorrectly, puts a newline at front
     assertEquals("[{}]", rendered.trim());
   }

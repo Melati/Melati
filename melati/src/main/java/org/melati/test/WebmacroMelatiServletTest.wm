@@ -23,10 +23,12 @@ and loaded the WebMacro Template Engine.<p>
 
 <h3>Further Testing</h3>
 You can test a flushing output by clicking <a href=$melati.ZoneURL/org.melati.test.FlushingServletTest/>FlushingServletTest</a><br>
-You can test Melati in 'Stand Alone' mode by clicking <a href=StandAlone>StandAlone</a>.<br>
+You can test Melati in 'Stand Alone' mode by clicking <a href="$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest/StandAlone">StandAlone</a>.<br>
 
 #if ($melati.Method == "StandAlone") #begin
+<table border="1"><tr><td>
 $StandAlone
+</td></tr></table>
 #end
 
 <h3>Your Database has the following tables:</h3>

@@ -130,7 +130,7 @@ public class NoTemplateEngine implements ServletTemplateEngine {
    * @return the extension of the templates used by this template engine
    */
   public String templateExtension() {
-    return "none";
+    return ".none";
   }
 
   /** 
@@ -143,20 +143,6 @@ public class NoTemplateEngine implements ServletTemplateEngine {
     throw new TemplateEngineException(
         "The template " +
         templateName + " could not be found because you have not configured a template engine.");
-  }
-
-  /** 
-   * Get a template for a given class.
-   *
-   * @param clazz the class name to translate into a template name 
-   * @return a template
-   */
-  public org.melati.template.Template template(Class clazz)
-      throws IOException {
-    throw new TemplateEngineException(
-        "I couldn't find a template for class: " +  clazz.getName() + 
-        " because you have not configured a template engine.");
-
   }
 
   /** 

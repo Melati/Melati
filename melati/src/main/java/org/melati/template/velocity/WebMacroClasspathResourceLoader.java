@@ -75,8 +75,7 @@ public class WebMacroClasspathResourceLoader
   public InputStream getResourceStream(String templateName)
       throws ResourceNotFoundException {
     if (templateName.endsWith(".wm") || templateName.endsWith(".wmm")) {
-      InputStream in = super.getResourceStream(templateName);
-      return WebMacroConverter.convert(in);
+      return WebMacroConverter.convert(super.getResourceStream(templateName));
     } else {
       return super.getResourceStream(templateName);
     }

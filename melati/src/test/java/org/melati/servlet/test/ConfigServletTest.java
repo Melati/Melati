@@ -84,7 +84,7 @@ public class ConfigServletTest extends TestCase {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
     org.melati.test.ConfigServletTest aServlet = 
@@ -98,7 +98,7 @@ public class ConfigServletTest extends TestCase {
       fail(e.toString());
     } 
 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
@@ -145,7 +145,7 @@ public class ConfigServletTest extends TestCase {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
     org.melati.test.ConfigServletTest aServlet = 
@@ -159,7 +159,7 @@ public class ConfigServletTest extends TestCase {
       fail();
     } 
                    
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
@@ -191,7 +191,7 @@ public class ConfigServletTest extends TestCase {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
     ErrorConfigServlet aServlet = 
@@ -205,7 +205,7 @@ public class ConfigServletTest extends TestCase {
       fail();
     } 
                    
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
@@ -238,10 +238,10 @@ public class ConfigServletTest extends TestCase {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     DbPendingErrorConfigServlet aServlet = 
@@ -268,18 +268,18 @@ public class ConfigServletTest extends TestCase {
     MockServletRequest request = new MockServletRequest();
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     MelatiConfigExceptionConfigServlet aServlet = 
       new MelatiConfigExceptionConfigServlet();
     try {
       aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) request,  
-                     (HttpServletResponse) response);
+      aServlet.doPost(request,  
+                     response);
       fail("Should have blown up");
     } catch (ServletException e) {
       assertEquals("org.melati.util.ConfigException: Pretend bug", e.getMessage());
@@ -339,10 +339,10 @@ public class ConfigServletTest extends TestCase {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
 
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     org.melati.test.ConfigServletTest aServlet = 
@@ -399,10 +399,10 @@ public class ConfigServletTest extends TestCase {
                    
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
 

@@ -77,33 +77,40 @@ the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
 
 <h3>Exception Testing</h3>
 
+<h4>Undefined variables</h4>
 You can test how the PropagateVariableExceptionHandler handles 
-"normal" template expansion exceptions by clicking 
+undefined variable template expansion exceptions by clicking 
 <a href="?nonexistant=true">?nonexistant=true</a> (expect Melati Error Template).
 <br>
 #if ($Form != null && $Form.nonexistant != null) #begin
-<p>Here is an object that doesn't exist (if you see this things are broken)<br>
+<p>Here is an object that is not in the Form (if you see this things are broken)<br>
 <textarea cols="60" rows="5">
 $nonexistant
 </textarea>
 </p>
 #end
 
+<h4>Passback and propogate exception</h4>
+
 #if ($Form.passback != null || $Form.propagate != null) #begin
-<p>You have tried to access a RestrictedAccessObject but:<br>
+<p>You have tried to access a RestrictedAccessObject but:<br />
 <b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
 #end
 
+<p>
 You can test how the PropagateVariableExceptionHandler handles 
 AccessPoemException by clicking <a href="?propagate=true">?propagate=true</a>.
-<br>
+</p>
+<p>
 You can test how the PassbackVariableExceptionHandler handles 
 AccessPoemException by clicking <a href="?passback=true">?passback=true</a>.
-<br>
+</p>
 
-
+<h4>Handling other Exceptions</h4>
+<p>
+You can test melati Exception handling by clicking <a href="./Exception">Exception</a>
+</p>
 <h3>Further Testing</h3>
-You can test melati Exception handling by clicking <a href="./Exception">Exception</a><br>
 You can test melati Redirect handling by clicking <a href="./Redirect">Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>

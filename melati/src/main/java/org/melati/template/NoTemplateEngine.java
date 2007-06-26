@@ -103,7 +103,7 @@ public class NoTemplateEngine implements ServletTemplateEngine {
    */
   public TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException {
-    throw new TemplateEngineException(message);
+    return melati.getTemplateContext();
   }
 
   /**
@@ -134,15 +134,15 @@ public class NoTemplateEngine implements ServletTemplateEngine {
   }
 
   /** 
-   * Get a template given it's name.
+   * Get a template given its name.
    * 
    * @param templateName the name of the template to find
    * @return a template
    */
   public Template template(String templateName) {
     throw new TemplateEngineException(
-        "I couldn't find the template: " +
-        templateName + " because you have not configured a template engine.");
+        "The template " +
+        templateName + " could not be found because you have not configured a template engine.");
   }
 
   /** 

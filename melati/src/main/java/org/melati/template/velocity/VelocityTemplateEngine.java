@@ -210,11 +210,10 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
         } catch (ResourceNotFoundException e2) {
             throw new NotFoundException(e2);
         } 
-      }
+      } else throw e;
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
-    return null;
   }
 
   /**

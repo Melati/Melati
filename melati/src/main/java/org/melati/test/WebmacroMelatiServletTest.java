@@ -77,7 +77,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
       throws Exception {
 
       if (melati.getMethod() != null && 
-          melati.getMethod().equals("StandAlone")) {
+              melati.getMethod().equals("StandAlone")) {
         // construct a Melati with a StringWriter instead of a servlet
         // request and response
         WebMacro wm = new WM();
@@ -87,6 +87,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
         Melati m = new Melati(new MelatiConfig(),fmw);
         Context context2 = wm.getContext();
         context2.put("melati",m);
+        context2.put("ml", m.getMarkupLanguage());
         Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
         template.write(fmw.getOutputStream(), context2);
         fmw.flush();

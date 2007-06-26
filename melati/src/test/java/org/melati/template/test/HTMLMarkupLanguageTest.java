@@ -58,31 +58,26 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageSpec {
    * 
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    */
-  public void testRenderedTreeable() {
-    try {
-      Node parent = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
-      parent.setName("Mum");
-      parent.makePersistent();
-      Node kid1 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
-      kid1.setName("K1");
-      kid1.setParent(parent);
-      kid1.makePersistent();
-      Node kid2 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
-      kid2.setName("K2");
-      kid2.setParent(parent);
-      kid2.makePersistent();
-      Tree testTree = new Tree(parent);
-      JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
-      m.setPoemContext(new PoemContext());
+  public void testRenderedTreeable() throws Exception {
+    Node parent = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    parent.setName("Mum");
+    parent.makePersistent();
+    Node kid1 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    kid1.setName("K1");
+    kid1.setParent(parent);
+    kid1.makePersistent();
+    Node kid2 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    kid2.setName("K2");
+    kid2.setParent(parent);
+    kid2.makePersistent();
+    Tree testTree = new Tree(parent);
+    JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
+    m.setPoemContext(new PoemContext());
       
-      String renderedTree = ml.rendered(tree);
-      //System.err.println(renderedTree);
-      assertTrue(renderedTree.indexOf("init") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    
+    String renderedTree = ml.rendered(tree);
+    //System.err.println(renderedTree);
+    assertTrue(renderedTree.indexOf("init") != -1);
+   
   }
   
 }

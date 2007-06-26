@@ -353,21 +353,9 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     vars.put("ml", melati.getMarkupLanguage());
     vars.put("object", field);
     vars.put("field", field);
-    return expandedTemplet(templet, vars);
+    return melati.getTemplateEngine().expandedTemplate(templet,vars);
   }
 
-  /**
-   * Return the results of having interpolated a templet.
-   * 
-   * @param templet {@link Template} to interpolate
-   * @param tc {@link ServletTemplateContext} against which to instantiate variables
-   * @return the expanded template as a String
-   * @throws IOException if TemplateEngine does
-   */
-  protected String expandedTemplet(Template templet, TemplateContext tc)
-      throws IOException {
-    return melati.getTemplateEngine().expandedTemplate(templet,tc);
-  }
   
   /**
    * Interpolate a templet and write it out.

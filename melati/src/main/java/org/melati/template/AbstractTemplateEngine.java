@@ -72,7 +72,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   public org.melati.template.Template template(Class clazz)
       throws IOException, NotFoundException {
 
-    // Note File.separator will not find templates in jars
+    // NOTE File.separator will not find templates in jars
     // so we use forward slash
     String templateName = StringUtils.tr(clazz.getName(),
                                          ".", "/") 

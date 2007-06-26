@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,6 +52,7 @@ public interface TempletAdaptor {
   
   /**
    * Retrieve a raw object, ie an SQL value, from a ServletTemplateContext. 
+   * 
    * @param context the ServletTemplateContext the value is stored in
    * @param fieldName the name of the field in the context
    * @return the raw value 

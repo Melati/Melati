@@ -130,7 +130,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     Properties p = new Properties();
     p.setProperty("resource.loader", "class");
     p.setProperty("class.resource.loader.class",
-        "org.melati.template.velocity.WebMacroClasspathResourceLoader");
+        WebMacroClasspathResourceLoader.class.getName());
     return p;
   }
 

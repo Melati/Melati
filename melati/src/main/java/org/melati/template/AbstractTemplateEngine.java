@@ -47,7 +47,6 @@ import java.io.IOException;
 
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringUtils;
 
 /**
  * Common elements of a TemplateEngine. 
@@ -61,25 +60,6 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   public AbstractTemplateEngine() {
     super();
   }
-
-  /** 
-   * Get a template for a given class.
-   *
-   * @param clazz the class name to translate into a template name 
-   * @return a template
-   * @throws NotFoundException if template not found
-   */
-  public org.melati.template.Template template(Class clazz)
-      throws IOException, NotFoundException {
-
-    // NOTE File.separator will not find templates in jars
-    // so we use forward slash
-    String templateName = StringUtils.tr(clazz.getName(),
-                                         ".", "/") 
-                          + templateExtension();
-    return template(templateName);
-  }
-
 
   /**
    * {@inheritDoc}

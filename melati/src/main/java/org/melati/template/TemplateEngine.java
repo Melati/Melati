@@ -102,20 +102,6 @@ public interface TemplateEngine {
       throws IOException, NotFoundException;
 
   /** 
-   * Get a template for a given class, looking for a template 
-   * with the same name as the class in the classe's resource directory and 
-   * also in a Melati directory; giving a full template path as:  
-   * <code>org/melati/template/TEMPLATE_ENGINE_NAME/MARKUP_LANGUAGE/java.lang.Object.wm</code>
-   * which is the lowest possible template and is always found. 
-   *
-   * @param clazz the class name to translate into a template name 
-   * @return a template
-   * @throws IOException if TemplateEngine does
-   * @throws NotFoundException if template not found
-   */
-  Template template(Class clazz) throws IOException, NotFoundException;
-
-  /** 
    * Expand the Template against the context.
    *
    * @param out             a {@link MelatiWriter} to output on

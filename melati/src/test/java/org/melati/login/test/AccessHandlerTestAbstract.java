@@ -8,14 +8,12 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.login.AccessHandler;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-//import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -77,12 +75,6 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
   
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
-    /* 
-     * Not sure what this was about
-    if(mc.getTemplateEngine().getName() != "webmacro") {
-      mc.setTemplateEngine(new WebmacroTemplateEngine());
-    }
-    */
   }
   
   /**
@@ -90,16 +82,10 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    * 
    * @see org.melati.login.AccessHandler#handleAccessException(Melati, AccessPoemException)
    */
-  public void testHandleAccessException() {
-    try {
-      AccessPoemException ape = new AccessPoemException(
-          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
-      System.err.println(m);
-      it.handleAccessException(m, ape);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+  public void testHandleAccessException() throws Exception {
+    AccessPoemException ape = new AccessPoemException(
+        getDb().getUserTable().guestUser(), new Capability("Cool"));
+    it.handleAccessException(m, ape);
   }
 
   /**
@@ -107,13 +93,8 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    * 
    * @see org.melati.login.AccessHandler#buildRequest(Melati)
    */
-  public void testBuildRequest() {
-    try {
-      it.buildRequest(m);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
+  public void testBuildRequest() throws Exception {
+    it.buildRequest(m);
   }
 
   /**

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -22,8 +23,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.melati.poem.util.EmptyEnumeration;
-
 /**
  * @author timp
  *
@@ -33,7 +32,7 @@ public class MockServletRequest implements HttpServletRequest {
     Map parameters = new HashMap();
     
     /**
-     * @param map the arameters
+     * @param map the parameters
      */
     public void setParameters(Map map) {
         parameters = map;
@@ -198,20 +197,28 @@ public class MockServletRequest implements HttpServletRequest {
         return null;
     }
 
+    /**
+     * Set a parameter.
+     */
+    public void setParameter(String name, String value) { 
+      parameters.put(name, value);
+    }
     public String getParameter(String arg0) {
-        return (String) parameters.get(arg0);
+      if (parameters.get(arg0) == null)
+        return null;
+      return (String)parameters.get(arg0);
     }
 
     public Enumeration getParameterNames() {
-        return new EmptyEnumeration();
+        return Collections.enumeration(parameters.keySet());
     }
 
-    public String[] getParameterValues(String arg0) {
-        return null;
+    public String[] getParameterValues(String key) {
+      return new String[] {(String)parameters.get(key)} ;
     }
 
     public Map getParameterMap() {
-        return null;
+        return parameters;
     }
 
     public String getProtocol() {

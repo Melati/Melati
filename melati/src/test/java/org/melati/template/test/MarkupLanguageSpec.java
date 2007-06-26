@@ -10,11 +10,13 @@ import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.PoemThread;
 import org.melati.util.test.Node;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
+import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -59,9 +61,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
-    if (templateEngine != null)
-      templateEngine.init(mc);
-    else fail("Template engine is null");
+    templateEngine.init(mc);
     m = new Melati(mc, new MelatiStringWriter());
     m.setTemplateEngine(templateEngine);
     m.setPoemContext(new PoemContext());
@@ -209,14 +209,38 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   }
   
   /**
+   * Test that a syntax error in a templet is handled.
+   */
+  public void testSyntaxErrorInTemplet() throws Exception { 
+    Object templated = new TemplatedWithSyntaxError();
+    try { 
+      ml.rendered(templated);
+      fail("Should have bombed");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    }
+  }
+  
+  /**
+   * Test that a syntax error in a WM templet is handled by Velocity.
+   */
+  public void testSyntaxErrorInWMTemplet() throws Exception { 
+    Object templated = new TemplatedWithWMSyntaxError();
+    try { 
+      System.err.println(ml.rendered(templated));
+      fail("Should have bombed");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    }
+  }
+  
+  /**
    * Test that we can find a template on the classpath.
    */
   public void testTemplateFoundOnClasspath() throws Exception { 
     Templated templated = new Templated();
     String rendered = ml.rendered(templated);
-    
-    assertEquals("Hi, this is from a template.", rendered);
-    
+    assertEquals("Hi, this is from a template.", rendered);    
   }
   
   /**
@@ -335,9 +359,19 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
     Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
-    assertTrue(ml.input(owningTable).toLowerCase().indexOf("<select name=") != -1);
+    assertTrue(ml.input(owningTable).toLowerCase().indexOf("<select name=") != -1);    
   }
 
+  /**
+   * Test access to password field.
+   * FIXME Does not hit the spot.
+   */
+  public void testInputFieldForRestrictedField() throws Exception { 
+    PoemThread.setAccessToken(getDb().getUserTable().guestUser());
+    Field password = getDb().getUserTable().getPasswordColumn().asEmptyField();
+    assertTrue(ml.input(password).toLowerCase().indexOf("name=\"field_password\"") != -1);
+    //System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
+  }
   /**
    * Test method for inputAs(Field, String).
    * 

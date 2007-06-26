@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  */
 package org.melati.template.velocity;
 
@@ -145,8 +145,6 @@ public final class WebMacroConverter {
    * @return the InputStream with substitutions applied
    */
   public static InputStream convert(InputStream in) {
-    if (in == null)
-      throw new NullPointerException();
     byte[] ca;
     try {
       ca = new byte[in.available()];

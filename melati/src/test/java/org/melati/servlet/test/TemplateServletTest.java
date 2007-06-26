@@ -83,104 +83,69 @@ public class TemplateServletTest extends PoemServletTest {
    * 
    */
   public void doGetPost() throws Exception {
-    //final MelatiStringWriter output = new MelatiStringWriter(); 
-    //final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    //Mock mockHttpServletRequest = new OrderedMock(HttpServletRequest.class);
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
     Mock mockSession = new Mock(HttpSession.class);
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    MockServletContext mockServletContext = new MockServletContext();
+
+    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
+            mockServletConfig, mockServletContext);
+    
+    
+    org.melati.test.TemplateServletTest aServlet = 
+          new org.melati.test.TemplateServletTest();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost(mockHttpServletRequest,  
+                    mockHttpServletResponse);
+    aServlet.destroy();
+      
+    mockServletConfig.verify(); 
+    //mockServletContext.verify(); 
+    System.err.println(mockHttpServletResponse.getOutputStream().toString());
+
+
+  }
+
+
+  private void setupMocks(MockServletRequest mockHttpServletRequest, 
+          MockServletResponse mockHttpServletResponse,
+          Mock mockSession,
+          Mock mockServletConfig, 
+          MockServletContext mockServletContext) {
 
     mockSession.expectAndReturn("getId", "1");
     mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters", 
        null); 
     mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null);
     mockHttpServletRequest.setSession(mockSession.proxy());
-    /*
-    
-    mockHttpServletRequest.expectAndReturn("getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn("getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
-    mockHttpServletRequest.expectAndReturn("getHeader", "content-type", "text/html"); 
 
-    mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
-    mockHttpServletRequest.expectAndReturn("getCookies", null);
-    mockHttpServletRequest.expectAndReturn("getHeader", "Accept-Language", "en-gb"); 
-    
-    mockHttpServletRequest.expectAndReturn("getParameterNames", new EmptyEnumeration()); 
-    mockHttpServletRequest.expectAndReturn("getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn("getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn("getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn("getMethod", null); 
-    mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
-    mockHttpServletRequest.expectAndReturn("getHeader", "Accept-Charset", "ISO-8859-1"); 
-
-    mockHttpServletRequest.expectAndReturn("getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
-    mockHttpServletResponse.expectAndReturn( "getOutputStream", output ); 
-    mockHttpServletResponse.expectAndReturn( "getOutputStream", output ); 
-    mockHttpServletResponse.expectAndReturn( "setContentType", "text/html; charset=ISO-8859-1", null); 
-    mockHttpServletResponse.expectAndReturn( "getOutputStream", output ); 
-    mockHttpServletResponse.expectAndReturn( "getOutputStream", output ); 
-    mockHttpServletResponse.expectAndReturn( "setContentType", "text/html; charset=ISO-8859-1", null); 
-    mockHttpServletResponse.expectAndReturn( "getOutputStream", output ); 
-*/
-
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletContext.expectAndReturn("getMajorVersion", 2); 
-    mockServletContext.expectAndReturn("getMinorVersion", 3); 
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext); 
+    mockServletContext.expectAndReturn("getMajorVersion", "2"); 
+    mockServletContext.expectAndReturn("getMinorVersion", "3"); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletConfig.expectAndReturn("getInitParameter","pathInfo", null); 
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", mockServletContext); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
 
-    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("toString", "mockServletContext"); 
     mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
     mockServletContext.expectAndReturn("getResource", "/WEB-INF/WebMacro.properties", null); 
     mockServletContext.expectAndReturn("getResource", "/WebMacro.properties", null); 
-    mockServletContext.expectAndReturn("getInitParameterNames", null); 
-    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("getInitParameterNames", ""); 
+    mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("toString", "mockServletContext"); 
     mockServletContext.expectAndReturn("log", "WebMacro:LogFile\tNOTICE\t--- Log Started ---", null); 
-    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)", null);
-    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1", null);
     mockServletContext.expectAndReturn("getResource", "/org/melati/test/TemplateServletTest.wm", null); 
     mockServletContext.expect("log", "MelatiConfigTest: destroy");
-
-    org.melati.test.TemplateServletTest aServlet = 
-          new org.melati.test.TemplateServletTest();
-    try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost(mockHttpServletRequest,  
-                      mockHttpServletResponse);
-      aServlet.destroy();
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    } 
-                   
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
-    System.err.println(mockHttpServletResponse.getOutputStream().toString());
-
-
   }
-
 
   /**
    * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
@@ -262,6 +227,7 @@ public class TemplateServletTest extends PoemServletTest {
     assertTrue(mockHttpServletResponse.getWritten().indexOf("java.lang.Exception: A problem") > 0);
     aServlet.destroy();
   }
+  
 
   /**
    * Test that a templet on the classpath is used.
@@ -357,4 +323,78 @@ public class TemplateServletTest extends PoemServletTest {
 
   }
 
+  /**
+   * Test passback AccessPoemException handling.
+   */
+  public void testPassbackAccessPoemExceptionHandling() throws Exception {
+    MockServletRequest mockHttpServletRequest = new MockServletRequest();
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    Mock mockSession = new Mock(HttpSession.class);
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    MockServletContext mockServletContext = new MockServletContext();
+
+    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
+            mockServletConfig, mockServletContext);
+
+    
+    mockServletContext.expectAndReturn("getResource", 
+            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm",
+            null); 
+    mockServletContext.expectAndReturn("log","WebMacro:resource WARNING BrokerTemplateProvider: Template not found: " + 
+            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm", null);
+    
+    
+    mockHttpServletRequest.setParameter("passback", "true");
+    org.melati.test.TemplateServletTest aServlet = 
+          new org.melati.test.TemplateServletTest();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost(mockHttpServletRequest,  
+                    mockHttpServletResponse);
+    aServlet.destroy();
+      
+    mockServletConfig.verify(); 
+    //mockServletContext.verify(); 
+    System.err.println(mockHttpServletResponse.getWritten());
+    
+  }
+  /**
+   * Test propagation of AccessPoemException handling.
+   */
+  public void testPropagateAccessPoemExceptionHandling() throws Exception {
+    MockServletRequest mockHttpServletRequest = new MockServletRequest();
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    Mock mockSession = new Mock(HttpSession.class);
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    MockServletContext mockServletContext = new MockServletContext();
+
+    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
+            mockServletConfig, mockServletContext);
+
+    
+    mockServletContext.expectAndReturn("getResource", 
+            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm",
+            null); 
+    mockServletContext.expectAndReturn("log","WebMacro:resource WARNING BrokerTemplateProvider: Template not found: " + 
+            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm", null);
+    
+    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
+            new IsInstanceOf(HttpServletRequestParameters.class)});
+
+     mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
+            new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
+        
+
+    
+    mockHttpServletRequest.setParameter("propagate", "true");
+    org.melati.test.TemplateServletTest aServlet = 
+          new org.melati.test.TemplateServletTest();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost(mockHttpServletRequest,  
+                    mockHttpServletResponse);
+    aServlet.destroy();
+      
+    mockServletConfig.verify(); 
+    System.err.println(mockHttpServletResponse.getWritten());
+    
+  }
 }

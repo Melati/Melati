@@ -7,7 +7,6 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.Field;
 import org.melati.poem.test.PoemTestCase;

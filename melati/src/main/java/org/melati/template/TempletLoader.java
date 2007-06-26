@@ -84,16 +84,24 @@ public interface TempletLoader {
                    MarkupLanguage markupLanguage,
                    String purpose, String templetName)
       throws IOException, NotFoundException;
-
-  /**
-   * Return a templet by Class.
+  
+  /** 
+   * Return a templet for a given class, looking for a template 
+   * with the same name as the class in the Melati templet directory; giving a full template path as:  
+   * <code>org/melati/template/TEMPLATE_ENGINE_NAME/MARKUP_LANGUAGE/java.lang.Object.wm</code>
+   * which is the lowest possible template and is always found. 
    * 
+   * The template is also looked for in the resource directory for that class.
+   * 
+   * The search results are cached, so that searches are not repeated.
+   *
    * @param templateEngine the TemplateEngine in use
    * @param markupLanguage the markuplanguage the templet is in
-   * @param clazz Class that templet renders 
+   * @param clazz the class name to translate into a template name 
    * @return the templet
    * @throws IOException if TemplateEngine does
    */
+
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    Class clazz)

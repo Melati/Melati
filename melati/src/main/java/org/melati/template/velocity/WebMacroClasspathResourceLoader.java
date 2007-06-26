@@ -57,7 +57,6 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * optionional #begin in #foreach.
  *
  * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
- * @see WebMacroFileResourceLoader
  */
 public class WebMacroClasspathResourceLoader 
     extends ClasspathResourceLoader {

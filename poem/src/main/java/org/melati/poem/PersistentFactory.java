@@ -69,7 +69,7 @@ public final class PersistentFactory {
    *          database to look in
    * @param pojo
    *          the instance to create a Persistent from.
-   * @return A new or existing Persistent
+   * @return A new or existing persisted Persistent
    */
   public static Persistent fromInstance(Database db, Object pojo) {
     Table table = null;
@@ -146,7 +146,7 @@ public final class PersistentFactory {
         }
       } 
       try {
-        raw = memberGetter.invoke(pojo, new Class[] {});
+        raw = memberGetter.invoke(pojo, (Object[]) new Class[] {});
       } catch (Exception e) {
         throw new AppBugPoemException(
                 "Problem invoking getter on column  " + col.getName(), e);

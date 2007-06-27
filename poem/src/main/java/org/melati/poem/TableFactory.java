@@ -137,7 +137,7 @@ public final class TableFactory {
 
     for (int i = 0; i < methods.length; i++) {
       if (Modifier.isPublic(methods[i].getModifiers())) {
-        if (methods[i].getName().startsWith("set")
+        if (methods[i].getName().startsWith("set") && ! methods[i].getName().equals("set")
                 && Character.isUpperCase(methods[i].getName().toCharArray()[3])
                 && methods[i].getParameterTypes().length == 1
                 && (methods[i].getParameterTypes()[0].getClass() == byte[].class || 
@@ -188,11 +188,11 @@ public final class TableFactory {
     Enumeration propsEn = props.elements();
     while (propsEn.hasMoreElements()) {
       Prop p = (Prop)propsEn.nextElement();
-      //System.err.println("Processing stored column:" + p.getName()
-      //        + ":" + p.getGot() + ":" + p.getSet() ); 
+      System.err.println("Processing stored column:" + p.getName()
+              + ":" + p.getGot() + ":" + p.getSet() ); 
       if (p.getGot() != null && 
           p.getGot() == p.getSet()) { 
-        //System.err.println("Adding stored column:" + p.getName());
+        System.err.println("Adding stored column:" + p.getName());
         addColumn(table, p.getName(), p.getGot(), p.getGot() == p.getSet());
       }
     }

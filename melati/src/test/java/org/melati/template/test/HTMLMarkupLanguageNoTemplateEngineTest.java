@@ -4,6 +4,8 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
+import org.melati.poem.Field;
+import org.melati.poem.PoemThread;
 import org.melati.template.NoTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiException;
@@ -274,6 +276,19 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
               "org/melati/template/none/templets/html/java.util.Properties.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
+  }
+  /**
+   * Test access to password field.
+   */
+  public void testInputFieldForRestrictedField() throws Exception { 
+    try { 
+      super.testInputFieldForRestrictedField();
+    } catch (TemplateEngineException e) { 
+      assertEquals("The template " + 
+              "org/melati/template/none/templets/html/org.melati.poem.PasswordPoemType.none" +  
+              " could not be found because you have not configured a template engine.", e.getMessage());
+    }
+    
   }
 
 }

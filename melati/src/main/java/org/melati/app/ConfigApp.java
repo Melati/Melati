@@ -236,7 +236,8 @@ public abstract class ConfigApp implements App {
   
   private void setOutput(String path) throws IOException { 
     File output = new File(path).getCanonicalFile();
-    output.mkdirs();
+    File parent = new File(output.getParent());
+    parent.mkdirs();
     output.createNewFile();
     setOutput(new PrintStream(new FileOutputStream(output)));
   }

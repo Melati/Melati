@@ -261,7 +261,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
   // 
 
  /** 
-  * A convenience method to mark this object as persistent.
+  * A convenience method to create this Persistent.
   */
   public void makePersistent() {
     getTable().create(this);

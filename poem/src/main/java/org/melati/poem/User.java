@@ -116,7 +116,9 @@ public class User extends UserBase implements AccessToken {
    * Will throw a <TT>ReadPasswordAccessPoemException</TT> unless the access
    * token associated with the running thread is the <TT>User</TT> object
    * itself or provides the <TT>readPasswords</TT> capability.
-   *  FIXME it shouldn't be possible for anyone to getPassword
+   * 
+   * FIXME It shouldn't be possible for anyone to getPassword
+   *  
    * {@inheritDoc}
    * @see org.melati.poem.generated.UserBase#getPassword()
    */
@@ -139,7 +141,7 @@ public class User extends UserBase implements AccessToken {
    * @see org.melati.poem.generated.UserBase#setPassword(java.lang.String)
    */
   public void setPassword(String cooked) throws AccessPoemException {
-    // FIXME We need 2 different sorts of object
+    // FIXME We need 2 sorts of object here
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&

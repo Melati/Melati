@@ -115,7 +115,7 @@ public class ExtraColumn extends Column {
    */
   public void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException {
-    // FIXME revalidation
+    // FIXME Revalidation
     getType().assertValidCooked(cooked);
     setRaw(g, getType().rawOfCooked(cooked));
   }

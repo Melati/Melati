@@ -75,7 +75,7 @@ public class LongPoemType extends AtomPoemType {
   }
 
   /**
-   * FIXME do down-counting??
+   * @todo Do down-counting??
    */
   protected Enumeration _possibleRaws() {
     Long low = (Long)getLowRaw();

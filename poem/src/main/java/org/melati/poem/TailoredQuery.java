@@ -176,9 +176,14 @@ public class TailoredQuery {
    * Same as without the first argument except that it is inserted 
    * between <code>SELECT</code> and the column list.
    *
+   * @param modifier  HACK Allow SQL modifier eg DISTINCT 
+   * @param selectedColumns
+   * @param otherTables
+   * @param whereClause
+   * @param orderByClause
    * @see #TailoredQuery(Column[], Table[], String, String)
    */
-  public TailoredQuery(String modifier, // FIXME hack
+  public TailoredQuery(String modifier,  
                        Column[] selectedColumns, Table[] otherTables,
                        String whereClause, String orderByClause) {
 

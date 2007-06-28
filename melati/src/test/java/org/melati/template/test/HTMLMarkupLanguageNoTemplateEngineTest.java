@@ -4,8 +4,6 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
-import org.melati.poem.Field;
-import org.melati.poem.PoemThread;
 import org.melati.template.NoTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiException;

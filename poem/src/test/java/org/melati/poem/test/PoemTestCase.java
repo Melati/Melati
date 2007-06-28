@@ -215,7 +215,7 @@ public class PoemTestCase extends TestCase implements Test {
       e = getDb().tables();
       while (e.hasMoreElements()) {
         Table t = (Table)e.nextElement();
-        System.out.println(t.getTableInfo().troid() + " " +
+        System.out.println(t.getTableInfo().getTroid() + " " +
                 t.getTableInfo().statusExistent() + " " +
                 t);
       }      
@@ -245,7 +245,7 @@ public class PoemTestCase extends TestCase implements Test {
     Enumeration them = t.selection();
     while (them.hasMoreElements()) {
       Persistent it = (Persistent)them.nextElement();
-      System.err.println(it.troid() + " " + it.getCooked("name") + " " +
+      System.err.println(it.getTroid() + " " + it.getCooked("name") + " " +
           it.getTable().getName());
     }
     

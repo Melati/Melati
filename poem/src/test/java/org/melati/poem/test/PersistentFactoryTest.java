@@ -82,7 +82,7 @@ public class PersistentFactoryTest extends PoemTestCase {
     u.setName("Test");
     u.setPassword("test");
     User u2 = (User)PersistentFactory.fromInstance(getDb(), u);
-    assertNotNull(u2.troid());
+    assertNotNull(u2.getTroid());
     u2.delete();
   }
 
@@ -146,7 +146,7 @@ public class PersistentFactoryTest extends PoemTestCase {
     ClassWithId withId = new ClassWithId();
     withId.setId(new Integer(99));
     persisted = PersistentFactory.fromInstance(getDb(), withId);
-    assertEquals(new Integer(0), persisted.troid());
+    assertEquals(new Integer(0), persisted.getTroid());
     assertEquals(new Integer(0), persisted.getCooked("poemId"));
     assertEquals(new Integer(99), persisted.getCooked("id"));
   }

@@ -251,7 +251,7 @@ public class PersistentTest extends EverythingTestCase {
     Persistent p = new Persistent();
     assertNull(p.getTroid());
     p = new Persistent(getDb().getUserTable(), new Integer(0));
-    assertEquals(p.troid(), new Integer(0));
+    assertEquals(p.getTroid(), new Integer(0));
   }
 
   /**
@@ -602,7 +602,7 @@ public class PersistentTest extends EverythingTestCase {
       e = null;
     }
     try {
-      getDb().getGroupTable().getObject(p.troid());
+      getDb().getGroupTable().getObject(p.getTroid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
@@ -610,7 +610,7 @@ public class PersistentTest extends EverythingTestCase {
     // To before we started
     PoemThread.rollback();
     try {
-      getDb().getGroupTable().getObject(p.troid());
+      getDb().getGroupTable().getObject(p.getTroid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
@@ -629,7 +629,7 @@ public class PersistentTest extends EverythingTestCase {
       e = null;
     }
     try {
-      getDb().getGroupTable().getObject(p.troid());
+      getDb().getGroupTable().getObject(p.getTroid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
@@ -638,7 +638,7 @@ public class PersistentTest extends EverythingTestCase {
     getDb().setLogCommits(true);
     PoemThread.rollback(); 
     getDb().setLogCommits(false);
-    getDb().getGroupTable().getObject(p.troid());
+    getDb().getGroupTable().getObject(p.getTroid());
     assertEquals("testGroup", p.getCooked("name"));
     p.delete();
     try { 
@@ -947,44 +947,46 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#countMatchSQL(boolean, boolean)
    */
   public void testCountMatchSQL() {
-    try { 
-      Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
-      p.countMatchSQL(true, true);
-      fail("Should have blown up");
-    } catch (ClassCastException e) {
-      e = null;
-    }
-    User u = (User)getDb().getUserTable().newPersistent();
+    //try { 
+    //  Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+     //p.countMatchSQL(true, true);
+      //fail("Should have blown up");
+    //} catch (ClassCastException e) {
+    //  e = null;
+   // }
+    //User u = (User)getDb().getUserTable().newPersistent();
     // All the same as we have no deleted or unselectable columns
-    assertEquals("SELECT count(*) FROM " + 
-            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, true));
-    assertEquals("SELECT count(*) FROM " + 
-            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, false));
-    assertEquals("SELECT count(*) FROM " + 
-            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, true));
-    assertEquals("SELECT count(*) FROM " + 
-            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, false));
+    //assertEquals("SELECT count(*) FROM " + 
+    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, true));
+    //assertEquals("SELECT count(*) FROM " + 
+    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, false));
+    //assertEquals("SELECT count(*) FROM " + 
+    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, true));
+    //assertEquals("SELECT count(*) FROM " + 
+    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, false));
 
   }
 
   /**
    * @see org.melati.poem.Persistent#fromClause()
+   * @todo Delete this method has gone 
    */
   public void testFromClause() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
-    assertEquals(getDb().getDbms().getQuotedName("user"), p.fromClause());
+    //Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    //assertEquals(getDb().getDbms().getQuotedName("user"), p.fromClause());
     
-    p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
-    assertEquals(getDb().getDbms().getQuotedName("user") + ", " + 
-            getDb().getDbms().getQuotedName("capability"), p.fromClause());
+    //p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
+    //assertEquals(getDb().getDbms().getQuotedName("user") + ", " + 
+    //        getDb().getDbms().getQuotedName("capability"), p.fromClause());
   }
 
   /**
    * @see org.melati.poem.Persistent#otherMatchTables()
+   * @todo Delete this method has gone 
    */
   public void testOtherMatchTables() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
-    assertTrue(p.otherMatchTables().length == 0);
+    //Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    //assertTrue(p.otherMatchTables().length == 0);
   }
 
   /**

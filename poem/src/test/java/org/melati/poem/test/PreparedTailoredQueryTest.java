@@ -88,7 +88,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     final PreparedTailoredQuery ptq = new PreparedTailoredQuery(
             new Column[] { canReadColumn }, new Table[0], canReadColumn
                     .fullQuotedName()
-                    + "=" + moneyPenny.troid(), null);
+                    + "=" + moneyPenny.getTroid(), null);
     assertEquals(new Integer(1), new Integer(EnumUtils
             .vectorOf(ptq.selection()).size()));
     Enumeration en = ptq.selection();

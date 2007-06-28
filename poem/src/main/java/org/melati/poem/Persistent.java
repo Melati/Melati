@@ -54,6 +54,7 @@ import java.util.Vector;
 
 import org.melati.poem.transaction.Transaction;
 import org.melati.poem.transaction.Transactioned;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 
@@ -65,7 +66,7 @@ import org.melati.poem.util.MappedEnumeration;
  * @author WilliamC At paneris.org
  */
 
-public class Persistent extends Transactioned implements Cloneable, Persistable {
+public class Persistent extends Transactioned implements Cloneable, Persistable, Treeable {
   private Table table;
   private Integer troid;        // null if a floating object
   private AccessToken clearedToken;
@@ -1528,6 +1529,21 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return result;
   }
 
-  
+  public Treeable[] getChildren() {
+    Enumeration refs = getDatabase().referencesTo(this);
+    Vector v = new Vector();
+    while (refs.hasMoreElements())
+      v.addElement(refs.nextElement());
+    return (Persistent[])ArrayUtils.arrayOf(v);
+  }
+
+  /** 
+   * This will be overridden if the persistent has a field called <tt>name</tt>. 
+   * {@inheritDoc}
+   * @see org.melati.poem.Treeable#getName()
+   */
+  public String getName() {
+    return displayString();
+  }
 
 }

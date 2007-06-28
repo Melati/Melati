@@ -270,8 +270,13 @@ public abstract class Database implements TransactionPool {
                   });
       }
       catch (SQLException e) {
+        if (committedConnection != null) disconnect();
         throw new UnificationPoemException(e);
       }
+    } 
+    catch (SQLPoemException e) { 
+      if (committedConnection != null) disconnect();
+      throw e;
     }
     finally {
       synchronized (connecting) {

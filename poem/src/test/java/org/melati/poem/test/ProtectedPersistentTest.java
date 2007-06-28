@@ -92,14 +92,14 @@ public class ProtectedPersistentTest extends PersistentTest {
     Group g = (Group)getDb().getGroupTable().getNameColumn().firstWhereEq(group);
     if (g != null) { 
       System.err.println("Cleaning up: " + g);
-      Enumeration gcs = getDb().getGroupCapabilityTable().getGroupColumn().selectionWhereEq(g.troid());
+      Enumeration gcs = getDb().getGroupCapabilityTable().getGroupColumn().selectionWhereEq(g.getTroid());
       while(gcs.hasMoreElements()) { 
         GroupCapability gc = (GroupCapability)gcs.nextElement();
         System.err.println("Cleaning up: " + gc);
         gc.delete();
       }
       Enumeration gms = getDb().getGroupMembershipTable().getGroupColumn().
-                            selectionWhereEq(g.troid());
+                            selectionWhereEq(g.getTroid());
       while (gms.hasMoreElements()) { 
         GroupMembership gm = (GroupMembership)gms.nextElement();
         System.err.println("Cleaning up: " + gm);

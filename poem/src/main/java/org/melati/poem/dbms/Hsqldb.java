@@ -90,8 +90,9 @@ public class Hsqldb extends AnsiStandard {
         // This seems to be caused by a shutdownhook race
         if (!e.getMessage().equals("Access is denied: Session is closed")) 
           throw e;
+      } finally { 
+        st.close();
       }
-      st.close();
     }
   }
 

@@ -64,12 +64,10 @@
 <table cellpadding="4" cellspacing="4" width="100%">
  <tr>
   <td valign="top">
-#if ($admin.isTreeable($object)) #begin
    <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">
    <img src="$admin.StaticURL/tree.gif" alt="Tree view" border="0" />
    </a>
-#end
    &nbsp;<div style='display:inline;' #if($table.Description) #begin title='$table.Description' #end>
    <font face="Arial, Helvetica" size="2">$table.DisplayName</font></div><font face="Arial, Helvetica" size="2">:
 <a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"

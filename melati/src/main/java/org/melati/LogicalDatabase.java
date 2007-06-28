@@ -115,51 +115,46 @@ public final class LogicalDatabase {
     Database db = PoemDatabaseFactory.getDatabase(name);
     if (db == null) {
         
-        Properties defs;
-        try {
-          defs = databaseDefs();
-        } catch (IOException e) {
-          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
-        }
-        String pref = className + "." + name + ".";
-        String url = null;
-        String user = null;
-        String pass = null;
-        String clazz = null;
-        String dbmsClass = null;
-        String addConstraints = null;
-        String logSQL  = null;
-        String logCommits = null;
-        int maxTrans;
-        try {
+      Properties defs;
+      try {
+        defs = databaseDefs();
+      } catch (IOException e) {
+        throw new DatabaseInitException(getDefaultPropertiesName(), name, e);
+      }
+      String pref = className + "." + name + ".";
+      String url = null;
+      String user = null;
+      String pass = null;
+      String clazz = null;
+      String dbmsClass = null;
+      String addConstraints = null;
+      String logSQL  = null;
+      String logCommits = null;
+      int maxTrans;
+      try {
         
-          url = PropertiesUtils.getOrDie(defs, pref + "url");
-          user = PropertiesUtils.getOrDie(defs, pref + "user");
-          pass = PropertiesUtils.getOrDie(defs, pref + "pass");
-          clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-          dbmsClass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
-          addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
-          logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
-          logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
-          // max transactions default to 8 if not set
-          maxTrans = PropertiesUtils.
-                           getOrDefault_int(defs, pref + "maxtransactions", 8);
-
-        } catch (NoSuchPropertyException e) {
-          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
-        } catch (FormatPropertyException e) {
-          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
-        }
-        try {
-          db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
-                clazz, dbmsClass, 
-                new Boolean(addConstraints).booleanValue(), 
-                new Boolean(logSQL).booleanValue(), 
-                new Boolean(logCommits).booleanValue(),
-                maxTrans);
-      } catch (Exception e) { 
+        url = PropertiesUtils.getOrDie(defs, pref + "url");
+        user = PropertiesUtils.getOrDie(defs, pref + "user");
+        pass = PropertiesUtils.getOrDie(defs, pref + "pass");
+        clazz = PropertiesUtils.getOrDie(defs, pref + "class");
+        dbmsClass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+        addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
+        logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
+        logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
+        // max transactions default to 8 if not set
+        maxTrans = PropertiesUtils.
+                         getOrDefault_int(defs, pref + "maxtransactions", 8);
+      } catch (NoSuchPropertyException e) {
+        throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+      } catch (FormatPropertyException e) {
         throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
       }
+      db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
+             clazz, dbmsClass, 
+             new Boolean(addConstraints).booleanValue(), 
+             new Boolean(logSQL).booleanValue(), 
+             new Boolean(logCommits).booleanValue(),
+             maxTrans);
     }
     return db;
   }  

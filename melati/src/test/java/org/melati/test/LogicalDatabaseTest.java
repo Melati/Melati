@@ -6,8 +6,8 @@ package org.melati.test;
 import java.util.Vector;
 
 import org.melati.LogicalDatabase;
+import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.test.PoemTestCase;
-import org.melati.util.DatabaseInitException;
 
 /**
  * @author timp
@@ -73,7 +73,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
     try { 
       LogicalDatabase.getDatabase("bad");
       fail("Should have blown up");
-    } catch (DatabaseInitException e) {
+    } catch (DatabaseInitialisationPoemException e) {
       e = null;
     }
   }

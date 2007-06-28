@@ -255,7 +255,7 @@ public class SettingTest extends PoemTestCase {
   public void testGetValue() {
     Setting userSetting = getDb().getSettingTable().ensure("userSetting",
         PoemTypeFactory.TROID,
-        getDb().guestUser().troid(),
+        getDb().guestUser().getTroid(),
         "User", "A User setting");
     assertEquals(new Integer(0),userSetting.getCooked());
     userSetting.delete();

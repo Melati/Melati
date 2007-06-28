@@ -323,7 +323,7 @@ public class CSVTable {
         if (record.poemRecord == null)
           output.write(", No Poem Persistent written\n");
         else
-          output.write(", Poem Troid = " + record.poemRecord.troid() + "\n");
+          output.write(", Poem Troid = " + record.poemRecord.getTroid() + "\n");
 
         if (fieldDetails) {
           for (int j = 0; j < record.getFields().size(); j++) {

@@ -370,7 +370,7 @@ public class FieldTest extends PoemTestCase {
    */
   public void testReferencePersistentString() {
     User u = getDb().guestUser();
-    Field f1 = Field.basic(u.troid(), "referenceField", 
+    Field f1 = Field.basic(u.getTroid(), "referenceField", 
             new ReferencePoemType(getDb().getUserTable(), true));
     Field f2 = Field.reference(u, "referenceField");
     assertTrue(f1.sameRawAs(f2));

@@ -119,7 +119,7 @@ public class DatabasePerformInCommittedTransactionTest
     Enumeration them = t.selection();
     while (them.hasMoreElements()) {
       Persistent it = (Persistent)them.nextElement();
-      System.err.println(it.troid() + " " + it.getCooked("name") + " " +
+      System.err.println(it.getTroid() + " " + it.getCooked("name") + " " +
           it.getTable().getName());
     }
     

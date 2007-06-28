@@ -109,7 +109,7 @@ public class DynamicTableTest extends EverythingTestCase {
     extra.addColumnAndCommit(ci);
     Persistent extraPersistent = extra.newPersistent();
     PoemThread.commit();
-    assertNull(extraPersistent.troid());
+    assertNull(extraPersistent.getTroid());
     extraPersistent.setCooked("extra", "Test");
     extraPersistent.makePersistent();
     assertEquals("Test", extraPersistent.getField("extra").getRaw());
@@ -117,9 +117,9 @@ public class DynamicTableTest extends EverythingTestCase {
     extra.getTableInfo().setDefaultcanread(getDb().administerCapability());
     extraPersistent.getField("extra").getRaw();
 
-    assertEquals(new Integer(0), extraPersistent.troid());
+    assertEquals(new Integer(0), extraPersistent.getTroid());
     Enumeration cols = getDb().getColumnInfoTable().getTableinfoColumn()
-            .selectionWhereEq(info.troid());
+            .selectionWhereEq(info.getTroid());
     int colCount = 0;
     while (cols.hasMoreElements()) {
       ColumnInfo c = (ColumnInfo)cols.nextElement();
@@ -139,7 +139,7 @@ public class DynamicTableTest extends EverythingTestCase {
       e = null;
     }
     cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
-            info.troid());
+            info.getTroid());
     colCount = 0;
     while (cols.hasMoreElements()) {
       ColumnInfo c = (ColumnInfo)cols.nextElement();
@@ -169,7 +169,7 @@ public class DynamicTableTest extends EverythingTestCase {
     PoemThread.commit();
     getDb().addTableAndCommit(info3, "id");
     cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
-            info3.troid());
+            info3.getTroid());
     int count = 0;
     while (cols.hasMoreElements()) {
       ColumnInfo c = (ColumnInfo)cols.nextElement();
@@ -222,7 +222,7 @@ public class DynamicTableTest extends EverythingTestCase {
 
     Persistent extraInstance = extra.newPersistent();
     PoemThread.commit();
-    assertNull(extraInstance.troid());
+    assertNull(extraInstance.getTroid());
     extraInstance.setCooked("extra", "Test");
     extraInstance.makePersistent();
     assertEquals("Test", extraInstance.getField("extra").getRaw());

@@ -236,7 +236,9 @@ public final class PoemDatabaseFactory {
     Enumeration them = dbs.elements();
     while (them.hasMoreElements()) {
       Database db = (Database)them.nextElement();
-      db.disconnect();
+      // This check should not be necessary, but feels like a shutdown race
+      if (db.getCommittedConnection() != null)
+        db.disconnect();
     }
   }
   /**

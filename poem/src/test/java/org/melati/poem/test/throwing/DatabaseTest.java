@@ -153,7 +153,6 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
     ThrowingConnection.stopThrowing("getMetaData");
@@ -176,7 +175,6 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (UnificationPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
     ThrowingConnection.stopThrowing("getMetaData");

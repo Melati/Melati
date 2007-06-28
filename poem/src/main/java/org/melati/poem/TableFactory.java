@@ -45,8 +45,10 @@ package org.melati.poem;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.melati.poem.util.ClassUtils;
 import org.melati.poem.util.StringUtils;
@@ -96,6 +98,9 @@ public final class TableFactory {
     if (clazz.isPrimitive())
       throw new IllegalArgumentException(
       "Cannot create a Table for a primitive type: " + clazz.getName());
+    if (clazz.isInterface())
+      throw new IllegalArgumentException(
+      "Cannot create a Table for an interface: " + clazz.getName());
     if(!Modifier.isPublic(clazz.getModifiers())) 
       throw new IllegalArgumentException(
         "Cannot create a Table for a non public type: "+ clazz.getName());
@@ -137,11 +142,16 @@ public final class TableFactory {
 
     for (int i = 0; i < methods.length; i++) {
       if (Modifier.isPublic(methods[i].getModifiers())) {
-        if (methods[i].getName().startsWith("set") && ! methods[i].getName().equals("set")
-                && Character.isUpperCase(methods[i].getName().toCharArray()[3])
-                && methods[i].getParameterTypes().length == 1
-                && (methods[i].getParameterTypes()[0].getClass() == byte[].class || 
-                    !methods[i].getParameterTypes()[0].getClass().isArray())) {
+        if (methods[i].getName().startsWith("set") 
+            && ! methods[i].getName().equals("set")
+            && Character.isUpperCase(methods[i].getName().toCharArray()[3])
+            && methods[i].getParameterTypes().length == 1
+            && (methods[i].getParameterTypes()[0] == byte[].class || 
+                ! methods[i].getParameterTypes()[0].isArray())
+            && !methods[i].getParameterTypes()[0].isInterface()
+            && ! Collection.class.isAssignableFrom(methods[i].getParameterTypes()[0])
+            && ! Map.class.isAssignableFrom(methods[i].getParameterTypes()[0])
+            ) {
           String propName = methods[i].getName().substring(3);
           propName = StringUtils.uncapitalised(propName);
           Prop p = (Prop)props.get(propName);
@@ -161,8 +171,12 @@ public final class TableFactory {
         }
         
         if (methods[i].getParameterTypes().length == 0
-                && (methods[i].getReturnType().getClass() == byte[].class || 
-                        !methods[i].getReturnType().getClass().isArray())) {
+            && ! methods[i].getReturnType().isInterface()
+            && (methods[i].getReturnType() == byte[].class || 
+                !methods[i].getReturnType().isArray())
+            && !Collection.class.isAssignableFrom(methods[i].getReturnType())
+            && !Map.class.isAssignableFrom(methods[i].getReturnType())
+        ) {
           String propName = null;
           if ((methods[i].getName().startsWith("get")) && 
                Character.isUpperCase(methods[i].getName().toCharArray()[3]))
@@ -193,6 +207,9 @@ public final class TableFactory {
       if (p.getGot() != null && 
           p.getGot() == p.getSet()) { 
         System.err.println("Adding stored column:" + p.getName());
+        System.err.println("Assignable from Collection:" + Collection.class.isAssignableFrom(p.getGot()));
+        System.err.println("Assignable from Map:" + Map.class.isAssignableFrom(p.getGot()));
+        
         addColumn(table, p.getName(), p.getGot(), p.getGot() == p.getSet());
       }
     }
@@ -205,6 +222,7 @@ public final class TableFactory {
             .getColumnInfoTable().newPersistent();
     columnInfo.setTableinfo(table.getInfo());
     columnInfo.setName(name);
+    
     columnInfo.setDisplayname(name);
     columnInfo.setDisplayorder(99);
     columnInfo.setSearchability(Searchability.yes);

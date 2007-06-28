@@ -297,12 +297,4 @@ public class AdminUtilsTest extends PoemTestCase {
    // Not easy to do, as poem objects are not Treeable
   }
 
-  /**
-   * @see org.melati.admin.AdminUtils#isTreeable(Persistent)
-   */
-  public void testIsTreeable() {
-    m.loadTableAndObject();
-    assertFalse(au.isTreeable(m.getObject()));
-  }
-
 }

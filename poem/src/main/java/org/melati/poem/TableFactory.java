@@ -202,14 +202,8 @@ public final class TableFactory {
     Enumeration propsEn = props.elements();
     while (propsEn.hasMoreElements()) {
       Prop p = (Prop)propsEn.nextElement();
-      System.err.println("Processing stored column:" + p.getName()
-              + ":" + p.getGot() + ":" + p.getSet() ); 
       if (p.getGot() != null && 
           p.getGot() == p.getSet()) { 
-        System.err.println("Adding stored column:" + p.getName());
-        System.err.println("Assignable from Collection:" + Collection.class.isAssignableFrom(p.getGot()));
-        System.err.println("Assignable from Map:" + Map.class.isAssignableFrom(p.getGot()));
-        
         addColumn(table, p.getName(), p.getGot(), p.getGot() == p.getSet());
       }
     }

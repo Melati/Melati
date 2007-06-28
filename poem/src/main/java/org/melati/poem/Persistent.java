@@ -60,14 +60,9 @@ import org.melati.poem.util.MappedEnumeration;
 /**
  * The object representing a single table row; this is the <B>PO</B> in POEM!
  * <p>
- * Instances are also used to represent selection criteria  
- * in the dialect of SQL of this DBMS.
- * Features have now been added specifically to support this but
- * this functionality might later be factored out into separate
- * types specifically for that purpose.
+ * Instances are also used to represent selection criteria.
  *
  * @author WilliamC At paneris.org
- * @author jimw At paneris.org (Representing query constructs)
  */
 
 public class Persistent extends Transactioned implements Cloneable, Persistable {

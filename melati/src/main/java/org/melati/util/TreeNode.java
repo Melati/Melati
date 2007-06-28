@@ -44,6 +44,7 @@
 package org.melati.util;
 
 import java.util.Vector;
+import org.melati.poem.Treeable;
 
 /**
  * A {@link Tree} node.

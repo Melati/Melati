@@ -45,6 +45,7 @@ package org.melati.util;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Vector;
 import java.util.Enumeration;
+import org.melati.poem.Treeable;
 
 /**
  * A tree of <code>DefaultMutableTreeNode</code>s, 

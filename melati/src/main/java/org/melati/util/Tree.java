@@ -47,6 +47,7 @@ import java.util.Vector;
 
 import org.melati.poem.util.Order;
 import org.melati.poem.util.SortUtils;
+import org.melati.poem.Treeable;
 
 /**
  * A whole tree.

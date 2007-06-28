@@ -44,16 +44,17 @@
  */
 package org.melati.admin;
 
+
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.Table;
+import org.melati.poem.Treeable;
 import org.melati.template.MarkupLanguage;
 import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.JSStaticTree;
 import org.melati.util.Tree;
-import org.melati.util.Treeable;
 
 /**
  * A utility object for placing in a <code>ServletTemplateContext</code>.
@@ -334,17 +335,4 @@ public class AdminUtils {
     return new JSStaticTree(new Tree(node), getStaticURL());
   }
   
-  /**
-   * Whether the object is a Treeable. 
-   * You can no longer (as of 1.0) look at an object's methods
-   * in WebMacro.
-   * @param object the object to interrogate
-   * @return whether the object is an instance of Treeable
-   */
-  public boolean isTreeable(Persistent object) {
-    return object instanceof Treeable;
-  }
-    
-  
-
 }

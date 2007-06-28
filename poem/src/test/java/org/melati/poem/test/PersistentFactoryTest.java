@@ -90,12 +90,26 @@ public class PersistentFactoryTest extends PoemTestCase {
    * 
    */
   public void testFromUnknownInstance() { 
-    ClassWithNoIdAndPublicMembers d = new ClassWithNoIdAndPublicMembers("Fido");
-    d.setThoughts("Food");
-    d.setClassWithNoIdAndPrivateMembers(new ClassWithNoIdAndPrivateMembers("Tiddles"));
-    Persistent persistedDog = PersistentFactory.fromInstance(getDb(), d);
-    assertEquals("Food", persistedDog.getRaw("thoughts"));
-    assertEquals("Tiddles", ((Persistent)persistedDog.getCooked("classWithNoIdAndPrivateMembers")).getRaw("name"));
+    // Create one before we start so that it can be compared and rejected
+    ClassWithNoIdAndPublicMembers d1 = new ClassWithNoIdAndPublicMembers("Pepper");
+    d1.setThoughts("Squirrels");
+    Persistent persistedDog = PersistentFactory.fromInstance(getDb(), d1);
+    assertEquals(new Integer(0), persistedDog.getTroid());
+    
+    ClassWithNoIdAndPublicMembers d2 = new ClassWithNoIdAndPublicMembers("Fido");
+    d2.setThoughts("Food");
+    d2.setClassWithNoIdAndPrivateMembers(new ClassWithNoIdAndPrivateMembers("Tiddles"));
+    Persistent persistedDog2 = PersistentFactory.fromInstance(getDb(), d2);
+    assertEquals("Food", persistedDog2.getRaw("thoughts"));
+    assertEquals("Tiddles", ((Persistent)persistedDog2.getCooked("classWithNoIdAndPrivateMembers")).getRaw("name"));
+    assertEquals(new Integer(1), persistedDog2.getTroid());
+    
+    // Do it again to exercise selection
+    Persistent persistedDog3 = PersistentFactory.fromInstance(getDb(), d2);
+    assertEquals("Food", persistedDog3.getRaw("thoughts"));
+    assertEquals("Tiddles", ((Persistent)persistedDog3.getCooked("classWithNoIdAndPrivateMembers")).getRaw("name"));
+    assertEquals(new Integer(1), persistedDog3.getTroid());
+    assertTrue(persistedDog2.equals(persistedDog3));
   }
   
   /**

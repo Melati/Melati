@@ -84,7 +84,13 @@ public class Hsqldb extends AnsiStandard {
   public void shutdown(Connection connection)  throws SQLException { 
     if (!connection.isClosed()) {
       Statement st = connection.createStatement();
-      st.execute("SHUTDOWN SCRIPT"); 
+      try { 
+        st.execute("SHUTDOWN SCRIPT");
+      } catch (SQLException e) { 
+        // This seems to be caused by a shutdownhook race
+        if (!e.getMessage().equals("Access is denied: Session is closed")) 
+          throw e;
+      }
       st.close();
     }
   }

@@ -619,8 +619,7 @@ public class Admin extends TemplateServlet {
       throws PoemException {
     melati.getObject().assertCanRead();
     context.put("object", melati.getObject());
-    Database database = melati.getDatabase();
-    context.put("database", database);
+    context.put("database", melati.getDatabase());
     context.put("table", melati.getTable());
     return context;
   }

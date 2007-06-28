@@ -1,10 +1,5 @@
 package org.melati.util.test;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
-import org.melati.poem.util.EnumUtils;
-import org.melati.util.Treeable;
 import org.melati.util.test.generated.NodeBase;
 
 /**
@@ -28,7 +23,7 @@ import org.melati.util.test.generated.NodeBase;
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class Node extends NodeBase implements Treeable {
+public class Node extends NodeBase {
 
  /**
   * Constructor 
@@ -43,39 +38,5 @@ public class Node extends NodeBase implements Treeable {
   public Node() { }
 
   // programmer's domain-specific code here
-  /**
-   * @see org.melati.util.Treeable#getChildren()
-   */
-  public Treeable[] getChildren() {
-    return (Node.arrayOf(getNodeTable().getParentColumn().referencesTo(this)));
-  }
-  
-  /**
-   * Create an array from a vector. 
-   * 
-   * @param v the vector
-   * @return an array
-   */
-  public static Treeable[] arrayOf(Vector v) {
-    Treeable[] arr;
-    synchronized (v) {
-      arr = new Treeable[v.size()];
-      v.copyInto(arr);
-    }
-
-    return arr;
-  }
-
-  /**
-   * Create an array from an enumeration. 
-   * 
-   * @param v the enumeration
-   * @return an array
-   */
-  public static Treeable[] arrayOf(Enumeration e) {
-    Vector v = EnumUtils.vectorOf(e);
-    return arrayOf(v);
-  }
-  
 }
 

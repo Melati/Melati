@@ -209,7 +209,7 @@ public class TableMapTest extends PoemTestCase {
     assertFalse(getObjectUnderTest().containsValue(u));
     u.makePersistent();
     assertTrue(getObjectUnderTest().containsValue(u));
-    User old = (User)getObjectUnderTest().remove(u.troid());
+    User old = (User)getObjectUnderTest().remove(u.getTroid());
     assertFalse(getObjectUnderTest().containsValue(u));
     assertFalse(getObjectUnderTest().containsValue(old));
     // Its status is DELETED

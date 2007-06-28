@@ -81,7 +81,7 @@ public class CachedCount extends CachedQuery {
                      boolean includeDeleted, boolean excludeUnselectable) {
     super(criteria.getTable(),
           criteria.countMatchSQL(includeDeleted, excludeUnselectable),
-          criteria.otherMatchTables());
+          null);
   }
 
   /**

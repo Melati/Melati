@@ -88,9 +88,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   private int status = NONEXISTENT;
 
   private Object[] extras = null;
-  // HACK Set when used as a criteria 
-  private Table[] otherMatchTables = new Table[0];
-
   /**
    * Constructor.
    */
@@ -162,7 +159,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * Throws an exception if this Persistent has a status of DELETED.
+   * Throws <tt>RowDisappearedPoemException</tt> if this Persistent has a status of DELETED.
    */
   private void assertNotDeleted() {
     if (status == DELETED)
@@ -305,6 +302,11 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * FIXME This shouldn't be public because we don't in principle want people
    * to know even the troid of an object they aren't allowed to read.  However,
    * I think this information may leak out elsewhere.
+   * To fix is not simple, as generated setters rely upon a lock-free read of the object to set. 
+   * 
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.Persistable#troid()
    */
   public final Integer troid() {
     return troid;
@@ -389,7 +391,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    * <p>
-   * NOTE if a canRead column is defined then it will override this method.
+   * NOTE If a canRead column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>canread</TT> field, 
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -492,7 +494,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    * <p>
-   * NOTE if a canWrite column is defined then it will override this method.
+   * NOTE If a canWrite column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>canwrite</TT> field,
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -1501,7 +1503,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    * @return an SQL query string
    */
-  public String countMatchSQL(boolean includeDeleted,
+  protected String countMatchSQL(boolean includeDeleted,
                               boolean excludeUnselectable) {
     return getTable().countSQL(
       fromClause(),
@@ -1521,34 +1523,11 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * result of {@link Table #appendWhereClause(StringBuffer, Persistent)}.
    * @return an SQL snippet 
    */
-  public String fromClause() {
+  protected String fromClause() {
     String result = getTable().quotedName();
-    Table[] other = otherMatchTables();
-    for (int i = 0; i < other.length; i++) {
-      result += ", " + other[i].quotedName();
-    }
     return result;
   }
 
-  /**
-   * @param otherMatchTables the otherMatchTables to set
-   */
-  public void setOtherMatchTables(Table[] otherMatchTables) {
-    this.otherMatchTables = otherMatchTables;
-  }
-
   
-  /**
-   * Return any other tables involved in the SELECT query for which
-   * this represents criteria.
-   * <p>
-   * Note that this does not support aliases, unless we implement
-   * these through a subtype of {@link Table}.
-   * @return an empty Array by default
-   */
-  public Table[] otherMatchTables() {
-    return otherMatchTables;
-  }
-
 
 }

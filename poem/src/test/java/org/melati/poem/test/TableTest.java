@@ -436,7 +436,7 @@ public class TableTest extends PoemTestCase {
   public void testGetObjectInt() {
     GroupTable t = getDb().getGroupTable();
     Persistent p = t.getObject(0);
-    assertEquals(new Integer(0),p.troid());
+    assertEquals(new Integer(0),p.getTroid());
   }
 
   /**

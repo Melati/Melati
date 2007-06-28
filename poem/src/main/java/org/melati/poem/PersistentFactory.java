@@ -72,6 +72,7 @@ public final class PersistentFactory {
    * @return A new or existing persisted Persistent
    */
   public static Persistent fromInstance(Database db, Object pojo) {
+    System.err.println("fromInstance - looking for " + pojo.getClass().getName());
     Table table = null;
     Persistent p = null;
     if (pojo instanceof Persistent) {
@@ -85,29 +86,36 @@ public final class PersistentFactory {
     } else
       table = TableFactory.fromInstance(db, pojo);
     p = populatedPersistent(table, pojo);
-    Persistent candidate = null;
     Enumeration candidates = table.selection(p);
     while (candidates.hasMoreElements()) {
-      candidate = (Persistent)candidates.nextElement();
+      Persistent candidate = (Persistent)candidates.nextElement();
       if (commonFieldsEqual(p, candidate)) { 
         p = candidate;
+        System.err.println("Candidate: " + p);
         break;
-      } 
+      } else 
+        System.err.println("Non Candidate: " + p);
     }
-    if (candidate == null)
+    if (p.getTroid() == null) {
+      System.err.println("About to persist : " + p);
       p.makePersistent();
-      
+      System.err.println("Have persisted : " + p);
+    }
+    System.err.println("Returning : " + p);
     return p;
   }
 
-  private static boolean commonFieldsEqual(Persistent p, Persistent candidate) {
-    Enumeration cols = p.getTable().columns();
+  private static boolean commonFieldsEqual(Persistent criterion, Persistent candidate) {
+    Enumeration cols = criterion.getTable().columns();
     while (cols.hasMoreElements()) { 
       Column col = (Column)cols.nextElement();
       if (col.isTroidColumn()) 
         continue;
-      if (col.getRaw(p) != col.getRaw(candidate))
+      if (col.getRaw(criterion) != null && 
+               !col.getRaw(criterion).equals(col.getRaw(candidate))) { 
+        System.err.println("Reject");
         return false;
+      }
     }
     return true;
   }
@@ -120,12 +128,12 @@ public final class PersistentFactory {
    * @return A floating Persistent with fields populated from the given pojo
    */
   public static Persistent populatedPersistent(Table table, Object pojo) {
-    Persistent p = table.newPersistent();
     if (pojo instanceof Persistent) 
       if (((Persistent)pojo).troid() != null)
         return table.getObject(((Persistent)pojo).troid().intValue());
       else 
         return ((Persistent)pojo);
+    Persistent p = table.newPersistent();
     Class c = pojo.getClass();
     Enumeration columns = table.columns();
     while (columns.hasMoreElements()) {
@@ -142,7 +150,8 @@ public final class PersistentFactory {
                   + StringUtils.capitalised(col.getName()), new Class[] {});
         } catch (NoSuchMethodException e1) {
           throw new AppBugPoemException(
-                  "No getter available for field " + col.getName(), e1);
+                  "No getter available for field " + col.getName() + 
+                  " on object of class " + pojo.getClass().getName(), e1);
         }
       } 
       try {
@@ -154,8 +163,8 @@ public final class PersistentFactory {
       if (raw != null) {
         try {
           if (col.getType() instanceof ReferencePoemType) {
-            p.setCooked(col.getName(), PersistentFactory.fromInstance(table
-                    .getDatabase(), raw));
+            p.setCooked(col.getName(), 
+                        PersistentFactory.fromInstance(table.getDatabase(), raw));
           } else {
             p.setCooked(col.getName(), raw);
           }

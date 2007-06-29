@@ -61,29 +61,13 @@ public final class ClassNameTempletLoader implements TempletLoader {
 
   // NOTE It is not expected that templates will be added at runtime.
   private static Hashtable templetForClassCache = new Hashtable();
-  // FIXME specialTemplateNames should go, by callers becoming classes
-  private static Hashtable specialTemplateNames = new Hashtable();
   
   private static final Integer FOUND = new Integer(1);
   private static final Integer NOT_FOUND = new Integer(0);
   private static Hashtable lookedupTemplateNames = new Hashtable();
 
-  /** Constructor. */
-  private ClassNameTempletLoader() {
-      // These templates cannot be overridden
-    specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", 
-                             "select");
-    specialTemplateNames.put("org.melati.poem.RestrictedReferencePoemType", 
-                             "select");
-    specialTemplateNames.put("org.melati.poem.ReferencePoemType", 
-                             "select");
-    specialTemplateNames.put("org.melati.poem.DisplayLevelPoemType", 
-                             "select");
-    specialTemplateNames.put("org.melati.poem.SearchabilityPoemType", 
-                             "select");
-    specialTemplateNames.put("org.melati.poem.IntegrityFixPoemType", 
-                             "select");
-  }
+  /** Disable instantiation. */
+  private ClassNameTempletLoader() {}
 
   /**
    * @return the instance
@@ -181,9 +165,10 @@ public final class ClassNameTempletLoader implements TempletLoader {
         templet = fromCache;
         break;
       } 
-      templet = getSpecialTemplate(lookupClass, lookupPurpose, markupLanguage, templateEngine);
-      if (templet != null)
-        break;
+      //templet = getSpecialTemplate(lookupClass, lookupPurpose, markupLanguage, templateEngine);
+      //if (templet != null)
+      //  break;
+      
       // Try to find one in the templets directory
       String templetPath = templetsTempletPath(templateEngine, markupLanguage,
               lookupPurpose, lookupClass.getName());
@@ -195,6 +180,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
       templet = getTemplate(templateEngine, templetPath);
       if (templet != null)
         break;
+      
       if (lookupPurpose != null)
         lookupPurpose = null;
       else { 
@@ -245,25 +231,6 @@ public final class ClassNameTempletLoader implements TempletLoader {
       } 
     } catch (NotFoundException e) {
       lookedupTemplateNames.put(templetPath, NOT_FOUND);
-    }
-    return templet;
-  }
-  
-  private Template getSpecialTemplate(Class clazz, String purpose, 
-          MarkupLanguage markupLanguage, TemplateEngine templateEngine) 
-      throws IOException {
-    Template templet = null;
-    if (purpose == null) {
-      String specialTemplateName =
-          (String)specialTemplateNames.get(clazz.getName());
-      if (specialTemplateName != null) {
-        try {
-          templet =
-                templet(templateEngine, markupLanguage, specialTemplateName);
-        } catch (NotFoundException e) {
-          throw new MelatiBugMelatiException("Special template " + specialTemplateName + " not found");
-        }
-      }
     }
     return templet;
   }

@@ -180,9 +180,7 @@ public class HttpHeader {
 
   /**
    * Factory method to create and return an iterator of words.
-   * <p>
-   * Subtypes are unlikely to (want to) override this so it is, 
-   * currently, final.
+   * 
    * @return a new WordIterator
    */
   public final WordIterator wordIterator() {

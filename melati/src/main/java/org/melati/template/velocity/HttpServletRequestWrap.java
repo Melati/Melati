@@ -53,7 +53,7 @@ import org.melati.util.DelegatedHttpServletRequest;
  * A wrapper around an HttpServletRequest.
  *
  * @todo Add get method that allows us to use $Form.XXXX 
- *       to access for parameters
+ *       to access form parameters
  */
 
 public class HttpServletRequestWrap extends DelegatedHttpServletRequest {

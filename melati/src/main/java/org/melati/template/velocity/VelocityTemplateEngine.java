@@ -134,7 +134,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     return p;
   }
 
-  /** A special variable that Velocity is expecting, I think. */
+  /** A mimicking the $Form behaviour of Webmacro. */
   public static final String FORM = "Form";
 
   /**
@@ -331,7 +331,9 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   /** 
    * Get a variable exception handler for use if there is 
    * a problem accessing a variable.
+   * 
    * FIXME Discover the velocity equivalent
+   * 
    * @return a <code>PassbackVariableExceptionHandler</code> 
    *         appropriate for this engine.
    * {@inheritDoc}

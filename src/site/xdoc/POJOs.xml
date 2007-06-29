@@ -40,8 +40,8 @@ If POJOs can be avoided, and you are happy to use <tt>Persistent</tt>s as
 your base class, then that is the best way to use POEM. 
 However POEM enables you to persist a POJO object graph to a database, 
 which can be useful for reporting, migrating to POEM or similar 
-POJO to database transformations. It also enables you to populate 
-an object graph from its classes. 
+POJO to database transformations. It also enables you to re-populate 
+an object graph from a database. 
 </p>
 <p>
 What POEM does not attempt to do is 
@@ -64,7 +64,7 @@ if that is not an option then
 <tr><td>Setters and getters must be public</td>                   <td>No</td><td>Yes</td></tr> 
 <tr><td>Persist public fields</td>                                <td>Not by default</td><td>No</td></tr>
 <tr><td>Use existing id fields</td>                               <td>Yes</td><td>No</td></tr> 
-<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td>Yes</td></tr>
+<tr><td>Fields must have both a setter and a getter</td>          <td>No</td><td>Yes</td></tr>
 </table>
 <p>
 POEM enforces Hibernate best practice, 

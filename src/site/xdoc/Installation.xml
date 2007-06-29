@@ -143,11 +143,11 @@ CREATE DATABASE melatijunit;
 <p>
 Authorise the user that Poem will connect as:
 <pre>
-</pre>
 USE everything;
 GRANT ALL ON *.* to melati@localhost identified by 'melati';
 USE melatijunit;
 GRANT ALL ON *.* to melati@localhost identified by 'melati';
+</pre>
 </p>
 </subsection>
 <subsection name="SQLServer">

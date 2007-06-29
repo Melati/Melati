@@ -133,9 +133,8 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * Get a template given it's name.
    * 
    * @param templateName the name of the template to find
-   * @throws TemplateEngineException 
-   *         if not template not found
    * @return a template
+   * @throws IOException if the engine does
    * @throws NotFoundException if template not found
    */
   public org.melati.template.Template template(String templateName)

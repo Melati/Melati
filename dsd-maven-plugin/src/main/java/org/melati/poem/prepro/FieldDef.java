@@ -197,7 +197,7 @@ public abstract class FieldDef {
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field type>", tokens);
     String type = tokens.sval;
-    // FIXME as a hack we allow "byte[]"
+    // HACK we allow "byte[]" for binary data
     if (type.equals("byte")) {
       if (tokens.nextToken() != '[' || tokens.nextToken() != ']')
         throw new ParsingDSDException("[", tokens);

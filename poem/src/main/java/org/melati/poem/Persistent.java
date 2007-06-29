@@ -54,7 +54,6 @@ import java.util.Vector;
 
 import org.melati.poem.transaction.Transaction;
 import org.melati.poem.transaction.Transactioned;
-import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 
@@ -1533,12 +1532,18 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
     Enumeration refs = getDatabase().referencesTo(this);
     Vector v = new Vector();
     while (refs.hasMoreElements())
-      v.addElement(refs.nextElement());
-    return (Persistent[])ArrayUtils.arrayOf(v);
+      v.addElement((Treeable)refs.nextElement());
+    Treeable[] kids;
+    synchronized (v) {
+      kids = new Treeable[v.size()];
+      v.copyInto(kids);
+    }
+
+    return kids;
   }
 
   /** 
-   * This will be overridden if the persistent has a field called <tt>name</tt>. 
+   * NOTE This will be overridden if the persistent has a field called <tt>name</tt>. 
    * {@inheritDoc}
    * @see org.melati.poem.Treeable#getName()
    */

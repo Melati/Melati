@@ -53,7 +53,7 @@ import org.melati.poem.util.StringUtils;
  * <p>
  * All generated classes are instances of this type.
  */
-public class ReferencePoemType extends IntegerPoemType {
+public class ReferencePoemType extends IndexPoemType {
 
   private Table targetTable;
 
@@ -136,7 +136,7 @@ public class ReferencePoemType extends IntegerPoemType {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return StringUtils.capitalised(targetTable.getName());

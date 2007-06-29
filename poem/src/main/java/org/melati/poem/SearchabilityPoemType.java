@@ -53,7 +53,7 @@ import org.melati.poem.util.IntegerEnumeration;
  * <p>
  * Whether field can be searched upon.
  */
-public class SearchabilityPoemType extends IntegerPoemType {
+public class SearchabilityPoemType extends IndexPoemType {
 
   /**
    * Constructor, non-nullable.
@@ -109,7 +109,7 @@ public class SearchabilityPoemType extends IntegerPoemType {
 
  /**
    * {@inheritDoc}
-   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Searchability";

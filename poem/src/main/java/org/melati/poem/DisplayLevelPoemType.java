@@ -51,7 +51,7 @@ import org.melati.poem.util.IntegerEnumeration;
 /**
  * A type for {@link DisplayLevel}s.
  */
-public class DisplayLevelPoemType extends IntegerPoemType {
+public class DisplayLevelPoemType extends IndexPoemType {
 
   /**
    * Constructor giving non nullable type.
@@ -104,7 +104,7 @@ public class DisplayLevelPoemType extends IntegerPoemType {
   /**
    * @return the field type used in the Data Structure Definition language
    * {@inheritDoc}
-   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "DisplayLevel";

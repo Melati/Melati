@@ -61,7 +61,7 @@ import org.melati.poem.util.MappedEnumeration;
  *
  * @see PoemTypeFactory#forCode
  */
-public class ColumnTypePoemType extends IntegerPoemType {
+public class ColumnTypePoemType extends IndexPoemType {
 
   private Database database;
 
@@ -129,7 +129,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "ColumnType";

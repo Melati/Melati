@@ -51,7 +51,7 @@ import org.melati.poem.util.IntegerEnumeration;
 /**
  * A type for {@link IntegrityFix}s.
  */
-public class IntegrityFixPoemType extends IntegerPoemType {
+public class IntegrityFixPoemType extends IndexPoemType {
 
   /**
    * Constructor.
@@ -109,7 +109,7 @@ public class IntegrityFixPoemType extends IntegerPoemType {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "IntegrityFix";

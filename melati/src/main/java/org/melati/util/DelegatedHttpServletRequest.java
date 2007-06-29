@@ -181,6 +181,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    *  @deprecated Servlet API 2.3
+   *  
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
    */
@@ -307,6 +308,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * 
    * @deprecated    As of Version 2.1 of the Java Servlet API,
    *                use ServletContext.getRealPath instead.
+   *                
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
    */
@@ -317,6 +319,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    * @deprecated Servlet API 2.2
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
    */
@@ -325,6 +328,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
    */
@@ -333,6 +337,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getContextPath()
    */
@@ -341,6 +346,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
    */
@@ -349,6 +355,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getSession()
    */
@@ -357,6 +364,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
    */
@@ -365,6 +373,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
    */
@@ -373,6 +382,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getAttributeNames()
    */
@@ -381,6 +391,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocale()
    */
@@ -389,6 +400,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocales()
    */
@@ -401,7 +413,9 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * are compiling against the 2.0 servlet API and (b) you have not obtained
    * our stub <TT>RequestDispatcher.java</TT> along with the Melati
    * distribution, which is provided to help you out here.
+   * 
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
    */
@@ -410,6 +424,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#isSecure()
    */
@@ -418,6 +433,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#removeAttribute(java.lang.String)
    */
@@ -426,6 +442,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
   /**
    * @deprecated Servlet API 2.2 extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setAttribute(java.lang.String, java.lang.Object)
    */
@@ -435,6 +452,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    * @deprecated Servlet 2.3 API extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getRequestURL()
    */
@@ -444,6 +462,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    * @deprecated Servlet 2.3 API extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
    */
@@ -453,6 +472,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    * @deprecated Servlet 2.3 API extension
+   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterMap()
    */

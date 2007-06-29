@@ -46,6 +46,7 @@
 package org.melati.servlet;
 
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +64,8 @@ import org.melati.util.UTF8URLEncoder;
  */
 
 public final class Form {
+  
+  static Hashtable adaptorCache = new Hashtable();
 
   private Form() {}
   
@@ -89,15 +92,7 @@ public final class Form {
       String adaptorFieldName = formFieldName + "-adaptor";
       String adaptorName = context.getForm(adaptorFieldName);
       if (adaptorName != null) {
-        TempletAdaptor adaptor;
-        try {
-          // FIXME Cache this instantiation of TempletAdaptor
-          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-        }
-        catch (Exception e) {
-          throw new TempletAdaptorConstructionMelatiException(
-              adaptorFieldName, adaptorName, e);
-        }
+        TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
         column.setRaw(object, adaptor.rawFrom(context, formFieldName));
       } else {
         if (rawString != null) {
@@ -133,22 +128,28 @@ public final class Form {
     String adaptorName = context.getForm(adaptorFieldName);
 
     if (adaptorName != null) {
-      TempletAdaptor adaptor;
-      try {
-        // FIXME Cache this instantiation of TempletAdaptor
-        adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-      }
-      catch (Exception e) {
-        throw new TempletAdaptorConstructionMelatiException(
-        adaptorFieldName, adaptorName, e);
-      }
+      TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
       return adaptor.rawFrom(context, fieldName);
     }
     return rawString;
   }
 
 
-    
+  private static TempletAdaptor getAdaptor(String adaptorFieldName, String adaptorName) {
+    TempletAdaptor adaptor = (TempletAdaptor)adaptorCache.get(adaptorName);
+    if(adaptor == null)
+      try {
+        adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
+        adaptorCache.put(adaptorName, adaptor);
+      }
+      catch (Exception e) {
+        throw new TempletAdaptorConstructionMelatiException(
+        adaptorFieldName, adaptorName, e);
+      }
+
+    return adaptor;
+  }
+  
   /**
   * A utility method that gets a value from the Form.  It will return
   * null if the value is "" or not present.
@@ -169,15 +170,15 @@ public final class Form {
   *
   * @param context - a template context
   * @param field - the name of the field to get
-  * @param def - the default value if the field is "" or not present
+  * @param defaultValue - the default value if the field is "" or not present
   *
   * @return - the value of the field requested
   */
   public static String getField(ServletTemplateContext context, String field, 
-                               String def) {
+                               String defaultValue) {
     String val = context.getForm(field);
-    if (val == null) return def;
-    return val.trim().equals("") ? def : val;
+    if (val == null) return defaultValue;
+    return val.trim().equals("") ? defaultValue : val;
   }
 
   /**
@@ -186,14 +187,14 @@ public final class Form {
   *
   * @param context - a template context
   * @param field - the name of the field to get
-  * @param def - the default value if the field is "" or not present
+  * @param defaultValue - the default value if the field is "" or not present
   *
   * @return - the value of the field requested
   */
   public static Integer getIntegerField(ServletTemplateContext context, String field, 
-                                Integer def) {
+                                Integer defaultValue) {
     String val = getFieldNulled(context, field);
-    return val == null ? def : new Integer(val);
+    return val == null ? defaultValue : new Integer(val);
   }
 
   /**
@@ -319,7 +320,7 @@ public final class Form {
                                String def) {
     String val = context.getForm(field);
     if (val == null) return def;
-    return val.trim().equals("")?def:val;
+    return val.trim().equals("") ? def : val;
   }
 
 }

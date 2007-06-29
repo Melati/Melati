@@ -116,7 +116,8 @@ public interface TempletLoader {
    * If there is no template found then the normal search path is 
    * searched. 
    * 
-   * HACK The purpose is not re-appended to the supperclasses searchpath.
+   * The purpose is then re-appended to the supperclasses searchpath 
+   * and so on up the tree, stopping at Object, which is always found.
    *    
    * @param templateEngine the TemplateEngine in use
    * @param markupLanguage the markuplanguage the templet is in

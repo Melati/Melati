@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -83,12 +83,11 @@ import org.melati.util.MelatiRuntimeException;
 
 
 /**
- * Melati template servlet for administration.
+ * Melati template servlet for databse administration.
  * <p>
  * This class defines
  * {@link #doTemplateRequest(Melati, ServletTemplateContext)}
- * and methods it calls to
- * interpret request methods, perhaps depending on the current
+ * and methods it calls to interpret requests, depending on the current
  * table and object, if any.
  * <p>
  * Java methods with names ending "<code>Template</code>"
@@ -263,8 +262,7 @@ public class Admin extends TemplateServlet {
    * @return SelectionRight template. 
    */
   protected String selectionRightTemplate(ServletTemplateContext context, 
-                                          Melati melati)
-  {
+                                          Melati melati) {
     selection(context, melati);
     return adminTemplate("SelectionRight");
   }
@@ -295,8 +293,8 @@ public class Admin extends TemplateServlet {
    * @return The modified context.
    * @see #adminTemplate(ServletTemplateContext, String)
    */
-  protected ServletTemplateContext selection(ServletTemplateContext context, Melati melati)
-      {
+  protected ServletTemplateContext selection(ServletTemplateContext context, 
+                                             Melati melati) {
     final Table table = melati.getTable();
     context.put("table", table);
 
@@ -490,8 +488,7 @@ public class Admin extends TemplateServlet {
    *  @return select template (a selection of records from a table)
    */
   protected String selectionWindowSelectionTemplate(ServletTemplateContext context,
-                                                    Melati melati)
-  {
+                                                    Melati melati) {
     selection(context, melati);
     return adminTemplate("SelectionWindowSelection");
   }
@@ -500,7 +497,7 @@ public class Admin extends TemplateServlet {
    * Implements the "ColumnCreate" request method.
    * <p>
    * FIXME Why is this not called
-   * <code>createColumnTemplate()</code>? Could deprecate.
+   * <code>createColumnTemplate()</code>? 
    */
   protected String columnCreateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
@@ -633,7 +630,7 @@ public class Admin extends TemplateServlet {
   protected String editHeaderTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
-    return adminTemplate( "EditHeader");
+    return adminTemplate("EditHeader");
   }
 
   protected String editTemplate(ServletTemplateContext context, Melati melati)

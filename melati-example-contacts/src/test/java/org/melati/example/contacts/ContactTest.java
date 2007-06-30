@@ -46,16 +46,16 @@ public class ContactTest extends PoemTestCase {
               root.setName("root");
               root = (Contact)((ContactsDatabase)getDb()).getContactTable().getNameColumn().ensure(root);
 
-              a = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("a", root, "Oxford");
-              b = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("b", root, "Oxford");
-              c = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("c", root, "Oxford");
+              a = ((ContactsDatabase)getDb()).getContactTable().ensure("a", root, "Oxford");
+              b = ((ContactsDatabase)getDb()).getContactTable().ensure("b", root, "Oxford");
+              c = ((ContactsDatabase)getDb()).getContactTable().ensure("c", root, "Oxford");
 
-              r = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("r", a, "Oxford");
-              s = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("s", a, "Oxford");
+              r = ((ContactsDatabase)getDb()).getContactTable().ensure("r", a, "Oxford");
+              s = ((ContactsDatabase)getDb()).getContactTable().ensure("s", a, "Oxford");
 
-              x = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("x", s, "Oxford");
-              y = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("y", x, "Oxford");
-              z = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("z", y, "Oxford");
+              x = ((ContactsDatabase)getDb()).getContactTable().ensure("x", s, "Oxford");
+              y = ((ContactsDatabase)getDb()).getContactTable().ensure("y", x, "Oxford");
+              z = ((ContactsDatabase)getDb()).getContactTable().ensure("z", y, "Oxford");
               PoemThread.commit();
             } catch (Throwable e) {
               //e.fillInStackTrace();

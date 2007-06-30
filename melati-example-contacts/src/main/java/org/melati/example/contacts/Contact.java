@@ -9,7 +9,7 @@ import org.melati.poem.User;
 import org.melati.poem.PoemThread;
 import org.melati.poem.util.EnumUtils;
 import org.melati.admin.AnticipatedException;
-import org.melati.util.Treeable;
+import org.melati.poem.Treeable;
 /**
  * A <code>Contact</code> object, embellished from the original,
  * Melati POEM generated, programmer modifiable stub.

@@ -93,7 +93,7 @@ public class ContactView extends ContactsServlet {
 
   protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
-    return (PoemContext)poemContextWithLDB(melati,"contacts");
+    return poemContextWithLDB(melati,"contacts");
   }
 
 }

@@ -10,15 +10,20 @@ import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.PoemThread;
 import org.melati.util.test.Node;
+import org.melati.util.test.TreeDatabase;
 import org.melati.template.AttributeMarkupLanguage;
+import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.util.JSStaticTree;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
+import org.melati.util.Tree;
 
 import junit.framework.TestCase;
 
@@ -61,6 +66,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
+    System.err.println("About to init " + templateEngine.getClass().getName());
     templateEngine.init(mc);
     m = new Melati(mc, new MelatiStringWriter());
     m.setTemplateEngine(templateEngine);
@@ -92,6 +98,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     //      "org.melati.poem.AccessPoemException: " + 
     //      "You need the capability Cool but " + 
     //      "your access token _guest_ doesn&#39;t confer it") != -1);
+    System.err.println(ml.rendered(ape));
     assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));
@@ -398,4 +405,33 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
 
+
+  /**
+   * Test method for rendered(Treeable).
+   * 
+   * @see org.melati.template.MarkupLanguage#rendered(Object)
+   */
+  public void testRenderedTreeable() throws Exception {
+    Node parent = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    parent.setName("Mum");
+    parent.makePersistent();
+    Node kid1 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    kid1.setName("K1");
+    kid1.setParent(parent);
+    kid1.makePersistent();
+    Node kid2 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
+    kid2.setName("K2");
+    kid2.setParent(parent);
+    kid2.makePersistent();
+    Tree testTree = new Tree(parent);
+    JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
+    m.setPoemContext(new PoemContext());
+      
+    String renderedTree = ml.rendered(tree);
+    System.err.println(":" + renderedTree + ":");
+    assertTrue(renderedTree.indexOf("init") != -1);
+   
+  }
+  
+  
 }

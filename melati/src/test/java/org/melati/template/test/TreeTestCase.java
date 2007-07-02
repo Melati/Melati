@@ -28,6 +28,7 @@ public class TreeTestCase extends PoemTestCase {
   public TreeTestCase(String name) {
     super(name);
   }
+  
   /**
    * @return Returns the db.
    */

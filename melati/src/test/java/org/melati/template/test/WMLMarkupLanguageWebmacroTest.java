@@ -1,15 +1,10 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
-import org.melati.template.ClassNameTempletLoader;
-import org.melati.template.WMLAttributeMarkupLanguage;
-import org.melati.template.WMLMarkupLanguage;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
-import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Capability;
-import org.melati.poem.PoemLocale;
 
 
 /**
@@ -18,38 +13,30 @@ import org.melati.poem.PoemLocale;
  * @author timp
  * @since 18-May-2006
  */
-public class WMLMarkupLanguageTest extends MarkupLanguageSpec {
+public class WMLMarkupLanguageWebmacroTest extends WMLMarkupLanguageSpec {
 
   /**
    * Constructor for PoemTest.
    * @param arg0
    */
-  public WMLMarkupLanguageTest(String arg0) {
+  public WMLMarkupLanguageWebmacroTest(String arg0) {
     super(arg0);
   }
   /**
    * Constructor.
    */
-  public WMLMarkupLanguageTest() {
+  public WMLMarkupLanguageWebmacroTest() {
     super();
   }
   
 
-  /**
-   * @see MarkupLanguageAbstract#setUp()
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
-    ml = new WMLMarkupLanguage(
-            m, 
-            ClassNameTempletLoader.getInstance(), 
-            PoemLocale.HERE);
-    aml = new WMLAttributeMarkupLanguage((WMLMarkupLanguage)ml);
-    m.setMarkupLanguage(ml);
-    assertEquals(ml, m.getMarkupLanguage());    
-    assertEquals(aml.getClass(), m.getMarkupLanguage().getAttr().getClass());    
-    }
-
+  }
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     if(mc.getTemplateEngine().getName() != "webmacro") {
@@ -65,20 +52,6 @@ public class WMLMarkupLanguageTest extends MarkupLanguageSpec {
   public void testGetName() {
     assertEquals("wml", ml.getName());
     assertEquals("wml_attr", aml.getName());
-  }
-
-  /** 
-   * There is no SelectionWindow template for WML.
-   * {@inheritDoc}
-   * @see org.melati.template.test.MarkupLanguageSpec#testSpecialTemplateFound()
-   */
-  public void testSpecialTemplateFound() throws Exception {
-    try { 
-      super.testSpecialTemplateFound();
-      fail("Should have bombed");
-    } catch (MelatiBugMelatiException e) { 
-      e = null;
-    }
   }
 
   /**

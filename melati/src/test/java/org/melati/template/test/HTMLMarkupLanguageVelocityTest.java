@@ -13,7 +13,7 @@ import org.melati.util.MelatiException;
  * @since 21-May-2006
  *
  */
-public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageTest {
+public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageSpec {
 
   /**
    * 
@@ -21,6 +21,15 @@ public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageTest {
   public HTMLMarkupLanguageVelocityTest() {
     super();
   }
+  
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+  }
+
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     mc.setTemplateEngine(new VelocityTemplateEngine());

@@ -13,7 +13,7 @@ import org.melati.util.MelatiException;
  * @since 21-May-2006
  *
  */
-public class WMLMarkupLanguageVelocityTest extends WMLMarkupLanguageTest {
+public class WMLMarkupLanguageVelocityTest extends WMLMarkupLanguageSpec {
 
   /**
    * Constructor.

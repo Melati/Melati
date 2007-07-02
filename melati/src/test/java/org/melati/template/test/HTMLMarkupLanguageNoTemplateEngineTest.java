@@ -14,7 +14,7 @@ import org.melati.util.MelatiException;
  *
  */
 public class HTMLMarkupLanguageNoTemplateEngineTest extends
-        HTMLMarkupLanguageTest {
+   HTMLMarkupLanguageSpec {
 
   /**
    * Constructor.
@@ -23,22 +23,32 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     super();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+  }
+
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     mc.setTemplateEngine(new NoTemplateEngine());
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.template.test.HTMLMarkupLanguageTest#testGetName()
+  /**
+   * Test method for getName.
+   * 
+   * @see org.melati.template.MarkupLanguage#getName()
    */
   public void testGetName() {
-    super.testGetName();
+    assertEquals("html", ml.getName());
+    assertEquals("html_attr", aml.getName());
   }
 
   /** 
    * {@inheritDoc}
-   * @see org.melati.template.test.HTMLMarkupLanguageTest#testRenderedTreeable()
+   * @see org.melati.template.test.HTMLMarkupLanguageWebmacroTest#testRenderedTreeable()
    */
   public void testRenderedTreeable() throws Exception {
     try { 

@@ -2,6 +2,17 @@
 <faqs title="Frequently Asked Questions" id="General FAQ">
   <part id="poem">
     <title>Poem</title>
+    <faq id="troid">
+      <question>What is a troid?</question>
+      <answer>
+        <p>
+A <b>T</b>able <b>R</b>ow <b>O</b>bject <b>ID</b>.
+        </p>
+        <p>
+        A Table Row Object Id is typically the primary key column of a table. 
+        </p>
+      </answer>
+    </faq>
     <faq id="cooked">
       <question>What is a cooked object?</question>
       <answer>
@@ -11,33 +22,8 @@ A cooked object is one which has attached metadata.
       </answer>
     </faq>
   </part>
-  <part id="dbs">
-    <title>Database problems</title>
-    <faq id="AccessTableNotFound">
-      <question>Why do I get Table Not Found errors when using an Access Database?</question>
-      <answer>
-        <p>
-        <tt>
-        [Microsoft][ODBC Microsoft Access Driver] The Microsoft Jet database engine cannot find the input table or query 'tableinfo'.  Make sure it exists and that its name is spelled correctly.
-        </tt>
-        </p>
-        <p>
-        By default MS Access Databases are created with <tt>UserCommitSync</tt> set to <tt>no</tt>, 
-        use the ODBC Datasource Administrator or Registry Editor to set this to <tt>yes</tt>.
-        </p>
-        <p>
-        If that does not work, then run the test or application again, it should work on 
-        the second occasion.
-        </p>
-        <p>
-        This problem was particularly acute for PreparedStatements, which now wait and 
-        try again up to 10 times until the Jet Cache resyncs.
-        </p>
-      </answer>
-    </faq>
-  </part>
-  <part id="Template Engines">
-    <title>Template Engines</title>
+  <part id="Melati">
+    <title>Melati</title>
     <faq id="Velocity">
       <question>How do I use Velocity?</question>
       <answer>
@@ -121,6 +107,31 @@ A cooked object is one which has attached metadata.
         existance of one method. As a Melati object has methods which return 
         objects from the <tt>javax.servlet.http</tt> package the servlets jar 
         is required, even when not used. 
+        </p>
+      </answer>
+    </faq>
+  </part>
+  <part id="dbs">
+    <title>Database problems</title>
+    <faq id="AccessTableNotFound">
+      <question>Why do I get Table Not Found errors when using an Access Database?</question>
+      <answer>
+        <p>
+        <tt>
+        [Microsoft][ODBC Microsoft Access Driver] The Microsoft Jet database engine cannot find the input table or query 'tableinfo'.  Make sure it exists and that its name is spelled correctly.
+        </tt>
+        </p>
+        <p>
+        By default MS Access Databases are created with <tt>UserCommitSync</tt> set to <tt>no</tt>, 
+        use the ODBC Datasource Administrator or Registry Editor to set this to <tt>yes</tt>.
+        </p>
+        <p>
+        If that does not work, then run the test or application again, it should work on 
+        the second occasion.
+        </p>
+        <p>
+        This problem was particularly acute for PreparedStatements, which now wait and 
+        try again up to 10 times until the Jet Cache resyncs.
         </p>
       </answer>
     </faq>

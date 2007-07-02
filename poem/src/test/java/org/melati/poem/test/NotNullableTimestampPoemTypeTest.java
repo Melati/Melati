@@ -44,8 +44,7 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec {
     super.testStringOfCooked();
     long now = System.currentTimeMillis();
     Timestamp nowStamp = new Timestamp(now);
-    // Hmm not a real test
-    //assertTrue(it.stringOfCooked(nowStamp, PoemLocale.HERE, DateFormat.MEDIUM) instanceof String);
+    assertEquals(20, it.stringOfCooked(nowStamp, PoemLocale.HERE, DateFormat.MEDIUM).length());
   }
 
   /**

@@ -44,10 +44,9 @@ POJO to database transformations. It also enables you to re-populate
 an object graph from a database. 
 </p>
 <p>
-What POEM does not attempt to do is 
-keep track of changes to the POJO such that the system can tell which 
-is most current the POJO or the store.
-It is not intended as your main persistance mechanism, as it 
+What POEM does not attempt to do is keep track of changes to the POJO such that 
+the system can tell which is most current the POJO or the store.
+It is not intended as your main persistance mechanism, as it is 
 not designed with bidirectionality in mind. You can populate a POJO from a 
 database record and visa versa but there is no attempt at transaction 
 handling or versioning, these issues are handled in POEM itself.

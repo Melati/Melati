@@ -78,7 +78,7 @@ public class VelocityTemplate implements org.melati.template.Template {
     } catch (ParseErrorException e) {
       throw e;
     } catch (Exception e) {
-      throw new MelatiBugMelatiException("Velocity template problem", e);
+      throw new MelatiBugMelatiException("Problem getting Velocity template", e);
     }
   }
   

@@ -258,14 +258,15 @@ public final class ClassNameTempletLoader implements TempletLoader {
                           MarkupLanguage markupLanguage,
                           FieldAttributes attributes)
       throws IOException {
-    if (attributes.getRenderInfo() != null)
+    if (attributes.getRenderInfo() != null) {
       try {
-        return templet(templateEngine, markupLanguage,
-            attributes.getRenderInfo());
+        return templet(templateEngine, markupLanguage, 
+                attributes.getRenderInfo());
       } catch (NotFoundException e) {
-        throw new MelatiBugMelatiException("Templet " + attributes.getRenderInfo() + " not found");
+        throw new MelatiBugMelatiException(
+                "Templet " + attributes.getRenderInfo() + " not found", e);
       }
-    else {
+    } else {
         return templet(templateEngine, markupLanguage,
                        attributes.getType().getClass());
     }

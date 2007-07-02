@@ -136,7 +136,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     return p;
   }
 
-  /** A mimicking the $Form behaviour of Webmacro. */
+  /** Mimicking the $Form behaviour of Webmacro. */
   public static final String FORM = "Form";
 
   /**

@@ -163,7 +163,19 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
                              String templateName, 
                              TemplateContext templateContext)
       throws IOException, NotFoundException {
-    expandTemplate (out, template (templateName), templateContext);
+    expandTemplate (out, template(templateName), templateContext);
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
+   */
+  public String expandedTemplate(org.melati.template.Template template,  
+                                 TemplateContext templateContext)
+      throws IOException {
+      MelatiStringWriter s = new MelatiWebmacroStringWriter();
+      expandTemplate(s, template, templateContext);
+      return s.toString();
   }
 
   /**
@@ -181,29 +193,6 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
               throws IOException {
     try {
       template.write(out, templateContext, this);
-    } catch (TemplateEngineException problem) {
-      Exception underlying = problem.subException;
-      if (underlying instanceof PropertyException) {
-        Throwable caught = ((PropertyException)underlying).getCause();
-        if (caught instanceof AccessPoemException) {
-          throw (AccessPoemException)caught;
-        }
-      }
-      throw problem;
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
-   */
-  public String expandedTemplate(org.melati.template.Template template,  
-                                 TemplateContext templateContext)
-      throws IOException {
-    try {
-      MelatiStringWriter s = new MelatiWebmacroStringWriter();
-      template.write (s, templateContext, this);
-      return s.toString();
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof PropertyException) {

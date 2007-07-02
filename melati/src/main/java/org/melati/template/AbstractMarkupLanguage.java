@@ -353,7 +353,10 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     vars.put("ml", melati.getMarkupLanguage());
     vars.put("object", field);
     vars.put("field", field);
-    return melati.getTemplateEngine().expandedTemplate(templet,vars);
+    MelatiStringWriter sw = getStringWriter();
+    melati.getTemplateEngine().expandTemplate(sw, templet,vars);
+    
+    return sw.toString(); 
   }
 
   

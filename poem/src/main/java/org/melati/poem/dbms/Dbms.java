@@ -328,7 +328,7 @@ public interface Dbms {
    * @param targetTableName the table that this is a foreign key into, unquoted
    * @param targetTableFieldName name of the primary key field of the foreign 
    * table, often id, unquoted
-   * @param fixName name of the {@link IntegrityFix} 
+   * @param fixName name of the IntegrityFix 
    * 
    * @return The definition string
    */

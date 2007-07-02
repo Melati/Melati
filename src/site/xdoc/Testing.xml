@@ -27,13 +27,13 @@ This page last updated: $Date$ $Author$
 <section name=" Testing ">
 <p>
 The unit tests have been retro-fitted, JUnit did not exist when the code 
-was first written, so the objective of the tests is to achieve 100% 
-branch coverage, not to have a unit test for every method.
+was first written, so the objectives of the tests are: 
 </p>
-<p>
-The tests are intended to serve two purposes: to act as a comprehensive 
-regression test and to give an example of usage for all public methods.
-</p>
+<ul>
+<li>to highlight missing coverage </li>
+<li>to illustrate how to use public methods</li>
+<li>to act as a comprehensive regression test</li>
+</ul>
 <subsection name="JUnit tests">
 <p>
 Maven allows tests to be run in a single thread or a new thread per test.

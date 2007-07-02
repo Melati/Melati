@@ -61,14 +61,14 @@ import org.webmacro.PropertyException;
  */
 
 public class WebmacroTemplate implements Template {
-  private org.webmacro.Template template;
+  private org.webmacro.Template webmacroTemplate;
 
   /**
    * Constructor.
    * @param t webmacro template
    */
   public WebmacroTemplate(org.webmacro.Template t) {
-    template = t;
+    webmacroTemplate = t;
   }
 
   /**
@@ -79,7 +79,7 @@ public class WebmacroTemplate implements Template {
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws IOException {
     try {
-      Object o = template.evaluateAsString((Context)templateContext.getContext());
+      Object o = webmacroTemplate.evaluateAsString((Context)templateContext.getContext());
       out.write(o.toString());
     } catch (PropertyException e) {
       throw new TemplateEngineException(e);

@@ -306,17 +306,20 @@ public class AdminUtils {
    */
   public String specialFacilities(Melati melati, MarkupLanguage ml,
           Persistent object) throws Exception {
-//  if (object instanceof AdminSpecialised)
-//  melati.getTemplateEngine().expandTemplate(melati.getWriter(),
-//          ((AdminSpecialised) object).adminSpecialFacilities(melati, ml),
-//          melati.getTemplateContext());
-//  return "";
-    if (object instanceof AdminSpecialised)
+  if (object instanceof AdminSpecialised)
+    melati.getTemplateEngine().expandTemplate(melati.getWriter(),
+          ((AdminSpecialised) object).adminSpecialFacilities(melati, ml),
+          melati.getTemplateContext());
+  return "";
+  /*
+  if (object instanceof AdminSpecialised)
       return melati.getTemplateEngine().expandedTemplate(
           melati.getTemplateEngine().template(
               ((AdminSpecialised) object).adminSpecialFacilities(melati, ml)),
               melati.getTemplateContext());
-    return "";
+    else 
+      return "";
+    */
   }
 
   /**

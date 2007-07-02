@@ -51,9 +51,12 @@ import org.melati.util.MelatiConfigurationException;
 import org.webmacro.servlet.WebContext;
 
 /**
- * Base class to use Melati with WebMacro.
- * Simply extend this class, override the handle method
+ * Base class to use WebMacro (specifically) with Melati. 
  * 
+ * Extend this class, overriding the {@link #handle(Melati, WebContext)} method.
+ * 
+ * If you are agnostic as to which TemplateEngine to use then extend {@link TemplateServlet} directly.
+ *  
  * @author Tim Joyce
  * $Revision$
  */

@@ -1532,7 +1532,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
     Enumeration refs = getDatabase().referencesTo(this);
     Vector v = new Vector();
     while (refs.hasMoreElements())
-      v.addElement((Treeable)refs.nextElement());
+      v.addElement(refs.nextElement());
     Treeable[] kids;
     synchronized (v) {
       kids = new Treeable[v.size()];

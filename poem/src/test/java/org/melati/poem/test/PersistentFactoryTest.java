@@ -123,7 +123,7 @@ public class PersistentFactoryTest extends PoemTestCase {
     ClassWithNoIdAndPublicMembers pojo2 = 
       (ClassWithNoIdAndPublicMembers)PersistentFactory.from(
               getDb().getTable("classWithNoIdAndPublicMembers").getObject(0), ClassWithNoIdAndPublicMembers.class);
-    assertEquals(persistedDog,(Persistent)getDb().getTable("classWithNoIdAndPublicMembers").getObject(0));
+    assertEquals(persistedDog,getDb().getTable("classWithNoIdAndPublicMembers").getObject(0));
     assertEquals(pojo.getThoughts(),pojo2.getThoughts());
     assertEquals(pojo2.getClassWithNoIdAndPrivateMembers().getName(),pojo.getClassWithNoIdAndPrivateMembers().getName());
     assertEquals(pojo2.getClassWithNoIdAndPrivateMembers().getClass(),pojo.getClassWithNoIdAndPrivateMembers().getClass());

@@ -44,6 +44,7 @@
 package org.melati.template.webmacro;
 
 import org.melati.template.TemplateEngine;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 
 import org.webmacro.WM;
@@ -81,8 +82,8 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
       return FastWriter.getInstance(wm.getBroker(), "UTF-16BE");
     }
     catch (UnsupportedEncodingException e) {
-     // assert false : "All Java platforms & webmacro support UTF-16BE";
-      return null;
+      throw new MelatiBugMelatiException(
+              "Assumption that all JVMs and WebMacro support UTF-16BE has not held", e);
     }
   }
 

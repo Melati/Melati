@@ -243,8 +243,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
    *        the {@link ServletTemplateContext} to expand the template against
-   * @throws TemplateEngineException
-   *         if any problem occurs with the engine
    */
   public void expandTemplate(MelatiWriter out,
       org.melati.template.Template template, TemplateContext templateContext)

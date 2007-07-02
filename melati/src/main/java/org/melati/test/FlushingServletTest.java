@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -69,23 +69,20 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
   public String handle(Melati melati, WebContext context) 
       throws Exception {
     melati.setBufferingOff();
-    if (melati.getMethod() != null && 
-        !melati.getMethod().equals("unflushed")) melati.setFlushingOn();
+    if (melati.getMethod() == null || 
+        !melati.getMethod().equals("unflushed")) 
+      melati.setFlushingOn();
     context.put("waiter", new Waiter());
     return "org/melati/test/FlushingServletTest";
   }
 
-/**
- * Set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  
- *
- * This is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
- */
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.servlet.PoemServlet#poemContext(org.melati.Melati)
+   */
   protected PoemContext poemContext(Melati melati)
-  throws PathInfoException {
-    return poemContextWithLDB(melati,"melatitest");
+      throws PathInfoException {
+    return poemContextWithLDB(melati, "melatitest");
   }
 
 }

@@ -726,8 +726,8 @@ public class Melati {
    * to the output stream until you call melati.write();
    *
    * Buffering allows us to catch AccessPoemExceptions and redirect the user
-   * to the login page.  This could not be done if any bytes have been written
-   * to the client
+   * to the login page.  This could not be done if any bytes had already  been written
+   * to the client.
    *
    * @see org.melati.test.FlushingServletTest
    * @throws IOException if a writer has already been selected

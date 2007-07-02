@@ -111,6 +111,8 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
 
   /**
    * Construct a new Engine for use in a servlet environment.
+   * For Velocity this is no different to initialisation outside of 
+   * a servlets environment. 
    * 
    * @see org.melati.servlet.TemplateServlet
    * @param melatiConfig

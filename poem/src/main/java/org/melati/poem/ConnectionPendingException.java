@@ -61,14 +61,12 @@ public class ConnectionPendingException extends PoemException {
    */
   public ConnectionPendingException(Exception subException) {
     super(subException);
-    // TODO Auto-generated constructor stub
   }
 
   /**
    * Constructor.
    */
   public ConnectionPendingException() {
-    // TODO Auto-generated constructor stub
   }
 
   /**
@@ -78,7 +76,6 @@ public class ConnectionPendingException extends PoemException {
    */
   public ConnectionPendingException(String message, Exception subException) {
     super(message, subException);
-    // TODO Auto-generated constructor stub
   }
 
   /**
@@ -87,7 +84,6 @@ public class ConnectionPendingException extends PoemException {
    */
   public ConnectionPendingException(String message) {
     super(message);
-    // TODO Auto-generated constructor stub
   }
 
 }

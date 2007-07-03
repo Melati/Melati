@@ -67,7 +67,6 @@ public class NonSQLPoemType implements PoemType {
      * @see org.melati.poem.PoemType#getNullable()
      */
     public boolean getNullable() {
-      // TODO Auto-generated method stub
       return false;
     }
 

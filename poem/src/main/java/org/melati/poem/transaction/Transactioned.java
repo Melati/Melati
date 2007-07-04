@@ -87,7 +87,7 @@ public abstract class Transactioned {
    * This is a hook to enable subtypes to define under what circumstances
    * an instance needs to be reloaded when it is marked as
    * invalid, however the two known subtypes just return 
-   * the inheritted valid flag. 
+   * the inherited valid flag. 
    */
   protected abstract boolean upToDate(Transaction transaction);
 

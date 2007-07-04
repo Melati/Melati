@@ -275,15 +275,12 @@ public class Admin extends TemplateServlet {
    * <p>
    * Any form fields in the context with names starting "field_"
    * are assumed to hold values that must be matched in selected rows
-   * (if not null - or does that mean there is no such field? FIXME).
-   * These contribute to the where clause for SQL SELECT.
+   * (if not null).
    * <p>
-   * An encoding of the resulting where clause is added to the context.
-   * "AND" is replaced by an & separator.
+   * An encoding of the resulting whereClause is added to the context.
+   * "AND" is replaced by an &amp; separator.
    * <p>
-   * There's some stuff that needs sorting out (FIXME) regarding ordering,
-   * presumably of selected rows. The resulting orderClause is added to
-   * the context.
+   * The resulting orderClause is added to the context.
    * <p>
    * A form field with name "start" is assumed to hold the number
    * of the start row in the result set. The default is zero.
@@ -310,12 +307,12 @@ public class Admin extends TemplateServlet {
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String name = "field_" + column.getName();
-      String string = Form.getFieldNulled(context, name);
-      if (string != null) {
-        column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
+      String fieldValue = Form.getFieldNulled(context, name);
+      if (fieldValue != null) {
+        column.setRaw_unsafe(criteria, column.getType().rawOfString(fieldValue));
 
-        // FIXME needs to work for dates?
-        whereClause.addElement(name + "=" + melati.urlEncode(string));
+        // FIXME Needs to work for dates
+        whereClause.addElement(name + "=" + melati.urlEncode(fieldValue));
       }
     }
 
@@ -396,8 +393,9 @@ public class Admin extends TemplateServlet {
   /**
    * Implements the "PopUp" request method.
    * <p>
-   * The name should really be <code>popUpTemplate()</code> (FIXME?).
-   * The default template name is "PopupSelect". (FIXME?)
+   * The default template name is "PopupSelect".
+   *  
+   * TODO Rename to popUpTemplate()
    */
   protected String popupTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
@@ -524,8 +522,8 @@ public class Admin extends TemplateServlet {
   /**
    * Implements the "Create" request method.
    * <p>
-   * The request method, java method and template name do
-   * not follow the naming conventions (FIXME?).
+   * TODO The request method, java method and template name do
+   * not follow the naming conventions.
    */
   protected String tableCreateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
@@ -578,8 +576,7 @@ public class Admin extends TemplateServlet {
   /**
    * Implements the "ColumnCreate_doit" request method.
    * <p>
-   * FIXME Why is this not called
-   * <code>createColumn_doitTemplate()</code>? Could deprecate.
+   * TODO Rename createColumn_doitTemplate()
    * <p>
    * The template served is "CreateTable_doit".
    */

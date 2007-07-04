@@ -101,16 +101,16 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
   /**
    * Force a login by sending a 401 error back to the browser.
-   * FIXME
-   * Apache/Netscape appear not to do anything with <TT>message</TT>, which is
-   * why it's just left as a <TT>String</TT>.
+   * 
+   * HACK Apache/Netscape appear not to do anything with message, which is
+   * why it's just left as a String.
    */
   protected void forceLogin(HttpServletResponse resp,
                             String realm, String message) {
     String desc = realm == null ? "<unknown>"
                                 : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
-    // i don't believe there is a lot we can do about an IO exception here,
+    // I don't believe there is a lot we can do about an IO exception here,
     // so i am simply going to log it
     try {
       resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);

@@ -494,7 +494,7 @@ public class DSD {
     w.write("\n" +
             "/**\n" +
             " * Melati POEM generated, " +
-            "programmer modifyable interface stub.\n" +
+            "programmer modifiable interface stub.\n" +
             " */\n");
     w.write("public interface " + databaseTablesClassName +
             " extends " + databaseTablesBaseClassName + " {\n" +

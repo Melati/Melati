@@ -115,7 +115,7 @@ public class TableNamingInfo {
    */
   public String superclassMainUnambiguous() {
     return (superclass == null)
-            ? "Persistent"
+            ? "JdbcPersistent"
             : superclass.mainClassUnambiguous();
   }
 
@@ -126,7 +126,7 @@ public class TableNamingInfo {
    */
   public String superclassMainFQName() {
     return (superclass == null)
-            ? "org.melati.poem.Persistent"
+            ? "org.melati.poem.JdbcPersistent"
             : superclass.mainClassFQName();
   }
 
@@ -137,7 +137,7 @@ public class TableNamingInfo {
    */
   public String superclassMainShortName() {
     return (superclass == null)
-            ? "Persistent"
+            ? "JdbcPersistent"
             : superclass.mainClassShortName();
   }
 

@@ -146,6 +146,10 @@ public class TableDef {
 
   }
 
+  /**
+   * @param importName name of import
+   * @param destination "persistent", "table" or "both"
+   */
   void addImport(String importName, String destination) {
     if (!destination.equals("table") && !destination.equals("persistent")
         && !destination.equals("both"))
@@ -261,15 +265,18 @@ public class TableDef {
 
     w.write("\n" + "/**\n"
         + " * Melati POEM generated abstract base class for a "
-        + "<code>Persistent</code> \n" + " * <code>" + suffix
-        + "</code> Object.\n" + " *\n" + " * @generator "
-        + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + " */\n");
+        + "<code>Persistent</code> \n" + 
+        " * <code>" + suffix + "</code> Object.\n" + " *\n" + 
+        " * @generator "
+        + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
+        " */\n");
     w.write("public abstract class " + naming.baseClassShortName()
         + " extends " + naming.superclassMainShortName() + " {\n" + "\n");
 
-    w.write("\n /**\n" + "  * Retrieves the Database object.\n" + "  * \n"
-        + "  * @generator " + "org.melati.poem.prepro.TableDef"
-        + "#generateBaseJava \n" + "  * @return the database\n" + "  */\n");
+    w.write("\n /**\n" + 
+            "  * Retrieves the Database object.\n" + "  * \n" + 
+            "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
+            "  * @return the database\n" + "  */\n");
     w.write("  public " + dsd.databaseTablesClassName + " get"
         + dsd.databaseTablesClassName + "() {\n" + "    return ("
         + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
@@ -590,8 +597,8 @@ public class TableDef {
       addImport("org.melati.poem.Column", "both");
       addImport("org.melati.poem.Field", "both");
     }
-    if (naming.superclassMainUnambiguous().equals("Persistent")) {
-      addImport("org.melati.poem.Persistent", "persistent");
+    if (naming.superclassMainUnambiguous().equals("JdbcPersistent")) {
+      addImport("org.melati.poem.JdbcPersistent", "persistent");
     } else {
       addImport(naming.superclassMainFQName(), "persistent");
     }
@@ -635,8 +642,8 @@ public class TableDef {
       String key = (String) i.nextElement();
 
       if (key.indexOf(".") == -1) {
-        TableNamingInfo targetTable = (TableNamingInfo) dsd.nameStore.tablesByShortName
-            .get(key);
+        TableNamingInfo targetTable = 
+            (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
         fqKey = targetTable.tableFQName;
       } else {
         fqKey = key;

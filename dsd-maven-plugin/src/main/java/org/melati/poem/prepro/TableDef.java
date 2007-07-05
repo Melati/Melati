@@ -429,11 +429,12 @@ public class TableDef {
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + "  * @return the database tables\n"
         + "  */\n");
-    w.write("  public " + dsd.databaseTablesClassName + " get"
-        + dsd.databaseTablesClassName + "() {\n" + "    return ("
-        + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n"
-        + "  protected void init() throws PoemException {\n"
-        + "    super.init();\n");
+    w.write("  public " + dsd.databaseTablesClassName + " get"+ dsd.databaseTablesClassName + "() {\n" + 
+        "    return (" + dsd.databaseTablesClassName + ")getDatabase();\n" + 
+        "  }\n" + 
+        "\n" + 
+        "  protected void init() throws PoemException {\n" + 
+        "    super.init();\n");
 
     for (Enumeration f = fields.elements(); f.hasMoreElements();) {
       ((FieldDef) f.nextElement()).generateColDefinition(w);
@@ -480,10 +481,10 @@ public class TableDef {
         + "  }\n");
 
     if (!isAbstract)
-      w.write("\n" + "  protected Persistent _newPersistent() {\n"
+      w.write("\n" + "  protected JdbcPersistent _newPersistent() {\n"
           + "    return new " + naming.mainClassUnambiguous() + "();\n" + "  }"
           + "\n");
-
+    
     if (displayName != null)
       w.write("  protected String defaultDisplayName() {\n" + "    return "
           + StringUtils.quoted(displayName, '"') + ";\n" + "  }\n" + "\n");
@@ -588,6 +589,8 @@ public class TableDef {
     if (fieldCount == 0 && !isAbstract && naming.superclass == null)
       throw new NonAbstractEmptyTableException(name);
 
+    if (!isAbstract)
+      addImport("org.melati.poem.JdbcPersistent", "table");
     if (hasDisplayLevel)
       addImport("org.melati.poem.DisplayLevel", "table");
     if (hasSearchability)

@@ -57,10 +57,6 @@ public class WriteCommittedException extends PoemException {
   /** The committed Transaction. */
   public Transactioned transactioned;
 
-  /** Only way in is through the front door. */
-  private WriteCommittedException() {
-  }
-  
   /** Constructor. */
   public WriteCommittedException(Transactioned transactioned) {
     this.transactioned = transactioned;

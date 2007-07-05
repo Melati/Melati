@@ -55,8 +55,6 @@ import org.melati.poem.Persistent;
  */
 
 class PoemTableAsDCollection implements org.odmg.DCollection {
-  public static final String cvs = 
-    "$Id$";
 
   private Table _wrappedTable = null;
 

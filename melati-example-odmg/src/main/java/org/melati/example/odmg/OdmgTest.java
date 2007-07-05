@@ -14,6 +14,9 @@ public final class OdmgTest {
 
   private OdmgTest() {}
   
+  /**
+   * Test runner.
+   */
   public static void main(String[] argsIn)
     throws Exception {
 

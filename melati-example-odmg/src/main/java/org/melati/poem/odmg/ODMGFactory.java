@@ -51,12 +51,21 @@ public final class ODMGFactory {
 
   private static Database _db = Database.getNewDatabase();
   
+  /**
+   * @return a new database
+   */
   public static org.odmg.Database getNewDatabase() { return getDb(); }
   
+  /**
+   * Get a new database.
+   */
   public static org.melati.poem.Database getPoemDatabase() 
       throws org.odmg.ODMGException { 
     return getDb().getPoemDatabase(); }
 
+  /**
+   * Get a new Transaction.
+   */
   public static org.odmg.Transaction getNewTransaction(
                                            org.odmg.Database db) { 
     return Transaction.getNewTransaction(db); 

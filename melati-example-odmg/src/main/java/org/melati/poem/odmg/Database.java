@@ -49,14 +49,14 @@ import java.util.HashMap;
 import org.melati.LogicalDatabase;
 import org.melati.util.DatabaseInitException;
 
-/** POEM implementation of the ODMG Database API **/
+/** POEM implementation of the ODMG Database API. **/
 final class Database implements org.odmg.Database {
-  public static final String cvs = "$Id";
 
-  /** hide this from general use **/
+  /** Hide this from general use. **/
   private Database() {}
-  /** provide a package factory method 
-      so we could return a different type if needed **/
+
+  /** Provide a package factory method 
+      so we could return a different type if needed. **/
   static Database getNewDatabase() { 
     return new Database(); 
   }

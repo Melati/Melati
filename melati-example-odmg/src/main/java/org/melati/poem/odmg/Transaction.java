@@ -48,7 +48,6 @@ package org.melati.poem.odmg;
  */
 
 final class Transaction implements org.odmg.Transaction {
-  public static String cvs = "$Id";
 
   private Database _db = null;
 

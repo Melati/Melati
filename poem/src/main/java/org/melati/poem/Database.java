@@ -1246,8 +1246,8 @@ public abstract class Database implements TransactionPool {
   /**
    * Find all references to specified object in all tables. 
    * 
-   * @param object the object being refered to 
-   * @return an Enumeration of Persistents
+   * @param object the object being referred to 
+   * @return an Enumeration of {@link Persistent}s
    */
   public Enumeration referencesTo(final Persistent object) {
     return new FlattenedEnumeration(

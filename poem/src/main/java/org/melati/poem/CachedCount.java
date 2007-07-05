@@ -63,15 +63,7 @@ public class CachedCount extends CachedQuery {
   }
 
   /**
-   * Create an instance from arguments representing the query.
-   * <p>
-   * This allows the query to join to other tables.
-   * It reflects use of {@link Persistent}s to represent queries
-   * and is a step in the direction of types specifically for that
-   * purpose.
-   * <p>
-   * We could have passed the whole query in the meantime but for
-   * potential signature confusion.
+   * Create a count from a Persistent.
    *
    * @param criteria the Persistent representing the query
    * @param includeDeleted whether to include records marked as deleted
@@ -80,7 +72,7 @@ public class CachedCount extends CachedQuery {
   public CachedCount(final Persistent criteria,
                      boolean includeDeleted, boolean excludeUnselectable) {
     super(criteria.getTable(),
-          criteria.countMatchSQL(includeDeleted, excludeUnselectable),
+          ((JdbcPersistent)criteria).countMatchSQL(includeDeleted, excludeUnselectable),
           null);
   }
 

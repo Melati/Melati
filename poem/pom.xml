@@ -111,23 +111,29 @@
      <artifactId>maven-dsd-plugin</artifactId>
      <executions>
        <execution>
+         <id>genMain</id>
          <phase>generate-sources</phase>
          <goals>
            <goal>generate</goal>
          </goals>
+         <configuration>
+           <dsdPackage>org.melati.poem</dsdPackage>
+           <dsdFile>Poem.dsd</dsdFile>
+         </configuration>
+       </execution>
+       <execution>
+         <id>genTest</id>
+         <phase>generate-test-sources</phase>
+         <goals>
+           <goal>generate</goal>
+         </goals>
+         <configuration>
+         <sourceDirectory>src/test/java</sourceDirectory>
+         <dsdPackage>org.melati.poem.test</dsdPackage>
+         <dsdFile>everything.dsd</dsdFile>
+        </configuration>
        </execution>
      </executions>
-     <configuration>
-     <!--
-      OR 
-       <dsdPackage>org.melati.poem</dsdPackage>
-       <dsdFile>Poem.dsd</dsdFile>
-     </configuration>
-      -->
-       <sourceDirectory>src/test/java</sourceDirectory>
-       <dsdPackage>org.melati.poem.test</dsdPackage>
-       <dsdFile>everything.dsd</dsdFile>
-     </configuration>
      <dependencies>
       <dependency>
        <groupId>org.melati</groupId>

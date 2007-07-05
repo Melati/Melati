@@ -45,364 +45,60 @@
 
 package org.melati.poem;
 
-import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.Map;
-import java.util.Vector;
 
 import org.melati.poem.transaction.Transaction;
-import org.melati.poem.transaction.Transactioned;
-import org.melati.poem.util.FlattenedEnumeration;
-import org.melati.poem.util.MappedEnumeration;
 
 /**
  * The object representing a single table row; this is the <B>PO</B> in POEM!
  * <p>
  * Instances are also used to represent selection criteria.
  *
- * @author WilliamC At paneris.org
+ * @author timp
+ * @since 4 Jul 2007
+ *
  */
-
-public class Persistent extends Transactioned implements Cloneable, Persistable, Treeable {
-  private Table table;
-  private Integer troid;        // null if a floating object
-  private AccessToken clearedToken;
-  private boolean
-      knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
-
-  /**
-   * Might this object have as yet unsaved modifications?
-   * <p>
-   * This is set to true when a write lock is obtained and this
-   * happens when a value is assigned to a column, except when an
-   * "unsafe" method is used.
-   * <p>
-   * It is set to false when this is written to the database,
-   * even if not yet committed.
-   */
-  boolean dirty = false;
-
-  private static final int NONEXISTENT = 0, EXISTENT = 1, DELETED = 2;
-  private int status = NONEXISTENT;
-
-  private Object[] extras = null;
-  /**
-   * Constructor.
-   */
-  public Persistent() {
-  }
-
-  /**
-   * Constructor.
-   * @param table the table of the Persistent
-   * @param troid its Table Row Object Id
-   */
-  public Persistent(Table table, Integer troid) {
-    super(table.getDatabase());
-    this.table = table;
-    this.troid = troid;
-  }
-
-  /**
-   * Constructor.
-   * @param tableName String name of a table
-   * @param troidString String integer representation
-   */
-  public Persistent(String tableName, String troidString) {
-    super(PoemThread.database());
-    this.table = PoemThread.database().getTable(tableName);
-    this.troid = new Integer(troidString);
-   }
-
-  // 
-  // --------
-  //  Status
-  // --------
-  // 
-
-  final void setStatusNonexistent() {
-    status = NONEXISTENT;
-  }
-
-  final void setStatusExistent() {
-    status = EXISTENT;
-  }
+public interface Persistent extends Persistable, Treeable {
 
   /**
    * @return whether this object has been deleted
    */
-  public final boolean statusNonexistent() {
-    return status == NONEXISTENT;
-  }
+  boolean statusNonexistent();
 
   /**
    * @return whether this object has been deleted
    */
-  public final boolean statusExistent() {
-    return status == EXISTENT;
-  }
+  boolean statusExistent();
 
-  // 
-  // ***************
-  //  Transactioned
-  // ***************
-  // 
+  /** 
+   * A convenience method to create this Persistent.
+   */
+  void makePersistent();
 
   /**
-   * Throws an exception if this Persistent has a null troid.
-   */
-  private void assertNotFloating() {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-  }
-
-  /**
-   * Throws <tt>RowDisappearedPoemException</tt> if this Persistent has a status of DELETED.
-   */
-  private void assertNotDeleted() {
-    if (status == DELETED)
-      throw new RowDisappearedPoemException(this);
-  }
-
-  /**
-   * Called if not uptodate.
-   * 
-   * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   load(org.melati.poem.transaction.Transaction)
-   */
-  protected void load(Transaction transaction) {
-    if (troid == null) // I cannot contrive a test to cover this case, but hey
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-
-    table.load((PoemTransaction)transaction, this);
-    // table will clear our dirty flag and set status
-  }
-
-  /**
-   * Whether we are up to date with respect to current Transaction.
-   * <p>
-   * Return the inheritted validity flag.
-   * 
-   * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   upToDate(org.melati.poem.transaction.Transaction)
-   */
-  protected boolean upToDate(Transaction transaction) {
-    return valid;
-  }
-
-  /**
-   * Write the persistent to the database if this might be necessary.
-   * <p>
-   * It may be necessary if field values have been set since we last
-   * did a write i.e. this persistent is dirty.
-   * It will not be necessary if this persistent is deleted.
-   * An exception will occur if it does not exist in the database.
-   */
-  protected void writeDown(Transaction transaction) {
-    if (status != DELETED) {
-      assertNotFloating();
-      table.writeDown((PoemTransaction)transaction, this);
-      // table will clear our dirty flag
-    }
-  }
-
-  protected void writeLock(Transaction transaction) {
-    if (troid != null) {
-      super.writeLock(transaction);
-      assertNotDeleted();
-      dirty = true;
-      table.notifyTouched((PoemTransaction)transaction, this);
-    }
-  }
-
-  /**
-   * This is just to make this method available to <TT>Table</TT>.
-   */
-  protected void readLock(Transaction transaction) {
-    if (troid != null) {
-      super.readLock(transaction);
-      assertNotDeleted();
-    }
-  }
-
-  /**
-   * Previously deletion was treated as non-rollbackable, 
-   * as deleteAndCommit was the only deletion mechanism. 
-   * 
-   * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   commit(org.melati.poem.transaction.Transaction)
-   */
-  protected void commit(Transaction transaction) {
-    //if (status != DELETED) {
-      assertNotFloating();
-      super.commit(transaction);
-    //}
-  }
-
-  protected void rollback(Transaction transaction) {
-    //if (status != DELETED) {
-    assertNotFloating();
-    if (status == DELETED)
-      status = EXISTENT;
-    super.rollback(transaction);
-    //}
-  }
-
-  // 
-  // ************
-  //  Persistent
-  // ************
-  // 
-
- /** 
-  * A convenience method to create this Persistent.
-  */
-  public void makePersistent() {
-    getTable().create(this);
-  }
-  
-  synchronized Object[] extras() {
-    if (extras == null)
-      extras = new Object[table.extrasCount()];
-    return extras;
-  }
-
- /**
-  * The Table from which the object comes, 
-  * complete with metadata.
+   * The Table from which the object comes, 
+   * complete with metadata.
    * @return the Table
    */
-  public final Table getTable() {
-    return table;
-  }
-
-  synchronized void setTable(Table table, Integer troid) {
-    setTransactionPool(table.getDatabase());
-    this.table = table;
-    this.troid = troid;
-  }
-
-
- /**
-  * @return The database from which the object comes.  <I>I.e.</I>
-  * <TT>getTable().getDatabase()</TT>.
-  */
-  public final Database getDatabase() {
-    return table.getDatabase();
-  }
+  Table getTable();
+  
+  /**
+   * @param table
+   */
+  //void setTable(Table table, Integer Troid);
 
   /**
-   * @return The Table Row Object Id for this Persistent.
-   * 
-   * FIXME This shouldn't be public because we don't in principle want people
-   * to know even the troid of an object they aren't allowed to read.  However,
-   * I think this information may leak out elsewhere.
-   * To fix is not simple, as generated setters rely upon a lock-free read of the object to set. 
-   * 
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.Persistable#troid()
+   * @return The database from which the object comes.  <I>I.e.</I>
+   * <TT>getTable().getDatabase()</TT>.
    */
-  public final Integer troid() {
-    return troid;
-  }
-
-  /**
-   * The object's troid.
-   *
-   * @return Every record (object) in a POEM database must have a
-   *         troid (table row ID, or table-unique non-nullable integer primary
-   *         key), often but not necessarily called <TT>id</TT>, so that it can
-   *         be conveniently `named' for retrieval.
-   *
-   * @exception AccessPoemException
-   *                if <TT>assertCanRead</TT> fails
-   *
-   * @see Table#getObject(java.lang.Integer)
-   * @see #assertCanRead()
-   */
-
-  public final Integer getTroid() throws AccessPoemException {
-    assertCanRead();
-    return troid();
-  }
-
-  // 
-  // ----------------
-  //  Access control
-  // ----------------
-  // 
-
-  protected void existenceLock(SessionToken sessionToken) {
-    super.readLock(sessionToken.transaction);
-  }
-
-  protected void readLock(SessionToken sessionToken)
-      throws AccessPoemException {
-    assertCanRead(sessionToken.accessToken);
-    readLock(sessionToken.transaction);
-  }
-
-  protected void writeLock(SessionToken sessionToken)
-      throws AccessPoemException {
-    if (troid != null)
-      assertCanWrite(sessionToken.accessToken);
-    writeLock(sessionToken.transaction);
-  }
-
-  protected void deleteLock(SessionToken sessionToken)
-      throws AccessPoemException {
-    if (troid != null)
-      assertCanDelete(sessionToken.accessToken);
-    writeLock(sessionToken.transaction);
-  }
+  Database getDatabase();
 
   /**
    * Lock without actually reading.
    */
-  public void existenceLock() {
-    existenceLock(PoemThread.sessionToken());
-  }
-
-  /**
-   * Check if we may read this object and then lock it.
-   * @throws AccessPoemException if current AccessToken does not give read Capability
-   */
-  protected void readLock() throws AccessPoemException {
-    readLock(PoemThread.sessionToken());
-  }
-
-  /**
-   * Check if we may write to this object and then lock it.
-   * @throws AccessPoemException if current AccessToken does not give write Capability
-   */
-  protected void writeLock() throws AccessPoemException {
-    writeLock(PoemThread.sessionToken());
-  }
-
-  /**
-   * The capability required for reading the object's field values.  This is
-   * used by <TT>assertCanRead</TT> (unless that's been overridden) to obtain a
-   * <TT>Capability</TT> for comparison against the caller's
-   * <TT>AccessToken</TT>.
-   * <p>
-   * NOTE If a canRead column is defined then it will override this method.
-   *
-   * @return the capability specified by the record's <TT>canread</TT> field, 
-   *         or <TT>null</TT> if it doesn't have one or its value is SQL
-   *         <TT>NULL</TT>
-   *
-   * @see #assertCanRead
-   */
-
-  protected Capability getCanRead() {
-    return null;
-  }
+  void existenceLock();
 
   /**
    * Check that you have read access to the object.  Which is to say: the
@@ -442,35 +138,15 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see Database#inSession
    * @see Table#getDefaultCanRead
    *
-   * @todo Ensure token is not stale
+   * TODO Ensure token is not stale
    */
 
-  public void assertCanRead(AccessToken token)
-      throws AccessPoemException {
-    // FIXME!!!! this is wrong because token could be stale ...
-    if (!(clearedToken == token && knownCanRead) && troid != null) {
-      Capability canRead = getCanRead();
-      if (canRead == null)
-        canRead = getTable().getDefaultCanRead();
-      if (canRead != null) {
-        if (!token.givesCapability(canRead))
-          throw new ReadPersistentAccessPoemException(this, token, canRead);
-        if (clearedToken != token) {
-          knownCanWrite = false;
-          knownCanDelete = false;
-        }
-        clearedToken = token;
-        knownCanRead = true;
-      }
-    }
-  }
+  void assertCanRead(AccessToken token) throws AccessPoemException;
 
   /**
    * @throws AccessPoemException if current accessToken does not grant read capability
    */
-  public final void assertCanRead() throws AccessPoemException {
-    assertCanRead(PoemThread.accessToken());
-  }
+  void assertCanRead() throws AccessPoemException;
 
   /**
    * @return Whether the object is readable by current AccessToken
@@ -478,33 +154,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #assertCanRead()
    */
 
-  public final boolean getReadable() {
-    try {
-      assertCanRead();
-      return true;
-    }
-    catch (AccessPoemException e) {
-      return false;
-    }
-  }
-
-  /**
-   * The capability required for writing the object's field values.  This is
-   * used by <TT>assertCanWrite</TT> (unless that's been overridden) to obtain 
-   * a <TT>Capability</TT> for comparison against the caller's
-   * <TT>AccessToken</TT>.
-   * <p>
-   * NOTE If a canWrite column is defined then it will override this method.
-   *
-   * @return the capability specified by the record's <TT>canwrite</TT> field,
-   *         or <TT>null</TT> if it doesn't have one or its value is SQL
-   *         <TT>NULL</TT>
-   *
-   * @see #assertCanWrite
-   */
-  protected Capability getCanWrite() {
-    return null;
-  }
+  boolean getReadable();
 
   /**
    * Check that you have write access to the object.  Which is to say: the
@@ -520,50 +170,12 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @todo Ensure token is not stale
    */
 
-  public void assertCanWrite(AccessToken token)
-      throws AccessPoemException {
-    // FIXME!!!! this is wrong because token could be stale ...
-    if (!(clearedToken == token && knownCanWrite) && troid != null) {
-      Capability canWrite = getCanWrite();
-      if (canWrite == null)
-        canWrite = getTable().getDefaultCanWrite();
-      if (canWrite != null) {
-        if (!token.givesCapability(canWrite))
-          throw new WritePersistentAccessPoemException(this, token, canWrite);
-        if (clearedToken != token) {
-          knownCanRead = false;
-          knownCanDelete = false;
-        }
-        clearedToken = token;
-        knownCanWrite = true;
-      }
-    }
-  }
+  void assertCanWrite(AccessToken token) throws AccessPoemException;
 
   /**
    * @throws AccessPoemException if current accessToken does not grant wraite capability
    */
-  public final void assertCanWrite() throws AccessPoemException {
-    assertCanWrite(PoemThread.accessToken());
-  }
-
-  /**
-   * The capability required for deleting the object.  This is
-   * used by <TT>assertCanDelete</TT> (unless that's been overridden) 
-   * to obtain a <TT>Capability</TT> for comparison against the caller's
-   * <TT>AccessToken</TT>.
-   * <p>
-   * NOTE If a canDelete column is defined then it will override this method.
-   *
-   * @return the capability specified by the record's <TT>candelete</TT> field,
-   *         or <TT>null</TT> if it doesn't have one or its value is SQL
-   *         <TT>NULL</TT>
-   *
-   * @see #assertCanDelete
-   */
-  protected Capability getCanDelete() {
-    return null;
-  }
+  void assertCanWrite() throws AccessPoemException;
 
   /**
    * Check that you have delete access to the object.  Which is to say: the
@@ -579,48 +191,13 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @todo Ensure token is not stale
    */
 
-  public void assertCanDelete(AccessToken token)
-      throws AccessPoemException {
-    // FIXME!!!! this is wrong because token could be stale ...
-    if (!(clearedToken == token && knownCanDelete) && troid != null) {
-      Capability canDelete = getCanDelete();
-      if (canDelete == null)
-        canDelete = getTable().getDefaultCanDelete();
-      if (canDelete != null) {
-        if (!token.givesCapability(canDelete))
-          throw new DeletePersistentAccessPoemException(this, token, canDelete);
-        if (clearedToken != token) {
-          knownCanRead = false;
-          knownCanWrite = false;
-        }
-        clearedToken = token;
-        knownCanDelete = true;
-      }
-    }
-  }
+  void assertCanDelete(AccessToken token) throws AccessPoemException;
 
   /**
    * @throws AccessPoemException if current accessToken does not grant delete capability
    */
-  public final void assertCanDelete() throws AccessPoemException {
-    assertCanDelete(PoemThread.accessToken());
-  }
+  void assertCanDelete() throws AccessPoemException;
 
-  /**
-   * The capability required to select the object.
-   * <p>
-   * Any persistent which has a <tt>canSelect</tt> field will override this method. 
-   * <p>
-   * There is no <code>assertCanSelect()</code> yet because I don't understand
-   * this stale token stuff!
-   *
-   * @return the capability the user needs to select this record
-   * @todo document use-case or delete
-   */
-  protected Capability getCanSelect() {
-    return null;
-  }
-  
   /**
    * Check that you have create access to the object.  Which is to say: the
    * <TT>AccessToken</TT> associated with the POEM task executing in the
@@ -628,8 +205,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * object. The capability is determined solely by <TT>getCanCreate</TT>
    * from the table. Unlike <TT>assertCanRead</TT> and <TT>assertCanWrite</TT>
    * there is no idea of having a default <TT>Capability</TT> defined 
-   * in the table which could be overriden by a <TT>canwrite</TT> field
-   * in the persistent (since the persisent has not yet been been written).
+   * in the table which could be overridden by a <TT>canwrite</TT> field
+   * in the persistent (since the persistent has not yet been been written).
    *
    * <P>
    *
@@ -641,31 +218,12 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see Table#getCanCreate
    */
 
-  public void assertCanCreate(AccessToken token) {
-    Capability canCreate = getTable().getCanCreate();
-    if (canCreate != null && !token.givesCapability(canCreate))
-      throw new CreationAccessPoemException(getTable(), token, canCreate);
-  }
+  void assertCanCreate(AccessToken token);
 
   /**
    * @throws AccessPoemException if current accessToken does not grant create capability
    */
-  public final void assertCanCreate() throws AccessPoemException {
-    assertCanCreate(PoemThread.accessToken());
-  }
-
-
-  // 
-  // ============================
-  //  Reading and writing fields
-  // ============================
-  // 
-
-  // 
-  // ------
-  //  Raws
-  // ------
-  // 
+  void assertCanCreate() throws AccessPoemException;
 
   /**
    * The `identifying value' of one of the object's fields.  This is the value
@@ -724,10 +282,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see PoemThread#rollback
    * @see #assertCanRead()
    */
-  public Object getRaw(String name)
-      throws NoSuchColumnPoemException, AccessPoemException {
-    return getTable().getColumn(name).getRaw(this);
-  }
+  Object getRaw(String name) throws NoSuchColumnPoemException,
+          AccessPoemException;
 
   /**
    * A string representation of the `identifying value' of one of the object's
@@ -759,11 +315,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #assertCanRead()
    */
 
-  public final String getRawString(String name)
-      throws AccessPoemException, NoSuchColumnPoemException {
-    Column column = getTable().getColumn(name);
-    return column.getType().stringOfRaw(column.getRaw(this));
-  }
+  String getRawString(String name) throws AccessPoemException,
+          NoSuchColumnPoemException;
 
   /**
    * Set the `identifying value' of one of the record's fields.  This is the
@@ -829,11 +382,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see PoemThread#rollback
    */
 
-  public void setRaw(String name, Object raw)
-      throws NoSuchColumnPoemException, AccessPoemException,
-             ValidationPoemException {
-    getTable().getColumn(name).setRaw(this, raw);
-  }
+  void setRaw(String name, Object raw) throws NoSuchColumnPoemException,
+          AccessPoemException, ValidationPoemException;
 
   /**
    * Set the `identifying value' of one of the record's fields from a string
@@ -866,18 +416,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #assertCanWrite()
    */
 
-  public final void setRawString(String name, String string)
-      throws NoSuchColumnPoemException, AccessPoemException,
-             ParsingPoemException, ValidationPoemException {
-    Column column = getTable().getColumn(name);
-    column.setRaw(this, column.getType().rawOfString(string));
-  }
-
-  // 
-  // --------
-  //  Values
-  // --------
-  // 
+  void setRawString(String name, String string)
+          throws NoSuchColumnPoemException, AccessPoemException,
+          ParsingPoemException, ValidationPoemException;
 
   /**
    * The `true value' of one of the object's fields.  This is the
@@ -919,10 +460,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #assertCanRead()
    */
 
-  public Object getCooked(String name)
-      throws NoSuchColumnPoemException, AccessPoemException {
-    return getTable().getColumn(name).getCooked(this);
-  }
+  Object getCooked(String name) throws NoSuchColumnPoemException,
+          AccessPoemException;
 
   /**
    * A string representation of the `true value' of one of the object's fields.
@@ -959,13 +498,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #displayString
    */
 
-  public final String getCookedString(String name, PoemLocale locale,
-                                     int style)
-      throws NoSuchColumnPoemException, AccessPoemException {
-    Column column = getTable().getColumn(name);
-    return column.getType().stringOfCooked(column.getCooked(this),
-                                          locale, style);
-  }
+  String getCookedString(String name, PoemLocale locale, int style)
+          throws NoSuchColumnPoemException, AccessPoemException;
 
   /**
    * Set the `true value' of one of the record's fields.  Like
@@ -1000,17 +534,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see #assertCanWrite()
    */
 
-  public void setCooked(String name, Object cooked)
-      throws NoSuchColumnPoemException, ValidationPoemException,
-             AccessPoemException {
-    getTable().getColumn(name).setCooked(this, cooked);
-  }
-
-  // 
-  // --------
-  //  Fields
-  // --------
-  // 
+  void setCooked(String name, Object cooked)
+          throws NoSuchColumnPoemException, ValidationPoemException,
+          AccessPoemException;
 
   /**
    * The value of one of the object's fields, wrapped up with type information
@@ -1031,10 +557,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @throws AccessPoemException if the current AccessToken does not grant access capability
    * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
-  public final Field getField(String name)
-      throws NoSuchColumnPoemException, AccessPoemException {
-    return getTable().getColumn(name).asField(this);
-  }
+  Field getField(String name) throws NoSuchColumnPoemException,
+          AccessPoemException;
 
   /**
    * Create Fields from Columns. 
@@ -1042,15 +566,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @param columns an Enumeration of Columns
    * @return an Enumeration of Fields 
    */
-  public Enumeration fieldsOfColumns(Enumeration columns) {
-    final Persistent _this = this;
-    return
-        new MappedEnumeration(columns) {
-          public Object mapped(Object column) {
-            return ((Column)column).asField(_this);
-          }
-        };
-  }
+  Enumeration fieldsOfColumns(Enumeration columns);
 
   /**
    * The values of all the object's fields, wrapped up with type information
@@ -1059,9 +575,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    */
 
-  public Enumeration getFields() {
-    return fieldsOfColumns(getTable().columns());
-  }
+  Enumeration getFields();
 
   /**
    * The values of all the object's fields designated for inclusion in full
@@ -1072,9 +586,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @see DisplayLevel#record
    */
 
-  public Enumeration getRecordDisplayFields() {
-    return fieldsOfColumns(getTable().getRecordDisplayColumns());
-  }
+  Enumeration getRecordDisplayFields();
 
   /**
    * All fields at the detailed display level in display order.
@@ -1082,9 +594,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#detail
    */
-  public Enumeration getDetailDisplayFields() {
-    return fieldsOfColumns(getTable().getDetailDisplayColumns());
-  }
+  Enumeration getDetailDisplayFields();
 
   /**
    * All fields at the summary display level in display order.
@@ -1092,29 +602,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#summary
    */
-  public Enumeration getSummaryDisplayFields() {
-    return fieldsOfColumns(getTable().getSummaryDisplayColumns());
-  }
+  Enumeration getSummaryDisplayFields();
 
   /**
    * @return an <TT>Enumeration</TT> of searchable <TT>Field</TT>s
    */
-  public Enumeration getSearchCriterionFields() {
-    return fieldsOfColumns(getTable().getSearchCriterionColumns());
-  }
+  Enumeration getSearchCriterionFields();
 
   /**
    * @return the Primary Display Column as a Field
    */
-  public Field getPrimaryDisplayField() {
-    return getTable().displayColumn().asField(this);
-  }
-
-  // 
-  // ==================
-  //  Other operations
-  // ==================
-  // 
+  Field getPrimaryDisplayField();
 
   /**
    * Delete the object.  Before the record is deleted from the database, POEM
@@ -1136,71 +634,18 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    *            the default behaviour for the column is used.  (The default 
    *            is {@link StandardIntegrityFix#prevent}.)
    */
-  public void delete(Map integrityFixOfColumn) {
-    
-    assertNotFloating();
-
-    deleteLock(PoemThread.sessionToken());
-
-    Enumeration columns = getDatabase().referencesTo(getTable());
-    Vector refEnumerations = new Vector();
-
-    while (columns.hasMoreElements()) {
-      Column column = (Column)columns.nextElement();
-
-      IntegrityFix fix;
-      try {
-        fix = integrityFixOfColumn == null ?
-                null : (IntegrityFix)integrityFixOfColumn.get(column);
-      }
-      catch (ClassCastException e) {
-        throw new AppBugPoemException(
-            "integrityFixOfColumn argument to Persistent.deleteAndCommit " +
-                "is meant to be a Map from Column to IntegrityFix",
-            e);
-      }
-
-      if (fix == null)
-        fix = column.getIntegrityFix();
-
-      refEnumerations.addElement(
-          fix.referencesTo(this, column, column.selectionWhereEq(troid()),
-                           integrityFixOfColumn));
-
-    }
-
-    Enumeration refs = new FlattenedEnumeration(refEnumerations.elements());
-
-    if (refs.hasMoreElements())
-      throw new DeletionIntegrityPoemException(this, refs);
-
-    delete_unsafe();
-  }
+  void delete(Map integrityFixOfColumn);
 
   /**
    * Delete without access checks.
    */
-  public void delete_unsafe() {
-    assertNotFloating();
-    SessionToken sessionToken = PoemThread.sessionToken();
-    deleteLock(sessionToken);
-    try {
-      status = DELETED;
-      table.delete(troid(), sessionToken.transaction);
-    } catch (PoemException e) {
-      status = EXISTENT;
-      throw e;
-    }
-  }
+  void delete_unsafe();
 
- 
   /**
    * Delete this persistent, with default integrity checks, 
    * ie disallow deletion if object referred to by others.
    */
-  public final void delete() {
-    delete(null);
-  }
+  void delete();
 
   /**
    * Delete the object, with even more safety checks for referential integrity.
@@ -1215,22 +660,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * unless you really want this functionality.
    *
    */
-  public void deleteAndCommit(Map integrityFixOfColumn)
-      throws AccessPoemException, DeletionIntegrityPoemException {
-
-    getDatabase().beginExclusiveLock();
-    try {
-      delete(integrityFixOfColumn);
-      PoemThread.commit();
-    }
-    catch (RuntimeException e) {
-      PoemThread.rollback();
-      throw e;
-    }
-    finally {
-      getDatabase().endExclusiveLock();
-    }
-  }
+  void deleteAndCommit(Map integrityFixOfColumn)
+          throws AccessPoemException, DeletionIntegrityPoemException;
 
   /**
    * Convenience method with default integrity fix. 
@@ -1238,10 +669,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @throws AccessPoemException
    * @throws DeletionIntegrityPoemException
    */
-  public final void deleteAndCommit()
-      throws AccessPoemException, DeletionIntegrityPoemException {
-    deleteAndCommit(null);
-  }
+  void deleteAndCommit() throws AccessPoemException,
+          DeletionIntegrityPoemException;
 
   /**
    * Create a new object like this one.
@@ -1249,39 +678,14 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * 
    * @return A floating clone
    */
-  public Persistent duplicated() throws AccessPoemException {
-    assertNotFloating();
-    assertNotDeleted();
-    return (Persistent)clone();
-  }
+  JdbcPersistent duplicated() throws AccessPoemException;
 
   /**
    * Create a new persistent like this one, regardless of 
    * whether this Persistent has been written to the dbms yet.
    * @return A floating clone
    */
-  public Persistent duplicatedFloating() throws AccessPoemException {
-    return (Persistent)clone();
-  }
-
-  // 
-  // ===========
-  //  Utilities
-  // ===========
-  // 
-
-  /**
-   * A string briefly describing the object for diagnostic purposes.  The name
-   * of its table and its troid.
-   * {@inheritDoc}
-   * @see java.lang.Object#toString()
-   */
-  public String toString() {
-    if (getTable() == null) {
-       return "null/" + troid();      
-    }
-    return getTable().getName() + "/" + troid();
-  }
+  JdbcPersistent duplicatedFloating() throws AccessPoemException;
 
   /**
    * A string describing the object for the purposes of rendering it in lists
@@ -1297,12 +701,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String displayString(PoemLocale locale, int style)
-      throws AccessPoemException {
-    Column displayColumn = getTable().displayColumn();
-    return displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
-                                                  locale, style);
-  }
+  String displayString(PoemLocale locale, int style)
+          throws AccessPoemException;
 
   /**
    * Defaults to DateFormat.MEDIUM.
@@ -1311,107 +711,26 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String displayString(PoemLocale locale) 
-      throws AccessPoemException {
-    return displayString(locale, DateFormat.MEDIUM);
-  }
+  String displayString(PoemLocale locale) throws AccessPoemException;
+
   /**
    * @return Default String for display.
    * 
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String displayString() 
-      throws AccessPoemException {
-    return displayString(PoemLocale.HERE, DateFormat.MEDIUM);
-  }
-
-  // 
-  // ===============
-  //  Support stuff
-  // ===============
-  // 
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Object#hashCode()
-   */
-  public final int hashCode() {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-
-    return getTable().hashCode() + troid().intValue();
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  public final boolean equals(Object object) {
-    if (object == null || !(object instanceof Persistent))
-      return false;
-    else {
-      Persistent other = (Persistent)object;
-      return other.troid() == troid() &&
-             other.getTable() == getTable();
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#invalidate()
-   */
-  public synchronized void invalidate() {
-    assertNotFloating();
-    super.invalidate();
-    extras = null;
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Object#clone()
-   */
-  protected Object clone() {
-    // to clone it you have to be able to read it
-    assertCanRead();
-    Persistent it;
-    try {
-      it = (Persistent)super.clone();
-    }
-    catch (CloneNotSupportedException e) {
-      throw new UnexpectedExceptionPoemException(e, "Object no longer supports clone.");
-    }
-
-    it.extras = (Object[])extras().clone();
-    it.reset();
-    it.troid = null;
-    it.status = NONEXISTENT;
-
-    return it;
-  }
+  String displayString() throws AccessPoemException;
 
   /**
    * @return the dump String
    */
-  public String dump() {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    PrintStream ps = new PrintStream(baos);
-    dump(ps);
-    return baos.toString();
-  }
+  String dump();
 
   /**
    * Dump to a PrintStream.
    * @param p the PrintStream to dump to
    */
-  public void dump(PrintStream p) {
-    p.println(getTable().getName() + "/" + troid());
-    for (Enumeration f = getRecordDisplayFields(); f.hasMoreElements();) {
-      p.print("  ");
-      ((Field)f.nextElement()).dump(p);
-      p.println();
-    }
-  }
+  void dump(PrintStream p);
 
   /**
    * Called after this persistent is written to the database
@@ -1422,8 +741,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * This is low level and there is a limit to what you can
    * do here without causing infinitely recursive calls.
    */
-  public void postWrite() {
-  }
+  void postWrite();
 
   /**
    * Called after this persistent is written to the database
@@ -1432,8 +750,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * This is low level and there is a limit to what you can
    * do here without causing infinitely recursive calls.
    */
-  public void postInsert() {
-  }
+  void postInsert();
 
   /**
    * Called after this persistent is updated and written to the
@@ -1445,22 +762,20 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    * This is low level and there is a limit to what you can
    * do here without causing infinitely recursive calls.
    */
-  public void postModify() {
-  }
+  void postModify();
 
   /**
    * Optionally called before an instance is edited by the user.
    * <p>
    * Used in conjunction with {@link #postEdit(boolean)} and a
-   * {@link Persistent.Saved} this helps enforce data model
+   * {@link JdbcPersistent.Saved} this helps enforce data model
    * constraints based on the columns that have changed.
    * <p>
    * See {@link #postEdit(boolean)} for additional comments.
    * However, it is not called when a newly created row is
    * edited.
    */
-  public void preEdit() {
-  }
+  void preEdit();
 
   /**
    * Optionally called after this instance is edited by a user.
@@ -1486,69 +801,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable,
    *
    * @param creating Are we in the process of creating a new record?
    */
-  public void postEdit(boolean creating) {
-  }
-
-  // 
-  // ================================
-  // Use to Represent Query Contructs
-  // ================================
-  //
+  void postEdit(boolean creating);
 
   /**
-   * Return a SELECT query to count rows matching criteria represented
-   * by this object.
-   *
-   * @param includeDeleted whether to include soft deleted records
-   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
-   * @return an SQL query string
+   * @return the dirty
    */
-  protected String countMatchSQL(boolean includeDeleted,
-                              boolean excludeUnselectable) {
-    return getTable().countSQL(
-      fromClause(),
-      getTable().whereClause(this),
-      includeDeleted, excludeUnselectable);
-  }
-
+  boolean isDirty();
+  
   /**
-   * Return an SQL FROM clause for use when selecting rows using criteria
-   * represented by this object.
-   * <p>
-   * By default just the table name is returned, quoted as necessary for
-   * the DBMS.
-   * One way of changing this is to override {@link #otherMatchTables()}.
-   * <p>
-   * Subtypes must ensure the result is compatible with the
-   * result of {@link Table #appendWhereClause(StringBuffer, Persistent)}.
-   * @return an SQL snippet 
+   * @param dirty the dirty to set
    */
-  protected String fromClause() {
-    String result = getTable().quotedName();
-    return result;
-  }
+  void setDirty(boolean dirty);
 
-  public Treeable[] getChildren() {
-    Enumeration refs = getDatabase().referencesTo(this);
-    Vector v = new Vector();
-    while (refs.hasMoreElements())
-      v.addElement(refs.nextElement());
-    Treeable[] kids;
-    synchronized (v) {
-      kids = new Treeable[v.size()];
-      v.copyInto(kids);
-    }
-
-    return kids;
-  }
-
-  /** 
-   * NOTE This will be overridden if the persistent has a field called <tt>name</tt>. 
-   * {@inheritDoc}
-   * @see org.melati.poem.Treeable#getName()
-   */
-  public String getName() {
-    return displayString();
-  }
 
 }

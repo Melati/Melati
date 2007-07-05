@@ -44,7 +44,7 @@
 package org.melati.poem;
 
 /**
- * Melati POEM generated, programmer modifyable inheritance hook.
+ * Melati POEM generated, programmer modifiable inheritance hook.
  */
 public class PoemTable extends Table {
 

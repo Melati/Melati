@@ -6,8 +6,8 @@ package org.melati.util.test.generated;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.util.test.Node;
 import org.melati.util.test.NodeTable;
@@ -18,9 +18,9 @@ import org.melati.util.test.TreeDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Node</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class NodeBase extends Persistent {
+public abstract class NodeBase extends JdbcPersistent {
 
 
  /**
@@ -38,7 +38,7 @@ public abstract class NodeBase extends Persistent {
   * Retrieves the  <code>NodeTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the NodeTable
   */
   public NodeTable getNodeTable() {

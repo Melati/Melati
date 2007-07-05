@@ -106,14 +106,15 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     assertTrue(m.getWriter().toString().indexOf("A message") != -1);
 
     t = ClassNameTempletLoader.getInstance().templet(
-            templateEngine, ml, "error",new AccessPoemException().getClass());
+            templateEngine, ml, "error", new AccessPoemException().getClass());
     tc = m.getTemplateContext();
     tc.put("melati", m);
     tc.put("ml", m.getMarkupLanguage());
     tc.put("object", new AccessPoemException(getDb().getUserTable().guestUser(),new Capability("Cool")));
     m.setTemplateContext(tc);
     t.write(m.getWriter(),tc, m.getTemplateEngine());
-    assertTrue(m.getWriter().toString().indexOf("Access denied to Melati guest user") != -1);
+    //System.err.println(m.getWriter().toString());
+    assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     
   }
 

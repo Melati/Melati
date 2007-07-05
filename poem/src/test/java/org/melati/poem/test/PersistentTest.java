@@ -15,6 +15,7 @@ import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.DoubleCreatePoemException;
 import org.melati.poem.Field;
 import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
@@ -59,11 +60,11 @@ public class PersistentTest extends EverythingTestCase {
 
   /**
    * 
-   * @see org.melati.poem.Persistent#invalidate()
+   * @see org.melati.poem.JdbcPersistent#invalidate()
    */
   public void testInvalidate() {
     getDb().uncacheContents();
-    Persistent p = getDb().getUserTable().newPersistent();
+    JdbcPersistent p = (JdbcPersistent)getDb().getUserTable().newPersistent();
     try {
       p.invalidate();
       fail("Should have blown up");
@@ -140,14 +141,14 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#Persistent(String, String)
    */
   public void testPersistentStringString() {
-    Persistent p = new Persistent("user", "0");
+    Persistent p = new JdbcPersistent("user", "0");
     try {
       p.makePersistent();
       fail("Should have blown up");
     } catch (DoubleCreatePoemException e) {
       e = null;      
     }
-    p = new Persistent(getDb().getUserTable(), new Integer(2));
+    p = new JdbcPersistent(getDb().getUserTable(), new Integer(2));
     try {
       p.makePersistent();
       fail("Should have blown up");
@@ -160,14 +161,14 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#Persistent(Table, Integer)
    */
   public void testPersistentTableInteger() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     try {
       p.makePersistent();
       fail("Should have blown up");
     } catch (DoubleCreatePoemException e) {
       e = null;      
     }
-    p = new Persistent(getDb().getUserTable(), new Integer(2));
+    p = new JdbcPersistent(getDb().getUserTable(), new Integer(2));
     try {
       p.makePersistent();
       fail("Should have blown up");
@@ -230,7 +231,7 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#getDatabase()
    */
   public void testGetDatabase() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     assertEquals(p.getDatabase(), getDb());
   }
 
@@ -238,9 +239,9 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#troid()
    */
   public void testTroid() {
-    Persistent p = new Persistent();
+    Persistent p = new JdbcPersistent();
     assertNull(p.troid());
-    p = new Persistent(getDb().getUserTable(), new Integer(0));
+    p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     assertEquals(p.troid(), new Integer(0));
   }
 
@@ -248,9 +249,9 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#getTroid()
    */
   public void testGetTroid() {
-    Persistent p = new Persistent();
+    Persistent p = new JdbcPersistent();
     assertNull(p.getTroid());
-    p = new Persistent(getDb().getUserTable(), new Integer(0));
+    p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     assertEquals(p.getTroid(), new Integer(0));
   }
 
@@ -258,7 +259,7 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#existenceLock()
    */
   public void testExistenceLock() {
-    Persistent p = new Persistent();
+    Persistent p = new JdbcPersistent();
     p.existenceLock();
     try {
       p.delete();
@@ -845,7 +846,7 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#dump()
    */
   public void testDump() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     String d = null; 
     try { 
       d = p.dump();
@@ -880,7 +881,7 @@ public class PersistentTest extends EverythingTestCase {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(baos);
     try { 
-      Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+      Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
       p.dump(ps);
       fail("Should have blown up");
     } catch (ClassCastException e) {
@@ -948,7 +949,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testCountMatchSQL() {
     //try { 
-    //  Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    //  Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
      //p.countMatchSQL(true, true);
       //fail("Should have blown up");
     //} catch (ClassCastException e) {
@@ -972,7 +973,7 @@ public class PersistentTest extends EverythingTestCase {
    * @todo Delete this method has gone 
    */
   public void testFromClause() {
-    //Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    //Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     //assertEquals(getDb().getDbms().getQuotedName("user"), p.fromClause());
     
     //p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
@@ -985,7 +986,7 @@ public class PersistentTest extends EverythingTestCase {
    * @todo Delete this method has gone 
    */
   public void testOtherMatchTables() {
-    //Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    //Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
     //assertTrue(p.otherMatchTables().length == 0);
   }
 
@@ -993,7 +994,7 @@ public class PersistentTest extends EverythingTestCase {
    * Test the representation of an uninitialised Persistent.
    */
   public void testToStringNull() {
-    Persistent unit = new Persistent();
+    Persistent unit = new JdbcPersistent();
     assertEquals("null/null", unit.toString());
   }
 
@@ -1001,8 +1002,8 @@ public class PersistentTest extends EverythingTestCase {
    * Test that two uninitialised Persistents are equal.
    */
   public void testEqualsNull() {
-    Persistent unitOne = new Persistent();
-    Persistent unitTwo = new Persistent();
+    Persistent unitOne = new JdbcPersistent();
+    Persistent unitTwo = new JdbcPersistent();
     assertTrue(unitOne.equals(unitTwo));
   }
 

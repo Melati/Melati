@@ -51,7 +51,7 @@ package org.melati.poem;
  * Much like a Java constructor.  You will probably want to define these as
  * anonymous classes.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  * @see Table#create(org.melati.poem.Initialiser)
  */
 

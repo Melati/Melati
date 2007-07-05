@@ -54,9 +54,6 @@ public class MelatiBugMelatiException extends MelatiRuntimeException {
   /** A description of the bug. */
   public String bug;
 
-  private MelatiBugMelatiException() {
-  }
-  
   /** Full constructor. */
   public MelatiBugMelatiException(String bug, Exception e) {
     super(e);

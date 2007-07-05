@@ -61,8 +61,6 @@ public class PropertyException extends MelatiException {
   /** The specific Property we have a problem with, may be null. */
   public String propertyName;
 
-  private PropertyException() {}
-
   /** Constructor. */
   public PropertyException(Properties properties, String propertyName,
                            Exception problem) {

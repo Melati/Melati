@@ -64,8 +64,6 @@ public class ReconstructedHttpServletRequestMismatchException
   /** The current request. */
   public HttpServletRequest newRequest;
 
-  private ReconstructedHttpServletRequestMismatchException() {}
-  
   /** Constructor. */
   public ReconstructedHttpServletRequestMismatchException(
       HttpServletRequestParameters stored, HttpServletRequest newRequest) {

@@ -59,9 +59,6 @@ public class UnexpectedExceptionException extends MelatiRuntimeException {
   /** A descriptive String giving some context. */
   public String context;
 
-  /** Only way in is through the front door. */
-  private UnexpectedExceptionException() {}
-  
   /** Constructor. */
   public UnexpectedExceptionException(String context, Exception exception) {
     super(exception);

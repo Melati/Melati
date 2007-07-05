@@ -55,8 +55,6 @@ public class ProcessFailedException extends IOException {
   /** The String that was printed to STDERR. */
   public String stderr;
   
-  private ProcessFailedException() {}
-
   /** Constructor with message and what was printed to STDERR. */
   public ProcessFailedException(String message, String stderr) {
     super(message);

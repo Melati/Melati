@@ -27,7 +27,7 @@ public abstract class ContactCategoryBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {

@@ -14,6 +14,7 @@ import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
@@ -622,7 +623,7 @@ public class ContactTableBase extends ContactsTable {
     return (Contact)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new Contact();
   }
   protected String defaultDescription() {

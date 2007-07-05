@@ -820,7 +820,8 @@ public class Table implements Selectable {
   // --------------------
   // 
 
-  private void load(PreparedStatement select, Persistent persistent) {
+  private void load(PreparedStatement select, Persistent p) {
+    JdbcPersistent persistent = (JdbcPersistent)p;
     try {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
@@ -836,7 +837,7 @@ public class Table implements Selectable {
             for (int c = 0; c < columns.length; ++c)
               columns[c].load_unsafe(rs, c + 1, persistent);
           }
-          persistent.dirty = false;
+          persistent.setDirty(false);
           persistent.markValid();
           if (rs.next())
             throw new DuplicateTroidPoemException(this, persistent.troid());
@@ -947,11 +948,12 @@ public class Table implements Selectable {
     }
   }
 
-  void writeDown(PoemTransaction transaction, Persistent persistent) {
+  void writeDown(PoemTransaction transaction, Persistent p) {
+    JdbcPersistent persistent = (JdbcPersistent)p;
     // NOTE No race, provided that the one-thread-per-transaction parity is
     // maintained
 
-    if (persistent.dirty) {
+    if (persistent.isDirty()) {
       troidColumn.setRaw_unsafe(persistent, persistent.troid());
 
       if (persistent.statusExistent()) {
@@ -961,7 +963,7 @@ public class Table implements Selectable {
         persistent.setStatusExistent();
       }
 
-      persistent.dirty = false;
+      persistent.setDirty(false);
       persistent.postWrite();
     }
   }
@@ -1083,15 +1085,15 @@ public class Table implements Selectable {
    * @see Persistent#getTroid()
    */
   public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
-    Persistent persistent = (Persistent)cache.get(troid);
+    JdbcPersistent persistent = (JdbcPersistent)cache.get(troid);
 
     if (persistent == null) {
-      persistent = newPersistent();
+      persistent = (JdbcPersistent)newPersistent();
       claim(persistent, troid);
       load(PoemThread.transaction(), persistent);
       if (persistent.statusExistent())
         synchronized (cache) {
-          Persistent tryAgain = (Persistent)cache.get(troid);
+          JdbcPersistent tryAgain = (JdbcPersistent)cache.get(troid);
           if (tryAgain == null)
             cache.put(troid, persistent);
           else
@@ -1232,7 +1234,7 @@ public class Table implements Selectable {
                                     boolean includeDeleted, 
                                     boolean excludeUnselectable,
                                     PoemTransaction transaction) {
-    return troidsFrom(selectionResultSet(criteria.fromClause(), 
+    return troidsFrom(selectionResultSet(((JdbcPersistent)criteria).fromClause(), 
                                          whereClause(criteria),
                                          orderByClause,
                                          includeDeleted, excludeUnselectable,
@@ -1976,9 +1978,10 @@ public class Table implements Selectable {
    * @exception InitialisationPoemException The object failed validation
    *   (currently one of its field values failed).
    */
-  public void create(Persistent persistent)
+  public void create(Persistent p)
       throws AccessPoemException, ValidationPoemException,
          InitialisationPoemException {
+    JdbcPersistent persistent = (JdbcPersistent)p;
 
     SessionToken sessionToken = PoemThread.sessionToken();
 
@@ -2003,7 +2006,7 @@ public class Table implements Selectable {
     // up any inconsistencies like duplicated unique fields
 
     synchronized (cache) {
-      persistent.dirty = true;
+      persistent.setDirty(true);
       writeDown(sessionToken.transaction, persistent);
 
       // OK, it worked.  Plug the object into the cache.
@@ -2054,7 +2057,8 @@ public class Table implements Selectable {
     return persistent;
   }
 
-  private void claim(Persistent persistent, Integer troid) {
+  private void claim(Persistent p, Integer troid) {
+    JdbcPersistent persistent = (JdbcPersistent)p;
     // We don't want to end up with two of this object in the cache
  
     if (cache.get(troid) != null)
@@ -2075,7 +2079,7 @@ public class Table implements Selectable {
    * ie one without a troid set
    */
   public Persistent newPersistent() {
-    Persistent it = _newPersistent();
+    JdbcPersistent it = _newPersistent();
     it.setTable(this, null);
     return it;
   }
@@ -2086,8 +2090,8 @@ public class Table implements Selectable {
    * This method is overridden in application-specialised <TT>Table</TT>
    * subclasses derived from the Data Structure Definition.
    */
-  protected Persistent _newPersistent() {
-    return new Persistent();
+  protected JdbcPersistent _newPersistent() {
+    return new JdbcPersistent();
   }
 
   /**

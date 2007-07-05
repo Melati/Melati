@@ -90,7 +90,7 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
   */
   public boolean remove(Object obj) {  
     Persistent p = (Persistent)obj;
-    // delete all refs first
+    // delete all references first
      Enumeration refs = _wrappedTable.getDatabase().referencesTo(p);
       while (refs.hasMoreElements()) {
         Persistent q = (Persistent)refs.nextElement();

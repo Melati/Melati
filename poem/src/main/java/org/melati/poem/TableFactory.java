@@ -126,7 +126,7 @@ public final class TableFactory {
     Table table = new Table(db, simpleName, DefinitionSource.runtime);
     String troidName = "id";
     if (ClassUtils.getNoArgMethod(clazz, "getId") != null &&
-        clazz != Persistent.class)
+        !( Persistent.class.isAssignableFrom(clazz)))
       troidName = "poemId";
     table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
             DefinitionSource.runtime, table.extrasIndex++));

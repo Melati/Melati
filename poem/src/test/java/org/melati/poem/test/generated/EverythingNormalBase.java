@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
-import org.melati.poem.Persistent;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingNormalTable;
@@ -21,13 +21,13 @@ import org.melati.poem.test.EverythingNormalTable;
  *
  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class EverythingNormalBase extends Persistent {
+public abstract class EverythingNormalBase extends JdbcPersistent {
 
 
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {

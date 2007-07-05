@@ -8,6 +8,7 @@ import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
@@ -231,7 +232,7 @@ public class DynamicTableBase extends EverythingTable {
     return (Dynamic)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new Dynamic();
   }
   protected String defaultDescription() {

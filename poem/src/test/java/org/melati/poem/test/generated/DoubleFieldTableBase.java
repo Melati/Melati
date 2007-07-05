@@ -9,6 +9,7 @@ import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
@@ -251,7 +252,7 @@ public class DoubleFieldTableBase extends EverythingTable {
     return (DoubleField)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new DoubleField();
   }
   protected String defaultDisplayName() {

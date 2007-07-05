@@ -17,6 +17,7 @@ import org.melati.poem.DisplayLevel;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.LongPoemType;
 import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
@@ -1003,7 +1004,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
     return (EAExtended)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new EAExtended();
   }
   protected String defaultDisplayName() {

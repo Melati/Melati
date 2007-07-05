@@ -10,6 +10,7 @@ import org.melati.poem.DatePoemType;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
@@ -252,7 +253,7 @@ public class DateFieldTableBase extends EverythingTable {
     return (DateField)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new DateField();
   }
   protected String defaultDisplayName() {

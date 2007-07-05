@@ -8,6 +8,7 @@ import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.LongPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
@@ -251,7 +252,7 @@ public class LongFieldTableBase extends EverythingTable {
     return (LongField)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new LongField();
   }
   protected String defaultDisplayName() {

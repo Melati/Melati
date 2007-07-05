@@ -57,7 +57,7 @@ import java.util.Map;
  * references, and {@link StandardIntegrityFix#prevent}, which prevents
  * deletion if there are any references which would be left dangling.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 

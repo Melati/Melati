@@ -47,20 +47,6 @@ public class ParentTableBase extends OdmgTable {
 
 
  /**
-  * Constructor.
-  *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @throws PoemException    if anything goes wrong
-  */
-  public ParentTableBase(
-      Database database, String name) throws PoemException {
-    this(database, name, DefinitionSource.dsd);
-  }
-
-
- /**
   * Get the database tables.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 

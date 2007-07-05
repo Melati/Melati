@@ -9,8 +9,8 @@ import org.melati.example.odmg.Parent;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
 
 
@@ -18,9 +18,9 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Child</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class ChildBase extends Persistent {
+public abstract class ChildBase extends JdbcPersistent {
 
 
  /**
@@ -38,7 +38,7 @@ public abstract class ChildBase extends Persistent {
   * Retrieves the  <code>ChildTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ChildTable
   */
   public ChildTable getChildTable() {

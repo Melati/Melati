@@ -95,7 +95,7 @@ public abstract class Column implements FieldAttributes {
   // 
 
   /**
-   * @return the underlying Ddbms
+   * @return the underlying Dbms
    */
   Dbms dbms() {
     return getDatabase().getDbms();
@@ -600,7 +600,7 @@ public abstract class Column implements FieldAttributes {
    */
   public Persistent firstWhereEq(Object raw) {
     Enumeration them = selectionWhereEq(raw);
-    return them.hasMoreElements() ? (Persistent) them.nextElement() : null;
+    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
   /**
@@ -621,9 +621,9 @@ public abstract class Column implements FieldAttributes {
 
  /**
   * Retrieves the field value, with locking,
-  * for this <code>Column</code>.
+  * for this {@link Column}.
   * 
-  * @param g  the <code>Persistent</code> to read
+  * @param g  the {@link Persistent} to read
   * @return the Object itself
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
@@ -635,7 +635,7 @@ public abstract class Column implements FieldAttributes {
   * Retrieves the field value, without locking,
   * for this <code>Column</code>.
   * 
-  * @param g  the <code>Persistent</code> to read
+  * @param g  the {@link Persistent} to read
   * @return the Object without checks
   */
   public abstract Object getRaw_unsafe(Persistent g);
@@ -644,7 +644,7 @@ public abstract class Column implements FieldAttributes {
   * Sets the field value, with locking,
   * for this <code>Column</code>.
   * 
-  * @param g  the <code>Persistent</code> to modify
+  * @param g  the {@link Persistent} to modify
   * @param raw the value to set the field to 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
@@ -659,7 +659,7 @@ public abstract class Column implements FieldAttributes {
   * Sets the field value, without locking,
   * for this <code>Column</code>.
   * 
-  * @param g  the <code>Persistent</code> to modify
+  * @param g  the {@link Persistent} to modify
   * @param raw the value to set the field to 
   */
   public abstract void setRaw_unsafe(Persistent g, Object raw);
@@ -668,7 +668,7 @@ public abstract class Column implements FieldAttributes {
   * Retrieves the field value, with locking and  access control 
   * for this <code>Column</code>.
   * 
-  * @param g  the <code>Persistent</code> to modify
+  * @param g  the {@link Persistent} to modify
   * @return either the value or what is represented by the value
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
@@ -683,7 +683,7 @@ public abstract class Column implements FieldAttributes {
   * Sets the field value, with locking, access control 
   * and validation for this <code>Column</code>.
   * 
-  * @param g  the <code>Persistent</code> to modify
+  * @param g  the {@link Persistent} to modify
   * @param cooked  the value to set
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
@@ -695,7 +695,7 @@ public abstract class Column implements FieldAttributes {
     throws AccessPoemException, ValidationPoemException;
 
   /**
-   * Thrown when any unforseen problem arises loading a {@link Column}.
+   * Thrown when any unforeseen problem arises loading a {@link Column}.
    */
   public static class LoadException extends UnexpectedExceptionPoemException {
     private static final long serialVersionUID = 1L;
@@ -772,7 +772,7 @@ public abstract class Column implements FieldAttributes {
 
   /**
    * Return a Field of the same type as this Column from the Persistent.
-   * @param g the Perseistent
+   * @param g the Persistent
    * @return a Field
    */
   public abstract Field asField(Persistent g);
@@ -846,11 +846,11 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
-   * Return an Enumeration of Persistents from the 
+   * Return an Enumeration of {@link Persistent}s from the 
    * Table this column refers to, if this is a reference column, 
    * otherwise the Empty Enumeration.
    * @param object A persistent of the type referred to by this column
-   * @return an Enumeration Persistents referencing this Column of the Persistent
+   * @return an Enumeration {@link Persistent}s referencing this Column of the Persistent
    */
   public Enumeration referencesTo(Persistent object) {
     return getType() instanceof ReferencePoemType
@@ -861,7 +861,7 @@ public abstract class Column implements FieldAttributes {
 
   /**
    * Ensures a row exists for which this column matches when compared with
-   * the given <code>Persistent</code>.
+   * the given {@link Persistent}.
    * <p>
    * The given object is used to create a new row if
    * necessary, in which case it will be assigned the next troid.and

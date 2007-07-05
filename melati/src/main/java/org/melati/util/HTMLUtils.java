@@ -73,7 +73,7 @@ public final class HTMLUtils {
   private static DTD dtdForHTMLParser = null;
 
   /**
-   * Add an Elenet to the ContentModel.
+   * Add an Element to the ContentModel.
    * @param cm the ContentModel to add to
    * @param existing existing element
    * @param alt alternate element
@@ -154,13 +154,6 @@ public final class HTMLUtils {
   }
 
   /**
-   * @return a new parser
-   */
-  public static FictionalNotifyingDocumentParser newDocumentParser() {
-    return new FictionalNotifyingDocumentParser(dtdForHTMLParser());
-  }
-
-  /**
    * If the given character has special meaning in HTML or will not
    * necessarily encode in the character set, then return an escape string.
    * <p>
@@ -202,7 +195,7 @@ public final class HTMLUtils {
   }
 
   /**
-   * Return the String with all high value ascii characters 
+   * Return the String with all high value ASCII characters 
    * replaced with HTML entities.
    * 
    * @param s input String
@@ -356,10 +349,6 @@ public final class HTMLUtils {
     /** Its attributes. */
     public final AttributeSet attributes;
 
-    private TagInstance() {
-      this.tag = null;
-      this.attributes = null;      
-    }
     /** Constructor. */
     public TagInstance(HTML.Tag tag, AttributeSet attributes) {
       this.tag = tag;

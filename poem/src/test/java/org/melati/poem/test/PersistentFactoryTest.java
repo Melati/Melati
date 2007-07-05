@@ -16,7 +16,7 @@ import org.melati.poem.test.pojo.ClassWithNoIdAndPublicMembers;
 import org.melati.poem.test.pojo.ClassWithStringId;
 /**
  * @author timp
- * @since 14 Jun 2007
+ * @since 14 June 2007
  *
  */
 public class PersistentFactoryTest extends PoemTestCase {

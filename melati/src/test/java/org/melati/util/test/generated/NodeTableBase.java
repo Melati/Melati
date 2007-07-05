@@ -13,11 +13,11 @@ import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.util.test.Node;
 import org.melati.util.test.TreeDatabaseTables;
+import org.melati.util.test.TreeTable;
 
 
 /**
@@ -27,7 +27,7 @@ import org.melati.util.test.TreeDatabaseTables;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class NodeTableBase extends Table {
+public class NodeTableBase extends TreeTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -47,20 +47,6 @@ public class NodeTableBase extends Table {
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
-  }
-
-
- /**
-  * Constructor.
-  *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @throws PoemException    if anything goes wrong
-  */
-  public NodeTableBase(
-      Database database, String name) throws PoemException {
-    this(database, name, DefinitionSource.dsd);
   }
 
 

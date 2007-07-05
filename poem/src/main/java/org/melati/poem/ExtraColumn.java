@@ -68,7 +68,7 @@ public class ExtraColumn extends Column {
    * @see org.melati.poem.Column#getRaw(org.melati.poem.Persistent)
    */
   public Object getRaw(Persistent g) throws AccessPoemException {
-    g.readLock();
+    ((JdbcPersistent)g).readLock();
     return getRaw_unsafe(g);
   }
 
@@ -77,7 +77,7 @@ public class ExtraColumn extends Column {
    * @see org.melati.poem.Column#getRaw_unsafe(org.melati.poem.Persistent)
    */
   public Object getRaw_unsafe(Persistent g) {
-    return g.extras()[extrasIndex];
+    return ((JdbcPersistent)g).extras()[extrasIndex];
   }
 
   /**
@@ -87,7 +87,7 @@ public class ExtraColumn extends Column {
   public void setRaw(Persistent g, Object raw)
       throws AccessPoemException, ValidationPoemException {
     getType().assertValidRaw(raw);
-    g.writeLock();
+    ((JdbcPersistent)g).writeLock();
     setRaw_unsafe(g, raw);
   }
 
@@ -96,7 +96,7 @@ public class ExtraColumn extends Column {
    * @see org.melati.poem.Column#setRaw_unsafe(org.melati.poem.Persistent, java.lang.Object)
    */
   public void setRaw_unsafe(Persistent g, Object raw) {
-    g.extras()[extrasIndex] = raw;
+    ((JdbcPersistent)g).extras()[extrasIndex] = raw;
   }
 
   /**

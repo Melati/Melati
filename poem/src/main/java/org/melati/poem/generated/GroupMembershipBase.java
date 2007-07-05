@@ -8,8 +8,8 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
 import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
@@ -21,13 +21,13 @@ import org.melati.poem.ValidationPoemException;
  *
  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class GroupMembershipBase extends Persistent {
+public abstract class GroupMembershipBase extends JdbcPersistent {
 
 
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {

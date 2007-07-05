@@ -9,8 +9,8 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
 import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.ValidationPoemException;
 
@@ -21,13 +21,13 @@ import org.melati.poem.ValidationPoemException;
  *
  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class GroupCapabilityBase extends Persistent {
+public abstract class GroupCapabilityBase extends JdbcPersistent {
 
 
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {

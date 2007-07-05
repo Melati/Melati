@@ -10,6 +10,7 @@ import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
 import org.melati.poem.GroupMembership;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
@@ -316,7 +317,7 @@ public class GroupMembershipTableBase extends PoemTable {
     return (GroupMembership)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new GroupMembership();
   }
   protected String defaultDisplayName() {

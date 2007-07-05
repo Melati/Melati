@@ -11,6 +11,7 @@ import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
 import org.melati.poem.GroupCapability;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
@@ -291,7 +292,7 @@ public class GroupCapabilityTableBase extends PoemTable {
     return (GroupCapability)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new GroupCapability();
   }
   protected String defaultDisplayName() {

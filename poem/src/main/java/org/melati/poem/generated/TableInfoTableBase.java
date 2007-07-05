@@ -11,6 +11,7 @@ import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
@@ -970,7 +971,7 @@ public class TableInfoTableBase extends PoemTable {
     return (TableInfo)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new TableInfo();
   }
   protected String defaultDisplayName() {

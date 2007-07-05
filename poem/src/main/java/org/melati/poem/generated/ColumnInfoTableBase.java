@@ -13,6 +13,7 @@ import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.IntegrityFixPoemType;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
@@ -224,7 +225,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 300;
+            return 50;
           }
 
           protected String defaultDescription() {
@@ -291,7 +292,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 301;
+            return 51;
           }
 
           protected String defaultDescription() {
@@ -350,7 +351,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 302;
+            return 52;
           }
 
           protected String defaultDescription() {
@@ -409,7 +410,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 303;
+            return 53;
           }
 
           protected String defaultDescription() {
@@ -464,7 +465,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 304;
+            return 54;
           }
 
           protected String defaultDescription() {
@@ -519,7 +520,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 305;
+            return 55;
           }
 
           protected String defaultDescription() {
@@ -578,7 +579,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 306;
+            return 56;
           }
 
           protected String defaultDescription() {
@@ -637,7 +638,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 307;
+            return 57;
           }
 
           protected String defaultDescription() {
@@ -696,7 +697,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 308;
+            return 58;
           }
 
           protected String defaultDescription() {
@@ -755,7 +756,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 309;
+            return 59;
           }
 
           protected String defaultDescription() {
@@ -952,7 +953,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
     return (ColumnInfo)getObject(troid);
   }
 
-  protected Persistent _newPersistent() {
+  protected JdbcPersistent _newPersistent() {
     return new ColumnInfo();
   }
   protected String defaultDisplayName() {

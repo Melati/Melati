@@ -10,8 +10,8 @@ import org.melati.example.contacts.ContactsDatabaseTables;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
 
 
@@ -21,7 +21,7 @@ import org.melati.poem.ValidationPoemException;
  *
  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
-public abstract class ContactCategoryBase extends Persistent {
+public abstract class ContactCategoryBase extends JdbcPersistent {
 
 
  /**

@@ -90,6 +90,12 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
    * @required
    */
   private String artifactId;
+  
+  /**
+   * @parameter expression="${checkUptodate}" default-value=true
+   */
+  private boolean checkUptodate;
+  
 
   private String searchedLocations = "";
 
@@ -147,10 +153,16 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
     if (databaseTablesFile != null && databaseTablesFile.exists()) {
       databaseTablesTimestamp = databaseTablesFile.lastModified();
     }
-    getLog().info(databaseTablesFileName);
-    if (dsdTimestamp < databaseTablesTimestamp) {
-      getLog().info("Generated files are uptodate.");
-    } else {
+    boolean doIt = true;
+    if (checkUptodate) { 
+      getLog().info(" Checking " + databaseTablesFileName);
+      if (dsdTimestamp < databaseTablesTimestamp) {
+        getLog().info("Generated files are uptodate. No action required.");
+        doIt = false;
+      } 
+    } else 
+      getLog().info(" Not checking - doing regardless" );
+    if (doIt) {
       DSD dsd;
       try {
         dsd = new DSD(dsdPath);

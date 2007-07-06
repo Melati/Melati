@@ -34,6 +34,21 @@ mvn org.melati:maven-dsd-plugin:1.0-SNAPSHOT:generate
 </pre>
 </p>
 </subsection>
+<subsection name=" Forcing regeneration ">
+<p>
+The plugin compares the file timestamps of the DSD and the generated database base file 
+(<tt>generated/MyProjectDatabaseBase.java</tt>). If the generated file is younger than the 
+DSD then the plugin does not run.
+</p>
+<p>
+To override this behaviour, when there is a new version of the plugin for example, 
+add the following:
+</p>
+<pre>
+mvn -DcheckUptodate=false org.melati:maven-dsd-plugin:1.0-SNAPSHOT:generate
+</pre>
+
+</subsection>
 <subsection name=" Shortening the Command Line ">
 <p>
 In order to shorten the amount of typing needed on the command line, 

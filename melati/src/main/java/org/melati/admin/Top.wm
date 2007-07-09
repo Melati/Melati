@@ -75,12 +75,12 @@
 #set $lasttype = ""
 #set $selected = false
 #foreach $tab in $database.DisplayTables #begin
-  #if (!$tab.Category.equals($lasttype)) #begin
+  #if (!$tab.TableInfo.Category.equals($lasttype)) #begin
     <option value="null">&nbsp;</option>
-    <option value="null">$tab.Category.Name</option>
+    <option value="null">$tab.TableInfo.Category.Name</option>
     <option value="null">============</option>
   #end
-  #set $lasttype = $tab.Category
+  #set $lasttype = $tab.TableInfo.Category
 
 <option value="$admin.BottomURL($tab)"
 #if (!$selected) #begin

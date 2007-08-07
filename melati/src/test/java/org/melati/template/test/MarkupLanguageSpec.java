@@ -155,8 +155,8 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * Test entity substitution
    */
   public void testEntitySubstitution() throws Exception { 
-    assertEquals("&amp;&percent;&pound;", ml.rendered("&%£"));
-    assertEquals("&amp;&percent;&pound;", aml.rendered("&%£"));
+    assertEquals("&amp;%&pound;", ml.rendered("&%£"));
+    assertEquals("&amp;%&pound;", aml.rendered("&%£"));
   }
 
   /**

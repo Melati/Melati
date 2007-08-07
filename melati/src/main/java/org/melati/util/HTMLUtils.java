@@ -168,6 +168,7 @@ public final class HTMLUtils {
    * If a charset is passed and a character does not encode then we
    * replace it with a numeric character reference (not an entity
    * either but pretty similar).
+   *
    * @param c character to lookup entity for 
    * @param mapBR whether to replace line ends
    * @param ce an encoder
@@ -179,7 +180,6 @@ public final class HTMLUtils {
       case '<': return "&lt;";
       case '>': return "&gt;";
       case '£': return "&pound;";
-      case '%': return "&percent;";
       case '&': return "&amp;";
       case '"': return "&quot;";
       case '\'': return "&#39;";

@@ -218,10 +218,9 @@ public class MelatiConfig {
                               melatiLocaleProp);
 
       // This is a fancy way of splitting, trimming and checking for
-      // errors such as spaces within fields. Also, it reflects the
-      // fact that the config file format is like a q-less header field.
-      // FIXME - if field contains quotes then melati initialisation
-      // dies with OutOfMemory exception
+      // errors such as spaces within fields. 
+      // It reflects the fact that the config file format 
+      // is like a quoteless Http header field.
       setPreferredCharsets(
         EnumUtils.vectorOf(
             new HttpHeader(PropertiesUtils.getOrDefault(

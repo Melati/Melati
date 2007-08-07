@@ -72,8 +72,8 @@ target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">
    <font face="Arial, Helvetica" size="2">$table.DisplayName</font></div><font face="Arial, Helvetica" size="2">:
 <a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()"
-title="Display $ml.rendered($object)">
-$ml.rendered($object)</a>
+title="Display $ml.rendered($object.toString())">
+$ml.rendered($object.toString())</a>
    </font>
   </td>
 #set $references = $database.referencesTo($table)

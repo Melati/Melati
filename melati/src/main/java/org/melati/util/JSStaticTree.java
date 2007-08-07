@@ -44,8 +44,6 @@ package org.melati.util;
 
 /**
  * A JavaScript tree which can be rendered as ordinary HTML.
- * 
- * @todo Rename to JsHtmlTree
  */
 public class JSStaticTree extends Tree {
 

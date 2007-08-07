@@ -68,6 +68,7 @@ public class MelatiConfigTest extends TestCase {
       assertTrue(e.getMessage().indexOf("Is it in your CLASSPATH")>= 0); 
     }
 
+    // Bad locale setting
     try {
       mc = new MelatiConfig("bad.MelatiServlet");
       fail("should have blown up");

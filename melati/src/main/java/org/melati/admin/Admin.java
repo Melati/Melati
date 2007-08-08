@@ -114,8 +114,6 @@ import org.melati.util.MelatiRuntimeException;
  * </ul>
  *
  * @todo Getting a bit big, wants breaking up
- * @todo Ensure that the new, duplicated record is editted, not the original, 
- *       in Duplicate
  * @todo Review working of where clause for dates 
  */
 

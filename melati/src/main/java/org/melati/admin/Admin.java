@@ -718,10 +718,6 @@ public class Admin extends TemplateServlet {
 
   protected String duplicateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
-    // FIXME the ORIGINAL object is the one that will get edited when the
-    // update comes in from Edit, because it will be identified from
-    // the path info!
-
     Persistent dup = melati.getObject().duplicated();
     Form.extractFields(context, dup);
     dup.getTable().create(dup);

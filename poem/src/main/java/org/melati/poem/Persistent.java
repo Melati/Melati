@@ -49,8 +49,6 @@ import java.io.PrintStream;
 import java.util.Enumeration;
 import java.util.Map;
 
-import org.melati.poem.transaction.Transaction;
-
 /**
  * The object representing a single table row; this is the <B>PO</B> in POEM!
  * <p>

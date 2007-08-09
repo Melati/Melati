@@ -102,7 +102,12 @@ public class AnsiStandard implements Dbms {
   protected synchronized void setDriverClassName(String name) {
     driverClassName = name;
   }
+  
   protected synchronized String getDriverClassName() {
+    if (driverClassName == null)
+      throw new PoemBugPoemException(
+          "No Driver Classname set in dbms specific class");
+
     return driverClassName;
   }
 
@@ -151,15 +156,14 @@ public class AnsiStandard implements Dbms {
     Class driverClass;
     try {
       driverClass = Class.forName(getDriverClassName());
-      setDriverLoaded(true);
-    } catch (java.lang.ClassNotFoundException e) {
-      // A call to Class.forName() forces us to consider this exception :-)...
-      setDriverLoaded(false);
-      return;
+    } catch (ClassNotFoundException e) {
+      throw new UnexpectedExceptionPoemException(e);
     }
+    
+    setDriverLoaded(true);
 
     try {
-      driver = (Driver) driverClass.newInstance();
+      driver = (Driver)driverClass.newInstance();
     } catch (java.lang.Exception e) {
       // ... otherwise, "something went wrong" and I don't here care what
       // or have the wherewithal to do anything about it :)
@@ -179,16 +183,7 @@ public class AnsiStandard implements Dbms {
     schema = user;
     try { 
       synchronized (driverClassName) {
-        if (!getDriverLoaded()) {
-          if (getDriverClassName() == null)
-            throw new SQLException(
-                "No Driver Classname set in dbms specific class");
-          loadDriver();
-        }
-      }
-      if (!getDriverLoaded()) {
-        throw new SQLException(
-            "The Driver class " + getDriverClassName() + " failed to load");
+        if (!getDriverLoaded()) loadDriver();
       }
 
       Connection c = null;

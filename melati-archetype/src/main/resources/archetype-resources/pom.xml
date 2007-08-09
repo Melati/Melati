@@ -103,7 +103,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.7-RC1</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
 
@@ -111,7 +111,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>poem</artifactId>
-      <version>0.7.7-RC2-SNAPSHOT</version>
+      <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
@@ -209,7 +209,7 @@ ${firstChar}${rest}#end
       <dependency>
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
-       <version>0.7.7-RC2-SNAPSHOT</version>
+       <version>${project.version}</version>
       </dependency>
      </dependencies>
     </plugin>
@@ -229,7 +229,7 @@ ${firstChar}${rest}#end
                <artifactItem>
                  <groupId>org.melati</groupId>
                  <artifactId>melati</artifactId>
-                <version>0.7.7-RC2-SNAPSHOT</version>
+                 <version>${project.version}</version>
                </artifactItem>
              </artifactItems>
              <outputDirectory>src/main/webapp</outputDirectory>

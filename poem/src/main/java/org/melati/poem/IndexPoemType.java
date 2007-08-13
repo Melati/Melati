@@ -65,13 +65,15 @@ public class IndexPoemType extends IntegerPoemType {
   }
 
   /**
-   * Constructor.
+   * Protected constructor.
+   * I am not sure what this is for. 
+   * 
    * @param sqlTypeCode from Types
    * @param sqlTypeName SQL Type name
    * @param nullable whether null is an allowed value
-   */
   protected IndexPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
     super(sqlTypeCode, sqlTypeName, nullable);
   }
+   */
 
 }

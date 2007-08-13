@@ -91,7 +91,7 @@ public interface TemplateEngine {
   String templateExtension();
 
   /** 
-   * Get a template given it's name.
+   * Get a template given it's full name.
    * 
    * @param templateName the name of the template to find
    * @throws IOException if TemplateEngine does

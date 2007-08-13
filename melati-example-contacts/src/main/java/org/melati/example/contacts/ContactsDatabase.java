@@ -9,9 +9,9 @@ import org.melati.example.contacts.generated.ContactsDatabaseBase;
 public class ContactsDatabase extends ContactsDatabaseBase
                             implements ContactsDatabaseTables {
   // programmer's domain-specific code here
-  public void connect(String dbmsclass, String url, String username,
+  public void connect(String name, String dbmsclass, String url, String username,
                       String password, int maxConnections) {
-    super.connect(dbmsclass, url, username, password, maxConnections);
+    super.connect(name, dbmsclass, url, username, password, maxConnections);
 
     // We can't use the normal AccessToken.root
     // as we need the troid to set lastupdateuser

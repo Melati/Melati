@@ -46,6 +46,8 @@ package org.melati.template.webmacro;
 
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -71,6 +73,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   /** The name of the engine. */
   public static final String NAME = "webmacro";
 
+  private Vector roots = new Vector();
 
   /** The WebMacro. */
   public WM wm;
@@ -81,6 +84,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    */
   public WebmacroTemplateEngine() {
     super();
+    roots.add("");
   }
   
   /**
@@ -232,6 +236,14 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    */
   public Object getPassbackVariableExceptionHandler() {
     return new PassbackEvaluationExceptionHandler();
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#getRoots()
+   */
+  public Enumeration getRoots() {
+    return roots.elements();
   }
 
 

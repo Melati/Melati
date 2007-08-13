@@ -44,6 +44,7 @@
 package org.melati.template;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -90,6 +91,21 @@ public interface TemplateEngine {
    */
   String templateExtension();
 
+  /**
+   * A root should not end in a slash.
+   * 
+   * @return an Enumeration of string roots, always at least the empty string
+   */
+  Enumeration getRoots();
+  
+  /**
+   * Add a template root directory.
+   * NOTE A root should not end in a slash.
+   * 
+   * @param root the root to add
+   */
+  void addRoot(String root);
+  
   /** 
    * Get a template given it's full name.
    * 
@@ -99,8 +115,24 @@ public interface TemplateEngine {
    * @return a template
    */
   Template template(String templateName) 
-      throws IOException, NotFoundException;
+    throws IOException, NotFoundException;
 
+  /**
+   * The name of a template which exists.
+   * 
+   * @param key short name, without path or extension
+   * @param classifier a purpose or database name or similar qualifier 
+   * @return the name of a template, null if none found
+   */
+  String getTemplateName(String key, String classifier);
+   
+  /**
+   * 
+   * @param key short name, without path or extension
+   * @return the name of a template, null if none found
+   */
+  String getTemplateName(String key);
+  
   /** 
    * Expand the Template against the context.
    *

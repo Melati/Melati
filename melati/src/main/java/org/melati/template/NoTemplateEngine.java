@@ -63,11 +63,18 @@ import org.melati.util.MelatiBufferedWriter;
  *
  * @author Tim Joyce
  */
-public class NoTemplateEngine implements ServletTemplateEngine {
+public class NoTemplateEngine extends AbstractTemplateEngine implements ServletTemplateEngine {
 
   private String message =
       "No Template engine is Configured, please specify an engine in " +
       "org.melati.MelatiServlet.properties";
+
+  /**
+   * Constructor.
+   */
+  public NoTemplateEngine() {
+    super();
+  }
 
   /**
    * Construct a null Engine.
@@ -238,6 +245,5 @@ public class NoTemplateEngine implements ServletTemplateEngine {
   public Object getEngine() {
     return "none";
   }
-
 
 }

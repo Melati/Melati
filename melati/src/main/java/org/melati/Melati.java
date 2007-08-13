@@ -359,7 +359,7 @@ public class Melati {
   /**
    * Get the MelatiConfig associated with this Request.
    *
-   * @return - the template context being used
+   * @return - the configuration being used
    */
   public MelatiConfig getConfig() {
     return config;
@@ -970,5 +970,21 @@ public class Melati {
     return field.getType() instanceof ReferencePoemType;
   }
 
+  /**
+   * Find a db specific template if it exists, otherwise a non-specific one, 
+   * searching through all template paths.
+   * 
+   * @param key fileName of template, without extension
+   * @return full resource name
+   */
+  public String templateName(String key) {
+    String templateName = null;
+    try {
+      templateName = getTemplateEngine().getTemplateName(key, getDatabase().getName());
+    } catch (Exception e) {
+      throw new MelatiBugMelatiException("Problem getting template named " + key , e);
+    }
+    return templateName;
+  }
   
 }

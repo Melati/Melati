@@ -43,10 +43,8 @@
  */
 package org.melati.template;
 
-import java.io.IOException;
-
-import org.melati.util.MelatiStringWriter;
-import org.melati.util.MelatiWriter;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * Common elements of a TemplateEngine. 
@@ -54,45 +52,75 @@ import org.melati.util.MelatiWriter;
  */
 public abstract class AbstractTemplateEngine implements TemplateEngine {
 
+  private Vector roots = new Vector();
+  
   /**
    * Constructor.
    */
   public AbstractTemplateEngine() {
     super();
+    roots.add("");
   }
 
-  /**
+  /** 
    * {@inheritDoc}
-   * @throws IOException 
-   * @see org.melati.template.TemplateEngine#
-   *  expandTemplate(org.melati.util.MelatiWriter, 
-   *                 org.melati.template.Template, 
-   *                 org.melati.template.TemplateContext)
+   * @see org.melati.template.TemplateEngine#getTemplateName(java.lang.String, java.lang.String)
    */
-  public abstract void expandTemplate(MelatiWriter out, Template template,
-      TemplateContext templateContext) throws IOException;
+  public String getTemplateName(String key, String classifier) {
+    String templateResourceName = null;
+    Enumeration roots = getRoots();    
+    while(roots.hasMoreElements()) { 
+      String root = (String)roots.nextElement();
+      templateResourceName = root + "/" + 
+                            classifier + "/" + 
+                            key + 
+                            templateExtension();
+      if (this.getClass().getResource(templateResourceName) == null) {
+        templateResourceName = root + "/" +
+                               key + templateExtension();
+      } else break; 
+       
+      if (this.getClass().getResource(templateResourceName) != null) break;
+    }
+
+    return templateResourceName;
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#getTemplateName(java.lang.String)
+   */
+  public String getTemplateName(String key) {
+    String templateResourceName = null;
+    Enumeration roots = getRoots();    
+    while(roots.hasMoreElements()) { 
+      String root = (String)roots.nextElement();
+      templateResourceName = root + "/" + 
+                            key + 
+                            templateExtension();
+      if (this.getClass().getResource(templateResourceName) != null) break;
+    }
+
+    return templateResourceName;
+  }
   
-  /**
+  
+
+  /** 
    * {@inheritDoc}
-   * 
-   * @see org.melati.template.TemplateEngine#expandedTemplate(
-   *          org.melati.template.Template, 
-   *          org.melati.template.TemplateContext)
+   * @see org.melati.template.TemplateEngine#getRoots()
    */
-  public abstract String expandedTemplate(Template template,
-      TemplateContext templateContext) throws TemplateEngineException, IOException;
-
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#getStringWriter()
+  public Enumeration getRoots() {
+    return roots.elements();
+  }
+  
+  /** 
+   * Add root at index 0, 
+   * so that the empty string is always returned l;ast by <code>elements</code>.
+   * @see org.melati.template.TemplateEngine#addRoot(java.lang.String)
    */
-  public abstract MelatiStringWriter getStringWriter();
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#getEngine()
-   */
-  public abstract Object getEngine();
-
+  public void addRoot(String root) { 
+    roots.insertElementAt(root,0);
+  }
+  
 }

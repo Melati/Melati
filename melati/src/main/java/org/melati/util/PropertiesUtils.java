@@ -45,6 +45,7 @@
 
 package org.melati.util;
 
+import java.util.Hashtable;
 import java.util.Properties;
 import java.io.File;
 import java.io.InputStream;
@@ -181,6 +182,7 @@ public final class PropertiesUtils {
     }
   }
 
+  static private Hashtable instantiatedClassesCache = new Hashtable();
   /**
    * Instantiate an interface.
    * 
@@ -192,13 +194,18 @@ public final class PropertiesUtils {
    */
   public static Object instanceOfNamedClass(String className, String interfaceClassName)
       throws InstantiationPropertyException {
+    Object cached = instantiatedClassesCache.get(className);
+    if (cached != null)
+      return cached;
     try {
       Class interfaceClass = Class.forName(interfaceClassName);
       Class clazz = Class.forName(className);
       if (!interfaceClass.isAssignableFrom(clazz))
         throw new ClassCastException(
                 clazz + " is not descended from " + interfaceClass);
-        return clazz.newInstance();
+      Object it = clazz.newInstance();
+      instantiatedClassesCache.put(className, it);
+      return it;
     } catch (Exception e) {
       throw new InstantiationPropertyException(className, e);
     }

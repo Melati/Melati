@@ -61,6 +61,7 @@ import org.melati.poem.transaction.TransactionPool;
 import org.melati.poem.util.ArrayEnumeration;
 import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
+import org.melati.poem.util.StringUtils;
 
 import EDU.oswego.cs.dl.util.concurrent.ReadWriteLock;
 import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
@@ -93,6 +94,8 @@ public abstract class Database implements TransactionPool {
   private Hashtable tablesByName = new Hashtable();
   private Table[] displayTables = null;
 
+  private String name;
+  private String displayName;
   private Dbms dbms;
   private boolean logSQL = false;
   private boolean logCommits = false;
@@ -207,11 +210,12 @@ public abstract class Database implements TransactionPool {
    *
    * @see #transactionsMax()
    */
-  public void connect(String dbmsclass, String url,
+  public void connect(String name, String dbmsclass, String url,
                       String username, String password,
                       int transactionsMaxP) throws PoemException {
 
-    connectionUrl = url;
+    this.name = name;
+    this.connectionUrl = url;
 
     synchronized (connecting) {
       if (connecting[0])
@@ -1430,5 +1434,29 @@ public abstract class Database implements TransactionPool {
   public void incrementQueryCount() {
     queryCount++; 
   }
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @return the displayName
+   */
+  public String getDisplayName() {
+    if (displayName == null) 
+      return StringUtils.capitalised(getName());
+    return displayName;
+  }
+
+  /**
+   * @param displayName the displayName to set
+   */
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
 }
 

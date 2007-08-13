@@ -201,7 +201,7 @@ public final class PoemDatabaseFactory {
         if (logCommits)
           database.setLogCommits(true);
 
-        database.connect(dbmsClass, url, user, password, maxTransactions);
+        database.connect(name, dbmsClass, url, user, password, maxTransactions);
 
         if (addConstraints)
           database.addConstraints();

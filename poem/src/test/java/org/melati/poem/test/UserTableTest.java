@@ -36,7 +36,7 @@ public class UserTableTest extends TestCase {
 
   private void init() {
     db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.Hsqldb", 
+    db.connect("poem","org.melati.poem.dbms.Hsqldb", 
                dbUrl, "sa",
                "", 4);
     ut = db.getUserTable();

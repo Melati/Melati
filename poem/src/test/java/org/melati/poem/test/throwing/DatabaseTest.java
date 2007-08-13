@@ -48,7 +48,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
    */
   private static Database getDb() {
     db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+    db.connect("m2", "org.melati.poem.dbms.test.HsqldbThrower", 
             "jdbc:hsqldb:mem:m2", 
             "sa", 
             "",
@@ -120,7 +120,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
 
   public void testConnect() {
     try { 
-      getDb().connect("org.melati.poem.dbms.test.HsqldbThrower", 
+      getDb().connect("m2", "org.melati.poem.dbms.test.HsqldbThrower", 
               "jdbc:hsqldb:mem:m2",
               "sa", "", 8);
       fail("Should have blown up");
@@ -144,7 +144,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     Database db = new PoemDatabase();
     ThrowingConnection.startThrowingAfter("getMetaData",1);     
     try { 
-      db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+      db.connect("m2", "org.melati.poem.dbms.test.HsqldbThrower", 
               "jdbc:hsqldb:mem:m2", 
               "sa", 
               "",
@@ -166,7 +166,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     db.disconnect();
     ThrowingConnection.startThrowing("getMetaData");     
     try { 
-      db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+      db.connect("m2","org.melati.poem.dbms.test.HsqldbThrower", 
               "jdbc:hsqldb:mem:m2", 
               "sa", 
               "",

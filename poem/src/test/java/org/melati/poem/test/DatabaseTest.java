@@ -56,7 +56,7 @@ public class DatabaseTest extends TestCase {
       return db;
     else {
       db = new PoemDatabase();
-      db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
+      db.connect("m2", "org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
         "sa", "", 8);
       assertEquals(8, db.getFreeTransactionsCount());
       assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
@@ -76,7 +76,7 @@ public class DatabaseTest extends TestCase {
    */
   public void testConnect() { 
     try { 
-      getDb().connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
+      getDb().connect("m2", "org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
           "sa", "", 8);
       fail("Should have blown up");
     } catch (ReconnectionPoemException e) {

@@ -118,7 +118,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     c.close();
     PoemDatabase db = new PoemDatabase();
     //db.setLogSQL(true);
-    db.connect("org.melati.poem.dbms.Hsqldb",
+    db.connect("unifiable", "org.melati.poem.dbms.Hsqldb",
         url, "sa", "", 22);
     assertEquals(22, db.getFreeTransactionsCount());
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");

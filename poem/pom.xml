@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.melati</groupId>
     <artifactId>melati-parent</artifactId>
-    <version>0.7.7-RC2-SNAPSHOT</version>
+    <version>0.7.8-RC1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>poem</artifactId>
@@ -139,8 +139,8 @@
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
         <!-- Bootstrap issues when we go up a version-->
-       <!-- version>0.7.7-RC1</version -->
-       <version>${project.version}</version>
+       <version>0.7.7-RC1</version>
+       <!--version>${project.version}</version-->
       </dependency>
      </dependencies>
     </plugin>

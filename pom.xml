@@ -15,7 +15,7 @@
     <module>melati-archetype</module>
     <module>melati-skin</module>
   </modules>  
-  <version>0.7.7-RC2-SNAPSHOT</version>
+  <version>0.7.7-final</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -409,13 +409,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
-            <!-- ruleset>/rulesets/controversial.xml</ruleset-->
           </rulesets>
           <minmemory>128m</minmemory>
           <maxmemory>256</maxmemory>
@@ -427,7 +426,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
         </configuration>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>

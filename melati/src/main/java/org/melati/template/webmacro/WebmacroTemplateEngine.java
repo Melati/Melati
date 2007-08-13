@@ -71,9 +71,6 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   /** The name of the engine. */
   public static final String NAME = "webmacro";
 
-//  public static final Object check =
-//  org.webmacro.engine.Variable.
-//       youNeedToBeUsingAVersionOfVariableHackedForMelati;
 
   /** The WebMacro. */
   public WM wm;

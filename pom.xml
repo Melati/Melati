@@ -15,7 +15,7 @@
     <module>melati-archetype</module>
     <module>melati-skin</module>
   </modules>  
-  <version>0.7.7-final</version>
+  <version>0.7.7</version>
   <description>
 Melati Java Web Development Suite
   </description>

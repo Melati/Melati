@@ -66,6 +66,13 @@ public class WebmacroServletTemplateEngine
     extends WebmacroTemplateEngine implements ServletTemplateEngine {
 
   /**
+   * Constructor.
+   */
+  public WebmacroServletTemplateEngine() {
+    super();
+  }
+
+  /**
    * Construct a new Engine for use in a servlet environment.
    *
    * @see org.melati.servlet.TemplateServlet

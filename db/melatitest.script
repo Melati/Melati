@@ -115,6 +115,7 @@ INSERT INTO "COLUMNINFO" VALUES('Name','A code name for this setting',TRUE,-7,FA
 INSERT INTO "COLUMNINFO" VALUES('Value','The value of this setting',TRUE,-7,TRUE,-1,20,1,22,2,NULL,NULL,NULL,68,8,'value',150,TRUE,1,1,NULL,FALSE,FALSE,FALSE,2)
 INSERT INTO "TABLECATEGORY" VALUES(0,'User')
 INSERT INTO "TABLECATEGORY" VALUES(1,'System')
+INSERT INTO "TABLECATEGORY" VALUES(2,'Normal')
 INSERT INTO "USER" VALUES(0,'Melati guest user','_guest_','guest')
 INSERT INTO "USER" VALUES(1,'Melati database administrator','_administrator_','FIXME')
 INSERT INTO "GROUP" VALUES(0,'Melati database administrators')

@@ -116,7 +116,6 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    * @see org.melati.template.TemplateEngine#addRoot(java.lang.String)
    */
   public void addRoot(String root) { 
-    System.err.println("Adding root:" + root);
     roots.insertElementAt(root,0);
   }
   

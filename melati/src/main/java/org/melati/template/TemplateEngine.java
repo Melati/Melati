@@ -126,13 +126,6 @@ public interface TemplateEngine {
    */
   String getTemplateName(String key, String classifier);
    
-  /**
-   * 
-   * @param key short name, without path or extension
-   * @return the name of a template, null if none found
-   */
-  String getTemplateName(String key);
-  
   /** 
    * Expand the Template against the context.
    *

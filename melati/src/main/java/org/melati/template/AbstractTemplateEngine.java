@@ -95,10 +95,14 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
     Enumeration roots = getRoots();    
     while(roots.hasMoreElements()) { 
       String root = (String)roots.nextElement();
-      templateResourceName = root + "/" + 
+      templateResourceName = (root != "" ? root + "/" : "" ) + 
                             key + 
                             templateExtension();
-      if (this.getClass().getResource(templateResourceName) != null) break;
+      if (this.getClass().getResource(templateResourceName) != null) 
+        break;
+      else
+        templateResourceName = null;
+        
     }
 
     return templateResourceName;

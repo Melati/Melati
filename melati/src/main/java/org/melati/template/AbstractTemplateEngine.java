@@ -71,44 +71,36 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
     Enumeration roots = getRoots();    
     while(roots.hasMoreElements()) { 
       String root = (String)roots.nextElement();
-      templateResourceName = root + "/" + 
-                            classifier + "/" + 
-                            key + 
-                            templateExtension();
+      templateResourceName = "/" + emptyOrSlashEnded(root) + 
+                             emptyOrSlashEnded(classifier) +  
+                             key + 
+                             templateExtension();
       if (this.getClass().getResource(templateResourceName) == null) {
-        templateResourceName = root + "/" +
+        templateResourceName = "/" + emptyOrSlashEnded(root) +
                                key + templateExtension();
-      } else break; 
+      } else 
+        break; 
        
-      if (this.getClass().getResource(templateResourceName) != null) break;
-    }
-
-    return templateResourceName;
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#getTemplateName(java.lang.String)
-   */
-  public String getTemplateName(String key) {
-    String templateResourceName = null;
-    Enumeration roots = getRoots();    
-    while(roots.hasMoreElements()) { 
-      String root = (String)roots.nextElement();
-      templateResourceName = (root != "" ? root + "/" : "" ) + 
-                            key + 
-                            templateExtension();
       if (this.getClass().getResource(templateResourceName) != null) 
         break;
       else
         templateResourceName = null;
-        
     }
-
-    return templateResourceName;
+    if (templateResourceName == null)
+      return key;
+    else
+      return templateResourceName;
   }
   
-  
+  private String emptyOrSlashEnded(String in) { 
+    if (in.equals(""))
+      return "";
+    if(in.endsWith("/"))
+      return in;
+    
+    return in + "/";
+  }
+
 
   /** 
    * {@inheritDoc}
@@ -124,6 +116,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    * @see org.melati.template.TemplateEngine#addRoot(java.lang.String)
    */
   public void addRoot(String root) { 
+    System.err.println("Adding root:" + root);
     roots.insertElementAt(root,0);
   }
   

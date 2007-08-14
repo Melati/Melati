@@ -52,14 +52,14 @@ import java.util.Vector;
  */
 public abstract class AbstractTemplateEngine implements TemplateEngine {
 
-  private Vector roots = new Vector();
+  protected Vector roots = new Vector();
   
   /**
    * Constructor.
    */
   public AbstractTemplateEngine() {
     super();
-    roots.add("");
+    addRoot("");
   }
 
   /** 
@@ -116,7 +116,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   
   /** 
    * Add root at index 0, 
-   * so that the empty string is always returned l;ast by <code>elements</code>.
+   * so that the empty string is always returned last by <code>elements</code>.
    * @see org.melati.template.TemplateEngine#addRoot(java.lang.String)
    */
   public void addRoot(String root) { 

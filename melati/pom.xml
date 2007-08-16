@@ -151,7 +151,7 @@
        <!-- exclude>**/dbms/**</exclude-->
        <!-- exclude>**/PoemDatabaseTest.java</exclude-->
        <!-- exclude>**/PoemServletTest.java</exclude -->
-       <!-- exclude>**/TemplateServletTest.java</exclude -->
+       <!--exclude>**/TemplateAppTest.java</exclude-->
        <!--exclude>**/*.java</exclude-->
       </excludes>
      </configuration>

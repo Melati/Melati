@@ -289,8 +289,11 @@ public final class PoemDatabaseFactory {
       synchronized(haveRun) { 
         if (!haveRun.booleanValue()) {
           haveRun = Boolean.TRUE;
-          System.err.println("\n\n*** PoemShutdownThread starting to shutdown. ***\n");
+          boolean removed = Runtime.getRuntime().removeShutdownHook(this);
+          System.err.println("\n\n*** PoemShutdownThread removed: " + removed + " ***\n");
+          System.err.println("\n\n*** PoemShutdownThread starting to shutdown dbs. ***\n");
           disconnectFromDatabases();
+          System.err.println("\n\n*** PoemShutdownThread has shutdown dbs. ***\n");
         } else 
           System.err.println("\n\n*** PoemShutdownThread has already run. ***\n");
       }

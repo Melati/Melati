@@ -77,6 +77,8 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
       templateEngine.init(melatiConfig);
     TemplateContext templateContext =
       templateEngine.getTemplateContext(melati);
+    if (templateContext == null)
+      throw new RuntimeException("Have you configured a template engine? Currently set to " + templateEngine);
     melati.setTemplateContext(templateContext);
     String[] argsWithoutOutput = melati.getArguments();
     Hashtable form = new Hashtable();
@@ -84,7 +86,8 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
       loadForm(form,(String[])ArrayUtils
               .section(argsWithoutOutput, 4, argsWithoutOutput.length));
     }
-    melati.getTemplateContext().put("Form", form);
+    templateContext = melati.getTemplateContext(); 
+    templateContext.put("Form", form);
     
     return melati;
   }

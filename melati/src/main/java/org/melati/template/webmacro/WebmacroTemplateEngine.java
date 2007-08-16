@@ -98,7 +98,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   }
 
   /**
-   * Get the generic parameters for WebMacro.
+   * Create a new, empty, Context for WebMacro.
    *
    * @param melati the {@link Melati}
    * @return a {@link TemplateContext}

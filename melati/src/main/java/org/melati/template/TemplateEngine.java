@@ -70,7 +70,7 @@ public interface TemplateEngine {
   void init(MelatiConfig melatiConfig) throws TemplateEngineException;
 
   /**
-   * Get the generic parameters for this engine.
+   * Create a new Context for this engine.
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine

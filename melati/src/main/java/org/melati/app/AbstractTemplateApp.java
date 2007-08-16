@@ -38,15 +38,21 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
 package org.melati.app;
 
+import java.util.Hashtable;
+
+
 import org.melati.Melati;
+import org.melati.PoemContext;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.util.MelatiException;
 
 /**
  * Base class to use Melati as an application with a Template Engine.
@@ -57,6 +63,63 @@ import org.melati.template.TemplateContext;
 public abstract class AbstractTemplateApp extends AbstractPoemApp implements App {
 
   protected TemplateEngine templateEngine;
+  
+  
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.app.AbstractPoemApp#init(java.lang.String[])
+   */
+  public Melati init(String[] args) throws MelatiException {
+    Melati melati = super.init(args);
+    templateEngine = melatiConfig.getTemplateEngine();
+    if (templateEngine != null)
+      templateEngine.init(melatiConfig);
+    TemplateContext templateContext =
+      templateEngine.getTemplateContext(melati);
+    melati.setTemplateContext(templateContext);
+    String[] argsWithoutOutput = melati.getArguments();
+    Hashtable form = new Hashtable();
+    if (argsWithoutOutput.length > 4) {
+      loadForm(form,(String[])ArrayUtils
+              .section(argsWithoutOutput, 4, argsWithoutOutput.length));
+    }
+    melati.getTemplateContext().put("Form", form);
+    
+    return melati;
+  }
+
+  protected PoemContext poemContext(Melati melati)
+          throws InvalidArgumentsException {
+    String[] args = melati.getArguments();
+
+    PoemContext pc = new PoemContext();
+    if (args.length > 0) {
+      pc.setLogicalDatabase(args[0]);
+      setTableTroidMethod(pc, (String[])ArrayUtils
+              .section(args, 1, args.length));
+    }
+    return pc;
+  }
+
+  
+  private void loadForm(Hashtable form, String[] tuples) {
+    if (tuples.length != ((tuples.length/2)*2))
+      throw new InvalidArgumentsException (tuples, 
+             new RuntimeException("Number of paired arguments is not even:" + tuples.length));
+    boolean isValue = false;
+    String name = "";
+    for (int i = 0; i < tuples.length; i++) {
+      if (isValue) {  
+        form.put(name, tuples[i]);
+        isValue = false;
+      } else { 
+        name = tuples[i];
+        isValue = true;
+      }
+    }
+
+  }
 
   /**
    * Fulfill {@link AbstractPoemApp}'s promises.
@@ -66,11 +129,14 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
    * @see org.melati.app.AbstractPoemApp#doPoemRequest(org.melati.Melati)
    */
   protected void doPoemRequest(Melati melati) throws Exception {
+    /* 
     templateEngine = melatiConfig.getTemplateEngine();
     templateEngine.init(melatiConfig);
     melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext = templateEngine.getTemplateContext(melati); 
     melati.setTemplateContext(templateContext);
+    */
+    TemplateContext templateContext = melati.getTemplateContext();
     templateContext.put("melati", melati);
     templateContext.put("ml", melati.getMarkupLanguage());
 

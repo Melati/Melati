@@ -38,18 +38,18 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
 package org.melati.app;
 
-import org.melati.util.MelatiException;
+import org.melati.util.MelatiRuntimeException;
 
 /**
  * Thrown when an application was called with unexpected arguments.
  */
-public class InvalidArgumentsException extends MelatiException {
+public class InvalidArgumentsException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
   
   String[] args = null;

@@ -105,10 +105,10 @@ public abstract class AbstractConfigApp implements App {
     } catch (MelatiException e) {
       throw new UnexpectedExceptionException(e);
     }
-    String[] unnamedArguments = applyNamedArguments(args);
+    String[] argumentsWithoutOutput = applyNamedArguments(args);
     MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(output));
     Melati melati = new Melati(melatiConfig, out);
-    melati.setArguments(unnamedArguments);
+    melati.setArguments(argumentsWithoutOutput);
     melati.setPoemContext(poemContext(melati));
     
     return melati;
@@ -116,11 +116,13 @@ public abstract class AbstractConfigApp implements App {
   
   /**
    * Clean up at end of run.
-   * Place holder overridden in PoemApp.
+   * Overridden in PoemApp.
    * 
    * @param melati the melati 
    */
   public void term(Melati melati) throws MelatiException  {
+    output.flush();
+    output.close();
   }
 
   /** 

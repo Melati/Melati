@@ -299,13 +299,16 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
 
   protected PoemContext poemContext(Melati melati) 
       throws InvalidArgumentsException {
-
+    System.err.println("In");
     String[] args = melati.getArguments();
     
     PoemContext pc = new PoemContext();
     if (args.length > 0) {
       pc.setLogicalDatabase(args[0]);
       setTableTroidMethod(pc, (String[])ArrayUtils.section(args,  1,  args.length));
+    }
+    if (args.length > 3) {
+      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
     }
 
     return pc;
@@ -322,7 +325,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
         pc.setMethod(args[1]);
       }
     }
-    if (args.length == 3) {
+    if (args.length >= 3) {
       pc.setTable(args[0]);
       try {
         pc.setTroid(new Integer (args[1]));
@@ -331,9 +334,6 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
         throw new UnexpectedExceptionException(new InvalidArgumentsException (args,e));
       }
       pc.setMethod(args[2]);
-    }
-    if (args.length > 3) {
-      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
     }
   }
   

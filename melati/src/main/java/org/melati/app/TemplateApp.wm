@@ -38,13 +38,13 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timp@paneris.org>
+##     Tim Pizey <timp At paneris.org>
 ##     http://www.paneris.org/~timp
 ##
 
 Hello $melati.getUser()
 
-You have expanded template org/melati/app/TemplateAppExample.wm 
+You have expanded template org/melati/app/TemplateApp.wm 
 
 Your melati contains:
 
@@ -75,3 +75,13 @@ $melati.Table.DisplayName Table
 
 #end
 
+#if ($Form && $Form.size() > 0) #begin
+
+Form settings
+=============
+
+#foreach $key in $Form.keys() #begin
+  $key $Form.get($key)
+#end
+
+#end

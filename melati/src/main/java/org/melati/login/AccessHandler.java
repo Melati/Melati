@@ -73,7 +73,7 @@ public interface AccessHandler {
    * 
    * @return A {@link Melati} with the appropriate fields filled.
    * @see org.melati.servlet.PoemServlet#doConfiguredRequest
-   * @see org.melati.app.PoemApp#doConfiguredRequest
+   * @see org.melati.app.AbstractPoemApp#doConfiguredRequest
    */
   Melati establishUser(Melati melati);
 

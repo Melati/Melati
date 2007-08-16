@@ -52,7 +52,7 @@ import org.melati.template.TemplateContext;
  * @since 31 May 2007
  *
  */
-public class DSDApp extends TemplateApp {
+public class DSDApp extends AbstractTemplateApp {
 
   /**
    * Constructor.
@@ -68,7 +68,7 @@ public class DSDApp extends TemplateApp {
    * @param templateContext A {@link TemplateContext} containing a {@link Melati}
    * @return the name of a template to expand
    * @throws Exception if anything goes wrong
-   * @see org.melati.app.TemplateApp#doTemplateRequest
+   * @see org.melati.app.AbstractTemplateApp#doTemplateRequest
    *         (org.melati.Melati, org.melati.template.ServletTemplateContext)
    */
   protected String doTemplateRequest(Melati melati,

@@ -38,72 +38,60 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
-
 package org.melati.app;
 
 import org.melati.Melati;
-import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 
 /**
- * Base class to use Melati as an application with a Template Engine.
- * 
- * To create your own application simply extend this class, 
- * overriding the {@link #doTemplateRequest} method.
+ * An example of how to use a Template Engine with a Poem database
+ * from the command line.
+ *
+ * Invoke:
+ *
+ * java -cp melati.jar:site\properties:lib\hsqldb.jar: \
+ *  lib\webmacro.jar:lib\servlet.jar \
+ *  org.melati.app.TemplateApp poemtest user 0 \
+ *  org/melati/app/TemplateAppExample
+ *
+ * Where poemtest is your database, user is your table, 0 is the record id and 
+ * org/melati/app/TemplateAppExample is the full name of a template
+ *
  */
-public abstract class TemplateApp extends PoemApp implements App {
-
-  protected TemplateEngine templateEngine;
+public class TemplateApp extends AbstractTemplateApp {
 
   /**
-   * Fulfill {@link PoemApp}'s promises.
-   * 
-   * @param melati the {@link Melati} 
-   * @throws Exception if anything goes wrong 
-   * @see org.melati.app.PoemApp#doPoemRequest(org.melati.Melati)
-   */
-  protected void doPoemRequest(Melati melati) throws Exception {
-    templateEngine = melatiConfig.getTemplateEngine();
-    templateEngine.init(melatiConfig);
-    melati.setTemplateEngine(templateEngine);
-    TemplateContext templateContext = templateEngine.getTemplateContext(melati); 
-    melati.setTemplateContext(templateContext);
-    templateContext.put("melati", melati);
-    templateContext.put("ml", melati.getMarkupLanguage());
-
-    String templateName = doTemplateRequest(melati,templateContext);
-
-    if (templateName == null)
-      templateName = this.getClass().getName().replace('.', '/');
-    templateName = addExtension(templateName);
-    templateEngine.expandTemplate(melati.getWriter(), 
-                                  templateName,
-                                  templateContext);
-  }
-  
-  /**
-   * The template extension is added in an overridable method
-   * to allow the application developer to specify their own template
-   * extensions.
-   */
-  protected String addExtension(String templateName) {
-    if (!templateName.endsWith(templateEngine.templateExtension()))  
-      return templateName + templateEngine.templateExtension();
-    else
-      return templateName;      
-  }
- 
-  /**
-   * Override this method to build up your own output.
+   * The main method to override.
    *
-   * @param melati the current {@link Melati}
-   * @param templateContext the current {@link TemplateContext}
-   * @return a Template name, possibly excluding extension.
+   * @param melati A {@link Melati} with arguments and properties set
+   * @param templateContext A {@link TemplateContext} containing a {@link Melati}
+   * @return the name of a template to expand
+   * @throws Exception if anything goes wrong
+   * @see org.melati.app.AbstractTemplateApp#doTemplateRequest
+   *         (org.melati.Melati, org.melati.template.ServletTemplateContext)
    */
-  protected abstract String doTemplateRequest(Melati melati, 
-                                              TemplateContext templateContext)
-      throws Exception;
+  protected String doTemplateRequest(Melati melati,
+      TemplateContext templateContext) throws Exception {
+    // test logging in if necessary
+    if (melati.getConfig().getAccessHandler()
+         instanceof  org.melati.login.CommandLineAccessHandler)
+      melati.getDatabase().getUserTable().
+                             getTableInfo().setDefaultcanread(
+                                 melati.getDatabase().administerCapability());
+    return melati.getMethod();
+  }
+
+  /**
+   * The main entry point.
+   *
+   * @param args in format <code>db table troid method</code>
+   *             where method is a template name
+   */
+  public static void main(String[] args) throws Exception {
+    TemplateApp me = new TemplateApp();
+    me.run(args);
+  }
 }

@@ -263,7 +263,7 @@ public class MelatiConfig {
   }
 
   /**
-   * @return {@link ServletTemplateEngine} in use.
+   * @return {@link TemplateEngine} in use.
    */
   public TemplateEngine getTemplateEngine() {
     return templateEngine;

@@ -58,11 +58,11 @@ public class TemplateAppTest extends TestCase {
    */
   public void testInit() throws Exception {
     TemplateApp ta = new TemplateApp();
-    String[] args = { "melatijunit", "user", "0", "method", "field", "value" };
+    String[] args = { "appjunit", "user", "0", "method", "field", "value" };
     Melati m = ta.init(args);
     System.err.println("M length:" + m.getArguments().length);
 
-    assertEquals("melatijunit", m.getDatabase().getName());
+    assertEquals("appjunit", m.getDatabase().getName());
     System.err.println("Table:" + m.getPoemContext().getTable());
     System.err.println("Table:" + m.getTable());
     Hashtable f = (Hashtable)m.getTemplateContext().get("Form");
@@ -75,7 +75,7 @@ public class TemplateAppTest extends TestCase {
    */
   public void testInitWithUnmatcheArgs0() throws Exception {
     TemplateApp ta = new TemplateApp();
-    String[] args = { "melatijunit", "user", "0", "method", "field", "value",
+    String[] args = { "appjunit", "user", "0", "method", "field", "value",
         "unmatched" };
     try {
       ta.init(args);
@@ -90,9 +90,10 @@ public class TemplateAppTest extends TestCase {
    */
   public void testMain() throws Exception {
     String fileName = "t.tmp";
-    String[] args = { "melatijunit", "user", "0",
+    String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp", "field", "value", "-o", fileName };
-    TemplateApp.main(args);
+    TemplateApp it = new TemplateApp();
+    it.run(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
@@ -105,7 +106,7 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:melatijunit" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
             "Table    : user (from the data structure definition)"  +
             "Object   : _guest_" + 
             "Troid    : 0" + 
@@ -124,8 +125,9 @@ public class TemplateAppTest extends TestCase {
    */
   public void borkedTestMainOneArg() throws Exception {
     String fileName = "t1.tmp";
-    String[] args = { "melatijunit", "-o", fileName };
-    TemplateApp.main(args);
+    String[] args = { "appjunit", "-o", fileName };
+    TemplateApp it = new TemplateApp();
+    it.run(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
@@ -139,7 +141,7 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:melatijunit" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
             "Table    : null"  +
             "Object   : null" + 
             "Troid    : null" + 
@@ -155,15 +157,16 @@ public class TemplateAppTest extends TestCase {
    */
   public void borkedTestMainTwoArgs() throws Exception {
     String fileName = "t2.tmp";
-    String[] args = { "melatijunit", "user", "-o", fileName };
+    String[] args = { "appjunit", "user", "-o", fileName };
+    TemplateApp it = new TemplateApp();
     try { 
-      TemplateApp.main(args);
+      it.run(args);
       fail("Should have blown up");
     } catch (UnexpectedExceptionException e) { 
       e = null;
     }
     fileName = "t2a.tmp";
-    args = new String[] { "melatijunit", "org/melati/app/TemplateApp.wm", "-o", fileName };
+    args = new String[] { "appjunit", "org/melati/app/TemplateApp.wm", "-o", fileName };
     TemplateApp.main(args);
     String output = "";
     File fileIn = new File(fileName);
@@ -177,7 +180,7 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:melatijunit" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
             "Table    : null"  +
             "Object   : null" + 
             "Troid    : null" + 
@@ -193,9 +196,10 @@ public class TemplateAppTest extends TestCase {
    */
   public void borkedTestMainThreeArgs() throws Exception {
     String fileName = "t3.tmp";
-    String[] args = { "melatijunit", "user", "0",
+    String[] args = { "appjunit", "user", "0",
          "-o", fileName };
-    TemplateApp.main(args);
+    TemplateApp it = new TemplateApp();
+    it.run(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
@@ -208,7 +212,7 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:melatijunit" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
             "Table    : user (from the data structure definition)"  +
             "Object   : _guest_" + 
             "Troid    : 0" + 
@@ -225,9 +229,10 @@ public class TemplateAppTest extends TestCase {
    */
   public void borkedTestMainFourArgs() throws Exception {
     String fileName = "t4.tmp";
-    String[] args = { "melatijunit", "user", "0",
+    String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp",  "-o", fileName };
-    TemplateApp.main(args);
+    TemplateApp it = new TemplateApp();
+    it.run(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
@@ -240,7 +245,7 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:melatijunit" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
             "Table    : user (from the data structure definition)"  +
             "Object   : _guest_" + 
             "Troid    : 0" + 
@@ -258,8 +263,9 @@ public class TemplateAppTest extends TestCase {
   public void testMainZeroArgs() throws Exception {
     String fileName = "t0.tmp";
     String[] args = { "-o", fileName };
+    TemplateApp it = new TemplateApp();
     try { 
-      TemplateApp.main(args);
+      it.run(args);
       fail("Should have bombed");
     } catch (ConfigException e) {
       e = null;

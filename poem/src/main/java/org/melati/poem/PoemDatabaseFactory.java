@@ -219,7 +219,9 @@ public final class PoemDatabaseFactory {
   }
 
   /**
-   * Enable a database to be reinitialised, used in tests.
+   * Enable a database to be reinitialised, without 
+   * incurring the full overhead of restarting hsqldb, 
+   * used in tests.
    * 
    * @param name
    *          name of db to remove
@@ -229,16 +231,28 @@ public final class PoemDatabaseFactory {
   }
 
   /**
+   * Disconnect and disconnect from a known database.
+   * 
+   * @param name
+   *          name of db to remove
+   */
+  public static void disconnectDatabase(String name) {
+    Database db = (Database)databases.get(name);
+    if(db != null) {
+      db.disconnect();
+      databases.remove(name);
+    } else 
+      throw new RuntimeException("Disconnecting from null db called " + name);
+  }
+
+  /**
    * Disconnect from all initialised databases.
    */
   public static void disconnectFromDatabases() { 
-    Vector dbs = PoemDatabaseFactory.initialisedDatabases();
+    Vector dbs = PoemDatabaseFactory.getInitialisedDatabaseNames();
     Enumeration them = dbs.elements();
     while (them.hasMoreElements()) {
-      Database db = (Database)them.nextElement();
-      // This check should not be necessary, but feels like a shutdown race
-      if (db.getCommittedConnection() != null)
-        db.disconnect();
+      disconnectDatabase((String)them.nextElement());
     }
   }
   /**
@@ -269,9 +283,9 @@ public final class PoemDatabaseFactory {
       setName("PoemShutdownThread");
       try { 
         Runtime.getRuntime().addShutdownHook(this);
-        System.err.println("\n\n*** PoemShutdownThread registered. ***\n");
+        System.err.println("\n*** PoemShutdownThread registered. ***\n");
       } catch (IllegalStateException e) { 
-        //System.err.println("\n\n*** PoemShutdownThread tried to register during shutdown. ***\n");
+        System.err.println("\n*** PoemShutdownThread tried to register during shutdown. ***\n");
         
         // Happens when the PoemServletContextListener 
         // tries to shutdown databases when none have yet been 
@@ -289,13 +303,23 @@ public final class PoemDatabaseFactory {
       synchronized(haveRun) { 
         if (!haveRun.booleanValue()) {
           haveRun = Boolean.TRUE;
-          boolean removed = Runtime.getRuntime().removeShutdownHook(this);
-          System.err.println("\n\n*** PoemShutdownThread removed: " + removed + " ***\n");
-          System.err.println("\n\n*** PoemShutdownThread starting to shutdown dbs. ***\n");
+          try { 
+            System.err.println("\n*** PoemShutdownThread About to remove hook ***\n");
+            boolean removed = Runtime.getRuntime().removeShutdownHook(this);
+            System.err.println("\n*** PoemShutdownThread removed: " + removed + " ***\n");
+          } catch (IllegalStateException e) { 
+            System.err.println("\n*** PoemShutdownThread cannot be removed at this stage. ***\n");
+            // I think this happens during normal termination, 
+            // you cannot remove a hook during shutdown, 
+            // but if we are run when not in shutdown 
+            // we do want to be removed.
+            e = null;
+          }
+          System.err.println("\n*** PoemShutdownThread starting to shutdown dbs. ***\n");
           disconnectFromDatabases();
-          System.err.println("\n\n*** PoemShutdownThread has shutdown dbs. ***\n");
+          System.err.println("\n*** PoemShutdownThread has shutdown dbs. ***\n");
         } else 
-          System.err.println("\n\n*** PoemShutdownThread has already run. ***\n");
+          System.err.println("\n*** PoemShutdownThread has already run. ***\n");
       }
      }
   }

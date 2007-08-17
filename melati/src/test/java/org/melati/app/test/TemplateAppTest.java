@@ -12,9 +12,7 @@ import org.melati.app.TemplateApp;
 import org.melati.util.ConfigException;
 import org.melati.util.UnexpectedExceptionException;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Generated code for the test suite <b>TemplateAppTest</b> located at
@@ -29,15 +27,6 @@ public class TemplateAppTest extends TestCase {
    */
   public TemplateAppTest(String name) {
     super(name);
-  }
-
-  /**
-   * Returns the JUnit test suite that implements the <b>TemplateAppTest</b>
-   * definition.
-   */
-  public static Test suite() {
-    TestSuite templateAppTest = new TestSuite(TemplateAppTest.class);
-    return templateAppTest;
   }
 
   /**
@@ -67,7 +56,6 @@ public class TemplateAppTest extends TestCase {
     System.err.println("Table:" + m.getTable());
     Hashtable f = (Hashtable)m.getTemplateContext().get("Form");
     assertEquals("value", f.get("field"));
-
   }
 
   /**

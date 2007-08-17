@@ -203,9 +203,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    */
   public void term(Melati melati) throws MelatiException  {
     super.term(melati);
-    System.err.println("PoemApp closing dbs");
-    Thread shutdown = PoemDatabaseFactory.getPoemShutdownThread();
-    shutdown.run();
+    PoemDatabaseFactory.disconnectDatabase(melati.getDatabase().getName());
   }
   
   /**

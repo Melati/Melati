@@ -980,9 +980,14 @@ public class Melati {
   public String templateName(String key) {
     String templateName = null;
     try {
-      templateName = getTemplateEngine().getTemplateName(key, getDatabase().getName());
+      TemplateEngine te = getTemplateEngine(); 
+      if (te == null)
+        throw new MelatiBugMelatiException("Template engine null");
+      Database db = getDatabase();
+      templateName = te.getTemplateName(key, db == null ? null : db.getName());
     } catch (Exception e) {
-      throw new MelatiBugMelatiException("Problem getting template named " + key , e);
+      throw new MelatiBugMelatiException("Problem getting template named " + key  +
+              " :" + e.toString(), e);
     }
     return templateName;
   }

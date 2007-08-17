@@ -50,8 +50,17 @@ package org.melati.poem;
   * which happens if <code>Transaction</codE>s die with an <code>Error</code> 
   * such as <code>OutOfMemoryError</code>.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   */
 public class NoMoreTransactionsException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
+  private String message;
+  public NoMoreTransactionsException() {  }
+  public NoMoreTransactionsException(String message) {  
+    this.message = message;
+  }
+  public String getMessage() { 
+    return message;
+  }
+  
 }

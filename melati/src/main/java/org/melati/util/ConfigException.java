@@ -51,7 +51,7 @@ package org.melati.util;
  * @author TimJ At paneris.org
  *
  */ 
-public class ConfigException extends MelatiException {
+public class ConfigException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
   String error;

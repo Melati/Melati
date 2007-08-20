@@ -166,12 +166,11 @@ public final class PropertiesUtils {
    * @param propertyName the name of the property
    * @param def cater for multiple definitions, with increment numbers
    * @return the property as an int 
-   * @throws NoSuchPropertyException if it is not found
    * @throws FormatPropertyException if it is not an Integer 
    */
   public static int getOrDefault_int(Properties properties, 
                                      String propertyName, int def)
-      throws NoSuchPropertyException, FormatPropertyException {
+      throws FormatPropertyException {
     String string = getOrDefault(properties, propertyName, ""+def);
     try {
       return Integer.parseInt(string);

@@ -121,6 +121,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    } catch (DatabaseInitException e) {
      e = null;
    }
+   LogicalDatabase.setDatabaseDefs(null);
   }
 
   

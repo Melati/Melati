@@ -182,7 +182,7 @@ public final class PropertiesUtils {
     }
   }
 
-  static private Hashtable instantiatedClassesCache = new Hashtable();
+  private static Hashtable instantiatedClassesCache = new Hashtable();
   /**
    * Instantiate an interface.
    * 

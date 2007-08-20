@@ -1,10 +1,9 @@
 # 
 # ================================
-#  Main Melati  configuration file
-#  for use as an application
+#  Melati main configuration file
 # ================================
 # 
-#  see org.melati.MelatServlet.properties for Servlet configuration.
+
 #
 # -------------------------------
 #  Which login mechanism to use?
@@ -12,7 +11,7 @@
 #
 
 # For use at the command line 
-org.melati.MelatiApp.accessHandler=org.melati.login.OpenAccessHandler
+#org.melati.MelatiConfig.accessHandler=org.melati.login.OpenAccessHandler
 
 
 #
@@ -21,10 +20,9 @@ org.melati.MelatiApp.accessHandler=org.melati.login.OpenAccessHandler
 # -------------------------------
 #
 
-#org.melati.MelatiApp.templateEngine=org.melati.template.NoTemplateEngine
-org.melati.MelatiApp.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
-#org.melati.MelatiApp.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
-#org.melati.MelatiApp.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
+#org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
+#org.melati.MelatiConfig.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
+#org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
 
 #
 # --------------------------------------------
@@ -37,7 +35,7 @@ org.melati.MelatiApp.templateEngine=org.melati.template.webmacro.WebmacroTemplat
 # --------------------------------------------
 # 
 
-#org.melati.MelatiApp.templatePath=/usr/local/packages/melati/org/melati/
+#org.melati.MelatiConfig.templatePath=/usr/local/packages/melati/org/melati/
 
 #
 # --------------------------------------------
@@ -46,13 +44,13 @@ org.melati.MelatiApp.templateEngine=org.melati.template.webmacro.WebmacroTemplat
 # 
 # e.g. ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
 
-org.melati.MelatiApp.staticURL=/melati-static/
+org.melati.MelatiConfig.staticURL=/melati-static/
 
 # This should point, relative to your server's http root, 
 # to the admin directory
 # (will be achieved by the ln -s suggested above)
 
-org.melati.MelatiApp.javascriptLibraryURL=/melati-static/admin
+org.melati.MelatiConfig.javascriptLibraryURL=/melati-static/admin
 
 #
 # ------------------------------
@@ -62,17 +60,17 @@ org.melati.MelatiApp.javascriptLibraryURL=/melati-static/admin
 
 # This one reads all uploaded data into memory.
 
-org.melati.MelatiApp.formDataAdaptorFactory=org.melati.servlet.MemoryDataAdaptorFactory
+org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.MemoryDataAdaptorFactory
 
 # This one saves them in a directory named by the ``UploadDir''
 # entry in the database's Setting table (and calculates its
 # URL from the ``UploadURL'' Setting)
 
-#org.melati.MelatiApp.formDataAdaptorFactory=org.melati.servlet.PoemFileDataAdaptorFactory
+#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.PoemFileDataAdaptorFactory
 
 # This one saves them as temporary files (deleted when the JVM quits)
 
-#org.melati.MelatiApp.formDataAdaptorFactory=org.melati.servlet.TemporaryFileDataAdaptorFactory
+#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.TemporaryFileDataAdaptorFactory
 
 #
 # ------------------------------------------
@@ -80,8 +78,8 @@ org.melati.MelatiApp.formDataAdaptorFactory=org.melati.servlet.MemoryDataAdaptor
 # ------------------------------------------
 # 
 
-org.melati.MelatiApp.locale=en-gb
-#org.melati.MelatiApp.locale=en-us
+org.melati.MelatiConfig.locale=en-gb
+#org.melati.MelatiConfig.locale=en-us
 
 #
 # ----------------------------------------------------------
@@ -96,10 +94,10 @@ org.melati.MelatiApp.locale=en-gb
 # the behaviour of existing applications (backward
 # compatibility paranoia) not because it is good.
 #
-#org.melati.MelatiApp.preferredCharsets = ISO-8859-1, UTF-8, UTF-16
+#org.melati.MelatiConfig.preferredCharsets = ISO-8859-1, UTF-8, UTF-16
 
 # This serves the western world well
-org.melati.MelatiApp.preferredCharsets = UTF-8, UTF-16, ISO-8859-1
+org.melati.MelatiConfig.preferredCharsets = UTF-8, UTF-16, ISO-8859-1
 
 # This is more global and requires at most twice the packets
-org.melati.MelatiApp.preferredCharsets= UTF-16, UTF-8, ISO-8859-1
+org.melati.MelatiConfig.preferredCharsets= UTF-16, UTF-8, ISO-8859-1

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -64,11 +64,12 @@ public final class LogicalDatabase {
   
   private LogicalDatabase() {}
 
-  /** The class name of this <code>LogicalDatabase</code>. */
-  public static final String className =
-      new LogicalDatabase().getClass().getName();
 
-  private static final String defaultPropertiesName =
+  /** 
+   * The name used, if no other is specified, 
+   * with <code>getResourceAsStream</code>. 
+   */
+  public static final String defaultPropertiesName =
       "org.melati.LogicalDatabase.properties";
 
   /** Properties, named for this class. */
@@ -120,7 +121,7 @@ public final class LogicalDatabase {
     Database db = PoemDatabaseFactory.getDatabase(name);
     if (db == null) {
       Properties defs = databaseDefs();
-      String pref = className + "." + name + ".";
+      String pref =  LogicalDatabase.class.getName() + "." + name + ".";
       String url = null;
       String user = null;
       String pass = null;

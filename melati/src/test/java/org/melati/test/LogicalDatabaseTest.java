@@ -3,6 +3,8 @@
  */
 package org.melati.test;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -89,6 +91,27 @@ public class LogicalDatabaseTest extends PoemTestCase {
   /**
    * Test method for {@link org.melati.LogicalDatabase#setDatabaseDefs(java.util.Properties)}.
    */
+  public void testPropertiesFileNotFound() throws Exception {
+   LogicalDatabase.setDatabaseDefs(null);
+   URL propsUrl = LogicalDatabase.class.getResource("");
+   File propsFile = new File(propsUrl.toURI().toString());
+   File tmp = new File("t.tmp");
+   System.err.println("HMM: " + propsUrl.toURI() + " renamable: " + propsFile.renameTo(tmp));
+   
+   System.err.println("We can write:" + propsFile.canWrite());
+   System.err.println("We can delete:" + propsFile.delete());
+   try { 
+     LogicalDatabase.getDatabase("empty");
+     fail("Should have blown up");
+   } catch (DatabaseInitException e) {
+     e.printStackTrace();
+     e = null;
+   }
+  }
+
+  /**
+   * Test method for {@link org.melati.LogicalDatabase#setDatabaseDefs(java.util.Properties)}.
+   */
   public void testSetDatabaseDefs() {
    Properties empty = new Properties(); 
    LogicalDatabase.setDatabaseDefs(empty);
@@ -100,11 +123,12 @@ public class LogicalDatabaseTest extends PoemTestCase {
    }
   }
 
+  
   /**
-   * Test method for {@link org.melati.LogicalDatabase#getDefaultPropertiesName()}.
+   * Test method for {@link org.melati.LogicalDatabase#getPropertiesName()}.
    */
   public void testGetDefaultPropertiesName() {
-    assertEquals("org.melati.LogicalDatabase.properties", LogicalDatabase.getDefaultPropertiesName());
+    assertEquals("org.melati.LogicalDatabase.properties", LogicalDatabase.getPropertiesName());
   }
 
 }

@@ -10,6 +10,7 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.Field;
 import org.melati.template.webmacro.PassbackEvaluationExceptionHandler;
+import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
@@ -437,6 +438,18 @@ public class MelatiTest extends TestCase {
    * @see org.melati.Melati#getHTMLMarkupLanguage()
    */
   public void testGetHTMLMarkupLanguage() {
+    MelatiConfig mc = null;
+    Melati m = null;
+    try {
+      mc = new MelatiConfig();
+      m = new Melati(mc, new MelatiStringWriter());
+      m.setPoemContext(poemContext(m));
+    } catch (MelatiException e) {
+      e.printStackTrace();
+      fail();
+    }
+    assertEquals("html/en_GB", m.getHTMLMarkupLanguage().toString());
+    assertEquals("html_attr/en_GB", m.getHTMLMarkupLanguage().getAttr().toString());
 
   }
 
@@ -602,7 +615,6 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * FIXME this seems really odd
    * @see org.melati.Melati#setVariableExceptionHandler(Object)
    */
   public void testSetVariableExceptionHandler() throws Exception {
@@ -637,4 +649,28 @@ public class MelatiTest extends TestCase {
     }
   }
 
+  /**
+   * @see org.melati.Melati#templateName(String)
+   */
+  public void testTemplateName() throws Exception {
+    MelatiConfig mc = null;
+    Melati m = null;
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    try {
+      m.templateName("");
+      fail("Should have blown up");
+    } catch (MelatiBugMelatiException e) { 
+      e = null;
+    }
+    
+    m.setTemplateEngine(new WebmacroTemplateEngine());
+      
+    assertEquals("", m.templateName(""));
+    assertEquals("nonexistent", m.templateName("nonexistent"));
+    assertEquals("/org/melati/template/test/Templated.wm", m.templateName("org/melati/template/test/Templated"));
+  }
+
+  
 }

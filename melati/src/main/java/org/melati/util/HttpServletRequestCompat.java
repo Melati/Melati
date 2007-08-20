@@ -404,7 +404,7 @@ public final class HttpServletRequestCompat {
           throw (RuntimeException)f;
         else if (f instanceof Exception)
           throw new RuntimeException("while invoking a Servlet API method",
-                                     (Exception)f);
+                                     f);
         else if (f instanceof Error)
           throw (Error)f;
         else {

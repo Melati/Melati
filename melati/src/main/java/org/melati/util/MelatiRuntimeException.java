@@ -77,13 +77,13 @@ public abstract class MelatiRuntimeException extends PoemException {
   }
 
   /**
-   * constructor.
+   * Constructor.
    */
   public MelatiRuntimeException() {
   }
 
   /**
-   * @return the actual exception
+   * @return the exception this exception is wrapping, recursively or this exception
    * {@inheritDoc}
    * @see org.melati.poem.PoemException#innermostException()
    */

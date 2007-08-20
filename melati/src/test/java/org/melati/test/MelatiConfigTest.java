@@ -265,7 +265,7 @@ public class MelatiConfigTest extends TestCase {
   public void testGetFdaFactory() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     FormDataAdaptorFactory fdaf = mc.getFdaFactory();
-    assertTrue(fdaf instanceof FormDataAdaptorFactory);
+    assertNotNull(fdaf);
   }
 
   /**
@@ -281,7 +281,7 @@ public class MelatiConfigTest extends TestCase {
    */
   public void testGetYMDDateAdaptor() throws Exception {
     YMDDateAdaptor it = MelatiConfig.getYMDDateAdaptor();
-    assertTrue(it instanceof YMDDateAdaptor);
+    assertNotNull(it);
 
   }
 
@@ -291,7 +291,7 @@ public class MelatiConfigTest extends TestCase {
    */
   public void testGetYMDHMSTimestampAdaptor() throws Exception {
     YMDHMSTimestampAdaptor it = MelatiConfig.getYMDHMSTimestampAdaptor();
-    assertTrue(it instanceof YMDHMSTimestampAdaptor);
+    assertNotNull(it);
   }
 
   /**
@@ -300,7 +300,7 @@ public class MelatiConfigTest extends TestCase {
    */
   public void testGetSimpleDateAdaptor() throws Exception {
     SimpleDateAdaptor it = MelatiConfig.getSimpleDateAdaptor();
-    assertTrue(it instanceof SimpleDateAdaptor);
+    assertNotNull(it);
   }
 
 }

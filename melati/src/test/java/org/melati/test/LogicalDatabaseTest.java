@@ -94,9 +94,9 @@ public class LogicalDatabaseTest extends PoemTestCase {
   public void testPropertiesFileNotFound() throws Exception {
    LogicalDatabase.setDatabaseDefs(null);
    URL propsUrl = LogicalDatabase.class.getResource("");
-   File propsFile = new File(propsUrl.toURI().toString());
+   File propsFile = new File(propsUrl.toString());
    File tmp = new File("t.tmp");
-   System.err.println("HMM: " + propsUrl.toURI() + " renamable: " + propsFile.renameTo(tmp));
+   System.err.println("HMM: " + propsUrl + " renamable: " + propsFile.renameTo(tmp));
    
    System.err.println("We can write:" + propsFile.canWrite());
    System.err.println("We can delete:" + propsFile.delete());

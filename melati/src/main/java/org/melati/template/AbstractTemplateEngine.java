@@ -93,6 +93,8 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   }
   
   private String emptyOrSlashEnded(String in) { 
+    if (in == null) 
+      return "";
     if (in.equals(""))
       return "";
     if(in.endsWith("/"))

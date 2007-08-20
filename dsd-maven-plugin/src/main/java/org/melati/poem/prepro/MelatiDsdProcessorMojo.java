@@ -161,7 +161,7 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
         doIt = false;
       } 
     } else 
-      getLog().info(" Not checking - doing regardless" );
+      getLog().info(" Not checking - doing regardless");
     if (doIt) {
       DSD dsd;
       try {

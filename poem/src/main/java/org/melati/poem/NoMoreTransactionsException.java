@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,7 +55,9 @@ package org.melati.poem;
 public class NoMoreTransactionsException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
   private String message;
+  /** Constructor. */
   public NoMoreTransactionsException() {  }
+  /** Constructor. */
   public NoMoreTransactionsException(String message) {  
     this.message = message;
   }

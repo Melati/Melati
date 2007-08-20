@@ -73,7 +73,7 @@ public final class LogicalDatabase {
       try { 
         databaseDefs =
             PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
-                                       defaultPropertiesName);
+                getPropertiesName());
       } catch (IOException e) {
         throw new ConfigException("Cannot open " + getPropertiesName(), e);
       }        

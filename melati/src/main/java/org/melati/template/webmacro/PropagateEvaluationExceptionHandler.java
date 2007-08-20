@@ -57,7 +57,7 @@ import org.webmacro.util.Settings;
  * This will generally cause the exception to be
  * displayed to the user -- useful for debugging.
  *
- * modified to allow #if ($null)
+ * Modified to allow #if ($null).
  *
  * @author Tim Joyce
  */

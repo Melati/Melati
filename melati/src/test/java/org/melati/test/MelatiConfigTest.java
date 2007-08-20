@@ -58,20 +58,20 @@ public class MelatiConfigTest extends TestCase {
    */
   public void testMelatiConfigString()
       throws Exception {
-    MelatiConfig mc = new MelatiConfig("org.melati.MelatiServlet");
+    MelatiConfig mc = new MelatiConfig("org.melati.MelatiConfig");
     assertEquals("/melati-static", mc.getStaticURL());
 
     try {
       mc = new MelatiConfig("nonexistantProperties");
-      fail("should have blown up");
+      fail("Should have blown up");
     } catch (ConfigException e) {
       assertTrue(e.getMessage().indexOf("Is it in your CLASSPATH")>= 0); 
     }
 
     // Bad locale setting
     try {
-      mc = new MelatiConfig("bad.MelatiServlet");
-      fail("should have blown up");
+      mc = new MelatiConfig("bad.MelatiConfig");
+      fail("Should have blown up");
     } catch (ConfigException e) {
       System.err.println(e);
       assertTrue(e.getMessage().indexOf("is not a valid language tag")>= 0); 
@@ -84,7 +84,7 @@ public class MelatiConfigTest extends TestCase {
    */
   public void testMelatiConfigProperties() throws Exception {
     Properties p = new Properties();
-    p.setProperty("org.melati.MelatiServlet.staticURL", "test");
+    p.setProperty("org.melati.MelatiConfig.staticURL", "test");
     MelatiConfig mc = new MelatiConfig(p);
     assertEquals("test", mc.getStaticURL());
   }

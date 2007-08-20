@@ -51,6 +51,7 @@ import java.util.Properties;
 
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
+import org.melati.util.ConfigException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.FormatPropertyException;
 import org.melati.util.NoSuchPropertyException;
@@ -73,11 +74,15 @@ public final class LogicalDatabase {
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
 
-  private static synchronized Properties databaseDefs() throws IOException {
+  private static synchronized Properties databaseDefs() {
     if (databaseDefs == null)
-      databaseDefs =
-          PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
+      try { 
+        databaseDefs =
+            PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
                                        defaultPropertiesName);
+      } catch (IOException e) {
+        throw new ConfigException("Cannot open " + getDefaultPropertiesName(), e);
+      }        
     return databaseDefs;
   }
 
@@ -114,13 +119,7 @@ public final class LogicalDatabase {
       throws DatabaseInitException {
     Database db = PoemDatabaseFactory.getDatabase(name);
     if (db == null) {
-        
-      Properties defs;
-      try {
-        defs = databaseDefs();
-      } catch (IOException e) {
-        throw new DatabaseInitException(getDefaultPropertiesName(), name, e);
-      }
+      Properties defs = databaseDefs();
       String pref = className + "." + name + ".";
       String url = null;
       String user = null;
@@ -132,7 +131,6 @@ public final class LogicalDatabase {
       String logCommits = null;
       int maxTrans;
       try {
-        
         url = PropertiesUtils.getOrDie(defs, pref + "url");
         user = PropertiesUtils.getOrDie(defs, pref + "user");
         pass = PropertiesUtils.getOrDie(defs, pref + "pass");

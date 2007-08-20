@@ -68,9 +68,9 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    */
   public String getTemplateName(String key, String classifier) {
     String templateResourceName = null;
-    Enumeration roots = getRoots();    
-    while(roots.hasMoreElements()) { 
-      String root = (String)roots.nextElement();
+    Enumeration theRoots = getRoots();    
+    while(theRoots.hasMoreElements()) { 
+      String root = (String)theRoots.nextElement();
       templateResourceName = "/" + emptyOrSlashEnded(root) + 
                              emptyOrSlashEnded(classifier) +  
                              key + 

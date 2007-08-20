@@ -887,7 +887,8 @@ public class Melati {
     // first effort is to use the writer supplied by the template engine
     MelatiWriter writerL = null;
     if (response != null) {
-      if (templateEngine != null) {
+      if (templateEngine != null &&
+              templateEngine instanceof ServletTemplateEngine) {
         writerL = ((ServletTemplateEngine)templateEngine).getServletWriter(response, buffered);
       } else {
         if (buffered) {

@@ -170,13 +170,12 @@ public abstract class TemplateServlet extends PoemServlet {
    * @param e      the {@link Exception} to report
    * @throws IOException if anything goes wrong with the file system
    */
-  public void error(Melati melati, Exception e) throws IOException {
+  public void error(Melati melati, Exception e) {
     ServletTemplateContext templateContext = melati.getServletTemplateContext();
     // If this a DB error which has occurred prior to 
     // the establishment of a template context
     if (templateContext == null) {
       super.error(melati, e);
-      return;
     } 
 
     // has it been trapped already, if so, we don't need to relog it here

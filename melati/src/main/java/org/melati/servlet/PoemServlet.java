@@ -223,13 +223,9 @@ public abstract class PoemServlet extends ConfigServlet {
       melati.getConfig().getAccessHandler().buildRequest(melati);
       prePoemSession(melati);
     } catch (Exception e) {
-      try {
         // we have to log this here, otherwise we lose the stacktrace
         error(melati, e);
         throw new TrappedException(e.toString());
-      } catch (IOException f) {
-        throw new TrappedException(f.toString());
-      }
     }
 
     final PoemServlet _this = this;
@@ -259,13 +255,9 @@ public abstract class PoemServlet extends ConfigServlet {
             _handleException(melati, e);
           }
         } catch (Exception e) {
-          try {
-            // we have to log this here, otherwise we lose the stacktrace
-            error(melati, e);
-            throw new TrappedException(e.toString());
-          } catch (IOException f) {
-            throw new TrappedException(f.toString());
-          }
+          // we have to log this here, otherwise we lose the stacktrace
+          error(melati, e);
+          throw new TrappedException(e.toString());
         }
       }
 

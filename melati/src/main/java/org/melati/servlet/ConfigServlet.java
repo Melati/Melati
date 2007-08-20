@@ -166,23 +166,17 @@ public abstract class ConfigServlet extends HttpServlet {
    */
   private void doGetPostRequest(final HttpServletRequest request, 
                                 final HttpServletResponse response) {
+    Melati melati = new Melati(melatiConfig, request, response);
     try {
-      Melati melati = new Melati(melatiConfig, request, response);
-      try {
-        melati.establishCharsets();
-        PoemContext poemContext = poemContext(melati);
-        melati.setPoemContext(poemContext);
-        doConfiguredRequest(melati);
-        // send the output to the client
-        melati.write();
-      }
-      catch (Exception f) {
-        error(melati,f);
-      }
+      melati.establishCharsets();
+      PoemContext poemContext = poemContext(melati);
+      melati.setPoemContext(poemContext);
+      doConfiguredRequest(melati);
+      // send the output to the client
+      melati.write();
     }
     catch (Exception e) {
-      // log it
-      e.printStackTrace(System.err);
+      error(melati,e);
     }
   }
 
@@ -193,23 +187,28 @@ public abstract class ConfigServlet extends HttpServlet {
    * @param e      the {@link Exception} to report
    * @throws IOException if anything goes wrong with the file system
    */
-  public void error(Melati melati, Exception e) throws IOException {
+  public void error(Melati melati, Exception e) {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
-      // log it
-      e.printStackTrace(System.err);
-      // and put it on the page
-      melati.setResponseContentType ("text/html");
-      MelatiWriter mw =  melati.getWriter();
-      // get rid of anything that has been written so far
-      mw.reset();
-      PrintWriter out = mw.getPrintWriter();
-      if (e instanceof ConnectionPendingException) {
-        writeConnectionPendingException(out,e);
-      } else {
-        writeError(out,e);
+      try { 
+        // log it
+        e.printStackTrace(System.err);
+        // and put it on the page
+        melati.setResponseContentType ("text/html");
+        MelatiWriter mw =  melati.getWriter();
+        // get rid of anything that has been written so far
+        mw.reset();
+        PrintWriter out = mw.getPrintWriter();
+        if (e instanceof ConnectionPendingException) {
+          writeConnectionPendingException(out,e);
+        } else {
+          writeError(out,e);
+        }
+        melati.write();
+      } catch (IOException f ) {
+        e.printStackTrace(System.err);
+        throw new TrappedException(f.toString());
       }
-      melati.write();
     }
   }
   

@@ -65,15 +65,8 @@ public final class LogicalDatabase {
   private LogicalDatabase() {}
 
 
-  /** 
-   * The name used, if no other is specified, 
-   * with <code>getResourceAsStream</code>. 
-   */
-  public static final String defaultPropertiesName =
-      "org.melati.LogicalDatabase.properties";
-
   /** Properties, named for this class. */
-  public static Properties databaseDefs = null;
+  private static Properties databaseDefs = null;
 
   private static synchronized Properties databaseDefs() {
     if (databaseDefs == null)
@@ -82,7 +75,7 @@ public final class LogicalDatabase {
             PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
                                        defaultPropertiesName);
       } catch (IOException e) {
-        throw new ConfigException("Cannot open " + getDefaultPropertiesName(), e);
+        throw new ConfigException("Cannot open " + getPropertiesName(), e);
       }        
     return databaseDefs;
   }
@@ -144,9 +137,9 @@ public final class LogicalDatabase {
         maxTrans = PropertiesUtils.
                          getOrDefault_int(defs, pref + "maxtransactions", 8);
       } catch (NoSuchPropertyException e) {
-        throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+        throw new DatabaseInitException(getPropertiesName(),name, e);
       } catch (FormatPropertyException e) {
-        throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+        throw new DatabaseInitException(getPropertiesName(),name, e);
       }
       db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
              clazz, dbmsClass, 
@@ -165,10 +158,13 @@ public final class LogicalDatabase {
   }
 
   /**
+   * The name used with <code>getResourceAsStream</code> to 
+   * get the file and the properties within it. 
+   * 
    * @return Returns the defaultPropertiesName.
    */
-  public static String getDefaultPropertiesName() {
-    return defaultPropertiesName;
+  public static String getPropertiesName() {
+    return "org.melati.LogicalDatabase.properties";
   }
 }
 

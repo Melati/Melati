@@ -55,6 +55,8 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 
 import org.melati.login.AccessHandler;
+import org.melati.login.HttpBasicAuthenticationAccessHandler;
+import org.melati.login.HttpSessionAccessHandler;
 import org.melati.login.OpenAccessHandler;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.util.ConfigException;
@@ -129,13 +131,11 @@ public abstract class AbstractConfigApp implements App {
    * Set application properties from the default properties file.
    * 
    * This method will look for a properties file called 
-   * <tt>org.melati.MelatiApp.properties</tt>; failing to find that it will 
-   * read any  <tt>org.melati.MelatiServlet.properties</tt> and set the access 
-   * handler to <code>OpenAccessHandler</code>; failing that it will accept 
-   * the defaults again setting the access 
+   * <tt>org.melati.MelatiConfig.properties</tt>; if it finds that the AccessHandler is 
+   * an Http handler it will set the access 
    * handler to <code>OpenAccessHandler</code>.
    * 
-   * To override any setting from MelatiApp.properties,
+   * To override any setting from MelatiConfig.properties,
    * simply override this method and return a vaild MelatiConfig.
    *
    * eg to use a different AccessHandler from the default:
@@ -151,26 +151,16 @@ public abstract class AbstractConfigApp implements App {
    * @throws MelatiException if anything goes wrong with Melati
    */
   protected MelatiConfig melatiConfig() throws MelatiException {
-    MelatiConfig config = null;
+    MelatiConfig config = new MelatiConfig();
+    
+    if (config.getAccessHandler() instanceof HttpBasicAuthenticationAccessHandler || 
+            config.getAccessHandler() instanceof HttpSessionAccessHandler)
     try { 
-      config = new MelatiConfig(defaultPropertiesName); 
-    } catch (ConfigException e) { 
-      try { 
-        config = new MelatiConfig(MelatiConfig.defaultPropertiesName);
-        try { 
-          config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
-        } catch (Exception e1) {
-          throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e1);
-        }
-      } catch (ConfigException e1) { 
-        config = new MelatiConfig();
-        try {
-          config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
-        } catch (Exception e2) {
-          throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e2);
-        }
-      }
+      config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
+    } catch (Exception e) {
+      throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e);
     }
+  
     return config;
   }
   

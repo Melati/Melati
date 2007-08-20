@@ -3,11 +3,13 @@
  */
 package org.melati.test;
 
+import java.util.Properties;
 import java.util.Vector;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.test.PoemTestCase;
+import org.melati.util.DatabaseInitException;
 
 /**
  * @author timp
@@ -76,13 +78,26 @@ public class LogicalDatabaseTest extends PoemTestCase {
     } catch (DatabaseInitialisationPoemException e) {
       e = null;
     }
+    try { 
+      LogicalDatabase.getDatabase("unknown");
+      fail("Should have blown up");
+    } catch (DatabaseInitException e) {
+      e = null;
+    }
   }
 
   /**
    * Test method for {@link org.melati.LogicalDatabase#setDatabaseDefs(java.util.Properties)}.
    */
   public void testSetDatabaseDefs() {
-    
+   Properties empty = new Properties(); 
+   LogicalDatabase.setDatabaseDefs(empty);
+   try { 
+     LogicalDatabase.getDatabase("empty");
+     fail("Should have blown up");
+   } catch (DatabaseInitException e) {
+     e = null;
+   }
   }
 
   /**

@@ -57,6 +57,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
+import org.melati.util.ConfigException;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiException;
 import org.melati.util.StringUtils;
@@ -126,7 +127,7 @@ public abstract class ConfigServlet extends HttpServlet {
     super.init(config);
     try {
       melatiConfig = melatiConfig();
-    } catch (MelatiException e) {
+    } catch (Exception e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
       e.printStackTrace(System.err);

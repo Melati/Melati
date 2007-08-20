@@ -75,9 +75,7 @@ public class MelatiConfig {
 
   private Properties configuration = null;
   /** The properties file name. */
-  public static String defaultPropertiesName = "org.melati.MelatiServlet";
-  /** The properties file name in use */
-  private String propertiesName;
+  private String propertiesName = "org.melati.MelatiConfig";
 
   private AccessHandler accessHandler = null;
   private FormDataAdaptorFactory fdaFactory = null;
@@ -102,7 +100,7 @@ public class MelatiConfig {
       throws MelatiException {
     try {
       configuration =
-        PropertiesUtils.fromResource(getClass(), defaultPropertiesName + ".properties");
+        PropertiesUtils.fromResource(getClass(), propertiesName + ".properties");
     }
     catch (FileNotFoundException e) {
       configuration = new Properties();
@@ -110,11 +108,11 @@ public class MelatiConfig {
       // TimP: Naah
     }
     catch (IOException e) {
-      throw new ConfigException("The file " + defaultPropertiesName + ".properties" +
+      throw new ConfigException("The file " + propertiesName + ".properties" +
                                 " could not be read." +
                                 " Full Error: " + e.toString());
     }
-    init(defaultPropertiesName);
+    init(propertiesName);
   }
 
   /**
@@ -154,23 +152,24 @@ public class MelatiConfig {
   public MelatiConfig(Properties properties)  
     throws MelatiException {
     configuration = properties;
-    init(defaultPropertiesName);
+    init(propertiesName);
   }
 
   void init(String propertiesNameIn)
       throws MelatiException {
     this.propertiesName = propertiesNameIn;
     String pref = propertiesName + ".";
-    String accessHandlerProp = pref + "accessHandler";
-    String fdaFactoryProp = pref + "formDataAdaptorFactory";
-    String templetLoaderProp = pref + "templetLoader";
-    String templateEngineProp = pref + "templateEngine";
-    String templatePathProp = pref + "templatePath";
-    String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
-    String staticURLProp = pref + "staticURL";
-    String melatiLocaleProp = pref + "locale";
-    String preferredCharsetsProp = pref + "preferredCharsets";
-    String loginPageServletClassNameProp = pref + "loginPageServletClassName";
+    
+    String accessHandlerProp              = pref + "accessHandler";
+    String fdaFactoryProp                 = pref + "formDataAdaptorFactory";
+    String templetLoaderProp              = pref + "templetLoader";
+    String templateEngineProp             = pref + "templateEngine";
+    String templatePathProp               = pref + "templatePath";
+    String javascriptLibraryURLProp       = pref + "javascriptLibraryURL";
+    String staticURLProp                  = pref + "staticURL";
+    String melatiLocaleProp               = pref + "locale";
+    String preferredCharsetsProp          = pref + "preferredCharsets";
+    String loginPageServletClassNameProp  = pref + "loginPageServletClassName";
     String logoutPageServletClassNameProp = pref + "logoutPageServletClassName";
 
     try {

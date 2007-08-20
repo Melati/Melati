@@ -13,6 +13,15 @@
 # For use at the command line 
 #org.melati.MelatiConfig.accessHandler=org.melati.login.OpenAccessHandler
 
+# For use with servlet sessions (cookies)
+org.melati.MelatiConfig.accessHandler=org.melati.login.HttpSessionAccessHandler
+
+# For use with HTTP Basic Authentication
+# org.melati.MelatiConfig.accessHandler=org.melati.login.HttpBasicAuthenticationAccessHandler
+
+# No need to set these as they are defaults
+# org.melati.MelatiConfig.loginPageServletClassName=org.melati.login.Login
+# org.melati.MelatiConfig.logoutPageServletClassName=org.melati.login.Logout
 
 #
 # -------------------------------
@@ -21,6 +30,9 @@
 #
 
 #org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
+org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
+# For use with an App
+#org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
 #org.melati.MelatiConfig.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
 #org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
 
@@ -36,6 +48,13 @@
 # 
 
 #org.melati.MelatiConfig.templatePath=/usr/local/packages/melati/org/melati/
+
+#
+# --------------------------------------------
+#  How to load Templets
+#
+# eg create templet java.lang.String.wm in org/melati/template/webmacro/templets/html
+#org.melati.MelatiConfig.templetLoader=org.melati.template.ClassNameTempletLoader
 
 #
 # --------------------------------------------

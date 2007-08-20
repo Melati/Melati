@@ -59,6 +59,7 @@ import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.login.HttpSessionAccessHandler;
 import org.melati.login.OpenAccessHandler;
 import org.melati.poem.util.ArrayUtils;
+import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiWriter;
@@ -67,21 +68,19 @@ import org.melati.util.UnexpectedExceptionException;
 
 /**
  * ConfigApp is the simplest way to use Melati.
- *
- * All a ConfigApp does is to configure a Melati.
- * Importantly it does not establish a Poem session
- * leaving you to do this for yourself.
- *
+ * 
+ * All a ConfigApp does is to configure a Melati. Importantly it does not
+ * establish a Poem session leaving you to do this for yourself.
+ * 
  * If you want a POEM session established, please extend {@link AbstractPoemApp}.
- *
- * ConfigApp does set up a basic {@link PoemContext} with the Method set,
- * but not the POEM logicaldatabase, table or troid.
- *
- * The arguments are expected to end with a freeform string telling 
- * your application what it is meant to do.  This
- *       is automatically made available in templates as
- *       <TT>$melati.Method</TT>.
- *
+ * 
+ * ConfigApp does set up a basic {@link PoemContext} with the Method set, but
+ * not the POEM logicaldatabase, table or troid.
+ * 
+ * The arguments are expected to end with a freeform string telling your
+ * application what it is meant to do. This is automatically made available in
+ * templates as <TT>$melati.Method</TT>.
+ * 
  * You can change the way these things are determined by overriding
  * {@link #poemContext}.
  */
@@ -91,15 +90,17 @@ public abstract class AbstractConfigApp implements App {
   protected static MelatiConfig melatiConfig;
 
   protected PrintStream output = System.out;
-  
+
   /**
    * Initialise.
-   *
-   * @param args the command line arguments
+   * 
+   * @param args
+   *          the command line arguments
    * @return a newly created Melati
-   * @throws MelatiException if something goes wrong during initialisation
+   * @throws MelatiException
+   *           if something goes wrong during initialisation
    */
-  public Melati init(String[] args) throws MelatiException  {
+  public Melati init(String[] args) throws MelatiException {
     try {
       melatiConfig = melatiConfig();
     } catch (MelatiException e) {
@@ -110,144 +111,164 @@ public abstract class AbstractConfigApp implements App {
     Melati melati = new Melati(melatiConfig, out);
     melati.setArguments(argumentsWithoutOutput);
     melati.setPoemContext(poemContext(melati));
-    
+
     return melati;
   }
-  
+
   /**
-   * Clean up at end of run.
-   * Overridden in PoemApp.
+   * Clean up at end of run. Overridden in PoemApp.
    * 
-   * @param melati the melati 
+   * @param melati
+   *          the melati
    */
-  public void term(Melati melati) throws MelatiException  {
+  public void term(Melati melati) throws MelatiException {
     output.flush();
     output.close();
   }
 
-  /** 
+  /**
    * Set application properties from the default properties file.
    * 
-   * This method will look for a properties file called 
-   * <tt>org.melati.MelatiConfig.properties</tt>; if it finds that the AccessHandler is 
-   * an Http handler it will set the access 
-   * handler to <code>OpenAccessHandler</code>.
+   * This method will look for a properties file called
+   * <tt>org.melati.MelatiConfig.properties</tt>; if it finds that the
+   * AccessHandler is an Http handler it will set the access handler to
+   * <code>OpenAccessHandler</code>.
    * 
-   * To override any setting from MelatiConfig.properties,
-   * simply override this method and return a vaild MelatiConfig.
-   *
+   * Similarly ServletTemplateEngine is changed to TemplateEngine.
+   *  
+   * To override any setting from MelatiConfig.properties, simply override this
+   * method and return a vaild MelatiConfig.
+   * 
    * eg to use a different AccessHandler from the default:
-   *
+   * 
    * <PRE>
-   *   protected MelatiConfig melatiConfig() throws MelatiException {
-   *     MelatiConfig config = super.melatiConfig();
-   *     config.setAccessHandler(new YourAccessHandler());
-   *     return config;
-   *   }
+   * protected MelatiConfig melatiConfig() throws MelatiException {
+   *   MelatiConfig config = super.melatiConfig();
+   *   config.setAccessHandler(new YourAccessHandler());
+   *   return config;
+   * }
    * </PRE>
-   *
-   * @throws MelatiException if anything goes wrong with Melati
+   * 
+   * @throws MelatiException
+   *           if anything goes wrong with Melati
    */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = new MelatiConfig();
-    
-    if (config.getAccessHandler() instanceof HttpBasicAuthenticationAccessHandler || 
-            config.getAccessHandler() instanceof HttpSessionAccessHandler)
-    try { 
-      config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
-    } catch (Exception e) {
-      throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e);
-    }
-  
+
+    if (config.getAccessHandler() instanceof HttpBasicAuthenticationAccessHandler
+            || config.getAccessHandler() instanceof HttpSessionAccessHandler)
+      try {
+        config.setAccessHandler((AccessHandler)OpenAccessHandler.class
+                .newInstance());
+      } catch (Exception e) {
+        throw new InstantiationPropertyException(OpenAccessHandler.class
+                .getName(), e);
+      }
+
+    if (config.getTemplateEngine() instanceof org.melati.template.webmacro.WebmacroServletTemplateEngine)
+      try {
+        config.setTemplateEngine((WebmacroTemplateEngine)WebmacroTemplateEngine.class
+                .newInstance());
+      } catch (Exception e) {
+        throw new InstantiationPropertyException(WebmacroTemplateEngine.class
+                .getName(), e);
+      }
+
     return config;
   }
-  
+
   /**
    * Do our thing.
    */
   public void run(String[] args) throws Exception {
-      final Melati melati = init(args);
-      doConfiguredRequest(melati);
-      melati.write();
-      term(melati);
+    final Melati melati = init(args);
+    doConfiguredRequest(melati);
+    melati.write();
+    term(melati);
   }
 
-  /** 
+  /**
    * This method <b>SHOULD</b> be overidden.
+   * 
    * @return the System Administrators name.
    */
-  public String getSysAdminName () {
+  public String getSysAdminName() {
     return "nobody";
   }
 
-  /** 
+  /**
    * This method <b>SHOULD</b> be overidden.
+   * 
    * @return the System Administrators email address.
    */
-  public String getSysAdminEmail () {
+  public String getSysAdminEmail() {
     return "nobody@nobody.com";
   }
 
   /**
    * Set up the (@link PoemContext}, but only the Method.
    * 
-   * @param melati the current {@link Melati}
+   * @param melati
+   *          the current {@link Melati}
    * @return a partially configured {@link PoemContext}
    * @throws MelatiException
    */
-  protected PoemContext poemContext(Melati melati) throws MelatiException { 
+  protected PoemContext poemContext(Melati melati) throws MelatiException {
     PoemContext it = new PoemContext();
     String[] arguments = melati.getArguments();
     if (arguments.length > 0)
-     it.setMethod(arguments[arguments.length - 1]);
-   return it;
+      it.setMethod(arguments[arguments.length - 1]);
+    return it;
   }
 
-  
-  protected String[] applyNamedArguments(String[] arguments) { 
-    String[] unnamedArguments = new String[] {}; 
+  protected String[] applyNamedArguments(String[] arguments) {
+    String[] unnamedArguments = new String[] {};
     boolean nextIsOutput = false;
-    for (int i = 0; i < arguments.length; i++) { 
+    for (int i = 0; i < arguments.length; i++) {
       if (arguments[i].startsWith("-o"))
         nextIsOutput = true;
       else if (nextIsOutput)
         try {
           setOutput(arguments[i]);
         } catch (IOException e) {
-          throw new RuntimeException("Problem setting output to " + arguments[i], e);
+          throw new RuntimeException("Problem setting output to "
+                  + arguments[i], e);
         }
-      else  { 
-        unnamedArguments = (String[])ArrayUtils.added(unnamedArguments, arguments[i]);
+      else {
+        unnamedArguments = (String[])ArrayUtils.added(unnamedArguments,
+                arguments[i]);
       }
     }
-      
-    return unnamedArguments;    
+
+    return unnamedArguments;
   }
-  
-  private void setOutput(String path) throws IOException { 
+
+  private void setOutput(String path) throws IOException {
     File outputFile = new File(path).getCanonicalFile();
     File parent = new File(outputFile.getParent());
     parent.mkdirs();
     outputFile.createNewFile();
     setOutput(new PrintStream(new FileOutputStream(outputFile)));
   }
-  
-  
- /** 
+
+  /**
    * {@inheritDoc}
+   * 
    * @see org.melati.app.App#setOutput(java.io.PrintStream)
    */
   public void setOutput(PrintStream out) {
     output = out;
   }
 
-/**
-  * Instantiate this method to build up your own output.
-  * 
-  * @param melati a configured {@link Melati}
-  * @throws Exception if anything goes wrong
-  */
+  /**
+   * Instantiate this method to build up your own output.
+   * 
+   * @param melati
+   *          a configured {@link Melati}
+   * @throws Exception
+   *           if anything goes wrong
+   */
   protected abstract void doConfiguredRequest(final Melati melati)
-       throws Exception;
+          throws Exception;
 
 }

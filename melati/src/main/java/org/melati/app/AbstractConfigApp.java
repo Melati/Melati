@@ -59,7 +59,6 @@ import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.login.HttpSessionAccessHandler;
 import org.melati.login.OpenAccessHandler;
 import org.melati.poem.util.ArrayUtils;
-import org.melati.util.ConfigException;
 import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiWriter;
@@ -90,7 +89,6 @@ import org.melati.util.UnexpectedExceptionException;
 public abstract class AbstractConfigApp implements App {
 
   protected static MelatiConfig melatiConfig;
-  private String defaultPropertiesName = "org.melati.MelatiApp";
 
   protected PrintStream output = System.out;
   

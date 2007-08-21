@@ -57,7 +57,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
-import org.melati.util.ConfigException;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiException;
 import org.melati.util.StringUtils;

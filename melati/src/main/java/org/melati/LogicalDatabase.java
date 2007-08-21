@@ -51,11 +51,10 @@ import java.util.Properties;
 
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
-import org.melati.util.ConfigException;
 import org.melati.util.DatabaseInitException;
-import org.melati.util.FormatPropertyException;
-import org.melati.util.NoSuchPropertyException;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.PropertiesUtils;
+import org.melati.util.PropertyException;
 
 /**
  * An object which knows how to connect to a database.
@@ -75,7 +74,7 @@ public final class LogicalDatabase {
             PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
                 getPropertiesName());
       } catch (IOException e) {
-        throw new ConfigException("Cannot open " + getPropertiesName(), e);
+        throw new MelatiBugMelatiException("Cannot open database properties file " + getPropertiesName(), e);
       }        
     return databaseDefs;
   }
@@ -136,9 +135,7 @@ public final class LogicalDatabase {
         // max transactions default to 8 if not set
         maxTrans = PropertiesUtils.
                          getOrDefault_int(defs, pref + "maxtransactions", 8);
-      } catch (NoSuchPropertyException e) {
-        throw new DatabaseInitException(getPropertiesName(),name, e);
-      } catch (FormatPropertyException e) {
+      } catch (PropertyException e) {
         throw new DatabaseInitException(getPropertiesName(),name, e);
       }
       db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 

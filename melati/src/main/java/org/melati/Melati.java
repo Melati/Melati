@@ -57,7 +57,6 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.poem.Database;
 import org.melati.poem.Field;
-import org.melati.poem.NoAccessTokenPoemException;
 import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemLocale;
@@ -952,10 +951,8 @@ public class Melati {
     catch (NotInSessionPoemException e) {
       return null;
     }
-    catch (NoAccessTokenPoemException e) {
-      return null;
-    }
     catch (ClassCastException e) {
+      // If the AccessToken is the RootAccessToken
       return null;
     }
   }

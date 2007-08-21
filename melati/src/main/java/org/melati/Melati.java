@@ -882,6 +882,7 @@ public class Melati {
     return templateEngine.getStringWriter();
   }
 
+  //FIXME Bad smell - WriterL could have been null previously
   private MelatiWriter createWriter() throws IOException {
     // first effort is to use the writer supplied by the template engine
     MelatiWriter writerL = null;
@@ -896,8 +897,8 @@ public class Melati {
           writerL = new MelatiSimpleWriter(response.getWriter());
         }
       }
+      if (flushing) writerL.setFlushingOn();
     }
-    if (flushing) writerL.setFlushingOn();
     return writerL;
   }
 

@@ -670,6 +670,19 @@ public class MelatiTest extends TestCase {
     assertEquals("", m.templateName(""));
     assertEquals("nonexistent", m.templateName("nonexistent"));
     assertEquals("/org/melati/template/test/Templated.wm", m.templateName("org/melati/template/test/Templated"));
+    
+    m.getTemplateEngine().addRoot("org/melati/template/test/");
+    assertEquals("/org/melati/template/test/Templated.wm", m.templateName("Templated"));
+    PoemContext pc = m.getPoemContext();
+    pc.setLogicalDatabase("melatijunit");
+    m.setPoemContext(pc);
+    assertEquals("/org/melati/template/test/melatijunit/Specialised.wm", m.templateName("Specialised"));
+    
+   // Without a slash on the end
+    m.getTemplateEngine().addRoot("org/melati/template/test");
+    assertEquals("/org/melati/template/test/Templated.wm", m.templateName("Templated"));
+    assertEquals("/org/melati/template/test/melatijunit/Specialised.wm", m.templateName("Specialised"));
+    
   }
 
   

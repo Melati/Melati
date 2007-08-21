@@ -100,7 +100,7 @@ public interface TemplateEngine {
   
   /**
    * Add a template root directory.
-   * NOTE A root should not end in a slash.
+   * NOTE A root should not start or end in a slash.
    * 
    * @param root the root to add
    */

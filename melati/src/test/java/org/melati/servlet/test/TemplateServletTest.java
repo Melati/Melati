@@ -89,8 +89,8 @@ public class TemplateServletTest extends PoemServletTest {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     MockServletContext mockServletContext = new MockServletContext();
 
-    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
-            mockServletConfig, mockServletContext);
+    setupMocks(mockHttpServletRequest, mockSession, mockServletConfig, 
+            mockServletContext);
     
     
     org.melati.test.TemplateServletTest aServlet = 
@@ -109,9 +109,8 @@ public class TemplateServletTest extends PoemServletTest {
 
 
   private void setupMocks(MockServletRequest mockHttpServletRequest, 
-          MockServletResponse mockHttpServletResponse,
           Mock mockSession,
-          Mock mockServletConfig, 
+          Mock mockServletConfig,
           MockServletContext mockServletContext) {
 
     mockSession.expectAndReturn("getId", "1");
@@ -333,8 +332,8 @@ public class TemplateServletTest extends PoemServletTest {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     MockServletContext mockServletContext = new MockServletContext();
 
-    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
-            mockServletConfig, mockServletContext);
+    setupMocks(mockHttpServletRequest, mockSession, mockServletConfig, 
+            mockServletContext);
 
     
     mockServletContext.expectAndReturn("getResource", 
@@ -366,8 +365,8 @@ public class TemplateServletTest extends PoemServletTest {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     MockServletContext mockServletContext = new MockServletContext();
 
-    setupMocks(mockHttpServletRequest, mockHttpServletResponse, mockSession, 
-            mockServletConfig, mockServletContext);
+    setupMocks(mockHttpServletRequest, mockSession, mockServletConfig, 
+            mockServletContext);
 
     
     mockServletContext.expectAndReturn("getResource", 

@@ -174,7 +174,7 @@ public abstract class TemplateServlet extends PoemServlet {
     // the establishment of a template context
     if (templateContext == null) {
       super.error(melati, e);
-    } 
+    } else 
 
     // has it been trapped already, if so, we don't need to relog it here
     if (!(e instanceof TrappedException)) {

@@ -15,6 +15,9 @@ public abstract class ServletTemplateEngineSpec extends TemplateEngineSpec {
 
   protected ServletTemplateEngine servletTemplateEngine = null;
   
+  /**
+   * @param name test name
+   */
   public ServletTemplateEngineSpec(String name) {
     super(name);
   }

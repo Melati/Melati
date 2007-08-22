@@ -13,7 +13,6 @@ import org.melati.template.webmacro.PassbackEvaluationExceptionHandler;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.servlet.test.MockServletRequest;
@@ -52,7 +51,7 @@ public class MelatiTest extends TestCase {
     super.tearDown();
   }
 
-  protected PoemContext poemContext(Melati melati) throws MelatiException { 
+  protected PoemContext poemContext()  { 
     PoemContext it = new PoemContext();
    return it;
  }
@@ -124,29 +123,24 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getKnownDatabaseNames()
    */
-  public void testGetKnownDatabaseNames() {
+  public void testGetKnownDatabaseNames() throws Exception {
     MelatiConfig mc = null;
     PoemContext pc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      pc = poemContext(m);
-      m.setPoemContext(pc);
-      Vector known = m.getKnownDatabaseNames();
-      // Fails when run in single thread 
-      //assertEquals(0, known.size());
-      pc.setLogicalDatabase("melatijunit");
-      m.setPoemContext(pc);
-      m.loadTableAndObject();
-      known = m.getKnownDatabaseNames();
-      // Fails when run in single thread 
-      //assertEquals(1, known.size());
-      assertTrue(known.size() > 0);
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    pc = poemContext();
+    m.setPoemContext(pc);
+    Vector known = m.getKnownDatabaseNames();
+    // Fails when run in single thread 
+    //assertEquals(0, known.size());
+    pc.setLogicalDatabase("melatijunit");
+    m.setPoemContext(pc);
+    m.loadTableAndObject();
+    known = m.getKnownDatabaseNames();
+    // Fails when run in single thread 
+    //assertEquals(1, known.size());
+    assertTrue(known.size() > 0);
   }
 
   /**
@@ -234,7 +228,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     assertNull(m.getArguments());
     m.setArguments(new String[] {"hello", "world"});
     assertEquals(2, m.getArguments().length);
@@ -256,7 +250,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
     assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
     try { 
@@ -274,7 +268,7 @@ public class MelatiTest extends TestCase {
   public void testGetLogoutURL() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
@@ -288,7 +282,7 @@ public class MelatiTest extends TestCase {
   public void testGetLoginURL() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
@@ -311,7 +305,7 @@ public class MelatiTest extends TestCase {
   public void testGetServletURL() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("/");
     m.setRequest(req);
@@ -334,7 +328,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     assertEquals("en_GB", m.getPoemLocale().toString());
     m.setRequest(new MockServletRequest());
     assertEquals("en_GB", m.getPoemLocale().toString());
@@ -375,7 +369,7 @@ public class MelatiTest extends TestCase {
   public void testEstablishCharsets() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     mock.setHeader("Accept-Charset", "");
     m.setRequest(mock);
@@ -414,17 +408,12 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getMarkupLanguage()
    */
-  public void testGetMarkupLanguage() {
+  public void testGetMarkupLanguage() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext());
     assertEquals("html/en_GB", m.getMarkupLanguage().toString());
     assertEquals("html_attr/en_GB", m.getMarkupLanguage().getAttr().toString());
   }
@@ -432,17 +421,12 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getHTMLMarkupLanguage()
    */
-  public void testGetHTMLMarkupLanguage() {
+  public void testGetHTMLMarkupLanguage() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext());
     assertEquals("html/en_GB", m.getHTMLMarkupLanguage().toString());
     assertEquals("html_attr/en_GB", m.getHTMLMarkupLanguage().getAttr().toString());
 
@@ -454,7 +438,7 @@ public class MelatiTest extends TestCase {
   public void testSameURLWithStringString() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     mock.setRequestURI("page");
     m.setRequest(mock);
@@ -483,7 +467,7 @@ public class MelatiTest extends TestCase {
   public void testSetBufferingOff() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     m.setBufferingOff();
@@ -519,7 +503,7 @@ public class MelatiTest extends TestCase {
   public void testGotWriter() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     assertFalse(m.gotWriter());
@@ -533,7 +517,7 @@ public class MelatiTest extends TestCase {
   public void testGetURLQueryEncoding() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     assertEquals("ISO-8859-1", m.getURLQueryEncoding());
@@ -545,7 +529,7 @@ public class MelatiTest extends TestCase {
   public void testUrlEncode() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     assertEquals("", m.urlEncode(""));
@@ -575,7 +559,7 @@ public class MelatiTest extends TestCase {
   public void testGetStringWriter() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     assertNull(m.getTemplateEngine());
@@ -595,7 +579,7 @@ public class MelatiTest extends TestCase {
   public void testGetPassbackVariableExceptionHandler() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     assertNull(m.getTemplateEngine());
@@ -623,7 +607,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     assertNull(m.getUser());
   }
 
@@ -635,7 +619,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     try { 
       m.isReferencePoemType(null);
       fail("Should have blown up");
@@ -652,7 +636,7 @@ public class MelatiTest extends TestCase {
     Melati m = null;
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext(m));
+    m.setPoemContext(poemContext());
     try {
       m.templateName("");
       fail("Should have blown up");

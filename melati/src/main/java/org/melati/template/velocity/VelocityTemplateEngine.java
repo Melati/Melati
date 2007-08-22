@@ -43,7 +43,6 @@
 
 package org.melati.template.velocity;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.Properties;
@@ -98,7 +97,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   public void init(MelatiConfig melatiConfig)
       throws TemplateEngineException {
     try {
-      Properties props = loadConfiguration(melatiConfig);
+      Properties props = loadConfiguration();
       Velocity.init(props);
     } catch (Exception e) {
       throw new TemplateEngineException(e);
@@ -106,8 +105,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   }
 
 
-  protected Properties loadConfiguration(MelatiConfig melatiConfig)
-      throws IOException, FileNotFoundException {
+  protected Properties loadConfiguration() {
     Properties p = new Properties();
     p.setProperty("resource.loader", "class");
     p.setProperty("class.resource.loader.class",

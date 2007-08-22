@@ -58,7 +58,6 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.Database;
 import org.melati.poem.PoemTask;
 import org.melati.util.DatabaseInitException;
-import org.melati.util.MelatiException;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -82,14 +81,7 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
    */
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
-    try {
-      melatiConfig = getMelatiConfig();
-    } catch (MelatiException e) {
-      // log it to system.err as ServletExceptions go to the
-      // servlet runner log (eg jserv.log), and don't have a stack trace!
-      e.printStackTrace(System.err);
-      throw new ServletException(e.toString());
-    }
+     melatiConfig = getMelatiConfig();
     jspInit();
     _jspInit();
   }
@@ -99,7 +91,7 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
    * 
    * @return a configured MelatiConfig
    */
-  protected MelatiConfig getMelatiConfig() throws MelatiException {
+  protected MelatiConfig getMelatiConfig() {
     MelatiConfig m = new MelatiConfig();
     return m;
   }

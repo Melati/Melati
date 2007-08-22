@@ -58,7 +58,6 @@ import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
 import org.melati.util.ConnectionPendingException;
-import org.melati.util.MelatiException;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 
@@ -315,9 +314,8 @@ public abstract class ConfigServlet extends HttpServlet {
    * </PRE>
    * 
    * @return a new {@link MelatiConfig}
-   * @throws MelatiException if anything goes wrong with Melati
    */
-  protected MelatiConfig melatiConfig() throws MelatiException {
+  protected MelatiConfig melatiConfig() {
     return new MelatiConfig();
   }
   

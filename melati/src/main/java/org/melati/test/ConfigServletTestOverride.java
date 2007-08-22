@@ -48,7 +48,6 @@ package org.melati.test;
 import org.melati.servlet.DefaultFileDataAdaptorFactory;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
-import org.melati.util.MelatiException;
 
 /**
  * Demonstrates how to override individual property settings 
@@ -57,7 +56,7 @@ import org.melati.util.MelatiException;
 public class ConfigServletTestOverride extends ConfigServletTest {
   private static final long serialVersionUID = 1L;
 
-  protected MelatiConfig melatiConfig() throws MelatiException {
+  protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
     DefaultFileDataAdaptorFactory factory = 
         new DefaultFileDataAdaptorFactory();

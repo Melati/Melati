@@ -73,7 +73,7 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    */
   public abstract void setAccessHandler();
   
-  protected void melatiConfig() throws MelatiException {
+  protected void melatiConfig() {
     mc = new MelatiConfig();
   }
   

@@ -63,7 +63,6 @@ import org.melati.servlet.PoemServlet;
 import org.melati.servlet.PathInfoException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiException;
 
 /**
  * Test a Melati configuration which accesses a POEM database 
@@ -166,7 +165,7 @@ public class PoemServletTest extends PoemServlet {
 /**
  * How to use a different melati configuration.
  */
-  protected MelatiConfig melatiConfig() throws MelatiException {
+  protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
     config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
     return config;

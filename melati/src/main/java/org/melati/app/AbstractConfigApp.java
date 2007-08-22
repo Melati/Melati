@@ -121,7 +121,7 @@ public abstract class AbstractConfigApp implements App {
    * @param melati
    *          the melati
    */
-  public void term(Melati melati) throws MelatiException {
+  public void term(Melati melati) {
     output.flush();
     output.close();
   }
@@ -211,9 +211,8 @@ public abstract class AbstractConfigApp implements App {
    * @param melati
    *          the current {@link Melati}
    * @return a partially configured {@link PoemContext}
-   * @throws MelatiException
    */
-  protected PoemContext poemContext(Melati melati) throws MelatiException {
+  protected PoemContext poemContext(Melati melati) {
     PoemContext it = new PoemContext();
     String[] arguments = melati.getArguments();
     if (arguments.length > 0)

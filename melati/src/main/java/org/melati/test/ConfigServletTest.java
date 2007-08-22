@@ -61,7 +61,6 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiException;
 import org.melati.util.ExceptionUtils;
 
 /**
@@ -194,7 +193,7 @@ public class ConfigServletTest extends ConfigServlet {
  /**
   * Demonstrates how to use a different melati configuration.
   */
-  protected MelatiConfig melatiConfig() throws MelatiException {
+  protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
     config.setFormDataAdaptorFactory(new MemoryDataAdaptorFactory());
     return config;

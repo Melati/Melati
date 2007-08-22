@@ -201,7 +201,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    * 
    * @param melati the melati 
    */
-  public void term(Melati melati) throws MelatiException  {
+  public void term(Melati melati) {
     super.term(melati);
     PoemDatabaseFactory.disconnectDatabase(melati.getDatabase().getName());
   }

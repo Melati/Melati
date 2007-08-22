@@ -96,8 +96,7 @@ public class MelatiConfig {
    * @throws MelatiException
    *         if anything goes wrong.
    */
-  public MelatiConfig()
-      throws MelatiException {
+  public MelatiConfig() {
     try {
       configuration =
         PropertiesUtils.fromResource(getClass(), propertiesName + ".properties");
@@ -124,8 +123,7 @@ public class MelatiConfig {
    * @throws MelatiException
    *         if anything goes wrong.
    */
-  public MelatiConfig(String propertiesName)
-    throws MelatiException {
+  public MelatiConfig(String propertiesName) {
     this.propertiesName = propertiesName;
     try {
       configuration =
@@ -149,14 +147,12 @@ public class MelatiConfig {
    * Comnstructor from a given Properties object.
    * @param properties the properies object to look in 
    */
-  public MelatiConfig(Properties properties)  
-    throws MelatiException {
+  public MelatiConfig(Properties properties) {
     configuration = properties;
     init(propertiesName);
   }
 
-  void init(String propertiesNameIn)
-      throws MelatiException {
+  void init(String propertiesNameIn) {
     this.propertiesName = propertiesNameIn;
     String pref = propertiesName + ".";
     

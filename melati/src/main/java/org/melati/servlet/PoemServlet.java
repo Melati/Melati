@@ -187,6 +187,8 @@ public abstract class PoemServlet extends ConfigServlet {
    */
 
   protected void prePoemSession(Melati melati) throws Exception {
+    Melati shutEclipseUp = melati;
+    melati = shutEclipseUp;
   }
 
   /**

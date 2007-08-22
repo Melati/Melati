@@ -48,14 +48,10 @@ import java.io.IOException;
 
 import java.util.Properties;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServlet;
-
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
-import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngine;
@@ -75,7 +71,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  * Wrapper for the Velocity Template Engine for use with Melati.
  */
 public class VelocityTemplateEngine extends AbstractTemplateEngine implements
-    TemplateEngine, ServletTemplateEngine {
+    TemplateEngine {
 
   /** The name of the engine. */
   public static final String NAME = "velocity";
@@ -109,23 +105,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     }
   }
 
-  /**
-   * Construct a new Engine for use in a servlet environment.
-   * For Velocity this is no different to initialisation outside of 
-   * a servlets environment. 
-   * 
-   * @see org.melati.servlet.TemplateServlet
-   * @param melatiConfig
-   *        a {@link MelatiConfig}
-   * @param servlet
-   *        the servlet we are within
-   * @throws TemplateEngineException
-   *         if any problem occurs with the engine
-   */
-  public void init(MelatiConfig melatiConfig, HttpServlet servlet)
-      throws TemplateEngineException {
-    init(melatiConfig);
-  }
 
   protected Properties loadConfiguration(MelatiConfig melatiConfig)
       throws IOException, FileNotFoundException {
@@ -134,27 +113,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     p.setProperty("class.resource.loader.class",
         WebMacroClasspathResourceLoader.class.getName());
     return p;
-  }
-
-  /** Mimicking the $Form behaviour of Webmacro. */
-  public static final String FORM = "Form";
-
-  /**
-   * Get the template context for Velocity, with servlet specific objects added.
-   * 
-   * @param melati
-   *        the {@link Melati}
-   * @return a {@link TemplateContext}
-   */
-  public ServletTemplateContext getServletTemplateContext(Melati melati) {
-    VelocityContext context = new VelocityContext();
-    org.melati.template.velocity.HttpServletRequestWrap req = 
-      new org.melati.template.velocity.HttpServletRequestWrap(
-          melati.getRequest());
-    context.put(VelocityTemplateContext.REQUEST, req);
-    context.put(FORM, req);
-    context.put(VelocityTemplateContext.RESPONSE, melati.getResponse());
-    return new VelocityTemplateContext(context);
   }
 
   /**
@@ -194,7 +152,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @throws NotFoundException if template not found
    */
   public org.melati.template.Template template(String templateName)
-      throws IOException, NotFoundException {
+      throws NotFoundException {
     try {
       return new VelocityTemplate(templateName);
     } catch (ResourceNotFoundException e) {
@@ -285,26 +243,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     MelatiStringWriter s = new MelatiStringWriter();
     expandTemplate(s, template, templateContext);
     return s.toString();
-  }
-
-  /**
-   * @param response
-   *        the <code>HttpServletResponse</code> that this writer will be part
-   *        of
-   * @param buffered
-   *        whether the writer should be buffered
-   * @throws IOException
-   *         if there is a problem with the filesystem.
-   * @return a {@link MelatiWriter} appropriate for this engine.
-   */
-  public MelatiWriter getServletWriter(HttpServletResponse response,
-      boolean buffered)
-      throws IOException {
-    if (buffered) {
-      return new MelatiBufferedVelocityWriter(response);
-    } else {
-      return new MelatiVelocityWriter(response);
-    }
   }
 
   /**

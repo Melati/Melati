@@ -17,12 +17,12 @@ import org.melati.util.MelatiStringWriter;
  * @since 2007/08/21
  *
  */
-public class NoMarkupLanguageTest extends ServletTemplateEngineSpec {
+public class NoTemplateEngineTest extends ServletTemplateEngineSpec {
 
   /**
    * @param name
    */
-  public NoMarkupLanguageTest(String name) {
+  public NoTemplateEngineTest(String name) {
     super(name);
     setServletTemplateEngine();
   }
@@ -47,14 +47,14 @@ public class NoMarkupLanguageTest extends ServletTemplateEngineSpec {
    * Test method for {@link org.melati.template.TemplateEngine#getName()}.
    */
   public void testGetName() {
-    assertEquals("none",servletTemplateEngine.getName());    
+    assertEquals("none", templateEngine.getName());    
   }
 
   /**
    * Test method for {@link org.melati.template.TemplateEngine#templateExtension()}.
    */
   public void testTemplateExtension() {
-    assertEquals(".none",servletTemplateEngine.templateExtension());        
+    assertEquals(".none", templateEngine.templateExtension());        
   }
   
   /**
@@ -127,20 +127,21 @@ public class NoMarkupLanguageTest extends ServletTemplateEngineSpec {
   public void testInitMelatiConfigHttpServlet() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     servletTemplateEngine.init(mc, (HttpServlet)null);
-
-  }
-
-  /**
-   * Test method for {@link org.melati.template.ServletTemplateEngine#getServletWriter(javax.servlet.http.HttpServletResponse, boolean)}.
-   */
-  public void testGetServletWriter() {
-    
   }
 
   /**
    * Test method for {@link org.melati.template.ServletTemplateEngine#getServletTemplateContext(org.melati.Melati)}.
    */
-  public void testGetServletTemplateContext() {
+  public void testGetServletTemplateContext() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    servletTemplateEngine.init(mc);
+    Melati melati = new Melati(mc, new MelatiStringWriter());
+    try { 
+      servletTemplateEngine.getServletTemplateContext(melati); 
+      fail("Should have blown up");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    } 
     
   }
 

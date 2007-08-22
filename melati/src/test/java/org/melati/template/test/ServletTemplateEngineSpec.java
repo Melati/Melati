@@ -3,7 +3,15 @@
  */
 package org.melati.template.test;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.melati.template.ServletTemplateEngine;
+
+import com.mockobjects.dynamic.Mock;
+import com.mockobjects.dynamic.OrderedMock;
 
 
 /**
@@ -50,14 +58,23 @@ public abstract class ServletTemplateEngineSpec extends TemplateEngineSpec {
   /**
    * Test method for {@link org.melati.template.ServletTemplateEngine#getServletWriter(javax.servlet.http.HttpServletResponse, boolean)}.
    */
-  public void testGetServletWriter() {
-    
+  public void testGetServletWriter() throws Exception {
+    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    final StringWriter output = new StringWriter(); 
+    final PrintWriter contentWriter = new PrintWriter(output); 
+           
+    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
+    servletTemplateEngine.getServletWriter((HttpServletResponse)mockHttpServletResponse.proxy(), true);
+    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
+    servletTemplateEngine.getServletWriter((HttpServletResponse)mockHttpServletResponse.proxy(), false);
   }
+
 
   /**
    * Test method for {@link org.melati.template.ServletTemplateEngine#getServletTemplateContext(org.melati.Melati)}.
+   * @throws Exception 
    */
-  public void testGetServletTemplateContext() {
+  public void testGetServletTemplateContext() throws Exception {
     
   }
 

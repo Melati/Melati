@@ -141,14 +141,12 @@ public class SessionAnalysisServlet extends ConfigServlet {
       for(int i=0; i<db.transactionsMax(); i++) {
         boolean isFree = db.isFree(db.poemTransaction(i));
         Transaction blockedOn = db.poemTransaction(i).getBlockedOn();
-        boolean blocked = false;
-        if (blockedOn != null) blocked = true;
         output.write("<tr><td>" + db + "</td>\n"
                      + "<td>" + db.poemTransaction(i) + "</td>\n"
                      + "<td bgcolor=" + (isFree ? "green" : "red") + ">"
                      + isFree + "</td>\n"
-                     + "<td bgcolor=" + (blocked ? "red" : "green") + ">"
-                     + (blocked ? blockedOn.toString() : "&nbsp;") + "</td>\n"
+                     + "<td bgcolor=" + (blockedOn != null ? "red" : "green") + ">"
+                     + (blockedOn != null  ? blockedOn.toString() : "&nbsp;") + "</td>\n"
                      + "</tr>\n");
       }
     }

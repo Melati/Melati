@@ -386,7 +386,7 @@ public class TailoredQuery {
     }
 
     protected Object mapped(ResultSet them) {
-      checkTableAccess(them);
+      checkTableAccess();
       for (int c = 1; c < query.columns.length; ++c)
         column(them, c);
       return column(them, 0);

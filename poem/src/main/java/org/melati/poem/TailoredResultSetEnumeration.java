@@ -71,7 +71,7 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
    * Check whether defaultCanRead debars us from reading. 
    * Explicit canRead columns are checked in column(ResultSet them, int c).
    */
-  void checkTableAccess(ResultSet them) {
+  void checkTableAccess() {
     AccessToken token = PoemThread.accessToken();
 
     for (int t = 0; t < query.tablesWithoutCanReadColumn.length; ++t) {
@@ -115,7 +115,7 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
    */
   protected Object mapped(ResultSet them)
       throws SQLException, NoSuchRowPoemException {
-    checkTableAccess(them);
+    checkTableAccess();
 
     Field[] fields = new Field[query.columns.length];
     try {

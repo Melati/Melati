@@ -14,7 +14,6 @@ import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
 /**

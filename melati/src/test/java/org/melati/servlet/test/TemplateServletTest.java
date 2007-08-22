@@ -132,19 +132,19 @@ public class TemplateServletTest extends PoemServletTest {
 
     mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("toString", "mockServletContext"); 
-    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
-    mockServletContext.expectAndReturn("getResource", "/WEB-INF/WebMacro.properties", null); 
-    mockServletContext.expectAndReturn("getResource", "/WebMacro.properties", null); 
+    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init");
+    mockServletContext.expectAndReturn("getResource", "/WEB-INF/WebMacro.properties"); 
+    mockServletContext.expectAndReturn("getResource", "/WebMacro.properties"); 
     mockServletContext.expectAndReturn("getInitParameterNames", ""); 
     mockServletContext.expectAndReturn("hashCode", "17"); 
     mockServletContext.expectAndReturn("toString", "mockServletContext"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:LogFile\tNOTICE\t--- Log Started ---", null); 
+    mockServletContext.expectAndReturn("log", "WebMacro:LogFile\tNOTICE\t--- Log Started ---"); 
     mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)", null);
+    mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)");
     mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1", null);
-    mockServletContext.expectAndReturn("getResource", "/org/melati/test/TemplateServletTest.wm", null); 
-    mockServletContext.expect("log", "MelatiConfigTest: destroy");
+    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1");
+    mockServletContext.expectAndReturn("getResource", "/org/melati/test/TemplateServletTest.wm"); 
+    mockServletContext.expectAndReturn("log", "MelatiConfigTest: destroy");
   }
 
   /**
@@ -338,10 +338,9 @@ public class TemplateServletTest extends PoemServletTest {
 
     
     mockServletContext.expectAndReturn("getResource", 
-            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm",
-            null); 
+            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm"); 
     mockServletContext.expectAndReturn("log","WebMacro:resource WARNING BrokerTemplateProvider: Template not found: " + 
-            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm", null);
+            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm");
     
     
     mockHttpServletRequest.setParameter("passback", "true");
@@ -372,10 +371,9 @@ public class TemplateServletTest extends PoemServletTest {
 
     
     mockServletContext.expectAndReturn("getResource", 
-            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm",
-            null); 
+            "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm"); 
     mockServletContext.expectAndReturn("log","WebMacro:resource WARNING BrokerTemplateProvider: Template not found: " + 
-            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm", null);
+            "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm");
     
     mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
             new IsInstanceOf(HttpServletRequestParameters.class)});

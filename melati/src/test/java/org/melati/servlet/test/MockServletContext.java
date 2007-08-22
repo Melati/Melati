@@ -224,20 +224,5 @@ public class MockServletContext implements ServletContext {
   public void expectAndReturn(String key, String value) {
     expectations.put(key, value);
   }
-  /**
-   * @param key
-   * @param value
-   * @param ret
-   */
-  public void expectAndReturn(String key, String value, String ret) {
-    expectations.put(key, value);
-  }
-  /**
-   * @param key
-   * @param value
-   */
-  public void expect(String key, String value) {
-    expectations.put(key, value);
-  }
 
 }

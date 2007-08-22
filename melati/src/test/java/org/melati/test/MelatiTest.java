@@ -229,17 +229,12 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getArguments()
    */
-  public void testGetArguments() {
+  public void testGetArguments() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
     assertNull(m.getArguments());
     m.setArguments(new String[] {"hello", "world"});
     assertEquals(2, m.getArguments().length);

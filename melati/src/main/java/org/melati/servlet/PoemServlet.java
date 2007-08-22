@@ -195,19 +195,6 @@ public abstract class PoemServlet extends ConfigServlet {
    * @see javax.servlet.Servlet#destroy()
    */
   public void destroy() {
-    /*
-     * We do not want to shut the db down after every request.
-     * The closure of the transaction is handled in inSession. 
-    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases()
-        .elements();
-    while (dbs.hasMoreElements()) {
-      Database db = (Database) dbs.nextElement();
-      if (db.getCommittedConnection() != null) {
-        db.shutdown();
-        db.disconnect();
-      }
-    }
-    */
     super.destroy();
   }
 

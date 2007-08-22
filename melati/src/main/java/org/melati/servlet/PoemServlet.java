@@ -238,18 +238,17 @@ public abstract class PoemServlet extends ConfigServlet {
         melati.loadTableAndObject();
         try {
           try {
-            if (poemAdministratorsName == null) {
-              poemAdministratorsName = melati.getDatabase().administratorUser().getName();
-              Field emailField = null;
-              try {
-                emailField = melati.getDatabase().administratorUser().getField("email");
-                poemAdministratorsEmail = emailField.toString();
-              } catch (NoSuchColumnPoemException e) {
-                poemAdministratorsEmail = "noEmailDefined@nobody.com";
-              }
-              _this.setSysAdminName(poemAdministratorsName);
-              _this.setSysAdminEmail(poemAdministratorsEmail);
+            poemAdministratorsName = melati.getDatabase().administratorUser().getName();
+            Field emailField = null;
+            try {
+              emailField = melati.getDatabase().administratorUser().getField("email");
+              poemAdministratorsEmail = emailField.toString();
+            } catch (NoSuchColumnPoemException e) {
+              poemAdministratorsEmail = "noEmailDefined@nobody.com";
             }
+            _this.setSysAdminName(poemAdministratorsName);
+            _this.setSysAdminEmail(poemAdministratorsEmail);
+            
             _this.doPoemRequest(melati);
           } catch (Exception e) {
             _handleException(melati, e);

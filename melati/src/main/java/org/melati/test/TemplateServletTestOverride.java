@@ -57,7 +57,6 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.PathInfoException;
 import org.melati.PoemContext;
 import org.melati.template.ServletTemplateContext;
-import org.melati.util.MelatiException;
 
 /**
  * Illustrate overridden exception handling.
@@ -85,7 +84,7 @@ public class TemplateServletTestOverride extends TemplateServlet {
  * Override the default (set) authentication method.
  * Demonstrates how to override individual set properties.
  */
-  protected MelatiConfig melatiConfig() throws MelatiException {
+  protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
     config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
     return config;

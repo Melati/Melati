@@ -185,7 +185,6 @@ public abstract class ConfigServlet extends HttpServlet {
    *
    * @param melati the {@link Melati}
    * @param e      the {@link Exception} to report
-   * @throws IOException if anything goes wrong with the file system
    */
   public void error(Melati melati, Exception e) {
     // has it been trapped already, if so, we don't need to relog it here
@@ -205,7 +204,7 @@ public abstract class ConfigServlet extends HttpServlet {
           writeError(out,e);
         }
         melati.write();
-      } catch (IOException f ) {
+      } catch (IOException f) {
         e.printStackTrace(System.err);
         throw new TrappedException(f.toString());
       }

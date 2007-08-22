@@ -45,7 +45,6 @@
 
 package org.melati.servlet;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -168,7 +167,6 @@ public abstract class TemplateServlet extends PoemServlet {
    *
    * @param melati the {@link Melati}
    * @param e      the {@link Exception} to report
-   * @throws IOException if anything goes wrong with the file system
    */
   public void error(Melati melati, Exception e) {
     ServletTemplateContext templateContext = melati.getServletTemplateContext();

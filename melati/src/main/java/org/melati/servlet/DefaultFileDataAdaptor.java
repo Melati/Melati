@@ -92,6 +92,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
 
   public DefaultFileDataAdaptor(Melati melatiP, String uploadDir, String uploadURL,
                                 boolean makeUnique) {
+    this.melati = melatiP;
     this.uploadDir = uploadDir;
     this.uploadURL = uploadURL;
     this.makeUnique = makeUnique;

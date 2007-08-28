@@ -646,7 +646,7 @@ public class DSD {
     if (url == null || url.getFile() == null || url.getFile().equals(""))
       throw new ResourceNotFoundException(resource,
                   "I can't find the resource from the database class file. "+
-                  "Is the resource in your classpath?");
+                  "Is " + fileToLookFor +" in your classpath?");
     return url.getFile();
   }
 

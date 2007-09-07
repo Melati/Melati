@@ -118,8 +118,16 @@ public class LongPoemType extends AtomPoemType {
   }
 
 
+  /** 
+   * Longs can represent Integers.
+   *  
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
+   */
   protected boolean _canRepresent(SQLPoemType other) {
-    return other instanceof LongPoemType;
+    if (other instanceof LongPoemType) 
+      return true;
+    return other instanceof IntegerPoemType ;
   }
 
   /**

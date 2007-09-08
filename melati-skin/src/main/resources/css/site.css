@@ -4,7 +4,7 @@
 /* Built in HTML Elements */
 
 BODY {
-  COLOR: #cc3344; 
+  COLOR: #b42d00;
 }
 
 PRE { 
@@ -16,44 +16,44 @@ PRE {
 }
 
 h1 { 
-  background-color: #f8cce8;
-  COLOR: #cc3344; 
+  background-color: #ffb901;
+  COLOR: #b42d00;
 }
 h2 { 
-  background-color: #f8cce8;
-  COLOR: #c40d81; 
+  background-color: #ffb901;
+  COLOR: #b42d00;
 }
 h3 { 
-  background-color: #ea88c6;
+  background-color: #f97f00;
   COLOR: #FFeeee; 
 }
 h4 { 
-  background-color: #ea88c6;
-  COLOR: #cc3344; 
+  background-color: #f97f00;
+  COLOR: #b42d00;
 }
 #navcolumn h5 { 
-  background-color: #ea88c6;
+  background-color: #f97f00;
   padding-left: 3px;
-  COLOR: #c40d81; 
+  COLOR: #b42d00;
 }
 h6 { 
-  background-color: #ea88c6;
-  COLOR: #cc3344; 
+  background-color: #f97f00;
+  COLOR: #b42d00;
 }
 
 #banner { 
-  background-color: #fcf0fa;
-  COLOR: #cc3344; 
+  background-color: #fdf475;
+  COLOR: #b42d00;
 }
 
 #breadcrumbs { 
-  background-color: #f8cce8;
-  COLOR: #cc3344; 
+  background-color: #ffb901;
+  COLOR: #b42d00;
 }
 
 #leftColumn {
-  background-color: #fcf0fa;
-  COLOR: #cc3344; 
+  background-color: #fdf475;
+  COLOR: #b42d00;
 } 
 
 .created {
@@ -61,13 +61,14 @@ h6 {
 }
 
 table.bodyTable th {
-  background-color: #ea88c6;
+  background-color: #f97f00;
 }
 
 table.bodyTable tr.a {
-  background-color: #f8cce8;
+  background-color: #ffb901;
+  color: #b42d00;
 }
 
 table.bodyTable tr.b {
-  background-color: #fcf0fa;
+  background-color: #fdf475;
 }

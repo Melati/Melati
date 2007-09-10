@@ -55,6 +55,9 @@ import java.sql.SQLException;
  */
 public class DoublePoemType extends AtomPoemType {
 
+  /** The nullable instance. */
+  public static final DoublePoemType it = new DoublePoemType(true);
+  
   /**
    * Constructor.
    * @param nullable whether null is an allowed value

@@ -230,9 +230,10 @@ public class MSAccess extends AnsiStandard {
     }
     // We set size to sqlServerTextHack for our Text type
     protected boolean _canRepresent(SQLPoemType other) {
-      return (getSize() < 0 || 
-              getSize() == msAccessTextHack || 
-              getSize() >= ((StringPoemType) other).getSize());
+      return sqlTypeCode() == other.sqlTypeCode() &&
+             (getSize() < 0 || 
+             getSize() == msAccessTextHack || 
+             getSize() >= ((StringPoemType) other).getSize());
     }
     /**
      * {@inheritDoc}

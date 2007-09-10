@@ -344,6 +344,7 @@ public class AnsiStandard implements Dbms {
     int width = md.getInt("COLUMN_SIZE");
     int scale = md.getInt("DECIMAL_DIGITS");
 
+    //System.err.println("defaultPoemTypeOfColumnMetaData:" + typeCode);
     switch (typeCode) {
       case Types.BIT :
         return new BooleanPoemType(nullable);
@@ -371,9 +372,9 @@ public class AnsiStandard implements Dbms {
       case Types.CHAR :
         return unsupported("CHAR", md);
       case Types.VARCHAR :
-        return new StringPoemType(nullable, width);
+        return new StringPoemType(nullable, width == 0 ? -1 : width);
       case Types.LONGVARCHAR :
-        return new StringPoemType(nullable, width);
+        return new StringPoemType(nullable, width == 0 ? -1 : width);
 
       case Types.DATE :
         return new DatePoemType(nullable);

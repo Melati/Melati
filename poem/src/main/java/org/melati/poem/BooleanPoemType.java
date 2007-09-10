@@ -110,7 +110,8 @@ public class BooleanPoemType extends AtomPoemType {
   }
 
   protected boolean _canRepresent(SQLPoemType other) {
-    return other instanceof BooleanPoemType;
+    return // sqlTypeCode() == other.sqlTypeCode() && // many things can represent boolean 
+           other instanceof BooleanPoemType;
   }
 
   /**

@@ -125,6 +125,7 @@ public class LongPoemType extends AtomPoemType {
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
   protected boolean _canRepresent(SQLPoemType other) {
+    // Sql type code is not checked
     if (other instanceof LongPoemType) 
       return true;
     return other instanceof IntegerPoemType ;

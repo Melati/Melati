@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.DoublePoemType;
 
 /**
  * @author timp
@@ -32,5 +33,14 @@ public class NullableSetBigDecimalPoemTypeTest extends NotNullableSetBigDecimalP
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(true, 22, 2);
   }
+
+  /**
+   * BigDecimals can represent Doubles.
+   */
+  public void testCanRepresentDoubles() { 
+    assertNotNull(it.canRepresent(DoublePoemType.it));
+    assertNotNull(it.canRepresent(new DoublePoemType(false)));
+  }
+  
 
 }

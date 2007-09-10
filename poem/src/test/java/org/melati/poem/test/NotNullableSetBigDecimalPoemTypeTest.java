@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.DoublePoemType;
 import org.melati.poem.FixedPointAtomPoemType;
 import org.melati.poem.SQLPoemType;
 
@@ -61,4 +62,12 @@ public class NotNullableSetBigDecimalPoemTypeTest extends SQLPoemTypeSpec {
 
   }
 
+  /**
+   * BigDecimals can represent Doubles.
+   */
+  public void testCanRepresentDoubles() { 
+    assertNull(it.canRepresent(DoublePoemType.it));
+    assertNotNull(it.canRepresent(new DoublePoemType(false)));
+  }
+  
 }

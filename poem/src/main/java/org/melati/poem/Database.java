@@ -414,17 +414,17 @@ public abstract class Database implements TransactionPool {
       if (logSQL()) log("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
-      Table table= null;
+      Table table = null;
       if (tableName != null) { //dbms returning grotty table name (MSAccess)
         table = (Table)tablesByName.get(tableName.toLowerCase());
-        if (table == null) {
-          if (logSQL()) log("table null but named:" + tableName);
+        if (table == null) {  // We do not know about this table
+          //if (logSQL()) log("Unknown to POEM, with JDBC name " + tableName);
 
           // but we only want to include them if they have a plausible troid:
           ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
               dbms.getJdbcMetadataName(dbms.unreservedName("id")));
           if (idCol.next()) { 
-            //log("Got an ID col");
+            // if (logSQL()) log("Got an ID column for discovered jdbc table ");
             if (dbms.canRepresent(
                    defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
               try {
@@ -436,8 +436,8 @@ public abstract class Database implements TransactionPool {
                 throw new UnexpectedExceptionPoemException(e);
               }
               table.createTableInfo();
-            }//else log("Can represent failed");
-          }//else log("Not got an ID col");
+            } // else if (logSQL()) log("Can represent failed");
+          } // else if (logSQL()) log("Not got an ID col");
           /*
           // Try to promote the primary key to a troid
           else {
@@ -463,13 +463,13 @@ public abstract class Database implements TransactionPool {
               }
             }
           } */
-        }// else if (logSQL()) log("table not null:" + tableName);
+        } else if (logSQL()) log("table not null:" + tableName);
       }
 
       if (table != null) {
-//         if (logSQL()) log("table not null now:" + tableName);
-//         if (logSQL()) log("columnsMetadata(m, tableName):"
-//                              + columnsMetadata(m, tableName));
+         // if (logSQL()) log("table not null now:" + tableName);
+         // if (logSQL()) log("columnsMetadata(m, tableName):"
+         //                   + columnsMetadata(m, tableName));
          // Create the table if it has no metadata
          // unify with it either way
         table.unifyWithDB(columnsMetadata(m, tableName));
@@ -1329,7 +1329,8 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * The default {@link PoemType} corresponding to a JDBC metadata ResultSet. 
+   * The default {@link PoemType} corresponding to a ResultSet of JDBC metadata.
+   *  
    * @param md the JDBC metadata
    * @return The appropriatePoemType
    */

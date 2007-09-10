@@ -93,7 +93,8 @@ public class DoublePoemType extends AtomPoemType {
   }
 
   protected boolean _canRepresent(SQLPoemType other) {
-    return other instanceof DoublePoemType;
+    return sqlTypeCode() == other.sqlTypeCode() && 
+           other instanceof DoublePoemType;
   }
 
   /**

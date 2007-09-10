@@ -104,7 +104,8 @@ public class BinaryPoemType extends SizedAtomPoemType {
   }
 
   protected boolean _canRepresent(SQLPoemType other) {
-    return
+    return 
+        sqlTypeCode() == other.sqlTypeCode() && 
         other instanceof BinaryPoemType &&
         sizeGreaterEqual(getSize(), ((BinaryPoemType)other).getSize());
   }

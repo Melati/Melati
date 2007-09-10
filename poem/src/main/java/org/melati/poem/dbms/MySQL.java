@@ -207,9 +207,10 @@ public class MySQL extends AnsiStandard {
     //MySQL returns metadata info size 65535 for TEXT type
     protected boolean _canRepresent(SQLPoemType other) {
       return
-        other instanceof StringPoemType &&
-              (getSize()<0 || getSize()==mysqlTextSize ||
-               getSize()>=((StringPoemType)other).getSize());
+             sqlTypeCode() == other.sqlTypeCode() &&
+             other instanceof StringPoemType &&
+             (getSize()<0 || getSize()==mysqlTextSize ||
+             getSize()>=((StringPoemType)other).getSize());
     }
 
     /**

@@ -202,8 +202,9 @@ public class Oracle extends AnsiStandard {
       }
 
       protected boolean _canRepresent(SQLPoemType other) {
-        return (getSize() == oracleTextHack && 
-                ((StringPoemType)other).getSize() == -1)
+        return sqlTypeCode() == other.sqlTypeCode() &&
+               (getSize() == oracleTextHack && 
+               ((StringPoemType)other).getSize() == -1)
                ||
                (getSize() >= ((StringPoemType)other).getSize());
       }

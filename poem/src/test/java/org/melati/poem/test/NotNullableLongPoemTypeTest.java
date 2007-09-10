@@ -6,7 +6,9 @@ package org.melati.poem.test;
 import java.sql.Types;
 import java.util.Enumeration;
 
+import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.LongPoemType;
+import org.melati.poem.TroidPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
 
@@ -86,6 +88,25 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec {
       e = null;
     }
     
+  }
+  
+  /**
+   * Test method for
+   * {@link org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)}.
+   */
+  public void testCanRepresent() {
+    DisplayLevelPoemType dl = new DisplayLevelPoemType();
+    assertNotNull(it.canRepresent(dl)); // We can represent an Integer
+    assertNull(dl.canRepresent(it));
+
+  }
+
+  
+  /**
+   * Longs can represent Integers and troids.
+   */
+  public void testCanRepresentTroid() { 
+    assertNotNull(it.canRepresent(TroidPoemType.it));
   }
   /**
    * Test full constructor.

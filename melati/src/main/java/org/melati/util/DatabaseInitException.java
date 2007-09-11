@@ -48,7 +48,7 @@ package org.melati.util;
 /**
  * Thrown when there is a problem initialising a database.
  */
-public class DatabaseInitException extends MelatiException {
+public class DatabaseInitException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
   
   /** The name of the definition file.*/

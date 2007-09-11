@@ -633,7 +633,8 @@ public class TableDef {
         TableNamingInfo targetTable = (TableNamingInfo) dsd.nameStore.tablesByShortName
             .get(key);
         if (targetTable == null)
-          throw new RuntimeException("No TableNamingInfo for " + key);
+          throw new RuntimeException("No TableNamingInfo for " + key + 
+                  ". This is probably a typo either in the table definition name or in a reference field.");
         fqKey = targetTable.tableFQName;
         String destination = (String) imports.get(key);
         imports.remove(key);

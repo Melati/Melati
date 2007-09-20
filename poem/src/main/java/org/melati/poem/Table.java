@@ -991,10 +991,10 @@ public class Table implements Selectable {
 
   /**
    * Invalidate table cache.
-   * Candidate for being made public.
+   * 
    * NOTE Invalidated cache elements are reloaded when next read
    */
-  void uncacheContents() {
+  public void uncache() {
     cache.iterate(invalidator);
     serial.invalidate();
     TableListener[] listenersLocal = this.listeners;
@@ -2104,7 +2104,7 @@ public class Table implements Selectable {
     serial.increment(PoemThread.transaction());
     getDatabase().sqlUpdate("DELETE FROM " + quotedName + 
             " WHERE " + whereClause);
-    uncacheContents();
+    uncache();
   }
 
   /**
@@ -2214,7 +2214,7 @@ public class Table implements Selectable {
     try {
       dbAddColumn(column);
       synchronized (cache) {    // belt and braces
-        uncacheContents();
+        uncache();
         transactionStuffs.invalidate();
         defineColumn(column, true);
       }

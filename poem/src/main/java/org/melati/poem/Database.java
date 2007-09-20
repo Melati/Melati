@@ -376,7 +376,7 @@ public abstract class Database implements TransactionPool {
   }
 
   private synchronized void unifyWithDB() throws PoemException, SQLException {
-
+    boolean debug = false;
     // Check all tables defined in the tableInfo metadata table
     // defining the ones that don't exist
 
@@ -385,7 +385,7 @@ public abstract class Database implements TransactionPool {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
       Table table = (Table)tablesByName.get(tableInfo.getName().toLowerCase());
       if (table == null) {
-        if (logSQL()) log("Defining table:" + tableInfo.getName());
+        if (debug) log("Defining table:" + tableInfo.getName());
         table = new Table(this, tableInfo.getName(),
                           DefinitionSource.infoTables);
         defineTable(table);
@@ -411,20 +411,20 @@ public abstract class Database implements TransactionPool {
     ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null,
                                        normalTables);
     while (tableDescs.next()) {
-      if (logSQL()) log("Table:" + tableDescs.getString("TABLE_NAME") +
+      if (debug) log("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       Table table = null;
       if (tableName != null) { //dbms returning grotty table name (MSAccess)
         table = (Table)tablesByName.get(tableName.toLowerCase());
         if (table == null) {  // We do not know about this table
-          //if (logSQL()) log("Unknown to POEM, with JDBC name " + tableName);
+          if (debug) log("Unknown to POEM, with JDBC name " + tableName);
 
           // but we only want to include them if they have a plausible troid:
           ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
               dbms.getJdbcMetadataName(dbms.unreservedName("id")));
           if (idCol.next()) { 
-            // if (logSQL()) log("Got an ID column for discovered jdbc table ");
+            if (debug) log("Got an ID column for discovered jdbc table ");
             if (dbms.canRepresent(
                    defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
               try {
@@ -436,8 +436,10 @@ public abstract class Database implements TransactionPool {
                 throw new UnexpectedExceptionPoemException(e);
               }
               table.createTableInfo();
-            } // else if (logSQL()) log("Can represent failed");
-          } // else if (logSQL()) log("Not got an ID col");
+            } else if (debug) log("Can represent failed");
+          }  else if (debug) log("Table " + dbms.unreservedName(tableName) + 
+                  " appears not to have a troid column called " + 
+                  dbms.getJdbcMetadataName(dbms.unreservedName("id")));
           /*
           // Try to promote the primary key to a troid
           else {
@@ -450,7 +452,7 @@ public abstract class Database implements TransactionPool {
                 if (keyCol.next() &&
                   dbms.canRepresent(defaultPoemTypeOfColumnMetaData(keyCol),
                                     TroidPoemType.it) != null) {
-                  if (logSQL()) log("Got a unique primary key");
+                  if (debug) log("Got a unique primary key");
                   try {
                     defineTable(table = new Table(this, tableName,
                                                   DefinitionSource.sqlMetaData));
@@ -463,17 +465,17 @@ public abstract class Database implements TransactionPool {
               }
             }
           } */
-        } else if (logSQL()) log("table not null:" + tableName);
+        } else if (debug) log("table not null:" + tableName);
       }
 
       if (table != null) {
-         // if (logSQL()) log("table not null now:" + tableName);
-         // if (logSQL()) log("columnsMetadata(m, tableName):"
-         //                   + columnsMetadata(m, tableName));
+         if (debug) log("table not null now:" + tableName);
+         if (debug) log("columnsMetadata(m, tableName):"
+                            + columnsMetadata(m, tableName));
          // Create the table if it has no metadata
          // unify with it either way
         table.unifyWithDB(columnsMetadata(m, tableName));
-      } // else if (logSQL()) log("table still null, probably doesn't have a troid:" + tableName);
+      } else if (debug) log("table still null, probably doesn't have a troid:" + tableName);
 
     }
 
@@ -1235,11 +1237,11 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * Dump all the contents of the cache.
+   * Set the contents of the cache to empty.
    */
-  public void uncacheContents() {
+  public void uncache() {
     for (int t = 0; t < tables.size(); ++t)
-      ((Table)tables.elementAt(t)).uncacheContents();
+      ((Table)tables.elementAt(t)).uncache();
   }
 
   //
@@ -1410,7 +1412,7 @@ public abstract class Database implements TransactionPool {
    */
   void endStructuralModification() {
     for (int t = 0; t < tables.size(); ++t)
-      ((Table)tables.elementAt(t)).uncacheContents();
+      ((Table)tables.elementAt(t)).uncache();
     ++structureSerial;
     endExclusiveLock();
   }

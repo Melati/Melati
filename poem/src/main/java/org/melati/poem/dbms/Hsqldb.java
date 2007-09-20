@@ -191,21 +191,19 @@ public class Hsqldb extends AnsiStandard {
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
     if(name.equalsIgnoreCase("CONSTRAINT")) name = "MELATI_" + name.toUpperCase();
-    if(name.equalsIgnoreCase("USERS")) name = "MELATI_" + name.toUpperCase();
+    //if(name.equalsIgnoreCase("USERS")) name = "MELATI_" + name.toUpperCase();
     return name.toUpperCase();
   }
 
   /**
-   * @todo Remove lowercase
-   * 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
     if (name == null) return name;
-    if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
-    if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "constraint";
-    if(name.equalsIgnoreCase("MELATI_USERS")) name = "users";
+    if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "UNIQUE";
+    if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "CONSTRAINT";
+    //if(name.equalsIgnoreCase("MELATI_USERS")) name = "USERS";
     return name.toLowerCase();
   }
   

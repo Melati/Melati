@@ -78,6 +78,9 @@ public class HsqldbTest extends DbmsSpec {
     assertEquals("name", it.melatiName("name"));
     assertEquals(null, it.melatiName(null));
     assertEquals("~special", it.melatiName("~Special"));
+    assertEquals("unique", it.melatiName("MELATI_UNIQUE"));
+    assertEquals("constraint", it.melatiName("MELATI_CONSTRAINT"));
+    assertEquals("users", it.melatiName("users"));
   }
 
   /**

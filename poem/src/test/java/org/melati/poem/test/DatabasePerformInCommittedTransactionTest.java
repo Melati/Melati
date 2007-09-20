@@ -256,7 +256,7 @@ public class DatabasePerformInCommittedTransactionTest
     };
 
     getDb().inCommittedTransaction(AccessToken.root, read);
-    getDb().uncacheContents();
+    getDb().uncache();
     getDb().inCommittedTransaction(AccessToken.root, read);
     
   }

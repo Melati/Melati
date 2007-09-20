@@ -391,7 +391,7 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#uncacheContents()}.
+   * Test method for {@link org.melati.poem.Database#uncache()}.
    */
   public void testUncacheContents() {
     

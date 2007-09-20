@@ -109,7 +109,7 @@ public class CachedSelectionTest extends PoemTestCase {
    * Test multi-table selection.
    */
   public void testMultiTableSelection() {
-    getDb().uncacheContents();
+    getDb().uncache();
     Table[] others = new Table[] {getDb().getGroupMembershipTable(),
                                   getDb().getGroupTable()};
     String query =  

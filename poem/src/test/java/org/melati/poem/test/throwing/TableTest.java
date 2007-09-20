@@ -497,7 +497,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
   }
 
   public void testGetObjectInt() {
-    getDb().uncacheContents();
+    getDb().uncache();
     ThrowingResultSet.startThrowing("next");
     ThrowingResultSet.startThrowing("close");
     try { 
@@ -509,7 +509,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
       ThrowingResultSet.stopThrowing("next");
       ThrowingResultSet.stopThrowing("close");
     }
-    getDb().uncacheContents();
+    getDb().uncache();
     ThrowingResultSet.startThrowing("getInt");
     try { 
       super.testGetObjectInt();

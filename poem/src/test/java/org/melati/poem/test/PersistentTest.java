@@ -63,7 +63,7 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.JdbcPersistent#invalidate()
    */
   public void testInvalidate() {
-    getDb().uncacheContents();
+    getDb().uncache();
     JdbcPersistent p = (JdbcPersistent)getDb().getUserTable().newPersistent();
     try {
       p.invalidate();
@@ -78,7 +78,7 @@ public class PersistentTest extends EverythingTestCase {
     getDb().getUserTable().guestUser();
     getDb().getUserTable().guestUser();
     int hits3 = getDb().getQueryCount();
-    getDb().uncacheContents();
+    getDb().uncache();
     int hits4 = getDb().getQueryCount();
     getDb().getUserTable().guestUser();
     int hits5 = getDb().getQueryCount();
@@ -103,7 +103,7 @@ public class PersistentTest extends EverythingTestCase {
     getDb().getUserTable().selection();
     int selectionHits2 = getDb().getQueryCount();
     assertEquals(selectionHits1, selectionHits2);
-    getDb().uncacheContents();
+    getDb().uncache();
     getDb().getUserTable().selection();
     int selectionHits3 = getDb().getQueryCount();
     assertEquals(selectionHits2 + 1, selectionHits3);
@@ -112,7 +112,7 @@ public class PersistentTest extends EverythingTestCase {
     int getHits1 = getDb().getQueryCount();
     //System.err.println(getHits1);
     assertEquals(selectionHits3 + 1, getHits1);
-    getDb().uncacheContents();
+    getDb().uncache();
     getDb().getUserTable().getUserObject(0);
     int getHits2 = getDb().getQueryCount();
     assertEquals(getHits1 + 1, getHits2);

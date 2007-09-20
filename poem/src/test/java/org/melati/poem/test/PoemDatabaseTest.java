@@ -511,10 +511,10 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Database#uncacheContents()
+   * @see org.melati.poem.Database#uncache()
    */
   public void testUncacheContents() {
-    getDb().uncacheContents();
+    getDb().uncache();
   }
 
   /**

@@ -355,7 +355,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#uncacheContents()
+   * @see org.melati.poem.Table#uncache()
    */
   public void testUncacheContents() {
 
@@ -373,7 +373,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getCacheInfo()
    */
   public void testGetCacheInfo() {
-    getDb().uncacheContents();
+    getDb().uncache();
     Enumeration them = getDb().getUserTable().getCacheInfo().getHeldElements();
     int counter = 0;
     while(them.hasMoreElements()){

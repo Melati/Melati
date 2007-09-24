@@ -177,10 +177,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
 ${firstChar}${rest}#end
 
     <move failonerror="false" file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/AppServlet.java" tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/#capitalise(${artifactId})Servlet.java" />
-    <move failonerror="false" file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/model/App.dsd" tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/model/${artifactId}.dsd" />
-    <move failonerror="false" file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/model/test/PoemTest.java" tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/model/test/PoemTest.java" />
-    <delete failonerror="false" dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/model" />
-    <delete failonerror="false" dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/model" />
+    <move failonerror="false" file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem/App.dsd" tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd" />
+    <move failonerror="false" file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem/test/PoemTest.java" tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/test/PoemTest.java" />
+    <delete failonerror="false" dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem" />
+    <delete failonerror="false" dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem" />
 
          </tasks>
        </configuration>
@@ -202,7 +202,7 @@ ${firstChar}${rest}#end
        </execution>
      </executions>
      <configuration>
-       <dsdPackage>${groupId}.${artifactId}.model</dsdPackage>
+       <dsdPackage>${groupId}.${artifactId}.poem</dsdPackage>
        <dsdFile>${artifactId}.dsd</dsdFile>
      </configuration>
      <dependencies>
@@ -255,7 +255,7 @@ ${firstChar}${rest}#end
            <argument>${artifactId}</argument>
            <argument>DSD</argument>
            <argument>-output</argument>
-           <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/model/${artifactId}.dsd</argument>
+           <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd</argument>
          </arguments>
        </configuration>
     </plugin>

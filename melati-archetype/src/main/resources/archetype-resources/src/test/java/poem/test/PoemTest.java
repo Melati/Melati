@@ -1,4 +1,4 @@
-package ${groupId}.${artifactId}.model.test;
+package ${groupId}.${artifactId}.poem.test;
 
 import org.melati.poem.test.PoemDatabaseTest;
 

@@ -1,4 +1,4 @@
-package ${groupId}.${artifactId}.model;
+package ${groupId}.${artifactId}.poem;
 
 
 // Put your table definitions here

@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
-import ${groupId}.${artifactId}.model.#capitalise(${artifactId})Database;
+//import ${groupId}.${artifactId}.model.#capitalise(${artifactId})Database;
 
 /**
  * Base servlet for #capitalise(${artifactId}) servlets.

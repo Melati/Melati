@@ -2657,7 +2657,8 @@ public class Table implements Selectable {
    */
   protected synchronized void unifyWithDB(ResultSet colDescs)
       throws PoemException {
-
+    boolean debug = false;
+    
     Hashtable dbColumns = new Hashtable();
 
     int colCount = 0;
@@ -2708,8 +2709,8 @@ public class Table implements Selectable {
         throw new SQLSeriousPoemException(e);
       }
       
-    }//   else System.err.println(
-     //                   "Table.unifyWithDB called with null ResultsSet");
+    } else if (debug) System.err.println(
+                        "Table.unifyWithDB called with null ResultsSet");
 
     if (colCount == 0) {
       // No columns found in jdbc metadata, so table does not exist
@@ -2735,11 +2736,10 @@ public class Table implements Selectable {
     if (info != null) {
 
       // Check indices are unique
-
       Hashtable dbHasIndexForColumn = new Hashtable();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
-      //System.err.println("Getting indexes for " + unreservedName);
+      if (debug) System.err.println("Getting indexes for " + unreservedName);
       ResultSet index;
       try {
         index = getDatabase().getCommittedConnection().getMetaData().
@@ -2761,14 +2761,14 @@ public class Table implements Selectable {
                                      columnName.toUpperCase() + "_INDEX";
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-                //System.err.println("Found Expected Index:" + 
-                // expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
+                if(debug)System.err.println("Found Expected Index:" + 
+                 expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
                 column.unifyWithIndex(index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);
-              } //else {
-                //System.err.println("Not creating index because one exists with different name:" + 
-                //    mdIndexName.toUpperCase() + " != " + expectedIndex);
-                //}
+              } else {
+                if(debug) System.err.println("Not creating index because one exists with different name:" + 
+                    mdIndexName.toUpperCase() + " != " + expectedIndex);
+                }
             } 
             // else it is a compound index ??
           

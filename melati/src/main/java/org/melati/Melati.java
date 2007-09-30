@@ -867,6 +867,13 @@ public class Melati {
   }
 
   /**
+   * @param writerP the MelatiWriter to set
+   */
+  public void setWriter(MelatiWriter writerP) {
+    writer = writerP;
+    if (writer != null) gotwriter = true;    
+  }
+  /**
    * Get a StringWriter.
    *
    * @return - one of:

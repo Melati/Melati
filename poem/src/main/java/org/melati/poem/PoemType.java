@@ -165,7 +165,7 @@ public interface PoemType {
   /**
    * Set the type of the ColumnInfo.
    * 
-   * @param columnInfo the SolumnInfo to set the type of
+   * @param columnInfo the ColumnInfo to set the type of
    * @throws AccessPoemException if our AccessToken does not permit modification
    */
   void saveColumnInfo(ColumnInfo columnInfo) throws AccessPoemException;

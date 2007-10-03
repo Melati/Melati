@@ -111,24 +111,6 @@ public class TableInfo extends TableInfoBase {
   private Table _actualTable = null;
 
   /**
-   * Get the {@link Table} this is about.
-   * 
-   * @return The table this object represents.
-   */
-  public Table actualTable() {
-    if (_actualTable == null && troid() != null)
-      _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
-    return _actualTable;
-  }
-
- /**
-  * Allow this object to be read by anyone.
-  * 
-  * @param token any {@link AccessToken}
-  */
-  public void assertCanRead(AccessToken token) {}
-
-  /**
    * Constructor creates a {@link TableInfo} from a {@link Table}.
    * Note This must be overridden if you extend TableInfo in your DSD.
    * 
@@ -146,6 +128,24 @@ public class TableInfo extends TableInfoBase {
                            ensure(table.defaultCategory()).troid());
   }
   
+  /**
+   * Get the {@link Table} this is about.
+   * 
+   * @return The table this object represents.
+   */
+  public Table actualTable() {
+    if (_actualTable == null && troid() != null)
+      _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
+    return _actualTable;
+  }
+
+ /**
+  * Allow this object to be read by anyone.
+  * 
+  * @param token any {@link AccessToken}
+  */
+  public void assertCanRead(AccessToken token) {}
+
   /**
    * Overridden to disallow table renaming.
    * 

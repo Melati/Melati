@@ -3,8 +3,6 @@
  */
 package org.melati.test;
 
-import java.io.File;
-import java.net.URL;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -93,18 +91,11 @@ public class LogicalDatabaseTest extends PoemTestCase {
    */
   public void testPropertiesFileNotFound() throws Exception {
    LogicalDatabase.setDatabaseDefs(null);
-   URL propsUrl = LogicalDatabase.class.getResource("");
-   File propsFile = new File(propsUrl.toString());
-   File tmp = new File("t.tmp");
-   System.err.println("HMM: " + propsUrl + " renamable: " + propsFile.renameTo(tmp));
-   
-   System.err.println("We can write:" + propsFile.canWrite());
-   System.err.println("We can delete:" + propsFile.delete());
    try { 
-     LogicalDatabase.getDatabase("empty");
+     LogicalDatabase.getDatabase("unknown");
      fail("Should have blown up");
    } catch (DatabaseInitException e) {
-     e.printStackTrace();
+     //e.printStackTrace();
      e = null;
    }
   }

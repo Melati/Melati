@@ -83,7 +83,7 @@ import org.melati.util.MelatiRuntimeException;
 
 
 /**
- * Melati template servlet for databse administration.
+ * Melati template servlet for database administration.
  * <p>
  * This class defines
  * {@link #doTemplateRequest(Melati, ServletTemplateContext)}
@@ -757,7 +757,7 @@ public class Admin extends TemplateServlet {
    *
    * If you want the system to display the file 
    * you need to set your melati-wide FormDataAdaptorFactory,
-   * in org.melati.MelatiServlet.properties,
+   * in org.melati.MelatiConfig.properties,
    * to something that returns a valid URL, for instance,
    * PoemFileDataAdaptorFactory;
    * (remember to set your UploadDir and UploadURL

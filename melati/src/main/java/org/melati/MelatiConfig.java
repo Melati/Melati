@@ -69,7 +69,7 @@ import org.melati.util.PropertiesUtils;
 
 /**
  * A MelatiConfig loads and provides access to the configuration parameters for
- * melati. These are held in <TT>org.melati.MelatiServlet.properties</TT>.
+ * melati. These are held in <TT>org.melati.MelatiConfig.properties</TT>.
  */
 public class MelatiConfig {
 

@@ -116,7 +116,7 @@ public class ConfigServletTest extends ConfigServlet {
     "configuration. <br>\n" +
     "If you can read this message, it means that you have " +
     "successfully created a Melati using the configuration " +
-    "given in org.melati.MelatiServlet.properties.<br>\n"+
+    "given in org.melati.MelatiConfig.properties.<br>\n"+
     "Please note that this " +
     "servlet does not construct a POEM session or initialise a template " +
     "engine.</p>\n");

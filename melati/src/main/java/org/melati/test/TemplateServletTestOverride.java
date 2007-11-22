@@ -62,7 +62,7 @@ import org.melati.template.ServletTemplateContext;
  * Illustrate overridden exception handling.
  * AccessHandler is assumed to be set to 
  * <code>org.melati.login.HttpSessionAccessHandler</code> in 
- * <code>org.melati.MelatiServlet.properties</code>.
+ * <code>org.melati.MelatiConfig.properties</code>.
  *
  * @author Tim Joyce
  * $Revision$

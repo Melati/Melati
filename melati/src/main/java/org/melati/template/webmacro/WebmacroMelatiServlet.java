@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.template.webmacro;

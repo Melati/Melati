@@ -67,7 +67,7 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
 
   private String message =
       "No Template engine is Configured, please specify an engine in " +
-      "org.melati.MelatiServlet.properties";
+      "org.melati.MelatiConfig.properties";
 
   /**
    * Constructor.

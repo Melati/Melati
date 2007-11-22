@@ -83,7 +83,8 @@ import org.melati.util.StringUtils;
  * </TT></BLOCKQUOTE> and the following components are broken out of the path
  * info and passed to your application code in the <TT>melati</TT> parameter
  * (which is also copied automatically into <TT>context</TT> so that it is
- * easily available in templates): <TABLE>
+ * easily available in templates): 
+ * <TABLE>
  * <TR>
  * <TD><TT><I>h</I></TT></TD>
  * <TD>host name, such as <TT>www.melati.org</TT></TD>
@@ -138,18 +139,20 @@ import org.melati.util.StringUtils;
  * the user will be prompted to log in, and the original request will be
  * retried. The precise mechanism used for login is <A
  * HREF=#loginmechanism>configurable</A>.
- * <LI> No changes made to the database by other concurrently executing threads
+ * <LI>
+ *  No changes made to the database by other concurrently executing threads
  * will be visible to you (in the sense that once you have seen a particular
  * version of a record, you will always subsequently see the same one), and your
  * own changes will not be made permanent until this method completes
  * successfully or you perform an explicit <TT>PoemThread.commit()</TT>. If
  * it terminates with an exception or you issue a <TT>PoemThread.rollback()</TT>,
  * your changes will be lost.
- * <LI> <A NAME=loginmechanism>It's possible to configure how your <TT>PoemServlet</TT>-derived
+ * <LI> <A NAME=loginmechanism>
+ * It's possible to configure how your <TT>PoemServlet</TT>-derived
  * servlets implement user login.</A> If the properties file <TT><A
- * HREF=../org.melati.MelatiServlet.properties>
- * org.melati.MelatiServlet.properties</A></TT> exists and contains a setting
- * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then <TT><I>foo</I></TT>
+ * HREF=../org.melati.MelatiConfig.properties>
+ * org.melati.MelatiConfig.properties</A></TT> exists and contains a setting
+ * <TT>org.melati.MelatiConfig.accessHandler=<I>foo</I></TT>, then <TT><I>foo</I></TT>
  * is taken to be the name of a class implementing the <TT>AccessHandler</TT>
  * interface. The default is <TT>HttpSessionAccessHandler</TT>, which stores
  * the user id in the servlet session, and redirects to the <TT>Login</TT>

@@ -175,10 +175,12 @@ public class Table implements Selectable {
 
   /**
    * The table's programmatic name.  Identical with its name in the DSD (if the
-   * table was defined there), in its <TT>tableinfo</TT> entry, and in the
-   * RDBMS itself.
+   * table was defined there) and in its <TT>tableinfo</TT> entry.
+   * This will normally be the same as the name in the RDBMS itself, however that name 
+   * may be translated to avoid DBMS specific name clashes. 
    *
    * @return the table name, case as defined in the DSD
+   * @see org.melati.poem.dbms.Dbms#melatiName(String)
    */
   public final String getName() {
     return name;
@@ -692,7 +694,7 @@ public class Table implements Selectable {
       } else {
         dbModifyStructure(
             "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
-            database.quotedName(name + "_" + column.getName() + "_index") +
+            indexName(column) +
             " ON " + quotedName() + " " +
             "(" + column.quotedName() + 
              dbms().getIndexLength(column) + ")");
@@ -700,6 +702,11 @@ public class Table implements Selectable {
     }
   }
 
+  private String indexName(Column column) { 
+    return database.quotedName(
+            dbms().unreservedName(name) + "_" + 
+            dbms().unreservedName(column.getName()) + "_index");
+  }
   // 
   // -------------------------------
   //  Standard `PreparedStatement's
@@ -2735,7 +2742,7 @@ public class Table implements Selectable {
 
     if (info != null) {
 
-      // Check indices are unique
+      // Ensure that column has at least one index of the correct type 
       Hashtable dbHasIndexForColumn = new Hashtable();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
@@ -2756,19 +2763,27 @@ public class Table implements Selectable {
             if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
               String columnName = dbms().melatiName(mdColName);
               Column column = getColumn(columnName);
-              // Don't want to take account of non-melati indices
-              String expectedIndex = getName().toUpperCase() + "_" + 
-                                     columnName.toUpperCase() + "_INDEX";
+              
+              // Deal with non-melati indices
+              String expectedIndex = indexName(column).toUpperCase(); 
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-                if(debug)System.err.println("Found Expected Index:" + 
-                 expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
                 column.unifyWithIndex(index);
-                dbHasIndexForColumn.put(column, Boolean.TRUE);
+                dbHasIndexForColumn.put(column, Boolean.TRUE);                  
+                if(debug)System.err.println("Found Expected Index:" + 
+                        expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               } else {
-                if(debug) System.err.println("Not creating index because one exists with different name:" + 
-                    mdIndexName.toUpperCase() + " != " + expectedIndex);
+                try { 
+                  column.unifyWithIndex(index);
+                  dbHasIndexForColumn.put(column, Boolean.TRUE);                  
+                  if(debug) System.err.println("Not creating index because one exists with different name:" + 
+                          mdIndexName.toUpperCase() + " != " + expectedIndex);
+                } catch (IndexUniquenessPoemException e) { 
+                  // Do not add this column, so the correct index will be added later               
+                  if(debug) System.err.println("Creating index because existing on has different properties:" + 
+                          mdIndexName.toUpperCase() + " != " + expectedIndex);
                 }
+              }
             } 
             // else it is a compound index ??
           
@@ -2782,8 +2797,7 @@ public class Table implements Selectable {
         throw new SQLSeriousPoemException(e);
       }
 
-      // Silently create any missing indices
-
+      // Create any missing indices
       for (int c = 0; c < columns.length; ++c) {
         if (dbHasIndexForColumn.get(columns[c]) != Boolean.TRUE)
             dbCreateIndex(columns[c]);

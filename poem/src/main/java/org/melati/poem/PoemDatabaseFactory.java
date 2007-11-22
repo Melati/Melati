@@ -304,7 +304,6 @@ public final class PoemDatabaseFactory {
         if (!haveRun.booleanValue()) {
           haveRun = Boolean.TRUE;
           try { 
-            System.err.println("\n*** PoemShutdownThread About to remove hook ***\n");
             boolean removed = Runtime.getRuntime().removeShutdownHook(this);
             System.err.println("\n*** PoemShutdownThread removed: " + removed + " ***\n");
           } catch (IllegalStateException e) { 

@@ -720,7 +720,7 @@ public abstract class Database implements TransactionPool {
    * Perform a task with the database.  Every access to a POEM database must be
    * made in the context of a `transaction' established using this method (note
    * that Melati programmers don't have to worry about this, because the
-   * <TT>MelatiServlet</TT> will have done this by the time they get control).
+   * <TT>PoemServlet</TT> will have done this by the time they get control).
    *
    * @param accessToken    A token determining the <TT>Capability</TT>s
    *                       available to the task, which in turn determine
@@ -840,12 +840,13 @@ public abstract class Database implements TransactionPool {
 
   /**
    * All the tables in the database.
-   *
+   * NOTE This will include any deleted tables
+   * 
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s, in no particular
    *         order.
    */
   public final Enumeration tables() {
-    // NOTE This will include any deleted tables 
+     
     return tables.elements();
   }
 

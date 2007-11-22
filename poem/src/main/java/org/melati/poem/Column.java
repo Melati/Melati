@@ -237,7 +237,7 @@ public abstract class Column implements FieldAttributes {
         }
       });
 
-      // FIXME repeating this in several places is a bad sign
+      // FIXME Repeating this in setColumnInfo(ColumnInfo) is a bad sign
 
       if (defaultDisplayLevel() == DisplayLevel.primary)
         table.setDisplayColumn(this);

@@ -300,7 +300,7 @@ public abstract class ConfigServlet extends HttpServlet {
  }
   
   /** 
-   * To override any setting from MelatiServlet.properties,
+   * To override any setting from org.melati.MelatiConfig.properties,
    * simply override this method and return a valid MelatiConfig.
    *
    * eg to use a different AccessHandler from the default:

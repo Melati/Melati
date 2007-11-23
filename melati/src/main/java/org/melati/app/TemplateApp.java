@@ -58,7 +58,7 @@ import org.melati.template.TemplateContext;
  *  org/melati/app/TemplateAppExample
  *
  * Where poemtest is your database, user is your table, 0 is the record id and 
- * org/melati/app/TemplateAppExample is the full name of a template
+ * org/melati/app/TemplateAppExample is the full name of a template.
  *
  */
 public class TemplateApp extends AbstractTemplateApp {

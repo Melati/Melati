@@ -179,7 +179,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 public abstract class AbstractPoemApp extends AbstractConfigApp implements  App {
 
-  static boolean done = false;
+  private static Boolean loggedinAndTaskPerformed = Boolean.FALSE;
 
   /**
    * Initialise.
@@ -225,33 +225,41 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
       throw new UnexpectedExceptionException(e);
     }
     
-    while (!done) {
-      melati.getDatabase().inSession (
-        AccessToken.root, new PoemTask() {
-          public void run () {
-            melati.getConfig().getAccessHandler().establishUser(melati);
-            melati.loadTableAndObject();
-            try {
+    // Login loop
+    // If not logged-in when required then an exception is thrown 
+    // the exception is handled and the task revisited
+    // The flag is reset to allow this to be run again.
+    // NOTE This throttles the application to one App at a time. 
+    synchronized(loggedinAndTaskPerformed) {
+      while (loggedinAndTaskPerformed.equals(Boolean.FALSE)) {
+        melati.getDatabase().inSession (
+          AccessToken.root, new PoemTask() {
+            public void run () {
+              melati.getConfig().getAccessHandler().establishUser(melati);
+              melati.loadTableAndObject();
               try {
-                doPoemRequest(melati);
-                done = true;
-              } catch (AccessPoemException ape) {
-                _handleException (melati, ape);
+                try {
+                  doPoemRequest(melati);
+                  loggedinAndTaskPerformed = Boolean.TRUE;
+                } catch (AccessPoemException ape) {
+                  _handleException (melati, ape);
+                } catch (Exception e) {
+                  _handleException (melati, e);
+                }
               } catch (Exception e) {
-                _handleException (melati, e);
+                throw new UnexpectedExceptionException(e);
               }
-            } catch (Exception e) {
-              throw new UnexpectedExceptionException(e);
+            }
+
+            public String toString() {
+              return "PoemApp";
             }
           }
-
-          public String toString() {
-            return "PoemApp";
-          }
-        }
-      );
+        );
+      }
     }
-
+    // Log out again so that other tasks in this JVM can run  
+    loggedinAndTaskPerformed = Boolean.FALSE;
   }
  
  /**

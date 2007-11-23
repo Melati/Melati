@@ -49,11 +49,8 @@ public class TemplateAppTest extends TestCase {
     TemplateApp ta = new TemplateApp();
     String[] args = { "appjunit", "user", "0", "method", "field", "value" };
     Melati m = ta.init(args);
-    System.err.println("M length:" + m.getArguments().length);
 
     assertEquals("appjunit", m.getDatabase().getName());
-    System.err.println("Table:" + m.getPoemContext().getTable());
-    System.err.println("Table:" + m.getTable());
     Hashtable f = (Hashtable)m.getTemplateContext().get("Form");
     assertEquals("value", f.get("field"));
   }
@@ -89,8 +86,7 @@ public class TemplateAppTest extends TestCase {
       output += in.readLine();
     }
     in.close();
-    //fileIn.delete();      
-    //System.err.print(output);
+    fileIn.delete();      
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
@@ -111,21 +107,21 @@ public class TemplateAppTest extends TestCase {
   /**
    * @see org.melati.app.TemplateApp#main(String[])
    */
-  public void borkedTestMainOneArg() throws Exception {
-    String fileName = "t1.tmp";
+  public void testMainOneArg() throws Exception {
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "-o", fileName };
     TemplateApp it = new TemplateApp();
     it.run(args);
     String output = "";
     File fileIn = new File(fileName);
-    BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
-    output += in.readLine();
+    BufferedReader in = new BufferedReader( 
+        new InputStreamReader(
+            new FileInputStream(fileIn)));
     while (in.ready()) {
       output += in.readLine();
     }
     in.close();
-    //fileIn.delete();      
-    System.err.print(":" + output + ":");
+    fileIn.delete();      
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
@@ -143,7 +139,7 @@ public class TemplateAppTest extends TestCase {
   /**
    * @see org.melati.app.TemplateApp#main(String[])
    */
-  public void borkedTestMainTwoArgs() throws Exception {
+  public void testMainTwoArgs() throws Exception {
     String fileName = "t2.tmp";
     String[] args = { "appjunit", "user", "-o", fileName };
     TemplateApp it = new TemplateApp();
@@ -163,8 +159,7 @@ public class TemplateAppTest extends TestCase {
       output += in.readLine();
     }
     in.close();
-    //fileIn.delete();      
-    System.err.print(output);
+    fileIn.delete();      
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
@@ -182,7 +177,7 @@ public class TemplateAppTest extends TestCase {
   /**
    * @see org.melati.app.TemplateApp#main(String[])
    */
-  public void borkedTestMainThreeArgs() throws Exception {
+  public void testMainThreeArgs() throws Exception {
     String fileName = "t3.tmp";
     String[] args = { "appjunit", "user", "0",
          "-o", fileName };
@@ -195,8 +190,7 @@ public class TemplateAppTest extends TestCase {
       output += in.readLine();
     }
     in.close();
-    //fileIn.delete();      
-    //System.err.print(output);
+    fileIn.delete();      
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 
@@ -215,7 +209,7 @@ public class TemplateAppTest extends TestCase {
   /**
    * @see org.melati.app.TemplateApp#main(String[])
    */
-  public void borkedTestMainFourArgs() throws Exception {
+  public void testMainFourArgs() throws Exception {
     String fileName = "t4.tmp";
     String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp",  "-o", fileName };
@@ -228,8 +222,7 @@ public class TemplateAppTest extends TestCase {
       output += in.readLine();
     }
     in.close();
-    //fileIn.delete();      
-    System.err.print(output);
+    fileIn.delete();      
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp.wm " + 
             "Your melati contains:" + 

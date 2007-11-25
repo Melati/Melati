@@ -497,21 +497,6 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Not called in Melati.
-   * @see org.melati.Melati#gotWriter()
-   */
-  public void testGotWriter() throws Exception {
-    MelatiConfig mc = new MelatiConfig();
-    Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
-    m.setRequest(mock);
-    assertFalse(m.gotWriter());
-    m.getWriter();
-    assertTrue(m.gotWriter());
-  }
-
-  /**
    * @see org.melati.Melati#getURLQueryEncoding()
    */
   public void testGetURLQueryEncoding() throws Exception {

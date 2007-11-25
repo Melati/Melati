@@ -130,8 +130,6 @@ public class Melati {
   // the object that is used by the template engine to expand the template
   // against
   private TemplateContext templateContext;
-  // check to see if we have got the writer
-  private boolean gotwriter = false;
   // are we manually flushing the output
   private boolean flushing = false;
   // are we buffering the output
@@ -732,7 +730,7 @@ public class Melati {
    * @throws IOException if a writer has already been selected
    */
   public void setBufferingOff() throws IOException {
-    if (gotwriter)
+    if (writer != null)
       throw new IOException("You have already requested a Writer, " +
                             "and can't change it's properties now");
     buffered = false;
@@ -744,22 +742,10 @@ public class Melati {
    * @throws IOException if there is a problem with the writer
    */
   public void setFlushingOn() throws IOException {
-    if (gotwriter)
+    if (writer != writer)
       throw new IOException("You have already requested a Writer, " +
                             "and can't change it's properties now");
     flushing = true;
-  }
-
-  /**
-   * Have we asked to access the Writer for this request?
-   * <p>
-   * If you have not accessed the Writer, it is reasonable to assume that
-   * nothing has been written to the output stream.
-   *
-   * @return - have we sucessfully called getWriter()?
-   */
-  public boolean gotWriter() {
-    return gotwriter;
   }
 
   /**
@@ -861,8 +847,6 @@ public class Melati {
    */
   public MelatiWriter getWriter() throws IOException {
     if (writer == null) writer = createWriter();
-    // if we have it, remember that fact
-    if (writer != null) gotwriter = true;
     return writer;
   }
 
@@ -871,7 +855,6 @@ public class Melati {
    */
   public void setWriter(MelatiWriter writerP) {
     writer = writerP;
-    if (writer != null) gotwriter = true;    
   }
   /**
    * Get a StringWriter.
@@ -917,7 +900,7 @@ public class Melati {
    */
   public void write() throws IOException {
     // only write stuff if we have previously got a writer
-    if (gotwriter) writer.close();
+    if (writer != null) writer.close();
   }
 
   /**

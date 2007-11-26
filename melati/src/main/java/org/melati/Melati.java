@@ -742,7 +742,7 @@ public class Melati {
    * @throws IOException if there is a problem with the writer
    */
   public void setFlushingOn() throws IOException {
-    if (writer != writer)
+    if (writer != null)
       throw new IOException("You have already requested a Writer, " +
                             "and can't change it's properties now");
     flushing = true;

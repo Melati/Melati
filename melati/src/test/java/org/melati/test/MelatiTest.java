@@ -466,13 +466,16 @@ public class MelatiTest extends TestCase {
    */
   public void testSetBufferingOff() throws Exception {
     MelatiConfig mc = new MelatiConfig();
-    Melati m = new Melati(mc, new MelatiStringWriter());
+    Melati m = new Melati(mc, null);
     m.setPoemContext(poemContext());
     MockServletRequest mock = new MockServletRequest();
     m.setRequest(mock);
     m.setBufferingOff();
     m.setFlushingOn();
     MelatiWriter mw = m.getWriter();
+    m.setBufferingOff();
+    m.setWriter(new MelatiStringWriter());
+    mw = m.getWriter();
     try {
       m.setBufferingOff();
       fail("Should have blown up");

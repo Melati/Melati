@@ -647,7 +647,7 @@ public abstract class TableInfoBase extends JdbcPersistent {
   * @param cooked  a validated <code>Capability</code>
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights 
+  *         does not confer read access rights 
   */
   public void setDefaultcanread(Capability cooked)
       throws AccessPoemException {
@@ -709,7 +709,7 @@ public abstract class TableInfoBase extends JdbcPersistent {
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
-  *         does not confer read access rights 
+  *         does not confer write access rights 
   * @return the TROID as an <code>Integer</code> 
   */
 

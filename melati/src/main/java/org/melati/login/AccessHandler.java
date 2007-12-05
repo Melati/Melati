@@ -78,9 +78,9 @@ public interface AccessHandler {
   Melati establishUser(Melati melati);
 
   /**
-   * Rebuild request having gained authorisation.
+   * Rebuild request if we have had to login, otherwise nothing.
    * 
-   * @param melati used to store original request
+   * @param melati used to hold original request
    */
   void buildRequest(Melati melati) 
       throws MelatiException, IOException;

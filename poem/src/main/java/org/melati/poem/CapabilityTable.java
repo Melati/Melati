@@ -94,8 +94,10 @@ public class CapabilityTable extends CapabilityTableBase {
 
   // programmer's domain-specific code here
 
+  /** Ensured capability - all db have one. */ 
   private Capability administer;
 
+  /** @return the Capability required to administer a database **/ 
   Capability administer() {
     return administer;
   }

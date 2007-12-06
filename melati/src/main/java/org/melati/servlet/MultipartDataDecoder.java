@@ -139,7 +139,7 @@ public class MultipartDataDecoder {
                               String contentTypeP,
                               int maxSizeP)
       throws IOException {
-    String boundary = getBoundary(new byte[0], contentTypeP);
+    String boundary = getBoundary(contentTypeP);
     String line;
     String header = "";
     MultipartFormField field = null;
@@ -197,14 +197,16 @@ public class MultipartDataDecoder {
 
         // get an adaptor to save the field data 
         FormDataAdaptor adaptor = null;
-        if (field.getUploadedFileName().equals("")) { // no file uploaded
+        // Field should never be null but eclipse doesn't know that 
+        if (field != null && field.getUploadedFileName().equals("")) { // no file uploaded
           adaptor = new MemoryDataAdaptor(); // store data in memory
         }
         else {
           adaptor = factory.get(melati, field); 
         }
         adaptor.readData(field, inP, dataBoundary.getBytes());
-        field.setFormDataAdaptor(adaptor);
+        // Field should never be null but eclipse doesn't know that 
+        if (field != null) field.setFormDataAdaptor(adaptor);
         state = FIELD_START;
       }
 
@@ -263,9 +265,11 @@ public class MultipartDataDecoder {
   }
 
  /**
-  * Extract boundary from the header or from the data.
+  * Extract boundary from the header.
+  * No longer attempts to get it from the data.
+  * 
   */
-  private String getBoundary(byte[] data, String header) 
+  private String getBoundary(/*byte[] data, */ String header) 
       throws IOException {
     String boundary="";
     int index;

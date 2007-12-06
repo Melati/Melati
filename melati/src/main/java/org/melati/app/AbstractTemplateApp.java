@@ -48,10 +48,10 @@ import java.util.Hashtable;
 
 
 import org.melati.Melati;
-import org.melati.PoemContext;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.util.MelatiConfigurationException;
 import org.melati.util.MelatiException;
 
 /**
@@ -73,12 +73,14 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
   public Melati init(String[] args) throws MelatiException {
     Melati melati = super.init(args);
     templateEngine = melatiConfig.getTemplateEngine();
-    if (templateEngine != null)
+    TemplateContext templateContext = null;
+    if (templateEngine != null) { 
       templateEngine.init(melatiConfig);
-    TemplateContext templateContext =
-      templateEngine.getTemplateContext(melati);
+      templateContext =
+        templateEngine.getTemplateContext(melati);
+    }
     if (templateContext == null)
-      throw new RuntimeException("Have you configured a template engine? Currently set to " + templateEngine);
+      throw new MelatiConfigurationException("Have you configured a template engine? Currently set to " + templateEngine);
     melati.setTemplateContext(templateContext);
     String[] argsWithoutOutput = melati.getArguments();
     Hashtable form = new Hashtable();
@@ -92,20 +94,6 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     return melati;
   }
 
-  protected PoemContext poemContext(Melati melati)
-          throws InvalidArgumentsException {
-    String[] args = melati.getArguments();
-
-    PoemContext pc = new PoemContext();
-    if (args.length > 0) {
-      pc.setLogicalDatabase(args[0]);
-      setTableTroidMethod(pc, (String[])ArrayUtils
-              .section(args, 1, args.length));
-    }
-    return pc;
-  }
-
-  
   private void loadForm(Hashtable form, String[] tuples) {
     if (tuples.length != ((tuples.length/2)*2))
       throw new InvalidArgumentsException (tuples, 

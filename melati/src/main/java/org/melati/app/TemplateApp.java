@@ -75,12 +75,6 @@ public class TemplateApp extends AbstractTemplateApp {
    */
   protected String doTemplateRequest(Melati melati,
       TemplateContext templateContext) throws Exception {
-    // test logging in if necessary
-    if (melati.getConfig().getAccessHandler()
-         instanceof  org.melati.login.CommandLineAccessHandler)
-      melati.getDatabase().getUserTable().
-                             getTableInfo().setDefaultcanread(
-                                 melati.getDatabase().administerCapability());
     return melati.getMethod();
   }
 

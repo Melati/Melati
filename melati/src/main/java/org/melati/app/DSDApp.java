@@ -73,12 +73,6 @@ public class DSDApp extends AbstractTemplateApp {
    */
   protected String doTemplateRequest(Melati melati,
       TemplateContext templateContext) throws Exception {
-    // see if logon is necessary
-    if (melati.getConfig().getAccessHandler()
-         instanceof  org.melati.login.CommandLineAccessHandler)
-      melati.getDatabase().getUserTable().
-                             getTableInfo().setDefaultcanread(
-                                 melati.getDatabase().administerCapability());
     // Turn comments on
     templateContext.put("comments", "true");
     return dsdTemplate(templateContext);

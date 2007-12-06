@@ -78,27 +78,19 @@ final class Authorization {
   /**
    * Interrogate the user for thier details.
    *
-   * @param input notmally System.in
+   * @param input normally System.in
+   * @param output normally System.out
    * @return a new Authorisation object or null
    */
-  static Authorization from(InputStream input, PrintStream output) {
+  static Authorization from(InputStream input, PrintStream output) throws IOException {
     String username = null;
     String password = null;
 
     output.print("Enter your username: ");
     BufferedReader in = new BufferedReader(new InputStreamReader(input));
-    try {
-       username = in.readLine();
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
+    username = in.readLine();
     output.print("Enter your password: ");
-    in = new BufferedReader(new InputStreamReader(input));
-    try {
-       password = in.readLine();
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
+    password = in.readLine();
     if (username != null && password != null)
       return new Authorization(username, password);
     else

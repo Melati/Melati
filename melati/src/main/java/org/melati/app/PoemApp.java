@@ -69,22 +69,18 @@ public class PoemApp extends AbstractPoemApp {
    * @see org.melati.app.AbstractPoemApp#doPoemRequest(org.melati.Melati)
    */
   protected void doPoemRequest(Melati melati) throws Exception {
-    // test logging in if necessary
-    if (melati.getConfig().getAccessHandler() 
-         instanceof  org.melati.login.CommandLineAccessHandler)
-      melati.getDatabase().getUserTable().
-                             getTableInfo().setDefaultcanread(
-                                 melati.getDatabase().administerCapability());
-    System.out.println("Your Database was: " + melati.getDatabase());
-    System.out.println("Your Table was   : " + melati.getTable());
+    melati.getWriter().write("Your Database was: " + melati.getDatabase() + "\n");
+    melati.getWriter().write("Your Table was   : " + melati.getTable() + "\n");
     if (melati.getObject() != null)
-     System.out.println("Your Troid was   : " + melati.getObject().getTroid());
-    System.out.println("Your Method was  : " + melati.getMethod());
-    System.out.println("System Users");
-    System.out.println("============");
+      melati.getWriter().write("Your Troid was   : " + melati.getObject().getTroid() + "\n");
+    else 
+      melati.getWriter().write("Your Troid was   : null\n");
+    melati.getWriter().write("Your Method was  : " + melati.getMethod() + "\n");
+    melati.getWriter().write("System Users" + "\n");
+    melati.getWriter().write("============" + "\n");
     Enumeration e = melati.getDatabase().getUserTable().selection(); 
     while(e.hasMoreElements()) {
-      System.out.println("  " + ((User)e.nextElement()).getName());
+      melati.getWriter().write("  " + ((User)e.nextElement()).getName() + "\n");
     }
   }
 

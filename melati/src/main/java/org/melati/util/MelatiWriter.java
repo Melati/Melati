@@ -118,5 +118,11 @@ public abstract class MelatiWriter extends Writer {
   public PrintWriter getPrintWriter()  {
     return new PrintWriter(out);
   }
+  /**
+   * @return a PrintWriter from the output
+   */
+  public Writer getWriter()  {
+    return out;
+  }
 
 }

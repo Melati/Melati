@@ -64,8 +64,8 @@ public class ConfigApp extends AbstractConfigApp {
    * @see org.melati.app.AbstractConfigApp#doConfiguredRequest(org.melati.Melati)
    */
   protected void doConfiguredRequest(Melati melati) throws Exception {
-    System.out.println("Hello World");
-    System.out.println("Your Method was:" + melati.getMethod());
+    melati.getWriter().write("Hello World\n");
+    melati.getWriter().write("Your Method was:" + melati.getMethod() +"\n");
   }
 
   /**

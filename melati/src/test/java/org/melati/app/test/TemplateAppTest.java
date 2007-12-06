@@ -10,6 +10,7 @@ import org.melati.Melati;
 import org.melati.app.InvalidArgumentsException;
 import org.melati.app.TemplateApp;
 import org.melati.util.ConfigException;
+import org.melati.util.MelatiConfigurationException;
 import org.melati.util.UnexpectedExceptionException;
 
 import junit.framework.TestCase;
@@ -77,8 +78,7 @@ public class TemplateAppTest extends TestCase {
     String fileName = "t.tmp";
     String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp", "field", "value", "-o", fileName };
-    TemplateApp it = new TemplateApp();
-    it.run(args);
+    TemplateApp.main(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
@@ -253,4 +253,46 @@ public class TemplateAppTest extends TestCase {
     }
   }
 
+  public void testLogin() throws Exception { 
+    String fileName = "t5.tmp";
+    String[] args = { "appjunit", "user", "0",
+        "org/melati/app/TemplateApp",  "-u", "_administrator_","-p", "FIXME","-o", fileName};
+    TemplateApp it = new ConfiguredTemplateApp();
+    it.run(args);
+    String output = "";
+    File fileIn = new File(fileName);
+    BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+    while (in.ready()) {
+      output += in.readLine();
+    }
+    in.close();
+    fileIn.delete();      
+    assertEquals("Hello _administrator_" + 
+            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "Your melati contains:" + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : user (from the data structure definition)"  +
+            "Object   : _guest_" + 
+            "Troid    : 0" + 
+            "Method   : org/melati/app/TemplateApp" + 
+            "System Users" + 
+            "============" +
+            "  Melati guest user" + 
+            "  Melati database administrator" +
+            "Form settings=============  -u _administrator_  -p FIXME", output);
+    
+  }
+  public void testNoTemplateEngineConfigured() throws Exception { 
+    String fileName = "t5.tmp";
+    String[] args = { "appjunit", "user", "0",
+        "org/melati/app/TemplateApp",  "-u", "_administrator_","-p", "FIXME","-o", fileName};
+    TemplateApp it = new MisConfiguredTemplateApp();
+    try { 
+      it.run(args);
+      fail("Should have blown up");
+    } catch (MelatiConfigurationException e) {
+      assertEquals("org.melati.util.MelatiConfigurationException: Have you configured a template engine? Currently set to null",e.getMessage());
+      e = null;
+    }
+  }
 }

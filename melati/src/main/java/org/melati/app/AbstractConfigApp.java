@@ -64,7 +64,6 @@ import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiSimpleWriter;
-import org.melati.util.UnexpectedExceptionException;
 
 /**
  * ConfigApp is the simplest way to use Melati.
@@ -101,11 +100,7 @@ public abstract class AbstractConfigApp implements App {
    *           if something goes wrong during initialisation
    */
   public Melati init(String[] args) throws MelatiException {
-    try {
       melatiConfig = melatiConfig();
-    } catch (MelatiException e) {
-      throw new UnexpectedExceptionException(e);
-    }
     String[] argumentsWithoutOutput = applyNamedArguments(args);
     MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(output));
     Melati melati = new Melati(melatiConfig, out);
@@ -120,10 +115,10 @@ public abstract class AbstractConfigApp implements App {
    * 
    * @param melati
    *          the melati
+   * @throws IOException if there is an io problem
    */
-  public void term(Melati melati) {
-    output.flush();
-    output.close();
+  public void term(Melati melati) throws IOException {
+    melati.write();
   }
 
   /**
@@ -181,9 +176,8 @@ public abstract class AbstractConfigApp implements App {
    * Do our thing.
    */
   public void run(String[] args) throws Exception {
-    final Melati melati = init(args);
+    Melati melati = init(args);
     doConfiguredRequest(melati);
-    melati.write();
     term(melati);
   }
 

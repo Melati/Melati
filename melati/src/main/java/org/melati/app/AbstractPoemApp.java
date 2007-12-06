@@ -44,8 +44,8 @@
 
 package org.melati.app;
 
+
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.melati.Melati;
 import org.melati.PoemContext;
@@ -54,10 +54,8 @@ import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
-import org.melati.poem.NoMoreTransactionsException;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.util.ConfigException;
-import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
 import org.melati.util.UnexpectedExceptionException;
 
@@ -200,8 +198,9 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    * Clean up at end of run.
    * 
    * @param melati the melati 
+   * @throws IOException 
    */
-  public void term(Melati melati) {
+  public void term(Melati melati) throws IOException {
     super.term(melati);
     PoemDatabaseFactory.disconnectDatabase(melati.getDatabase().getName());
   }
@@ -231,11 +230,15 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
     // The flag is reset to allow this to be run again.
     // NOTE This throttles the application to one App at a time. 
     synchronized(loggedinAndTaskPerformed) {
-      while (loggedinAndTaskPerformed.equals(Boolean.FALSE)) {
+      int goes = 0;
+      while (loggedinAndTaskPerformed.equals(Boolean.FALSE) && goes < 4) {
+        goes++;
         melati.getDatabase().inSession (
           AccessToken.root, new PoemTask() {
             public void run () {
               melati.getConfig().getAccessHandler().establishUser(melati);
+              // If the handler is not the open handler 
+              // then set up minimum read capability
               melati.loadTableAndObject();
               try {
                 try {
@@ -275,10 +278,6 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
       melati.getConfig().getAccessHandler()
         .handleAccessException(melati,(AccessPoemException)exception);
     }
-    else if (exception instanceof NoMoreTransactionsException) {
-      exception.printStackTrace(System.err);
-      dbBusyMessage(melati);
-    }
     else
       throw exception;
   }
@@ -294,18 +293,9 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
     }
   }
 
-  protected static void dbBusyMessage(Melati melati) throws IOException {
-    MelatiWriter mw =  melati.getWriter();
-    mw.reset();
-    PrintWriter out = mw.getPrintWriter();
-    out.println("Server Busy");
-    out.println("Please try again in a short while"); 
-    melati.write();
-  }
 
   protected PoemContext poemContext(Melati melati) 
       throws InvalidArgumentsException {
-    System.err.println("In");
     String[] args = melati.getArguments();
     
     PoemContext pc = new PoemContext();
@@ -313,15 +303,14 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
       pc.setLogicalDatabase(args[0]);
       setTableTroidMethod(pc, (String[])ArrayUtils.section(args,  1,  args.length));
     }
-    if (args.length > 3) {
-      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
-    }
 
     return pc;
   }
 
   protected void setTableTroidMethod(PoemContext pc, String[] args){
-    if (args.length == 1) pc.setMethod(args[0]);
+    if (args.length == 1) { 
+      pc.setMethod(args[0]);
+    }
     if (args.length == 2) {
       pc.setTable(args[0]);
       try {
@@ -337,7 +326,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
         pc.setTroid(new Integer (args[1]));
       }
       catch (NumberFormatException e) {
-        throw new UnexpectedExceptionException(new InvalidArgumentsException (args,e));
+        throw new UnexpectedExceptionException(new InvalidArgumentsException(args, e));
       }
       pc.setMethod(args[2]);
     }

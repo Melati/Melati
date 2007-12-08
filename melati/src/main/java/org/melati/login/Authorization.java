@@ -91,10 +91,7 @@ final class Authorization {
     username = in.readLine();
     output.print("Enter your password: ");
     password = in.readLine();
-    if (username != null && password != null)
-      return new Authorization(username, password);
-    else
-      return null;
+    return new Authorization(username, password);
   }
 
   /**
@@ -108,6 +105,7 @@ final class Authorization {
     String password = null;
     boolean nextValue = false;
     for (int i = 0; i < args.length; i++) {
+      
       if (nextValue) {
         username = args[i];
         break;
@@ -121,6 +119,7 @@ final class Authorization {
       if (args[i].equalsIgnoreCase("--username"))
         nextValue = true;
     }
+
     nextValue = false;
     for (int i = 0; i < args.length; i++) {
       if (nextValue) {
@@ -137,9 +136,9 @@ final class Authorization {
         nextValue = true;
     }
 
-    if (username != null && password != null)
+    if (username != null && password != null) {
       return new Authorization(username, password);
-    else
+    }else
       return null;
   }
 

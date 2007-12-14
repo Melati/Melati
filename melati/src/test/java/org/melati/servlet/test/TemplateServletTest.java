@@ -69,13 +69,13 @@ public class TemplateServletTest extends PoemServletTest {
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
-    doGetPost(); 
+    //doGetPost(); 
   }
   /**
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
-  public void testDoPostHttpServletRequestHttpServletResponse() {
-    //doGetPost(); 
+  public void testDoPostHttpServletRequestHttpServletResponse() throws Exception {
+    doGetPost(); 
 
   }
   
@@ -100,9 +100,9 @@ public class TemplateServletTest extends PoemServletTest {
                     mockHttpServletResponse);
     aServlet.destroy();
       
-    mockServletConfig.verify(); 
+    //mockServletConfig.verify(); 
     //mockServletContext.verify(); 
-    System.err.println(mockHttpServletResponse.getOutputStream().toString());
+    assertTrue(mockHttpServletResponse.getWritten().indexOf("TemplateServlet Test") > 1);
 
 
   }

@@ -85,8 +85,7 @@ public class AdminUtils {
     this.servletUrl = contextPath + servlet;
     this.staticURL = staticURL;
     this.logicalDatabase = logicalDatabase;
-    // HACK
-    // if we are using 2.0 Servlet API then zone is
+    // HACK if we are using 2.0 Servlet API then zone is
     // included in servlet and contextPath is null
     if (contextPath == "") {
       this.contextPath = servlet.substring(0, servlet.lastIndexOf("/"));

@@ -47,7 +47,6 @@ package org.melati.util;
 
 /**
  * Thrown if an internal assumption about Melati is violated.
- * Not used in Melati but used extensively in Bibliomania.
  * 
  * @author WilliamC At paneris.org
  * @see MelatiBugMelatiException

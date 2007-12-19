@@ -20,7 +20,7 @@ import org.melati.poem.UnexpectedExceptionPoemException;
  */
 public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
-  private static String result;
+  private static String theResult;
 
   protected static EverythingDatabase db;
 
@@ -110,14 +110,14 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
           StringField t = (StringField)table.firstSelection(null);
           if (t == null) {
             System.out.println("\n*** setter: nothing to set\n");
-            synchronized (result) {
-              result += "\nNULL" + fieldContent;
+            synchronized (theResult) {
+              theResult += "\nNULL" + fieldContent;
             }
           } else {
             System.out.println("\n*** setter: setting " + fieldContent);
             t.setStringfield(fieldContent);
-            synchronized (result) {
-              result += "\n" + fieldContent;
+            synchronized (theResult) {
+              theResult += "\n" + fieldContent;
             }
           }
         } else if (theSignal[0] == add) {
@@ -126,22 +126,22 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
           StringField t = (StringField)table.newPersistent();
           t.setStringfield(fieldContent);
           t.makePersistent();
-          synchronized (result) {
-            result += "\n" + fieldContent;
+          synchronized (theResult) {
+            theResult += "\n" + fieldContent;
           }
         } else if (theSignal[0] == delete) {
           StringField t = (StringField)table.firstSelection(null);
           if (t == null) {
             System.out.println("\n*** setter: nothing to delete");
-            synchronized (result) {
-              result += "\nempty delete";
+            synchronized (theResult) {
+              theResult += "\nempty delete";
             }
           } else {
             System.out.println("*** setter: deleting");
             t.delete_unsafe();
             System.out.println("*** setter: done deleting");
-            synchronized (result) {
-              result += "\ndelete";
+            synchronized (theResult) {
+              theResult += "\ndelete";
             }
           }
         } else if (theSignal[0] == null) {
@@ -191,15 +191,15 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
           Enumeration them = cachedSelection.objects();
 
           System.out.print("** got\n");
-          synchronized (result) {
-            result += "\ngot";
+          synchronized (theResult) {
+            theResult += "\ngot";
           }
 
-          synchronized (result) {
+          synchronized (theResult) {
             while (them.hasMoreElements()) {
               String s = " "
                       + ((StringField)them.nextElement()).getStringfield();
-              result += s;
+              theResult += s;
               //System.out.print(s);
             }
           }
@@ -217,7 +217,7 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
    */
   public void testThem() throws Exception {
     System.err.println("Start of test method");
-    result = "";
+    theResult = "";
     // db.setLogSQL(true);
 
     Setter setter = new Setter(db.getStringFieldTable());

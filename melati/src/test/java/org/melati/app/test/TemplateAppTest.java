@@ -9,9 +9,9 @@ import java.util.Hashtable;
 import org.melati.Melati;
 import org.melati.app.InvalidArgumentsException;
 import org.melati.app.TemplateApp;
+import org.melati.app.UnhandledExceptionException;
 import org.melati.util.ConfigException;
 import org.melati.util.MelatiConfigurationException;
-import org.melati.util.UnexpectedExceptionException;
 
 import junit.framework.TestCase;
 
@@ -146,7 +146,8 @@ public class TemplateAppTest extends TestCase {
     try { 
       it.run(args);
       fail("Should have blown up");
-    } catch (UnexpectedExceptionException e) { 
+    } catch (UnhandledExceptionException e) {
+      assertEquals("org.melati.template.NotFoundException: Could not find template user.wm",e.innermostException().getMessage());
       e = null;
     }
     fileName = "t2a.tmp";
@@ -207,12 +208,13 @@ public class TemplateAppTest extends TestCase {
 
   
   /**
+   * Also covers .wm extension.
    * @see org.melati.app.TemplateApp#main(String[])
    */
   public void testMainFourArgs() throws Exception {
     String fileName = "t4.tmp";
     String[] args = { "appjunit", "user", "0",
-        "org/melati/app/TemplateApp",  "-o", fileName };
+        "org/melati/app/TemplateApp.wm",  "-o", fileName };
     TemplateApp it = new TemplateApp();
     it.run(args);
     String output = "";
@@ -230,7 +232,7 @@ public class TemplateAppTest extends TestCase {
             "Table    : user (from the data structure definition)"  +
             "Object   : _guest_" + 
             "Troid    : 0" + 
-            "Method   : org/melati/app/TemplateApp" + 
+            "Method   : org/melati/app/TemplateApp.wm" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 

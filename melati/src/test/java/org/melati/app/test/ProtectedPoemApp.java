@@ -3,6 +3,8 @@
  */
 package org.melati.app.test;
 
+import java.io.InputStream;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -13,7 +15,6 @@ import org.melati.login.CommandLineAccessHandler;
 import org.melati.login.OpenAccessHandler;
 import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
-import org.melati.util.test.StringInputStream;
 
 /**
  * @author timp
@@ -21,12 +22,13 @@ import org.melati.util.test.StringInputStream;
  */
 public class ProtectedPoemApp extends PoemApp {
 
+  InputStream in = null;
   /**
    * 
    */
   public ProtectedPoemApp() {
     super();
-    
+    in = null;
   }
   /**
    * {@inheritDoc}
@@ -34,16 +36,13 @@ public class ProtectedPoemApp extends PoemApp {
    */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
-
-      try {
-        config.setAccessHandler((AccessHandler)CommandLineAccessHandler.class
-                .newInstance());
-      } catch (Exception e) {
-        throw new InstantiationPropertyException(OpenAccessHandler.class
-                .getName(), e);
-      }
-
-
+    try {
+      config.setAccessHandler((AccessHandler)CommandLineAccessHandler.class
+              .newInstance());
+    } catch (Exception e) {
+      throw new InstantiationPropertyException(OpenAccessHandler.class
+              .getName(), e);
+    }
     return config;
     
   }
@@ -54,8 +53,10 @@ public class ProtectedPoemApp extends PoemApp {
    */
   public Melati init(String[] args) throws MelatiException {
     Melati melati = super.init(args);
-    CommandLineAccessHandler ah = (CommandLineAccessHandler)melati.getConfig().getAccessHandler();
-    ah.setInput(new StringInputStream("_administrator_\nFIXME\n"));
+    if (in != null) {
+      CommandLineAccessHandler ah = (CommandLineAccessHandler)melati.getConfig().getAccessHandler();
+      ah.setInput(in);
+    }
     return melati;
     
   }
@@ -85,5 +86,7 @@ public class ProtectedPoemApp extends PoemApp {
     return poemContextWithLDB(melati,"appjunit");
   }
 
-
+  public void setInput(InputStream is) { 
+    in = is;
+  }
 }

@@ -69,6 +69,7 @@ public class PoemApp extends AbstractPoemApp {
    * @see org.melati.app.AbstractPoemApp#doPoemRequest(org.melati.Melati)
    */
   protected void doPoemRequest(Melati melati) throws Exception {
+    melati.getWriter().write("You are          : " + melati.getUser() + "\n");
     melati.getWriter().write("Your Database was: " + melati.getDatabase() + "\n");
     melati.getWriter().write("Your Table was   : " + melati.getTable() + "\n");
     if (melati.getObject() != null)

@@ -51,7 +51,6 @@ import java.io.PrintStream;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.poem.util.ArrayUtils;

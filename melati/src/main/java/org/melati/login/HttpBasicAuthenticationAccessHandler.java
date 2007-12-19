@@ -48,7 +48,6 @@ package org.melati.login;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.Melati;
@@ -167,14 +166,8 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
       if (sessionUser == null ||
           !sessionUser.getLogin().equals(auth.username))
-        try {
-          user = (User)melati.getDatabase().getUserTable().getLoginColumn().
+        user = (User)melati.getDatabase().getUserTable().getLoginColumn().
                    firstWhereEq(auth.username);
-        }
-        catch (AccessPoemException e) {
-          // paranoia
-          user = null; // shut checkstyle up
-        }
       else
         user = sessionUser;
 

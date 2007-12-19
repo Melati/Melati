@@ -149,17 +149,8 @@ public class CommandLineAccessHandler implements AccessHandler {
       commandLineUserCredentialsSet = true;
       // They have tried to login or set command line parameters
       User user = null;
-      try {
-        user = (User) melati.getDatabase().getUserTable().getLoginColumn()
+      user = (User) melati.getDatabase().getUserTable().getLoginColumn()
             .firstWhereEq(auth.username);
-      } catch (NoSuchRowPoemException e) {
-        // user will still be null
-        user = null; // shut checkstyle up
-      } catch (AccessPoemException e) {
-        // paranoia
-        user = null; // shut checkstyle up
-      }
-
       if (user == null || !user.getPassword_unsafe().equals(auth.password)) {
         // We just let the user try again as
         // `guest' and hopefully trigger the same problem and get the same

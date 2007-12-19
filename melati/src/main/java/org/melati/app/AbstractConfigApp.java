@@ -223,6 +223,7 @@ public abstract class AbstractConfigApp implements App {
       else if (nextIsOutput)
         try {
           setOutput(arguments[i]);
+          nextIsOutput = false;
         } catch (IOException e) {
           throw new RuntimeException("Problem setting output to "
                   + arguments[i], e);

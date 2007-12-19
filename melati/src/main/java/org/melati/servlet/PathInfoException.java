@@ -45,12 +45,12 @@
 
 package org.melati.servlet;
 
-import org.melati.util.MelatiException;
+import org.melati.util.MelatiRuntimeException;
 
 /**
  * Servlet was called with unexpected PathInfo.
  */
-public class PathInfoException extends MelatiException {
+public class PathInfoException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
   String pathInfo;

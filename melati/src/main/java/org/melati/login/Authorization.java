@@ -45,8 +45,6 @@ package org.melati.login;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 /**
@@ -78,19 +76,18 @@ final class Authorization {
   /**
    * Interrogate the user for thier details.
    *
-   * @param input normally System.in
+   * @param input an open reader
    * @param output normally System.out
    * @return a new Authorisation object or null
    */
-  static Authorization from(InputStream input, PrintStream output) throws IOException {
+  static Authorization from(BufferedReader input, PrintStream output) throws IOException {
     String username = null;
     String password = null;
 
     output.print("Enter your username: ");
-    BufferedReader in = new BufferedReader(new InputStreamReader(input));
-    username = in.readLine();
+    username = input.readLine();
     output.print("Enter your password: ");
-    password = in.readLine();
+    password = input.readLine();
     return new Authorization(username, password);
   }
 

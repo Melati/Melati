@@ -100,18 +100,9 @@ public class EmailTemplateServletTest extends TemplateServlet {
       "message");
       System.err.println("Context=" + context.getClass().getName());
       MultipartFormField referencedField = context.getMultipartForm("referencedFile");
-      if (referencedField == null){
-        System.err.println("is null");
-        
-      }else{
-        System.err.println("not null:" + referencedField);
-      }
-      File referencedFile = referencedField.getDataFile();
-      if (referencedFile == null){
-        System.err.println("file is null");
-        
-      }else{
-        System.err.println("file not null");
+      File referencedFile = null;
+      if (referencedField != null){
+        referencedFile = referencedField.getDataFile();
       }
       
       MultipartFormField attachedField = context.getMultipartForm("attachedFile");

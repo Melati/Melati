@@ -362,8 +362,7 @@ public class FastWriter extends Writer
      * Return the number of bytes that would be written out if flush()
      * is called.
      */
-    public int size () throws IOException
-    {
+    public int size () {
         if (_buffered)
         {
             bflush();
@@ -412,8 +411,7 @@ public class FastWriter extends Writer
     /**
      * Copy the contents written so far to the suppiled output stream
      */
-    public void writeTo (OutputStream out) throws IOException
-    {
+    public void writeTo (OutputStream out) {
         if (_buffered)
         {
             bflush();

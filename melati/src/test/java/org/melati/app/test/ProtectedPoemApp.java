@@ -56,6 +56,7 @@ public class ProtectedPoemApp extends PoemApp {
     if (in != null) {
       CommandLineAccessHandler ah = (CommandLineAccessHandler)melati.getConfig().getAccessHandler();
       ah.setInput(in);
+      ah.setOutput(System.err); // get that coverage
     }
     return melati;
     

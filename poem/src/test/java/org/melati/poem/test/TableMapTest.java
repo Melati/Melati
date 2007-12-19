@@ -18,8 +18,8 @@ import org.melati.poem.User;
  */
 public class TableMapTest extends PoemTestCase {
   
-  TableMap it;
-  TableMap noArg;
+  private TableMap it;
+  private TableMap noArg;
 
   /**
    * @param name

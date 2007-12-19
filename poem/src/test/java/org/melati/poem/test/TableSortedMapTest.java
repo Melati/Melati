@@ -15,8 +15,8 @@ import org.melati.poem.TableSortedMap;
  *
  */
 public class TableSortedMapTest extends TableMapTest {
-  TableSortedMap it;
-  TableSortedMap noArg;
+  private TableSortedMap it;
+  private TableSortedMap noArg;
 
   /**
    * @param name

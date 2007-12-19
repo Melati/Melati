@@ -110,13 +110,8 @@ public class CommandLineAccessHandler implements AccessHandler {
           User user = null;
           // They have tried to log in
           if (auth.username != null) {
-            try {
-              user = (User) melati.getDatabase().getUserTable().getLoginColumn()
+            user = (User) melati.getDatabase().getUserTable().getLoginColumn()
                   .firstWhereEq(auth.username);
-            } catch (NoSuchRowPoemException e) {
-              // user will still be null
-              System.err.println("Unknown username");
-            } 
           }
           if (user != null && user.getPassword_unsafe().equals(auth.password)) {
             // Login/password authentication succeeded

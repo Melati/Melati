@@ -149,18 +149,10 @@ public class CSVTable {
       primaryKey = col;
   }
 
-  /**
-   * Add column definitions for foreign keys to this table.
-   */
-   public void addColumn(String csvName, String poemName, 
-                         CSVTable foreignTable) {
-     columns.put(csvName, new CSVColumn(poemName, foreignTable));
-   }
-
    /**
     * Add column definitions for foreign keys to this table.
     */
-    public void addColumn(String csvName, String thisPoemName, 
+    public void addColumn(String csvName,  
                           String foreignPoemName, CSVTable foreignTable) {
       columns.put(csvName, new CSVColumn(foreignPoemName, foreignTable));
     }

@@ -177,7 +177,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 public abstract class AbstractPoemApp extends AbstractConfigApp implements  App {
 
-  private static Boolean loggedinAndTaskPerformed = Boolean.FALSE;
+  private static Boolean taskPerformedOrLoggedInAndTaskAttempted = Boolean.FALSE;
 
   /**
    * Initialise.
@@ -213,6 +213,8 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    * @throws Exception if anything goes wrong
    */
   protected void prePoemSession(Melati melati) throws Exception {
+    Melati foolEclipse = melati;
+    melati = foolEclipse;
   }
 
   protected void doConfiguredRequest(final Melati melati) {
@@ -225,44 +227,43 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
     }
     
     // Login loop
-    // If not logged-in when required then an exception is thrown 
-    // the exception is handled and the task revisited
+    // If not logged-in when required then an exception is thrown.
+    // The exception is handled and the task revisited
     // The flag is reset to allow this to be run again.
-    // NOTE This throttles the application to one App at a time. 
-    synchronized(loggedinAndTaskPerformed) {
-      int goes = 0;
-      while (loggedinAndTaskPerformed.equals(Boolean.FALSE) && goes < 4) {
-        goes++;
+    synchronized(taskPerformedOrLoggedInAndTaskAttempted) {
+      taskPerformedOrLoggedInAndTaskAttempted = Boolean.FALSE;
+      //int goes = 0;
+      while (taskPerformedOrLoggedInAndTaskAttempted.equals(Boolean.FALSE)) { 
+        //goes ++;
+        //if (goes > 2)
+        //  throw new MelatiBugMelatiException("Problem with login loop logic, goes = " + goes);
         melati.getDatabase().inSession (
           AccessToken.root, new PoemTask() {
             public void run () {
               melati.getConfig().getAccessHandler().establishUser(melati);
-              // If the handler is not the open handler 
-              // then set up minimum read capability
               melati.loadTableAndObject();
               try {
                 try {
                   doPoemRequest(melati);
-                  loggedinAndTaskPerformed = Boolean.TRUE;
-                } catch (AccessPoemException ape) {
-                  _handleException (melati, ape);
+                  taskPerformedOrLoggedInAndTaskAttempted = Boolean.TRUE;
                 } catch (Exception e) {
                   _handleException (melati, e);
                 }
               } catch (Exception e) {
-                throw new UnexpectedExceptionException(e);
+                taskPerformedOrLoggedInAndTaskAttempted = Boolean.TRUE;
+                throw new UnhandledExceptionException(e);
               }
             }
 
-            public String toString() {
-              return "PoemApp";
-            }
+            // Not sure there is any point in this
+            // Cannot find a way of accessing it
+            //public String toString() {
+            //  return "PoemApp";
+            //}
           }
         );
       }
     }
-    // Log out again so that other tasks in this JVM can run  
-    loggedinAndTaskPerformed = Boolean.FALSE;
   }
  
  /**
@@ -277,6 +278,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
     if (exception instanceof AccessPoemException) {
       melati.getConfig().getAccessHandler()
         .handleAccessException(melati,(AccessPoemException)exception);
+
     }
     else
       throw exception;

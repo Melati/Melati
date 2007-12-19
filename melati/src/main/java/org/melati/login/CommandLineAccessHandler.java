@@ -43,8 +43,10 @@
  */
 package org.melati.login;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 import org.melati.Melati;
@@ -55,108 +57,122 @@ import org.melati.poem.User;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.util.MelatiException;
 
-
 /**
  * A handler invoked when an {@link AccessPoemException} is thrown.
- *
+ * 
+ * If the application is invoked without a username and password on the command
+ * line then the user will be prompted for them.
+ * 
+ * If the usename is supplied then the user will not be prompted as this migth
+ * interfere with use in a scripting environment.
+ * 
  * @see org.melati.login.AccessHandler
  */
 public class CommandLineAccessHandler implements AccessHandler {
 
   private PrintStream output = System.out;
+
   private InputStream input = System.in;
+
+  private boolean commandLineUserCredentialsSet = false;
 
   /**
    * Constructor.
    */
   public CommandLineAccessHandler() {
     super();
+    commandLineUserCredentialsSet = false;
   }
 
   /**
    * Actually handle the {@link AccessPoemException}.
-   *
+   * 
    * {@inheritDoc}
+   * 
    * @see org.melati.login.AccessHandler#handleAccessException
-   *          (org.melati.Melati, org.melati.poem.AccessPoemException)
+   *      (org.melati.Melati, org.melati.poem.AccessPoemException)
    */
+  BufferedReader inputReader = null;
+
   public void handleAccessException(Melati melati,
-                                    AccessPoemException accessException)
-      throws Exception {
-    output.println(accessException.getMessage());
-    Authorization auth = Authorization.from(input, output);
-    if (auth != null) {
-      // They have tried to log in
+      AccessPoemException accessException) throws Exception {
+    Authorization auth = null;
+    boolean loggedIn = false;
+    if (!commandLineUserCredentialsSet) {
+      inputReader = new BufferedReader(new InputStreamReader(input));
+      System.err.println(accessException.getMessage());
+      int goes = 0;
+      while (goes < 3 && loggedIn == false) {
+        goes++;
+        auth = Authorization.from(inputReader, output);
+        if (auth != null) {
 
-      User user = null;
-      try {
-        user = (User)melati.getDatabase().getUserTable().getLoginColumn().
-                   firstWhereEq(auth.username);
-      }
-      catch (NoSuchRowPoemException e) {
-        // user will still be null
-        user = null; // shut checkstyle up
-      }
-      catch (AccessPoemException e) {
-        // paranoia
-        user = null; // shut checkstyle up
-      }
-
-      if (user != null && user.getPassword_unsafe().equals(auth.password)) {
-        // Login/password authentication succeeded
-        // Add the arguments to the stored Melati
-        String[] args = melati.getArguments();
-        args = (String[])ArrayUtils.added(args,"-u");
-        args = (String[])ArrayUtils.added(args,auth.username);
-        args = (String[])ArrayUtils.added(args,"-p");
-        args = (String[])ArrayUtils.added(args,auth.password);
-        melati.setArguments(args);
+          User user = null;
+          // They have tried to log in
+          if (auth.username != null) {
+            try {
+              user = (User) melati.getDatabase().getUserTable().getLoginColumn()
+                  .firstWhereEq(auth.username);
+            } catch (NoSuchRowPoemException e) {
+              // user will still be null
+              System.err.println("Unknown username");
+            } 
+          }
+          if (user != null && user.getPassword_unsafe().equals(auth.password)) {
+            // Login/password authentication succeeded
+            // Add the arguments to the stored Melati
+            String[] args = melati.getArguments();
+            args = (String[]) ArrayUtils.added(args, "-u");
+            args = (String[]) ArrayUtils.added(args, auth.username);
+            args = (String[]) ArrayUtils.added(args, "-p");
+            args = (String[]) ArrayUtils.added(args, auth.password);
+            melati.setArguments(args);
+            loggedIn = true;
+          } else {
+            System.err.println("Unknown username");  // ;)
+          }
+        }
       }
     }
+    if (!loggedIn)
+      throw accessException;
   }
 
   /**
    * Called when the PoemTask is initialised, recalled after a login.
    * {@inheritDoc}
+   * 
    * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
   public Melati establishUser(Melati melati) {
     Authorization auth = Authorization.from(melati.getArguments());
     if (auth == null) {
       // No attempt to log in: become `guest'
-
       PoemThread.setAccessToken(melati.getDatabase().guestAccessToken());
       return melati;
-    }
-    else {
+    } else {
+      commandLineUserCredentialsSet = true;
       // They have tried to login or set command line parameters
-
       User user = null;
       try {
-        user = (User)melati.getDatabase().getUserTable().getLoginColumn().
-                   firstWhereEq(auth.username);
-      }
-      catch (NoSuchRowPoemException e) {
+        user = (User) melati.getDatabase().getUserTable().getLoginColumn()
+            .firstWhereEq(auth.username);
+      } catch (NoSuchRowPoemException e) {
         // user will still be null
         user = null; // shut checkstyle up
-      }
-      catch (AccessPoemException e) {
+      } catch (AccessPoemException e) {
         // paranoia
         user = null; // shut checkstyle up
       }
 
       if (user == null || !user.getPassword_unsafe().equals(auth.password)) {
-
-          // We  just let the user try again as
-          // `guest' and hopefully trigger the same problem and get the same
-          // message all over again.
+        // We just let the user try again as
+        // `guest' and hopefully trigger the same problem and get the same
+        // message all over again.
         PoemThread.setAccessToken(melati.getDatabase().guestAccessToken());
-          return melati;
-      }
-      else {
-
+        return melati;
+      } else {
         // Login/password authentication succeeded
-
         PoemThread.setAccessToken(user);
         return melati;
       }
@@ -165,28 +181,29 @@ public class CommandLineAccessHandler implements AccessHandler {
 
   /**
    * A no-op in a command line application.
-   *
+   * 
    * {@inheritDoc}
+   * 
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati) throws MelatiException, IOException {
-     // Nothing to do here
+    // Nothing to do here
   }
 
   /**
-   * @param input The input to set.
+   * @param input
+   *          The input to set.
    */
   public void setInput(InputStream input) {
     this.input = input;
   }
 
   /**
-   * @param output The output to set.
+   * @param output
+   *          The output to set.
    */
   public void setOutput(PrintStream output) {
     this.output = output;
   }
 
 }
-
-

@@ -480,6 +480,30 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getParameterMap(peer);
   }
 
+  public String getLocalAddr() {
+    throw new RuntimeException("TODO No one else has ever called this method." +
+                               " Do you really want to start now?");
+    
+  }
+
+  public String getLocalName() {
+    throw new RuntimeException("TODO No one else has ever called this method." +
+                               " Do you really want to start now?");
+    
+  }
+
+  public int getLocalPort() {
+    throw new RuntimeException("TODO No one else has ever called this method." +
+                               " Do you really want to start now?");
+    
+  }
+
+  public int getRemotePort() {
+    throw new RuntimeException("TODO No one else has ever called this method." +
+                               " Do you really want to start now?");
+    
+  }
+
 }
 
 

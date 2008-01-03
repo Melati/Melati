@@ -134,5 +134,17 @@ public class MockServletResponse implements HttpServletResponse {
     public Locale getLocale() {
         return null;
     }
+
+    public String getContentType() {
+      throw new RuntimeException("TODO No one else has ever called this method." +
+                                 " Do you really want to start now?");
+      
+    }
+
+    public void setCharacterEncoding(String charset) {
+      throw new RuntimeException("TODO No one else has ever called this method." +
+                                 " Do you really want to start now?");
+      
+    }
     
 }

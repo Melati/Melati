@@ -140,15 +140,7 @@ public class Admin extends TemplateServlet {
    * Return the resource path for an admin template.
    */
   protected final String adminTemplate(String name) {
-    /*
-    // Fails to find templates in jars!!
-    return "org" + File.separatorChar + 
-           "melati" + File.separatorChar + 
-           "admin" + File.separatorChar + 
-           name;
-      */
-    return "org/melati/admin/"  + 
-           name;
+    return "org/melati/admin/"  + name;
   }
 
   /**
@@ -803,16 +795,16 @@ public class Admin extends TemplateServlet {
 
     context.put("admin", new AdminUtils(melati));
     
+    if (melati.getMethod().equals("Main"))
+      return mainTemplate(context);
+    if (melati.getMethod().equals("Top"))
+      return topTemplate(context);
     /* upload can take place without an object
      */
     if (melati.getMethod().equals("Upload"))
       return uploadTemplate(context);
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
-    if (melati.getMethod().equals("Main"))
-      return mainTemplate(context);
-    if (melati.getMethod().equals("Top"))
-      return topTemplate(context);
     
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))

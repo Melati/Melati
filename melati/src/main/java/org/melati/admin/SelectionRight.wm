@@ -46,7 +46,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Selection Right</title>
+ <title>$ml.rendered($melati.Table.DisplayName) Table Record Selection</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
@@ -59,37 +59,53 @@
   <tr>
     <td align="center">
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Previous" title="Previous page" value="&lt;&lt; Prev" ONCLICK="location.href='SelectionRight?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Previous" title="Previous page" value="&lt;&lt; Prev" ONCLICK="location.href='?start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'"></font>
 #end
 <b><FONT face="Arial, Helvetica" size="-1">
 Records $results.PageStart to $results.PageEnd of $results.TotalCount
 </FONT></b>
 
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Next" title="Show next page" value="Next &gt;&gt;" ONCLICK="location.href='SelectionRight?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
+<font face="Arial, Helvetica" size="-2"
+><input type="button" 
+        name="Next" 
+        title="Next page" 
+        value="Next &gt;&gt;" 
+        ONCLICK="location.href='?start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
+></font>
 #end
 </td>
+## Add record url included in table 
+## rather than in navigation pane
+## as in Selection.wm
 <td align=right><A HREF='$admin.AddURL($table)?$whereClause' title="New $table.DisplayName"><IMG
   src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a>
 </td></tr></table>
 
-  <TABLE CELLSPACING="0" cellpadding="1" border="0" width="100%">
-    <TR>
-	  <th><FONT SIZE="-1">&nbsp;</FONT></th>
+<TABLE cellspacing="0" cellpadding="1" border="0" width="100%">
+  <TR>
+   <th><FONT SIZE="-1">&nbsp;</FONT></th>
       #foreach $column in $table.SummaryDisplayColumns #begin
-	<TH align="left" valign="bottom"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($column.DisplayName)&nbsp;</font></TH>
+   <th align="left" valign="bottom">
+    <font face="Arial, Helvetica" size="-1">
+     <a href="?$whereClause&amp;field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
+    </font>
+   </th>
       #end
-    </TR>
+  </TR>
 	#set $color1 = "#E9EDFD"
 	#set $color2 = "#FFFFFF"
 	#set $color = $color1
     #foreach $result in $results #begin
-      <TR>
-	<TD bgcolor="$color"><FONT SIZE="-1"><a href='$admin.RightURL($result)?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&$orderClause&$whereClause")' title="Edit"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" /></a>&nbsp;</font></TD>
+  <TR>
+   <TD bgcolor="$color"><FONT SIZE="-1"><a 
+## Return target differs from Selection.wm
+         href='$admin.RightURL($result)?returnTarget=parent&amp;returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&amp;$orderClause&amp;$whereClause")' 
+         title="Edit"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" /></a>&nbsp;</font></TD>
      #foreach $field in $result.SummaryDisplayFields #begin
-	<TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.renderedStart($field)&nbsp;</font></TD>
+   <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.renderedStart($field)&nbsp;</font></TD>
      #end
-      </TR>
+  </TR>
 	  #if ($color == $color1) #begin
 	  #set $color = $color2
 	  #end #else #begin

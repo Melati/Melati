@@ -143,7 +143,7 @@ public class MockServletResponse implements HttpServletResponse {
 
     public void setCharacterEncoding(String charset) {
       throw new RuntimeException("TODO No one else has ever called this method." +
-                                 " Do you really want to start now?");
+                                 " Do you really want to start now? " + charset);
       
     }
     

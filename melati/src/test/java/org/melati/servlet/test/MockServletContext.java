@@ -23,6 +23,16 @@ import javax.servlet.ServletException;
 public class MockServletContext implements ServletContext {
 
   /**
+   * Introduced in 2.4
+   * @see javax.servlet.ServletContext#getContextPath()
+   */
+  public String getContextPath() {
+    throw new RuntimeException("TODO No one else has ever called this method." +
+                               " Do you really want to start now?");
+    
+  }
+
+  /**
    * 
    */
   public MockServletContext() {

@@ -1,17 +1,13 @@
 package org.melati.servlet.test;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.TestCase;
-import com.mockobjects.dynamic.Mock;
-import com.mockobjects.dynamic.OrderedMock;
 
 /**
  * @author timp
@@ -54,59 +50,26 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-    //mockHttpServletResponse.expect( "setContentType", "text/html"); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
 
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
     org.melati.test.ConfigServletTest aServlet = 
           new org.melati.test.ConfigServletTest();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doGet((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                     (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.init(mockServletConfig);
+      aServlet.doGet(mockHttpServletRequest,  
+                     mockHttpServletResponse);
     } catch (ServletException e) {
       e.printStackTrace();
       fail(e.toString());
     } 
 
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
-    
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
+
+    String output = mockHttpServletResponse.getWritten();
     assertTrue(output.toString().indexOf("<h2>ConfigServlet Test</h2>") != -1); 
   }
 
@@ -114,60 +77,26 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    //poemContext - melati.getPathInfoParts
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-    //mockHttpServletResponse.expect( "setContentType", "text/html"); 
-
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
     org.melati.test.ConfigServletTest aServlet = 
           new org.melati.test.ConfigServletTest();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                     (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.init(mockServletConfig);
+      aServlet.doPost(mockHttpServletRequest,  
+                     mockHttpServletResponse);
     } catch (Exception e) {
       e.printStackTrace();
       fail();
     } 
                    
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
 
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
+    String output = mockHttpServletResponse.getWritten();
     assertTrue(output.toString().indexOf("<h2>ConfigServlet Test</h2>") != -1); 
 
   }
@@ -176,44 +105,26 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#error(Melati, Exception)
    */
   public void testError() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
     ErrorConfigServlet aServlet = 
           new ErrorConfigServlet();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                     (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.init(mockServletConfig);
+      aServlet.doPost(mockHttpServletRequest,  
+                     mockHttpServletResponse);
     } catch (Exception e) {
       e.printStackTrace();
       fail();
     } 
                    
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     aServlet.destroy();
 
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
+    String output = mockHttpServletResponse.getWritten();
     assertTrue(output.toString().indexOf("You need the capability") != -1); 
 
 
@@ -223,39 +134,20 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#error(Melati, Exception)
    */
   public void testConnectionPendingError() throws Exception {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
     DbPendingErrorConfigServlet aServlet = 
           new DbPendingErrorConfigServlet();
-    aServlet.init((ServletConfig)mockServletConfig.proxy());
-    aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                   (HttpServletResponse) mockHttpServletResponse.proxy());
+    aServlet.init(mockServletConfig);
+    aServlet.doPost(mockHttpServletRequest,  
+                   mockHttpServletResponse);
     aServlet.destroy();
                    
-
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
+    String output = mockHttpServletResponse.getWritten();
     assertTrue(output.toString().indexOf("The database `testdb' is in the process of being initialized") != -1); 
 
   }
@@ -266,18 +158,11 @@ public class ConfigServletTest extends TestCase {
   public void testExceptionDuringInit() throws Exception {
     MockServletResponse response = new MockServletResponse();
     MockServletRequest request = new MockServletRequest();
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
     MelatiConfigExceptionConfigServlet aServlet = 
       new MelatiConfigExceptionConfigServlet();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      aServlet.init(mockServletConfig);
       aServlet.doPost(request,  
                      response);
       fail("Should have blown up");
@@ -285,9 +170,6 @@ public class ConfigServletTest extends TestCase {
       assertEquals("org.melati.util.ConfigException: Pretend bug", e.getMessage());
     }
     aServlet.destroy();
-
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
   }
   
 
@@ -309,122 +191,50 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#getSysAdminName()
    */
   public void testGetSysAdminName() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
            
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
+    MockServletConfig mockServletConfig = new MockServletConfig();
 
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     org.melati.test.ConfigServletTest aServlet = 
           new org.melati.test.ConfigServletTest();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      aServlet.init(mockServletConfig);
       assertEquals("nobody", aServlet.getSysAdminName());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-          (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.doPost(mockHttpServletRequest,  
+          mockHttpServletResponse);
       aServlet.destroy();               
     } catch (Exception e) {
       e.printStackTrace();
       fail();
     } 
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
-
   }
 
   /**
    * @see org.melati.servlet.ConfigServlet#getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
 
-
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html; charset=ISO-8859-1"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-
-                   
-    Mock mockServletConfig = new Mock(ServletConfig.class);
-    Mock mockServletContext = new Mock(ServletContext.class);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
-    mockServletConfig.expectAndReturn("getServletContext", mockServletContext.proxy()); 
-    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    MockServletConfig mockServletConfig = new MockServletConfig();
 
     org.melati.test.ConfigServletTest aServlet = 
           new org.melati.test.ConfigServletTest();
     try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      aServlet.init(mockServletConfig);
       assertEquals("nobody@nobody.com", aServlet.getSysAdminEmail());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-          (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.doPost(mockHttpServletRequest,  
+          mockHttpServletResponse);
       aServlet.destroy();               
     } catch (Exception e) {
       e.printStackTrace();
       fail();
     } 
-                   
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
-    mockServletConfig.verify(); 
-    mockServletContext.verify(); 
-
-
   }
 
 }

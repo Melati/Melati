@@ -53,15 +53,17 @@ import javax.servlet.http.HttpServletRequest;
 
  /**
   * Enables Melati to compile, without warnings, with the Servlet API 
-  * versions 2.0, 2.1, 2.2 and 2.3.
-  * However, unless you use one of the core methods you will 
-  * get warnings.
+  * versions 2.0 to 2.5.
+  * 
+  * However the database listener and admin tests rely upon 2.4 features.
   *
   * @see   org.melati.util.HttpServletRequestCompat
   */
 
 public class DelegatedHttpServletRequest implements HttpServletRequest {
+  
   protected HttpServletRequest peer;
+  
   /**
    * @param peer
    */
@@ -70,7 +72,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
  /*
-  * Core methods common to all APIs.
+  * Core methods common to all APIs; call these directly.
   */
 
   /**
@@ -179,16 +181,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return peer.getSession(a);
   }
 
-  /**
-   *  @deprecated Servlet API 2.3
-   *  
-   * {@inheritDoc}
-   * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
-   */
-  public boolean isRequestedSessionIdFromUrl() {
-    return HttpServletRequestCompat.isRequestedSessionIdFromUrl(peer);
-//    return peer.isRequestedSessionIdFromUrl();
-  }
   /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
@@ -305,30 +297,41 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   * 
-   * @deprecated    As of Version 2.1 of the Java Servlet API,
-   *                use ServletContext.getRealPath instead.
-   *                
-   * {@inheritDoc}
-   * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
-   */
-  public java.lang.String getRealPath(java.lang.String a) {
-    return HttpServletRequestCompat.getRealPath(peer, a);
-    //return peer.getRealPath(a);
-  }
-
-  /**
-   * @deprecated Servlet API 2.2
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
    */
   public boolean isRequestedSessionIdFromCookie() {
     return peer.isRequestedSessionIdFromCookie();
   }
+
+  //
+  //  Deprecated methods, may disappear.
+  //
+  
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
+   * @deprecated Servlet API 2.1
+   *  
+   * {@inheritDoc}
+   * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
+   */
+  public boolean isRequestedSessionIdFromUrl() {
+    return HttpServletRequestCompat.isRequestedSessionIdFromUrl(peer);
+  }
+  /**
+   * @deprecated Servlet API 2.1
+   *                
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
+   */
+  public java.lang.String getRealPath(java.lang.String a) {
+    return HttpServletRequestCompat.getRealPath(peer, a);
+  }
+
+  //
+  // Servlet API 2.1 extensions
+  //
+  
+  /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
    */
@@ -336,8 +339,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getUserPrincipal(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getContextPath()
    */
@@ -345,8 +346,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getContextPath(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
    */
@@ -354,8 +353,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getHeaders(peer, a);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getSession()
    */
@@ -363,17 +360,18 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getSession(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
    */
   public boolean isRequestedSessionIdFromURL() {
     return HttpServletRequestCompat.isRequestedSessionIdFromURL(peer);
   }
+  
+  //
+  // Servlet API 2.2 extensions
+  //
+  
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
    */
@@ -381,8 +379,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.isUserInRole(peer, a);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getAttributeNames()
    */
@@ -390,8 +386,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getAttributeNames(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocale()
    */
@@ -399,8 +393,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getLocale(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocales()
    */
@@ -409,13 +401,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   * If you get compile errors for this method, it's probably because (a) you
-   * are compiling against the 2.0 servlet API and (b) you have not obtained
-   * our stub <TT>RequestDispatcher.java</TT> along with the Melati
-   * distribution, which is provided to help you out here.
-   * 
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
    */
@@ -423,8 +408,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getRequestDispatcher(peer, arg);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#isSecure()
    */
@@ -432,8 +415,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.isSecure(peer);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#removeAttribute(java.lang.String)
    */
@@ -441,18 +422,18 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     HttpServletRequestCompat.removeAttribute(peer, arg);
   }
   /**
-   * @deprecated Servlet API 2.2 extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setAttribute(java.lang.String, java.lang.Object)
    */
   public void setAttribute(String arg1, Object arg2) {
     HttpServletRequestCompat.setAttribute(peer, arg1, arg2);
   }
+  
+  //
+  //  Servlet 2.3 extensions
+  //
 
   /**
-   * @deprecated Servlet 2.3 API extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getRequestURL()
    */
@@ -461,8 +442,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   * @deprecated Servlet 2.3 API extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
    */
@@ -471,8 +450,6 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   * @deprecated Servlet 2.3 API extension
-   * 
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterMap()
    */
@@ -480,30 +457,45 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
     return HttpServletRequestCompat.getParameterMap(peer);
   }
 
+  //
+  //  Servlet 2.4 extensions
+  //
+
+  /**
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getLocalAddr()
+   */
   public String getLocalAddr() {
-    throw new RuntimeException("TODO No one else has ever called this method." +
-                               " Do you really want to start now?");
-    
+    return HttpServletRequestCompat.getLocalAddr(peer);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getLocalName()
+   */
   public String getLocalName() {
-    throw new RuntimeException("TODO No one else has ever called this method." +
-                               " Do you really want to start now?");
-    
+    return HttpServletRequestCompat.getLocalName(peer);    
   }
 
+  /**
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getLocalPort()
+   */
   public int getLocalPort() {
-    throw new RuntimeException("TODO No one else has ever called this method." +
-                               " Do you really want to start now?");
-    
+    return HttpServletRequestCompat.getLocalPort(peer);    
   }
 
+  /**
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getRemotePort()
+   */
   public int getRemotePort() {
-    throw new RuntimeException("TODO No one else has ever called this method." +
-                               " Do you really want to start now?");
-    
+    return HttpServletRequestCompat.getRemotePort(peer);        
   }
 
+  //
+  //  There are no Servlet 2.5 extensions
+  //
 }
 
 

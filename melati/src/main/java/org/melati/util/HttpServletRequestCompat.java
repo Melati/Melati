@@ -57,7 +57,13 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * The <code>HttpServletRequestCompat</code> class enables Melati to compile,
- * without warnings, with the Servlet API versions 2.0, 2.1, 2.2 and 2.3.
+ * without warnings, with the Servlet API versions 2.0 to 2.5.
+ * 
+ * The core methods are those present in the 2.0 API all methods added since 
+ * are established as static members. 
+ * These are then available to be invoked if present or a RuntimeException is thrown
+ * otherwise.
+ * 
  * However, if you use a method which is not in your version of the API then you
  * will get a runtime exception.
  * 
@@ -70,7 +76,7 @@ public final class HttpServletRequestCompat {
   private HttpServletRequestCompat() {
   }
 
-  /** Deprecated in Servlet 2.2 API. */
+  /** Deprecated in Servlet 2.1 API. */
   private static Method isRequestedSessionIdFromUrl, getRealPath;
 
   /** New in Servlet 2.2 API. */
@@ -78,10 +84,11 @@ public final class HttpServletRequestCompat {
       getSession, isRequestedSessionIdFromURL, isUserInRole, getAttributeNames,
       getLocale, getLocales, getRequestDispatcher, isSecure, removeAttribute,
       setAttribute;
-
   /** New in Servlet 2.3 API. */
   private static Method getRequestURL, setCharacterEncoding, getParameterMap;
-
+  /** New in Servlet 2.4 API. */
+  private static Method getLocalAddr, getLocalName, getLocalPort, getRemotePort;
+  
   private static Method methodOrNull(Class c, String n, String[] pn) {
     try {
       Class[] p = new Class[pn.length];
@@ -119,12 +126,23 @@ public final class HttpServletRequestCompat {
           new String[] { "java.lang.String" });
       setAttribute = methodOrNull(hsr, "setAttribute", new String[] {
           "java.lang.String", "java.lang.Object" });
+      
+      getLocalAddr = methodOrNull(hsr, "getLocalAddr", noparams);
+      getLocalName = methodOrNull(hsr, "getLocalName", noparams);
+      getLocalPort = methodOrNull(hsr, "getLocalPort", noparams);
+      getRemotePort = methodOrNull(hsr, "getRemotePort", noparams);
+      
     } catch (Exception e) {
       e.printStackTrace();
       throw new Error("org.melati.util.servletcompat.HttpServletRequestCompat"
           + "failed to initialize; contact the Melati developers");
     }
   }
+  // 
+  // ================================
+  // Original Servlet API 2.0 methods 
+  // ================================
+  // 
 
   /**
    * Returns the name of the authentication scheme used to protect the servlet,
@@ -136,6 +154,7 @@ public final class HttpServletRequestCompat {
    * @return a <code>String</code> specifying the name of the authentication
    *         scheme, or <code>null</code> if the request was not authenticated
    * @see javax.servlet.http.HttpServletRequest#getAuthType()
+   * @since 2.0
    */
   public static String getAuthType(HttpServletRequest it) {
     return it.getAuthType();
@@ -151,6 +170,7 @@ public final class HttpServletRequestCompat {
    * @return an array of all the <code>Cookies</code> included with this
    *         request, or <code>null</code> if the request has no cookies
    * @see javax.servlet.http.HttpServletRequest#getCookies()
+   * @since 2.0
    */
   public static Cookie[] getCookies(HttpServletRequest it) {
     return it.getCookies();
@@ -173,6 +193,7 @@ public final class HttpServletRequestCompat {
    *         1970 GMT, or -1 if the named header was not included with the
    *         reqest
    * @see javax.servlet.http.HttpServletRequest#getDateHeader(String)
+   * @since 2.0
    */
   public static long getDateHeader(HttpServletRequest it, String a) {
     return it.getDateHeader(a);
@@ -190,6 +211,7 @@ public final class HttpServletRequestCompat {
    *         header, or <code>null</code> if the request does not have a
    *         header of that name
    * @see javax.servlet.http.HttpServletRequest#getHeader(String)
+   * @since 2.0
    */
   public static String getHeader(HttpServletRequest it, String a) {
     return it.getHeader(a);
@@ -208,6 +230,7 @@ public final class HttpServletRequestCompat {
    *         container does not allow servlets to use this method,
    *         <code>null</code>
    * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
+   * @since 2.0
    */
   public static Enumeration getHeaderNames(HttpServletRequest it) {
     return it.getHeaderNames();
@@ -225,6 +248,7 @@ public final class HttpServletRequestCompat {
    * @return an integer expressing the value of the request header or -1 if the
    *         request doesn't have a header of this name
    * @see javax.servlet.http.HttpServletRequest#getIntHeader(String)
+   * @since 2.0
    */
   public static int getIntHeader(HttpServletRequest it, String a) {
     return it.getIntHeader(a);
@@ -237,6 +261,7 @@ public final class HttpServletRequestCompat {
    *        of the method with which
    *        this request was made
    * @see javax.servlet.http.HttpServletRequest#getMethod()
+   * @since 2.0
    */
   public static String getMethod(HttpServletRequest it) {
     return it.getMethod();
@@ -252,6 +277,7 @@ public final class HttpServletRequestCompat {
    *      or <code>null</code> if the URL does not have
    *      any extra path information
    * @see javax.servlet.http.HttpServletRequest#getPathInfo()
+   * @since 2.0
    */
   public static String getPathInfo(HttpServletRequest it) {
     return it.getPathInfo();
@@ -265,6 +291,7 @@ public final class HttpServletRequestCompat {
    *      the URL does not have any extra path
    *      information
    * @see javax.servlet.http.HttpServletRequest#getPathTranslated()
+   * @since 2.0
    */
   public static String getPathTranslated(HttpServletRequest it) {
     return it.getPathTranslated();
@@ -277,6 +304,7 @@ public final class HttpServletRequestCompat {
    *      string or <code>null</code> if the URL 
    *      contains no query string
    * @see javax.servlet.http.HttpServletRequest#getQueryString()
+   * @since 2.0
    */
   public static String getQueryString(HttpServletRequest it) {
     return it.getQueryString();
@@ -289,6 +317,7 @@ public final class HttpServletRequestCompat {
    *      of the user making this request, or <code>null</code>
    *      if the user login is not known
    * @see javax.servlet.http.HttpServletRequest#getRemoteUser()
+   * @since 2.0
    */
   public static String getRemoteUser(HttpServletRequest it) {
     return it.getRemoteUser();
@@ -301,6 +330,7 @@ public final class HttpServletRequestCompat {
    *      the part of the URL from the 
    *      protocol name up to the query string
    * @see javax.servlet.http.HttpServletRequest#getRequestURI()
+   * @since 2.0
    */
   public static String getRequestURI(HttpServletRequest it) {
     return it.getRequestURI();
@@ -313,6 +343,7 @@ public final class HttpServletRequestCompat {
    *      ID, or <code>null</code> if the request did
    *      not specify a session ID
    * @see javax.servlet.http.HttpServletRequest#getRequestedSessionId()
+   * @since 2.0
    */
   public static String getRequestedSessionId(HttpServletRequest it) {
     return it.getRequestedSessionId();
@@ -325,6 +356,7 @@ public final class HttpServletRequestCompat {
    *      the name or path of the servlet being
    *      called, as specified in the request URL 
    * @see javax.servlet.http.HttpServletRequest#getServletPath()
+   * @since 2.0
    */
   public static String getServletPath(HttpServletRequest it) {
     return it.getServletPath();
@@ -337,6 +369,7 @@ public final class HttpServletRequestCompat {
    * @return    the <code>HttpSession</code> associated
    *      with this request
    * @see javax.servlet.http.HttpServletRequest#getSession()
+   * @since 2.0
    */
   public static HttpSession getSession(HttpServletRequest it, boolean a) {
     return it.getSession(a);
@@ -350,6 +383,7 @@ public final class HttpServletRequestCompat {
    *        in the current session context;
    *        <code>false</code> otherwise
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
+   * @since 2.0
    */
   public static boolean isRequestedSessionIdValid(HttpServletRequest it) {
     return it.isRequestedSessionIdValid();
@@ -361,19 +395,17 @@ public final class HttpServletRequestCompat {
    * @return      <code>true</code> if the session ID
    *        came in as a
    *        cookie; otherwise, <code>false</code>
-   * @deprecated Servlet API 2.2
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
+   * @since 2.0
    */
   public static boolean isRequestedSessionIdFromCookie(HttpServletRequest it) {
     return it.isRequestedSessionIdFromCookie();
   }
-
-  // 
-  // ============================
-  // Servlet API 2.2 extensions
-  // ============================
-  // 
-
+  
+  //======================
+  // Invocation machinery
+  //======================
+  
   /**
    * Thrown when a method that is not available is invoked.
    */
@@ -387,7 +419,7 @@ public final class HttpServletRequestCompat {
      */
     public String getMessage() {
       return "The application tried to use a method from the "
-          + "Servlet API 2.2, but was running against the 2.0 " + "API.";
+          + "Servlet API which is not present in the version it running against.";
     }
   }
 
@@ -424,6 +456,45 @@ public final class HttpServletRequestCompat {
 
   private static final Object[] noargs = {};
 
+  // 
+  // ============================
+  // Servlet API 2.1 deprecatons
+  // ============================
+  // 
+
+  /**
+   * @param it
+   *        the HttpServletRequest
+   * @param arg
+   *        url String
+   * @return the real path
+   * @deprecated Servlet API 2.1
+   * @see javax.servlet.http.HttpServletRequest#getRealPath(String)
+   * @since 2.0
+   */
+  public static String getRealPath(HttpServletRequest it, String arg) {
+    return (String)invoke(getRealPath, it, new Object[] { arg });
+  }
+
+  /**
+   * @param it
+   *        the HttpServletRequest
+   * @return whether id is from url
+   * @deprecated Servlet API 2.1 
+   * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
+   * @since 2.0
+   */
+  public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
+    return ((Boolean)invoke(isRequestedSessionIdFromUrl, it, noargs))
+        .booleanValue();
+  }
+
+  // 
+  // ============================
+  // Servlet API 2.1 extensions
+  // ============================
+  // 
+
   /**
    * Returns the empty string when run against 2.0 API.
    * 
@@ -431,13 +502,13 @@ public final class HttpServletRequestCompat {
    *        the HttpServletRequest
    * @return the Context path or empty string
    * @see javax.servlet.http.HttpServletRequest#getContextPath()
+   * @since 2.1
    */
   public static String getContextPath(HttpServletRequest it) {
     if (getContextPath == null)
       return "";
     else
       return (String)invoke(getContextPath, it, noargs);
-    // return it.getContextPath();
   }
 
   /**
@@ -450,10 +521,10 @@ public final class HttpServletRequestCompat {
    *      <code>null</code> if the user has not been 
    *      authenticated
    * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
+   * @since 2.1
    */
   public static java.security.Principal getUserPrincipal(HttpServletRequest it) {
     return (java.security.Principal)invoke(getUserPrincipal, it, noargs);
-    // return it.getUserPrincipal();
   }
 
   /**
@@ -468,28 +539,30 @@ public final class HttpServletRequestCompat {
    *        if the request does not
    *        have any headers of that name
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
+   * @since 2.1
    */
   public static Enumeration getHeaders(HttpServletRequest it, String arg) {
     return (Enumeration)invoke(getHeaders, it, new Object[] { arg });
-    // return it.getHeaders(arg);
   }
 
   /**
-   * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
+   * Throws <TT>MissingMethodError</TT> when run against 2.0 API, 
+   * introduced in 2.1.
    * 
    * @param it
    *        the HttpServletRequest
    * @return    the <code>HttpSession</code> associated
    *      with this request
    * @see javax.servlet.http.HttpServletRequest#getSession()
+   * @since 2.1
    */
   public static HttpSession getSession(HttpServletRequest it) {
     return (HttpSession)invoke(getSession, it, noargs);
-    // return it.getSession();
   }
 
   /**
-   * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
+   * Throws <TT>MissingMethodError</TT> when run against 2.0 API, 
+   * introduced in 2.1.
    * 
    * @param it
    *        the HttpServletRequest
@@ -497,12 +570,18 @@ public final class HttpServletRequestCompat {
    *        came in as part of a URL; otherwise,
    *        <code>false</code>
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
+   * @since 2.1
    */
   public static boolean isRequestedSessionIdFromURL(HttpServletRequest it) {
     return ((Boolean)invoke(isRequestedSessionIdFromURL, it, noargs))
         .booleanValue();
-    // return it.isRequestedSessionIdFromURL();
   }
+
+  // 
+  // ============================
+  // Servlet API 2.2 extensions
+  // ============================
+  // 
 
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
@@ -515,11 +594,11 @@ public final class HttpServletRequestCompat {
    *      <code>false</code> if the user has not been 
    *      authenticated
    * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
+   * @since 2.2
    */
   public static boolean isUserInRole(HttpServletRequest it, String arg) {
     return ((Boolean)invoke(isUserInRole, it, new Object[] { arg }))
         .booleanValue();
-    // return it.isUserInRole(arg);
   }
 
   /**
@@ -533,10 +612,10 @@ public final class HttpServletRequestCompat {
    * @return an <code>Enumeration</code> of strings containing the names of
    *         the request's attributes
    * @see javax.servlet.http.HttpServletRequest#getAttributeNames()
+   * @since 2.2
    */
   public static Enumeration getAttributeNames(HttpServletRequest it) {
     return (Enumeration)invoke(getAttributeNames, it, noargs);
-    // return it.getAttributeNames();
   }
 
   /**
@@ -550,10 +629,10 @@ public final class HttpServletRequestCompat {
    *        the HttpServletRequest
    * @return the preferred <code>Locale</code> for the client
    * @see javax.servlet.http.HttpServletRequest#getLocale()
+   * @since 2.2
    */
   public static Locale getLocale(HttpServletRequest it) {
     return (Locale)invoke(getLocale, it, noargs);
-    // return it.getLocale();
   }
 
   /**
@@ -570,27 +649,30 @@ public final class HttpServletRequestCompat {
    * @return an <code>Enumeration</code> of preferred <code>Locale</code>
    *         objects for the client
    * @see javax.servlet.http.HttpServletRequest#getLocales()
+   * @since 2.2
    */
   public static Enumeration getLocales(HttpServletRequest it) {
     return (Enumeration)invoke(getLocales, it, noargs);
-    // return it.getLocales();
   }
 
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API. If you get
    * compile errors for this method, it's probably because (a) you are compiling
-   * against the 2.0 servlet API and (b) you have not obtained our stub <TT>RequestDispatcher.java</TT>
-   * along with the Melati distribution, which is provided to help you out here.
+   * against the 2.0 servlet API.
+   * 
    * Returns a {@link RequestDispatcher} object that acts as a wrapper for the
    * resource located at the given path. A <code>RequestDispatcher</code>
    * object can be used to forward a request to the resource or to include the
-   * resource in a response. The resource can be dynamic or static. <p>The
+   * resource in a response. The resource can be dynamic or static. 
+   * 
+   * The
    * pathname specified may be relative, although it cannot extend outside the
    * current servlet context. If the path begins with a "/" it is interpreted as
    * relative to the current context root. This method returns <code>null</code>
    * if the servlet container cannot return a <code>RequestDispatcher</code>.
-   * <p>The difference between this method and 
-   * ServletContext#getRequestDispatcher is that this method can take a
+   * 
+   * The difference between this method and 
+   * {@link ServletContext#getRequestDispatcher} is that this method can take a
    * relative path.
    * 
    * @param it
@@ -601,12 +683,12 @@ public final class HttpServletRequestCompat {
    *         for the resource at the specified path
    * @see RequestDispatcher
    * @see javax.servlet.http.HttpServletRequest#getRequestDispatcher(String)
+   * @since 2.2
    */
   public static RequestDispatcher getRequestDispatcher(HttpServletRequest it,
       String arg) {
     return (RequestDispatcher)invoke(getRequestDispatcher, it,
         new Object[] { arg });
-    // return it.getRequestDispatcher(arg);
   }
 
   /**
@@ -618,10 +700,10 @@ public final class HttpServletRequestCompat {
    *        the HttpServletRequest
    * @return a boolean indicating if the request was made using a secure channel
    * @see javax.servlet.http.HttpServletRequest#isSecure()
+   * @since 2.2
    */
   public static boolean isSecure(HttpServletRequest it) {
     return ((Boolean)invoke(isSecure, it, noargs)).booleanValue();
-    // return it.isSecure();
   }
 
   /**
@@ -638,10 +720,10 @@ public final class HttpServletRequestCompat {
    *        a <code>String</code> specifying the name of the attribute to
    *        remove
    * @see javax.servlet.http.HttpServletRequest#removeAttribute()
+   * @since 2.2
    */
   public static void removeAttribute(HttpServletRequest it, String arg) {
     invoke(removeAttribute, it, new Object[] { arg });
-    // it.removeAttribute(arg);
   }
 
   /**
@@ -659,11 +741,11 @@ public final class HttpServletRequestCompat {
    * @param arg2
    *        the <code>Object</code> to be stored
    * @see javax.servlet.http.HttpServletRequest#setAttribute
+   * @since 2.2
    */
   public static void setAttribute(HttpServletRequest it, String arg1,
       Object arg2) {
     invoke(setAttribute, it, new Object[] { arg1, arg2 });
-    // it.setAttribute(arg1, arg2);
   }
 
   // 
@@ -679,10 +761,10 @@ public final class HttpServletRequestCompat {
    *        the HttpServletRequest
    * @return request url as a String buffer
    * @see javax.servlet.http.HttpServletRequest#getRequestURL()
+   * @since 2.3
    */
   public static StringBuffer getRequestURL(HttpServletRequest it) {
     return (StringBuffer)invoke(getRequestURL, it, noargs);
-    // it.getRequestURL();
   }
 
   /**
@@ -693,52 +775,68 @@ public final class HttpServletRequestCompat {
    * @param arg
    *        encoding name
    * @see javax.servlet.http.HttpServletRequest#setCharacterEncoding(String)
+   * @since 2.3
    */
   public static void setCharacterEncoding(HttpServletRequest it, String arg) {
     invoke(setCharacterEncoding, it, new Object[] { arg });
-    // it.setCharacterEncoding(arg);
   }
 
   /**
-   * Throws <TT>MissingMethodError</TT> when run against 2.2 API.
-   * 
    * @param it
    *        the HttpServletRequest
    * @return map of parameters
    * @see javax.servlet.http.HttpServletRequest#getParameterMap()
+   * @since 2.3
    */
   public static Map getParameterMap(HttpServletRequest it) {
     return (Map)invoke(getParameterMap, it, noargs);
-    // return it.getParameterMap();
+  }
+
+
+  // 
+  // ============================
+  // Servlet API 2.4 extensions
+  // ============================
+  // 
+
+  /**
+   * @param it
+   *        the HttpServletRequest
+   * @return the remote address
+   * @see javax.servlet.http.HttpServletRequest#getRemotePort()
+   */
+  public static int getRemotePort(HttpServletRequest it) {
+    return ((Integer)invoke(getRemotePort, it, noargs)).intValue();
   }
 
   /**
    * @param it
    *        the HttpServletRequest
-   * @return whether id is from url
-   * @deprecated Servlet API 2.3
-   * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
+   * @return the receiving local port
+   * @see javax.servlet.http.HttpServletRequest#getLocalPort()
    */
-  public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
-    return ((Boolean)invoke(isRequestedSessionIdFromUrl, it, noargs))
-        .booleanValue();
-    // return it.isRequestedSessionIdFromUrl();
+  public static int getLocalPort(HttpServletRequest it) {
+    return ((Integer)invoke(getLocalPort, it, noargs)).intValue();
   }
 
   /**
-   * Throws <TT>MissingMethodError</TT> when run against 2.3 API.
-   * 
    * @param it
    *        the HttpServletRequest
-   * @param arg
-   *        url
-   * @return the real path
-   * @deprecated Servlet API 2.1
-   * @see javax.servlet.http.HttpServletRequest#getRealPath(String)
+   * @return the local host name
+   * @see javax.servlet.http.HttpServletRequest#getLocalName()
    */
-  public static String getRealPath(HttpServletRequest it, String arg) {
-    return (String)invoke(getRealPath, it, new Object[] { arg });
-    // return it.getRealPath(rg);
+  public static String getLocalName(HttpServletRequest it) {
+    return (String)invoke(getLocalName, it, noargs);    
+  }
+
+  /**
+   * @param it
+   *        the HttpServletRequest
+   * @return the receiving, local, IP address
+   * @see javax.servlet.http.HttpServletRequest#getLocalAddr()
+   */
+  public static String getLocalAddr(HttpServletRequest it) {
+    return (String)invoke(getLocalAddr, it, noargs);
   }
 
 }

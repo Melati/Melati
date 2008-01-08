@@ -116,13 +116,12 @@ public final class Email {
    * @param smtpServer name of SMTP server to use
    * @param from email address and optionally name of sender
    * @param toList list of email addresses and optionally names of recipients
-   * @param apparentlyTo ignored
    * @param replyto email address and optionally name to reply to
    * @param subject subject of message
    * @param message text body of email
    */
   public static void sendToList(String smtpServer, String from,
-          String[] toList, String apparentlyTo, String replyto, String subject,
+          String[] toList,  String replyto, String subject,
           String message) throws EmailException, IOException {
     File[] empty = {};
 

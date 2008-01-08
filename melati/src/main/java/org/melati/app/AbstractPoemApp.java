@@ -208,7 +208,8 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    */
   public void term(Melati melati) throws IOException {
     super.term(melati);
-    PoemDatabaseFactory.disconnectDatabase(melati.getDatabase().getName());
+    if (melati.getDatabase() != null)
+      PoemDatabaseFactory.disconnectDatabase(melati.getDatabase().getName());
   }
   
   /**
@@ -257,6 +258,11 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
                 }
               } catch (Exception e) {
                 taskPerformedOrLoggedInAndTaskAttempted = Boolean.TRUE;
+                try {
+                  term(melati);
+                } catch (IOException e1) {
+                  e1 = null;
+                }
                 throw new UnhandledExceptionException(e);
               }
             }

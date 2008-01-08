@@ -177,8 +177,11 @@ public abstract class AbstractConfigApp implements App {
    */
   public void run(String[] args) throws Exception {
     Melati melati = init(args);
-    doConfiguredRequest(melati);
-    term(melati);
+    try { 
+      doConfiguredRequest(melati);
+    } finally {  
+      term(melati);
+    }
   }
 
   /**

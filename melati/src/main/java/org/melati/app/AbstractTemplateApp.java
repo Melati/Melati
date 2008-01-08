@@ -44,6 +44,7 @@
 
 package org.melati.app;
 
+import java.io.IOException;
 import java.util.Hashtable;
 
 
@@ -79,8 +80,15 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
       templateContext =
         templateEngine.getTemplateContext(melati);
     }
-    if (templateContext == null)
-      throw new MelatiConfigurationException("Have you configured a template engine? Currently set to " + templateEngine);
+    if (templateContext == null) {
+      try {
+        super.term(melati);
+      } catch (IOException e) {
+        e = null;
+      }
+      throw new MelatiConfigurationException("Have you configured a template engine? " + 
+              "Currently set to " + templateEngine);
+    }
     melati.setTemplateContext(templateContext);
     String[] argsWithoutOutput = melati.getArguments();
     Hashtable form = new Hashtable();

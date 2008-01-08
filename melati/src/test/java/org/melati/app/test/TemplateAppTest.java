@@ -108,7 +108,7 @@ public class TemplateAppTest extends TestCase {
    * @see org.melati.app.TemplateApp#main(String[])
    */
   public void testMainOneArg() throws Exception {
-    String fileName = "ttt.tmp";
+    String fileName = "tttt.tmp";
     String[] args = { "appjunit", "-o", fileName };
     TemplateApp it = new TemplateApp();
     it.run(args);
@@ -140,7 +140,7 @@ public class TemplateAppTest extends TestCase {
    * @see org.melati.app.TemplateApp#main(String[])
    */
   public void testMainTwoArgs() throws Exception {
-    String fileName = "t2.tmp";
+    String fileName = "t25555.tmp";
     String[] args = { "appjunit", "user", "-o", fileName };
     TemplateApp it = new TemplateApp();
     try { 
@@ -150,11 +150,14 @@ public class TemplateAppTest extends TestCase {
       assertEquals("org.melati.template.NotFoundException: Could not find template user.wm",e.innermostException().getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    assertTrue(fileIn.delete());
+    
     fileName = "t2a.tmp";
     args = new String[] { "appjunit", "org/melati/app/TemplateApp.wm", "-o", fileName };
     TemplateApp.main(args);
     String output = "";
-    File fileIn = new File(fileName);
+    fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
     while (in.ready()) {
       output += in.readLine();
@@ -253,10 +256,15 @@ public class TemplateAppTest extends TestCase {
     } catch (ConfigException e) {
       e = null;
     }
+    File fileIn = new File(fileName);
+    assertTrue(fileIn.delete());      
   }
 
+  /**
+   * @throws Exception
+   */
   public void testLogin() throws Exception { 
-    String fileName = "t5.tmp";
+    String fileName = "t.tmp";
     String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp",  "-u", "_administrator_","-p", "FIXME","-o", fileName};
     TemplateApp it = new ConfiguredTemplateApp();
@@ -284,8 +292,11 @@ public class TemplateAppTest extends TestCase {
             "Form settings=============  -u _administrator_  -p FIXME", output);
     
   }
+  /**
+   * Test no configured template engine.
+   */
   public void testNoTemplateEngineConfigured() throws Exception { 
-    String fileName = "t5.tmp";
+    String fileName = "junitTest99.tmp";
     String[] args = { "appjunit", "user", "0",
         "org/melati/app/TemplateApp",  "-u", "_administrator_","-p", "FIXME","-o", fileName};
     TemplateApp it = new MisConfiguredTemplateApp();
@@ -296,5 +307,7 @@ public class TemplateAppTest extends TestCase {
       assertEquals("org.melati.util.MelatiConfigurationException: Have you configured a template engine? Currently set to null",e.getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    assertTrue(fileIn.delete());      
   }
 }

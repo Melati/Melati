@@ -416,6 +416,8 @@ public class FastWriter extends Writer
         {
             bflush();
         }
+        OutputStream foolEclipse = out;
+        out = foolEclipse;
         //_bstream.writeTo(out);
     }
 

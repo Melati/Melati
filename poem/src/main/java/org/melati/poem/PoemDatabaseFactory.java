@@ -241,8 +241,7 @@ public final class PoemDatabaseFactory {
     if(db != null) {
       db.disconnect();
       databases.remove(name);
-    } else 
-      throw new RuntimeException("Disconnecting from null db called " + name);
+    } 
   }
 
   /**

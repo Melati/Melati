@@ -26,7 +26,10 @@ public class MockServletConfig implements ServletConfig {
      context = servletContext;
      name = servletName;
    }
-   public MockServletConfig() { 
+  /**
+   * Constructor. 
+   */
+  public MockServletConfig() { 
      context = new MockServletContext();
      name = "mockServlet";
    }
@@ -67,9 +70,16 @@ public class MockServletConfig implements ServletConfig {
   }
 
   Hashtable initParameters = new Hashtable(); 
+  /**
+   * @param name of parameter
+   * @param value of parameter
+   */
   public void setInitParameter(String name, String value) {
     initParameters.put(name, value);
   }
+  /**
+   * @param string name to set
+   */
   public void setServletName(String string) {
     name = string;    
   }

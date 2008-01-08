@@ -53,6 +53,11 @@ import org.melati.util.MelatiRuntimeException;
 public class UnhandledExceptionException extends MelatiRuntimeException {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * @param message
    * @param subException
    */

@@ -87,6 +87,9 @@ public class ProtectedPoemApp extends PoemApp {
     return poemContextWithLDB(melati,"appjunit");
   }
 
+  /**
+   * @param is input to set
+   */
   public void setInput(InputStream is) { 
     in = is;
   }

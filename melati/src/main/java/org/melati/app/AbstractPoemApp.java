@@ -189,8 +189,14 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    */
   public Melati init(String[] args)  throws MelatiException {
     Melati m = super.init(args);
-    if (m.getDatabase() == null)
+    if (m.getDatabase() == null) {
+      try {
+        super.term(m);
+      } catch (IOException e) {
+        e = null;
+      }
       throw new ConfigException("No database configured");
+    }
     return m;
   }
 

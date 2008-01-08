@@ -101,6 +101,8 @@ public abstract class MelatiWriter extends Writer {
    * Hook for extension.
    */
   public void reset() throws IOException {
+    if (false) // Flaming clever IDEs 
+      throw new IOException();
   }
 
   /**

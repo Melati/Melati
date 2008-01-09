@@ -3,34 +3,18 @@
  */
 package org.melati.admin.test;
 
-import net.sourceforge.jwebunit.junit.WebTestCase;
 /**
- * Much thanks to 
- * http://today.java.net/pub/a/today/2007/04/12/embedded-integration-testing-of-web-applications.html
  * 
  * @author timp
- * 
+ * @since 2008/01/01
  */
-public class AdminJettyWebTest extends WebTestCase {
+public class AdminJettyWebTest extends JettyWebTestCase {
 
-  private org.mortbay.jetty.Server server;
-
-  protected void setUp() throws Exception {
-    // Port 0 means "assign arbitrarily port number"
-    server = new org.mortbay.jetty.Server(0);
-    server.addHandler(new org.mortbay.jetty.webapp.WebAppContext(
-        "/dist/melati/melati/src/test/webapp", "/"));
-    server.start();
-
-    // getLocalPort returns the port that was actually assigned
-    int actualPort = server.getConnectors()[0].getLocalPort();
-    getTestContext().setBaseUrl(
-        "http://localhost:" + actualPort + "/");
+  public AdminJettyWebTest() {
+    super();
   }
-
-  public void testIndex() {
-    beginAt("/index.html");
-    assertTextPresent("Hello World!");
+  public AdminJettyWebTest(String name) {
+    super(name);
   }
 
   // Test Page calls
@@ -60,6 +44,11 @@ public class AdminJettyWebTest extends WebTestCase {
     assertTextPresent("Melati Admin Suite");
   }
   
+  public void testUpload() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/Upload?field=tim");
+    assertTextPresent("File to upload:");
+  }
   
   
   public void testAdminBottom() {
@@ -127,6 +116,36 @@ public class AdminJettyWebTest extends WebTestCase {
     assertTextPresent("_administrator_");
   }
   
+  public void testAdminTree() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/0/Tree");
+    assertTextPresent("No frames?");
+  }
+  public void testAdminSelectionRight() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/SelectionRight");
+    assertTextPresent("Records 1 to 2 of 2");
+  }
+  public void testAdminSelectionWindow() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/SelectionWindow?returnfield=field_user");
+    assertTextPresent("Select a User");
+  }
+  public void testAdminSelectionWindowPrimarySelect() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/SelectionWindowPrimarySelect?returnfield=field_user");
+    assertTextPresent("Full name");
+  }
+  public void testAdminSelectionWindowSelection() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/SelectionWindowSelection?returnfield=field_user");
+    assertTextPresent("Records 1 to 2 of 2");
+  }
+  public void testAdminPopup() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/user/PopUp");
+    assertTextPresent("Search User Table");
+  }
   public void testAdminDSD() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/DSD");

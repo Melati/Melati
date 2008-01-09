@@ -75,13 +75,36 @@
       <version>1.2.9</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+     <groupId>net.sourceforge.jwebunit</groupId>
+     <artifactId>jwebunit-core</artifactId>
+     <version>1.4.1</version>
+    </dependency>
+    <dependency>
+     <groupId>net.sourceforge.jwebunit</groupId>
+     <artifactId>jwebunit-htmlunit-plugin</artifactId>
+     <version>1.4.1</version>
+    </dependency>
+    <dependency>
+     <groupId>org.mortbay.jetty</groupId>
+     <artifactId>jetty</artifactId>
+     <version>6.1.0</version>
+     <scope>test</scope>
+    </dependency>
 
     <dependency>
-      <!-- To get rid of this would be a major exercise -->
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>compile</scope>
+    <!-- To get rid of this would be a major exercise -->
+    <groupId>javax.servlet</groupId>
+    <artifactId>servlet-api</artifactId>
+    <version>2.5</version>
+    <scope>compile</scope>
+    </dependency>
+    <dependency>
+    <!-- To get rid of this would be a major exercise -->
+    <groupId>javax.servlet</groupId>
+    <artifactId>jsp-api</artifactId>
+    <version>2.0</version>
+    <scope>compile</scope>
     </dependency>
 
   </dependencies>
@@ -190,6 +213,13 @@
           </goals>
         </execution>
       </executions>
+    </plugin>
+   <plugin>
+    <groupId>org.mortbay.jetty</groupId>
+    <artifactId>maven-jetty-plugin</artifactId>
+    <configuration>
+     <scanIntervalSeconds>2</scanIntervalSeconds>
+    </configuration>
     </plugin>
    </plugins>
    

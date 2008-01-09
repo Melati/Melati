@@ -48,7 +48,7 @@ public class PoemAppTest extends TestCase {
    * Test method for {@link org.melati.app.AbstractConfigApp#run(java.lang.String[])}.
    */
   public void testRun() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "user", "1", "display", "-o", fileName };
     PoemApp.main(args);
     String output = "";
@@ -77,7 +77,7 @@ public class PoemAppTest extends TestCase {
    * Test method for {@link org.melati.app.AbstractConfigApp#run(java.lang.String[])}.
    */
   public void testRunNoMethod() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "user", "1", "-o", fileName };
     PoemApp.main(args);
     String output = "";
@@ -105,7 +105,7 @@ public class PoemAppTest extends TestCase {
    * Test method for {@link org.melati.app.AbstractConfigApp#run(java.lang.String[])}.
    */
   public void testRunTableMethod() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "user", "method", "-o", fileName };
     PoemApp.main(args);
     String output = "";
@@ -134,7 +134,7 @@ public class PoemAppTest extends TestCase {
    * Test method for {@link org.melati.app.AbstractConfigApp#run(java.lang.String[])}.
    */
   public void testRunNoTroid() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "user", "-o", fileName };
     PoemApp.main(args);
     String output = "";
@@ -162,7 +162,7 @@ public class PoemAppTest extends TestCase {
    * Test method for {@link org.melati.app.AbstractConfigApp#run(java.lang.String[])}.
    */
   public void testRunNoTable() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "appjunit", "-o", fileName };
     PoemApp.main(args);
     String output = "";
@@ -204,6 +204,8 @@ public class PoemAppTest extends TestCase {
           "java.lang.NumberFormatException: For input string: \"one\"",e.getMessage());
       e = null;      
     }
+    File fileIn = new File(fileName);
+    fileIn.delete();      
   }
 
   
@@ -221,6 +223,8 @@ public class PoemAppTest extends TestCase {
           "Bang!",e.getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    fileIn.delete();      
   }
 
   /**
@@ -258,7 +262,7 @@ public class PoemAppTest extends TestCase {
    * Access exceptions.
    */
   public void testAccessPrompted() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", "-o", fileName };
     ProtectedPoemApp it = new ProtectedPoemApp();
     it.setInput(new StringInputStream("bad\nwrong\nbad\nwrong\n_administrator_\nFIXME\n"));
@@ -288,7 +292,7 @@ public class PoemAppTest extends TestCase {
    * Access exceptions.
    */
   public void testAccessPromptedThreeWrongResponses() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", "-o", fileName };
     ProtectedPoemApp it = new ProtectedPoemApp();
     it.setInput(new StringInputStream("bad\nwrong\nbad\nwrong\nbad\nwrong\n_administrator_\nFIXME\n"));
@@ -300,6 +304,8 @@ public class PoemAppTest extends TestCase {
           , e.subException.getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    fileIn.delete();      
   }
   /**
    * Access exceptions.
@@ -317,6 +323,8 @@ public class PoemAppTest extends TestCase {
           , e.subException.getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    fileIn.delete();      
   }
 
   /**
@@ -335,13 +343,15 @@ public class PoemAppTest extends TestCase {
           , e.subException.getMessage());
       e = null;
     }
+    File fileIn = new File(fileName);
+    fileIn.delete();      
   }
 
   /**
    * Test argument names
    */
   public void testArgumentNames() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", "-o", fileName, 
                       "-u", "_administrator_", "-p", "FIXME", };
     ProtectedPoemApp it = new ProtectedPoemApp();
@@ -372,7 +382,7 @@ public class PoemAppTest extends TestCase {
    * Test argument names
    */
   public void testArgumentNames2() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", 
         "-o", fileName, "-user", "_administrator_", "-pass", "FIXME", };
     ProtectedPoemApp.main(args);
@@ -401,7 +411,7 @@ public class PoemAppTest extends TestCase {
    * Test argument names
    */
   public void testArgumentNames3() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", 
         "-o", fileName, "-username", "_administrator_", "-password", "FIXME", };
     ProtectedPoemApp.main(args);
@@ -431,7 +441,7 @@ public class PoemAppTest extends TestCase {
    * Test argument names
    */
   public void testArgumentNames4() throws Exception {
-    String fileName = "t.tmp";
+    String fileName = "ttt.tmp";
     String[] args = { "user", "1", "display", 
         "-o", fileName, "--username", "_administrator_", "--password", "FIXME", };
     ProtectedPoemApp.main(args);

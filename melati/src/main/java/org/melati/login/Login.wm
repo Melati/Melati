@@ -39,7 +39,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
@@ -48,7 +48,8 @@
 <HTML>
 <HEAD>
  <title>Login</title>
- <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin.css"
+ <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin/admin.css"
       type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="white">

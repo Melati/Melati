@@ -1939,6 +1939,8 @@ public class Table implements Selectable {
    * @return the next Troid
    */
   protected synchronized Integer troidFor(Persistent persistent) {
+    Persistent foolEclipse = persistent;
+    persistent = foolEclipse;
     if (nextTroid == -1)
       throw new PoemBugPoemException("Troid still unitialised in " + name);
     return new Integer(nextTroid++);

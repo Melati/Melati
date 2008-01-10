@@ -60,7 +60,7 @@ public final class ODMGFactory {
    * Get a new database.
    */
   public static org.melati.poem.Database getPoemDatabase() 
-      throws org.odmg.ODMGException { 
+      throws org.odmg.ODMGRuntimeException { 
     return getDb().getPoemDatabase(); }
 
   /**

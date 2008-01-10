@@ -65,7 +65,7 @@ final class Database implements org.odmg.Database {
   private String _logicalDB = null;
 
   org.melati.poem.Database getPoemDatabase() 
-    throws org.odmg.ODMGException { 
+    throws org.odmg.ODMGRuntimeException { 
     if (_poemDB == null) throw new org.odmg.DatabaseClosedException(
           "org.melati.poem.odmg.Database::getPoemDatabase - POEM DB not set");
     return _poemDB; 

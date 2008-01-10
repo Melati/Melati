@@ -69,7 +69,7 @@ final class Transaction implements org.odmg.Transaction {
       _tx = new Object();
       // any issues with always using 1?
       _db.getPoemDatabase().beginSession(org.melati.poem.AccessToken.root);  
-    } catch (org.odmg.ODMGException exc) { 
+    } catch (org.odmg.ODMGRuntimeException exc) { 
       throw new org.odmg.ODMGRuntimeException(exc.getMessage());
     }
   }
@@ -80,7 +80,7 @@ final class Transaction implements org.odmg.Transaction {
     try { 
          _db.getPoemDatabase().endSession();
          _tx = null;
-    } catch (org.odmg.ODMGException exc) { 
+    } catch (org.odmg.ODMGRuntimeException exc) { 
       throw new org.odmg.ODMGRuntimeException(exc.getMessage());
     }
   }

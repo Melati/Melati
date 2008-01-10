@@ -51,7 +51,7 @@
 <HEAD>
 <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
  <title>Logging out</title>
- <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin/admin.css"
+ <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="white">

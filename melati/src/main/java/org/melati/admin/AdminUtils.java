@@ -72,7 +72,7 @@ public class AdminUtils {
   public AdminUtils(Melati melati) {
     this(melati.getRequest() == null ? null : HttpServletRequestCompat.getContextPath(melati.getRequest()),
          melati.getRequest() == null ? null : melati.getRequest().getServletPath(),
-         melati.getConfig().getStaticURL() + "/admin",
+         melati.getConfig().getStaticURL() ,
          melati.getPoemContext().getLogicalDatabase());    
   }
 

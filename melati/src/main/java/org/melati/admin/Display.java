@@ -72,12 +72,12 @@ public class Display extends TemplateServlet {
       context.put("object", melati.getObject());
     }
 
-    if (context.getForm("template") != null)
-      return context.getForm("template");
-
-    if (melati.getMethod() != null && melati.getMethod().length() != 0)
-      return melati.getMethod();
-
+    if (context.getForm("template") != null) { 
+      return StringUtils.tr(context.getForm("template"),".","/");
+    }
+    if (melati.getMethod() != null && melati.getMethod().length() != 0) {
+      return StringUtils.tr(melati.getMethod(),".","/");
+    }
     return StringUtils.tr(this.getClass().getName(),".","/");
   }
 }

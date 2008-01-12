@@ -53,10 +53,10 @@
 </head>
 
   <frameset frameborder="no" rows="56,*">
-    <frame src="$admin.PrimarySelectURL($table)" marginwidth="0" marginheight="5" frameborder="0" name="admin_primaryselect" scrolling="no">
+    <frame src="$admin.PrimarySelectURL($melati.Table)" marginwidth="0" marginheight="5" frameborder="0" name="admin_primaryselect" scrolling="no">
     <frameset frameborder="no" cols="*,28">
         <frame src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" frameborder="0" name="admin_selection" scrolling="auto">
-        <frame src="$admin.NavigationURL($table)" marginwidth="0" marginheight="0" frameborder="0" name="admin_navigation" scrolling="no">
+        <frame src="$admin.NavigationURL($melati.Table)" marginwidth="0" marginheight="0" frameborder="0" name="admin_navigation" scrolling="no">
     </frameset>
   </frameset>
 

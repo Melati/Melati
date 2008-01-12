@@ -74,7 +74,7 @@
 
 #set $lasttype = ""
 #set $selected = false
-#foreach $tab in $database.DisplayTables #begin
+#foreach $tab in $melati.Database.DisplayTables #begin
   #if (!$tab.TableInfo.Category.equals($lasttype)) #begin
     <option value="null">&nbsp;</option>
     <option value="null">$tab.TableInfo.Category.Name</option>
@@ -122,8 +122,8 @@
  #end
  <input type="button" value=" Home " 
         title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
- #if ($database.SettingTable.get("HomepageUrl")) #begin
-        onclick="parent['admin_bottom'].location = '$database.SettingTable.get("HomepageUrl")';"
+ #if ($melati.Database.SettingTable.get("HomepageUrl")) #begin
+        onclick="parent['admin_bottom'].location = '$melati.Database.SettingTable.get("HomepageUrl")';"
  #end #else #begin
         onclick="parent['admin_bottom'].location = 'http://www.melati.net';"
  #end

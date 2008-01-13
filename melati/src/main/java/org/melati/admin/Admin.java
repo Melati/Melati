@@ -144,15 +144,6 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   *  @return the 'Main' admin frame
-   */
-
-  protected String mainTemplate(ServletTemplateContext context) {
-    context.put("database", PoemThread.database());
-    return adminTemplate("Main");
-  }
-
-  /**
    *  @return a DSD for the database
    */
   protected String dsdTemplate(ServletTemplateContext context) {
@@ -170,33 +161,12 @@ public class Admin extends TemplateServlet {
     return adminTemplate("DSD");
   }
 
-  /**
-   *  @return the top template
-   */
-  protected String topTemplate(ServletTemplateContext context) throws PoemException {
-    context.put("database", PoemThread.database());
-    return adminTemplate("Top");
-  }
-
-  /**
-   *  @return the 'bottom' admin page
-   */
-  protected String bottomTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
-    context.put("table", table);
-    return adminTemplate("Bottom");
-  }
 
   /**
    *  @return the 'left' admin page
    */
-  protected String leftTemplate(ServletTemplateContext context, Melati melati)
+  protected String leftTemplate()
   throws PoemException {
-    context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
-    context.put("table", table);
     return adminTemplate("Left");
   }
 
@@ -385,9 +355,8 @@ public class Admin extends TemplateServlet {
    * <p>
    * The default template name is "PopupSelect".
    *  
-   * TODO Rename to popUpTemplate()
    */
-  protected String popupTemplate(ServletTemplateContext context, Melati melati)
+  protected String popUpTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     popup(context, melati);
     return adminTemplate("PopupSelect");
@@ -778,6 +747,7 @@ public class Admin extends TemplateServlet {
     }
   }
 
+  // Used to in AdminUtils
   static final String
       METHOD_CREATE_TABLE = "Create",
       METHOD_CREATE_COLUMN = "CreateColumn",
@@ -796,16 +766,12 @@ public class Admin extends TemplateServlet {
     context.put("admin", new AdminUtils(melati));
     
     if (melati.getMethod().equals("Main"))
-      return mainTemplate(context);
+      return adminTemplate("Main");
     if (melati.getMethod().equals("Top"))
-      return topTemplate(context);
-    /* upload can take place without an object
-     */
-    if (melati.getMethod().equals("Upload"))
-      return uploadTemplate(context);
+      return adminTemplate("Top");
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
-    
+
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
         return rightTemplate(context, melati);
@@ -828,10 +794,13 @@ public class Admin extends TemplateServlet {
       }
     }
     else if (melati.getTable() != null) {
+      if (melati.getMethod().equals("Upload"))
+        return uploadTemplate(context);
+      
       if (melati.getMethod().equals("Bottom"))
-        return bottomTemplate(context, melati);
+        return adminTemplate("Bottom");
       if (melati.getMethod().equals("Left"))
-        return leftTemplate(context, melati);
+        return leftTemplate();
       if (melati.getMethod().equals("PrimarySelect"))
         return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))
@@ -841,7 +810,7 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("Navigation"))
         return navigationTemplate(context, melati);
       if (melati.getMethod().equals("PopUp"))
-        return popupTemplate(context, melati);
+        return popUpTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindow"))
         return selectionWindowTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowPrimarySelect"))

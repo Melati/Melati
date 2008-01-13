@@ -199,29 +199,29 @@ function StaticTree(displayFrame, controlFrameName,
     }
     
     if (this.isLeaf) {
-      str += "<IMG align='absmiddle' BORDER=0 SRC=\"";
+      str += "<IMG align='absmiddle' BORDER=0 SRC='";
       str += (lastChild) ? this.leafLImage : this.leafTImage;
-      str +="\">";
+      str +="'>";
     } else {
-      str += "<A HREF=\"javascript:"+theTree.controlName+".expand(";
-      str += this.index+");\"><IMG align='absmiddle' BORDER=0 SRC=\"";
+      str += "<A HREF='javascript:"+theTree.controlName+".expand(";
+      str += this.index+");'><IMG align='absmiddle' BORDER=0 SRC='";
       if (this.isOpen) {
         str += (lastChild) ? this.openedLImage : this.openedTImage;
       } else {
         str += (lastChild) ? this.closedLImage : this.closedTImage;
       }
-      str += "\"></A>";
+      str += "'></A>";
     }
     
     if (this.isLeaf) {
-      str += "<IMG align='absmiddle' src=\""+this.leafImage+"\">";
+      str += "<IMG align='absmiddle' src='"+this.leafImage+"'>";
     } else {
       str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
     }
     str += "</TD><TD valign=middle><NOBR>";
     if (this.isLeaf) {
       if(theTree.selectLeaves) {
-        str += "<input type=checkbox name=check"+this.index+" onClick=\""+theTree.controlName+".selectLeaf("+this.index+")\"";
+        str += "<input type=checkbox name=check"+this.index+" onClick='"+theTree.controlName+".selectLeaf("+this.index+")'";
         if (this.selected) {
           str += " checked";
         }
@@ -229,7 +229,7 @@ function StaticTree(displayFrame, controlFrameName,
       }
     } else {
       if (theTree.selectNodes) {
-        str += "<input type=checkbox name=check"+this.index+" onClick=\""+theTree.controlName+".selectNode("+this.index+")\"";
+        str += "<input type=checkbox name=check"+this.index+" onClick='"+theTree.controlName+".selectNode("+this.index+")'";
         if (this.selected) {
           str += " checked";
         }
@@ -284,7 +284,7 @@ StaticTree.prototype.display = function () {
   var doc = this.frame.document;
   doc.write("<html><head>");
   if (this.stylesheet != null && this.stylesheet != "") {
-    doc.write("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"" + this.stylesheet + "\">");
+    doc.write("<LINK rel='stylesheet' type='text/css' href='" + this.stylesheet + "'>");
   }
   doc.write("</head><body bgcolor='#" + this.backgroundColour + "'><form>\n");
 

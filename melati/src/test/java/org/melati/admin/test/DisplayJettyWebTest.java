@@ -3,6 +3,8 @@
  */
 package org.melati.admin.test;
 
+import org.melati.JettyWebTestCase;
+
 
 /**
  * @author timp
@@ -19,7 +21,7 @@ public class DisplayJettyWebTest extends JettyWebTestCase {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.admin.test.JettyWebTestCase#setUp()
+   * @see org.melati.JettyWebTestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
@@ -27,7 +29,7 @@ public class DisplayJettyWebTest extends JettyWebTestCase {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.admin.test.JettyWebTestCase#tearDown()
+   * @see org.melati.JettyWebTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
     super.tearDown();    

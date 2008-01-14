@@ -1,34 +1,50 @@
 <!-- start org/melati/admin/Tree.wm -->
 #set $melati.ResponseContentType = "text/html"
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
-#set $treeControllUrl = $admin.TreeControlURL($object)
-#if ($Form.returnTarget != null) #begin
- #set $treeControllUrl = "$(treeControllUrl)?returnTarget=$Form.returnTarget"
-#end
-#if ($Form.returnURL != null) #begin
- #if ($Form.returnTarget != null) #begin
-  #set $treeControllUrl = "$(treeControllUrl)&returnURL=$Form.returnURL"
- #end #else #begin
-  #set $treeControllUrl = "$(treeControllUrl)?returnURL=$Form.returnURL"
- #end
-#end
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-            "http://www.w3.org/TR/html4/frameset.dtd">
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <head>
- <title>Tree</title>
  <meta name="CVS Id" content="\$Id$">
+ <title>
+#if ($melati.Object) #begin 
+  $ml.rendered($melati.Object)
+#end #else #begin
+  $ml.rendered($melati.Table.DisplayName)
+#end
+  Tree</title>
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
+#if ($melati.Object) #begin 
+  #set $tree=$admin.createTree($melati.Object)
+#end #else #begin
+  #set $tree=$admin.createForest($melati.Table)
+#end
+#if ($tree) #begin
+ #if ($tree.flattened().size() < 2000) #begin
+<!-- start -->
+$ml.rendered($tree)
+<!-- end -->
 </head>
-<frameset frameborder="no" rows="100%,*">
- <frame name="treedisplay" src="$admin.StaticURL/blank.html" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0">
- <frame name="treecontrol" src="$treeControllUrl"  scrolling="yes" frameborder="0" marginwidth="0" marginheight="0">
-</frameset>
-<noframes>
-No frames?
-</noframes>
-</HTML>
+<body onload="init();" id="tree">
+<div id="content"></div>
+ #end #else #begin
+</head>
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
+ alert("Tree size is greater than limit of 2000: " + $tree.flattened().size());
+</SCRIPT>
+Tree size is greater than limit of 2000: " + $tree.flattened().size()
+ #end
+#end #else #begin
+</head>
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
+ alert("Tree is null.");
+</SCRIPT>
+Tree is null.
+#end
+</body>
+</html>
+
 <!-- end org/melati/admin/Tree.wm -->
 

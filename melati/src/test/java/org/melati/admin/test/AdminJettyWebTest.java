@@ -3,6 +3,8 @@
  */
 package org.melati.admin.test;
 
+import org.melati.JettyWebTestCase;
+
 /**
  * 
  * @author timp
@@ -116,7 +118,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("_administrator_");
   }
   
-  public void testAdminTree() {
+  public void BorkdtestAdminTree() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/user/0/Tree");
     assertTextPresent("No frames?");

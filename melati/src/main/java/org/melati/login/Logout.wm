@@ -54,7 +54,7 @@
  <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
-<BODY BGCOLOR="white">
+<BODY BGCOLOR="white" id="logout">
 <DIV ALIGN="CENTER">
 
 <h1>Logging you out...</h1>

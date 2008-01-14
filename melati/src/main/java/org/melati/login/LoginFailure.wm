@@ -55,7 +55,7 @@
  <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
-<BODY BGCOLOR="white">
+<BODY BGCOLOR="white" id="loginFailure">
 
 <DIV ALIGN="CENTER">
 

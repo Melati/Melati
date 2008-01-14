@@ -42,6 +42,8 @@
  */
 package org.melati.util;
 
+import org.melati.poem.Treeable;
+
 /**
  * A JavaScript tree which can be rendered as ordinary HTML.
  */
@@ -87,6 +89,21 @@ public class JSStaticTree extends Tree {
     imageBaseRef = staticURL;
   }
 
+  public JSStaticTree(Treeable[] nodes, String staticURL) { 
+    super(nodes);    
+    verticalLinkImage = staticURL + "/vertline.gif";
+    spacerImage = staticURL + "/spacer.gif";
+    openedFolderImage = staticURL + "/openfolder.gif";
+    closedFolderImage = staticURL + "/closedfolder.gif";
+    openedTImage = staticURL + "/node_minus.gif";
+    closedTImage = staticURL + "/node_plus.gif";
+    openedLImage = staticURL + "/lastnode_minus.gif";
+    closedLImage = staticURL + "/lastnode_plus.gif";
+    leafTImage = staticURL + "/node.gif";
+    leafLImage = staticURL + "/last_node.gif";
+    leafImage = staticURL + "/file.gif";
+    imageBaseRef = staticURL;
+  }
   /**
    * @return the name of the node label templet
    */

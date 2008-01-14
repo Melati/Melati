@@ -64,7 +64,7 @@
 //-->
 </script>
 </HEAD>
-<BODY bgcolor="#cccccc">
+<BODY bgcolor="#cccccc" id="add">
 
 <FORM METHOD="post" ACTION="AddUpdate">
 <H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>

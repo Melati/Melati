@@ -52,7 +52,7 @@
       type="text/css" media="screen">
 </HEAD>
 
-<BODY bgcolor="#cccccc">
+<BODY bgcolor="#cccccc" id="deleteFailure">
 <P align="center">
   You can't delete this record, because it is referred to by other records:
 </P>

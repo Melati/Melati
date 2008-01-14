@@ -55,7 +55,7 @@ H1 {
 </style>
 </head>
 
-<body bgcolor="#cccccc" >
+<body bgcolor="#cccccc" id="anticipatedError">
 <h1>Anticipated Melati Error</h1>
 <div id="switch">
 <p class="errorMessage">

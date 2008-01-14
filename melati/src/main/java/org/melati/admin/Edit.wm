@@ -65,7 +65,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 </script>
 </HEAD>
 
-<BODY bgcolor="#cccccc">
+<BODY bgcolor="#cccccc" id="edit">
 
 <FORM METHOD="post" ACTION="Update">
 <TABLE CELLPADDING="0" CELLSPACING="0">

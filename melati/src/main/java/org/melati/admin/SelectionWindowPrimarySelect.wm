@@ -67,7 +67,7 @@
 //-->
 </script>
 </HEAD>
-<BODY BGCOLOR="#dddddd" onLoad="get_list()">
+<BODY BGCOLOR="#dddddd" onLoad="get_list()" id="primarySelect">
  <table cellspacing="0" cellpadding="0" width="100%">
   <tr>
    <td></td>

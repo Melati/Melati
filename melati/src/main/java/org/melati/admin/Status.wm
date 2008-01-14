@@ -53,7 +53,7 @@
       type="text/css" media="screen">
 </HEAD>
 
-<BODY bgcolor="#FFFFFF">
+<BODY bgcolor="#FFFFFF" id="status">
 <h1>Database Cache Status</h1>
 <TABLE>
     <TR><TH>Table</TH><TH>Table Row IDs</TH></TR>

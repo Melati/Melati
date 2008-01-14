@@ -60,7 +60,7 @@
 </HEAD>
 
 
-<BODY BGCOLOR="#DDDDDD">
+<BODY BGCOLOR="#eeeeee" id="selection">
 <DIV align="center">
 
 #if ($results) #begin

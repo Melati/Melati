@@ -54,7 +54,7 @@
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 </HEAD>
-<BODY bgcolor="#cccccc">
+<BODY bgcolor="#cccccc" id="add">
 
 <FORM METHOD="post" ACTION="CreateColumn_doit">
 

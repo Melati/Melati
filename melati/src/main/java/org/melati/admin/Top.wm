@@ -61,7 +61,7 @@
 
 </head>
 
-<body bgcolor="#dddddd" onLoad="goto_page()">
+<body bgcolor="#dddddd" onLoad="goto_page()" id="top">
 <form method="get" target="admin_bottom" action="notused">
 <table cellpadding="2" cellspacing="2" border="0" width="100%">
 <tr>

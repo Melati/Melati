@@ -51,7 +51,7 @@
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
 </head>
-<body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')">
+<body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')" id="uploadDone">
 Your file has been saved at <a href='$url'>$url</a>.
 </body>
 </html>

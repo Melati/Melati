@@ -84,7 +84,7 @@
 // -->
 </SCRIPT>
 </HEAD>
-<BODY BGCOLOR="#dddddd" onLoad="get_list()">
+<BODY BGCOLOR="#dddddd" onLoad="get_list()" id="primarySelect">
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
  <table cellspacing="2" cellpadding="2" border="0">

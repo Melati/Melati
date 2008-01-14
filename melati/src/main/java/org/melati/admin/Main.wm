@@ -47,7 +47,7 @@
             "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
- <title>Website Admin Suite</title>
+ <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
@@ -60,7 +60,7 @@
 
 <noframes>
 <body>
-<h1>Website Admin Suite</h1>
+<h1>Melati Database Admin Suite - $melati.Database.DisplayName database</h1>
 <h3>You need a frames enabled browser to use the Admin Suite</h3>
 </body>
 </noframes>

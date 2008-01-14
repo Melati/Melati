@@ -58,7 +58,7 @@
     }
   </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadframes()">
+<BODY bgcolor="#cccccc" onLoad="reloadframes()" id="done">
 #end #else #begin
   #if ($Form.returnURL) #begin
     <script type="text/javascript">

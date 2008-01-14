@@ -60,7 +60,7 @@
       type="text/css" media="screen">
 </head>
 
-<body bgcolor="#E9EDFD">
+<body bgcolor="#E9EDFD" id="editHeader">
 <table cellpadding="4" cellspacing="4" width="100%">
  <tr>
   <td valign="top">

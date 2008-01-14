@@ -51,13 +51,13 @@
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
 <script type="text/javascript">
-  function reloadframes() {
+  function reloadFrames() {
     $(Form.returnTarget).location.href="$Form.returnURL";
     $(Form.returnTarget).focus();
   }
 </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadframes()">
+<BODY bgcolor="#cccccc" onLoad="reloadFrames()" id="duplicated">
 <br/><br/><br/><br/>
 <h3 align="center"><FONT FACE="Arial, Helvetica">Done</font></h3>
 </BODY>

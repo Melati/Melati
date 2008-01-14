@@ -595,9 +595,8 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Edit");
   }
 
-  protected String treeTemplate(ServletTemplateContext context, Melati melati)
+  protected String treeTemplate()
       throws PoemException {
-    prepareContextForEditting(context, melati);
     return adminTemplate("Tree");
   }
 
@@ -771,14 +770,16 @@ public class Admin extends TemplateServlet {
       return adminTemplate("Top");
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
+    if (melati.getTable() != null || melati.getObject() != null) {
+      if (melati.getMethod().equals("Tree"))
+      return treeTemplate();
+    }
 
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
         return rightTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
         return editHeaderTemplate(context, melati);
-      if (melati.getMethod().equals("Tree"))
-        return treeTemplate(context, melati);
       if (melati.getMethod().equals("TreeControl"))
         return treeControlTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))

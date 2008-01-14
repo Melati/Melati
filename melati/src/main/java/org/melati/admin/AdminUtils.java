@@ -51,6 +51,7 @@ import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.Table;
 import org.melati.poem.Treeable;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.template.MarkupLanguage;
 import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.JSStaticTree;
@@ -183,6 +184,14 @@ public class AdminUtils {
   public String TreeURL(Persistent object) throws AccessPoemException {
     return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Tree";
+  }
+  
+  /**
+   * @return The Tree URL.
+   */
+  public String TreeURL(Table table) throws AccessPoemException {
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
+            +  "/Tree";
   }
   
   /**
@@ -335,6 +344,20 @@ public class AdminUtils {
    */
   public JSStaticTree createTree(Treeable node) {
     return new JSStaticTree(new Tree(node), getStaticURL());
+  }
+  
+  /**
+   *  Create a tree. 
+   * @param node  a tree node
+   * @return a tree with node as its root
+   */
+  public JSStaticTree createForest(Table table) {
+    Object[] kids = ArrayUtils.arrayOf(table.selection());
+    Treeable[] children = new Treeable[kids.length];
+    for (int i = 0; i < kids.length; i++) {
+      children[i] = (Treeable)kids[i];
+    }
+    return new JSStaticTree(children, getStaticURL());
   }
   
 }

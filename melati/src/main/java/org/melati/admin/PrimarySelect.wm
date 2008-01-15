@@ -87,20 +87,13 @@
 <BODY BGCOLOR="#dddddd" onLoad="get_list()" id="primarySelect">
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
- <table cellspacing="2" cellpadding="2" border="0">
+ <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>
-   <td>&nbsp;</td>
-   <td><FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font></td>
-  </tr>
-  <tr>
-   <td>&nbsp;</td>
-   <td>
-  #if ($melati.isReferencePoemType($primaryCriterion)) #begin
-    <FONT face="Arial, Helvetica" size="-1">
-     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' target="admin_record"><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName"></a>
-    </FONT>
+   <td>&nbsp;
+   <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>
    </td>
-   <td>
+   <td align="left">&nbsp;
+  #if ($melati.isReferencePoemType($primaryCriterion)) #begin
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
        <input type="hidden" name="_$ml.rendered($primaryCriterion.Name)" value='$ml.rendered($primaryCriterion.RawString)'>
     <FONT face="Arial, Helvetica" size="-1">
@@ -134,13 +127,16 @@
     </FONT>
     <FONT face="Arial, Helvetica" size="-1"><input type=button value=" Go " onclick="goto_page()"></font>
      #end
+   </td><td align="right">
+    <FONT face="Arial, Helvetica" size="-1">
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' title="New $primaryCriterion.DisplayName" target="admin_record"><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName"></a>
+    </FONT>
   #end #else #begin
-   </td>
-   <td>
     <FONT face="Arial, Helvetica" size="-1">$ml.input($primaryCriterion)</font>
-    <FONT face="Arial, Helvetica" size="-1"><INPUT NAME="action" VALUE=" Go " TYPE="submit"></font>
+    <FONT face="Arial, Helvetica" size="-1"><INPUT NAME="action" VALUE=" Go " TYPE="submit" title=title="Select by $primaryCriterion.DisplayName"></font>
   #end
    </td>
+   
   </tr>
  </table>
 </FORM>

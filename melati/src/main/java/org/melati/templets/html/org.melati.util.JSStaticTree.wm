@@ -263,10 +263,10 @@ function StaticTree(contentDiv,
       str += (this.isOpen) ? 
           "<IMG align='absmiddle' src='"+this.openedFolderImage+"' border='0' />" 
           : "<IMG align='absmiddle' src='"+this.closedFolderImage+"' border='0' />";
-      str += "</A>";
+      str += "<\/A>";
     }
     
-    str += "</TD><TD valign=middle><NOBR>";
+    str += "<\/TD><TD valign=middle><NOBR>";
     if (this.isLeaf) {
       if(theTree.selectLeaves) {
         str += "<input type='checkbox' name='check"+this.index+"' onClick='"+theTree.controlName+".selectLeaf("+this.index+")'";
@@ -292,12 +292,12 @@ function StaticTree(contentDiv,
     }
     str += this.nodeLabel;
 
-    str += "</FONT>";
+    str += "<\/FONT>";
     if (this.chosen)
-      str += "</B>";
+      str += "<\/B>";
 
-    str += "</NOBR>";
-    str += "</TD></TR></TABLE>\n";
+    str += "<\/NOBR>";
+    str += "<\/TD><\/TR><\/TABLE>\n";
     return str;
   };
     
@@ -337,7 +337,7 @@ StaticTree.prototype.display = function () {
 // scrollSpacer is added for browsers which do not allow JavaScript 
 // to scroll the window beyond the document length
   str += "<IMG src='" + this.spacerImage + "' height='100%' width='1' ";
-  str += "name='scrollSpacer' border='0'></form>";
+  str += "name='scrollSpacer' border='0'><\/form>";
   this.contentDiv.innerHTML = str;      
 }
 

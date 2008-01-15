@@ -24,7 +24,7 @@ BODY {
 #selection, #selectionRight { 
  background-color: #eeeeee;
 }
-#status, #upload, #uploadDone, #tree { 
+#status, #upload, #uploadDone { 
  background-color: #ffffff;
 }
 #editHeader { 
@@ -36,6 +36,9 @@ A {
 /* Tree nodes*/
 A.node {
  text-decoration: none;
+}
+#tree { 
+ background-color: #f0f0ff;
 }
 FRAME {
  border: none;

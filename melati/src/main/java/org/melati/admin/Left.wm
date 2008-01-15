@@ -52,7 +52,7 @@
       type="text/css" media="screen">
 </head>
 
-  <frameset frameborder="no" rows="56,*">
+  <frameset frameborder="no" rows="45,*">
     <frame src="$admin.PrimarySelectURL($melati.Table)" marginwidth="0" marginheight="5" frameborder="0" name="admin_primaryselect" scrolling="no">
     <frameset frameborder="no" cols="*,28">
         <frame src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" frameborder="0" name="admin_selection" scrolling="auto">

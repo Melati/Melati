@@ -82,7 +82,7 @@
 </TR>
 <TR>
 <TD><a href="$admin.TreeURL($table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($table)")"
-       target="admin_record" 
+       target="admin_selection" 
        title="Display tree view"
        ><img src="$admin.StaticURL/tree.gif" alt="Tree view" border="0" /></a>
 </TD>

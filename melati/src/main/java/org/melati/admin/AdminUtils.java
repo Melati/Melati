@@ -112,22 +112,49 @@ public class AdminUtils {
   /**
    * @return The Bottom URL.
    */
-  public String BottomURL(Table table) {
-    return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/Bottom";
+  public String BottomURL(Table table, Melati melati) {
+    return  servletUrl + "/" + logicalDatabase + 
+        "/" + table.getName() +
+        (melati.getObject() != null && melati.getTable() != null && 
+            melati.getTable() == table ? "/" + melati.getObject().getTroid() : "") + 
+        "/Bottom";
   }
   /**
    * @return The Left URL.
    */
-  public String LeftURL(Table table) {
-    return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/Left";
+  public String LeftURL(Melati melati) {
+    return servletUrl + "/" + logicalDatabase + 
+        "/" + melati.getTable().getName() + 
+        (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
+        "/Left";
   }
   
   /**
+   * @return The Right URL.
+   */
+  public String RightURL(Persistent object) throws AccessPoemException {
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/Right";
+  }
+
+  /**
+   * @return The Right URL.
+   */
+  public String RightURL(Melati melati) throws AccessPoemException {
+    return servletUrl + "/" + logicalDatabase + 
+    (melati.getTable() == null ? "" : "/" + melati.getTable().getName()) + 
+    (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
+        "/Right";
+  }
+
+  /**
    * @return The Primary Select URL.
    */
-  public String PrimarySelectURL(Table table) {
-    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
-            + "/PrimarySelect";
+  public String PrimarySelectURL(Melati melati) {
+    return servletUrl + "/" + logicalDatabase + "/" + 
+        melati.getTable().getName() + 
+        (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
+        "/PrimarySelect";
   }
 
   /**
@@ -155,27 +182,25 @@ public class AdminUtils {
   }
   
   /**
-   * @return The Right URL.
-   */
-  public String RightURL(Persistent object) throws AccessPoemException {
-    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
-            + "/" + object.troid() + "/Right";
-  }
-
-  /**
    * @return The Edit Header URL.
    */
-  public String EditHeaderURL(Persistent object) throws AccessPoemException {
-    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
-            + "/" + object.troid() + "/EditHeader";
+  public String EditHeaderURL(Melati melati) throws AccessPoemException {
+    if (melati.getObject() == null )
+      return staticURL + "/blank.html";
+    else
+      return servletUrl + "/" + logicalDatabase + "/" + melati.getTable().getName()
+            + "/" + melati.getObject().troid() + "/EditHeader";
   }
 
   /**
    * @return The Edit URL.
    */
-  public String EditURL(Persistent object) throws AccessPoemException {
-    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
-            + "/" + object.troid() + "/Edit";
+  public String EditURL(Melati melati) throws AccessPoemException {
+    if (melati.getObject() == null )
+      return staticURL + "/blank.html";
+    else
+      return servletUrl + "/" + logicalDatabase + "/" + melati.getTable().getName()
+            + "/" + melati.getObject().troid() + "/Edit";
   }
 
   /**

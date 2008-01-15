@@ -65,12 +65,15 @@
  <tr>
   <td valign="top">
    <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">
-   <img src="$admin.StaticURL/tree.gif" alt="Tree view" border="0" />
+      target="admin_edit$object.Table.Name$object.troid()" 
+      title="Display tree view"><img 
+          src="$admin.StaticURL/tree.gif" 
+          alt="Tree view" border="0" />
    </a>
    &nbsp;<div style='display:inline;' #if($table.Description) #begin title='$table.Description' #end>
-   <font face="Arial, Helvetica" size="2">$table.DisplayName</font></div><font face="Arial, Helvetica" size="2">:
-<a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
+   <font face="Arial, Helvetica" size="2">$table.DisplayName</font></div><font 
+     face="Arial, Helvetica" size="2">:
+<a href= "$admin.EditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()"
 title="Display $ml.rendered($object.toString())">
 $ml.rendered($object.toString())</a>

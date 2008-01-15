@@ -65,9 +65,13 @@
 <form method="get" target="admin_bottom" action="notused">
 <table cellpadding="2" cellspacing="2" border="0" width="100%">
 <tr>
-<th align="left" valign="middle">
-<font face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</font>
-</th>
+<td align="left" valign="middle">
+  <b><font face="Arial, Helvetica" size="3">Melati Database Admin Suite</font></b>
+  <br />
+  <font face="Arial, Helvetica" size="-1" >
+    $melati.Database.DisplayName database
+  </font>
+</td>
 <td align="left" valign="middle">
 <font size="-1" face="Arial, Helvetica">
 <select name="mainmenu" OnChange="return(goto_page());" title="Select table to edit">
@@ -82,14 +86,14 @@
   #end
   #set $lasttype = $tab.TableInfo.Category
 
-<option value="$admin.BottomURL($tab)"
+<option value="$admin.BottomURL($tab, $melati)"
 #if (!$selected) #begin
   #if ($melati.Table != null) #begin 
    #if ($melati.Table.equals($tab)) #begin  
     selected="selected"
 #set $selected = true
    #end
-  #end #else #begin
+  #end #else #begin  ## select the first one
     selected="selected"
 #set $selected = true
   #end

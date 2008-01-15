@@ -84,32 +84,47 @@
 // -->
 </SCRIPT>
 </HEAD>
-<BODY BGCOLOR="#dddddd" onLoad="get_list()" id="primarySelect">
+<BODY BGCOLOR="#dddddd" onLoad="goto_page()" id="primarySelect">
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>
-   <td align="right">
+   <td align="right" valign="middle">
    <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>
    </td>
-   <td align="left">
+   <td align="left" valign="middle">
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
-       <input type="hidden" name="_$ml.rendered($primaryCriterion.Name)" value='$ml.rendered($primaryCriterion.RawString)'>
+       <input 
+           type="hidden" 
+           name="_$ml.rendered($primaryCriterion.Name)" 
+           value='$ml.rendered($primaryCriterion.RawString)'>
     <FONT face="Arial, Helvetica" size="-1">
        <input type="text" name="_$(ml.rendered($primaryCriterion.Name))_dummy" 
        #if ($primaryCriterion.Raw) #begin
-         value='$ml.rendered($primaryCriterion.Cooked)' 
+           value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
        size="30" onfocus="document.forms[0].$(ml.rendered($primaryCriterion.Name))_button.focus()">
-       <input type="button" value="choose"
-              name="$(ml.rendered($primaryCriterion.Name))_button" 
-              onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;">
+       <input 
+           type="button" 
+           value="choose"
+           name="$(ml.rendered($primaryCriterion.Name))_button" 
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           title="Select $primaryCriterion.DisplayName using a popup selector" 
+              /></font>
+              >
     </FONT>
-    <FONT face="Arial, Helvetica" size="-1"><input type="button" value=" Go " onclick="goto_page2()"></font>
+    <font face="Arial, Helvetica" size="-1"><input 
+        type="image" 
+        src="$admin.StaticURL/display.gif"
+        value=" Go " 
+        onclick="goto_page2();"
+        title="Select using selected $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
     #end #else #begin
-    <FONT face="Arial, Helvetica" size="-1">
-        <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
+    <font face="Arial, Helvetica" size="-1">
+        <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" 
+            OnChange="return(goto_page());">
         #foreach $poss in $primaryCriterion.First1000Possibilities #begin
           <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
           #if ($poss.sameRawAs($primaryCriterion)) #begin
@@ -124,18 +139,32 @@
           </OPTION>
         #end
         </SELECT>
-    </FONT>
-    <FONT face="Arial, Helvetica" size="-1"><input type=button value=" Go " onclick="goto_page()"></font>
+    </font>
+    <font face="Arial, Helvetica" size="-1"><input 
+        type="image" 
+        src="$admin.StaticURL/display.gif"
+        value=" Go " 
+        onclick="goto_page();"
+        title="Select by chosen $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
      #end
    </td>
    <td>&nbsp;</td>
-   <td align="right">
-    <FONT face="Arial, Helvetica" size="-1">
-     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' title="New $primaryCriterion.DisplayName" target="admin_record"><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName"></a>
-    </FONT>
+   <td align="right" valign="middle">
+    <font face="Arial, Helvetica" size="-1"><a 
+        href='$admin.AddURL($primaryCriterion.getType().targetTable())' 
+        title="New $primaryCriterion.DisplayName" 
+        target="admin_record"><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName"></a>
+    </font>
   #end #else #begin
-    <FONT face="Arial, Helvetica" size="-1">$ml.input($primaryCriterion)</font>
-    <FONT face="Arial, Helvetica" size="-1"><INPUT NAME="action" VALUE=" Go " TYPE="submit" title=title="Select by $primaryCriterion.DisplayName"></font>
+    <font face="Arial, Helvetica" size="-1">$ml.input($primaryCriterion)</font>
+    <font face="Arial, Helvetica" size="-1"><INPUT 
+        type="image" 
+        NAME="action" 
+        VALUE=" Go " 
+        src="$admin.StaticURL/display.gif"
+        title="Select matching input $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
    </td>
    <td>&nbsp;
   #end

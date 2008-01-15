@@ -195,7 +195,9 @@ public class Admin extends TemplateServlet {
       String sea = context.getForm("field_" + column.getName());
       primaryCriterion = new Field(
           sea == null || sea.equals("") ?
-            null :
+            (melati.getObject() == null ? 
+                null : 
+                column.getRaw(melati.getObject())) :
             column.getType().rawOfString(sea),
           new BaseFieldAttributes(column,
                                   column.getType().withNullable(true)));
@@ -570,8 +572,10 @@ public class Admin extends TemplateServlet {
   protected ServletTemplateContext prepareContextForEditting(ServletTemplateContext context,
                                             Melati melati)
       throws PoemException {
-    melati.getObject().assertCanRead();
-    context.put("object", melati.getObject());
+    if (melati.getObject() != null) { 
+      melati.getObject().assertCanRead();
+      context.put("object", melati.getObject());
+    }
     context.put("database", melati.getDatabase());
     context.put("table", melati.getTable());
     return context;
@@ -770,20 +774,25 @@ public class Admin extends TemplateServlet {
       return adminTemplate("Top");
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
+    if (melati.getMethod().equals("Right"))
+      return rightTemplate(context, melati);
+    
     if (melati.getTable() != null || melati.getObject() != null) {
       if (melati.getMethod().equals("Tree"))
       return treeTemplate();
+      if (melati.getMethod().equals("Bottom"))
+        return adminTemplate("Bottom");
+      if (melati.getMethod().equals("Left"))
+        return leftTemplate();
+      if (melati.getMethod().equals("PrimarySelect"))
+        return primarySelectTemplate(context, melati);
+      if (melati.getMethod().equals("EditHeader"))
+        return editHeaderTemplate(context, melati);
+      if (melati.getMethod().equals("Edit"))
+        return editTemplate(context, melati);
     }
 
     if (melati.getObject() != null) {
-      if (melati.getMethod().equals("Right"))
-        return rightTemplate(context, melati);
-      if (melati.getMethod().equals("EditHeader"))
-        return editHeaderTemplate(context, melati);
-      if (melati.getMethod().equals("TreeControl"))
-        return treeControlTemplate(context, melati);
-      if (melati.getMethod().equals("Edit"))
-        return editTemplate(context, melati);
       if (melati.getMethod().equals("Update"))
         return modifyTemplate(context, melati);
       if (melati.getObject() instanceof AdminSpecialised) {
@@ -798,12 +807,6 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("Upload"))
         return uploadTemplate(context);
       
-      if (melati.getMethod().equals("Bottom"))
-        return adminTemplate("Bottom");
-      if (melati.getMethod().equals("Left"))
-        return leftTemplate();
-      if (melati.getMethod().equals("PrimarySelect"))
-        return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))
         return selectionTemplate(context, melati);
       if (melati.getMethod().equals("SelectionRight"))

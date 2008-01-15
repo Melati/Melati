@@ -60,8 +60,17 @@
 #end
 
   <frameset frameborder="no" rows="45,*">
-    <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit_header" frameborder="0" scrolling="auto">
-    <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object.Table.Name$object.troid()" frameborder="0" scrolling="auto">
+    <frame src='$admin.EditHeaderURL($melati)?$returns' 
+           marginwidth="0" 
+           marginheight="0" 
+           name="admin_edit_header" frameborder="0" scrolling="auto">
+    <frame src='$admin.EditURL($melati)?$returns' 
+           marginwidth="0" 
+           marginheight="0" 
+#if ($melati.Object) #begin
+           name="admin_edit$melati.Table.Name$melati.Object.troid()" 
+           frameborder="0" scrolling="auto">
+#end
   </frameset>
 
 <noframes>

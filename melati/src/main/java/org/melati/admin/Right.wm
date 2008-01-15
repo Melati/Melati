@@ -59,7 +59,7 @@
 #set $returns = "$returns&amp;returnURL=$ml.encoded($Form.returnURL)"
 #end
 
-  <frameset frameborder="no" rows="45,*">
+  <frameset frameborder="no" rows="56,*">
     <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit_header" frameborder="0" scrolling="auto">
     <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object.Table.Name$object.troid()" frameborder="0" scrolling="auto">
   </frameset>

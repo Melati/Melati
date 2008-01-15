@@ -48,37 +48,40 @@
 <!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
 
 <script type="text/javascript" >
-//
-//
-// copyright MJ Chippendale 12/02/2002
-//
-// This files contains Javascript classes defining an abstract TreeNode
-// containing data, and an object/application using them - Static
-// Tree. This provides an implementation of an 
-// expandable/collapsible tree
-//
-// You can contol whether to display checkboxes against 
-// terminal nodes (leaves) or non-reminal nodes.
-//
-// You can contol the images used to display the tree and 
-// the node labels.
-//
-// Author: MJ Chippendale 12/02/2002
-//         TP Pizey       12/02/2002
-//
-//
-// See: org/melati/util/JSStaticTree.java
-//      org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm
-//      org/melati/template/webmacro/templets/html/StaticNode.wm
-//      org/melati/template/MarkupLanguage.java
-//
-//
-//  TODO
-//  Generate indexes in data
-//  Remove UniqueName ???
-//
+<!-- 
+##
+##
+## Copyright MJ Chippendale 12/02/2002
+##
+## This files contains Javascript classes defining an abstract TreeNode
+## containing data, and an object/application using them - Static
+## Tree. This provides an implementation of an 
+## expandable/collapsible tree
+##
+## You can contol whether to display checkboxes against 
+## terminal nodes (leaves) or non-reminal nodes.
+##
+## You can contol the images used to display the tree and 
+## the node labels.
+##
+## Author: MJ Chippendale 12/02/2002
+##         TP Pizey       12/02/2002
+##         TP Pizey       15/01/2008
+##
+##
+## See: org/melati/util/JSStaticTree.java
+##      org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm
+##      org/melati/template/webmacro/templets/html/StaticNode.wm
+##      org/melati/template/MarkupLanguage.java
+##
+##
+##  TODO
+##  Generate indexes in data
+##  Remove UniqueName ???
+##
+
 // Browser sniffing code
-//
+
 var isNav4, isIE4;
 if (parseInt(navigator.appVersion.charAt(0)) >= 4) {
   isNav4 = (navigator.appName == "Netscape") ? true : false;
@@ -263,10 +266,10 @@ function StaticTree(contentDiv,
       str += (this.isOpen) ? 
           "<IMG align='absmiddle' src='"+this.openedFolderImage+"' border='0' />" 
           : "<IMG align='absmiddle' src='"+this.closedFolderImage+"' border='0' />";
-      str += "<\/A>";
+      str += "<\\/A>";
     }
     
-    str += "<\/TD><TD valign=middle><NOBR>";
+    str += "<\\/TD><TD valign=middle><NOBR>";
     if (this.isLeaf) {
       if(theTree.selectLeaves) {
         str += "<input type='checkbox' name='check"+this.index+"' onClick='"+theTree.controlName+".selectLeaf("+this.index+")'";
@@ -292,12 +295,12 @@ function StaticTree(contentDiv,
     }
     str += this.nodeLabel;
 
-    str += "<\/FONT>";
+    str += "<\\/FONT>";
     if (this.chosen)
-      str += "<\/B>";
+      str += "<\\/B>";
 
-    str += "<\/NOBR>";
-    str += "<\/TD><\/TR><\/TABLE>\n";
+    str += "<\\/NOBR>";
+    str += "<\\/TD><\\/TR><\\/TABLE>\n";
     return str;
   };
     
@@ -337,7 +340,7 @@ StaticTree.prototype.display = function () {
 // scrollSpacer is added for browsers which do not allow JavaScript 
 // to scroll the window beyond the document length
   str += "<IMG src='" + this.spacerImage + "' height='100%' width='1' ";
-  str += "name='scrollSpacer' border='0'><\/form>";
+  str += "name='scrollSpacer' border='0'><\\/form>";
   this.contentDiv.innerHTML = str;      
 }
 

@@ -250,22 +250,20 @@ function StaticTree(contentDiv,
       }
       
       str +="'>";
+      str += "<IMG align='absmiddle' src='"+this.leafImage+"'>";
     } else {
-      str += "<A HREF='javascript:{}' onclick='theTree.expand("+this.index+");'>"
+      str += "<A HREF='javascript:{}' onclick='theTree.toggle("+this.index+");'>"
       str += "<IMG align='absmiddle' BORDER='0' SRC='";
       if (this.isOpen) {
         str += (lastChild) ? this.openedLImage : this.openedTImage;
       } else {
         str += (lastChild) ? this.closedLImage : this.closedTImage;
       }
-      str += "'></A>";
+      str += "'>";
+      str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
+      str += "</A>";
     }
     
-    if (this.isLeaf) {
-      str += "<IMG align='absmiddle' src='"+this.leafImage+"'>";
-    } else {
-      str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
-    }
     str += "</TD><TD valign=middle><NOBR>";
     if (this.isLeaf) {
       if(theTree.selectLeaves) {
@@ -286,9 +284,9 @@ function StaticTree(contentDiv,
     }
     if (this.chosen) {
       str += "<B>";
-      str += "<FONT size=3>";
+      str += "<FONT size='3'>";
     } else {
-      str += "<FONT size=1>";
+      str += "<FONT size='1'>";
     }
     str += this.nodeLabel;
 
@@ -348,7 +346,8 @@ StaticTree.prototype.display = function () {
 
 var lastChosen = null;
 
-function expand(index)  {
+// Change an open node to a closed one and visa versa
+function toggle(index)  {
 
 // Appended by ColinR: 
 // pageYOffset (etc) is detected so the newly rendered tree
@@ -373,7 +372,7 @@ function expand(index)  {
   
 }
 
-StaticTree.prototype.expand = expand;
+StaticTree.prototype.toggle = toggle;
 
 function selectLeaf(index) {
   var node = theTree.flattened[index];

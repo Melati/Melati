@@ -485,6 +485,7 @@ function getSelectedTroidsWithTable(table) {
   // In case someone forgets the onload in the body tag
   // :( does not work on IE, do remember to put this in your body tag
   //if (window.onload == null) window.onload = init;
+  // -->
 </script>
 
 

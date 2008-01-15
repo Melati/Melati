@@ -880,7 +880,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#duplicated()
    */
-  public JdbcPersistent duplicated() throws AccessPoemException {
+  public Persistent duplicated() throws AccessPoemException {
     assertNotFloating();
     assertNotDeleted();
     return (JdbcPersistent)clone();
@@ -890,7 +890,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#duplicatedFloating()
    */
-  public JdbcPersistent duplicatedFloating() throws AccessPoemException {
+  public Persistent duplicatedFloating() throws AccessPoemException {
     return (JdbcPersistent)clone();
   }
 

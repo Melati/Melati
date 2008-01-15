@@ -676,14 +676,14 @@ public interface Persistent extends Persistable, Treeable {
    * 
    * @return A floating clone
    */
-  JdbcPersistent duplicated() throws AccessPoemException;
+  Persistent duplicated() throws AccessPoemException;
 
   /**
    * Create a new persistent like this one, regardless of 
    * whether this Persistent has been written to the dbms yet.
    * @return A floating clone
    */
-  JdbcPersistent duplicatedFloating() throws AccessPoemException;
+  Persistent duplicatedFloating() throws AccessPoemException;
 
   /**
    * A string describing the object for the purposes of rendering it in lists
@@ -764,10 +764,6 @@ public interface Persistent extends Persistable, Treeable {
 
   /**
    * Optionally called before an instance is edited by the user.
-   * <p>
-   * Used in conjunction with {@link #postEdit(boolean)} and a
-   * {@link JdbcPersistent.Saved} this helps enforce data model
-   * constraints based on the columns that have changed.
    * <p>
    * See {@link #postEdit(boolean)} for additional comments.
    * However, it is not called when a newly created row is

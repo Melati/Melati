@@ -250,7 +250,7 @@ function StaticTree(contentDiv,
       }
       
       str +="'>";
-      str += "<IMG align='absmiddle' src='"+this.leafImage+"'>";
+      str += "<IMG align='absmiddle' src='"+this.leafImage+"' border='0' />";
     } else {
       str += "<A HREF='javascript:{}' onclick='theTree.toggle("+this.index+");'>"
       str += "<IMG align='absmiddle' BORDER='0' SRC='";
@@ -260,7 +260,9 @@ function StaticTree(contentDiv,
         str += (lastChild) ? this.closedLImage : this.closedTImage;
       }
       str += "'>";
-      str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
+      str += (this.isOpen) ? 
+          "<IMG align='absmiddle' src='"+this.openedFolderImage+"' border='0' />" 
+          : "<IMG align='absmiddle' src='"+this.closedFolderImage+"' border='0' />";
       str += "</A>";
     }
     

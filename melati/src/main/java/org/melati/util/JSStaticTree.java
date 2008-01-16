@@ -89,6 +89,12 @@ public class JSStaticTree extends Tree {
     imageBaseRef = staticURL;
   }
 
+  /**
+   * Constructor for an array.
+   * 
+   * @param nodes
+   * @param staticURL
+   */
   public JSStaticTree(Treeable[] nodes, String staticURL) { 
     super(nodes);    
     verticalLinkImage = staticURL + "/vertline.gif";

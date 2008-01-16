@@ -18,10 +18,17 @@ public abstract class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
 
+  /**
+   * Constructor.
+   */
   public JettyWebTestCase() {
     super();
   }
 
+  /**
+   * Constructor, with name.
+   * @param name
+   */
   public JettyWebTestCase(String name) {
     super(name);
   }
@@ -44,6 +51,11 @@ public abstract class JettyWebTestCase extends WebTestCase {
   protected void tearDown() throws Exception {
     super.tearDown();
   }
+  /**
+   * If you don't know by now.
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     server = new Server(8080);
     WebAppContext wac = new WebAppContext(
@@ -52,6 +64,9 @@ public abstract class JettyWebTestCase extends WebTestCase {
     server.addHandler(wac);
     server.start();
   }
+  /**
+   * Just to say hello.
+   */
   public void testIndex() {
     beginAt("/index.html");
     assertTextPresent("Hello World!");

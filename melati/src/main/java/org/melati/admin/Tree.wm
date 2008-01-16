@@ -4,7 +4,6 @@
 <!-- start org/melati/admin/Tree.wm -->
 <HTML>
 <head>
- <meta name="CVS Id" content="\$Id$">
  <title>
 #if ($melati.Object) #begin 
   $ml.rendered($melati.Object)
@@ -12,7 +11,8 @@
   $ml.rendered($melati.Table.DisplayName)
 #end
   Tree</title>
- <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">
 #if ($melati.Object) #begin 
   #set $tree=$admin.createTree($melati.Object)

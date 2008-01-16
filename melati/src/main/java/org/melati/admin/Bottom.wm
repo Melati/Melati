@@ -47,9 +47,9 @@
             "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
- <title>Website Admin Suite</title>
- <meta name="CVS Id" content="\$Id$">
- <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">
 </head>
 

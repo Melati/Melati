@@ -55,8 +55,8 @@
 <html>
 <head>
  <title>Edit a $ml.rendered($table.DisplayName) Record</title>
- <meta name="CVS Id" content="\$Id$">
- <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">
 </head>
 

@@ -3,8 +3,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <head>
- <meta name="CVS Id" content="\$Id$">
  <title>Tree</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+      type="text/css" media="screen">
 #set $tree=$admin.createTree($object)
 #if ($tree) #begin
  #if ($tree.flattened().size() < 2000) #begin

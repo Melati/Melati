@@ -93,6 +93,28 @@ public class AdminUtils {
     }
   }
   
+  /**
+   * @return the stylesheet for screen media  
+   */
+  public String getScreenStylesheetURL() { 
+    return staticURL + "/admin.css";
+  }
+  
+  /**
+   * @param melati the melati
+   * @param name of template
+   * @return name prepended with ldb, table and troid if not null
+   */
+  public String getURL(Melati melati, String name) { 
+    String url = servletUrl + "/" + logicalDatabase;
+    if (melati.getTable() != null)
+      url += "/" + melati.getTable().getName();
+    if (melati.getObject() != null)
+      url += "/" + melati.getObject().getTroid();
+    return url + "/" + name;
+  }
+  
+  
   /** @return The Main URL. */
   public String MainURL(String ld) {
     String url = servletUrl + "/" + ld;
@@ -356,7 +378,7 @@ public class AdminUtils {
   }
 
   /**
-   * @return Defaults to /MelatiStatic/admin/
+   * @return Defaults to /MelatiStatic/admin
    */
   public String getStaticURL() {
     return staticURL;

@@ -47,9 +47,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Add</title>
- <meta name="CVS Id" content="\$Id$">
- <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <title>Add a new $ml.rendered($table.DisplayName) record</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">
  <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 

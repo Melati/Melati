@@ -46,9 +46,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Navigation</title>
- <meta name="CVS Id" content="\$Id$">
- <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <title>Melati Database Admin Suite - Navigation</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">
 <script TYPE="text/javascript">
 <!--

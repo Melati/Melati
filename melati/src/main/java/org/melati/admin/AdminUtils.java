@@ -142,6 +142,21 @@ public class AdminUtils {
         "/Bottom";
   }
   /**
+   * @return The Bottom URL.
+   */
+  public String BottomURL(Melati melati) {
+    String url =  servletUrl + "/" + logicalDatabase + "/";
+    if (melati.getTable() != null)
+      url += melati.getTable().getName();
+    else 
+      url += "user";
+    
+    if (melati.getObject() != null)
+      url += "/" + melati.getObject().getTroid() ;
+    url += "/Bottom";
+    return url;
+  }
+  /**
    * @return The Left URL.
    */
   public String LeftURL(Melati melati) {
@@ -185,6 +200,21 @@ public class AdminUtils {
   public String SelectionURL(Table table) {
     return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection";
+  }
+  /**
+   * @return The Selection URL.
+   */
+  public String SelectionURL(Melati melati) {
+    if (melati.getTable() == null)
+      return getURL(melati, "blank");
+    else
+      return servletUrl + "/" + 
+          logicalDatabase + "/" + 
+          melati.getTable().getName()
+            + "/Selection" + 
+            (melati.getObject() == null ? 
+                "" : 
+                "?field_id=" + melati.getObject().troid()) ;
   }
   
   /**

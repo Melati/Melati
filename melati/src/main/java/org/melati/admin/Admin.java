@@ -776,6 +776,8 @@ public class Admin extends TemplateServlet {
       return uploadDoneTemplate(context);
     if (melati.getMethod().equals("Right"))
       return rightTemplate(context, melati);
+    if (melati.getMethod().equals("Selection"))
+      return selectionTemplate(context, melati);
     
     if (melati.getTable() != null || melati.getObject() != null) {
       if (melati.getMethod().equals("Tree"))
@@ -807,8 +809,6 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("Upload"))
         return uploadTemplate(context);
       
-      if (melati.getMethod().equals("Selection"))
-        return selectionTemplate(context, melati);
       if (melati.getMethod().equals("SelectionRight"))
         return selectionRightTemplate(context, melati);
       if (melati.getMethod().equals("Navigation"))

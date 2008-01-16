@@ -55,7 +55,7 @@
 
 <frameset frameborder="no" rows="44,*">
  <frame src="$admin.TopURL($melati)" name="admin_top" scrolling="no" frameborder="0" marginwidth="6" marginheight="2">
- <frame src="$admin.StaticURL/blank.html" marginwidth="6" marginheight="2" name="admin_bottom" scrolling="auto" frameborder="0">
+ <frame src="$admin.BottomURL($melati)" marginwidth="6" marginheight="2" name="admin_bottom" scrolling="auto" frameborder="0">
 </frameset>
 
 <noframes>

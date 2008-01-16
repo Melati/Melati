@@ -69,8 +69,8 @@
            marginheight="0" 
 #if ($melati.Object) #begin
            name="admin_edit$melati.Table.Name$melati.Object.troid()" 
-           frameborder="0" scrolling="auto">
 #end
+           frameborder="0" scrolling="auto">
   </frameset>
 
 <noframes>

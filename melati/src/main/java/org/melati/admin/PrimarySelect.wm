@@ -105,7 +105,7 @@
 // -->
 </SCRIPT>
 </HEAD>
-<BODY BGCOLOR="#dddddd" onLoad="goto_page()" id="primarySelect">
+<BODY BGCOLOR="#dddddd" id="primarySelect">
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
  <table cellspacing="2" cellpadding="2" border="0" width="100%">

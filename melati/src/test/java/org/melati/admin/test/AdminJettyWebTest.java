@@ -48,7 +48,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTop() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/Top");
-    assertTextPresent("Melati Admin Suite");
+    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
   }
   /**
    * 
@@ -56,7 +56,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTopWithTable() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/user/Top");
-    assertTextPresent("Melati Admin Suite");
+    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
   }
   /**
    * 
@@ -64,7 +64,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTopWithTableAndTroid() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/user/0/Top");
-    assertTextPresent("Melati Admin Suite");
+    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
   }
   
   /**

@@ -54,11 +54,7 @@
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 <SCRIPT Language="JavaScript" type="text/javascript">
 <!-- 
-  var newURL = "$admin.SelectionURL($table)";
-  function get_list() {
-    parent.admin_selection.location.href = newURL;
-    return false;
-  }
+#if ($primaryCriterion) #begin
   function goto_page() {
     var selector;
     selector = document.forms[0].elements[0];
@@ -66,9 +62,7 @@
     if (option != "null") parent["admin_selection"].location = option;
     return false;
   }
-  #if ($primaryCriterion) #begin
-    var chooseURL = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=";
-  #end
+  var chooseURL = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=";
   function goto_page2() {
     var url = chooseURL + document.forms[0].elements[0].value;
     parent["admin_selection"].location = url;
@@ -81,6 +75,13 @@
     popupwin.close();
 	goto_page2();
   }
+#end #else #begin 
+  function goto_page() {
+    parent.admin_selection.location.href = "$admin.SelectionURL($table)";
+    return false;
+  }
+
+#end
 // -->
 </SCRIPT>
 </HEAD>

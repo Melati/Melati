@@ -47,6 +47,7 @@
 #if ($object.Description) #begin
         title="$object.Description">
 #end
+>
   #foreach $poss in $object.First1000Possibilities #begin
     <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($object)) #begin

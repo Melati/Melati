@@ -757,7 +757,8 @@ public class Admin extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
-
+    if (Form.getField(context, "goto", null) != null)
+      melati.getResponse().sendRedirect(Form.getField(context, "goto", null));
     melati.setResponseContentType("text/html");
 
     Capability admin = PoemThread.database().getCanAdminister();

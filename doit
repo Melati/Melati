@@ -1,2 +1,2 @@
-mvn clean source:jar javadoc:jar install site site:deploy 
-maven -DentityExpansionLimit=72000 multiproject:site
+mvn clean source:jar javadoc:jar install deploy site site:deploy 
+# maven -DentityExpansionLimit=72000 multiproject:site

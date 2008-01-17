@@ -55,7 +55,7 @@
   function popupupdate (returnfield,id,value) {
     parent.opener.popupupdate(parent,returnfield,id,value)
   }
--->
+//-->
 </SCRIPT>
 </HEAD>
 

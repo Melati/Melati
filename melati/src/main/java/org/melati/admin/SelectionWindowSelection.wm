@@ -52,7 +52,7 @@
       type="text/css" media="screen">
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
-  function popupupdate (returnfield,id,value) {
+  function updateCallingFrame(returnfield,id,value) {
     parent.opener.popupupdate(parent,returnfield,id,value)
   }
 //-->
@@ -98,7 +98,7 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
     #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
+	<TD bgcolor="$color"><a onClick ="updateCallingFrame('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field)</font></TD>

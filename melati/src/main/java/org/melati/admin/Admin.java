@@ -123,7 +123,7 @@ public class Admin extends TemplateServlet {
   /**
    * Creates a row for a table using field data in a template context.
    */
-  protected Persistent create(Table table, final ServletTemplateContext context) {
+  static protected Persistent create(Table table, final ServletTemplateContext context) {
     Persistent result =
       table.create(
         new Initialiser() {
@@ -139,14 +139,14 @@ public class Admin extends TemplateServlet {
   /**
    * Return the resource path for an admin template.
    */
-  protected final String adminTemplate(String name) {
+  static protected final String adminTemplate(String name) {
     return "org/melati/admin/"  + name;
   }
 
   /**
    *  @return a DSD for the database
    */
-  protected String dsdTemplate(ServletTemplateContext context) {
+  static protected String dsdTemplate(ServletTemplateContext context) {
     context.put("database", PoemThread.database());
     // Webmacro security prevents access from within template
 
@@ -165,21 +165,20 @@ public class Admin extends TemplateServlet {
   /**
    *  @return the 'left' admin page
    */
-  protected String leftTemplate()
-  throws PoemException {
+  static protected String leftTemplate() throws PoemException {
     return adminTemplate("Left");
   }
 
   /**
    *  @return primary select template
    */
-  protected String primarySelectTemplate(ServletTemplateContext context, Melati melati)
+  static protected String primarySelectTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     primarySelect(context, melati);
     return adminTemplate("PrimarySelect");
   }
 
-  protected ServletTemplateContext primarySelect(ServletTemplateContext context,
+  static protected ServletTemplateContext primarySelect(ServletTemplateContext context,
                                           Melati melati)
       throws PoemException {
     final Table table = melati.getTable();
@@ -212,7 +211,7 @@ public class Admin extends TemplateServlet {
   /**
    * Return template for a selection of records from a table.
    */
-  protected String selectionTemplate(ServletTemplateContext context, Melati melati)
+  static protected String selectionTemplate(ServletTemplateContext context, Melati melati)
   {
     selection(context, melati);
     return adminTemplate("Selection");
@@ -223,7 +222,7 @@ public class Admin extends TemplateServlet {
    *
    * @return SelectionRight template. 
    */
-  protected String selectionRightTemplate(ServletTemplateContext context, 
+  static protected String selectionRightTemplate(ServletTemplateContext context, 
                                           Melati melati) {
     selection(context, melati);
     return adminTemplate("SelectionRight");
@@ -252,7 +251,7 @@ public class Admin extends TemplateServlet {
    * @return The modified context.
    * @see #adminTemplate(ServletTemplateContext, String)
    */
-  protected ServletTemplateContext selection(ServletTemplateContext context, 
+  static protected ServletTemplateContext selection(ServletTemplateContext context, 
                                              Melati melati) {
     final Table table = melati.getTable();
     context.put("table", table);
@@ -344,7 +343,7 @@ public class Admin extends TemplateServlet {
   /**
    *  @return the 'navigation' admin page
    */
-  protected String navigationTemplate(ServletTemplateContext context, Melati melati)
+  static protected String navigationTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     context.put("database", PoemThread.database());
     final Table table = melati.getTable();
@@ -358,13 +357,13 @@ public class Admin extends TemplateServlet {
    * The default template name is "PopupSelect".
    *  
    */
-  protected String popUpTemplate(ServletTemplateContext context, Melati melati)
+  static protected String popUpTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     popup(context, melati);
     return adminTemplate("PopupSelect");
   }
 
-  protected ServletTemplateContext popup(ServletTemplateContext context, Melati melati)
+  static protected ServletTemplateContext popup(ServletTemplateContext context, Melati melati)
       throws PoemException {
     final Table table = melati.getTable();
     context.put("table", table);
@@ -425,7 +424,7 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  protected String selectionWindowTemplate(ServletTemplateContext context, 
+  static protected String selectionWindowTemplate(ServletTemplateContext context, 
                                            Melati melati)
       throws PoemException {
     context.put("database", PoemThread.database());
@@ -436,7 +435,7 @@ public class Admin extends TemplateServlet {
   /**
    *  @return primary select template
    */
-  protected String selectionWindowPrimarySelectTemplate(ServletTemplateContext context,
+  static protected String selectionWindowPrimarySelectTemplate(ServletTemplateContext context,
                                                         Melati melati)
       throws PoemException {
     primarySelect(context, melati);
@@ -446,7 +445,7 @@ public class Admin extends TemplateServlet {
   /**
    *  @return select template (a selection of records from a table)
    */
-  protected String selectionWindowSelectionTemplate(ServletTemplateContext context,
+  static protected String selectionWindowSelectionTemplate(ServletTemplateContext context,
                                                     Melati melati) {
     selection(context, melati);
     return adminTemplate("SelectionWindowSelection");
@@ -458,7 +457,7 @@ public class Admin extends TemplateServlet {
    * FIXME Why is this not called
    * <code>createColumnTemplate()</code>? 
    */
-  protected String columnCreateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String columnCreateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
 
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
@@ -486,7 +485,7 @@ public class Admin extends TemplateServlet {
    * TODO The request method, java method and template name do
    * not follow the naming conventions.
    */
-  protected String tableCreateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String tableCreateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     Database database = melati.getDatabase();
 
@@ -523,7 +522,7 @@ public class Admin extends TemplateServlet {
    * FIXME The request method, java method and template name do
    * not follow the naming conventions .
    */
-  protected String tableCreate_doitTemplate(ServletTemplateContext context,
+  static protected String tableCreate_doitTemplate(ServletTemplateContext context,
                                             Melati melati)
       throws PoemException {
     Database database = melati.getDatabase();
@@ -541,7 +540,7 @@ public class Admin extends TemplateServlet {
    * <p>
    * The template served is "CreateTable_doit".
    */
-  protected String columnCreate_doitTemplate(final ServletTemplateContext context,
+  static protected String columnCreate_doitTemplate(final ServletTemplateContext context,
                                              final Melati melati)
       throws PoemException {
 
@@ -569,7 +568,7 @@ public class Admin extends TemplateServlet {
    * <p>
    * Put objects required by editing templates in the context.
    */
-  protected ServletTemplateContext prepareContextForEditting(ServletTemplateContext context,
+  static protected ServletTemplateContext prepareContextForEditting(ServletTemplateContext context,
                                             Melati melati)
       throws PoemException {
     if (melati.getObject() != null) { 
@@ -581,30 +580,30 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  protected String rightTemplate(ServletTemplateContext context, Melati melati)
+  static protected String rightTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
     return adminTemplate("Right");
   }
 
-  protected String editHeaderTemplate(ServletTemplateContext context, Melati melati)
+  static protected String editHeaderTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
     return adminTemplate("EditHeader");
   }
 
-  protected String editTemplate(ServletTemplateContext context, Melati melati)
+  static protected String editTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
     return adminTemplate("Edit");
   }
 
-  protected String treeTemplate()
+  static protected String treeTemplate()
       throws PoemException {
     return adminTemplate("Tree");
   }
 
-  protected String treeControlTemplate(ServletTemplateContext context, Melati melati)
+  static protected String treeControlTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
     return adminTemplate("TreeControl");
@@ -615,7 +614,7 @@ public class Admin extends TemplateServlet {
    * the new row in the context using any field values already in
    * the context.
    */
-  protected String addTemplate(ServletTemplateContext context, Melati melati)
+  static protected String addTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
 
     context.put("table", melati.getTable());
@@ -642,7 +641,7 @@ public class Admin extends TemplateServlet {
    * If successful the template will say so while reloading according
    * to the returnTarget and returnURL values from the Form in context.
    */
-  protected String updateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String updateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     Persistent object = melati.getObject();
     object.preEdit();
@@ -658,14 +657,14 @@ public class Admin extends TemplateServlet {
    * If successful the template will say so while reloading according
    * to the returnTarget and returnURL values from the Form in context.
    */
-  protected String addUpdateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String addUpdateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     Persistent object = create(melati.getTable(), context);
     context.put("object", object);
     return adminTemplate("Update");
   }
 
-  protected String deleteTemplate(ServletTemplateContext context, Melati melati)
+  static protected String deleteTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     try {
       melati.getObject().delete();
@@ -678,7 +677,7 @@ public class Admin extends TemplateServlet {
     }
   }
 
-  protected String duplicateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String duplicateTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     Persistent dup = melati.getObject().duplicated();
     Form.extractFields(context, dup);
@@ -696,7 +695,7 @@ public class Admin extends TemplateServlet {
    * @see #deleteTemplate(ServletTemplateContext, Melati)
    * @see #duplicateTemplate(ServletTemplateContext, Melati)
    */
-  protected String modifyTemplate(ServletTemplateContext context, Melati melati)
+  static protected String modifyTemplate(ServletTemplateContext context, Melati melati)
       throws FormParameterException {
     String action = melati.getRequest().getParameter("action");
     if ("Update".equals(action))
@@ -710,7 +709,7 @@ public class Admin extends TemplateServlet {
                                        "bad action from Edit: " + action);
   }
 
-  protected String uploadTemplate(ServletTemplateContext context)
+  static protected String uploadTemplate(ServletTemplateContext context)
       throws PoemException {
     context.put("field", context.getForm("field"));
     return adminTemplate("Upload");
@@ -731,7 +730,7 @@ public class Admin extends TemplateServlet {
    * @return a template name
    */
 
-  protected String uploadDoneTemplate(ServletTemplateContext context)
+  static protected String uploadDoneTemplate(ServletTemplateContext context)
       throws PoemException {
     String field = context.getForm("field");
     context.put("field", field);

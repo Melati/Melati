@@ -149,7 +149,7 @@ public class AdminUtils {
     if (melati.getTable() != null)
       url += melati.getTable().getName();
     else 
-      url += "user";
+      url += "setting";  //NOTE Setting default table to display to setting
     
     if (melati.getObject() != null)
       url += "/" + melati.getObject().getTroid() ;

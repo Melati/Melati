@@ -52,7 +52,7 @@
 <script Language="JavaScript" type="text/javascript">
   function goto_page() {
    var selector;
-   selector = document.forms[0].mainmenu;
+   selector = document.forms[0].goto;
    var option = selector.options[selector.selectedIndex].value;
    if (option != "null") parent["admin_bottom"].location = option;
    return false;
@@ -62,7 +62,7 @@
 </head>
 
 <body bgcolor="#dddddd" onLoad="goto_page()" id="top">
-<form method="get" target="admin_bottom" action="$admin.BottomURL($melati)">
+<form method="get" target="admin_bottom" action="">
 <table cellpadding="2" cellspacing="2" border="0" width="100%">
 <tr>
 <td align="left" valign="middle">
@@ -74,7 +74,7 @@
 </td>
 <td align="left" valign="middle">
 <font size="-1" face="Arial, Helvetica">
-<select name="mainmenu" OnChange="return(goto_page());" title="Select table to edit">
+<select name="goto" OnChange="goto_page();" title="Select table to edit">
 
 #set $lasttype = ""
 #set $selected = false
@@ -106,6 +106,13 @@
 </font></td>
 <td align="right" valign="middle">
 <font size="-2" face="Arial, Helvetica">
+<noscript>
+<div id="message">
+  <font color="green">
+  Enable javascript for tree browsing.
+  </font>
+</div>
+</noscript>
 #if ($melati.User.isAdministrator()) #begin
 <a href="$admin.SessionURL()" target="admin_bottom" 
    title="Database sessions available and in use">Sessions</a>

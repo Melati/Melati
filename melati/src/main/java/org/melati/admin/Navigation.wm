@@ -74,17 +74,6 @@
 <TABLE cellpadding="0" cellspacing="0" border="0">
 <TR>
 <TD>
-<!-- Only konqueror gets this right -->
- <script type="text/javascript"> 
- <!--
-//  document.write(" <a href='#' ");
-//  document.write("    onClick ='openWindow();'"); 
-//  document.write("    title='Open search window'><IMG ");
-//  document.write("    src='$admin.StaticURL/search.gif' ");
-//  document.write("    border='0' ");
-//  document.write("    alt='Search $table.DisplayName' /></a>");
- // -->
- </script>
    <a href='$admin.PopUpURL($melati.Table)' 
       target="search"
       onClick ='openWindow();'

@@ -52,8 +52,8 @@
       type="text/css" media="screen">
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
-  function updateCallingFrame(returnfield,id,value) {
-    parent.opener.popupupdate(parent,returnfield,id,value)
+  function updateCaller(returnfield,id,value) {
+    parent.opener.updateFromPopup(parent,returnfield,id,value)
   }
 //-->
 </SCRIPT>
@@ -66,20 +66,20 @@
 #if ($results) #begin
 <form action="">
 
-#if ($results.PrevPageStart) #begin
+  #if ($results.PrevPageStart) #begin
 <FONT face="Arial, Helvetica" size="-2">
  <input type="button" name="Prev" value="<< Prev"
         ONCLICK="location.href='SelectionWindowSelection?start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
 </font>
-#end
+  #end
 <b><FONT face="Arial, Helvetica" size="-1">
 Records $results.PageStart to $results.PageEnd of $results.TotalCount
 </FONT>
 </b>
 
-#if ($results.NextPageStart) #begin
+  #if ($results.NextPageStart) #begin
 <FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
-#end
+  #end
 
 </form>
   <TABLE CELLSPACING="0" cellpadding="0" border="0" width="100%">
@@ -87,32 +87,36 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
 	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
 	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
 	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
-      #foreach $column in $table.SummaryDisplayColumns #begin
+  #foreach $column in $table.SummaryDisplayColumns #begin
 	<TH align="left" valign="bottom"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($column.DisplayName)</font></TH>
 	  <th><FONT SIZE="1">&nbsp;</FONT></th>
-      #end
+  #end
     </TR>
-	#set $color1 = "#E9EDFD"
-	#set $color2 = "#FFFFFF"
-	#set $color = $color1
-    #foreach $result in $results #begin
+  #set $color1 = "#E9EDFD"
+  #set $class1 = "row1"
+  #set $color2 = "#FFFFFF"
+  #set $class2 = "row2"
+  #set $color = $color1
+  #set $class = $class2
+  #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a onClick ="updateCallingFrame('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
+	<TD bgcolor="$color"><a onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field)</font></TD>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#end
       </TR>
-	  #if ($color == $color1) #begin
-	  #set $color = $color2
-	  #end #else #begin
-	  #set $color = $color1
-	  #end
+    #if ($color == $color1) #begin
+      #set $color = $color2
+      #set $class = $class2
+    #end #else #begin
+      #set $color = $color1
+      #set $class = $class1
     #end
+  #end
   </TABLE>
-
 #end
 
 </DIV>

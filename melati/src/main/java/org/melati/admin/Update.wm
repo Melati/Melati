@@ -43,6 +43,8 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+## TODO rename to Updated
+##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
@@ -71,12 +73,12 @@
   #end #else #begin
     #if ($Form.returnfield) #begin
       <script language="JavaScript" TYPE="text/javascript">
-        function popupupdate(returnfield, id, value) {
-          opener.popupupdate(parent, returnfield, id, value)
+        function updateCaller(returnfield, id, value) {
+          opener.updateFromPopup(parent, returnfield, id, value)
         }
       </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="popupupdate('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
+<BODY bgcolor="#cccccc" onLoad="updateCaller('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
     #end #else #begin
 </HEAD>
 <BODY bgcolor="#cccccc">

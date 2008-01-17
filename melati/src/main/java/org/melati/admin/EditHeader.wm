@@ -64,12 +64,17 @@
 <table cellpadding="4" cellspacing="4" width="100%">
  <tr>
   <td valign="top">
-   <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-      target="admin_edit$object.Table.Name$object.troid()" 
-      title="Display tree view"><img 
-          src="$admin.StaticURL/tree.gif" 
-          alt="Tree view" border="0" />
-   </a>
+ <script type="text/javascript"> 
+ <!--
+  document.write ("<a href='$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
+  document.write ("   target='admin_edit$object.Table.Name$object.troid()' ");
+  document.write ("   title='Display tree view'><img ");
+  document.write ("   src='$admin.StaticURL/tree.gif' ");
+  document.write ("   alt='Tree view' border='0' />");
+  document.write ("</a>");
+ // -->
+ </script>
+  
    &nbsp;<div style='display:inline;' #if($table.Description) #begin title='$table.Description' #end>
    <font face="Arial, Helvetica" size="2">$table.DisplayName</font></div><font 
      face="Arial, Helvetica" size="2">:

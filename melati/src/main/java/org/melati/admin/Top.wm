@@ -91,11 +91,13 @@
   #if ($melati.Table != null) #begin 
    #if ($melati.Table.equals($tab)) #begin  
     selected="selected"
-#set $selected = true
+     #set $selected = true
    #end
-  #end #else #begin  ## select the first one
+  #end #else #begin  
+    #if ($tab.Name = "setting") #begin
     selected="selected"
-#set $selected = true
+      #set $selected = true
+    #end
   #end
 #end
 > $ml.rendered($tab.DisplayName)</option>

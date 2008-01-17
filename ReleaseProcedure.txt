@@ -1,43 +1,12 @@
 Hello,
 
-The scripts in this directory provide a means of building melati 
-and poem using Ant. 
-Whilst this works, Melati is normally built using Maven. 
-
-The original ant script was written by kimptoc@techie.com.
+Melati is built using Maven. 
 
 HOW TO USE
 
-You need a modern version of ant (1.5 or higher).
-
-If you just type ant you will be given a list of available options. 
-
 To build a distributable copy of Melati just type:
 
-ant build
-
-It will create a directory
-   .../dist/ in which the distribution is created.
-
-To run the Melati site on the jetty webserver type:
-
-ant run 
-
-and point your browser at http://localhost:8080/
-
-or to do both just type:
-
-ant go
-
-RELATIONSHIP to MAVEN
-
-We now use Maven http://maven.apache.org/ though are currently still 
-using V1.
-
-The public versions of the site are all pointing to the 
-Maven generated site. 
-These scripts are left here for the convenience of those who use them, 
-but they are deprecated and not what drives http://melati.org
+../doit
 
 
 MAKING A RELEASE
@@ -45,28 +14,25 @@ MAKING A RELEASE
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1.  Change the version number and date in build.xml
+1.  Change the version number and date in ../pom.xml and ../project.xml
 1a. Remove SNAPSHOT from currentVersion in ../project.xml 
     and increment it. 
 2.  If your change requires upgrade action by the user make a note
-    in the Upgrading section of melati/README.html
+    in the Upgrading section of ../melati/README.html
 3.  Change Last Updated and Updated By and add a new paragraph to 
-    melati/RELEASE-NOTES.html
-4.  Add a paragraph about this release to melati/site/docsrc/Releases.ahtml
-    Update melati/site/docsrc/Download.ahtml
-    Review melati/site/docsrc/Roadmap.ahtml
+    ../melati/RELEASE-NOTES.html
+4.  Add a paragraph about this release to ../melati/site/xdoc/Releases.xml
+    Update ../melati/site/xdoc/Download.ahtml
+    Review ../melati/site/xdoc/Roadmap.ahtml
 5.  CVS commit all of the above
-    except project.xml
-6.  CVS tag this release (cvs tag Melati-0-7-5)
+6.  CVS tag this release (cvs tag Melati-0-7-8)
 9.  Test everything
 10. Commit project.xml to initiate a maven build on the server
 11. On rama:
     cd /dist/melati
     cvs update
-    cd build 
-    ant build
-12. Copy downloadable  jars and zips to 
-    cp dist/packaged/*.* /dist/melati/download/
+    mvn install
+12. 
 13. Update sourceforge
 cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
 cvs -d:ext:developername@melati.org:/usr/cvsroot export melati
@@ -94,6 +60,7 @@ cvs commit
 16. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
 17. Add SNAPSHOT to currentVersion in ../project.xml
+18. Add SNAPSHOT to currentVersion in ../pom.xml
 
 
 

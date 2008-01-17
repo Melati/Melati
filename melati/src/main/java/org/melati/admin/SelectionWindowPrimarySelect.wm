@@ -53,17 +53,17 @@
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 <SCRIPT Language="JavaScript" type="text/javascript">
 <!--
-	var newURL = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
-	function get_list() {
-	  parent.selectionwindow_selection.location.href = newURL;
-	  return false;
-	}
-	function popupupdate(popupwin,returnfield,id,value) {
-		var returnfieldummy = returnfield + "_dummy";
-		document.forms[0].elements[returnfield].value = id;
-		document.forms[0].elements[returnfieldummy].value = value;
-		popupwin.close();
-	}
+  var newURL = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
+  function get_list() {
+    parent.selectionwindow_selection.location.href = newURL;
+    return false;
+  }
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+  }
 //-->
 </script>
 </HEAD>
@@ -82,18 +82,30 @@
    </td>
    <td></td>
    <td align="right" rowspan="2">
-<A HREF='$admin.AddURL($table)?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield")' target=selectionwindow_selection><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a></td>
+     <A href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield")' 
+        target=selectionwindow_selection><IMG 
+        src="$admin.StaticURL/new_dir.gif" 
+        border="0" 
+        alt="New $table.DisplayName" /></a>
+   </td>
   </tr>
   <tr>
    <td></td>
    <td>
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionWindowSelectionURL($table)" target="selectionwindow_selection">
-    <FONT face="Arial, Helvetica" size="-1">
-     $ml.input($primaryCriterion)
-     <input type="hidden" name="returnfield" value="$Form.returnfield">
-     <INPUT NAME="action" VALUE=" Go " TYPE="submit">
-    </font>
+  <font face="Arial, Helvetica" size="-1">
+    $ml.input($primaryCriterion)
+    <input type="hidden" name="returnfield" value="$Form.returnfield">
+    <input 
+      type="image" 
+      src="$admin.StaticURL/display.gif"
+      name="action" 
+      value=" Go " 
+      title="Select matching input $primaryCriterion.DisplayName" 
+      style="vertical-align:top;" 
+    />
+  </font>
 </FORM>
 #end #else #begin
     &nbsp;

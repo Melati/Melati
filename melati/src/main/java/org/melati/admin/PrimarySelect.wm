@@ -60,24 +60,17 @@
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
   function goto_page() {
-    var selector;
-    selector = document.forms[0].elements[0];
-    var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-    if (option != "null") parent["admin_selection"].location = option;
-    return false;
-  }
-  function goto_page2() {
     var url = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
     parent["admin_selection"].location = url;
     return false;
   }
-  function popupupdate(popupwin,returnfield,id,value) {
+  function updateFromPopup(popupwin,returnfield,id,value) {
     var returnfieldummy = returnfield + "_dummy";
     document.forms[0].elements[returnfield].value = id;
     document.forms[0].elements[returnfieldummy].value = value;
     popupwin.close();
-	  goto_page2();
+	goto_page();
   }
     #end #else #begin 
   function goto_page() {
@@ -98,7 +91,7 @@
   #end 
 #end #else #begin 
   function goto_page() {
-    parent.admin_selection.location.href = "$admin.SelectionURL($table)";
+    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table)";
     return false;
   }
 #end
@@ -107,7 +100,7 @@
 </HEAD>
 <BODY BGCOLOR="#dddddd" id="primarySelect">
 #if ($primaryCriterion) #begin
-<FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
+<FORM METHOD="GET" action="$admin.SelectionURL($melati.Table)" target="admin_selection">
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>
    <td align="right" valign="middle">
@@ -177,17 +170,23 @@
     <font face="Arial, Helvetica" size="-1"><a 
         href='$admin.AddURL($primaryCriterion.getType().targetTable())' 
         title="New $primaryCriterion.DisplayName" 
-        target="admin_record"><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName"></a>
+        target="admin_record"><IMG 
+            src="$admin.StaticURL/new_dir.gif" 
+            border="0" 
+            alt="New $primaryCriterion.DisplayName"></a>
     </font>
   #end #else #begin
     <font face="Arial, Helvetica" size="-1">$ml.input($primaryCriterion)</font>
-    <font face="Arial, Helvetica" size="-1"><INPUT 
+    <font face="Arial, Helvetica" size="-1">
+      <input
         type="image" 
-        NAME="action" 
-        VALUE=" Go " 
         src="$admin.StaticURL/display.gif"
+        name="action" 
+        value=" Go " 
         title="Select matching input $primaryCriterion.DisplayName" 
-        style="vertical-align:top;" /></font>
+        style="vertical-align:top;" 
+      />
+    </font>
    </td>
    <td>&nbsp;
   #end

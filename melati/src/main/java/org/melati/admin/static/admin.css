@@ -33,6 +33,12 @@ BODY {
 A {
  text-decoration: none;
 }
+row1 { 
+ background-color: #E9EDFD;
+}
+row2 {
+ background-color: #FFFFFF;
+}
 /* Tree nodes*/
 A.node {
  text-decoration: none;

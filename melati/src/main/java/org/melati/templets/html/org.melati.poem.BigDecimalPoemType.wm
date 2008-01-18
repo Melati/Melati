@@ -44,11 +44,12 @@
 ##
 
 <input name="field_$ml.rendered($field.Name)" 
+       size="$field.Width"
+       value="$ml.Attr.rendered($field.RawString)" 
 #if ($field.Description) #begin
        title="$field.Description"
 #end
-       size="$field.Width"
-       value="$ml.Attr.rendered($field.RawString)" />
+/>
 
 <script language="JavaScript1.2" type="text/javascript">
   add_fixed_number("field_$ml.escaped($field.Name)",

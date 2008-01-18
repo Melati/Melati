@@ -71,8 +71,8 @@
 </script>
 
 <a href="#anchor_$ml.escaped($field.Name)" onClick="popup = window.open('imagename_$ml.escaped($field.Name)','Zoom','scrollbars=yes,width=650,height=450');popup.focus()"><img src="$field.RawString" 
-width="40" height="40" 
-name="$ml.escaped($field.Name)" align="top" 
+   width="40" height="40" 
+   name="$ml.escaped($field.Name)" align="top" 
 
 #if ($field.Description) #begin
  title="$field.Description"

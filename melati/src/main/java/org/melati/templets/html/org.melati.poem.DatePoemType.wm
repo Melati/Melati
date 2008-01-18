@@ -52,7 +52,8 @@
        title="$field.Description"
 #end
        size="10"
-       value="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))" /> (dd/mm/yyyy)
+       value="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))" 
+/> (dd/mm/yyyy)
 
 <script language="JavaScript1.2" type="text/javascript">
   add_date("field_$ml.escaped($field.Name)",

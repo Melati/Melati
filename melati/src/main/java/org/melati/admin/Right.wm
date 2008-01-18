@@ -59,7 +59,7 @@
 #set $returns = "$returns&amp;returnURL=$ml.encoded($Form.returnURL)"
 #end
 
-  <frameset frameborder="no" rows="45,*">
+  <frameset frameborder="no" rows="46,*">
     <frame src='$admin.EditHeaderURL($melati)?$returns' 
            marginwidth="0" 
            marginheight="0" 

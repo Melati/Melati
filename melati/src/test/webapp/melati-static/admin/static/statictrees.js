@@ -2,11 +2,11 @@
 // $Source$
 // $Revision$
 //
-// copyright MJ Chippendale 12/02/2002
+// Copyright MJ Chippendale 12/02/2002
 //
 // This files contains Javascript classes defining an abstract TreeNode
 // containing data, and an object/application using them - Static
-// Tree. This provides a frames based implementation of an 
+// Tree. This provides an implementation of an 
 // expandable/collapsible tree
 //
 // You can contol whether to display checkboxes against 
@@ -17,6 +17,7 @@
 //
 // Author: MJ Chippendale 12/02/2002
 //         TP Pizey       12/02/2002
+//         TP Pizey       15/01/2008
 //
 //
 // See: org/melati/util/JSStaticTree.java
@@ -29,8 +30,9 @@
 //  Generate indexes in data
 //  Remove UniqueName ???
 //
+
 // Browser sniffing code
-//
+
 var isNav4, isIE4;
 if (parseInt(navigator.appVersion.charAt(0)) >= 4) {
   isNav4 = (navigator.appName == "Netscape") ? true : false;
@@ -70,7 +72,7 @@ TreeNode.prototype.getChildren = function (dontload) {
 //    loadNodeLabel("new_data.html");
     var URL="new_data.html";
     if (isNav4) document.layers["loadbuffer"].load(URL,0);
-    else parent.loadframe.document.location = URL;
+    else document.location = URL;
     return null;
   }
   return this.children;
@@ -112,15 +114,12 @@ TreeNode.prototype.flatten = function (depthFirst, depth, dontload) {
 // There can only be one tree per document - and this is it
 var theTree = null;
 
+
 // ***********************
 // StaticTree Objects
 // ***********************
 
-// displayFrame      - the (javascript object) frame to write the tree to
-// controlFrameName  - the (string) name of the frame in which this
-//                     script is, _relative to the displayFrame_
-
-function StaticTree(displayFrame, controlFrameName,
+function StaticTree(contentDiv,
                     roots, 
                     selectNodes, selectLeaves,
                     backgroundColour, stylesheet,
@@ -133,17 +132,14 @@ function StaticTree(displayFrame, controlFrameName,
   // *******************
   // StaticTree members
   // *******************
+  this.contentDiv = contentDiv;
   this.roots = roots; // Should be an array of TreeNodes
   this.flattened = new Array();
-  this.frame = displayFrame;
-  this.controlName = controlFrameName;
   this.selectNodes = selectNodes;
   this.selectLeaves = selectLeaves;
   this.backgroundColour = backgroundColour;
   this.stylesheet = stylesheet;
   this.spacerImage = spacerImage;  // needed in nodes and in tree
-
-  theTree = this;
 
   // -----------------------------
   // Subclassed TreeNode variables
@@ -170,8 +166,9 @@ function StaticTree(displayFrame, controlFrameName,
   TreeNode.prototype.writeNode = writeNode;
   TreeNode.prototype.writeTree = writeTree;
 
-  function writeTree(doc,lastChild, aboves) {
-    this.writeNode(doc,lastChild,aboves);
+  function writeTree(lastChild, aboves) {
+    var str;
+    str = this.writeNode(lastChild,aboves);
     if (this.isOpen) {
       var kids = this.getChildren(true);
       var newAboves = new Array();
@@ -179,14 +176,14 @@ function StaticTree(displayFrame, controlFrameName,
         newAboves[i] = aboves[i];
       newAboves[newAboves.length] = !lastChild;
       for(var i=0; i<kids.length; i++) {
-        kids[i].writeTree(doc,i==kids.length-1, newAboves);
+        str = str + kids[i].writeTree(i==kids.length-1, newAboves);
       }
     }
+    return str;
   };
 
-  function writeNode(doc,lastChild,aboves) {
-  
-    var str = "<TABLE NOWRAP CELLPADDING=0 CELLSPACING=0 BORDER=0><TR><TD valign=middle>";
+  function writeNode(lastChild,aboves) {
+    var str = "<TABLE NOWRAP CELLPADDING='0' CELLSPACING='0' BORDER='0'><TR><TD valign='middle'>";
 
     for(var i=0; i<aboves.length; i++)
     {
@@ -200,30 +197,35 @@ function StaticTree(displayFrame, controlFrameName,
     
     if (this.isLeaf) {
       str += "<IMG align='absmiddle' BORDER=0 SRC='";
-      str += (lastChild) ? this.leafLImage : this.leafTImage;
+      if (lastChild == true) { 
+        str += this.leafLImage;
+      } else { 
+        str += this.leafTImage;
+      }
+      
       str +="'>";
+      str += "<IMG align='absmiddle' src='"+this.leafImage+"' border='0' />";
     } else {
-      str += "<A HREF='javascript:"+theTree.controlName+".expand(";
-      str += this.index+");'><IMG align='absmiddle' BORDER=0 SRC='";
+      str += "<A HREF='javascript:{}' onclick='theTree.toggle("+this.index+");'>"
+      str += "<IMG align='absmiddle' BORDER='0' SRC='";
       if (this.isOpen) {
         str += (lastChild) ? this.openedLImage : this.openedTImage;
       } else {
         str += (lastChild) ? this.closedLImage : this.closedTImage;
       }
-      str += "'></A>";
+      str += "'>";
+      str += (this.isOpen) ? 
+          "<IMG align='absmiddle' src='"+this.openedFolderImage+"' border='0' />" 
+          : "<IMG align='absmiddle' src='"+this.closedFolderImage+"' border='0' />";
+      str += "</A>";
     }
     
-    if (this.isLeaf) {
-      str += "<IMG align='absmiddle' src='"+this.leafImage+"'>";
-    } else {
-      str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
-    }
     str += "</TD><TD valign=middle><NOBR>";
     if (this.isLeaf) {
       if(theTree.selectLeaves) {
-        str += "<input type=checkbox name=check"+this.index+" onClick='"+theTree.controlName+".selectLeaf("+this.index+")'";
+        str += "<input type='checkbox' name='check"+this.index+"' onClick='"+theTree.controlName+".selectLeaf("+this.index+")'";
         if (this.selected) {
-          str += " checked";
+          str += " checked='checked'";
         }
         str += ">";
       }
@@ -231,16 +233,16 @@ function StaticTree(displayFrame, controlFrameName,
       if (theTree.selectNodes) {
         str += "<input type=checkbox name=check"+this.index+" onClick='"+theTree.controlName+".selectNode("+this.index+")'";
         if (this.selected) {
-          str += " checked";
+          str += " checked='checked'";
         }
         str += ">";
       }
     }
     if (this.chosen) {
       str += "<B>";
-      str += "<FONT size=3>";
+      str += "<FONT size='3'>";
     } else {
-      str += "<FONT size=1>";
+      str += "<FONT size='1'>";
     }
     str += this.nodeLabel;
 
@@ -250,8 +252,7 @@ function StaticTree(displayFrame, controlFrameName,
 
     str += "</NOBR>";
     str += "</TD></TR></TABLE>\n";
-    doc.write(str);
-    
+    return str;
   };
     
 }
@@ -273,32 +274,25 @@ StaticTree.prototype.indexNodes = function ()  {
 
 var indexed = false;
 StaticTree.prototype.display = function () {
-
+  var str;
   if (indexed == false) {
     this.indexNodes();
     indexed = true;
   }
 
   
-  //var doc = this.frame.document.open(); - does not work in Opera/Konqueror
-  var doc = this.frame.document;
-  doc.write("<html><head>");
-  if (this.stylesheet != null && this.stylesheet != "") {
-    doc.write("<LINK rel='stylesheet' type='text/css' href='" + this.stylesheet + "'>");
-  }
-  doc.write("</head><body bgcolor='#" + this.backgroundColour + "'><form>\n");
+  str =  "<form>\n"
 
   for(i=0; i<this.roots.length; i++) {
 
-    y = this.roots[i].writeTree(doc, (i == (this.roots.length -1)), new Array());
+    str += this.roots[i].writeTree((i == (this.roots.length -1)), new Array());
    }
 // Appended by ColinR: 
 // scrollSpacer is added for browsers which do not allow JavaScript 
 // to scroll the window beyond the document length
-  doc.write("<IMG src='" + this.spacerImage + "' height='100%' width='1' ");
-  doc.write("name='scrollSpacer' border='0'></form></body></html>\n");
-  doc.close();
-    
+  str += "<IMG src='" + this.spacerImage + "' height='100%' width='1' ";
+  str += "name='scrollSpacer' border='0'></form>";
+  this.contentDiv.innerHTML = str;      
 }
 
 
@@ -308,7 +302,8 @@ StaticTree.prototype.display = function () {
 
 var lastChosen = null;
 
-function expand(index) {
+// Change an open node to a closed one and visa versa
+function toggle(index)  {
 
 // Appended by ColinR: 
 // pageYOffset (etc) is detected so the newly rendered tree
@@ -318,20 +313,22 @@ function expand(index) {
   var pageY = 0;
   var pageX = 0;
   if (isNav4) {
-    pageY = theTree.frame.window.pageYOffset;
-    pageX = theTree.frame.window.pageXOffset;
+    pageY = this.contentDiv.pageYOffset;
+    pageX = this.contentDiv.pageXOffset;
   } else {
-    pageY = theTree.frame.document.body.scrollTop;
-    pageX = theTree.frame.document.body.scrollLeft;
+    pageY = document.body.scrollTop;
+    pageX = document.body.scrollLeft;
   }
 
   var node = theTree.flattened[index];
   node.isOpen = !node.isOpen;
   theTree.display();
   
-  theTree.frame.scrollTo(pageX,pageY);
+  self.scrollTo(pageX,pageY);
   
-};
+}
+
+StaticTree.prototype.toggle = toggle;
 
 function selectLeaf(index) {
   var node = theTree.flattened[index];

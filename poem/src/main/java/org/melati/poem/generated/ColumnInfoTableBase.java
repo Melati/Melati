@@ -173,6 +173,10 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return "The table to which the field belongs";
           }
 
+          protected String defaultRenderinfo() {
+            return "SelectionWindow";
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTableinfo_unsafe();

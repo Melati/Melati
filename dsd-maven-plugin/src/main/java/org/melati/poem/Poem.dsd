@@ -389,6 +389,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     (description = "The table to which the field belongs")
     (displayorderpriority = 0)
     (searchability = primary)
+    (renderinfo = "SelectionWindow")
     (uneditable);
 
   (indexed) String name (size = 50)

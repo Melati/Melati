@@ -163,7 +163,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
           return new VelocityTemplate(templateName);
         } catch (ParseErrorException p) {
           throw new MelatiBugMelatiException(
-              "Problem converting a WebMacro template to a Velocity template",
+              "Problem converting a WebMacro template to a Velocity template: " + templateName,
               p);
         } catch (ResourceNotFoundException e2) {
             throw new NotFoundException(e2);

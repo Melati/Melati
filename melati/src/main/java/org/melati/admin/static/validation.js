@@ -31,7 +31,7 @@ var the_value = "The value";
 var is_not_allowed = "is not allowed";
 var there_were_problems = "This form has not been submitted because there were problems with the following fields";
 var continue_anyway = "Would you like to continue anyway?";
-var correct_and_try_again = "Please correct these and try again.";
+var correct_and_try_again = "Please correct and try again.";
 
 // Function add_rule(name, heading, mandatory, pattern, snippet)
 //

@@ -44,6 +44,7 @@
 ##
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- SelectionWindowPrimarySelect.wm -->
 <HTML>
 <HEAD>
  <title>Selection Window Primary Select</title>
@@ -53,9 +54,14 @@
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 <SCRIPT Language="JavaScript" type="text/javascript">
 <!--
-  var newURL = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
-  function get_list() {
-    parent.selectionwindow_selection.location.href = newURL;
+
+
+#if ($primaryCriterion) #begin
+  #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
+    #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
+  function goto_page() {
+    var url = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
+    parent.selectionwindow_selection.location.href = url;
     return false;
   }
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -63,37 +69,110 @@
     document.forms[0].elements[returnfield].value = id;
     document.forms[0].elements[returnfieldummy].value = value;
     popupwin.close();
+	goto_page();
   }
+    #end #else #begin 
+  function goto_page() {
+    var selector;
+    selector = document.forms[0].elements[0];
+    var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+    if (option != "null") parent["admin_selection"].location = option;
+    return false;
+  }
+    #end 
+  #end #else #begin 
+  function goto_page() {
+    var url = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=" + 
+      document.forms[0].elements[0].value;
+    parent["admin_selection"].location = url;
+    return false;
+  }
+  #end 
+#end #else #begin 
+  function goto_page() {
+    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table)";
+    return false;
+  }
+#end
 //-->
 </script>
 </HEAD>
-<BODY BGCOLOR="#dddddd" onLoad="get_list()" id="primarySelect">
- <table cellspacing="0" cellpadding="0" width="100%">
-  <tr>
-   <td></td>
-   <td>
+<BODY BGCOLOR="#dddddd" id="primarySelect">
 #if ($primaryCriterion) #begin
+<FORM METHOD="GET" action="$admin.SelectionWindowSelectionURL($melati.Table)" target="selectionwindow_selection">
+ <table cellspacing="2" cellpadding="2" width="100%">
+  <tr>
+   <td align="right" valign="middle">
+   <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>
+   </td>
+   <td align="left" valign="middle">
+  #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
+    #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
      <font face="Arial, Helvetica" size="-1">
-        $ml.rendered($primaryCriterion.DisplayName)
+       <input 
+           type="hidden" 
+           name="_$ml.rendered($primaryCriterion.Name)" 
+           value='$ml.rendered($primaryCriterion.RawString)'>
+       <input 
+           type="text" 
+           name="_$(ml.rendered($primaryCriterion.Name))_dummy" 
+       #if ($primaryCriterion.Raw) #begin
+           value='$ml.rendered($primaryCriterion.Cooked)' 
+       #end
+           size="30" 
+           onfocus="document.forms[0].$(ml.rendered($primaryCriterion.Name))_button.focus()">
+       <input 
+           type="button" 
+           value="choose"
+           name="$(ml.rendered($primaryCriterion.Name))_button" 
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           title="Select $primaryCriterion.DisplayName using a popup selector" 
+              />
    </font>
+     <font face="Arial, Helvetica" size="-1"><input 
+        type="image" 
+        src="$admin.StaticURL/display.gif"
+        value=" Go " 
+        onclick="goto_page2();"
+        title="Select using selected $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
+    #end #else #begin
+    <font face="Arial, Helvetica" size="-1">
+        <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" 
+            OnChange="return(goto_page());">
+        #foreach $poss in $primaryCriterion.First1000Possibilities #begin
+          <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+          #if ($poss.sameRawAs($primaryCriterion)) #begin
+            SELECTED
+          #end
+          >
+          #if ($poss.RawString.equals("")) #begin
+            All
 #end #else #begin
-    &nbsp;
+            $ml.rendered($poss)
+          #end
+          </OPTION>
+        #end
+        </SELECT>
+    </font>
+    <font face="Arial, Helvetica" size="-1"><input 
+        type="image" 
+        src="$admin.StaticURL/display.gif"
+        value=" Go " 
+        onclick="goto_page();"
+        title="Select by chosen $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
 #end
    </td>
-   <td></td>
-   <td align="right" rowspan="2">
-     <A href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield")' 
+   <td>&nbsp;</td>
+   <td align="right" valign="middle">
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield")' 
+        title="New $primaryCriterion.DisplayName" 
         target=selectionwindow_selection><IMG 
-        src="$admin.StaticURL/new_dir.gif" 
-        border="0" 
-        alt="New $table.DisplayName" /></a>
-   </td>
-  </tr>
-  <tr>
-   <td></td>
-   <td>
-#if ($primaryCriterion) #begin
-<FORM METHOD="GET" action="$admin.SelectionWindowSelectionURL($table)" target="selectionwindow_selection">
+            src="$admin.StaticURL/new_dir.gif" 
+            border="0" 
+            alt="New $primaryCriterion.DisplayName"></a>
+  #end #else #begin
   <font face="Arial, Helvetica" size="-1">
     $ml.input($primaryCriterion)
     <input type="hidden" name="returnfield" value="$Form.returnfield">
@@ -106,14 +185,14 @@
       style="vertical-align:top;" 
     />
   </font>
-</FORM>
-#end #else #begin
-    &nbsp;
+   </td>
+   <td>&nbsp;
 #end
    </td>
-   <td></td>
   </tr>
  </table>
+</FORM>
+#end
 </BODY>
 </HTML>
 

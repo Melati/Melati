@@ -9,8 +9,7 @@
   $ml.rendered($melati.Object)
 #end #else #begin
   $ml.rendered($melati.Table.DisplayName)
-#end
-  Tree</title>
+#end Tree</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
       type="text/css" media="screen">

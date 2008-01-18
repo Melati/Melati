@@ -46,7 +46,7 @@
 <!-- Start select.wm -->
 <select name="field_$ml.rendered($object.Name)" 
 #if ($object.Description) #begin
-        title="$object.Description">
+        title="$object.Description"
 #end
 >
   #foreach $poss in $object.First1000Possibilities #begin

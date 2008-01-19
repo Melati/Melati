@@ -49,8 +49,6 @@
 <title>Select a $ml.rendered($table.DisplayName)</title>
  <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
-      type="text/css" media="screen">
 </head>
 
   <frameset frameborder="no" rows="46,*">

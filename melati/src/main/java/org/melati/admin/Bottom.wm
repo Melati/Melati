@@ -49,12 +49,10 @@
 <head>
  <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
-      type="text/css" media="screen">
 </head>
 
 <frameset frameborder="no" cols="40%,60%">
-  <frame name="admin_left" src="$admin.LeftURL($melati)" marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
+  <frame name="admin_left"   src="$admin.TableURL($melati)"  marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
   <frame name="admin_record" src="$admin.RecordURL($melati)" marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
 </frameset>
 

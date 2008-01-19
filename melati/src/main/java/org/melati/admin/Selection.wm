@@ -54,8 +54,8 @@
 
 <BODY BGCOLOR="#eeeeee" id="selection">
 <form action="">
+<table cellspacing="0" cellpadding="1" border="0" width="100%">
 #if ($results) #begin
-<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td align="center">
   #if ($results.PrevPageStart) #begin
@@ -66,9 +66,9 @@
           ONCLICK="location.href='?start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'">
      </font>
   #end
-     <b><FONT face="Arial, Helvetica" size="-1">
-     Records $results.PageStart to $results.PageEnd of $results.TotalCount
-     </FONT></b>
+     <font face="Arial, Helvetica" size="-1"><b>
+      Records $results.PageStart to $results.PageEnd of $results.TotalCount
+     </b></font>
 
   #if ($results.NextPageStart) #begin
      <font face="Arial, Helvetica" size="-2">
@@ -77,15 +77,12 @@
          title="Next page" 
          value="Next &gt;&gt;" 
          onclick="location.href='?start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
-        />
+       />
      </font>
   #end
     </td>
   </tr>
-</table>
-
-<TABLE cellspacing="0" cellpadding="1" border="0" width="100%">
-  <TR>
+  <tr>
    <th><FONT SIZE="-1">&nbsp;</FONT></th>
   #foreach $column in $table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
@@ -94,7 +91,7 @@
     </font>
    </th>
   #end
-  </TR>
+  </tr>
   #set $color1 = "#E9EDFD"
   #set $class1 = "row1"
   #set $color2 = "#FFFFFF"
@@ -111,7 +108,11 @@
      </font>
    </TD>
     #foreach $field in $result.SummaryDisplayFields #begin
-   <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.renderedStart($field)&nbsp;</font></TD>
+   <TD bgcolor="$color" class="$class">
+     <font face="Arial, Helvetica" size="-1">
+       $ml.renderedStart($field)&nbsp;
+     </font>
+   </TD>
     #end
   </TR>
     #if ($color == $color1) #begin

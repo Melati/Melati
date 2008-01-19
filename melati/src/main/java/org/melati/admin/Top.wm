@@ -94,7 +94,7 @@
      #set $selected = true
    #end
   #end #else #begin  
-    #if ($tab.Name = "setting") #begin
+    #if ($tab.Name = $admin.PrimaryDisplayTable) #begin
     selected="selected"
       #set $selected = true
     #end

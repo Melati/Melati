@@ -49,10 +49,20 @@
 <HEAD>
  <title>Create Column</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+<script TYPE="text/javascript" >
+<!--
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+  }
+//-->
+</script>
 </HEAD>
 <BODY bgcolor="#cccccc" id="add">
 

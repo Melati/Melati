@@ -56,7 +56,7 @@
 <head>
  <title>Edit a $ml.rendered($table.DisplayName) Record</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 </head>
 
@@ -90,7 +90,7 @@ $ml.rendered($object.toString())</a>
    <p>
     <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) 
+[&nbsp;<a href=$admin.SelectionURL($column.Table,"","admin_edit$object.Table.Name$object.troid()")&field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) 
           target="admin_edit$object.Table.Name$object.troid()"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end

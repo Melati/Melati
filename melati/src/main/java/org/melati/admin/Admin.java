@@ -165,8 +165,8 @@ public class Admin extends TemplateServlet {
   /**
    *  @return the 'left' admin page
    */
-  static protected String leftTemplate() throws PoemException {
-    return adminTemplate("Left");
+  static protected String tableTemplate() throws PoemException {
+    return adminTemplate("Table");
   }
 
   /**
@@ -580,10 +580,10 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  static protected String rightTemplate(ServletTemplateContext context, Melati melati)
+  static protected String recordTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     prepareContextForEditting(context, melati);
-    return adminTemplate("Right");
+    return adminTemplate("Record");
   }
 
   static protected String editHeaderTemplate(ServletTemplateContext context, Melati melati)
@@ -768,14 +768,16 @@ public class Admin extends TemplateServlet {
 
     context.put("admin", new AdminUtils(melati));
     
+    if (melati.getMethod().equals("blank"))
+      return adminTemplate("blank");
     if (melati.getMethod().equals("Main"))
       return adminTemplate("Main");
     if (melati.getMethod().equals("Top"))
       return adminTemplate("Top");
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
-    if (melati.getMethod().equals("Right"))
-      return rightTemplate(context, melati);
+    if (melati.getMethod().equals("Record"))
+      return recordTemplate(context, melati);
     if (melati.getMethod().equals("Selection"))
       return selectionTemplate(context, melati);
     
@@ -784,8 +786,8 @@ public class Admin extends TemplateServlet {
       return treeTemplate();
       if (melati.getMethod().equals("Bottom"))
         return adminTemplate("Bottom");
-      if (melati.getMethod().equals("Left"))
-        return leftTemplate();
+      if (melati.getMethod().equals("Table"))
+        return tableTemplate();
       if (melati.getMethod().equals("PrimarySelect"))
         return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))

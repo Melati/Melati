@@ -5,6 +5,10 @@ BODY {
  margin: 0px;
  background-color: pink;
 }
+A {
+ text-decoration: none;
+}
+
 #blank,
 #anticipatedError,
 #add, 
@@ -14,24 +18,21 @@ BODY {
 #loginFailure, #loginSuccess, 
 #deleteFailure,
 #duplicated,
-#done { 
+#done,
+#status, 
+#upload, 
+#uploadDone { 
  background-color: #cccccc;
 }
 #popupSelect, #primarySelect, #top,
 #navigation, popupSelect { 
  background-color: #dddddd;
 }
-#selection, #selectionRight { 
+#selection { 
  background-color: #eeeeee;
-}
-#status, #upload, #uploadDone { 
- background-color: #ffffff;
 }
 #editHeader { 
  background-color: #E9EDFD;
-}
-A {
- text-decoration: none;
 }
 row1 { 
  background-color: #E9EDFD;

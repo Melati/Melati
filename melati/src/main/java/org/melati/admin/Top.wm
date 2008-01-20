@@ -47,7 +47,7 @@
 <head>
  <title>Melati Database Admin Suite - Options for $melati.Database.DisplayName database</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 <script Language="JavaScript" type="text/javascript">
   function goto_page() {
@@ -85,7 +85,6 @@
     <option value="null">============</option>
   #end
   #set $lasttype = $tab.TableInfo.Category
-
 <option value="$admin.BottomURL($tab, $melati)"
 #if (!$selected) #begin
   #if ($melati.Table != null) #begin 
@@ -94,7 +93,7 @@
      #set $selected = true
    #end
   #end #else #begin  
-    #if ($tab.Name = $admin.PrimaryDisplayTable) #begin
+    #if ($tab.Name = $admin.getPrimaryDisplayTable($melati)) #begin
     selected="selected"
       #set $selected = true
     #end
@@ -116,6 +115,8 @@
 </div>
 </noscript>
 #if ($melati.User.isAdministrator()) #begin
+<a href="$admin.getURL($melati,"setup")?returnTarget=top&returnURL=Main" target="admin_bottom" 
+   title="Database sessions available and in use">Setup</a>
 <a href="$admin.SessionURL()" target="admin_bottom" 
    title="Database sessions available and in use">Sessions</a>
 <a href="$admin.StatusURL()" target="admin_bottom" 
@@ -127,19 +128,15 @@
  #if ($melati.User.isGuest()) #begin
  <input type="button" value=" Login " 
         title="Login to the system"
-        onclick="parent['admin_bottom'].location = '$melati.LoginURL?returnURL='+parent['admin_bottom'].location.href;">
+        onclick="parent.location.href = '$melati.LoginURL?continuationURL=$admin.MainURL($melati)'">
  #end #else #begin
  <input type="button" value=" Logout " 
         title="Logout from the system"
-        onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
+        onclick="parent.location.href = '$melati.LogoutURL?continuationURL=$admin.MainURL($melati)'">
  #end
  <input type="button" value=" Home " 
         title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
- #if ($melati.Database.SettingTable.get("HomepageUrl")) #begin
-        onclick="parent['admin_bottom'].location = '$melati.Database.SettingTable.get("HomepageUrl")';"
- #end #else #begin
-        onclick="parent['admin_bottom'].location = 'http://www.melati.net';"
- #end
+        onclick="parent.admin_bottom.location = '$admin.getHomepageURL($melati)';"
  >
  #if ($melati.KnownDatabaseNames.size() > 1) #begin 
 <script Language="JavaScript" type="text/javascript">

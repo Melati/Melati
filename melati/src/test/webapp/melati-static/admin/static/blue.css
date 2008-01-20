@@ -4,11 +4,15 @@ BODY {
  border: none;
  margin: 0px;
  background-color: #E9EDFD;
+ color: #000066;
 }
 A {
  text-decoration: none;
 }
 
+TABLE { 
+  width: 92%;
+}
 #blank,
 #anticipatedError,
 #add, 

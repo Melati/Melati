@@ -48,7 +48,7 @@
 <HEAD>
  <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 </HEAD>
 <BODY bgcolor="#cccccc" id="blank">

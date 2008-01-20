@@ -48,7 +48,7 @@
 <head>
  <title>Melati Database Admin Suite - File has been uploaded</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 </head>
 <body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')" id="uploadDone">

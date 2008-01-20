@@ -49,7 +49,7 @@
 <HEAD>
  <title>Add a new $ml.rendered($table.DisplayName) record</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
  <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 

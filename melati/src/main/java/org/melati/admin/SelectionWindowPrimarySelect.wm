@@ -49,7 +49,7 @@
 <HEAD>
  <title>Selection Window Primary Select</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 <SCRIPT Language="JavaScript" type="text/javascript">
@@ -60,7 +60,7 @@
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
   function goto_page() {
-    var url = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
+    var url = "$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
     parent.selectionwindow_selection.location.href = url;
     return false;
   }
@@ -81,7 +81,7 @@
     #end 
   #end #else #begin 
   function goto_page() {
-    var url = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=" + 
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
     parent.selectionwindow_selection.location = url;
     return false;
@@ -125,7 +125,7 @@
            type="button" 
            value="Choose"
            name="$(ml.rendered($primaryCriterion.Name))_button" 
-           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
            title="Select $primaryCriterion.DisplayName using a popup selector" 
               />
        <input 
@@ -141,7 +141,7 @@
          <SELECT NAME="goto" 
              OnChange="return(goto_page());">
       #foreach $poss in $primaryCriterion.First1000Possibilities #begin
-          <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
+          <OPTION VALUE="$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
         #if ($poss.sameRawAs($primaryCriterion)) #begin
             SELECTED
         #end
@@ -166,7 +166,7 @@
    </td>
    <td>&nbsp;</td>
    <td align="right" valign="middle">
-     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield")' 
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
         title="New $primaryCriterion.DisplayName" 
         target=selectionwindow_selection><IMG 
             src="$admin.StaticURL/new_dir.gif" 

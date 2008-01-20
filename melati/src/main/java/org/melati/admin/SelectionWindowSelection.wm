@@ -48,7 +48,7 @@
 <HEAD>
  <title>Selection Window Selection</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
@@ -61,37 +61,45 @@
 
 
 <BODY BGCOLOR="#eeeeee" id="selection">
-<DIV align="center">
-
-#if ($results) #begin
 <form action="">
-
+  <TABLE CELLSPACING="0" cellpadding="0" border="0" width="100%">
+#if ($results) #begin
+  <tr>
+    <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">
   #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2">
- <input type="button" name="Prev" value="<< Prev"
-        ONCLICK="location.href='SelectionWindowSelection?start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
-</font>
+     <font face="Arial, Helvetica" size="-2">
+      <input type="button" name="Previous" 
+          title="Previous page" 
+          value="&lt;&lt; Prev" 
+        ONCLICK="location.href='&start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
+     </font>
   #end
-<b><FONT face="Arial, Helvetica" size="-1">
-Records $results.PageStart to $results.PageEnd of $results.TotalCount
-</FONT>
-</b>
+     <font face="Arial, Helvetica" size="-1"><b>
+      Records $results.PageStart to $results.PageEnd of $results.TotalCount
+     </b></font>
 
   #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
+     <font face="Arial, Helvetica" size="-2">
+       <input type="button" 
+         name="Next" 
+         title="Next page" 
+         value="Next &gt;&gt;" 
+         onclick="location.href='&start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"
+       />
+     </font>
   #end
-
-</form>
-  <TABLE CELLSPACING="0" cellpadding="0" border="0" width="100%">
-    <TR>
-	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
+    </td>
+  </tr>
+  <tr>
+   <th><FONT SIZE="-1">&nbsp;</FONT></th>
   #foreach $column in $table.SummaryDisplayColumns #begin
-	<TH align="left" valign="bottom"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($column.DisplayName)</font></TH>
-	  <th><FONT SIZE="1">&nbsp;</FONT></th>
+   <th align="left" valign="bottom">
+    <font face="Arial, Helvetica" size="-1">
+       $ml.rendered($column.DisplayName)
+    </font>
+   </th>
   #end
-    </TR>
+  </tr>
   #set $color1 = "#E9EDFD"
   #set $class1 = "row1"
   #set $color2 = "#FFFFFF"
@@ -99,15 +107,21 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
   #set $color = $color1
   #set $class = $class2
   #foreach $result in $results #begin
-      <TR>
-	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
-	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	#foreach $field in $result.SummaryDisplayFields #begin
-	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field)</font></TD>
-	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	#end
-      </TR>
+  <TR>
+   <TD bgcolor="$color" class="$class">
+     <font size="-1"><a 
+         onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+         title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
+     </font>
+   </TD>
+    #foreach $field in $result.SummaryDisplayFields #begin
+   <TD bgcolor="$color" class="$class">
+     <font face="Arial, Helvetica" size="-1">
+       $ml.renderedStart($field)&nbsp;
+     </font>
+   </TD>
+    #end
+  </TR>
     #if ($color == $color1) #begin
       #set $color = $color2
       #set $class = $class2
@@ -119,7 +133,6 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
   </TABLE>
 #end
 
-</DIV>
-
-</BODY>
+  </form>
+ </BODY>
 </HTML>

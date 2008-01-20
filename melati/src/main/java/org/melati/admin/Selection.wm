@@ -48,7 +48,7 @@
 <HEAD>
  <title>$ml.rendered($melati.Table.DisplayName) Table Record Selection</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 </HEAD>
 
@@ -57,13 +57,13 @@
 <table cellspacing="0" cellpadding="1" border="0" width="100%">
 #if ($results) #begin
   <tr>
-    <td align="center">
+    <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">
   #if ($results.PrevPageStart) #begin
      <font face="Arial, Helvetica" size="-2">
       <input type="button" name="Previous" 
           title="Previous page" 
           value="&lt;&lt; Prev" 
-          ONCLICK="location.href='?start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'">
+          ONCLICK="location.href='?target=&start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'">
      </font>
   #end
      <font face="Arial, Helvetica" size="-1"><b>
@@ -76,7 +76,7 @@
          name="Next" 
          title="Next page" 
          value="Next &gt;&gt;" 
-         onclick="location.href='?start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
+         onclick="location.href='?target=&start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
        />
      </font>
   #end
@@ -87,7 +87,7 @@
   #foreach $column in $table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
-     <a href="?$whereClause&amp;field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
+     <a href="?target=admin_record$whereClause&amp;field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
     </font>
    </th>
   #end
@@ -102,9 +102,9 @@
   <TR>
    <TD bgcolor="$color" class="$class">
      <font size="-1"><a 
-         href='$admin.RightURL($result)?returnTarget=parent.parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&amp;$whereClause&amp;$orderClause")' 
-         target="admin_record" 
-         title="Edit"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" /></a>&nbsp;
+         href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+         target="$Form.target"
+         title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
      </font>
    </TD>
     #foreach $field in $result.SummaryDisplayFields #begin

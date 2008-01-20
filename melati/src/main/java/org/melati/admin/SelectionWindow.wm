@@ -52,8 +52,8 @@
 </head>
 
   <frameset frameborder="no" rows="46,*">
-    <frame name="selectionwindow_primaryselect" src="$admin.SelectionWindowPrimarySelectURL($table)?returnfield=$Form.returnfield" marginwidth="0" marginheight="5" frameborder="0" scrolling="auto">
-    <frame name="selectionwindow_selection" src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto">
+    <frame name="selectionwindow_primaryselect" src="$admin.SelectionWindowPrimarySelectURL($melati.Table)?returnfield=$Form.returnfield" marginwidth="0" marginheight="5" frameborder="0" scrolling="auto">
+    <frame name="selectionwindow_selection" src="$admin.SelectionWindowSelectionURL($melati.Table)?returnfield=$Form.returnfield" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto">
   </frameset>
 
 <noframes>

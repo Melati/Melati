@@ -106,7 +106,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public void testAdminSelection() {
     setScriptingEnabled(false);
-    beginAt("/Admin/melatijunit/user/Selection");
+    beginAt("/Admin/melatijunit/user/Selection?target=&returnTarget=");
     assertTextPresent("Full name");
     assertTextPresent("Melati guest user");
   }
@@ -167,14 +167,6 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/user/0/Tree");
     assertTextPresent("No frames?");
-  }
-  /**
-   * 
-   */
-  public void testAdminSelectionRight() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/melatijunit/user/SelectionRight");
-    assertTextPresent("Records 1 to 2 of 2");
   }
   /**
    * 

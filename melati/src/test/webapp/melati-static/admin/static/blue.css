@@ -1,0 +1,75 @@
+/* Default HTML 2 CSS */
+BODY {
+ font-family: "Arial", "Helvetica", "sans-serif";
+ border: none;
+ margin: 0px;
+ background-color: #E9EDFD;
+}
+A {
+ text-decoration: none;
+}
+
+#blank,
+#anticipatedError,
+#add, 
+#addTable, 
+#addTableDone, #edit, 
+#login, logout, 
+#loginFailure, #loginSuccess, 
+#deleteFailure,
+#duplicated,
+#done,
+#status, 
+#upload, 
+#uploadDone { 
+ background-color: #E9EDFD;
+}
+#popupSelect, #primarySelect, #top,
+#navigation, popupSelect { 
+ background-color: #E9EDFF;
+}
+#selection { 
+ background-color: #eeFFee;
+}
+#editHeader { 
+ background-color: #E9FFFD;
+}
+row1 { 
+ background-color: #E9FFFD;
+}
+row2 {
+ background-color: #FFFFFF;
+}
+/* Tree nodes*/
+A.node {
+ text-decoration: none;
+}
+#tree { 
+ background-color: #f0f0ff;
+}
+FRAME {
+ border: none;
+}
+FRAMESET {
+ border: none;
+}
+
+.errorMessage {
+  color: red;
+}
+.errorTrace {
+  background-color: white;
+  color:green;
+  border: 1px solid green;
+  width: auto;
+  margin: 4px;
+  padding: 3px;
+}
+#switch {
+}
+#switched {
+  display:none;
+}
+#switch:hover #switched {
+  display:block;
+}

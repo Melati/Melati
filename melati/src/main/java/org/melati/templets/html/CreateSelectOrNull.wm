@@ -56,7 +56,7 @@
 #end
        size="30" onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
 <input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
-onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
+onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())&returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
 <input type=button value="Create" 
 onClick ="createwindow = window.open('$admin.AddURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
 #if ($field.Type.Nullable) #begin

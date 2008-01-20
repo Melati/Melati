@@ -119,6 +119,11 @@ import org.melati.util.MelatiRuntimeException;
 
 public class Admin extends TemplateServlet {
   private static final long serialVersionUID = 1L;
+  
+  static String screenStylesheetURL;
+  static String primaryDisplayTable;
+  static String homepageURL;
+  
 
   /**
    * Creates a row for a table using field data in a template context.
@@ -715,6 +720,24 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Upload");
   }
 
+  static protected String setupTemplate(Melati melati) {
+    screenStylesheetURL = melati.getDatabase().getSettingTable().ensure( 
+        Admin.class.getName() + ".ScreenStylesheetURL", 
+        "/blue.css", 
+        "ScreenStylesheetURL", 
+        "path to stylesheet, relative to melati-static, starting with a slash").getValue();
+    primaryDisplayTable = melati.getDatabase().getSettingTable().ensure( 
+        Admin.class.getName() + ".PrimaryDisplayTable", 
+        "setting", 
+        "PrimaryDisplayTable", 
+        "The default table to display").getValue();
+    homepageURL = melati.getDatabase().getSettingTable().ensure( 
+        Admin.class.getName() + ".HomepageUrl", 
+        "http://www.melati.org/", 
+        "HomepageUrl", 
+        "The home page for this database").getValue();
+    return adminTemplate("Update");
+  }
   /** 
    * Finished uploading.
    *
@@ -770,6 +793,8 @@ public class Admin extends TemplateServlet {
     
     if (melati.getMethod().equals("blank"))
       return adminTemplate("blank");
+    if (melati.getMethod().equals("setup"))
+      return setupTemplate(melati);
     if (melati.getMethod().equals("Main"))
       return adminTemplate("Main");
     if (melati.getMethod().equals("Top"))

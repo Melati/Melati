@@ -49,7 +49,7 @@
 <HEAD>
  <title>Primary Select</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 <SCRIPT Language="JavaScript" type="text/javascript">
@@ -60,7 +60,7 @@
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
   function goto_page() {
-    var url = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=" + 
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
     parent.admin_selection.location.href = url;
     return false;
@@ -70,6 +70,7 @@
     document.forms[0].elements[returnfield].value = id;
     document.forms[0].elements[returnfieldummy].value = value;
     popupwin.close();
+    goto_page();
   }
     #end #else #begin 
   function goto_page() {
@@ -82,7 +83,7 @@
     #end 
   #end #else #begin 
   function goto_page() {
-    var url = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=" + 
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
     parent["admin_selection"].location = url;
     return false;
@@ -90,7 +91,7 @@
   #end 
 #end #else #begin 
   function goto_page() {
-    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table)";
+    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")";
     return false;
   }
 #end
@@ -100,7 +101,7 @@
 <BODY BGCOLOR="#dddddd" id="primarySelect">
 
 #if ($primaryCriterion) #begin
-<FORM METHOD="GET" action="" target="admin_selection">
+<FORM METHOD="GET" action="$admin.SelectionURL($melati.Table)" target="admin_selection">
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>
    <td align="right" valign="middle">
@@ -112,11 +113,20 @@
      <font face="Arial, Helvetica" size="-1">
        <input 
            type="hidden" 
-           name="_$ml.rendered($primaryCriterion.Name)" 
+           name="field_$ml.rendered($primaryCriterion.Name)" 
            value='$ml.rendered($primaryCriterion.RawString)'>
+           $ml.rendered($primaryCriterion) 
+       <input 
+           type="hidden" 
+           name="target" 
+           value='admin_record' />
+       <input 
+           type="hidden"
+           name="returnTarget"
+           value="parent.parent.parent.admin_bottom.admin_left.admin_selection" />
        <input 
            type="text" 
-           name="_$(ml.rendered($primaryCriterion.Name))_dummy" 
+           name="field_$(ml.rendered($primaryCriterion.Name))_dummy" 
        #if ($primaryCriterion.Raw) #begin
            value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
@@ -126,14 +136,14 @@
            type="button" 
            value="Choose"
            name="$(ml.rendered($primaryCriterion.Name))_button" 
-           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
            title="Select $primaryCriterion.DisplayName using a popup selector" 
               />
        <input 
            type="image" 
            src="$admin.StaticURL/display.gif"
            value=" Go " 
-           onclick="goto_page2();"
+           onclick="goto_page();"
            title="Select using selected $primaryCriterion.DisplayName" 
            style="vertical-align:top;" />
      </font>
@@ -142,7 +152,7 @@
         <SELECT NAME="goto" 
             OnChange="return(goto_page());">
         #foreach $poss in $primaryCriterion.First1000Possibilities #begin
-          <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+          <OPTION VALUE="$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
           #if ($poss.sameRawAs($primaryCriterion)) #begin
             SELECTED
           #end
@@ -177,6 +187,7 @@
     <font face="Arial, Helvetica" size="-1">
       $ml.input($primaryCriterion)
 
+      <input type="hidden" name="target" value="admin_record">
       <input
         type="image" 
         src="$admin.StaticURL/display.gif"

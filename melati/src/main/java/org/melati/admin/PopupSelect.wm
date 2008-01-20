@@ -49,7 +49,7 @@
 <HEAD>
  <title>Search $ml.rendered($table.DisplayName) Table</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="#dddddd" id="popupSelect">
@@ -69,7 +69,15 @@
 <table align="center" cellpadding="8" cellspacing="0">
  <tr>
   <td>
-<FORM METHOD="get" action="$admin.SelectionURL($table)" target="admin_selection">
+<FORM METHOD="get" action="$admin.SelectionURL($melati.Table)" target="admin_selection">
+  <input 
+      type="hidden" 
+      name="target" 
+      value='admin_record' />
+  <input 
+      type="hidden" 
+      name="returnTarget" 
+      value='admin_selection' />
    <TABLE CELLPADDING="1" CELLSPACING="0" border="0">
 #foreach $field in $criteria #begin
     <TR>

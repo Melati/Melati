@@ -48,19 +48,19 @@
 <HEAD>
  <title>Melati Database Admin Suite - Navigation</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.ScreenStylesheetURL"
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
 <script TYPE="text/javascript">
 <!--
-  if (top.remoteWin && !top.remoteWin.closed) {
-    top.remoteWin.close();
+  if (top.searchWindow && !top.searchWindow.closed) {
+    top.searchWindow.close();
   }
 
   function openWindow() {
-    top.remoteWin = window.open("", "search", "width=470,height=500,resizable=yes,scrollbars=yes");
-    if (top.remoteWin != null) {
-      top.remoteWin.location = '$admin.PopUpURL($melati.Table)';
-      top.remoteWin.focus();
+    top.searchWindow = window.open("", "searchWindow", "width=470,height=500,resizable=yes,scrollbars=yes");
+    if (top.searchWindow != null) {
+      top.searchWindow.location.href = '$admin.PopUpURL($melati.Table)';
+      top.searchWindow.focus();
     }
     return false;
   }
@@ -76,23 +76,23 @@
 <TD>
    <a onClick ='openWindow();'
       href='$admin.PopUpURL($melati.Table)' 
-      target='search'
+      target='searchWindow'
       title='Open search window'><IMG 
       src='$admin.StaticURL/search.gif' 
       border='0' 
-      alt='Search $table.DisplayName' /></a>
+      alt='Search $melati.Table.DisplayName' /></a>
   </TD>
 </TR>
 <TR>
-<TD><A HREF='$admin.AddURL($table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($table)")' 
-       title="New $table.DisplayName" 
-       target="admin_record"><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a></TD>
+<TD><A HREF='$admin.AddURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
+       title="New $melati.Table.DisplayName" 
+       target="admin_record"><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a></TD>
 </TR>
 <TR>
 <TD>
  <script type="text/javascript"> 
  <!--
-  document.write ("<a href='$admin.TreeURL($table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($table)")'");
+  document.write ("<a href='$admin.TreeURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")'");
   document.write ("     target='admin_selection'");
   document.write ("     title='Display tree view'");
   document.write ("     ><img src='$admin.StaticURL/tree.gif' alt='Tree view' border='0' /></a>");

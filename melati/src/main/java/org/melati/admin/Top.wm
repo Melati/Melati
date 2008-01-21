@@ -54,7 +54,7 @@
    var selector;
    selector = document.forms[0].goto;
    var option = selector.options[selector.selectedIndex].value;
-   if (option != "null") parent["admin_bottom"].location = option;
+   if (option != "null") parent.admin_bottom.location = option;
    return false;
   }
 </script>

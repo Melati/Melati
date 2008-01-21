@@ -329,13 +329,6 @@ public class AdminUtils {
             +  "/Tree";
   }
   
-  /**
-   * @return The Tree Control URL.
-   */
-  public String TreeControlURL(Persistent object) throws AccessPoemException {
-    return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
-            + "/" + object.troid() + "/TreeControl";
-  }
 
   /**
    * @return The Add URL.

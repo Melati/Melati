@@ -67,15 +67,15 @@
 <BODY bgcolor="#cccccc" id="add">
 
 <FORM METHOD="post" ACTION="AddUpdate">
-<H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>
-<TABLE CELLSPACING="0" cellpadding="0">
+<H3>Create a new $ml.rendered($table.DisplayName) record</H3>
+<table cellspacing="0" cellpadding="0">
   #foreach $field in $fields #begin
     #if ($field.UserCreateable) #begin
-      <TR><TD>&nbsp;</TD></TR>
-      <TR>
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+  <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
-	    <B>$ml.rendered($field.DisplayName)</B>
+	    <b>$ml.rendered($field.DisplayName)</b>
 	  #end #else #begin
 	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
@@ -85,16 +85,17 @@
 	  ($ml.rendered($field.Description))
             </font>
           #end
-       </TD></TR><TR><TD>
-	  <FONT SIZE="-1" FACE="Arial, Helvetica">
+    </TD></TR><TR><TD>
+	  <font SIZE="-1" FACE="Arial, Helvetica">
 	  $ml.input($field)
-	  </FONT>
+	  </font>
 	</TD>
-      </TR>
+  </TR>
     #end
   #end
-    <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
-</TABLE>
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+</table>
+
 #if ($Form.returnURL) #begin
   <input type="hidden" name="returnURL" value='$Form.returnURL'>
 #end #else #begin
@@ -109,7 +110,9 @@
   <input type="hidden" name="returnfield" value='$Form.returnfield'>
 #end
 <FONT SIZE="-1" FACE="Arial, Helvetica">
- <INPUT NAME="action" VALUE="Update" TYPE="submit"
+ <INPUT NAME="action" 
+     VALUE="Update"
+     TYPE="submit"
        ONCLICK="return validate(this.form);">
 </FONT>
 </FORM>

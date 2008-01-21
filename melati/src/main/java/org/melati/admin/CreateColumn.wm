@@ -47,12 +47,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Create Column</title>
+ <title>Add a new Column</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
-
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+
 <script TYPE="text/javascript" >
 <!--
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -68,43 +68,58 @@
 
 <FORM METHOD="post" ACTION="CreateColumn_doit">
 
-<H2><FONT FACE="Arial, Helvetica">Create a new column</font></H2>
-
-<TABLE CELLPADDING="0" CELLSPACING="0">
+<H3>Create a new column</H3>
+<table cellspacing="0" cellpadding="0">
   #foreach $field in $columnInfoFields #begin
     #if ($field.UserCreateable) #begin
-      <TR>
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+  <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
-	    <b>$ml.rendered($field.DisplayName)</B>
+	    <b>$ml.rendered($field.DisplayName)</b>
 	  #end #else #begin
-	    <B><font color=red>$ml.rendered($field.DisplayName)</font></B>
+	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
-	</font><FONT SIZE="-2" FACE="Arial, Helvetica">
+            </font>
 #if ($field.Description) #begin
+            <FONT SIZE="-2" FACE="Arial, Helvetica">
 ($ml.rendered($field.Description))
+            </font>
       #end
-</FONT></TD></TR><TR><TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($field)</font></TD>
-      </TR>
-      <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+    </TD></TR><TR><TD>
+	  <font SIZE="-1" FACE="Arial, Helvetica">
+    $ml.input($field)
+      </font>
+    </TD>
+  </TR>
     #end
   #end
-</TABLE>
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+</table>
 
 #if ($Form.returnURL) #begin
   <input type="hidden" name="returnURL" value='$Form.returnURL'>
+#end #else #begin
+  #if ($CGI.HTTP_REFERER) #begin
+    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+  #end
 #end
 #if ($Form.returnTarget) #begin
   <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
 #end
-<INPUT NAME="action" VALUE="Create the column" TYPE="submit"
-       ONCLICK="return validate(this.form);">
-
+#if ($Form.returnfield) #begin
+  <input type="hidden" name="returnfield" value='$Form.returnfield'>
+#end
+<FONT SIZE="-1" FACE="Arial, Helvetica">
+<INPUT NAME="action" 
+    VALUE="Create the column"
+    TYPE="submit"
+    ONCLICK="return validate(this.form);">
+</FONT>
 <P><FONT SIZE="-1">
   (Be aware that deleting a column once it's been created is rather difficult!)
 </FONT></P>
 
 </FORM>
-
 </BODY>
 </HTML>

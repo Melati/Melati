@@ -52,6 +52,7 @@
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
  <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+
 <script TYPE="text/javascript" >
 <!--
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -66,47 +67,71 @@
 <BODY bgcolor="#cccccc" id="addTable">
 
 <FORM METHOD="post" ACTION="Create_doit">
-
-<H1>Create a new table</H1>
-
-<TABLE CELLPADDING="0" CELLSPACING="0">
+<H3>Create a new table</H3>
+<table cellspacing="0" cellpadding="0">
   #foreach $field in $tableInfoFields #begin
     #if ($field.UserCreateable) #begin
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
       <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
-	    <b>$ml.rendered($field.DisplayName)</B>
+	    <b>$ml.rendered($field.DisplayName)</b>
 	  #end #else #begin
 	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
-	</font><FONT SIZE="-2" FACE="Arial, Helvetica">
+            </font>
 	      #if ($field.Description) #begin
+            <FONT SIZE="-2" FACE="Arial, Helvetica">
 ($ml.rendered($field.Description))
+            </font>
       #end
-</FONT></TD></TR><TR><TD>
-	  <FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($field)</font>
+       </TD></TR><TR><TD>
+	  <font SIZE="-1" FACE="Arial, Helvetica">
+	  $ml.input($field)
+	  </font>
 	</TD>
-      </TR>
-      <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+  </TR>
     #end
   #end
   <TR>
-    <TD><FONT SIZE="-1" FACE="Arial, Helvetica"><B>TROID column name</B></font><FONT SIZE="-2" FACE="Arial, Helvetica">(The name of the table's TROID (primary key) column)</FONT></TD>
-</tr><TR><TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($troidNameField)</font></TD>
+    <TD>
+     <FONT SIZE="-1" FACE="Arial, Helvetica">
+      <B>TROID column name</B>
+     </font>
+     <FONT SIZE="-2" FACE="Arial, Helvetica">
+     (The name of the table's TROID (primary key) column)
+     </FONT>
+    </TD>
+  </tr>
+  <TR>
+   <TD>
+     <FONT SIZE="-1" FACE="Arial, Helvetica">
+       $ml.input($troidNameField)
+     </font>
+   </TD>
   </TR>
-      <TR><TD>&nbsp;</TD></TR>
-</TABLE>
+  <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
+</table>
 
 #if ($Form.returnURL) #begin
   <input type="hidden" name="returnURL" value='$Form.returnURL'>
+#end #else #begin
+  #if ($CGI.HTTP_REFERER) #begin
+    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+  #end
 #end
 #if ($Form.returnTarget) #begin
   <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
 #end
-<INPUT NAME="action" VALUE="Create the table" TYPE="submit"
-       ONCLICK="return validate(this.form);">
-
+#if ($Form.returnfield) #begin
+  <input type="hidden" name="returnfield" value='$Form.returnfield'>
+#end
+<FONT SIZE="-1" FACE="Arial, Helvetica">
+  <INPUT NAME="action" 
+      VALUE="Create the table"
+      TYPE="submit"
+      ONCLICK="return validate(this.form);">
+</FONT>
 </FORM>
-
 </BODY>
 </HTML>

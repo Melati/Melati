@@ -55,6 +55,12 @@
 <SCRIPT Language="JavaScript" type="text/javascript">
 <!--
 
+#if ($inPopup) #begin
+    #set $selectionWindowJsName ="parent.selectionwindow_selection"
+#end #else #begin
+    #set selectionWindowJsName ="parent.admin_selection"
+#end
+
 
 #if ($primaryCriterion) #begin
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
@@ -62,12 +68,11 @@
   function goto_page() {
 #if($inPopup) #begin
     var url = "$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
-    parent.selectionwindow_selection.location.href = url;
 #end #else #begin
     var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
-    parent.admin_selection.location.href = url;
 #end
+    ${selectionWindowJsName}.location.href = url;
     return false;
   }
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -82,11 +87,7 @@
     var selector;
     selector = document.forms[0].elements[0];
     var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-#if ($inPopup) #begin
-    if (option != "null") parent.selectionwindow_selection.location.href = option;
-#end #else #begin
-    if (option != "null") parent.admin_selection.location.href = option;
-#end
+    if (option != "null") ${selectionWindowJsName}.location.href = option;
     return false;
   }
     #end 
@@ -94,21 +95,13 @@
   function goto_page() {
     var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
-#if ($inPopup) #begin
-    parent["admin_selection"].location = url;
-#end #else #begin
-    parent.selectionwindow_selection.location = url;
-#end
+    ${selectionWindowJsName}.location.href = url;
     return false;
   }
   #end 
 #end #else #begin 
   function goto_page() {
-#if ($inPopup) #begin
-    parent.selectionwindow_selection.location.href = "$admin.SelectionURL($melati.Table)";
-#end #else #begin
-    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")";
-#end
+    ${selectionWindowJsName}.location.href = "$admin.SelectionURL($melati.Table)";
     return false;
   }
 #end
@@ -120,12 +113,11 @@
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" 
 #if($inPopup) #begin
-    action="" 
-    target="selectionwindow_selection">
+    action="$admin.SelectionWindowSelectionURL($melati.Table)" 
 #end #else #begin
     action="$admin.SelectionURL($melati.Table)" 
-    target="admin_selection">
 #end
+    target="${selectionWindowJsName}">
 
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>

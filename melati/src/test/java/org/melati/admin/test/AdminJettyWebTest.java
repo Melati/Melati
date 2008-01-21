@@ -161,12 +161,41 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   }
   
   /**
-   * FIXME 
+   * 
    */
-  public void BorkdtestAdminTree() {
+  public void testAdminTree() {
+    setScriptingEnabled(true);
+    beginAt("/Admin/melatijunit/user/0/Record");
+    gotoFrame("admin_edit_header");
+    assertTextPresent("_guest_");
+    assertTextPresent("[ Group membership ]");
+    clickLink("recordTree");
+    gotoRootWindow();
+    gotoFrame("admin_edituser0");
+    assertTextPresent("Melati guest user tree");
+    clickLinkWithText("Melati guest user");
+  }
+  /**
+   * 
+   */
+  public void testAdminTreeNoScript() {
     setScriptingEnabled(false);
     beginAt("/Admin/melatijunit/user/0/Tree");
-    assertTextPresent("No frames?");
+    assertTextPresent("Melati guest user tree");
+  }
+  /**
+   * 
+   */
+  public void testAdminTableTree() {
+    setScriptingEnabled(true);
+    beginAt("/Admin/melatijunit/user/Table");
+    gotoFrame("admin_navigation");
+    clickLink("tableTree");
+    gotoRootWindow();
+    gotoFrame("admin_selection");
+    assertTextPresent("User table tree");
+    assertLinkPresentWithText("Melati guest user");
+    assertLinkPresentWithText("Melati database administrator");
   }
   /**
    * 

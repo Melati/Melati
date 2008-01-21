@@ -85,7 +85,7 @@ title="Display $ml.rendered($object.toString())">
 $ml.rendered($object.toString())</a>
    </font>
   </td>
-#set $references = $database.referencesTo($melati.Table)
+#set $references = $melati.Database.referencesTo($melati.Table)
 #if ($references.hasMoreElements()) #begin
   <td align="right" valign="top">
    <p>

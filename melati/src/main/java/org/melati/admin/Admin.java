@@ -115,6 +115,7 @@ import org.melati.util.MelatiRuntimeException;
  *
  * @todo Getting a bit big, wants breaking up
  * @todo Review working of where clause for dates 
+ * FIXME Duplicate throws an error for unique fields
  */
 
 public class Admin extends TemplateServlet {
@@ -152,7 +153,6 @@ public class Admin extends TemplateServlet {
    *  @return a DSD for the database
    */
   static protected String dsdTemplate(ServletTemplateContext context) {
-    context.put("database", PoemThread.database());
     // Webmacro security prevents access from within template
 
     // Note: getPackage() can return null dependant upon 
@@ -167,12 +167,6 @@ public class Admin extends TemplateServlet {
   }
 
 
-  /**
-   *  @return the 'left' admin page
-   */
-  static protected String tableTemplate() throws PoemException {
-    return adminTemplate("Table");
-  }
 
   /**
    *  @return primary select template
@@ -187,10 +181,6 @@ public class Admin extends TemplateServlet {
                                           Melati melati)
       throws PoemException {
     final Table table = melati.getTable();
-    context.put("table", table);
-
-    final Database database = table.getDatabase();
-    context.put("database", database);
 
     Field primaryCriterion;
 
@@ -259,10 +249,8 @@ public class Admin extends TemplateServlet {
   static protected ServletTemplateContext selection(ServletTemplateContext context, 
                                              Melati melati) {
     final Table table = melati.getTable();
-    context.put("table", table);
 
     final Database database = table.getDatabase();
-    context.put("database", database);
 
     // sort out search criteria
 
@@ -346,17 +334,6 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   *  @return the 'navigation' admin page
-   */
-  static protected String navigationTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
-    context.put("table", table);
-    return adminTemplate("Navigation");
-  }
-
-  /**
    * Implements the "PopUp" request method.
    * <p>
    * The default template name is "PopupSelect".
@@ -371,10 +348,8 @@ public class Admin extends TemplateServlet {
   static protected ServletTemplateContext popup(ServletTemplateContext context, Melati melati)
       throws PoemException {
     final Table table = melati.getTable();
-    context.put("table", table);
 
     final Database database = table.getDatabase();
-    context.put("database", database);
 
     // sort out search criteria
 
@@ -427,14 +402,6 @@ public class Admin extends TemplateServlet {
     context.put("orderings", orderings);
 
     return context;
-  }
-
-  static protected String selectionWindowTemplate(ServletTemplateContext context, 
-                                           Melati melati)
-      throws PoemException {
-    context.put("database", PoemThread.database());
-    context.put("table", melati.getTable());
-    return adminTemplate("SelectionWindow");
   }
 
   /**
@@ -568,63 +535,12 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Prepare to use an editing template.
-   * <p>
-   * Throw an exception if the access token does not allow the object
-   * to be read.
-   * <p>
-   * Put objects required by editing templates in the context.
-   */
-  static protected ServletTemplateContext prepareContextForEditting(ServletTemplateContext context,
-                                            Melati melati)
-      throws PoemException {
-    if (melati.getObject() != null) { 
-      melati.getObject().assertCanRead();
-      context.put("object", melati.getObject());
-    }
-    context.put("database", melati.getDatabase());
-    context.put("table", melati.getTable());
-    return context;
-  }
-
-  static protected String recordTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    prepareContextForEditting(context, melati);
-    return adminTemplate("Record");
-  }
-
-  static protected String editHeaderTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    prepareContextForEditting(context, melati);
-    return adminTemplate("EditHeader");
-  }
-
-  static protected String editTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    prepareContextForEditting(context, melati);
-    return adminTemplate("Edit");
-  }
-
-  static protected String treeTemplate()
-      throws PoemException {
-    return adminTemplate("Tree");
-  }
-
-  static protected String treeControlTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    prepareContextForEditting(context, melati);
-    return adminTemplate("TreeControl");
-  }
-
-  /**
    * Returns the Add template after placing the table and fields for
    * the new row in the context using any field values already in
    * the context.
    */
   static protected String addTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
-
-    context.put("table", melati.getTable());
 
     Enumeration columns = melati.getTable().columns();
     Vector fields = new Vector();
@@ -804,23 +720,23 @@ public class Admin extends TemplateServlet {
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
     if (melati.getMethod().equals("Record"))
-      return recordTemplate(context, melati);
+      return adminTemplate("Record");
     if (melati.getMethod().equals("Selection"))
       return selectionTemplate(context, melati);
     
     if (melati.getTable() != null || melati.getObject() != null) {
       if (melati.getMethod().equals("Tree"))
-      return treeTemplate();
+      return adminTemplate("Tree");
       if (melati.getMethod().equals("Bottom"))
         return adminTemplate("Bottom");
       if (melati.getMethod().equals("Table"))
-        return tableTemplate();
+        return adminTemplate("Table");
       if (melati.getMethod().equals("PrimarySelect"))
         return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
-        return editHeaderTemplate(context, melati);
+        return adminTemplate("EditHeader");
       if (melati.getMethod().equals("Edit"))
-        return editTemplate(context, melati);
+        return adminTemplate("Edit");
     }
 
     if (melati.getObject() != null) {
@@ -841,11 +757,11 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("SelectionRight"))
         return selectionRightTemplate(context, melati);
       if (melati.getMethod().equals("Navigation"))
-        return navigationTemplate(context, melati);
+        return adminTemplate("Navigation");
       if (melati.getMethod().equals("PopUp"))
         return popUpTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindow"))
-        return selectionWindowTemplate(context, melati);
+        return adminTemplate("SelectionWindow");
       if (melati.getMethod().equals("SelectionWindowPrimarySelect"))
         return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))

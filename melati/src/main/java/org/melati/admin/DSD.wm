@@ -56,7 +56,7 @@
 #end
 
 /*
- * DSD for $database ($database.Class.Name)
+ * DSD for $melati.Database ($melati.Database.Class.Name)
  * 
  *  Generated for $melati.getUser()
  * 
@@ -92,7 +92,7 @@
 package $(package);
 
 
-#foreach $table in $database.getDisplayTables() #begin
+#foreach $table in $melati.Database.getDisplayTables() #begin
 #if ($table.Class.Name.indexOf($package) == 0 || $table.Class.Name.equals("org.melati.poem.Table") || $all) #begin
 #if ($c) #begin
 //   $table

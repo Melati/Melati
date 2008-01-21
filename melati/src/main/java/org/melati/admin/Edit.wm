@@ -68,7 +68,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <BODY bgcolor="#cccccc" id="edit">
 
 <FORM METHOD="post" ACTION="Update">
-<TABLE CELLPADDING="0" CELLSPACING="0">
+<TABLE CELLPADDING="0" CELLSPACING="0" id="recordFieldsTable">
   #if ($Form.detailed) #begin
     #set $fields = $object.DetailDisplayFields
   #end #else #begin

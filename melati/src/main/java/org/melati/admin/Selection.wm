@@ -54,7 +54,7 @@
 
 <BODY BGCOLOR="#eeeeee" id="selection">
 <form action="">
-<table cellspacing="0" cellpadding="1" border="0" width="100%">
+<table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if ($results) #begin
   <tr>
     <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">

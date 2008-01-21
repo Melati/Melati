@@ -69,6 +69,7 @@
     document.forms[0].elements[returnfield].value = id;
     document.forms[0].elements[returnfieldummy].value = value;
     popupwin.close();
+    goto_page();
   }
     #end #else #begin 
   function goto_page() {
@@ -111,11 +112,11 @@
      <font face="Arial, Helvetica" size="-1">
        <input 
            type="hidden" 
-           name="_$ml.rendered($primaryCriterion.Name)" 
+           name="field_$ml.rendered($primaryCriterion.Name)" 
            value='$ml.rendered($primaryCriterion.RawString)'>
        <input 
            type="text" 
-           name="_$(ml.rendered($primaryCriterion.Name))_dummy" 
+           name="field_$(ml.rendered($primaryCriterion.Name))_dummy" 
        #if ($primaryCriterion.Raw) #begin
            value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
@@ -125,7 +126,7 @@
            type="button" 
            value="Choose"
            name="$(ml.rendered($primaryCriterion.Name))_button" 
-           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
            title="Select $primaryCriterion.DisplayName using a popup selector" 
               />
        <input 

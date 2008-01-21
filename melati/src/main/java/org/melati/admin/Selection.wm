@@ -50,6 +50,15 @@
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
+#if($inPopup) #begin
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<!--
+  function updateCaller(returnfield,id,value) {
+    parent.opener.updateFromPopup(parent,returnfield,id,value)
+  }
+//-->
+</SCRIPT>
+#end
 </HEAD>
 
 <BODY BGCOLOR="#eeeeee" id="selection">
@@ -63,7 +72,11 @@
       <input type="button" name="Previous" 
           title="Previous page" 
           value="&lt;&lt; Prev" 
+#if($inPopup) #begin
+          ONCLICK="location.href='&start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
+#end #else #begin
           ONCLICK="location.href='?target=&start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'">
+#end
      </font>
   #end
      <font face="Arial, Helvetica" size="-1"><b>
@@ -76,7 +89,11 @@
          name="Next" 
          title="Next page" 
          value="Next &gt;&gt;" 
+#if($inPopup) #begin
+         onclick="location.href='&start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"
+#end #else #begin
          onclick="location.href='?target=&start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
+#end
        />
      </font>
   #end
@@ -87,7 +104,11 @@
   #foreach $column in $table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
+#if($inPopup) #begin
+       $ml.rendered($column.DisplayName)
+#end #else #begin
      <a href="?target=admin_record$whereClause&amp;field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
+#end
     </font>
    </th>
   #end
@@ -102,8 +123,12 @@
   <TR>
    <TD bgcolor="$color" class="$class">
      <font size="-1"><a 
+#if($inPopup) #begin
+         onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+#end #else #begin
          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
          target="$Form.target"
+#end
          title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
      </font>
    </TD>

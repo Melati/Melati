@@ -454,7 +454,8 @@ public class Admin extends TemplateServlet {
   static protected String selectionWindowSelectionTemplate(ServletTemplateContext context,
                                                     Melati melati) {
     selection(context, melati);
-    return adminTemplate("SelectionWindowSelection");
+    context.put("inPopup", Boolean.TRUE);
+    return adminTemplate("Selection");
   }
 
   /**

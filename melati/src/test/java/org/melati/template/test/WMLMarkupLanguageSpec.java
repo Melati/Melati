@@ -93,7 +93,7 @@ public abstract class WMLMarkupLanguageSpec extends MarkupLanguageSpec {
 
   /**
    * Test that special templets are found.
-   * FIXME WML does not have SelectionWindow, perhaps it should  
+   *   
    */
   public void testSpecialTemplateFound() throws Exception { 
     Column column = getDb().getGroupMembershipTable().getUserColumn();
@@ -108,6 +108,14 @@ public abstract class WMLMarkupLanguageSpec extends MarkupLanguageSpec {
     } catch (MelatiBugMelatiException e) { 
       e = null;
     }
+  }
+  /**
+   * WML does not have SelectionWindow, perhaps it should 
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#testSelectionWindowField()
+   */
+  public void testSelectionWindowField() throws Exception {
+    
   }
 
   /**

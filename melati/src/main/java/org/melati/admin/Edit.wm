@@ -47,7 +47,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Edit a $ml.rendered($table.DisplayName) Record</title>
+ <title>Edit a $ml.rendered($melati.Table.DisplayName) Record</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
@@ -87,7 +87,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
         #if ($melati.isReferencePoemType($field)) #begin
          <a
           #if ($field.Raw) #begin
- href="$admin.RecordURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.SelectionURL($table)")"
+ href="$admin.RecordURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")"
  title="Edit $ml.rendered($field.Type.targetTable().DisplayName) $ml.rendered($field.DisplayName)"
           #end #else #begin
  href="$admin.SelectionURL($field.Type.targetTable())"

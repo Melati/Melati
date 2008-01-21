@@ -101,7 +101,7 @@
   </tr>
   <tr>
    <th><FONT SIZE="-1">&nbsp;</FONT></th>
-  #foreach $column in $table.SummaryDisplayColumns #begin
+  #foreach $column in $melati.Table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
 #if($inPopup) #begin

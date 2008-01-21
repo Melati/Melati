@@ -47,7 +47,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Add a new $ml.rendered($table.DisplayName) record</title>
+ <title>Add a new $ml.rendered($melati.Table.DisplayName) record</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
@@ -67,7 +67,7 @@
 <BODY bgcolor="#cccccc" id="add">
 
 <FORM METHOD="post" ACTION="AddUpdate">
-<H3>Create a new $ml.rendered($table.DisplayName) record</H3>
+<H3>Create a new $ml.rendered($melati.Table.DisplayName) record</H3>
 <table cellspacing="0" cellpadding="0">
   #foreach $field in $fields #begin
     #if ($field.UserCreateable) #begin

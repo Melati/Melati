@@ -47,7 +47,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Search $ml.rendered($table.DisplayName) Table</title>
+ <title>Search $ml.rendered($melati.Table.DisplayName) Table</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
@@ -105,7 +105,7 @@
     <tr>
      <td></td><td>
       <font face="Arial, Helvetica" size="-1">
-       <INPUT NAME="action" VALUE="Search" TYPE="submit" alt="Search $table.DisplayName" 
+       <INPUT NAME="action" VALUE="Search" TYPE="submit" alt="Search $melati.Table.DisplayName" 
            ONCLICK="return validate(this.form);">
       </font>
      </td>

@@ -53,7 +53,7 @@ size=30
 title="$field.Description"
 #end
 onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
-<input type=button value="choose" name=$ml.rendered($field.Name)_button 
+<input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
 onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())&returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
 <script language="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",

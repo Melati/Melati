@@ -39,14 +39,14 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Joyce <timj At paneris.org>
+##     Tim Joyce <TimJ At paneris.org>
 ##     http://paneris.org/~timj
 ##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
             "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
- <title>Melati Database Admin Suite - $melati.Database.DisplayName database</title>
+ <title>Melati Database Admin Suite - Select a $ml.rendered($melati.Table.DisplayName)</title>
  <meta name="version" content="CVS \$Id$">
 </head>
 

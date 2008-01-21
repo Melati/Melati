@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -67,7 +67,7 @@ public abstract class PoemException extends RuntimeException {
     this((String)null);
   }
   /**
-   * Constructor with message and pre-java 1.4 initial cause.
+   * Constructor with message and initial cause.
    */
   public PoemException(String message, Exception subException) {
     this(message);
@@ -86,9 +86,9 @@ public abstract class PoemException extends RuntimeException {
    */
   public Throwable initCause(Throwable cause) {
     subException = (Exception)cause;
-    return this;
-    // Do this after we have abandoned Java 1.3
-    // return super.initCause(cause);
+    // Java 1.3 
+    // return this;
+    return super.initCause(cause);
   }
   
 

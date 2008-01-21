@@ -38,20 +38,29 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 ## Expecting $object to be a Field
-<select name="field_$ml.rendered($object.Name)">
+<!-- Start select.wm -->
+<select name="field_$ml.rendered($object.Name)" 
+#if ($object.Description) #begin
+        title="$object.Description"
+#end
+>
   #foreach $poss in $object.First1000Possibilities #begin
-    <option value="$ml.Attr.rendered($poss.RawString)">
+    <option value="$ml.Attr.rendered($poss.RawString)"
+      #if ($poss.sameRawAs($object)) #begin
+        selected="selected"
+      #end
+    >
       #if ($poss.RawString.equals("") && $nullValue) #begin
         $ml.rendered($nullValue)
       #end #else #begin
         $ml.rendered($poss)
       #end
-    </option>
+    &nbsp;</option>
   #end
 </select>
-
+<!-- end select.wm -->

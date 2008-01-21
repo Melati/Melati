@@ -60,8 +60,14 @@
   #if ($melati.isReferencePoemType($primaryCriterion)) #begin 
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
   function goto_page() {
+#if($inPopup) #begin
     var url = "$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
     parent.selectionwindow_selection.location.href = url;
+#end #else #begin
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
+      document.forms[0].elements[0].value;
+    parent.admin_selection.location.href = url;
+#end
     return false;
   }
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -76,7 +82,11 @@
     var selector;
     selector = document.forms[0].elements[0];
     var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+#if ($inPopup) #begin
     if (option != "null") parent.selectionwindow_selection.location.href = option;
+#end #else #begin
+    if (option != "null") parent.admin_selection.location.href = option;
+#end
     return false;
   }
     #end 
@@ -84,13 +94,21 @@
   function goto_page() {
     var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
+#if ($inPopup) #begin
+    parent["admin_selection"].location = url;
+#end #else #begin
     parent.selectionwindow_selection.location = url;
+#end
     return false;
   }
   #end 
 #end #else #begin 
   function goto_page() {
+#if ($inPopup) #begin
     parent.selectionwindow_selection.location.href = "$admin.SelectionURL($melati.Table)";
+#end #else #begin
+    parent.admin_selection.location.href = "$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")";
+#end
     return false;
   }
 #end
@@ -100,8 +118,16 @@
 <BODY BGCOLOR="#dddddd" id="primarySelect">
 
 #if ($primaryCriterion) #begin
-<FORM METHOD="GET" action="" target="selectionwindow_selection">
- <table cellspacing="2" cellpadding="2" width="100%">
+<FORM METHOD="GET" 
+#if($inPopup) #begin
+    action="" 
+    target="selectionwindow_selection">
+#end #else #begin
+    action="$admin.SelectionURL($melati.Table)" 
+    target="admin_selection">
+#end
+
+ <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>
    <td align="right" valign="middle">
    <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>
@@ -114,6 +140,17 @@
            type="hidden" 
            name="field_$ml.rendered($primaryCriterion.Name)" 
            value='$ml.rendered($primaryCriterion.RawString)'>
+           $ml.rendered($primaryCriterion) 
+#if (!$inPopup) #begin
+       <input 
+           type="hidden" 
+           name="target" 
+           value='admin_record' />
+       <input 
+           type="hidden"
+           name="returnTarget"
+           value="parent.parent.parent.admin_bottom.admin_left.admin_selection" />
+#end
        <input 
            type="text" 
            name="field_$(ml.rendered($primaryCriterion.Name))_dummy" 
@@ -139,10 +176,14 @@
      </font>
     #end #else #begin
      <font face="Arial, Helvetica" size="-1">
-         <SELECT NAME="goto" 
-             OnChange="return(goto_page());">
+        <SELECT NAME="goto" 
+            OnChange="return(goto_page());">
       #foreach $poss in $primaryCriterion.First1000Possibilities #begin
+#if ($inPopup) #begin
           <OPTION VALUE="$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
+#end #else #begin
+          <OPTION VALUE="$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+#end
         #if ($poss.sameRawAs($primaryCriterion)) #begin
             SELECTED
         #end
@@ -167,25 +208,35 @@
    </td>
    <td>&nbsp;</td>
    <td align="right" valign="middle">
+#if ($inPopup)
      <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
         title="New $primaryCriterion.DisplayName" 
         target=selectionwindow_selection><IMG 
+#end #else #begin
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' 
+        title="New $primaryCriterion.DisplayName" 
+        target="admin_record"><IMG 
+#end
             src="$admin.StaticURL/new_dir.gif" 
             border="0" 
             alt="New $primaryCriterion.DisplayName"></a>
   #end #else #begin
-  <font face="Arial, Helvetica" size="-1">
-    $ml.input($primaryCriterion)
-    <input type="hidden" name="returnfield" value="$Form.returnfield">
-    <input 
-      type="image" 
-      src="$admin.StaticURL/display.gif"
-      name="action" 
-      value=" Go " 
-      title="Select matching input $primaryCriterion.DisplayName" 
-      style="vertical-align:top;" 
-    />
-  </font>
+     <font face="Arial, Helvetica" size="-1">
+      $ml.input($primaryCriterion)
+#if ($inPopup) #begin
+      <input type="hidden" name="returnfield" value="$Form.returnfield">
+#end #else #begin
+      <input type="hidden" name="target" value="admin_record">
+#end
+      <input 
+          type="image" 
+          src="$admin.StaticURL/display.gif"
+          name="action" 
+          value=" Go " 
+          title="Select matching input $primaryCriterion.DisplayName" 
+          style="vertical-align:top;" 
+      />
+     </font>
    </td>
    <td>&nbsp;
   #end

@@ -10,14 +10,19 @@ A {
  text-decoration: none;
 }
 
-TABLE { 
-  width: 92%;
+#selectionTable, #recordFieldsTable { 
+  width: 98%;
+  margin-left: 1em;
+  margin-right: 1em;
 }
+#recordFieldsTable { 
+ background-color: #E9EDFD;
+}
+
 #blank,
 #anticipatedError,
-#add, 
 #addTable, 
-#addTableDone, #edit, 
+#addTableDone, 
 #login, logout, 
 #loginFailure, #loginSuccess, 
 #deleteFailure,
@@ -32,7 +37,7 @@ TABLE {
 #navigation, popupSelect { 
  background-color: #E9EDFF;
 }
-#selection { 
+#selection, #add, #edit { 
  background-color: #eeFFee;
 }
 #editHeader { 

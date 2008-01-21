@@ -9,11 +9,20 @@ A {
  text-decoration: none;
 }
 
+
+#selectionTable, #recordFieldsTable { 
+  width: 98%;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#recordFieldsTable { 
+ background-color: #cccccc;
+}
+
 #blank,
 #anticipatedError,
-#add, 
 #addTable, 
-#addTableDone, #edit, 
+#addTableDone, 
 #login, logout, 
 #loginFailure, #loginSuccess, 
 #deleteFailure,
@@ -28,7 +37,10 @@ A {
 #navigation, popupSelect { 
  background-color: #dddddd;
 }
-#selection { 
+
+
+
+#selection, #add, #edit { 
  background-color: #eeeeee;
 }
 #editHeader { 

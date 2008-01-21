@@ -223,7 +223,7 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements request to display a selection of records from a table.
+   * Implements request to display a selection of records from a table in the right hand pane.
    *
    * @return SelectionRight template. 
    */
@@ -444,7 +444,8 @@ public class Admin extends TemplateServlet {
                                                         Melati melati)
       throws PoemException {
     primarySelect(context, melati);
-    return adminTemplate("SelectionWindowPrimarySelect");
+    context.put("inPopup", Boolean.TRUE);
+    return adminTemplate("PrimarySelect");
   }
 
   /**
@@ -776,7 +777,7 @@ public class Admin extends TemplateServlet {
   static final String
       METHOD_CREATE_TABLE = "Create",
       METHOD_CREATE_COLUMN = "CreateColumn",
-      METHOD_ADD_RECORD = "Add";
+      METHOD_CREATE_RECORD = "Add";
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
@@ -848,7 +849,7 @@ public class Admin extends TemplateServlet {
         return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))
         return selectionWindowSelectionTemplate(context, melati);
-      if (melati.getMethod().equals(METHOD_ADD_RECORD))
+      if (melati.getMethod().equals(METHOD_CREATE_RECORD))
         return addTemplate(context, melati);
       if (melati.getMethod().equals("AddUpdate"))
         return addUpdateTemplate(context, melati);

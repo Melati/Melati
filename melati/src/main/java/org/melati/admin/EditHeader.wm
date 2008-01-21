@@ -66,8 +66,8 @@
   <td valign="top">
  <script type="text/javascript"> 
  <!--
-  document.write ("<a href='$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
-  document.write ("   target='admin_edit$object.Table.Name$object.troid()' ");
+  document.write ("<a href='$admin.TreeURL($melati.Object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
+  document.write ("   target='admin_edit$melati.Object.Table.Name$melati.Object.troid()' ");
   document.write ("   id='recordTree' ");
   document.write ("   title='Display tree view'><img ");
   document.write ("   src='$admin.StaticURL/tree.gif' ");
@@ -80,9 +80,9 @@
    <font face="Arial, Helvetica" size="2">$melati.Table.DisplayName</font></div><font 
      face="Arial, Helvetica" size="2">:
 <a href= "$admin.EditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$object.Table.Name$object.troid()"
-title="Display $ml.rendered($object.toString())">
-$ml.rendered($object.toString())</a>
+target="admin_edit$melati.Object.Table.Name$melati.Object.troid()"
+title="Display $ml.rendered($melati.Object.toString())">
+$ml.rendered($melati.Object.toString())</a>
    </font>
   </td>
 #set $references = $melati.Database.referencesTo($melati.Table)
@@ -91,8 +91,8 @@ $ml.rendered($object.toString())</a>
    <p>
     <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionURL($column.Table,"","admin_edit$object.Table.Name$object.troid()")&field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) 
-          target="admin_edit$object.Table.Name$object.troid()"
+[&nbsp;<a href=$admin.SelectionURL($column.Table,"","admin_edit$melati.Object.Table.Name$melati.Object.troid()")&field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid) 
+          target="admin_edit$melati.Object.Table.Name$melati.Object.troid()"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>

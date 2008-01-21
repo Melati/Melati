@@ -70,9 +70,9 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <FORM METHOD="post" ACTION="Update">
 <TABLE CELLPADDING="0" CELLSPACING="0" id="recordFieldsTable">
   #if ($Form.detailed) #begin
-    #set $fields = $object.DetailDisplayFields
+    #set $fields = $melati.Object.DetailDisplayFields
   #end #else #begin
-    #set $fields = $object.RecordDisplayFields
+    #set $fields = $melati.Object.RecordDisplayFields
   #end
   #foreach $field in $fields #begin
     <TR><TD>&nbsp;</TD></TR>
@@ -151,7 +151,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 
 </FORM>
 
-#if (!($Form.detailed || $object.Table.DetailDisplayColumnsCount == $object.Table.RecordDisplayColumnsCount)) #begin
+#if (!($Form.detailed || $melati.Object.Table.DetailDisplayColumnsCount == $melati.Object.Table.RecordDisplayColumnsCount)) #begin
 <P>
  <FONT SIZE="-1" FACE="Arial, Helvetica">
   <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>
@@ -159,7 +159,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 </P>
 #end
 
-$admin.specialFacilities($melati, $ml, $object)
+$admin.specialFacilities($melati, $ml, $melati.Object)
 
 </BODY>
 </HTML>

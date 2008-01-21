@@ -58,7 +58,7 @@
 #if ($inPopup) #begin
     #set $selectionWindowJsName ="parent.selectionwindow_selection"
 #end #else #begin
-    #set selectionWindowJsName ="parent.admin_selection"
+    #set $selectionWindowJsName ="parent.admin_selection"
 #end
 
 
@@ -72,7 +72,7 @@
     var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
 #end
-    ${selectionWindowJsName}.location.href = url;
+    $(selectionWindowJsName).location.href = url;
     return false;
   }
   function updateFromPopup(popupwin,returnfield,id,value) {
@@ -87,7 +87,7 @@
     var selector;
     selector = document.forms[0].elements[0];
     var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-    if (option != "null") ${selectionWindowJsName}.location.href = option;
+    if (option != "null") $(selectionWindowJsName).location.href = option;
     return false;
   }
     #end 
@@ -95,13 +95,13 @@
   function goto_page() {
     var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
-    ${selectionWindowJsName}.location.href = url;
+    $(selectionWindowJsName).location.href = url;
     return false;
   }
   #end 
 #end #else #begin 
   function goto_page() {
-    ${selectionWindowJsName}.location.href = "$admin.SelectionURL($melati.Table)";
+    $(selectionWindowJsName).location.href = "$admin.SelectionURL($melati.Table)";
     return false;
   }
 #end
@@ -117,7 +117,7 @@
 #end #else #begin
     action="$admin.SelectionURL($melati.Table)" 
 #end
-    target="${selectionWindowJsName}">
+    target="$(selectionWindowJsName)">
 
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>

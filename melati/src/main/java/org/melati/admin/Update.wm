@@ -78,7 +78,7 @@
         }
       </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="updateCaller('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
+<BODY bgcolor="#cccccc" onLoad="updateCaller('$Form.returnfield',$melati.Object.Troid,'$ml.escaped($melati.Object)')">
     #end #else #begin
 </HEAD>
 <BODY bgcolor="#cccccc">

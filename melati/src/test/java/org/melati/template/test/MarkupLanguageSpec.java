@@ -66,7 +66,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
-    System.err.println("About to init " + templateEngine.getClass().getName());
+    //System.err.println("About to init " + templateEngine.getClass().getName());
     templateEngine.init(mc);
     m = new Melati(mc, new MelatiStringWriter());
     m.setTemplateEngine(templateEngine);
@@ -365,16 +365,28 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testInputField() throws Exception {
     Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-    // SelectionWindow field
-    Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
-    assertTrue(ml.input(owningTable).indexOf("<input type=\"text\" name=\"field_tableinfo_dummy\" value=\'User\' ") != -1);
-    // SelectionWindow field
-    Field user = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("user");
-    assertTrue(ml.input(user).indexOf("<input type=\"text\" name=\"field_user_dummy\" value=\'Melati database administrator\' ") != -1);
+  }
+  /**
+   * Test method for input(Field) where field to be rendered as a dropdown.
+   * 
+   * @see org.melati.template.MarkupLanguage#input(Field)
+   */
+  public void testInputFieldSelection() throws Exception {
     //Selection dropdown of references    
     Field group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
-    assertTrue(ml.input(group).indexOf("<select name=\"field_group\"         title=\"The group to which the user belongs") != -1);
-    
+    System.err.println(ml.input(group));
+    assertTrue(ml.input(group).indexOf("<select name=\"field_group\"") != -1);
+  }
+  /**
+   * Test method for input(Field) where the renderinfo is selectionWindow.
+   * 
+   * @see org.melati.template.MarkupLanguage#input(Field)
+   */
+  public void testSelectionWindowField() throws Exception {
+    Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
+    assertTrue(ml.input(owningTable).indexOf("<input type=\"text\" name=\"field_tableinfo_dummy\" value=\'User\' ") != -1);
+    Field user = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("user");
+    assertTrue(ml.input(user).indexOf("<input type=\"text\" name=\"field_user_dummy\" value=\'Melati database administrator\' ") != -1);
   }
 
   /**

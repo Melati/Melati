@@ -151,22 +151,12 @@ public class AdminUtils {
   }
   /** @return The Main URL. */
   public String MainURL(Melati melati) {
-    String url = servletURL + "/" + logicalDatabase;
-    if (melati.getTable() != null)
-      url += "/" + melati.getTable().getName();
-    if (melati.getObject() != null)
-      url += "/" + melati.getObject().getTroid();
-    return url + "/Main";
+    return getURL(melati, "Main");
   }
   
   /** @return The Top URL. */
   public String TopURL(Melati melati) {
-    String url = servletURL + "/" + logicalDatabase;
-    if (melati.getTable() != null)
-      url += "/" + melati.getTable().getName();
-    if (melati.getObject() != null)
-      url += "/" + melati.getObject().getTroid();
-    return url + "/Top";
+    return getURL(melati, "Top");
   }
   
   /**
@@ -188,7 +178,6 @@ public class AdminUtils {
       url += melati.getTable().getName();
     else 
       url += getPrimaryDisplayTable(melati); 
-    
     if (melati.getObject() != null)
       url += "/" + melati.getObject().getTroid() ;
     url += "/Bottom";
@@ -198,10 +187,7 @@ public class AdminUtils {
    * @return The Left URL.
    */
   public String TableURL(Melati melati) {
-    return servletURL + "/" + logicalDatabase + 
-        "/" + melati.getTable().getName() + 
-        (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
-        "/Table";
+    return getURL(melati, "Table");
   }
   
   /**
@@ -226,20 +212,14 @@ public class AdminUtils {
    * @return The Right URL.
    */
   public String RecordURL(Melati melati) throws AccessPoemException {
-    return servletURL + "/" + logicalDatabase + 
-    (melati.getTable() == null ? "" : "/" + melati.getTable().getName()) + 
-    (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
-        "/Record";
+    return getURL(melati, "Record");
   }
 
   /**
    * @return The Primary Select URL.
    */
   public String PrimarySelectURL(Melati melati) {
-    return servletURL + "/" + logicalDatabase + "/" + 
-        melati.getTable().getName() + 
-        (melati.getObject() == null ? "" : "/" + melati.getObject().getTroid()) + 
-        "/PrimarySelect";
+    return getURL(melati, "PrimarySelect");
   }
 
   /**
@@ -298,8 +278,7 @@ public class AdminUtils {
     if (melati.getObject() == null )
       return getURL(melati, "blank");
     else
-      return servletURL + "/" + logicalDatabase + "/" + melati.getTable().getName()
-            + "/" + melati.getObject().troid() + "/EditHeader";
+      return getURL(melati, "EditHeader");
   }
 
   /**
@@ -309,8 +288,7 @@ public class AdminUtils {
     if (melati.getObject() == null )
       return getURL(melati, "blank");
     else
-      return servletURL + "/" + logicalDatabase + "/" + melati.getTable().getName()
-            + "/" + melati.getObject().troid() + "/Edit";
+      return getURL(melati, "Edit");
   }
 
   /**
@@ -340,7 +318,7 @@ public class AdminUtils {
             + "/"
             + (table instanceof org.melati.poem.ColumnInfoTable ? Admin.METHOD_CREATE_COLUMN
                     : table instanceof org.melati.poem.TableInfoTable ? Admin.METHOD_CREATE_TABLE
-                            : table.getName() + "/" + Admin.METHOD_ADD_RECORD);
+                            : table.getName() + "/" + Admin.METHOD_CREATE_RECORD);
   }
 
   /**

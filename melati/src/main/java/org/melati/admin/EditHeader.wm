@@ -68,6 +68,7 @@
  <!--
   document.write ("<a href='$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
   document.write ("   target='admin_edit$object.Table.Name$object.troid()' ");
+  document.write ("   id='recordTree' ");
   document.write ("   title='Display tree view'><img ");
   document.write ("   src='$admin.StaticURL/tree.gif' ");
   document.write ("   alt='Tree view' border='0' />");

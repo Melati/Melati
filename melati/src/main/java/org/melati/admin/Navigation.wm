@@ -94,6 +94,7 @@
  <!--
   document.write ("<a href='$admin.TreeURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")'");
   document.write ("     target='admin_selection'");
+  document.write ("     id='tableTree'");
   document.write ("     title='Display tree view'");
   document.write ("     ><img src='$admin.StaticURL/tree.gif' alt='Tree view' border='0' /></a>");
  // -->

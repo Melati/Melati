@@ -98,7 +98,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     //      "org.melati.poem.AccessPoemException: " + 
     //      "You need the capability Cool but " + 
     //      "your access token _guest_ doesn&#39;t confer it") != -1);
-    System.err.println(ml.rendered(ape));
+    //System.err.println(ml.rendered(ape));
     assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));
@@ -155,8 +155,8 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * Test entity substitution
    */
   public void testEntitySubstitution() throws Exception { 
-    assertEquals("&amp;%&pound;", ml.rendered("&%£"));
-    assertEquals("&amp;%&pound;", aml.rendered("&%£"));
+    assertEquals("&amp;%&pound;", ml.rendered("&%ï¿½"));
+    assertEquals("&amp;%&pound;", aml.rendered("&%ï¿½"));
   }
 
   /**
@@ -374,7 +374,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testInputFieldSelection() throws Exception {
     //Selection dropdown of references    
     Field group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
-    System.err.println(ml.input(group));
+    //System.err.println(ml.input(group));
     assertTrue(ml.input(group).indexOf("<select name=\"field_group\"") != -1);
   }
   /**
@@ -448,7 +448,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     m.setPoemContext(new PoemContext());
       
     String renderedTree = ml.rendered(tree);
-    System.err.println(":" + renderedTree + ":");
+    //System.err.println(":" + renderedTree + ":");
     assertTrue(renderedTree.indexOf("init") != -1);
    
   }

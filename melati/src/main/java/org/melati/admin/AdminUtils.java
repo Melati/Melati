@@ -117,6 +117,15 @@ public class AdminUtils {
     return staticURL + Admin.screenStylesheetURL;
   }
   /**
+   * @return the settings table setup url
+   */
+  public String getSetupURL() {
+    return servletURL + "/" + logicalDatabase + 
+        "/setting/setup";
+  }
+  
+  
+  /**
    * @param melati to get db from
    * @return the homepage URL for this databse  
    */
@@ -234,6 +243,12 @@ public class AdminUtils {
   public String SelectionURL(Table table, String returnTarget) {
     return SelectionURL(table, "admin_record", returnTarget);
   }
+  /**
+   * @param table
+   * @param target
+   * @param returnTarget
+   * @return
+   */
   public String SelectionURL(Table table, String target, String returnTarget) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection?" +
@@ -241,6 +256,10 @@ public class AdminUtils {
             "&returnTarget=" + returnTarget;
   }
   
+  /**
+   * @param melati
+   * @return
+   */
   public String SelectionURL(Melati melati) {
     return SelectionURL(melati,"admin_record");    
   }
@@ -262,6 +281,12 @@ public class AdminUtils {
                 "&field_id=" + melati.getObject().troid()) ;
   }
   
+  /**
+   * @return The Selection Right URL.
+   */
+  public String SelectionRightURL(Melati melati) {
+    return getURL(melati, "SelectionRight");
+  }
 
   /**
    * @return The Navigation URL.

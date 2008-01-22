@@ -220,7 +220,8 @@ public class Admin extends TemplateServlet {
   static protected String selectionRightTemplate(ServletTemplateContext context, 
                                           Melati melati) {
     selection(context, melati);
-    return adminTemplate("SelectionRight");
+    context.put("inRight", Boolean.TRUE);
+    return adminTemplate("Selection");
   }
 
   /**

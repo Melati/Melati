@@ -384,9 +384,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    */
   public void testSelectionWindowField() throws Exception {
     Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
-    assertTrue(ml.input(owningTable).indexOf("<input type=\"text\" name=\"field_tableinfo_dummy\" value=\'User\' ") != -1);
+    assertTrue(ml.input(owningTable).indexOf("<input type=\"text\" name=\"field_tableinfo_dummy\"") != -1);
     Field user = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("user");
-    assertTrue(ml.input(user).indexOf("<input type=\"text\" name=\"field_user_dummy\" value=\'Melati database administrator\' ") != -1);
+    assertTrue(ml.input(user).indexOf("<input type=\"text\" name=\"field_user_dummy\"") != -1);
   }
 
   /**

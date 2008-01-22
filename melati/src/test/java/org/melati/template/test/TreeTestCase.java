@@ -12,7 +12,7 @@ import org.melati.poem.test.PoemTestCase;
  * @since 10 Feb 2007
  *
  */
-public class TreeTestCase extends PoemTestCase {
+public abstract class TreeTestCase extends PoemTestCase {
   /** Default db name */
   public static final String databaseName = "tree";
 

@@ -64,6 +64,7 @@ import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.Database;
 import org.melati.poem.DeletionIntegrityPoemException;
+import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.FieldAttributes;
 import org.melati.poem.Initialiser;
@@ -113,7 +114,6 @@ import org.melati.util.MelatiRuntimeException;
  * <li>{@link #selection(ServletTemplateContext, Melati)}</li>
  * </ul>
  *
- * @todo Getting a bit big, wants breaking up
  * @todo Review working of where clause for dates 
  * FIXME Duplicate throws an error for unique fields
  */
@@ -335,10 +335,7 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "PopUp" request method.
-   * <p>
-   * The default template name is "PopupSelect".
-   *  
+   * Implements the field search/selection request method.
    */
   static protected String popUpTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
@@ -546,7 +543,7 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Returns the Update template after modifying the current
+   * Returns the Updated template after modifying the current
    * row according to field values in the context.
    * <p>
    * If successful the template will say so while reloading according
@@ -558,7 +555,7 @@ public class Admin extends TemplateServlet {
     object.preEdit();
     Form.extractFields(context, object);
     object.postEdit(false);
-    return adminTemplate("Update");
+    return adminTemplate("Updated");
   }
 
   /**
@@ -572,14 +569,14 @@ public class Admin extends TemplateServlet {
       throws PoemException {
     Persistent object = create(melati.getTable(), context);
     context.put("object", object);
-    return adminTemplate("Update");
+    return adminTemplate("Updated");
   }
 
   static protected String deleteTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     try {
       melati.getObject().delete();
-      return adminTemplate("Update");
+      return adminTemplate("Updated");
     }
     catch (DeletionIntegrityPoemException e) {
       context.put("object", e.object);
@@ -592,9 +589,13 @@ public class Admin extends TemplateServlet {
       throws PoemException {
     Persistent dup = melati.getObject().duplicated();
     Form.extractFields(context, dup);
-    dup.getTable().create(dup);
+    try {
+      dup.getTable().create(dup);
+    } catch(ExecutingSQLPoemException e) {
+      throw new NonUniqueKeyValueAnticipatedException(e);
+    }
     context.put("object", dup);
-    return adminTemplate("Update");
+    return adminTemplate("Updated");
   }
 
   /**
@@ -642,7 +643,7 @@ public class Admin extends TemplateServlet {
         "http://www.melati.org/", 
         "HomepageUrl", 
         "The home page for this database").getValue();
-    return adminTemplate("Update");
+    return adminTemplate("Updated");
   }
   /** 
    * Finished uploading.
@@ -756,7 +757,7 @@ public class Admin extends TemplateServlet {
         return selectionWindowSelectionTemplate(context, melati);
       if (melati.getMethod().equals(METHOD_CREATE_RECORD))
         return addTemplate(context, melati);
-      if (melati.getMethod().equals("AddUpdate"))
+      if (melati.getMethod().equals("AddUpdate"))  // record create done
         return addUpdateTemplate(context, melati);
     }
     else {

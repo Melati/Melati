@@ -57,8 +57,10 @@
 
 #if ($inPopup) #begin
     #set $selectionWindowJsName ="parent.selectionwindow_selection"
+    #set $selectionWindowTargetName ="selectionwindow_selection"
 #end #else #begin
     #set $selectionWindowJsName ="parent.admin_selection"
+    #set $selectionWindowTargetName ="admin_selection"
 #end
 
 
@@ -117,7 +119,7 @@
 #end #else #begin
     action="$admin.SelectionURL($melati.Table)" 
 #end
-    target="$(selectionWindowJsName)">
+    target="$(selectionWindowTargetName)">
 
  <table cellspacing="2" cellpadding="2" border="0" width="100%">
   <tr>

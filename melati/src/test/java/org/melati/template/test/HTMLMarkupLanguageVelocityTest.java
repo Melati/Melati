@@ -44,6 +44,7 @@ public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageSpec {
       ml.rendered(templated);
       fail("Should have bombed");
     } catch (MelatiBugMelatiException e) { 
+      assertTrue(e.getCause().getMessage().startsWith("Encountered"));
       e = null;
     }
   }

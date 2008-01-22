@@ -3,5 +3,5 @@
 ##   Static Node Label templet
 ##  This templet is evaluated for every node in a StaticTree
 ## It needs to start and end with a double quote and be on a single line, ie no blank line at end of file
-" <font face='Arial, Helvetica' size='1'>&nbsp; <a href='$admin.RecordURL($node.Data,"parent.parent.parent.admin_bottom.admin_left.admin_selection","$ml.encoded("$admin.TreeURL($node.Data.Table)")")' target='admin_record' title='Edit the $ml.rendered($node.Data.Table) record $ml.rendered($node.Data)' class='node'>$ml.rendered($node.Data.displayString())<\\/a><\\/font>"
+" <font face='Arial, Helvetica' size='1'>&nbsp; <a href='$admin.RecordURL($node.Data,"parent.parent.parent.admin_bottom.admin_left.admin_selection","$ml.encoded($admin.TreeURL($node.Data.Table))")' target='admin_record' title='Edit the $ml.rendered($node.Data.Table) record $ml.rendered($node.Data)' class='node'>$ml.rendered($node.Data.displayString())<\\/a><\\/font>"
 ##?returnTarget=Form.returnTarget&returnURL=Form.returnURL' target=admin_edit$node.Data.Table.Name$node.Data.troid()

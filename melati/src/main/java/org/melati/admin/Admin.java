@@ -427,12 +427,9 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "ColumnCreate" request method.
-   * <p>
-   * FIXME Why is this not called
-   * <code>createColumnTemplate()</code>? 
+   * Implements the "CreateColumn" request method.
    */
-  static protected String columnCreateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String createColumnTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
 
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
@@ -455,12 +452,9 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "Create" request method.
-   * <p>
-   * TODO The request method, java method and template name do
-   * not follow the naming conventions.
+   * Implements the "CreateTable" request method.
    */
-  static protected String tableCreateTemplate(ServletTemplateContext context, Melati melati)
+  static protected String createTableTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     Database database = melati.getDatabase();
 
@@ -492,12 +486,9 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "Create_doit" request method.
-   * <p>
-   * FIXME The request method, java method and template name do
-   * not follow the naming conventions .
+   * Implements the "CreateTableDone" request method.
    */
-  static protected String tableCreate_doitTemplate(ServletTemplateContext context,
+  static protected String createTableDoneTemplate(ServletTemplateContext context,
                                             Melati melati)
       throws PoemException {
     Database database = melati.getDatabase();
@@ -509,11 +500,7 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "ColumnCreate_doit" request method.
-   * <p>
-   * TODO Rename createColumn_doitTemplate()
-   * <p>
-   * The template served is "CreateTable_doit".
+   * Implements the "CreateColumnDone" request method.
    */
   static protected String columnCreate_doitTemplate(final ServletTemplateContext context,
                                              final Melati melati)
@@ -776,11 +763,11 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("DSD"))
         return dsdTemplate(context);
       if (melati.getMethod().equals(METHOD_CREATE_TABLE))
-        return tableCreateTemplate(context, melati);
+        return createTableTemplate(context, melati);
       if (melati.getMethod().equals("Create_doit"))
-        return tableCreate_doitTemplate(context, melati);
+        return createTableDoneTemplate(context, melati);
       if (melati.getMethod().equals(METHOD_CREATE_COLUMN))
-        return columnCreateTemplate(context, melati);
+        return createColumnTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn_doit"))
         return columnCreate_doitTemplate(context, melati);
     }

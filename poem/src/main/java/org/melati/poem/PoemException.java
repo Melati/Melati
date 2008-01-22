@@ -80,7 +80,7 @@ public abstract class PoemException extends RuntimeException {
     super(message);
   }
   /**
-   * Overrides standard method for backward compatibility.
+   * No longer overrides standard method.
    * {@inheritDoc}
    * @see java.lang.Throwable#initCause(java.lang.Throwable)
    */

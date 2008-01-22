@@ -69,7 +69,7 @@ public class AnticipatedException extends MelatiRuntimeException {
   }
 
   /**
-   * Pre-java 1.4 initial cause.
+   * Initial cause.
    */
   public AnticipatedException(String message, Exception subException) {
     this(message);
@@ -77,7 +77,7 @@ public class AnticipatedException extends MelatiRuntimeException {
   }
 
   /**
-   * Pre-java 1.4 initial cause.
+   * Initial cause.
    */
   public AnticipatedException(Exception subException) {
     this(null, subException);

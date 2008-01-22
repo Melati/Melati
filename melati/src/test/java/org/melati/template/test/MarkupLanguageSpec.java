@@ -211,6 +211,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     m.setPoemContext(new PoemContext());
      
     String renderedPersistent = ml.rendered(persistent);
+    //System.err.println(renderedPersistent);
     assertEquals("Mum", renderedPersistent);
 
   }

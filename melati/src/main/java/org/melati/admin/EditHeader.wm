@@ -91,7 +91,7 @@ $ml.rendered($melati.Object.toString())</a>
    <p>
     <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionURL($column.Table,"","admin_edit$melati.Object.Table.Name$melati.Object.troid()")&field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid) 
+[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid) 
           target="admin_edit$melati.Object.Table.Name$melati.Object.troid()"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end

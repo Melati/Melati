@@ -247,7 +247,7 @@ public class AdminUtils {
    * @param table
    * @param target
    * @param returnTarget
-   * @return
+   * @return the url
    */
   public String SelectionURL(Table table, String target, String returnTarget) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
@@ -258,7 +258,7 @@ public class AdminUtils {
   
   /**
    * @param melati
-   * @return
+   * @return the url
    */
   public String SelectionURL(Melati melati) {
     return SelectionURL(melati,"admin_record");    
@@ -275,7 +275,7 @@ public class AdminUtils {
           melati.getTable().getName()
             + "/Selection?" +
             "target=admin_record" + 
-            "&returnTarget=" + returnTarget + 
+            "&returnTarget=" + (returnTarget == null ? "" : returnTarget) + 
             (melati.getObject() == null ? 
                 "" : 
                 "&field_id=" + melati.getObject().troid()) ;
@@ -284,8 +284,9 @@ public class AdminUtils {
   /**
    * @return The Selection Right URL.
    */
-  public String SelectionRightURL(Melati melati) {
-    return getURL(melati, "SelectionRight");
+  public String SelectionRightURL(Table table) {
+    return servletURL + "/" + logicalDatabase + "/" + table.getName()
+    + "/SelectionRight";
   }
 
   /**
@@ -293,7 +294,7 @@ public class AdminUtils {
    */
   public String NavigationURL(Table table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
-            + "/Navigation";
+    + "/Navigation";
   }
   
   /**

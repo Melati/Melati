@@ -298,5 +298,17 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     }
     
   }
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#testSelectionWindowField()
+   */
+  public void testSelectionWindowField() throws Exception {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.test.MarkupLanguageSpec#testInputFieldSelection()
+   */
+  public void testInputFieldSelection() throws Exception {
+  }
 
 }

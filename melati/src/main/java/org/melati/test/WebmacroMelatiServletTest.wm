@@ -12,7 +12,7 @@ created a POEM session
 and loaded the WebMacro Template Engine.<p>
 
 #if ($melati.Method) #begin
-<p>This servlet was called with the following Method: <b>$melati.Method</b></p></p>
+<p>This servlet was called with the following Method: <b>$melati.Method</b></p>
 #end
 
 #if ($Form.test) #begin

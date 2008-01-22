@@ -66,37 +66,31 @@
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if ($results) #begin
   <tr>
+    <td>&nbsp;</td>
     <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">
-  #if ($results.PrevPageStart) #begin
-     <font face="Arial, Helvetica" size="-2">
-      <input type="button" name="Previous" 
-          title="Previous page" 
-          value="&lt;&lt; Prev" 
-#if($inPopup) #begin
-          ONCLICK="location.href='&start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
-#end #else #begin
-          ONCLICK="location.href='?target=&start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause'">
-#end
-     </font>
-  #end
      <font face="Arial, Helvetica" size="-1"><b>
+  #if ($results.PrevPageStart) #begin
+      <a title="Previous page" 
+#if($inPopup) #begin
+         href="&start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield">
+#end #else #begin
+         href="?target=&start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause">
+#end
+     &lt;&lt;</a>
+  #end
       Records $results.PageStart to $results.PageEnd of $results.TotalCount
-     </b></font>
 
   #if ($results.NextPageStart) #begin
-     <font face="Arial, Helvetica" size="-2">
-       <input type="button" 
-         name="Next" 
-         title="Next page" 
-         value="Next &gt;&gt;" 
+       <a title="Next page" 
 #if($inPopup) #begin
-         onclick="location.href='&start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"
+          href="&start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield"
 #end #else #begin
-         onclick="location.href='?target=&start=$results.NextPageStart&amp;$whereClause&amp;$orderClause'" 
+          href="?target=&start=$results.NextPageStart&amp;$whereClause&amp;$orderClause" 
 #end
        />
-     </font>
+       &gt;&gt;</a>
   #end
+     </b></font>
     </td>
   </tr>
   <tr>

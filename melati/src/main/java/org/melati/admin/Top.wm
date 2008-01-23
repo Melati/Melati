@@ -62,7 +62,6 @@
 </head>
 
 <body bgcolor="#dddddd" onLoad="goto_page()" id="top">
-<form method="get" target="admin_bottom" action="">
 <table cellpadding="2" cellspacing="2" border="0" width="100%">
 <tr>
 <td align="left" valign="middle">
@@ -74,8 +73,8 @@
 </td>
 <td align="left" valign="middle">
 <font size="-1" face="Arial, Helvetica">
+<form method="GET" target="admin_bottom" action="">
 <select name="goto" OnChange="goto_page();" title="Select table to edit">
-
 #set $lasttype = ""
 #set $selected = false
 #foreach $tab in $melati.Database.DisplayTables #begin
@@ -104,8 +103,11 @@
 </select>
 </font><font size="-2" face="Arial, Helvetica">
 <input type="submit" value=" Go " onclick="goto_page()">
-</font></td>
-<td align="right" valign="middle">
+</font>
+</form>
+</td>
+<td align="right" valign="middle" nowrap="true">
+<div style="white-space:nowrap;">
 <font size="-2" face="Arial, Helvetica">
 <noscript>
 <div id="message">
@@ -126,30 +128,63 @@
 #end
 &nbsp;
  #if ($melati.User.isGuest()) #begin
- <input type="button" value=" Login " 
+<form method="GET" 
+    action="$melati.LoginURL"
+    target="_top"
+    style="display:inline;">
+ <input type="hidden"
+     name="continuationURL"
+     value="$admin.MainURL($melati)"
+ />
+ <input type="submit" 
+        value=" Login " 
+        id="login"
         title="Login to the system"
-        onclick="parent.location.href = '$melati.LoginURL?continuationURL=$admin.MainURL($melati)'">
+       />
+</form>
  #end #else #begin
- <input type="button" value=" Logout " 
+<form method="GET" 
+      action="$melati.LogoutURL"
+      target="_top"
+      style="display:inline">
+ <input type="hidden"
+     name="continuationURL"
+     value="$admin.MainURL($melati)"
+ />
+ <input type="submit" 
+        value=" Logout "
+        id="logout"
         title="Logout from the system"
-        onclick="parent.location.href = '$melati.LogoutURL?continuationURL=$admin.MainURL($melati)'">
+       />
+</form>
  #end
- <input type="button" value=" Home " 
-        title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
-        onclick="parent.admin_bottom.location = '$admin.getHomepageURL($melati)';"
- >
+ <form method="GET" 
+      action="$admin.getHomepageURL($melati)" 
+      style="display:inline;"
+      target="admin_bottom">
+ <input type="submit" 
+     value=" Home " 
+     id="home"
+     title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
+     />
+ </form>
  #if ($melati.KnownDatabaseNames.size() > 1) #begin 
 <script Language="JavaScript" type="text/javascript">
   function reload_page_with_different_db() {
    var dbSelector;
-   dbSelector = document.forms[0].dbs;
+   dbSelector = document.forms["ldb"].ldb;
    var option = dbSelector.options[dbSelector.selectedIndex].value;
    if (option != "null") parent.location = option;
    return false;
   }
 </script>
 <font size="-1" face="Arial, Helvetica">
-<select name="dbs" 
+ <form method="GET" 
+      action="$admin.getHomepageURL($melati)" 
+      style="display:inline;"
+      id="ldb"
+      target="admin_bottom">
+<select name="ldb" 
         OnChange="return(reload_page_with_different_db());" 
         title="Select db to use">
 
@@ -170,6 +205,9 @@
 > $dbName </option>
 #end
 </select>
+</form>
 </font>
  #end
-</font></td></tr></table></form></body></html>
+</font>
+</div>
+</td></tr></table></body></html>

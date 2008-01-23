@@ -1,6 +1,7 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
+import org.melati.template.TemplateEngineException;
 import org.melati.template.velocity.VelocityTemplateEngine;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
@@ -44,6 +45,10 @@ public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageSpec {
       ml.rendered(templated);
       fail("Should have bombed");
     } catch (MelatiBugMelatiException e) { 
+      assertTrue(e.getCause().getMessage().startsWith("Encountered"));
+      e = null;
+    } catch (TemplateEngineException e) { // If a bad .vm file is found instead,
+                                          // due to auto creation of .vm from .wm files
       assertTrue(e.getCause().getMessage().startsWith("Encountered"));
       e = null;
     }

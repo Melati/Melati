@@ -58,7 +58,7 @@
 <DIV ALIGN="CENTER">
 
 <h1>Logging you out...</h1>
-<p>Transferrng you <a href="$ml.escaped($continuationURL)">here</a>.</p>
+<p>Transferring you <a href="$ml.escaped($continuationURL)">here</a>.</p>
 
 </DIV>
 </BODY>

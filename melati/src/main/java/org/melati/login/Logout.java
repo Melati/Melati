@@ -78,7 +78,7 @@ public class Logout extends TemplateServlet {
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
                                                             throws Exception {
     HttpSession session = melati.getSession();
-    String returnURL = Form.getFieldNulled(context,"returnURL");
+    String returnURL = Form.getFieldNulled(context,"continuationURL");
     if (returnURL == null) {
       context.put("continuationURL", "/");
     } else {

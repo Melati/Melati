@@ -250,4 +250,25 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     submit("action");
     assertTextPresent("Hello World!");
   }
+  
+  /**
+   * Test setting the defaults.
+   */
+  public void testSetupStory() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/melatijunit/Main");
+    gotoFrame("admin_top");
+    clickButton("login");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit("action");
+    gotoFrame("admin_top");
+    clickLinkWithText("Setup");    
+    beginAt("/Admin/melatijunit/Main");
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_left");
+    gotoFrame("admin_selection");
+    assertTextPresent("HomepageUrl"); //FIXME URL
+  }
 }

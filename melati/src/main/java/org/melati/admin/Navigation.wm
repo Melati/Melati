@@ -84,13 +84,18 @@
   </TD>
 </TR>
 <TR>
-<TD><A HREF='$admin.AddURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
+  <TD>
+    <a href='$admin.AddURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
        title="New $melati.Table.DisplayName" 
-       target="admin_record"><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a></TD>
+       target="admin_record"><IMG 
+           src="$admin.StaticURL/edit_file.gif" 
+           border="0" 
+           alt="New $melati.Table.DisplayName" /></a>
+  </TD>
 </TR>
 <TR>
-<TD>
- <script type="text/javascript"> 
+  <TD>
+<script type="text/javascript"> 
  <!--
   document.write ("<a href='$admin.TreeURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")'");
   document.write ("     target='admin_selection'");
@@ -98,8 +103,8 @@
   document.write ("     title='Display tree view'");
   document.write ("     ><img src='$admin.StaticURL/tree.gif' alt='Tree view' border='0' /></a>");
  // -->
- </script>
-</TD>
+</script>
+  </TD>
 </TR>
 </TABLE>
 </DIV>

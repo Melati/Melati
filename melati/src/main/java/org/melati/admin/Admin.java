@@ -115,7 +115,9 @@ import org.melati.util.MelatiRuntimeException;
  * </ul>
  *
  * @todo Review working of where clause for dates 
- * FIXME Duplicate throws an error for unique fields
+ * @todo Unify creation methods
+ * @todo Move Nav icons into PrimarySelect
+ * @todo Reinstate create icon in selectionRight
  */
 
 public class Admin extends TemplateServlet {

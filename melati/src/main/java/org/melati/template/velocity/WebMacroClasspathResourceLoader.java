@@ -43,7 +43,11 @@
  */
 package org.melati.template.velocity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
@@ -73,9 +77,46 @@ public class WebMacroClasspathResourceLoader
    */
   public InputStream getResourceStream(String templateName)
       throws ResourceNotFoundException {
-    if (templateName.endsWith(".wm"))
-      return WebMacroConverter.convert(super.getResourceStream(templateName));
-    else
+    if (templateName.endsWith(".wm")) {
+      InputStream converted = WebMacroConverter.convert(super.getResourceStream(templateName));
+      
+      try {
+        String wmName = "/dist/melati/melati/src/main/java/" + templateName;
+        File wmFile = new File(wmName);
+        String vmName;
+        if (wmFile.exists()) {
+          vmName = "/dist/melati/melati/src/main/java/" + 
+           (templateName.endsWith(".wm")?
+                templateName.substring(0,templateName.length() -3) + ".vm" :
+                  templateName);
+        } else { 
+          wmName = "/dist/melati/melati/src/test/java/" + templateName;
+          wmFile = new File(wmName);
+          if (wmFile.exists()) {
+            vmName = "/dist/melati/melati/src/test/java/" + 
+             (templateName.endsWith(".wm")?
+                  templateName.substring(0,templateName.length() -3) + ".vm" :
+                    templateName);
+          } else 
+            throw new RuntimeException("Cannot find file " + wmName);
+        }
+        File convertedFile = new File(vmName).getCanonicalFile();
+        System.err.println(vmName);
+        convertedFile.createNewFile();
+        PrintStream ps = new PrintStream(new FileOutputStream(convertedFile));
+        int nextChar = converted.read();
+        while (nextChar > 0) {
+          ps.write((char)nextChar);
+          nextChar = converted.read();
+        }
+        converted.reset();
+        ps.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+      }
+      return converted;
+    } else
       return super.getResourceStream(templateName);
   }
 

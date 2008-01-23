@@ -134,7 +134,6 @@
            type="hidden" 
            name="field_$ml.rendered($primaryCriterion.Name)" 
            value='$ml.rendered($primaryCriterion.RawString)'>
-           $ml.rendered($primaryCriterion) 
 #if (!$inPopup) #begin
        <input 
            type="hidden" 

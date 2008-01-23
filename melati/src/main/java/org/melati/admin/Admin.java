@@ -118,6 +118,10 @@ import org.melati.util.MelatiRuntimeException;
  * @todo Unify creation methods
  * @todo Move Nav icons into PrimarySelect
  * @todo Reinstate create icon in selectionRight
+ * @todo Make Top.login JS agnostic
+ * @todo Make Chooser JS agnostic
+ * @todo Make Navigation JS agnostic
+ * @todo Make whole selection line a link, or atleast not dependant upon image 
  */
 
 public class Admin extends TemplateServlet {

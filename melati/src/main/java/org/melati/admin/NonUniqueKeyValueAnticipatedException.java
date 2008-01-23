@@ -11,6 +11,11 @@ package org.melati.admin;
 public class NonUniqueKeyValueAnticipatedException extends AnticipatedException {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 5286019202403862839L;
+
+  /**
    * @param subException
    */
   public NonUniqueKeyValueAnticipatedException(Exception subException) {

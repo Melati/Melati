@@ -64,9 +64,7 @@
            marginheight="0" 
            frameborder="0" scrolling="auto">
     <frame src='$admin.EditURL($melati)?$returns' 
-#if ($melati.Object) #begin
-           name="admin_edit$melati.Table.Name$melati.Object.troid()" 
-#end
+           name="$admin.EditFrameName($melati)" 
            marginwidth="0" 
            marginheight="0" 
            frameborder="0" scrolling="auto">

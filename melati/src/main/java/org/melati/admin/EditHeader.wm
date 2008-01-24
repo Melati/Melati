@@ -45,11 +45,11 @@
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #set $returnTarget = $Form.returnTarget
 #if ($returnTarget == null) #begin
-#set $returnTarget = ""
+ #set $returnTarget = ""
 #end
 #set $returnURL = $Form.returnURL
 #if ($returnURL == null) #begin
-#set $returnURL = ""
+ #set $returnURL = ""
 #end
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -67,7 +67,7 @@
  <script type="text/javascript"> 
  <!--
   document.write ("<a href='$admin.TreeURL($melati.Object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
-  document.write ("   target='admin_edit$melati.Object.Table.Name$melati.Object.troid()' ");
+  document.write ("   target='$admin.EditFrameName($melati)' ");
   document.write ("   id='recordTree' ");
   document.write ("   title='Display tree view'><img ");
   document.write ("   src='$admin.StaticURL/tree.gif' ");
@@ -80,7 +80,7 @@
    <font face="Arial, Helvetica" size="2">$melati.Table.DisplayName</font></div><font 
      face="Arial, Helvetica" size="2">:
 <a href= "$admin.EditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$melati.Object.Table.Name$melati.Object.troid()"
+target="$admin.EditFrameName($melati)"
 title="Display $ml.rendered($melati.Object.toString())">
 $ml.rendered($melati.Object.toString())</a>
    </font>
@@ -92,7 +92,7 @@ $ml.rendered($melati.Object.toString())</a>
     <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
 [&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid) 
-          target="admin_edit$melati.Object.Table.Name$melati.Object.troid()"
+          target="$admin.EditFrameName($melati)"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>

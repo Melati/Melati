@@ -76,7 +76,7 @@
 <BODY BGCOLOR="#eeeeee" id="selection">
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
-#if ($results) #begin
+#if ($results && $results.TotalCount> 0) #begin
   <tr>
     <td>&nbsp;</td>
     <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">
@@ -127,26 +127,37 @@
   #set $class = $class2
   #foreach $result in $results #begin
   <TR>
-   <TD bgcolor="$color" class="$class">
-     <font size="-1"><a 
+    <TD bgcolor="$color" class="$class">
+      <a 
 #if($inPopup) #begin
-         onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+          onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
 #end #else #begin
   #if($inRight) #begin
-         href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
    #end #else #begin
-         href='$admin.RecordURL($result,"",$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.RecordURL($result,"",$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
    #end      
-         target="$target"
+          target="$target"
 #end
-         title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
-     </font>
-   </TD>
+          title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
+    </TD>
     #foreach $field in $result.SummaryDisplayFields #begin
-   <TD bgcolor="$color" class="$class">
-     <font face="Arial, Helvetica" size="-1">
-       $ml.renderedStart($field)&nbsp;
-     </font>
+    <TD bgcolor="$color" class="$class">
+      <a 
+#if($inPopup) #begin
+          onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+#end #else #begin
+  #if($inRight) #begin
+          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+   #end #else #begin
+          href='$admin.RecordURL($result,"",$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+   #end      
+          target="$target"
+#end
+          title="Choose">
+       $ml.renderedStart($field)
+     </a>
+     &nbsp;
    </TD>
     #end
   </TR>
@@ -158,9 +169,13 @@
       #set $class = $class1
     #end
   #end
-  </TABLE>
-#end
+#end #else #begin 
+  <tr><td align="center">
+  No records found.
+  </td></tr>
+#end 
 
-  </form>
- </BODY>
+</table>
+</form>
+</BODY>
 </HTML>

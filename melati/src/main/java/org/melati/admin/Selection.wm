@@ -143,6 +143,7 @@
     </TD>
     #foreach $field in $result.SummaryDisplayFields #begin
     <TD bgcolor="$color" class="$class">
+     <font face="Arial, Helvetica" size="-1">
       <a 
 #if($inPopup) #begin
           onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
@@ -158,6 +159,7 @@
        $ml.renderedStart($field)
      </a>
      &nbsp;
+    </font>
    </TD>
     #end
   </TR>

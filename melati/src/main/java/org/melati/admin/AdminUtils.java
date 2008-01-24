@@ -321,6 +321,18 @@ public class AdminUtils {
   }
 
   /**
+   * @param melati
+   * @return
+   */
+  public String EditFrameName(Melati melati) { 
+    String name = "admin_edit";
+    if (melati.getTable() != null) 
+      name += "_" + melati.getTable().getName();
+    if (melati.getObject() != null) 
+      name += "_" + melati.getObject().troid();
+    return name;
+  }
+  /**
    * @return The Tree URL.
    */
   public String TreeURL(Persistent object) throws AccessPoemException {

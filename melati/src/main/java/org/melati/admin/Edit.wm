@@ -122,28 +122,34 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
   <tr>
    <td align="center">
     <FONT SIZE="-1" FACE="Arial, Helvetica">
-<INPUT NAME="action" VALUE="Update" TYPE="submit"
-       ONCLICK="return validate(this.form);">
+<input name="action"
+    value="Update"
+    type="submit"
+    id="update"
+    onclick="return validate(this.form);">
 &nbsp;&nbsp;
-<INPUT NAME="action" VALUE="Delete" TYPE="submit"
-       ONCLICK="return confirm(
+<INPUT NAME="action" 
+    VALUE="Delete"
+    id="delete" 
+    TYPE="submit"
+    ONCLICK="return confirm(
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
 #if ($Form.returnURL) #begin
-
   <input type="hidden" name="returnURL" value='$Form.returnURL'>
 #end #else #begin
   #if ($CGI.HTTP_REFERER) #begin
-
     <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
   #end
 #end
 #if ($Form.returnTarget) #begin
-
   <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
 #end
-<INPUT NAME="action" VALUE="Duplicate" TYPE="submit"
-       ONCLICK="return validate(this.form);">
+<input name="action" 
+    value="Duplicate"
+    id="duplicate"
+    type="submit"
+    onclick="return validate(this.form);">
     </font>
    </td>
   </tr>

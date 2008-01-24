@@ -269,6 +269,6 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_bottom");
     gotoFrame("admin_left");
     gotoFrame("admin_selection");
-    assertTextPresent("HomepageUrl"); //FIXME URL
+    assertTextPresent("HomepageURL");
   }
 }

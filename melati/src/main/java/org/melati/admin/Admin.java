@@ -645,9 +645,9 @@ public class Admin extends TemplateServlet {
         "PrimaryDisplayTable", 
         "The default table to display").getValue();
     homepageURL = melati.getDatabase().getSettingTable().ensure( 
-        Admin.class.getName() + ".HomepageUrl", 
+        Admin.class.getName() + ".HomepageURL", 
         "http://www.melati.org/", 
-        "HomepageUrl", 
+        "HomepageURL", 
         "The home page for this database").getValue();
     return adminTemplate("Updated");
   }

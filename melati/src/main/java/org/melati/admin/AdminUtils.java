@@ -126,6 +126,9 @@ public class AdminUtils {
   
   
   /**
+   * Check if setting in db, provide default if not, do not 
+   * write default to db. 
+   * 
    * @param melati to get db from
    * @return the homepage URL for this databse  
    */

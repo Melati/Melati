@@ -121,7 +121,8 @@ import org.melati.util.MelatiRuntimeException;
  * @todo Make Top.login JS agnostic
  * @todo Make Chooser JS agnostic
  * @todo Make Navigation JS agnostic
- * @todo Make whole selection line a link, or atleast not dependant upon image 
+ * @todo Make whole selection line a link, or atleast not dependant upon image
+ * @todo Rename Left template to Table 
  */
 
 public class Admin extends TemplateServlet {

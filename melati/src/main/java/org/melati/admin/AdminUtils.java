@@ -322,7 +322,7 @@ public class AdminUtils {
 
   /**
    * @param melati
-   * @return
+   * @return the name od the Record Field frame
    */
   public String EditFrameName(Melati melati) { 
     String name = "admin_edit";

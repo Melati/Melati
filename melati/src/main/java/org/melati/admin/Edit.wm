@@ -118,6 +118,19 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
       </font>
     </TD></TR>
   #end
+
+#if ($Form.returnURL) #begin
+  <input type="hidden" name="returnURL" value='$Form.returnURL'>
+#end #else #begin
+  #if ($CGI.HTTP_REFERER) #begin
+
+    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+  #end
+#end
+#if ($Form.returnTarget) #begin
+
+  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
+#end
   <TR><TD>&nbsp;</TD></TR>
   <tr>
    <td align="center">
@@ -135,16 +148,6 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
     ONCLICK="return confirm(
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
-#if ($Form.returnURL) #begin
-  <input type="hidden" name="returnURL" value='$Form.returnURL'>
-#end #else #begin
-  #if ($CGI.HTTP_REFERER) #begin
-    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
-  #end
-#end
-#if ($Form.returnTarget) #begin
-  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
-#end
 <input name="action" 
     value="Duplicate"
     id="duplicate"

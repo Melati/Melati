@@ -83,23 +83,14 @@
      <font face="Arial, Helvetica" size="-1"><b>
   #if ($results.PrevPageStart) #begin
       <a title="Previous page" 
-#if($inPopup) #begin
-         href="&start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield">
-#end #else #begin
-         href="?target=&start=$results.PrevPageStart&amp;$whereClause&amp;$orderClause">
-#end
+         href="$melati.sameURLWith("start","$results.PrevPageStart")">
      &lt;&lt;</a>
   #end
       Records $results.PageStart to $results.PageEnd of $results.TotalCount
 
   #if ($results.NextPageStart) #begin
        <a title="Next page" 
-#if($inPopup) #begin
-          href="&start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield"
-#end #else #begin
-          href="?target=&start=$results.NextPageStart&amp;$whereClause&amp;$orderClause" 
-#end
-       />
+          href="$melati.sameURLWith("start","$results.NextPageStart")">
        &gt;&gt;</a>
   #end
      </b></font>
@@ -110,11 +101,7 @@
   #foreach $column in $melati.Table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
-#if($inPopup) #begin
-       $ml.rendered($column.DisplayName)
-#end #else #begin
-     <a href="?target=admin_record$whereClause&amp;field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
-#end
+     <a href="$admin.ToggledOrderSelectionURL($melati,"field_order-1","$column.getColumnInfo().getTroid()")">$ml.rendered($column.DisplayName)</a>&nbsp;
     </font>
    </th>
   #end
@@ -135,7 +122,7 @@
   #if($inRight) #begin
           href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
    #end #else #begin
-          href='$admin.RecordURL($result,"",$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded($ml.encoded("$melati.SameURL")))' 
    #end      
           target="$target"
 #end
@@ -151,7 +138,7 @@
   #if($inRight) #begin
           href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
    #end #else #begin
-          href='$admin.RecordURL($result,"",$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded("$melati.SameURL"))' 
    #end      
           target="$target"
 #end

@@ -66,14 +66,14 @@
 <tr>
 <td align="left" valign="middle">
   <b><font face="Arial, Helvetica" size="3">Melati Database Admin Suite</font></b>
-  <br />
+  <br>
   <font face="Arial, Helvetica" size="-1" >
     $melati.Database.DisplayName database
   </font>
 </td>
 <td align="left" valign="middle">
-<font size="-1" face="Arial, Helvetica">
 <form method="GET" id="goto" target="admin_bottom" action="$admin.MainURL($melati)">
+<font size="-1" face="Arial, Helvetica">
 <select name="goto" OnChange="goto_page();" title="Select table to edit">
 #set $lasttype = ""
 #set $selected = false
@@ -106,9 +106,7 @@
 </font>
 </form>
 </td>
-<td align="right" valign="middle" nowrap="true">
-<div style="white-space:nowrap;">
-<font size="-2" face="Arial, Helvetica">
+<td align="right" valign="middle" nowrap="nowrap">
 <noscript>
 <div id="message">
   <font color="green">
@@ -116,15 +114,18 @@
   </font>
 </div>
 </noscript>
+<div style="white-space:nowrap;">
 #if ($melati.User.isAdministrator()) #begin
-<a href="$admin.getSetupURL()?returnTarget=top&returnURL=Main" target="admin_bottom" 
-   title="Database sessions available and in use">Setup</a>
-<a href="$admin.SessionURL()" target="admin_bottom" 
-   title="Database sessions available and in use">Sessions</a>
-<a href="$admin.StatusURL()" target="admin_bottom" 
-   title="Which records are currently stored in memory">Cache</a>
-<a href="$admin.DsdURL()" target="admin_bottom" 
-   title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
+<font size="-2" face="Arial, Helvetica">
+ <a href="$admin.getSetupURL()?returnTarget=top&returnURL=Main" target="admin_bottom" 
+    title="Database sessions available and in use">Setup</a>
+ <a href="$admin.SessionURL()" target="admin_bottom" 
+    title="Database sessions available and in use">Sessions</a>
+ <a href="$admin.StatusURL()" target="admin_bottom" 
+    title="Which records are currently stored in memory">Cache</a>
+ <a href="$admin.DsdURL()" target="admin_bottom" 
+    title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
+</font>
 #end
 &nbsp;
  #if ($melati.User.isGuest()) #begin
@@ -178,12 +179,12 @@
    return false;
   }
 </script>
-<font size="-1" face="Arial, Helvetica">
  <form method="GET" 
       action="$admin.getHomepageURL($melati)" 
       style="display:inline;"
       id="ldb"
       target="admin_bottom">
+<font size="-1" face="Arial, Helvetica">
 <select name="ldb" 
         OnChange="return(reload_page_with_different_db());" 
         title="Select db to use">
@@ -205,9 +206,8 @@
 > $dbName </option>
 #end
 </select>
+</font>
 </form>
-</font>
  #end
-</font>
 </div>
 </td></tr></table></body></html>

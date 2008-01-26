@@ -235,8 +235,6 @@ public class Admin extends TemplateServlet {
    * Modifies the context in preparation for serving a template to view a
    * selection of rows.
    * <p>
-   * The table and database are added to the context.
-   * <p>
    * Any form fields in the context with names starting "field_"
    * are assumed to hold values that must be matched in selected rows
    * (if not null).
@@ -305,12 +303,18 @@ public class Admin extends TemplateServlet {
       Integer orderColumnID = null;
 
       if (orderColumnIDString != null) {
+        String toggleName = "field_order-" + o + "-toggle";
+        String orderColumnSortOrderToggle = Form.getFieldNulled(context, toggleName);
+        Boolean toggle = new Boolean(orderColumnSortOrderToggle);
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
             (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
         String desc = Boolean.TRUE.equals(info.getSortdescending()) ?
-                          " DESC" : "";
+            (Boolean.TRUE.equals(toggle) ?
+                "" : " DESC") : 
+                  (Boolean.TRUE.equals(toggle) ?
+                  " DESC" : "");
         orderings.addElement(database.quotedName(info.getName()) + desc);
         orderClause.addElement(name+"="+orderColumnIDString);
       }
@@ -394,9 +398,6 @@ public class Admin extends TemplateServlet {
       if (orderColumnIDString != null) {
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
-        // This is not used but 
-        //ColumnInfo info =
-        //    (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
       }
 
       orderings.addElement(

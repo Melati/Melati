@@ -266,22 +266,20 @@ public class AdminUtils {
   public String SelectionURL(Melati melati) {
     return SelectionURL(melati,"admin_record");    
   }
+
   /**
    * Toggle the sort order of column.
-   * @param melati
-   * @param field
-   * @param value
    * @return the same url with the toggle field added or removed
    */
   public String ToggledOrderSelectionURL(Melati melati, String field, String value) { 
     String url = melati.sameURLWith(field,value);
     String toggleField = "&" + field + "-toggle=true";
-    System.err.println(url);
     if (url.endsWith(toggleField))
       return url.substring(0,url.length() - toggleField.length());
     else 
       return url + "&" + field + "-toggle=true";
   }
+  
   /**
    * @return The Selection URL.
    */

@@ -164,7 +164,7 @@
            src="$admin.StaticURL/display.gif"
            value=" Go " 
            onclick="goto_page();"
-           title="Select using selected $primaryCriterion.DisplayName" 
+           title="Display matching records using selected $primaryCriterion.DisplayName" 
            style="vertical-align:top;" />
      </font>
     #end #else #begin
@@ -195,7 +195,7 @@
         src="$admin.StaticURL/display.gif"
         value=" Go " 
         onclick="goto_page();"
-        title="Select by chosen $primaryCriterion.DisplayName" 
+        title="Display matching records by chosen $primaryCriterion.DisplayName" 
         style="vertical-align:top;" /></font>
     #end
    </td>
@@ -226,7 +226,7 @@
           src="$admin.StaticURL/display.gif"
           name="action" 
           value=" Go " 
-          title="Select matching input $primaryCriterion.DisplayName" 
+          title="Display matching records using input $primaryCriterion.DisplayName" 
           style="vertical-align:top;" 
       />
      </font>

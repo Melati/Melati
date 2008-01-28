@@ -42,21 +42,22 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+## Expecting $object to be a Field
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
-<input type=hidden name="field_$ml.rendered($field.Name)" value='$ml.rendered($field.RawString)' />
-<input type="text" name="field_$ml.rendered($field.Name)_dummy" 
-#if ($field.Raw) #begin
-value='$ml.rendered($field.Cooked)' 
+<input type=hidden name="field_$ml.rendered($object.Name)" value='$ml.rendered($object.RawString)' />
+<input type="text" name="field_$ml.rendered($object.Name)_dummy" 
+#if ($object.Raw) #begin
+value='$ml.rendered($object.Cooked)' 
 #end
 size=30 
-#if ($field.Description) #begin
-title="$field.Description"
+#if ($object.Description) #begin
+title="$object.Description"
 #end
-onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
-<input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
-onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())&returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
+onfocus="document.forms[0].$ml.rendered($object.Name)_button.focus()" />
+<input type="button" value="Choose" name="$ml.rendered($object.Name)_button" 
+onClick ="choosewindow = window.open('$admin.SelectionWindowURL($object.getType().targetTable())&returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" />
 <script language="JavaScript1.2" type="text/javascript">
-  add_rule("field_$ml.escaped($field.Name)",
-           "$ml.escaped($field.DisplayName)",
-	   !$field.Type.Nullable)
+  add_rule("field_$ml.escaped($object.Name)",
+           "$ml.escaped($object.DisplayName)",
+	   !$object.Type.Nullable)
 </script>

@@ -41,4 +41,4 @@
 ##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
-#end #if ($object) #begin [$ml.rendered($object.toString())]#end #else #begin null #end
+#end[$ml.rendered($object.toString())]

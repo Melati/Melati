@@ -53,22 +53,22 @@
       type="text/css" media="screen">
 #if ($Form.returnTarget) #begin
   <script type="text/javascript">
-    function reloadframes() {
+    function reloadFrames() {
       $(Form.returnTarget).location.href="$Form.returnURL";
       $(Form.returnTarget).focus();
     }
   </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadframes()" id="done">
+<BODY bgcolor="#cccccc" onLoad="reloadFrames()" id="done">
 #end #else #begin
   #if ($Form.returnURL) #begin
     <script type="text/javascript">
-    function reloadframe() {
+    function reloadFrame() {
       location.href="$Form.returnURL";
     }
     </script>
 </HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadframe()">
+<BODY bgcolor="#cccccc" onLoad="reloadFrame()">
   #end #else #begin
     #if ($Form.returnfield) #begin
       <script language="JavaScript" TYPE="text/javascript">
@@ -86,6 +86,5 @@
 #end
 <br/><br/><br/><br/>
 <h3 align="center"><FONT FACE="Arial, Helvetica">Done</font></h3>
-
 </BODY>
 </HTML>

@@ -43,6 +43,8 @@ public class LogicalDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * This fails under crap4j, so this is a difference between crap4j/eclipse and maven.
+   * 
    * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
@@ -51,6 +53,8 @@ public class LogicalDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * This fails under crap4j, so this is a difference between crap4j/eclipse and maven.
+   * 
    * Test method for {@link org.melati.LogicalDatabase#getInitialisedDatabaseNames()}.
    */
   public void testGetInitialisedDatabaseNames() {

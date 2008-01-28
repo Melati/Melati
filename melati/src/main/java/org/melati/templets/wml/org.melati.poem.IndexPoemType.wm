@@ -38,9 +38,8 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Tim Joyce <timj At paneris.org>
+##     http://paneris.org/~timj
 ##
 ## Expecting $object to be a Field
 <select name="field_$ml.rendered($object.Name)">

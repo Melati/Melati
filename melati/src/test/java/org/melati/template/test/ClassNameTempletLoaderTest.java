@@ -147,19 +147,19 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("ml", ml);
     tc.put("object", new Object());
     t.write(m.getWriter(),tc, m.getTemplateEngine());
-    // FIXME why is webmacro putting a line break at the front?
-    assertTrue(m.getWriter().toString().trim().startsWith("[java.lang.Object@"));
+    assertTrue(m.getWriter().toString().startsWith("[java.lang.Object@"));
 
     t = ClassNameTempletLoader.getInstance().templet(
-            templateEngine, ml,"select");
+            templateEngine, ml,"SelectionWindow");
     tc = m.getTemplateContext();
     tc.put("melati", m);
     tc.put("ml", ml);
-    Field nullable = getDb().getColumnInfoTable().
-                           getColumnInfoObject(0).getField("nullable");
-    tc.put("object", nullable);
+    Field tableField = getDb().getColumnInfoTable().
+                           getColumnInfoObject(0).getField("tableinfo");
+    tc.put("object", tableField);
     t.write(m.getWriter(),tc, m.getTemplateEngine());
-    assertTrue(m.getWriter().toString().toLowerCase().indexOf("<select name=") != -1);
+    System.err.println(m.getWriter().toString());
+    assertTrue(m.getWriter().toString().indexOf("tableinfo_button") != -1);
 
 
   }

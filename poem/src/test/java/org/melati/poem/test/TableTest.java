@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import org.melati.poem.CachedCount;
 import org.melati.poem.CachedExists;
+import org.melati.poem.Column;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
@@ -150,9 +151,41 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * Assert that all columns are currently returned at the detail level.
+   * It would be possible to exclude range for example. 
+   *  
    * @see org.melati.poem.Table#columns()
    */
   public void testColumns() {
+    Enumeration en = getDb().tables();
+    while(en.hasMoreElements()) { 
+      Table t = (Table)en.nextElement();
+      int colCount = EnumUtils.vectorOf(t.columns()).size();
+      assertTrue("Table " + t.getName() + 
+              " columns(): " + colCount + 
+              " t.getDetailDisplayColumnsCount(): " + t.getDetailDisplayColumnsCount(), 
+              colCount == t.getDetailDisplayColumnsCount());
+      int colIndex = 0;
+      String[][] cols = new String[colCount][3] ;
+      Enumeration colEn = t.columns();
+      while (colEn.hasMoreElements()) {
+        Column c = (Column)colEn.nextElement();
+        cols[colIndex][0] = c.getName();
+        boolean inDetailDisplayColumns = false; 
+        Enumeration detailDisplayCols = t.getDetailDisplayColumns();
+        while (detailDisplayCols.hasMoreElements()) { 
+          Column recCol = (Column)detailDisplayCols.nextElement();
+          if (recCol == c) 
+            inDetailDisplayColumns = true;
+        }
+        cols[colIndex][1] = new Boolean(inDetailDisplayColumns).toString();
+        colIndex++;
+      }
+      for (int i = 0; i< colCount; i++) { 
+        assertTrue("    " + i + " " + cols[i][0] + " " + cols[i][1] ,  
+                cols[i][1].equals("true"));
+      }
+    }
 
   }
 

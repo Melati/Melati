@@ -45,7 +45,6 @@
 
 package org.melati.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -348,55 +347,20 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
       }
     }
 
+
     /**
-     * Test harness.
-     * 
-     * @param args arguments
+     * Used in tests.
+     * @return the buffer length
      */
-    public static void main(String[] args) {
-      byte[] sink = new byte[10];
-      byte[] arr1 = {30, 31, 32, 33};
-      byte[] arr2 = {32, 33};
-      byte[] arr3 = {32, 34, 33};
-      byte[] arr4 = {32, 33, 34};
-      DelimitedBufferedInputStream tester =
-        new DelimitedBufferedInputStream(
-          new ByteArrayInputStream(arr1));
-      System.out.println("arr2 in arr1 (expect 2): " + 
-                         tester.indexOf(arr1, arr2, 0));
-      System.out.println("potentialMatch (expect -1): " + 
-                         tester.potentialMatch);
-      System.out.println("arr3 in arr1 (expect -1): " + 
-                         tester.indexOf(arr1, arr3, 0));
-      System.out.println("potentialMatch (expect -1): " + 
-                         tester.potentialMatch);
-      System.out.println("arr4 in arr1 (expect -1): " + 
-                         tester.indexOf(arr1, arr4, 0));
-      System.out.println("potentialMatch (expect 2): " + 
-                         tester.potentialMatch);
-      try {
-        System.out.println("reading upto arr2 (expect 2): " + 
-                           tester.readToDelimiter(sink, 0, 10, arr2));
-        System.out.println("reading upto arr2 again (expect 0): " + 
-                           tester.readToDelimiter(sink, 0, 10, arr2));
-      tester = new DelimitedBufferedInputStream(
-                           new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr3 (expect 4): " + 
-                           tester.readToDelimiter(sink, 0, 10, arr3));
-      tester = new DelimitedBufferedInputStream(
-                           new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr4 (expect 4): " + 
-                           tester.readToDelimiter(sink, 0, 10, arr4));
-      tester = new DelimitedBufferedInputStream(
-                           new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr4 (expect 3): " + 
-                           tester.readToDelimiter(sink, 0, 3, arr4));
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
-        System.out.println("buf.length is now (expect 3): " + 
-                           tester.buf.length);
+    public int getBufferLength() { 
+      return buf.length;
+    }
+    /**
+     * Used in tests.
+     * @return the potentialMatch
+     */
+    public int getPotentialMatch() {
+      return potentialMatch;
     }
 
 }

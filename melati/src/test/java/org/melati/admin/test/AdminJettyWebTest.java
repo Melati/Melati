@@ -274,24 +274,82 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     loginAsAdministrator();
     chooseTable("Table");
-    /*
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
     gotoFrame("admin_left");
     gotoFrame("admin_navigation");
     clickLink("add");
     gotoRootWindow();
     gotoFrame("admin_bottom");
     gotoFrame("admin_record");
-    gotoFrame("admin_edit");
-    */
+    setTextField("field_name", "test");
+    setTextField("field_displayname", "Test");
+    setTextField("field_description", "A Test table");
+    setTextField("field_displayorder", "0");
+    selectOption("field_category","Normal");
+    submit();
+    assertTextPresent("Done");
+    String tableTroid = getElementAttributByXPath(
+        "//input[@name='" + "troid" + "']", "value");
+    gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_record");
+    gotoFrame("admin_edit_header");
+    clickLinkWithText("Column");
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_record");   
+    gotoFrame("admin_edit_tableinfo_" + tableTroid);
+    clickLink("create_columninfo");
+    setTextField("field_name", "test");
+    setTextField("field_description", "A Test column");
+    setTextField("field_displayorder", "0");
+    checkCheckbox("field_usercreateable");
+    checkCheckbox("field_indexed");
+    checkCheckbox("field_unique");
+    setTextField("field_displayname", "Test");
+    checkCheckbox("field_nullable");
+    setTextField("field_size", "20");
+    setTextField("field_width", "20");
+    setTextField("field_height", "1");
+    setTextField("field_precision", "1");
+    setTextField("field_scale", "1");
+    submit();
+    assertTextPresent("Done");
+    String columnTroid = getElementAttributByXPath(
+        "//input[@name='" + "troid" + "']", "value");
     
+
+    
+    gotoPage("/Admin/" + dbName + "/columninfo/" + columnTroid + "/Main"); 
+    gotoFrame("admin_bottom");    
+    gotoFrame("admin_record");
+    gotoFrame("admin_edit_columninfo_" + columnTroid);
+    submit("action","Delete");
+    assertTextPresent("Done");
+
+    gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
+    gotoFrame("admin_bottom");    
+    gotoFrame("admin_record");
+    gotoFrame("admin_edit_tableinfo_" + tableTroid);
+    submit("action","Delete");
+    clickLink("edit_columninfo_" + (new Integer(columnTroid).intValue() -1));
+    submit("action","Delete");
+    assertTextPresent("Done");
+    clickLink("continue");
+    assertTextPresent("Done");
+    String href = getElementAttributByXPath(
+        "//a[@id='" + "continue" + "']", "href");
+    System.err.println(href);
+    clickLink("continue");
+    assertTextPresent("Melati Database Admin Suite - Melatijunit database");
   }
   private void chooseTable(String table) {
     gotoFrame("admin_top");
     selectOption("goto",table);
-    dumpHtml();
     assertFormPresent("goto");
     setWorkingForm("goto");
-    //submit();
+    submit();
   }
   /**
    * Start and end at top window.

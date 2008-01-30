@@ -93,6 +93,26 @@ public final class ArrayUtils {
     xsx[xs.length] = y;
     return xsx;
   }
+  
+  /**
+   * Remove an Object from an Array.
+   * 
+   * @param xs the array to remove from
+   * @param y  the object to remove
+   * @return the reduced array
+   */
+  public static Object[] removed(Object[] xs, Object y) {
+    Object[] xsx = (Object[])java.lang.reflect.Array.newInstance(
+                       xs.getClass().getComponentType(), xs.length - 1);
+    int j = 0;
+    for (int i = 0; i < xs.length; i++) { 
+      if (xs[i] != y) { 
+        xsx[j] = xs[i];
+        j++;
+      }
+    }
+    return xsx;
+  }
 
   /**
    * Create a new Array from two Arrays.

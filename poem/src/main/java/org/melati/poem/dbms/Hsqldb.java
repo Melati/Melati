@@ -130,7 +130,8 @@ public class Hsqldb extends AnsiStandard {
    */
   public String getStringSqlDefinition(int size) {
     if (size < 0)
-      return "VARCHAR(" + hsqldbTextHack + ")";
+      return "LONGVARCHAR";
+      //return "VARCHAR(" + hsqldbTextHack + ")";
     return "VARCHAR(" + size + ")";
   }
 

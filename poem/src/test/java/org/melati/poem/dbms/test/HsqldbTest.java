@@ -52,7 +52,8 @@ public class HsqldbTest extends DbmsSpec {
    * getStringSqlDefinition(java.lang.String)}.
    */
   public void testGetStringSqlDefinition() throws Exception {
-    assertEquals("VARCHAR(266)",  it.getStringSqlDefinition(-1));
+    //assertEquals("VARCHAR(266)",  it.getStringSqlDefinition(-1));
+    assertEquals("LONGVARCHAR",  it.getStringSqlDefinition(-1));
   }
 
   /**

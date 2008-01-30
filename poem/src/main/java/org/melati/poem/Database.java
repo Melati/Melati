@@ -59,6 +59,7 @@ import org.melati.poem.dbms.DbmsFactory;
 import org.melati.poem.transaction.Transaction;
 import org.melati.poem.transaction.TransactionPool;
 import org.melati.poem.util.ArrayEnumeration;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.poem.util.StringUtils;
@@ -373,6 +374,29 @@ public abstract class Database implements TransactionPool {
     defineTable(table);
 
     return table;
+  }
+  
+  /**
+   * @param info the tableInfo for the table to delete
+   */
+  public void deleteTableAndCommit(TableInfo info) { 
+    beginStructuralModification();
+    try {
+      Table table = info.actualTable();
+      info.delete(); // Ensure we have no references in metadata
+      table.dbModifyStructure(" DROP TABLE " + table.quotedName() );
+      synchronized (tables) {
+        tables.remove(table);
+        tablesByName.remove(table.getName().toLowerCase());
+        displayTables = (Table[])ArrayUtils.removed(displayTables, table);
+        uncache();
+        table.invalidateTransactionStuffs();
+      }
+      PoemThread.commit();
+    }
+    finally {
+      endStructuralModification();
+    }
   }
 
   private synchronized void unifyWithDB() throws PoemException, SQLException {

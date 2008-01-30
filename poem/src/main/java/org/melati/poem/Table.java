@@ -578,7 +578,7 @@ public class Table implements Selectable {
   // 
 
   /**
-   * Use this for DDL statements, ie those which alter the structore of the db.
+   * Use this for DDL statements, ie those which alter the structure of the db.
    * Postgresql in particular does not like DDL statements being executed within a transaction.
    * 
    * @param sql the SQL DDL statement to execute
@@ -687,6 +687,7 @@ public class Table implements Selectable {
     }
   }
 
+  
   private void dbCreateIndex(Column column) {
     if (column.getIndexed()) {
       if (!dbms().canBeIndexed(column)) {
@@ -804,7 +805,7 @@ public class Table implements Selectable {
   private TransactionStuff committedTransactionStuff = null;
 
   /**
-   * Used in tests.
+   * When deleting a table and used in tests.
    */
   public void invalidateTransactionStuffs() { 
     transactionStuffs.invalidate();
@@ -2236,6 +2237,31 @@ public class Table implements Selectable {
     return column;
   }
 
+  public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
+    database.beginStructuralModification();
+    try {
+      Column column = columnInfo.column();
+      columnInfo.delete(); // Ensure we have no references in metadata
+      if (database.getDbms().canDropColumns())
+        dbModifyStructure(
+            "ALTER TABLE " + quotedName() +
+            " DROP " + column.quotedName() );
+      // else silently leave it
+      
+      columns = (Column[])ArrayUtils.removed(columns, column);
+      columnsByName.remove(column.getName().toLowerCase());
+
+      synchronized (cache) {    // belt and braces
+        uncache();
+        transactionStuffs.invalidate();
+      }
+      PoemThread.commit();
+    }
+    finally {
+      database.endStructuralModification();
+    }
+    
+  }
   // 
   // ===========
   //  Utilities

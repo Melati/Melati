@@ -109,7 +109,7 @@ public class ColumnInfo extends ColumnInfoBase {
   /**
    * @return the column
    */
-  private Column column() {
+  Column column() {
     // I have not fathomed how this circumstance arrives, but 
     // it can.
     if (_column == null && troid() != null)

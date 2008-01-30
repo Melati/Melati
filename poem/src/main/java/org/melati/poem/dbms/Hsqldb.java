@@ -108,7 +108,6 @@ public class Hsqldb extends AnsiStandard {
     return "CREATE CACHED TABLE ";
   }
 
-
   /*
    *  0.7.2 and earlier did not have a Boolean type; 
    *  there is one in 0.7.3 onwards. 

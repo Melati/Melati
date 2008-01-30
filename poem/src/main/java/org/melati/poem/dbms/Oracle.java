@@ -95,15 +95,6 @@ public class Oracle extends AnsiStandard {
     return schema;
   }
   
-  /**
-   * We can.
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns()
-   */
-  public boolean canDropColumns() {
-    return true;
-  }
-
   /*
 
   public String preparedStatementPlaceholder(PoemType type) {

@@ -149,7 +149,7 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#canDropColumns()
    */
   public boolean canDropColumns(){
-    return false;
+    return true;
   }
 
   protected synchronized void loadDriver() {

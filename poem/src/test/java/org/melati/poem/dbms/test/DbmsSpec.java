@@ -245,7 +245,7 @@ public abstract class DbmsSpec extends PoemTestCase {
    * canDropColumns(java.sql.Connection)}.
    */
   public void testCanDropColumns() throws Exception {
-    assertFalse(it.canDropColumns());
+    assertTrue(it.canDropColumns());
   }
 
   /**

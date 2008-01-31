@@ -659,8 +659,10 @@ public class Admin extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
+
     if (Form.getField(context, "goto", null) != null)
       melati.getResponse().sendRedirect(Form.getField(context, "goto", null));
+    
     melati.setResponseContentType("text/html");
 
     Capability admin = PoemThread.database().getCanAdminister();
@@ -711,7 +713,8 @@ public class Admin extends TemplateServlet {
            return templateName;
       }
     }
-    else if (melati.getTable() != null) {
+    
+    if (melati.getTable() != null) {
       if (melati.getMethod().equals("Upload"))
         return uploadTemplate(context);
       
@@ -732,11 +735,8 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("Created"))
         return addUpdateTemplate(context, melati);
     }
-    else {
-      if (melati.getMethod().equals("DSD"))
-        return dsdTemplate(context);
-
-    }
+    if (melati.getMethod().equals("DSD"))
+      return dsdTemplate(context);
 
     throw new InvalidUsageException(this, melati.getPoemContext());
   }

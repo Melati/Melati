@@ -2237,6 +2237,9 @@ public class Table implements Selectable {
     return column;
   }
 
+  /**
+   * @param columnInfo metadata about the column to delete, which is itself deleted
+   */
   public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
     database.beginStructuralModification();
     try {

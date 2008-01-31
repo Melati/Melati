@@ -49,6 +49,16 @@ public class ArrayUtilsTest extends TestCase {
   }
 
   /**
+   * @see org.melati.poem.util.ArrayUtils#removed(Object[], Object)
+   */
+  public void testRemoved() {
+    String[] them = {"one", "two", "three", "four", "five"};
+    Object[] without = ArrayUtils.removed(them, "four");
+    assertEquals(them.length - 1, without.length);
+    assertTrue(without[2] instanceof String);
+  }
+
+  /**
    * @see org.melati.poem.util.ArrayUtils#concatenated(Object[], Object[])
    */
   public void testConcatenated() {

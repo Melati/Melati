@@ -91,8 +91,8 @@ final class HttpAuthorization {
     // This has worked well for a long time.
     if (authHeader.regionMatches(0, "Basic ", 0, 6)) {
 
-      String logpas = Base64.decodeBase64(
-              authHeader.substring(6).getBytes()).toString();
+      String logpas = new String(Base64.decodeBase64(
+              authHeader.substring(6).getBytes()));
 
       int colon = logpas.indexOf(':');
 

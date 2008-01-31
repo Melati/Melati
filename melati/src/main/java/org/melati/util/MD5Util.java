@@ -75,18 +75,4 @@ public final class MD5Util {
     }
   }
 
-  /**
-   * Test harness.
-   */
-  public static void main(String arg[]) {
-
-    String in = "FIXME";
-    if (arg.length > 0) {
-      in = arg[1];
-    }
-    System.out.println("arg:" + in + ":");
-    System.out.println(":" + encode(in) + ":");
-    System.out.println(":" + encode(in) + ":");
-  }
-
 }

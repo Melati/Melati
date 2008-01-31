@@ -46,6 +46,7 @@
 package org.melati.util;
 
 import java.security.MessageDigest;
+import org.melati.Melati;
 
 /**
  * MD5 - utils for encoding using MD5.
@@ -66,7 +67,7 @@ public final class MD5Util {
   public static String encode(String in) {
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
-      byte[] digest = md.digest(in.getBytes());
+      byte[] digest = md.digest(in.getBytes(Melati.DEFAULT_ENCODING));
       return new String(digest);
     } catch (Exception e) {
       throw new MelatiBugMelatiException(

@@ -154,6 +154,11 @@ public class AdminUtils {
       url += "/" + melati.getObject().getTroid();
     return url + "/" + name;
   }
+  public String getURL(Table table, String name) { 
+    String url = servletURL + "/" + logicalDatabase;
+    url += "/" + table.getName();
+    return url + "/" + name;
+  }
   
   
   /** @return The Main URL. */
@@ -165,6 +170,17 @@ public class AdminUtils {
   public String MainURL(Melati melati) {
     return getURL(melati, "Main");
   }
+  /** @return The Main URL after deletion of a tableinfo */
+  public String MainURL(Table table) {
+    return getURL(table, "Main");
+  }
+  /** @return The Main URL after creatioin of a tableinfo */
+  public String MainURL(Table table,Persistent p) {
+    String url = servletURL + "/" + logicalDatabase;
+    url += "/" + table.getName();
+    url += "/" + p.troid();
+    return url + "/" + "Main";
+ }
   
   /** @return The Top URL. */
   public String TopURL(Melati melati) {
@@ -333,6 +349,13 @@ public class AdminUtils {
     else
       return getURL(melati, "Edit");
   }
+  /**
+   * @return The Edit URL.
+   */
+  public String EditURL(Persistent object) throws AccessPoemException {
+    return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/Edit";
+  }
 
   /**
    * @param melati
@@ -370,10 +393,10 @@ public class AdminUtils {
     return servletURL
             + "/"
             + logicalDatabase
-            + "/"
-            + (table instanceof org.melati.poem.ColumnInfoTable ? Admin.METHOD_CREATE_COLUMN
-                    : table instanceof org.melati.poem.TableInfoTable ? Admin.METHOD_CREATE_TABLE
-                            : table.getName() + "/" + Admin.METHOD_CREATE_RECORD);
+            + "/" 
+            + table.getName() 
+            + "/" 
+            + "Add";
   }
 
   /**

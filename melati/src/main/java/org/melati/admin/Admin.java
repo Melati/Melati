@@ -62,11 +62,11 @@ import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.ColumnTypePoemType;
 import org.melati.poem.Database;
 import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Field;
-import org.melati.poem.FieldAttributes;
 import org.melati.poem.Initialiser;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
@@ -74,8 +74,10 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.PoemType;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ReferencePoemType;
+import org.melati.poem.Setting;
 import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
+import org.melati.poem.TableInfoTable;
 import org.melati.poem.ValidationPoemException;
 
 import org.melati.poem.util.EnumUtils;
@@ -432,110 +434,35 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Implements the "CreateColumn" request method.
-   */
-  static protected String createColumnTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-
-    final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
-    final Column typeColumn = cit.getTypefactoryColumn();
-
-    Enumeration columnInfoFields =
-        new MappedEnumeration(cit.getDetailDisplayColumns()) {
-          public Object mapped(Object column) {
-            if (column == typeColumn)
-              return new Field(PoemTypeFactory.STRING.getCode(),
-                               typeColumn);
-            else
-              return new Field((Object)null, (FieldAttributes)column);
-          }
-        };
-
-    context.put("columnInfoFields", columnInfoFields);
-
-    return adminTemplate("CreateColumn");
-  }
-
-  /**
-   * Implements the "CreateTable" request method.
-   */
-  static protected String createTableTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    Database database = melati.getDatabase();
-
-    // Compose field for naming the TROID column: the display name and
-    // description are redundant, since they not used in the template
-
-    final int troidHeight = 1;
-    final int troidWidth = 20;
-    Field troidNameField = new Field(
-        "id",
-        new BaseFieldAttributes(
-            "troidName", "Troid column", "Name of TROID column",
-            database.getColumnInfoTable().getNameColumn().getType(),
-            troidWidth, troidHeight, null, false, true, true));
-
-    context.put("troidNameField", troidNameField);
-
-    Table tit = database.getTableInfoTable();
-    Enumeration tableInfoFields =
-        new MappedEnumeration(tit.columns()) {
-          public Object mapped(Object column) {
-            return new Field((Object)null, (Column)column);
-          }
-        };
-
-    context.put("tableInfoFields", tableInfoFields);
-
-    return adminTemplate("CreateTable");
-  }
-
-  /**
-   * Implements the "CreateTableDone" request method.
-   */
-  static protected String createTableDoneTemplate(ServletTemplateContext context,
-                                            Melati melati)
-      throws PoemException {
-    Database database = melati.getDatabase();
-    database.addTableAndCommit(
-        (TableInfo)create(database.getTableInfoTable(), context),
-        context.getForm("field_troidName"));
-
-    return adminTemplate("CreateTable_doit");
-  }
-
-  /**
-   * Implements the "CreateColumnDone" request method.
-   */
-  static protected String columnCreate_doitTemplate(final ServletTemplateContext context,
-                                             final Melati melati)
-      throws PoemException {
-
-    Database db = melati.getDatabase();
-
-    ColumnInfo columnInfo =
-        (ColumnInfo)db.getColumnInfoTable().create(
-        new Initialiser() {
-          public void init(Persistent object)
-              throws AccessPoemException, ValidationPoemException {
-            Form.extractFields(context, object);
-          }
-        });
-
-    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
-
-    return adminTemplate("CreateTable_doit");
-  }
-
-  /**
    * Returns the Add template after placing the table and fields for
    * the new row in the context using any field values already in
    * the context.
+   * 
+   * If the table is a table meta data table, or a column meta data table 
+   * then the appropriate extras are added to the co0ntext.
+   * 
+   * The Form does not normally contain values, but this could 
+   * be used as a mechanism for providing defaults. 
    */
-  static protected String addTemplate(ServletTemplateContext context, Melati melati)
+  static protected String addTemplate(final ServletTemplateContext context, Melati melati)
       throws PoemException {
 
-    Enumeration columns = melati.getTable().columns();
+    /*
+    Enumeration fields =
+        new MappedEnumeration(melati.getTable().columns()) {
+          public Object mapped(Object column) {
+            String stringValue = context.getForm("field_" + ((Column)column).getName());
+            Object value = null;
+            if (stringValue != null)
+              value = ((Column)column).getType().rawOfString(stringValue);
+            return new Field(value, (Column)column);
+          }
+        };
+    context.put("fields", fields);
+    */
+    
+    // getDetailDisplayColumns() == columns() but could exclude some in theory 
+    Enumeration columns = melati.getTable().getDetailDisplayColumns();
     Vector fields = new Vector();
     while (columns.hasMoreElements()) {
       Column column = (Column)columns.nextElement();
@@ -543,11 +470,55 @@ public class Admin extends TemplateServlet {
       Object value = null;
       if (stringValue != null)
         value = column.getType().rawOfString(stringValue);
+      else if (column.getType() instanceof ColumnTypePoemType)
+        value = PoemTypeFactory.STRING.getCode();
       fields.add(new Field(value, column));
     }
-    context.put("fields", fields.elements());
+    if (melati.getTable() instanceof TableInfoTable) { 
+      Database database = melati.getDatabase();
 
+      // Compose field for naming the TROID column: the display name and
+      // description are redundant, since they not used in the template
+
+      final int troidHeight = 1;
+      final int troidWidth = 20;
+      Field troidNameField = new Field(
+          "id",
+          new BaseFieldAttributes(
+              "troidName", "Troid column", "Name of TROID column",
+              database.getColumnInfoTable().getNameColumn().getType(),
+              troidWidth, troidHeight, null, false, true, true));
+
+      fields.add(troidNameField);      
+    }
+    context.put("fields", fields.elements());
     return adminTemplate("Add");
+  }
+  
+
+
+  /**
+   * Returns the Updated template after creating a new row using field
+   * data in the context.
+   * <p>
+   * If successful the template will say so while reloading according
+   * to the returnTarget and returnURL values from the Form in context.
+   */
+  static protected String addUpdateTemplate(ServletTemplateContext context, Melati melati)
+      throws PoemException {
+
+    
+    Persistent newPersistent = create(melati.getTable(), context);
+    
+    if (melati.getTable() instanceof TableInfoTable)  
+      melati.getDatabase().addTableAndCommit((TableInfo)newPersistent, 
+          context.getForm("field_troidName"));
+    if (melati.getTable() instanceof ColumnInfoTable)  
+      ((ColumnInfo)newPersistent).getTableinfo().actualTable().
+              addColumnAndCommit((ColumnInfo)newPersistent);
+    
+    context.put("object", newPersistent);
+    return adminTemplate("Updated");
   }
 
   /**
@@ -566,29 +537,25 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Updated");
   }
 
-  /**
-   * Returns the Update template after creating a new row using field
-   * data in the context.
-   * <p>
-   * If successful the template will say so while reloading according
-   * to the returnTarget and returnURL values from the Form in context.
-   */
-  static protected String addUpdateTemplate(ServletTemplateContext context, Melati melati)
-      throws PoemException {
-    Persistent object = create(melati.getTable(), context);
-    context.put("object", object);
-    return adminTemplate("Updated");
-  }
 
   static protected String deleteTemplate(ServletTemplateContext context, Melati melati)
       throws PoemException {
     try {
-      melati.getObject().delete();
+      if (melati.getTable().getName().equals("tableinfo")) {
+        TableInfo tableInfo = (TableInfo)melati.getObject();
+        melati.getDatabase().deleteTableAndCommit(tableInfo);
+      } else if (melati.getTable().getName().equals("columninfo")) {
+        ColumnInfo columnInfo = (ColumnInfo)melati.getObject(); 
+        columnInfo.getTableinfo().actualTable().deleteColumnAndCommit(columnInfo);      
+      } else 
+        melati.getObject().delete();
+      
       return adminTemplate("Updated");
     }
     catch (DeletionIntegrityPoemException e) {
       context.put("object", e.object);
       context.put("references", e.references);
+      context.put("returnURL", melati.getSameURL() +"?action=Delete");
       return adminTemplate("DeleteFailure");
     }
   }
@@ -624,9 +591,8 @@ public class Admin extends TemplateServlet {
       return deleteTemplate(context, melati);
     else if ("Duplicate".equals(action))
       return duplicateTemplate(context, melati);
-    else
-      throw new FormParameterException("action",
-                                       "bad action from Edit: " + action);
+    throw new FormParameterException("action",
+                                     "bad action from Edit: " + action);
   }
 
   static protected String uploadTemplate(ServletTemplateContext context)
@@ -635,7 +601,7 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Upload");
   }
 
-  static protected String setupTemplate(Melati melati) {
+  static protected String setupTemplate(ServletTemplateContext context, Melati melati) {
     screenStylesheetURL = melati.getDatabase().getSettingTable().ensure( 
         Admin.class.getName() + ".ScreenStylesheetURL", 
         "/blue.css", 
@@ -646,11 +612,14 @@ public class Admin extends TemplateServlet {
         "setting", 
         "PrimaryDisplayTable", 
         "The default table to display").getValue();
-    homepageURL = melati.getDatabase().getSettingTable().ensure( 
+    Setting homepageURLSetting = melati.getDatabase().getSettingTable().ensure( 
         Admin.class.getName() + ".HomepageURL", 
         "http://www.melati.org/", 
         "HomepageURL", 
-        "The home page for this database").getValue();
+        "The home page for this database"); 
+    homepageURL = homepageURLSetting.getValue();
+    // HACK Not very satisfactory, but only to get tests working elsewhere
+    context.put("object", homepageURLSetting);
     return adminTemplate("Updated");
   }
   /** 
@@ -687,11 +656,6 @@ public class Admin extends TemplateServlet {
     }
   }
 
-  // Used to in AdminUtils
-  static final String
-      METHOD_CREATE_TABLE = "Create",
-      METHOD_CREATE_COLUMN = "CreateColumn",
-      METHOD_CREATE_RECORD = "Add";
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
@@ -709,7 +673,7 @@ public class Admin extends TemplateServlet {
     if (melati.getMethod().equals("blank"))
       return adminTemplate("blank");
     if (melati.getMethod().equals("setup"))
-      return setupTemplate(melati);
+      return setupTemplate(context, melati);
     if (melati.getMethod().equals("Main"))
       return adminTemplate("Main");
     if (melati.getMethod().equals("Top"))
@@ -763,22 +727,15 @@ public class Admin extends TemplateServlet {
         return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))
         return selectionWindowSelectionTemplate(context, melati);
-      if (melati.getMethod().equals(METHOD_CREATE_RECORD))
+      if (melati.getMethod().equals("Add"))
         return addTemplate(context, melati);
-      if (melati.getMethod().equals("AddUpdate"))  // record create done
+      if (melati.getMethod().equals("Created"))
         return addUpdateTemplate(context, melati);
     }
     else {
       if (melati.getMethod().equals("DSD"))
         return dsdTemplate(context);
-      if (melati.getMethod().equals(METHOD_CREATE_TABLE))
-        return createTableTemplate(context, melati);
-      if (melati.getMethod().equals("Create_doit"))
-        return createTableDoneTemplate(context, melati);
-      if (melati.getMethod().equals(METHOD_CREATE_COLUMN))
-        return createColumnTemplate(context, melati);
-      if (melati.getMethod().equals("CreateColumn_doit"))
-        return columnCreate_doitTemplate(context, melati);
+
     }
 
     throw new InvalidUsageException(this, melati.getPoemContext());

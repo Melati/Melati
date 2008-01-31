@@ -1,5 +1,5 @@
 #set $melati.ResponseContentType = "text/html"
-## 
+##
 ## $Source$
 ## $Revision$
 ##
@@ -66,7 +66,9 @@
 </HEAD>
 <BODY bgcolor="#cccccc" id="add">
 
-<FORM METHOD="post" ACTION="AddUpdate">
+<FORM METHOD="post" 
+  ACTION="Created"
+>
 <H3>Create a new $ml.rendered($melati.Table.DisplayName) record</H3>
 <table cellspacing="0" cellpadding="0">
   #foreach $field in $fields #begin
@@ -79,17 +81,17 @@
 	  #end #else #begin
 	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
-            </font>
-	  #if ($field.Description) #begin
+           </font>
+      #if ($field.Description) #begin
             <FONT SIZE="-2" FACE="Arial, Helvetica">
 	  ($ml.rendered($field.Description))
             </font>
-          #end
+      #end
     </TD></TR><TR><TD>
 	  <font SIZE="-1" FACE="Arial, Helvetica">
-	  $ml.input($field)
-	  </font>
-	</TD>
+      $ml.input($field)
+      </font>
+    </TD>
   </TR>
     #end
   #end
@@ -110,10 +112,11 @@
   <input type="hidden" name="returnfield" value='$Form.returnfield'>
 #end
 <FONT SIZE="-1" FACE="Arial, Helvetica">
- <INPUT NAME="action" 
-     VALUE="Update"
-     TYPE="submit"
-       ONCLICK="return validate(this.form);">
+ <input type="submit"
+     name="action" 
+     value="Create"
+     title="Create a new $ml.rendered($melati.Table.DisplayName)"
+     onclick="return validate(this.form);">
 </FONT>
 </FORM>
 </BODY>

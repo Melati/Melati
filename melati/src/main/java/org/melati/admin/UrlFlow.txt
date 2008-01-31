@@ -1,0 +1,6 @@
+Action     From                   To                ReturnTo     ReturnWith   
+
+Pick       Selection              Record            Selection    Caller.SameURL
+Pick       SelectionWindow        Caller via JS     From.From    Update value via JS
+Pick       RecordReference        RecordFields
+

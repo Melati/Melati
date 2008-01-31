@@ -58,18 +58,34 @@
 </P>
 
 <TABLE CELLPADDING="0" CELLSPACING="0" ALIGN="center">
-  <TR><TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Table</font></I></TD><TD>&nbsp;&nbsp;</TD><TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Troid</font></I></TD>
+  <TR>
+    <TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Table</font></I></TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Troid</font></I></TD>
+  </TR>
   #foreach $ref in $references #begin
-    <TR><TD></TD><TD><FONT SIZE="0">&nbsp;</FONT></TD><TD></TD></TR>
-    <TR>
-      <TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.rendered($ref.Table.Name)</font></TD>
-      <TD></TD>
-      #if ($ref.getReadable()) #begin
-        <TD><FONT SIZE="-1" FACE="Arial, Helvetica"><A HREF="$admin.EditURL($ref)?returnURL=$Form.returnURL">$ref.Troid</A></font></TD>
-      #end #else #begin
-        <TD><FONT SIZE="-1" FACE="Arial, Helvetica">(read access denied)</font></TD>
-      #end
-    </TR>
+  <TR>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </TR>
+  <TR>
+    <TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.rendered($ref.Table.Name)</font></TD>
+    <td>&nbsp;</td>
+    #if ($ref.getReadable()) #begin
+    <TD>
+      <font size="-1" face="Arial, Helvetica">
+        <a href="$admin.EditURL($ref)?returnURL=$returnURL"
+          id="edit_$(ref.Table.Name)_$ref.Troid"
+        >
+        $ref.Troid
+        </a>
+      </font>
+    </TD>
+    #end #else #begin
+    <TD><FONT SIZE="-1" FACE="Arial, Helvetica">(read access denied)</font></TD>
+    #end
+  </TR>
   #end
 </TABLE>
 

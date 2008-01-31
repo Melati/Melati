@@ -47,11 +47,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <title>Add a new Column</title>
+ <title>Add a new $ml.rendered($melati.Table.DisplayName) record</title>
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
 <script TYPE="text/javascript" >
 <!--
@@ -68,9 +68,9 @@
 
 <FORM METHOD="post" ACTION="CreateColumn_doit">
 
-<H3>Create a new column</H3>
+<H3>Create a new $ml.rendered($melati.Table.DisplayName) record</H3>
 <table cellspacing="0" cellpadding="0">
-  #foreach $field in $columnInfoFields #begin
+  #foreach $field in $fields #begin
     #if ($field.UserCreateable) #begin
   <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
   <TR>
@@ -80,15 +80,15 @@
 	  #end #else #begin
 	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
-            </font>
-#if ($field.Description) #begin
+           </font>
+      #if ($field.Description) #begin
             <FONT SIZE="-2" FACE="Arial, Helvetica">
-($ml.rendered($field.Description))
+	  ($ml.rendered($field.Description))
             </font>
       #end
     </TD></TR><TR><TD>
 	  <font SIZE="-1" FACE="Arial, Helvetica">
-    $ml.input($field)
+      $ml.input($field)
       </font>
     </TD>
   </TR>
@@ -111,10 +111,11 @@
   <input type="hidden" name="returnfield" value='$Form.returnfield'>
 #end
 <FONT SIZE="-1" FACE="Arial, Helvetica">
-<INPUT NAME="action" 
-    VALUE="Create the column"
-    TYPE="submit"
-    ONCLICK="return validate(this.form);">
+ <input type="submit"
+     name="action" 
+     value="Create"
+     title="Create a new $ml.rendered($melati.Table.DisplayName)"
+     onclick="return validate(this.form);">
 </FONT>
 <P><FONT SIZE="-1">
   (Be aware that deleting a column once it's been created is rather difficult!)

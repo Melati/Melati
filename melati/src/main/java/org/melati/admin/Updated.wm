@@ -51,40 +51,103 @@
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
+<!-- 
+return target = 
 #if ($Form.returnTarget) #begin
-  <script type="text/javascript">
-    function reloadFrames() {
-      $(Form.returnTarget).location.href="$Form.returnURL";
-      $(Form.returnTarget).focus();
-    }
-  </script>
-</HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadFrames()" id="done">
+$Form.returnTarget
+#end 
+return url = 
+#if($Form.returnURL) #begin
+$Form.returnURL
+#end
+
+-->
+
+#if ($melati.Table.Name = "tableinfo") #begin
+ <script type="text/javascript">
+  function reload() {
+   #if ($object) #begin
+    top.location.href="$object.troid()/Main";
+   #end #else #begin
+    top.location.href="Main";
+   #end
+  }
+ </script>
 #end #else #begin
-  #if ($Form.returnURL) #begin
-    <script type="text/javascript">
-    function reloadFrame() {
-      location.href="$Form.returnURL";
-    }
-    </script>
-</HEAD>
-<BODY bgcolor="#cccccc" onLoad="reloadFrame()">
+  #if ($Form.returnTarget) #begin
+ <script type="text/javascript">
+  function reload() {
+    $(Form.returnTarget).location.href="$Form.returnURL";
+    $(Form.returnTarget).focus();
+  }
+ </script>
   #end #else #begin
-    #if ($Form.returnfield) #begin
-      <script language="JavaScript" TYPE="text/javascript">
-        function updateCaller(returnfield, id, value) {
-          opener.updateFromPopup(parent, returnfield, id, value)
-        }
-      </script>
-</HEAD>
-<BODY bgcolor="#cccccc" onLoad="updateCaller('$Form.returnfield',$melati.Object.Troid,'$ml.escaped($melati.Object)')">
+    #if ($Form.returnURL) #begin
+ <script type="text/javascript">
+  function reload() {
+    location.href="$Form.returnURL";
+  }
+ </script>
     #end #else #begin
-</HEAD>
-<BODY bgcolor="#cccccc">
+ <script type="text/javascript">
+  function reload() {
+    location.href="Edit";
+  }
+ </script>
     #end
-  #end
+  #end 
+#end
+#if ($Form.returnfield) #begin
+ <script language="JavaScript" TYPE="text/javascript">
+  function updateCaller(returnfield, id, value) {
+    opener.updateFromPopup(parent, returnfield, id, value)
+  }
+ </script>
+</HEAD>
+<BODY bgcolor="#cccccc" 
+      onLoad="updateCaller('$Form.returnfield',$melati.Object.Troid,'$ml.escaped($melati.Object)')"
+      id="done">
+#end #else #begin
+</HEAD>
+<BODY bgcolor="#cccccc" onLoad="reload()" id="done">
 #end
 <br/><br/><br/><br/>
-<h3 align="center"><FONT FACE="Arial, Helvetica">Done</font></h3>
+<h3 align="center"><font face="Arial, Helvetica">Done</font></h3>
+<h3 align="center">
+  <font face="Arial, Helvetica">
+    <a 
+#if ($melati.Table.Name="tableinfo") #begin
+   #if ($object) #begin
+        href="$admin.MainURL($melati.Table,$object)"
+   #end #else #begin
+        href="$admin.MainURL($melati.Table)"
+   #end
+        target="_top"
+#end #else #begin 
+  #if ($Form.returnURL) #begin
+        href="$Form.returnURL"
+   #end #else #begin
+        href="Edit"  
+  #end
+  #if ($Form.returnTarget) #begin
+        target="$Form.returnTarget"
+  #end #else #begin
+        target=""
+  #end
+#end
+
+        id="continue"
+    >Continue</a>
+  </font>
+</h3>
+<form method="GET" action="?">
+<input type="hidden" name="troid"
+#if ($melati.Object) #begin
+  value="$melati.Object.troid()"
+#end #else  #begin
+  value="$object.troid()"
+#end
+>
+</form>
 </BODY>
 </HTML>

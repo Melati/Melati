@@ -95,6 +95,15 @@
   #end
      </b></font>
     </td>
+#if ($inRight) #begin
+    <td align=right>
+      <a href='$admin.AddURL($melati.Table)?$whereClause' 
+         title="New $melati.Table.DisplayName"
+         id="create_$melati.Table.Name"
+       ><IMG
+         src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a>
+    </td>    
+#end
   </tr>
   <tr>
    <th><FONT SIZE="-1">&nbsp;</FONT></th>
@@ -120,7 +129,7 @@
           onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
 #end #else #begin
   #if($inRight) #begin
-          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$melati.SameURL"))' 
    #end #else #begin
           href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded($ml.encoded("$melati.SameURL")))' 
    #end      

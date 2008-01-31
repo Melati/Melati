@@ -130,7 +130,6 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
   protected boolean _canRepresent(SQLPoemType other) {
-    System.err.println("here:"+ (other instanceof DoublePoemType));
     return // sqlTypeCode() == other.sqlTypeCode() && //commented out to allow doubles  
            other instanceof BigDecimalPoemType || other instanceof DoublePoemType;
   }

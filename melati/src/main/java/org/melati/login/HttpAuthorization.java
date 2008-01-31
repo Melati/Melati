@@ -47,7 +47,8 @@ package org.melati.login;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.melati.poem.util.Base64;
+import org.apache.commons.codec.binary.Base64;
+
 
 /**
  * The information contained in an HTTP authorization.
@@ -90,7 +91,8 @@ final class HttpAuthorization {
     // This has worked well for a long time.
     if (authHeader.regionMatches(0, "Basic ", 0, 6)) {
 
-      String logpas = Base64.decode(authHeader.substring(6));
+      String logpas = Base64.decodeBase64(
+              authHeader.substring(6).getBytes()).toString();
 
       int colon = logpas.indexOf(':');
 

@@ -45,7 +45,7 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals("'" + Base64.encodeBase64(new byte[20]) + "'", 
+    assertEquals("'" + new String(Base64.encodeBase64(new byte[20])) + "'", 
         ((SQLPoemType)it).quotedRaw(new byte[20]));
 
   }

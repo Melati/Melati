@@ -5,13 +5,13 @@ package org.melati.poem.test;
 
 import java.sql.PreparedStatement;
 
+import org.apache.commons.codec.binary.Base64;
 import org.melati.poem.BinaryLengthValidationPoemException;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.dbms.AnsiStandard;
-import org.melati.poem.util.Base64;
 
 /**
  * @author timp
@@ -45,7 +45,7 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals("'" + Base64.encode(new byte[20]) + "'", 
+    assertEquals("'" + Base64.encodeBase64(new byte[20]) + "'", 
         ((SQLPoemType)it).quotedRaw(new byte[20]));
 
   }

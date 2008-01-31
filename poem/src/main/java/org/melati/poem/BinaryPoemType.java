@@ -50,8 +50,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.apache.commons.codec.binary.Base64;
 import org.melati.poem.dbms.Dbms;
-import org.melati.poem.util.Base64;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -79,7 +79,7 @@ public class BinaryPoemType extends SizedAtomPoemType {
   }
 
   protected String _stringOfRaw(Object raw) {
-    return Base64.encode((byte[])raw);
+    return new String(Base64.encodeBase64((byte[])raw));
   }
 
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
@@ -92,7 +92,7 @@ public class BinaryPoemType extends SizedAtomPoemType {
   }
 
   protected Object _rawOfString(String rawString) {
-    return Base64.decode(rawString).getBytes();
+    return Base64.decodeBase64(rawString.getBytes());
   }
 
   protected String _sqlDefinition(Dbms dbms) {

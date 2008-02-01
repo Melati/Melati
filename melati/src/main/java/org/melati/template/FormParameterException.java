@@ -45,16 +45,13 @@
 
 package org.melati.template;
 
-import org.melati.util.MelatiException;
+import org.melati.util.MelatiBugMelatiException;
 
 /**
  * Something is wrong with this parameter.
  */
-public class FormParameterException extends MelatiException {
+public class FormParameterException extends MelatiBugMelatiException {
   private static final long serialVersionUID = 1L;
-
-  String error;
-  String param;
 
   /**
    * Constructor.
@@ -62,16 +59,9 @@ public class FormParameterException extends MelatiException {
    * @param errorP the description of the problem
    */
   public FormParameterException(String paramP, String errorP) {
-    this.param = paramP;
-    this.error = errorP;
+    super("Problem with form parameter '" + 
+            paramP + "' : " +
+            errorP);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.util.MelatiException#getMessage()
-   */
-  public String getMessage() {
-    return "I couldn't parse the form parameter: " + param + " because: " +
-           error;
-  }
 }

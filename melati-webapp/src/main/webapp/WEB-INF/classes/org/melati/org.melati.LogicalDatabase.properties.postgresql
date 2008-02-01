@@ -3,8 +3,7 @@
 #  Melati logical database definition file
 # =========================================
 # 
-
-# This file says how Melati should map the "logical database name"
+# This file specifies how Melati should map the "logical database name"
 # which it expects to see as the first element of the pathinfo in each
 # incoming HTTP request should be mapped to JDBC connection details.
 #
@@ -17,7 +16,7 @@
 #   org.melati.LogicalDatabase.<logical db>.class
 #
 #     The Java class for the application-specific database schema, if one
-#     was defined in a Data Structure Definition file; or just
+#     was defined in a Data Structure Definition file or 
 #     org.melati.poem.PoemDatabase if not.
 #
 #  org.melati.LogicalDatabase.<logical db>.url
@@ -25,6 +24,7 @@
 #     The JDBC URL for the actual DBMS database
 #     A minimal, localhost URL might be: 
 #     jdbc:postgresql:melatitest
+#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
 #     jdbc:mysql:///melatitest
 #
 #  org.melati.LogicalDatabase.<logical db>.user
@@ -41,6 +41,16 @@
 #     where user is 'melati' and so is the password.
 #     Mckoi:
 #     'test' works out of the box.
+#     HSQLDB: 
+#      sa is the default
+#     MS SQL: 
+#      Whatever user owns the db - must have create table rights
+#     Oracle: 
+#      Whatever user owns the db - suggest create a user called MELATI:
+#      CREATE USER MELATI IDENTIFIED BY MELATI;
+#      GRANT CREATE TABLE TO MELATI;
+#      GRANT RESOURCE to MELATI;
+#      GRANT CREATE SESSION TO MELATI;
 #
 #  org.melati.LogicalDatabase.<logical db>.pass
 #
@@ -51,6 +61,8 @@
 #     Use password defined above.
 #     Mckoi:
 #     'test' works out of the box.
+#     HSQLDB:
+#     null works out of the box.
 #
 #  org.melati.LogicalDatabase.<logical db>.maxtransactions
 #
@@ -58,6 +70,7 @@
 #
 #
 
+# Used by the web site for the interactive tests
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
 #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Hsqldb
@@ -77,6 +90,9 @@ org.melati.LogicalDatabase.melatitest.pass=*
 #org.melati.LogicalDatabase.melatitest.pass=melati
 #org.melati.LogicalDatabase.melatitest.pass=test
 org.melati.LogicalDatabase.melatitest.maxtransactions=4
+org.melati.LogicalDatabase.melatitest.addconstraints=true
+
+# Used by the website for the example
 
 org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
 #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Hsqldb
@@ -94,6 +110,9 @@ org.melati.LogicalDatabase.contacts.user=postgres
 org.melati.LogicalDatabase.contacts.pass=*
 #org.melati.LogicalDatabase.contacts.pass=test
 org.melati.LogicalDatabase.contacts.maxtransactions=4
+org.melati.LogicalDatabase.contacts.addconstraints=true
+
+# Used by the unit tests 
 
 org.melati.LogicalDatabase.poemtest.class=org.melati.poem.test.TestDatabase
 #org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.Hsqldb
@@ -111,5 +130,57 @@ org.melati.LogicalDatabase.poemtest.user=postgres
 org.melati.LogicalDatabase.poemtest.pass=*
 #org.melati.LogicalDatabase.poemtest.pass=test
 org.melati.LogicalDatabase.poemtest.maxtransactions=4
+org.melati.LogicalDatabase.poemtest.addconstraints=true
+
+# Used by the unit tests
+
+org.melati.LogicalDatabase.melatijunit.class=org.melati.poem.PoemDatabase
+#org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.MSAccess
+#org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.Hsqldb
+org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.Postgresql
+#org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.MySQL
+#org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.Mckoi
+#org.melati.LogicalDatabase.melatijunit.url=jdbc:easysoft:melatijunit
+#org.melati.LogicalDatabase.melatijunit.url=jdbc:hsqldb:/dist/melati/db/melatijunit
+org.melati.LogicalDatabase.melatijunit.url=jdbc:postgresql:melatijunit
+#org.melati.LogicalDatabase.melatijunit.url=jdbc:mysql://localhost/melatijunit
+#org.melati.LogicalDatabase.melatijunit.url=jdbc:mckoi://localhost/melatijunit
+#org.melati.LogicalDatabase.melatijunit.user=
+#org.melati.LogicalDatabase.melatijunit.user=sa
+org.melati.LogicalDatabase.melatijunit.user=postgres
+#org.melati.LogicalDatabase.melatijunit.user=melati
+#org.melati.LogicalDatabase.melatijunit.user=test
+#org.melati.LogicalDatabase.melatijunit.pass=
+org.melati.LogicalDatabase.melatijunit.pass=*
+#org.melati.LogicalDatabase.melatijunit.pass=melati
+#org.melati.LogicalDatabase.melatijunit.pass=test
+org.melati.LogicalDatabase.melatijunit.maxtransactions=4
+org.melati.LogicalDatabase.melatijunit.addconstraints=true
+
+
+org.melati.LogicalDatabase.oracletest.class=org.melati.poem.test.TestDatabase
+org.melati.LogicalDatabase.oracletest.dbmsclass=org.melati.poem.dbms.Oracle
+org.melati.LogicalDatabase.oracletest.url=jdbc:oracle:thin:@localhost:1521:poemtest
+org.melati.LogicalDatabase.oracletest.user=MELATI
+org.melati.LogicalDatabase.oracletest.pass=MELATI
+org.melati.LogicalDatabase.oracletest.maxtransactions=4
+org.melati.LogicalDatabase.oracletest.addconstraints=true
+
+org.melati.LogicalDatabase.mssqltest.class=org.melati.poem.test.TestDatabase
+org.melati.LogicalDatabase.mssqltest.dbmsclass=org.melati.poem.dbms.SQLServer
+#org.melati.LogicalDatabase.mssql.url=jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=poemtest;SelectMethod=cursor
+org.melati.LogicalDatabase.mssqltest.url=jdbc:inetdae:localhost?database=poemtest
+org.melati.LogicalDatabase.mssqltest.user=MELATI
+org.melati.LogicalDatabase.mssqltest.pass=MELATI
+org.melati.LogicalDatabase.mssqltest.maxtransactions=4
+org.melati.LogicalDatabase.mssqltest.addconstraints=true
+
+org.melati.LogicalDatabase.spheriqtest.class=org.melati.poem.PoemDatabase
+org.melati.LogicalDatabase.spheriqtest.dbmsclass=org.melati.poem.dbms.MySQL
+org.melati.LogicalDatabase.spheriqtest.url=jdbc:mysql://localhost/test
+org.melati.LogicalDatabase.spheriqtest.user=root
+org.melati.LogicalDatabase.spheriqtest.pass=
+org.melati.LogicalDatabase.spheriqtest.maxtransactions=6
+org.melati.LogicalDatabase.spheriqtest.addconstraints=true
 
 

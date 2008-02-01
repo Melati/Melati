@@ -41,10 +41,10 @@ public class MD5UtilTest extends TestCase {
   /**
    * Test method for {@link org.melati.util.MD5Util#encode(java.lang.String)}.
    */
-  public void testEncode() {
+  public void testEncode() throws Exception {
     String in = "FIXME";
-    assertEquals("Vu+/vWlc77+9cEQI77+9MduH77+9bu+/ve+/vQ==",
-        new String(Base64.encodeBase64(MD5Util.encode(in).getBytes())));
+    assertEquals("VsOXaVzCqHBECMKtMcOb4oChw5tu77+9w6w=",
+        new String(Base64.encodeBase64(MD5Util.encode(in).getBytes("UTF-8"))));
   }
 
 }

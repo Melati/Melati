@@ -121,9 +121,9 @@ import org.melati.util.MelatiRuntimeException;
 public class Admin extends TemplateServlet {
   private static final long serialVersionUID = 1L;
 
-  static String screenStylesheetURL;
-  static String primaryDisplayTable;
-  static String homepageURL;
+  static String screenStylesheetURL = null;
+  static String primaryDisplayTable = null;
+  static String homepageURL = null;
 
   /**
    * Creates a row for a table using field data in a template context.

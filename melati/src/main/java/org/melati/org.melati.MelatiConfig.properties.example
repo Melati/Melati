@@ -63,13 +63,13 @@ org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServ
 # 
 # e.g. ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
 
-org.melati.MelatiConfig.staticURL=/melati-static/
+org.melati.MelatiConfig.staticURL=/melati-static/admin/static
 
 # This should point, relative to your server's http root, 
 # to the admin directory
 # (will be achieved by the ln -s suggested above)
 
-org.melati.MelatiConfig.javascriptLibraryURL=/melati-static/admin
+org.melati.MelatiConfig.javascriptLibraryURL=/melati-static/admin/static
 
 #
 # ------------------------------

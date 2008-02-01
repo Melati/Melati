@@ -68,7 +68,7 @@ public final class MD5Util {
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
       byte[] digest = md.digest(in.getBytes(Melati.DEFAULT_ENCODING));
-      return new String(digest);
+      return new String(digest, Melati.DEFAULT_ENCODING);
     } catch (Exception e) {
       throw new MelatiBugMelatiException(
           "For some reason I couldn't encode the password!",

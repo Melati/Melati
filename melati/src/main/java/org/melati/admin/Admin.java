@@ -105,20 +105,16 @@ import org.melati.util.MelatiRuntimeException;
  * <p>
  * These methods are called to modify the context:
  * <ul>
- * <li>{@link #prepareContextForEditting(ServletTemplateContext, Melati)}</li>
  * <li>{@link #popup(ServletTemplateContext, Melati)}</li>
  * <li>{@link #primarySelect(ServletTemplateContext, Melati)}</li>
  * <li>{@link #selection(ServletTemplateContext, Melati)}</li>
  * </ul>
  * 
  * @todo Review working of where clause for dates
- * @todo Unify creation methods
  * @todo Move Nav icons into PrimarySelect
- * @todo Reinstate create icon in selectionRight
  * @todo Make Top.login JS agnostic
  * @todo Make Chooser JS agnostic
  * @todo Make Navigation JS agnostic
- * @todo Make whole selection line a link, or atleast not dependant upon image
  * @todo Rename Left template to Table
  */
 
@@ -126,9 +122,7 @@ public class Admin extends TemplateServlet {
   private static final long serialVersionUID = 1L;
 
   static String screenStylesheetURL;
-
   static String primaryDisplayTable;
-
   static String homepageURL;
 
   /**
@@ -175,12 +169,6 @@ public class Admin extends TemplateServlet {
    */
   static protected String primarySelectTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
-    primarySelect(context, melati);
-    return adminTemplate("PrimarySelect");
-  }
-
-  static protected ServletTemplateContext primarySelect(
-      ServletTemplateContext context, Melati melati) throws PoemException {
     final Table table = melati.getTable();
 
     Field primaryCriterion;
@@ -196,8 +184,9 @@ public class Admin extends TemplateServlet {
       primaryCriterion = null;
 
     context.put("primaryCriterion", primaryCriterion);
-    return context;
+    return adminTemplate("PrimarySelect");
   }
+
 
   /**
    * Return template for a selection of records from a table.
@@ -320,7 +309,7 @@ public class Admin extends TemplateServlet {
         start = Math.max(0, Integer.parseInt(startString));
       } catch (NumberFormatException e) {
         throw new AnticipatedException(new FormParameterException("start",
-            "param to must be an Integer"));
+            "Param must be an Integer"));
       }
     }
 
@@ -399,9 +388,8 @@ public class Admin extends TemplateServlet {
    */
   static protected String selectionWindowPrimarySelectTemplate(
       ServletTemplateContext context, Melati melati) throws PoemException {
-    primarySelect(context, melati);
     context.put("inPopup", Boolean.TRUE);
-    return adminTemplate("PrimarySelect");
+    return primarySelectTemplate(context, melati);
   }
 
   /**
@@ -556,12 +544,13 @@ public class Admin extends TemplateServlet {
     String action = melati.getRequest().getParameter("action");
     if ("Update".equals(action))
       return updateTemplate(context, melati);
-    else if ("Delete".equals(action))
+    if ("Delete".equals(action))
       return deleteTemplate(context, melati);
-    else if ("Duplicate".equals(action))
+    if ("Duplicate".equals(action))
       return duplicateTemplate(context, melati);
-    throw new FormParameterException("action", "bad action from Edit: "
-        + action);
+    
+    throw new FormParameterException(
+            "action", "Bad action from Edit: " + action);
   }
 
   static protected String uploadTemplate(ServletTemplateContext context)

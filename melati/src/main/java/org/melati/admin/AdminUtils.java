@@ -154,6 +154,9 @@ public class AdminUtils {
       url += "/" + melati.getObject().getTroid();
     return url + "/" + name;
   }
+  /**
+   * @return name prepended with ldb and table name
+   */
   public String getURL(Table table, String name) { 
     String url = servletURL + "/" + logicalDatabase;
     url += "/" + table.getName();
@@ -193,8 +196,10 @@ public class AdminUtils {
   public String BottomURL(Table table, Melati melati) {
     return  servletURL + "/" + logicalDatabase + 
         "/" + table.getName() +
-        (melati.getObject() != null && melati.getTable() != null && 
-            melati.getTable() == table ? "/" + melati.getObject().getTroid() : "") + 
+        (melati.getObject() != null &&  
+                melati.getObject().getTable() == table ? 
+                        "/" + melati.getObject().getTroid() 
+                        : "") + 
         "/Bottom";
   }
   /**
@@ -276,14 +281,6 @@ public class AdminUtils {
   }
   
   /**
-   * @param melati
-   * @return the url
-   */
-  public String SelectionURL(Melati melati) {
-    return SelectionURL(melati,"admin_record");    
-  }
-
-  /**
    * Toggle the sort order of column.
    * @return the same url with the toggle field added or removed
    */
@@ -297,21 +294,26 @@ public class AdminUtils {
   }
   
   /**
+   * @param melati
+   * @return The Selection URL.
+   */
+  public String SelectionURL(Melati melati) {
+    return SelectionURL(melati,"admin_record");    
+  }
+
+  /**
    * @return The Selection URL.
    */
   public String SelectionURL(Melati melati, String returnTarget) {
-    if (melati.getTable() == null)
-      return getURL(melati, "blank");
-    else
-      return servletURL + "/" + 
-          logicalDatabase + "/" + 
-          melati.getTable().getName()
-            + "/Selection?" +
-            "target=admin_record" + 
-            "&returnTarget=" + (returnTarget == null ? "" : returnTarget) + 
-            (melati.getObject() == null ? 
-                "" : 
-                "&field_id=" + melati.getObject().troid()) ;
+    return servletURL + "/" + 
+        logicalDatabase + "/" + 
+        melati.getTable().getName()
+          + "/Selection?" +
+          "target=admin_record" + 
+          "&returnTarget=" + (returnTarget == null ? "" : returnTarget) + 
+          (melati.getObject() == null ? 
+              "" : 
+              "&field_id=" + melati.getObject().troid()) ;
   }
   
   /**
@@ -359,12 +361,11 @@ public class AdminUtils {
 
   /**
    * @param melati
-   * @return the name od the Record Field frame
+   * @return the name of the Record Fields frame
    */
   public String EditFrameName(Melati melati) { 
     String name = "admin_edit";
-    if (melati.getTable() != null) 
-      name += "_" + melati.getTable().getName();
+    name += "_" + melati.getTable().getName();
     if (melati.getObject() != null) 
       name += "_" + melati.getObject().troid();
     return name;

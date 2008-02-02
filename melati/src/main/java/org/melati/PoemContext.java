@@ -46,19 +46,21 @@ package org.melati;
 
 
 /**
- * An object to hold the information about a Poem session.
- * 
+ * Holds the names of the database, table and method and the value of the 
+ * TROID for a POEM session.
+ * A PoemContext can specify an individual database record, a table or the 
+ * whole database.
  */
 
 public class PoemContext implements Cloneable {
 
-  /** the database in use */
+  /** The database in use */
   String logicalDatabase;
-  /** the table in use */
+  /** The table in use */
   String table;
-  /** the troid in use */
+  /** The troid in use */
   Integer troid;
-  /** the method in use */
+  /** The method in use */
   String method;
 
  /**

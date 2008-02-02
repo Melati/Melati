@@ -883,7 +883,7 @@ public class Melati {
   /**
    * Used in a servlet setting, where the class was not constructed with 
    * output set.
-   * @return null if response is null, otherwise a 
+   * @return a response writer 
    * @throws IOException
    */
   private MelatiWriter createWriter() throws IOException {

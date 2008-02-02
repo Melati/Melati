@@ -872,7 +872,12 @@ public class Melati {
     return templateEngine.getStringWriter();
   }
 
-  //FIXME Bad smell - WriterL could have been null previously
+  /**
+   * Used in a servlet setting, where the class was not constructed with 
+   * output set.
+   * @return null if response is null, otherwise a 
+   * @throws IOException
+   */
   private MelatiWriter createWriter() throws IOException {
     // first effort is to use the writer supplied by the template engine
     MelatiWriter writerL = null;
@@ -889,7 +894,7 @@ public class Melati {
       }
       if (flushing) writerL.setFlushingOn();
     }
-    return writerL;
+    throw new MelatiBugMelatiException("Method createWriter called when response was null.");
   }
 
   /**

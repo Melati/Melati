@@ -86,19 +86,21 @@ import org.melati.util.UTF8URLEncoder;
 import org.melati.util.UnexpectedExceptionException;
 
 /**
- * This is the main entry point for using Melati.
+ * This is the main entry point for using the Melati framework.
+ * A Melati exists once per request, or command from an application.
+ * It provides a central container for all the relevant objects that 
+ * a Servlet or command line application needs to create textual 
+ * output, optionally using a Template Engine or a Database.
  * <p>
  * You will need to create a MelatiConfig in order to construct a Melati.
  * <p>
- * If you are using servlets, you will want to construct a melati with
+ * If you are using servlets, you will want to construct a Melati with
  * a request and response object.  Otherwise, simply pass in a Writer.
  * <p>
  * If you are using a template engine outside of a servlets context you will 
  * still need the servlets jar in your classpath, annoyingly, as Velocity and 
  * WebMacro introspect all possible methods and throw a ClassNotFound exception 
  * if the servlets classes are not available.  
- * <p>
- * A Melati exists once per request.
  * <p>
  * Melati is typically used with Servlets, POEM (Persistent Object Engine for
  * Melati) and a Template Engine
@@ -264,6 +266,12 @@ public class Melati {
     return database;
   }
   
+  /**
+   * @return the name of the Database 
+   */
+  public String getDatabaseName() { 
+    return getPoemContext().getLogicalDatabase();  
+  }
   /**
    * Return the names of other databases known at the moment. 
    *  

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -16,6 +17,7 @@ import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.servlet.test.MockServletRequest;
+import org.melati.servlet.test.MockServletResponse;
 
 import junit.framework.TestCase;
 
@@ -466,14 +468,13 @@ public class MelatiTest extends TestCase {
    */
   public void testSetBufferingOff() throws Exception {
     MelatiConfig mc = new MelatiConfig();
-    Melati m = new Melati(mc, null);
+    HttpServletRequest mockRequest = new MockServletRequest();
+    HttpServletResponse mockResponse = new MockServletResponse();
+    Melati m = new Melati(mc, mockRequest, mockResponse);
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
-    m.setRequest(mock);
     m.setBufferingOff();
     m.setFlushingOn();
     MelatiWriter mw = m.getWriter();
-    m.setBufferingOff();
     m.setWriter(new MelatiStringWriter());
     mw = m.getWriter();
     try {

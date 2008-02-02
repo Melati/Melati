@@ -901,8 +901,9 @@ public class Melati {
         }
       }
       if (flushing) writerL.setFlushingOn();
-    }
-    throw new MelatiBugMelatiException("Method createWriter called when response was null.");
+    } else 
+      throw new MelatiBugMelatiException("Method createWriter called when response was null.");
+    return writerL;
   }
 
   /**

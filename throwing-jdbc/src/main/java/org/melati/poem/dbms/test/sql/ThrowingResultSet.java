@@ -1460,4 +1460,16 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     return it.wasNull();
   }
 
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateNClob(String s, Reader r) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+  }
 }

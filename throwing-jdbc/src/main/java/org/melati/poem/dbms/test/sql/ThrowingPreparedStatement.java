@@ -1196,29 +1196,5 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     is = is2;    
   }
 
-  /**
-   * 
-   */
-  public void setBinaryStream(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
 
 }

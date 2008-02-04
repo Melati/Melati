@@ -253,7 +253,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testSpecialTemplateFound();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/SelectionWindow.none" +  
+              "org/melati/template/none/templets/html/org.melati.poem.ReferencePoemType-SelectionWindow.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }

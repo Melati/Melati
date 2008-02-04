@@ -1071,5 +1071,25 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     r = r2;    
   }
 
+  /**
+   * 
+   */
+  public void updateAsciiStream(int i, Reader r){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
+  public void updateAsciiStream(String s, Reader r){
+    String s2 = s;
+    s = s2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
 
 }

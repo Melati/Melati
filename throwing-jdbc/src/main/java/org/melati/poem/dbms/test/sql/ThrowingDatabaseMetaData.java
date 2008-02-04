@@ -1090,5 +1090,25 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
     return null;
   }
  
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean isWrapperFor(Class c) {
+    Class c2 = c;
+    c = c2;
+    return false;
+  }
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public Object unwrap(Class c) {
+    Class c2 = c;
+    c = c2;
+    return null;
+  }
+
+
 
 }

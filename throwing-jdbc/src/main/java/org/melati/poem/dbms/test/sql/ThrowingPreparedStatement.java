@@ -937,6 +937,30 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * @param s
    * @param r
    */
+  public void setNClob(int i, Reader r) { 
+    // // jdk 1.6
+    int i2 = i;
+    Reader r2 = r;
+    r = r2;
+    i = i2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void setClob(int i, Reader r) { 
+    // // jdk 1.6
+    int i2 = i;
+    Reader r2 = r;
+    r = r2;
+    i = i2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
   public void updateClob(String s, Reader r) { 
     // // jdk 1.6
     String s2 = s;

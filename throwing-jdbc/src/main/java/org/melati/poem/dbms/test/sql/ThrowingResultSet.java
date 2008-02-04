@@ -1531,11 +1531,12 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   /**
    * 
    */
-  public void updateCharacterStream(int i, Reader r){
+  public boolean updateCharacterStream(int i, Reader r){
     int i2 = i;
     i = i2;
     Reader r2 = r;
     r = r2;    
+    return true;
   }
 
 }

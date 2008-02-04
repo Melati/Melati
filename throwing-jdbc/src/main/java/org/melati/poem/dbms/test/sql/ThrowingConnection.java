@@ -415,5 +415,16 @@ public class ThrowingConnection extends Thrower implements Connection {
       throw new SQLException("Connection bombed");
     it.setTypeMap(map);
   }
+  
+  /**
+   * Dummy 1.6
+   */
+  public boolean createStruct(String s, Object[] them) {
+    String s2 = s;
+    s = s2;
+    Object[] them2 = them;
+    them = them2;
+    return false;
+  }
 
 }

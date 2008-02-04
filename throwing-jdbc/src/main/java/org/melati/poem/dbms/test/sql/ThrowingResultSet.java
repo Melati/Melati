@@ -1528,4 +1528,14 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     is = is2;    
   }
 
+  /**
+   * 
+   */
+  public void updateCharacterStream(int i, Reader r){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
 }

@@ -920,5 +920,73 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throw new SQLException("PreparedStatement bombed");
     it.setQueryTimeout(seconds);
   }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateNClob(String s, Reader r) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateClob(String s, Reader r) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateClob(int i, Reader r) { 
+    // // jdk 1.6
+    int i2 = i;
+    Reader r2 = r;
+    r = r2;
+    i = i2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateNClob(int i, Reader r) { 
+    // // jdk 1.6
+    int i2 = i;
+    Reader r2 = r;
+    r = r2;
+    i = i2;
+  }
+  
+  /**
+   * 
+   */
+  public void updateBlob(String s, InputStream is){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+  /**
+   * 
+   */
+  public void updateBlob(int i, InputStream is){
+    int i2 = i;
+    i = i2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+
 
 }

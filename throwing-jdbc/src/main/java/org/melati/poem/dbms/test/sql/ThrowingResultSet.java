@@ -1505,6 +1505,39 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     r = r2;
     i = i2;
   }
+
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateClob(String s, Reader r, long l) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+    long l2 = l;
+    l = l2;
+  }
+  
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
+  public void updateClob(int i, Reader r, long l) { 
+    // // jdk 1.6
+    int i2 = i;
+    Reader r2 = r;
+    r = r2;
+    i = i2;
+    long l2 = l;
+    l = l2;
+  }
+  
+
+  
   /**
    * JDK 1.6
    * @param s

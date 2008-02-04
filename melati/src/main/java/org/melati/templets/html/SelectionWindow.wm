@@ -53,7 +53,7 @@
 #end
     size="30" 
 #if ($object.Description) #begin
-    title="$ml.rendered$object.Description" 
+    title="$ml.rendered($object.Description)" 
 #end
     onfocus="document.forms[0].$ml.rendered($object.Name)_button.focus()" 
     />

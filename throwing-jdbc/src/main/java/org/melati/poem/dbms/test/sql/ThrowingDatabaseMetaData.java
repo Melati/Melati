@@ -1085,11 +1085,11 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * JDK 1.6
    * @param c
    */
-
+/*
   public java.sql.RowIdLifeTime getRowIdLifetime() {
     return null;
   }
- 
+ */
   /**
    * JDK 1.6
    * @param c

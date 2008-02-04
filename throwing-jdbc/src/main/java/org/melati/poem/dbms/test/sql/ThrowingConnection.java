@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Savepoint;
@@ -437,5 +438,13 @@ public class ThrowingConnection extends Thrower implements Connection {
     them = them2;
     return null;
   }
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public ResultSet getClientInfo() {
+    return null;
+  }
+ 
 
 }

@@ -1040,7 +1040,7 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * JDK 1.6
    * @param c
    */
-  public ResultSet getFunction(String s1, String s2, String s3) {
+  public ResultSet getFunctions(String s1, String s2, String s3) {
     s1 = s2;
     s2 = s1;
     s3 = s1;

@@ -1,4 +1,3 @@
-## This version modified by Jim Wright (C) 2003
 ##
 ## $Source$
 ## $Revision$
@@ -43,28 +42,40 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+## Expecting $object to be a Field
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 <input type="hidden" 
-       name="field_$ml.rendered($field.Name)" 
-       value='$ml.rendered($field.RawString)' />
-<input type="text" name="field_$ml.rendered($field.Name)_dummy" 
-#if ($field.Description) #begin
-       title="$ml.rendered$field.Description" 
+    name="field_$ml.rendered($object.Name)" 
+    value='$ml.rendered($object.RawString)' />
+<input type="text" name="field_$ml.rendered($object.Name)_dummy" 
+#if ($object.Raw) #begin
+    value="$ml.rendered($object.Cooked)"
 #end
-#if ($field.Raw) #begin
-       value="$ml.rendered($field.Cooked)"
+    size="30" 
+#if ($object.Description) #begin
+    title="$ml.rendered$object.Description" 
 #end
-       size="30" onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
-<input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
-onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())&returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
-<input type=button value="Create" 
-onClick ="createwindow = window.open('$admin.AddURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
-#if ($field.Type.Nullable) #begin
+    onfocus="document.forms[0].$ml.rendered($object.Name)_button.focus()" 
+    />
+<input type="button" 
+    value="Choose" 
+    id="$ml.rendered($object.Name)_button" 
+    name="$ml.rendered($object.Name)_button" 
+    onClick ="choosewindow = window.open('$admin.SelectionWindowURL($object.getType().targetTable())&returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;"
+    />
+<input type="button" 
+    value="Create" 
+    id="$ml.rendered($object.Name)_button" 
+    name="$ml.rendered($object.Name)_button" 
+    onClick ="createwindow = window.open('$admin.AddURL($object.getType().targetTable())?returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
+    />
+#if ($object.Type.Nullable) #begin
   <input type="button" value="Clear" 
-  onClick="document.forms[0].field_$(ml.rendered($field.Name)).value = ''; document.forms[0].field_$ml.rendered($field.Name)_dummy.value = ''; return false;" />
+  onClick="document.forms[0].field_$(ml.rendered($object.Name)).value = ''; document.forms[0].field_$ml.rendered($object.Name)_dummy.value = ''; return false;" 
+  />
 #end
 <script language="JavaScript1.2" type="text/javascript">
-  add_rule("field_$ml.escaped($field.Name)",
-           "$ml.escaped($field.DisplayName)",
-	   !$field.Type.Nullable)
+  add_rule("field_$ml.escaped($object.Name)",
+           "$ml.escaped($object.DisplayName)",
+	   !$object.Type.Nullable)
 </script>

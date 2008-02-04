@@ -1063,4 +1063,12 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
     return false;
   }
  
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean supportsStoredFunctionsUsingCallSyntax() {
+    return false;
+  }
+ 
 }

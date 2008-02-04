@@ -62,15 +62,14 @@ $Form.returnURL
 #end
 
 -->
-
+## A newly created object will not be in the Melati, but will be in the context
+#if (!$object) #begin
+ #set $object = $melati.Object
+#end
 #if ($melati.Table.Name = "tableinfo") #begin
  <script type="text/javascript">
   function reload() {
-   #if ($object) #begin
     top.location.href="$object.troid()/Main";
-   #end #else #begin
-    top.location.href="Main";
-   #end
   }
  </script>
 #end #else #begin
@@ -105,7 +104,7 @@ $Form.returnURL
  </script>
 </HEAD>
 <BODY bgcolor="#cccccc" 
-      onLoad="updateCaller('$Form.returnfield',$melati.Object.Troid,'$ml.escaped($melati.Object)')"
+      onLoad="updateCaller('$Form.returnfield',$object.Troid,'$ml.escaped($object)')"
       id="done">
 #end #else #begin
 </HEAD>
@@ -117,11 +116,7 @@ $Form.returnURL
   <font face="Arial, Helvetica">
     <a 
 #if ($melati.Table.Name="tableinfo") #begin
-   #if ($object) #begin
         href="$admin.MainURL($melati.Table,$object)"
-   #end #else #begin
-        href="$admin.MainURL($melati.Table)"
-   #end
         target="_top"
 #end #else #begin 
   #if ($Form.returnURL) #begin
@@ -142,11 +137,7 @@ $Form.returnURL
 </h3>
 <form method="GET" action="?">
 <input type="hidden" name="troid"
-#if ($melati.Object) #begin
-  value="$melati.Object.troid()"
-#end #else  #begin
   value="$object.troid()"
-#end
 >
 </form>
 </BODY>

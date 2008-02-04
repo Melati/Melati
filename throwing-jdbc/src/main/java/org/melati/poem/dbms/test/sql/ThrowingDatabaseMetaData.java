@@ -1059,8 +1059,8 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * JDK 1.6
    * @param c
    */
-  public ResultSet autoCommitFailureClosesAllResultSets() {
-    return null;
+  public boolean autoCommitFailureClosesAllResultSets() {
+    return false;
   }
  
 }

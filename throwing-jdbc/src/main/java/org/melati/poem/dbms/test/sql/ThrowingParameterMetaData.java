@@ -103,7 +103,9 @@ public class ThrowingParameterMetaData extends Thrower implements
    * JDK 1.6
    * @param c
    */
-  public Class unwrap(Class c) {
-    return c;
+  public Object unwrap(Class c) {
+    Class c2 = c;
+    c = c2;
+    return null;
   }
 }

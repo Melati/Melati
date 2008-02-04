@@ -494,4 +494,12 @@ public class ThrowingStatement extends Thrower implements Statement {
     b = c;
   }
 
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean isClosed() {
+    return false;
+  }
+
 }

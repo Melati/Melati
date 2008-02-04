@@ -1508,4 +1508,15 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     r = r2;
     i = i2;
   }
+  
+  /**
+   * 
+   */
+  public void updateBlob(String s, InputStream is){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;
+    
+  }
 }

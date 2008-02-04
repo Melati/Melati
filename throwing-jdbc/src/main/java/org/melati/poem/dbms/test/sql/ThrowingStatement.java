@@ -477,4 +477,12 @@ public class ThrowingStatement extends Thrower implements Statement {
     it.setQueryTimeout(seconds);
   }
 
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean isPoolable() {
+    return false;
+  }
+
 }

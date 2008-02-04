@@ -90,4 +90,13 @@ public class ThrowingParameterMetaData extends Thrower implements
     return it.isSigned(param);
   }
 
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean isWrapperFor(Class c) {
+    Class c2 = c;
+    c = c2;
+    return false;
+  }
 }

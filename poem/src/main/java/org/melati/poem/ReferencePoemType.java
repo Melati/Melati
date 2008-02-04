@@ -50,8 +50,6 @@ import org.melati.poem.util.StringUtils;
 
 /**
  * A data type that is a reference to a {@link Persistent} object.
- * <p>
- * All generated classes are instances of this type.
  */
 public class ReferencePoemType extends IndexPoemType {
 

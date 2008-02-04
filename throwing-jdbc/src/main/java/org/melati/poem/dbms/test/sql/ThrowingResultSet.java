@@ -1547,4 +1547,24 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     r = r2;    
   }
 
+  /**
+   * 
+   */
+  public void updateBinaryStream(String s, Reader r){
+    String s2 = s;
+    s = s2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
+  public void updateBinaryStream(String s, InputStream is){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+
 }

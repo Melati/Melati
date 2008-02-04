@@ -1012,5 +1012,24 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     is = is2;    
   }
 
+  /**
+   * 
+   */
+  public void setBlob(String s, InputStream is){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+  /**
+   * 
+   */
+  public void setBlob(int i, InputStream is){
+    int i2 = i;
+    i = i2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+
 
 }

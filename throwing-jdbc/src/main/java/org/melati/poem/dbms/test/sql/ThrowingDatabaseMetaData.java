@@ -1047,6 +1047,12 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
     s2 = s3;
     return null;
   }
-
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public ResultSet getClientInfoProperties() {
+    return null;
+  }
 
 }

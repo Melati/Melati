@@ -419,12 +419,12 @@ public class ThrowingConnection extends Thrower implements Connection {
   /**
    * Dummy 1.6
    */
-  public boolean createStruct(String s, Object[] them) {
+  public java.sql.Struct createStruct(String s, Object[] them) {
     String s2 = s;
     s = s2;
     Object[] them2 = them;
     them = them2;
-    return false;
+    return null;
   }
 
 }

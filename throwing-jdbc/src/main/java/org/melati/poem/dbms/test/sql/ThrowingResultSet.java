@@ -1659,6 +1659,17 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   /**
    * 
    */
+  public void updateCharacterStream(int i, Reader r, long l){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;
+    long l2 = l;
+    l = l2;
+  }
+  /**
+   * 
+   */
   public void setCharacterStream(String s, Reader r){
     String s2 = s;
     s = s2;
@@ -1745,6 +1756,29 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     i = i2;
     InputStream is2 = is;
     is = is2;    
+  }
+
+  /**
+   * 
+   */
+  public void updateAsciiStream(String s, InputStream is, long l){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+    long l2 = l;
+    l = l2;
+  }
+  /**
+   * 
+   */
+  public void updateAsciiStream(int i, InputStream is, long l){
+    int i2 = i;
+    i = i2;
+    InputStream is2 = is;
+    is = is2;    
+    long l2 = l;
+    l = l2;
   }
 
   /**

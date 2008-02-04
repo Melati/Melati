@@ -927,6 +927,19 @@ public class ThrowingCallableStatement extends Thrower implements
    * @param s
    * @param r
    */
+  public void setClob(String s, Reader r) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+  }
+
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
   public void updateClob(String s, Reader r) { 
     // // jdk 1.6
     String s2 = s;

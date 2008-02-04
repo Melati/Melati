@@ -961,6 +961,18 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * @param s
    * @param r
    */
+  public void setClob(String s, Reader r) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+  }
+  /**
+   * JDK 1.6
+   * @param s
+   * @param r
+   */
   public void updateClob(String s, Reader r) { 
     // // jdk 1.6
     String s2 = s;
@@ -1182,6 +1194,30 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     i = i2;
     InputStream is2 = is;
     is = is2;    
+  }
+
+  /**
+   * 
+   */
+  public void setBinaryStream(String s, InputStream is, long l){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+    long l2 = l;
+    l = l2;
+  }
+
+  /**
+   * 
+   */
+  public void setBinaryStream(int i, InputStream is, long l){
+    int i2 = i;
+    i = i2;
+    InputStream is2 = is;
+    is = is2;    
+    long l2 = l;
+    l = l2;
   }
 
 

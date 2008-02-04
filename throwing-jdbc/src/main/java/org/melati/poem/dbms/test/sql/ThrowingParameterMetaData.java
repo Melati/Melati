@@ -99,4 +99,11 @@ public class ThrowingParameterMetaData extends Thrower implements
     c = c2;
     return false;
   }
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public Class unwrap(Class c) {
+    return c;
+  }
 }

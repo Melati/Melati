@@ -485,4 +485,13 @@ public class ThrowingStatement extends Thrower implements Statement {
     return false;
   }
 
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public void setPoolable(boolean b) {
+    boolean c = b;
+    b = c;
+  }
+
 }

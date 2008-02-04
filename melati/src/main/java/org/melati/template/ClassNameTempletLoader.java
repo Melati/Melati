@@ -259,16 +259,19 @@ public final class ClassNameTempletLoader implements TempletLoader {
                           FieldAttributes attributes)
       throws IOException {
     if (attributes.getRenderInfo() != null) {
+      String templetName = attributes.getType().getClass().getName() 
+          + "-"
+          + attributes.getRenderInfo();
       try {
         return templet(templateEngine, markupLanguage, 
-                attributes.getRenderInfo());
+                templetName);
       } catch (NotFoundException e) {
         throw new MelatiBugMelatiException(
-                "Templet " + attributes.getRenderInfo() + " not found", e);
+                "Templet " + templetName  + " not found", e);
       }
     } else {
         return templet(templateEngine, markupLanguage,
-                       attributes.getType().getClass());
+                attributes.getType().getClass());
     }
   }
 }

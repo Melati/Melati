@@ -427,4 +427,15 @@ public class ThrowingConnection extends Thrower implements Connection {
     return null;
   }
 
+  /**
+   * Dummy 1.6
+   */
+  public java.sql.Struct createArrayOf(String s, Object[] them) {
+    String s2 = s;
+    s = s2;
+    Object[] them2 = them;
+    them = them2;
+    return null;
+  }
+
 }

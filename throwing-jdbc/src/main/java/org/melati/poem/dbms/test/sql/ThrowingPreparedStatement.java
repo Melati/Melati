@@ -1031,5 +1031,15 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     is = is2;    
   }
 
+  /**
+   * 
+   */
+  public void setNCharacterStream(int i, Reader r){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
 
 }

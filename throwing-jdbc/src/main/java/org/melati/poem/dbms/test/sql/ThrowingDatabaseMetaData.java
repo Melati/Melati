@@ -1054,5 +1054,13 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
   public ResultSet getClientInfoProperties() {
     return null;
   }
-
+ 
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public ResultSet autoCommitFailureClosedAllResultSets() {
+    return null;
+  }
+ 
 }

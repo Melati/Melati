@@ -1567,4 +1567,14 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     is = is2;    
   }
 
+  /**
+   * 
+   */
+  public void updateAsciiStream(String s, InputStream is){
+    String s2 = s;
+    s = s2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+
 }

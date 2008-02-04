@@ -1034,9 +1034,39 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   /**
    * 
    */
+  public void setCharacterStream(int i, Reader r){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
+  public void setCharacterStream(String s, Reader r){
+    String s2 = s;
+    s = s2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
   public void setNCharacterStream(int i, Reader r){
     int i2 = i;
     i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
+  public void setNCharacterStream(String s, Reader r){
+    String s2 = s;
+    s = s2;
     Reader r2 = r;
     r = r2;    
   }

@@ -95,7 +95,7 @@
   #end
      </b></font>
     </td>
-#if ($inRight) #begin
+#if ($inRight || $inPopup) #begin
     <td align=right>
       <a href='$admin.AddURL($melati.Table)?$whereClause' 
          title="New $melati.Table.DisplayName"

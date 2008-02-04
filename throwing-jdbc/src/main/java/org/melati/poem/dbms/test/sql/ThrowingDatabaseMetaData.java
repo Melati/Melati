@@ -1023,4 +1023,18 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
       throw new SQLException("DatabaseMetaData bombed");
     return it.usesLocalFiles();
   }
+  
+  /**
+   * JDK 1.6
+   * @param c
+   */
+  public boolean getFunctionColumns(String s1, String s2, String s3, String s4) {
+    s1 = s2;
+    s3 = s4;
+    s2 = s1;
+    s4 = s3;
+    return false;
+  }
+
+
 }

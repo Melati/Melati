@@ -1516,7 +1516,16 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     String s2 = s;
     s = s2;
     InputStream is2 = is;
-    is = is2;
-    
+    is = is2;    
   }
+  /**
+   * 
+   */
+  public void updateBlob(int i, InputStream is){
+    int i2 = i;
+    i = i2;
+    InputStream is2 = is;
+    is = is2;    
+  }
+
 }

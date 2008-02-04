@@ -1472,6 +1472,15 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     r = r2;
     s = s2;
   }
+  public void updateNClob(String s, Reader r, long l) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+    long l2= l;
+    l = l2;
+  }
   /**
    * JDK 1.6
    * @param s
@@ -1611,6 +1620,26 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     i = i2;
     InputStream is2 = is;
     is = is2;    
+  }
+
+  /**
+   * 
+   */
+  public void updateNCharacterStream(int i, Reader r){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+  }
+
+  /**
+   * 
+   */
+  public void updateNCharacterStream(String s, Reader r){
+    String s2 = s;
+    s = s2;
+    Reader r2 = r;
+    r = r2;    
   }
 
 

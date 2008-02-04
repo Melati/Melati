@@ -992,6 +992,15 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     r = r2;
     i = i2;
   }
+  public void updateNClob(String s, Reader r, long l) { 
+    // // jdk 1.6
+    String s2 = s;
+    Reader r2 = r;
+    r = r2;
+    s = s2;
+    long l2= l;
+    l = l2;
+  }
   
   /**
    * 

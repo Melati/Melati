@@ -44,7 +44,7 @@
 
     <profiles>
         <profile>
-            <id>jdbc</id>
+            <id>jdbc3</id>
             <activation>
                 <jdk>!1.6</jdk>
             </activation>
@@ -68,19 +68,11 @@
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-                            <source>1.5</source>
-                            <target>1.5</target>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
                         <executions>
                             <execution>
                                 <configuration>
-                                    <classifier>jdbc</classifier>
+                                    <classifier>jdbc3</classifier>
                                 </configuration>
                                 <goals>
                                     <goal>jar</goal>

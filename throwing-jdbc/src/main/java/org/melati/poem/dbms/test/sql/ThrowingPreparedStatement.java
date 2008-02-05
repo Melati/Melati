@@ -142,7 +142,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(it.executeQuery());
+    return new ThrowingResultSet<Object>(it.executeQuery());
   }
 
   /**
@@ -654,7 +654,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(it.executeQuery(sql));
+    return new ThrowingResultSet<Object>(it.executeQuery(sql));
   }
 
   /**
@@ -752,7 +752,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getGeneratedKeys"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(it.getGeneratedKeys());
+    return new ThrowingResultSet<Object>(it.getGeneratedKeys());
   }
 
   /**
@@ -824,7 +824,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getResultSet"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(it.getResultSet());
+    return new ThrowingResultSet<Object>(it.getResultSet());
   }
 
   /**

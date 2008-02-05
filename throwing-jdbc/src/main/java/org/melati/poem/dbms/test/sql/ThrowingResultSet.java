@@ -602,7 +602,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getObject(int, java.util.Map)
    */
-  public Object getObject(int i, Map map) throws SQLException {
+  public Object getObject(int i, Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
 
@@ -613,7 +613,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getObject(java.lang.String, java.util.Map)
    */
-  public Object getObject(String colName, Map map) throws SQLException {
+  public Object getObject(String colName, Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
     return it.getObject(colName, map);
@@ -2034,7 +2034,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
   @Override
-  public <T> T unwrap(Class<T> iface) throws SQLException {
+  public <T1> T1 unwrap(Class<T1> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("ResultSet bombed");
     return it.unwrap(iface);

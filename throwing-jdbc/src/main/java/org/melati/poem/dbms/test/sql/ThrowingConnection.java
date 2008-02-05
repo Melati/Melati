@@ -211,7 +211,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#getTypeMap()
    */
-  public Map getTypeMap() throws SQLException {
+  public Map<String,Class<?>> getTypeMap() throws SQLException {
     if (shouldThrow("getTypeMap()"))
       throw new SQLException("Connection bombed");
     return it.getTypeMap();
@@ -458,7 +458,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#setTypeMap(java.util.Map)
    */
-  public void setTypeMap(Map map) throws SQLException {
+  public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("setTypeMap"))
       throw new SQLException("Connection bombed");
     it.setTypeMap(map);

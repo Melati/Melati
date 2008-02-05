@@ -54,7 +54,7 @@ import java.util.Hashtable;
  *
  */
 public abstract class Thrower {
-  static Hashtable throwers = new Hashtable();
+  static Hashtable<String, Integer> throwers = new Hashtable<String, Integer>();
 
   /**
    * Tell named method to start throwing exceptions.

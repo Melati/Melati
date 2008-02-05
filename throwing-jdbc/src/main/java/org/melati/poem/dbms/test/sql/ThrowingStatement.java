@@ -210,7 +210,7 @@ public class ThrowingStatement extends Thrower implements Statement {
     if (shouldThrow("executeQuery"))
       throw new SQLException("Statement bombed");
 
-    return new ThrowingResultSet(it.executeQuery(sql));
+    return new ThrowingResultSet<Object>(it.executeQuery(sql));
   }
 
   /**
@@ -308,7 +308,7 @@ public class ThrowingStatement extends Thrower implements Statement {
     if (shouldThrow("getGeneratedKeys"))
       throw new SQLException("Statement bombed");
 
-    return new ThrowingResultSet(it.getGeneratedKeys());
+    return new ThrowingResultSet<Object>(it.getGeneratedKeys());
   }
 
   /**
@@ -380,7 +380,7 @@ public class ThrowingStatement extends Thrower implements Statement {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Statement bombed");
 
-    return new ThrowingResultSet(it.getResultSet());
+    return new ThrowingResultSet<Object>(it.getResultSet());
   }
 
   /**

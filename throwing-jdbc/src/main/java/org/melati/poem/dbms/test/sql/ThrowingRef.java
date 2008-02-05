@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2007 Tim Pizey
+ * Copyright (C) 2008 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -41,19 +41,21 @@
  *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
+
 package org.melati.poem.dbms.test.sql;
 
+import java.sql.Ref;
 import java.sql.SQLException;
-import java.sql.Savepoint;
+import java.util.Map;
 
 /**
  * @author timp
- * @since 10 Feb 2007
+ * @since 5 Feb 2008
  *
  */
-public class ThrowingSavepoint extends Thrower implements Savepoint {
-  
-  final static String className = ThrowingSavepoint.class.getName() + ".";
+public class ThrowingRef extends Thrower implements Ref {
+
+  final static String className = ThrowingRef.class.getName() + ".";
   
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
@@ -67,35 +69,59 @@ public class ThrowingSavepoint extends Thrower implements Savepoint {
   public static boolean shouldThrow(String methodName) { 
     return Thrower.shouldThrow(className  +  methodName);
   }
+
+  Ref it = null;
   
-  Savepoint it = null;
-  
+
   /**
    * Constructor.
-   * @param savepoint to decorate
    */
-  public ThrowingSavepoint(Savepoint savepoint) {
-    this.it = savepoint;
+  public ThrowingRef(Ref r) {
+    it = r;
   }
 
-  /**
+  /** 
    * {@inheritDoc}
-   * @see java.sql.Savepoint#getSavepointId()
+   * @see java.sql.Ref#getBaseTypeName()
    */
-  public int getSavepointId() throws SQLException {
-    if (shouldThrow("getSavepointId"))
-      throw new SQLException("Savepoint bombed");
-    return it.getSavepointId();
+  @Override
+  public String getBaseTypeName() throws SQLException {
+    if (shouldThrow("getBaseTypeName"))
+      throw new SQLException("Ref bombed");
+    return it.getBaseTypeName();
   }
 
-  /**
+  /** 
    * {@inheritDoc}
-   * @see java.sql.Savepoint#getSavepointName()
+   * @see java.sql.Ref#getObject()
    */
-  public String getSavepointName() throws SQLException {
-    if (shouldThrow("getSavepointName"))
-      throw new SQLException("Savepoint bombed");
-    return it.getSavepointName();
+  @Override
+  public Object getObject() throws SQLException {
+    if (shouldThrow("getObject"))
+      throw new SQLException("Ref bombed");
+    return it.getObject();
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Ref#getObject(java.util.Map)
+   */
+  @Override
+  public Object getObject(Map<String, Class<?>> map) throws SQLException {
+    if (shouldThrow("getObject"))
+      throw new SQLException("Ref bombed");
+    return it.getObject();
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Ref#setObject(java.lang.Object)
+   */
+  @Override
+  public void setObject(Object value) throws SQLException {
+    if (shouldThrow("setObject"))
+      throw new SQLException("Ref bombed");
+    it.setObject(value);
   }
 
 }

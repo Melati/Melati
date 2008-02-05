@@ -190,7 +190,6 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("setArray"))
       throw new SQLException("PreparedStatement bombed");
     it.setArray(i, x);
-
   }
 
   /**

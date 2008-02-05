@@ -61,7 +61,9 @@ import java.sql.Statement;
  * 
  */
 public class ThrowingStatement extends Thrower implements Statement {
+  
   final static String className = ThrowingStatement.class.getName() + ".";
+  
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
   }

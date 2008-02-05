@@ -55,7 +55,9 @@ import java.sql.SQLException;
  *
  */
 public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaData {
+  
   final static String className = ThrowingResultSetMetaData.class.getName() + ".";
+  
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
   }
@@ -73,10 +75,10 @@ public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaD
 
   /**
    * Constructor.
-   * @param r to decorate
+   * @param rsmd to decorate
    */
-  public ThrowingResultSetMetaData(ResultSetMetaData r) {
-    this.it = r;
+  public ThrowingResultSetMetaData(ResultSetMetaData rsmd) {
+    this.it = rsmd;
   }
 
   public String getCatalogName(int column) throws SQLException {

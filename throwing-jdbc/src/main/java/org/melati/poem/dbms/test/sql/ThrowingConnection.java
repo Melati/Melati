@@ -70,7 +70,9 @@ import java.util.Properties;
  *
  */
 public class ThrowingConnection extends Thrower implements Connection {
+
   final static String className = ThrowingConnection.class.getName() + ".";
+
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
   }
@@ -478,7 +480,7 @@ public class ThrowingConnection extends Thrower implements Connection {
           throws SQLException {
     if (shouldThrow("createArrayOf"))
       throw new SQLException("Connection bombed");
-    return it.createArrayOf(typeName, elements);
+    return new ThrowingArray(it.createArrayOf(typeName, elements));
   }
   /** 
    * {@inheritDoc}
@@ -488,7 +490,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Blob createBlob() throws SQLException {
     if (shouldThrow("createBlob"))
       throw new SQLException("Connection bombed");
-    return it.createBlob();
+    return new ThrowingBlob(it.createBlob());
   }
   /** 
    * {@inheritDoc}
@@ -498,7 +500,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Clob createClob() throws SQLException {
     if (shouldThrow("createClob"))
       throw new SQLException("Connection bombed");
-    return it.createClob();
+    return new ThrowingClob(it.createClob());
   }
   /** 
    * {@inheritDoc}
@@ -508,7 +510,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public NClob createNClob() throws SQLException {
     if (shouldThrow("createNClob"))
       throw new SQLException("Connection bombed");
-    return it.createNClob();
+    return  new ThrowingNClob(it.createNClob());
   }
   /** 
    * {@inheritDoc}
@@ -518,7 +520,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public SQLXML createSQLXML() throws SQLException {
     if (shouldThrow("createSQLXML"))
       throw new SQLException("Connection bombed");
-    return it.createSQLXML();
+    return new ThrowingSQLXML(it.createSQLXML());
   }
   /** 
    * {@inheritDoc}
@@ -529,7 +531,7 @@ public class ThrowingConnection extends Thrower implements Connection {
           throws SQLException {
     if (shouldThrow("createStruct"))
       throw new SQLException("Connection bombed");
-    return it.createStruct(typeName, attributes);
+    return new ThrowingStruct(it.createStruct(typeName, attributes));
   }
   /** 
    * {@inheritDoc}

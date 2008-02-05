@@ -1092,7 +1092,7 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
   public ResultSet getClientInfoProperties() throws SQLException {
     if (shouldThrow("getClientInfoProperties"))
       throw new SQLException("DatabaseMetaData bombed");
-    return it.getClientInfoProperties();
+    return new ThrowingResultSet<Object>(it.getClientInfoProperties());
   }
   /** 
    * {@inheritDoc}
@@ -1104,7 +1104,7 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
           throws SQLException {
     if (shouldThrow("getFunctionColumns"))
       throw new SQLException("DatabaseMetaData bombed");
-    return it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog);
+    return  new ThrowingResultSet<Object>(it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog));
   }
   /** 
    * {@inheritDoc}
@@ -1115,7 +1115,7 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
           String functionNamePattern) throws SQLException {
     if (shouldThrow("getFunctions"))
       throw new SQLException("DatabaseMetaData bombed");
-    return it.getFunctions(catalog, schemaPattern, functionNamePattern);
+    return  new ThrowingResultSet<Object>(it.getFunctions(catalog, schemaPattern, functionNamePattern));
   }
   /** 
    * {@inheritDoc}
@@ -1136,7 +1136,7 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
           throws SQLException {
     if (shouldThrow("getSchemas"))
       throw new SQLException("DatabaseMetaData bombed");
-    return it.getSchemas();
+    return  new ThrowingResultSet<Object>(it.getSchemas());
   }
   /** 
    * {@inheritDoc}

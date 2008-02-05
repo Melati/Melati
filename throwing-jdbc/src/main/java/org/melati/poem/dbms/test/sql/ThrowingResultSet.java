@@ -73,7 +73,9 @@ import java.util.Map;
  *
  */
 public class ThrowingResultSet<T> extends Thrower implements ResultSet {
+  
   final static String className = ThrowingResultSet.class.getName() + ".";
+
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
   }
@@ -88,8 +90,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   }
 
   ResultSet it = null;
+  
   /**
-   * 
+   * Constructor. 
    */
   public ThrowingResultSet(ResultSet r) {
     this.it = r;
@@ -192,7 +195,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Array getArray(int i) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("ResultSet bombed");
-    return it.getArray(i);
+    return new ThrowingArray(it.getArray(i));
   }
 
   /**
@@ -202,7 +205,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Array getArray(String colName) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("ResultSet bombed");
-    return it.getArray(colName);
+    return new ThrowingArray(it.getArray(colName));
   }
 
   /**
@@ -284,7 +287,6 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public InputStream getBinaryStream(String columnName) throws SQLException {
     if (shouldThrow("getBinaryStream"))
       throw new SQLException("ResultSet bombed");
-
     return it.getBinaryStream(columnName);
   }
 
@@ -295,7 +297,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Blob getBlob(int i) throws SQLException {
     if (shouldThrow("getBlob"))
       throw new SQLException("ResultSet bombed");
-    return it.getBlob(i);
+    return new ThrowingBlob(it.getBlob(i));
   }
 
   /**
@@ -305,7 +307,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Blob getBlob(String colName) throws SQLException {
     if (shouldThrow("getBlob"))
       throw new SQLException("ResultSet bombed");
-    return it.getBlob(colName);
+    return new ThrowingBlob(it.getBlob(colName));
   }
 
   /**
@@ -395,7 +397,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Clob getClob(int i) throws SQLException {
     if (shouldThrow("getClob"))
       throw new SQLException("ResultSet bombed");
-    return it.getClob(i);
+    return new ThrowingClob(it.getClob(i));
   }
 
   /**
@@ -405,7 +407,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Clob getClob(String colName) throws SQLException {
     if (shouldThrow("getClob"))
       throw new SQLException("ResultSet bombed");
-    return it.getClob(colName);
+    return new ThrowingClob(it.getClob(colName));
   }
 
   /**
@@ -626,7 +628,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Ref getRef(int i) throws SQLException {
     if (shouldThrow("getRef"))
       throw new SQLException("ResultSet bombed");
-    return it.getRef(i);
+    return new ThrowingRef(it.getRef(i));
   }
 
   /**
@@ -636,7 +638,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public Ref getRef(String colName) throws SQLException {
     if (shouldThrow("getRef"))
       throw new SQLException("ResultSet bombed");
-    return it.getRef(colName);
+    return new ThrowingRef(it.getRef(colName));
   }
 
   /**
@@ -1549,7 +1551,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public NClob getNClob(int columnIndex) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("ResultSet bombed");
-    return it.getNClob(columnIndex);
+    return new ThrowingNClob(it.getNClob(columnIndex));
   }
   /** 
    * {@inheritDoc}
@@ -1559,7 +1561,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public NClob getNClob(String columnLabel) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("ResultSet bombed");
-    return it.getNClob(columnLabel);
+    return new ThrowingNClob(it.getNClob(columnLabel));
   }
   /** 
    * {@inheritDoc}
@@ -1589,7 +1591,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public RowId getRowId(int columnIndex) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("ResultSet bombed");
-    return it.getRowId(columnIndex);
+    return new ThrowingRowId(it.getRowId(columnIndex));
   }
   /** 
    * {@inheritDoc}
@@ -1599,7 +1601,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public RowId getRowId(String columnLabel) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("ResultSet bombed");
-    return it.getRowId(columnLabel);
+    return new ThrowingRowId(it.getRowId(columnLabel));
   }
   /** 
    * {@inheritDoc}
@@ -1609,7 +1611,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public SQLXML getSQLXML(int columnIndex) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("ResultSet bombed");
-    return it.getSQLXML(columnIndex);
+    return new ThrowingSQLXML(it.getSQLXML(columnIndex));
   }
   /** 
    * {@inheritDoc}
@@ -1619,7 +1621,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   public SQLXML getSQLXML(String columnLabel) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("ResultSet bombed");
-    return it.getSQLXML(columnLabel);
+    return new ThrowingSQLXML(it.getSQLXML(columnLabel));
   }
   /** 
    * {@inheritDoc}

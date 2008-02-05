@@ -11,6 +11,36 @@
   <description>
   Persistent Object Engine for Melati.
   </description>
+  <profiles>
+    <profile>
+      <id>jdbc3</id>
+      <activation>
+        <jdk>!1.6</jdk>
+      </activation>
+      <dependencies>
+       <dependency>
+        <groupId>org.melati</groupId>
+        <artifactId>jdbc</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+       </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>jdbc4</id>
+      <activation>
+        <jdk>1.6</jdk>
+      </activation>
+      <dependencies>
+       <dependency>
+        <groupId>org.melati</groupId>
+        <artifactId>jdbc</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+       </dependency>
+      </dependencies>
+    </profile>
+  </profiles>  
   <dependencies>
     <dependency>
       <groupId>concurrent</groupId>

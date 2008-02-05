@@ -7,6 +7,7 @@
   <name>Melati Home</name>
   <modules>
     <module>poem</module>
+    <module>jdbc</module>
     <module>melati</module>
     <module>melati-example-contacts</module>
     <module>melati-example-odmg</module>

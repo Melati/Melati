@@ -22,6 +22,7 @@
         <groupId>org.melati</groupId>
         <artifactId>jdbc</artifactId>
         <version>${project.version}</version>
+        <classifier>jdbc3</classifier>
         <scope>test</scope>
        </dependency>
       </dependencies>
@@ -36,6 +37,7 @@
         <groupId>org.melati</groupId>
         <artifactId>jdbc</artifactId>
         <version>${project.version}</version>
+        <classifier>jdbc4</classifier>
         <scope>test</scope>
        </dependency>
       </dependencies>

@@ -273,15 +273,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testCreateTableStory() { 
     setScriptingEnabled(false);
     loginAsAdministrator();
-    chooseTable("Table");
-    gotoRootWindow();
-    gotoFrame("admin_bottom");
-    gotoFrame("admin_left");
-    gotoFrame("admin_navigation");
-    clickLink("add");
-    gotoRootWindow();
-    gotoFrame("admin_bottom");
-    gotoFrame("admin_record");
+    gotoAddRecord("Table");
     setTextField("field_name", "test");
     setTextField("field_displayname", "Test");
     setTextField("field_description", "A Test table");
@@ -306,7 +298,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setTextField("field_displayorder", "0");
     checkCheckbox("field_usercreateable");
     checkCheckbox("field_indexed");
-    checkCheckbox("field_unique");
+    // We want to duplicate
+    //checkCheckbox("field_unique");
     setTextField("field_displayname", "Test");
     checkCheckbox("field_nullable");
     setTextField("field_size", "20");
@@ -320,6 +313,28 @@ public class AdminJettyWebTest extends JettyWebTestCase {
         "//input[@name='" + "troid" + "']", "value");
     
 
+    gotoAddRecord("Test");
+    setTextField("field_test", "test");
+    submit();
+    assertTextPresent("Done");
+    String recordTroid = getElementAttributByXPath(
+        "//input[@name='" + "troid" + "']", "value");
+    
+    clickLink("continue");
+    gotoPage("/Admin/" + dbName + "/test/" + recordTroid + "/Main"); 
+    gotoFrame("admin_bottom");    
+    gotoFrame("admin_record");
+    gotoFrame("admin_edit_test_" + recordTroid);
+    submit("action","Duplicate");
+    assertTextPresent("Done");
+    String href = getElementAttributByXPath(
+        "//a[@id='" + "continue" + "']", "href");
+    System.err.println("Continue:" + href);
+    clickLink("continue");
+    
+    // Records will be sorted by id
+    deleteRecord("test", "test", new Integer(recordTroid).intValue());
+    deleteRecord("test", "test", new Integer(recordTroid).intValue() + 1);
     
     gotoPage("/Admin/" + dbName + "/columninfo/" + columnTroid + "/Main"); 
     gotoFrame("admin_bottom");    
@@ -338,18 +353,24 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Done");
     clickLink("continue");
     assertTextPresent("Done");
-    String href = getElementAttributByXPath(
-        "//a[@id='" + "continue" + "']", "href");
-    System.err.println(href);
     clickLink("continue");
     assertTextPresent("Melati Database Admin Suite - Melatijunit database");
   }
-  private void chooseTable(String table) {
+  private void gotoAddRecord(String table) {
+    gotoRootWindow();
     gotoFrame("admin_top");
     selectOption("goto",table);
     assertFormPresent("goto");
     setWorkingForm("goto");
     submit();
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_left");
+    gotoFrame("admin_navigation");
+    clickLink("add");
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_record");
   }
   /**
    * Start and end at top window.

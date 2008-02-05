@@ -1,5 +1,45 @@
-/**
- * 
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2007 Tim Pizey
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 package org.melati.poem.dbms.test.sql;
 
@@ -923,352 +963,54 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throw new SQLException("PreparedStatement bombed");
     it.setQueryTimeout(seconds);
   }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateNClob(String s, Reader r) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void setNClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void setClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void setClob(String s, Reader r) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateClob(String s, Reader r) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateNClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
-  public void updateNClob(String s, Reader r, long l) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-    long l2= l;
-    l = l2;
-  }
   
   /**
-   * 
+   *  JDBC 4.0
    */
-  public void updateBlob(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
+  
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream, long)
+   */
+  @Override
+  public void setAsciiStream(int parameterIndex, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("setAsciiStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setAsciiStream(parameterIndex, x, length);
   }
-  /**
-   * 
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream)
    */
-  public void updateBlob(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
+  @Override
+  public void setAsciiStream(int parameterIndex, InputStream x)
+          throws SQLException {
+    if (shouldThrow("setAsciiStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setAsciiStream(parameterIndex, x);
   }
-
-  /**
-   * 
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream, long)
    */
-  public void setBlob(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
+  @Override
+  public void setBinaryStream(int parameterIndex, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("setBinaryStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setBinaryStream(parameterIndex, x, length);
   }
-  /**
-   * 
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream)
    */
-  public void setBlob(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void setCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void setCharacterStream(int i, Reader r, long l){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setCharacterStream(String s, Reader r, long l){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(int i, Reader r, long l){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(String s, Reader r, long l){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setNCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void setNCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateAsciiStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateAsciiStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void setAsciiStream(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setAsciiStream(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setAsciiStream(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setAsciiStream(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
+  @Override
+  public void setBinaryStream(int parameterIndex, InputStream x)
+          throws SQLException {
+    if (shouldThrow("setBinaryStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setBinaryStream(parameterIndex, x);
   }
   /** 
    * {@inheritDoc}
@@ -1277,6 +1019,42 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   @Override
   public void setBlob(int parameterIndex, InputStream inputStream, long length)
           throws SQLException {
+    if (shouldThrow("setBlob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setBlob(parameterIndex, inputStream, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream)
+   */
+  @Override
+  public void setBlob(int parameterIndex, InputStream inputStream)
+          throws SQLException {
+    if (shouldThrow("setBlob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setBlob(parameterIndex, inputStream);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader, long)
+   */
+  @Override
+  public void setCharacterStream(int parameterIndex, Reader reader, long length)
+          throws SQLException {
+    if (shouldThrow("setCharacterStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setCharacterStream(parameterIndex, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader)
+   */
+  @Override
+  public void setCharacterStream(int parameterIndex, Reader reader)
+          throws SQLException {
+    if (shouldThrow("setCharacterStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setCharacterStream(parameterIndex, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1285,6 +1063,19 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   @Override
   public void setClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
+    if (shouldThrow("setClob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setClob(parameterIndex, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setClob(int, java.io.Reader)
+   */
+  @Override
+  public void setClob(int parameterIndex, Reader reader) throws SQLException {
+    if (shouldThrow("setClob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setClob(parameterIndex, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1293,6 +1084,20 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   @Override
   public void setNCharacterStream(int parameterIndex, Reader value, long length)
           throws SQLException {
+    if (shouldThrow("setNCharacterStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNCharacterStream(parameterIndex, value, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader)
+   */
+  @Override
+  public void setNCharacterStream(int parameterIndex, Reader value)
+          throws SQLException {
+    if (shouldThrow("setNCharacterStream"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNCharacterStream(parameterIndex, value);
   }
   /** 
    * {@inheritDoc}
@@ -1300,6 +1105,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public void setNClob(int parameterIndex, NClob value) throws SQLException {
+    if (shouldThrow("setNClob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNClob(parameterIndex, value);
   }
   /** 
    * {@inheritDoc}
@@ -1308,6 +1116,19 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   @Override
   public void setNClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
+    if (shouldThrow("setNClob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNClob(parameterIndex, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader)
+   */
+  @Override
+  public void setNClob(int parameterIndex, Reader reader) throws SQLException {
+    if (shouldThrow("setNClob"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNClob(parameterIndex, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1315,6 +1136,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public void setNString(int parameterIndex, String value) throws SQLException {
+    if (shouldThrow("setNString"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setNString(parameterIndex, value);
   }
   /** 
    * {@inheritDoc}
@@ -1322,6 +1146,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public void setRowId(int parameterIndex, RowId x) throws SQLException {
+    if (shouldThrow("setRowId"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setRowId(parameterIndex, x);
   }
   /** 
    * {@inheritDoc}
@@ -1330,6 +1157,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   @Override
   public void setSQLXML(int parameterIndex, SQLXML xmlObject)
           throws SQLException {
+    if (shouldThrow("setSQLXML"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setSQLXML(parameterIndex, xmlObject);
   }
   /** 
    * {@inheritDoc}
@@ -1337,7 +1167,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public boolean isClosed() throws SQLException {
-    return false;
+    if (shouldThrow("isClosed"))
+      throw new SQLException("PreparedStatement bombed");
+    return it.isClosed();
   }
   /** 
    * {@inheritDoc}
@@ -1345,7 +1177,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public boolean isPoolable() throws SQLException {
-    return false;
+    if (shouldThrow("isPoolable"))
+      throw new SQLException("PreparedStatement bombed");
+    return it.isPoolable();
   }
   /** 
    * {@inheritDoc}
@@ -1353,6 +1187,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public void setPoolable(boolean poolable) throws SQLException {
+    if (shouldThrow("setPoolable"))
+      throw new SQLException("PreparedStatement bombed");
+    it.setPoolable(poolable);
   }
   /** 
    * {@inheritDoc}
@@ -1360,7 +1197,9 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return false;
+    if (shouldThrow("isWrapperFor"))
+      throw new SQLException("PreparedStatement bombed");
+    return it.isWrapperFor(iface);
   }
   /** 
    * {@inheritDoc}
@@ -1368,8 +1207,13 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    */
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return null;
+    if (shouldThrow("unwrap"))
+      throw new SQLException("PreparedStatement bombed");
+    return it.unwrap(iface);
   }
+  
 
+  
+  
 
 }

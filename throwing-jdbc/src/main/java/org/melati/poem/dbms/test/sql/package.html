@@ -7,9 +7,19 @@
 content="text/html; charset=us-ascii" />
 <title>org.melati.poem.dbms.test.sql</title>
 </head>
-<body bgcolor="white">
+<body>
 <p>
-An extension of the <tt>java.sql</tt> decorated as <tt>Throwers</tt>.
+An extension of <tt>java.sql</tt> decorated as <tt>Throwers</tt>.
+</p>
+<p>
+The purpose of this package is to enable a programmer to target a particular 
+<tt>try</tt> block to increase tst coverage from a test coverage tool, 
+such as Cobertura.
+</p>
+<p>
+To accomodate the differences between JDBC 3.0 and JDBC 4.0 (included in JDK 1.6) 
+the source is packaged into two deliverables with the classifier <tt>jdbc3</tt> and 
+<tt>jdbc4</tt>. 
 </p>
 </body>
 </html>

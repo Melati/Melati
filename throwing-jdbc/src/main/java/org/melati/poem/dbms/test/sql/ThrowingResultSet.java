@@ -1,5 +1,45 @@
-/**
- * 
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2007 Tim Pizey
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 package org.melati.poem.dbms.test.sql;
 
@@ -1464,365 +1504,22 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
     return it.wasNull();
   }
 
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateNClob(String s, Reader r) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-  }
-  public void updateNClob(String s, Reader r, long l) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-    long l2= l;
-    l = l2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateClob(String s, Reader r) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-  }
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
 
   /**
-   * JDK 1.6
-   * @param s
-   * @param r
+   *  JDBC 4.0
    */
-  public void updateClob(String s, Reader r, long l) { 
-    // // jdk 1.6
-    String s2 = s;
-    Reader r2 = r;
-    r = r2;
-    s = s2;
-    long l2 = l;
-    l = l2;
-  }
   
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateClob(int i, Reader r, long l) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-    long l2 = l;
-    l = l2;
-  }
   
-
   
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateNClob(int i, Reader r) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-  }
-  
-  /**
-   * JDK 1.6
-   * @param s
-   * @param r
-   */
-  public void updateNClob(int i, Reader r, long l) { 
-    // // jdk 1.6
-    int i2 = i;
-    Reader r2 = r;
-    r = r2;
-    i = i2;
-    long l2 = l;
-    l = l2;
-  }
-  
-  /**
-   * 
-   */
-  public void updateBlob(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-  /**
-   * 
-   */
-  public void updateBlob(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-  /**
-   * 
-   */
-  public void updateBlob(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-  /**
-   * 
-   */
-  public void updateBlob(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;  
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void updateCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-  /**
-   * 
-   */
-  public void updateCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-  /**
-   * 
-   */
-  public void updateCharacterStream(String s, Reader r, long l){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;
-    long l2 = l;
-    l = l2;
-  }
-  /**
-   * 
-   */
-  public void setCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-  /**
-   * 
-   */
-  public void setCharacterStream(int i, Reader r, long l){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;
-    long l2 = l;
-    l = l2;
-  }
-  /**
-   * 
-   */
-  public void updateCharacterStream(int i, Reader r, long l){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;
-    long l2 = l;
-    l = l2;
-  }
-  /**
-   * 
-   */
-  public void setCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateBinaryStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateBinaryStream(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateBinaryStream(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void updateBinaryStream(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateBinaryStream(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void setBinaryStream(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateAsciiStream(String s, InputStream is){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-  /**
-   * 
-   */
-  public void updateAsciiStream(int i, InputStream is){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateAsciiStream(String s, InputStream is, long l){
-    String s2 = s;
-    s = s2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-  /**
-   * 
-   */
-  public void updateAsciiStream(int i, InputStream is, long l){
-    int i2 = i;
-    i = i2;
-    InputStream is2 = is;
-    is = is2;    
-    long l2 = l;
-    l = l2;
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(int i, Reader r){
-    int i2 = i;
-    i = i2;
-    Reader r2 = r;
-    r = r2;    
-  }
-
-  /**
-   * 
-   */
-  public void updateNCharacterStream(String s, Reader r){
-    String s2 = s;
-    s = s2;
-    Reader r2 = r;
-    r = r2;    
-  }
   /** 
    * {@inheritDoc}
    * @see java.sql.ResultSet#getHoldability()
    */
   @Override
   public int getHoldability() throws SQLException {
-    return 0;
+    if (shouldThrow("getHoldability"))
+      throw new SQLException("ResultSet bombed");
+    return it.getHoldability();
   }
   /** 
    * {@inheritDoc}
@@ -1830,7 +1527,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public Reader getNCharacterStream(int columnIndex) throws SQLException {
-    return null;
+    if (shouldThrow("getNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNCharacterStream(columnIndex);
   }
   /** 
    * {@inheritDoc}
@@ -1838,7 +1537,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public Reader getNCharacterStream(String columnLabel) throws SQLException {
-    return null;
+    if (shouldThrow("getNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNCharacterStream(columnLabel);
   }
   /** 
    * {@inheritDoc}
@@ -1846,7 +1547,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public NClob getNClob(int columnIndex) throws SQLException {
-    return null;
+    if (shouldThrow("getNClob"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNClob(columnIndex);
   }
   /** 
    * {@inheritDoc}
@@ -1854,7 +1557,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public NClob getNClob(String columnLabel) throws SQLException {
-    return null;
+    if (shouldThrow("getNClob"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNClob(columnLabel);
   }
   /** 
    * {@inheritDoc}
@@ -1862,7 +1567,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public String getNString(int columnIndex) throws SQLException {
-    return null;
+    if (shouldThrow("getNString"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNString(columnIndex);
   }
   /** 
    * {@inheritDoc}
@@ -1870,7 +1577,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public String getNString(String columnLabel) throws SQLException {
-    return null;
+    if (shouldThrow("getNString"))
+      throw new SQLException("ResultSet bombed");
+    return it.getNString(columnLabel);
   }
   /** 
    * {@inheritDoc}
@@ -1878,7 +1587,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public RowId getRowId(int columnIndex) throws SQLException {
-    return null;
+    if (shouldThrow("getRowId"))
+      throw new SQLException("ResultSet bombed");
+    return it.getRowId(columnIndex);
   }
   /** 
    * {@inheritDoc}
@@ -1886,7 +1597,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public RowId getRowId(String columnLabel) throws SQLException {
-    return null;
+    if (shouldThrow("getRowId"))
+      throw new SQLException("ResultSet bombed");
+    return it.getRowId(columnLabel);
   }
   /** 
    * {@inheritDoc}
@@ -1894,7 +1607,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public SQLXML getSQLXML(int columnIndex) throws SQLException {
-    return null;
+    if (shouldThrow("getSQLXML"))
+      throw new SQLException("ResultSet bombed");
+    return it.getSQLXML(columnIndex);
   }
   /** 
    * {@inheritDoc}
@@ -1902,7 +1617,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public SQLXML getSQLXML(String columnLabel) throws SQLException {
-    return null;
+    if (shouldThrow("getSQLXML"))
+      throw new SQLException("ResultSet bombed");
+    return it.getSQLXML(columnLabel);
   }
   /** 
    * {@inheritDoc}
@@ -1910,7 +1627,227 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public boolean isClosed() throws SQLException {
-    return false;
+    if (shouldThrow("isClosed"))
+      throw new SQLException("ResultSet bombed");
+    return it.isClosed();
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateAsciiStream(int, java.io.InputStream, long)
+   */
+  @Override
+  public void updateAsciiStream(int columnIndex, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("updateAsciiStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateAsciiStream(columnIndex, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateAsciiStream(int, java.io.InputStream)
+   */
+  @Override
+  public void updateAsciiStream(int columnIndex, InputStream x)
+          throws SQLException {
+    if (shouldThrow("updateAsciiStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateAsciiStream(columnIndex, x);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateAsciiStream(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void updateAsciiStream(String columnLabel, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("updateAsciiStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateAsciiStream(columnLabel, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateAsciiStream(java.lang.String, java.io.InputStream)
+   */
+  @Override
+  public void updateAsciiStream(String columnLabel, InputStream x)
+          throws SQLException {
+    if (shouldThrow("updateAsciiStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateAsciiStream(columnLabel, x);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBinaryStream(int, java.io.InputStream, long)
+   */
+  @Override
+  public void updateBinaryStream(int columnIndex, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("updateBinaryStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBinaryStream(columnIndex, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBinaryStream(int, java.io.InputStream)
+   */
+  @Override
+  public void updateBinaryStream(int columnIndex, InputStream x)
+          throws SQLException {
+    if (shouldThrow("updateBinaryStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBinaryStream(columnIndex, x);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBinaryStream(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void updateBinaryStream(String columnLabel, InputStream x, long length)
+          throws SQLException {
+    if (shouldThrow("updateBinaryStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBinaryStream(columnLabel, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBinaryStream(java.lang.String, java.io.InputStream)
+   */
+  @Override
+  public void updateBinaryStream(String columnLabel, InputStream x)
+          throws SQLException {
+    if (shouldThrow("updateBinaryStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBinaryStream(columnLabel, x);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBlob(int, java.io.InputStream, long)
+   */
+  @Override
+  public void updateBlob(int columnIndex, InputStream inputStream, long length)
+          throws SQLException {
+    if (shouldThrow("updateBlob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBlob(columnIndex, inputStream, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBlob(int, java.io.InputStream)
+   */
+  @Override
+  public void updateBlob(int columnIndex, InputStream inputStream)
+          throws SQLException {
+    if (shouldThrow("updateBlob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBlob(columnIndex, inputStream);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBlob(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void updateBlob(String columnLabel, InputStream inputStream,
+          long length) throws SQLException {
+    if (shouldThrow("updateBlob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBlob(columnLabel, inputStream);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateBlob(java.lang.String, java.io.InputStream)
+   */
+  @Override
+  public void updateBlob(String columnLabel, InputStream inputStream)
+          throws SQLException {
+    if (shouldThrow("updateBlob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateBlob(columnLabel, inputStream);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateCharacterStream(int, java.io.Reader, long)
+   */
+  @Override
+  public void updateCharacterStream(int columnIndex, Reader x, long length)
+          throws SQLException {
+    if (shouldThrow("updateCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateCharacterStream(columnIndex, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateCharacterStream(int, java.io.Reader)
+   */
+  @Override
+  public void updateCharacterStream(int columnIndex, Reader x)
+          throws SQLException {
+    if (shouldThrow("updateCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateCharacterStream(columnIndex, x);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateCharacterStream(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void updateCharacterStream(String columnLabel, Reader reader,
+          long length) throws SQLException {
+    if (shouldThrow("updateCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateCharacterStream(columnLabel, reader);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateCharacterStream(java.lang.String, java.io.Reader)
+   */
+  @Override
+  public void updateCharacterStream(String columnLabel, Reader reader)
+          throws SQLException {
+    if (shouldThrow("updateCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateCharacterStream(columnLabel, reader);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateClob(int, java.io.Reader, long)
+   */
+  @Override
+  public void updateClob(int columnIndex, Reader reader, long length)
+          throws SQLException {
+    if (shouldThrow("updateClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateClob(columnIndex, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateClob(int, java.io.Reader)
+   */
+  @Override
+  public void updateClob(int columnIndex, Reader reader) throws SQLException {
+    if (shouldThrow("updateClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateClob(columnIndex, reader);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateClob(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void updateClob(String columnLabel, Reader reader, long length)
+          throws SQLException {
+    if (shouldThrow("updateClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateClob(columnLabel, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateClob(java.lang.String, java.io.Reader)
+   */
+  @Override
+  public void updateClob(String columnLabel, Reader reader) throws SQLException {
+    if (shouldThrow("updateClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateClob(columnLabel, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1919,6 +1856,20 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   @Override
   public void updateNCharacterStream(int columnIndex, Reader x, long length)
           throws SQLException {
+    if (shouldThrow("updateNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNCharacterStream(columnIndex, x, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNCharacterStream(int, java.io.Reader)
+   */
+  @Override
+  public void updateNCharacterStream(int columnIndex, Reader x)
+          throws SQLException {
+    if (shouldThrow("updateNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNCharacterStream(columnIndex, x);
   }
   /** 
    * {@inheritDoc}
@@ -1927,6 +1878,20 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   @Override
   public void updateNCharacterStream(String columnLabel, Reader reader,
           long length) throws SQLException {
+    if (shouldThrow("updateNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNCharacterStream(columnLabel, reader);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNCharacterStream(java.lang.String, java.io.Reader)
+   */
+  @Override
+  public void updateNCharacterStream(String columnLabel, Reader reader)
+          throws SQLException {
+    if (shouldThrow("updateNCharacterStream"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNCharacterStream(columnLabel, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1934,6 +1899,30 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public void updateNClob(int columnIndex, NClob clob) throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnIndex, clob);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(int, java.io.Reader, long)
+   */
+  @Override
+  public void updateNClob(int columnIndex, Reader reader, long length)
+          throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnIndex, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(int, java.io.Reader)
+   */
+  @Override
+  public void updateNClob(int columnIndex, Reader reader) throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnIndex, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1941,6 +1930,31 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public void updateNClob(String columnLabel, NClob clob) throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnLabel, clob);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void updateNClob(String columnLabel, Reader reader, long length)
+          throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnLabel, reader, length);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(java.lang.String, java.io.Reader)
+   */
+  @Override
+  public void updateNClob(String columnLabel, Reader reader)
+          throws SQLException {
+    if (shouldThrow("updateNClob"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNClob(columnLabel, reader);
   }
   /** 
    * {@inheritDoc}
@@ -1948,6 +1962,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public void updateNString(int columnIndex, String string) throws SQLException {
+    if (shouldThrow("updateNString"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNString(columnIndex, string);
   }
   /** 
    * {@inheritDoc}
@@ -1956,6 +1973,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   @Override
   public void updateNString(String columnLabel, String string)
           throws SQLException {
+    if (shouldThrow("updateNString"))
+      throw new SQLException("ResultSet bombed");
+    it.updateNString(columnLabel, string);
   }
   /** 
    * {@inheritDoc}
@@ -1963,6 +1983,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public void updateRowId(int columnIndex, RowId x) throws SQLException {
+    if (shouldThrow("updateRowId"))
+      throw new SQLException("ResultSet bombed");
+    it.updateRowId(columnIndex, x);
   }
   /** 
    * {@inheritDoc}
@@ -1970,6 +1993,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public void updateRowId(String columnLabel, RowId x) throws SQLException {
+    if (shouldThrow("updateRowId"))
+      throw new SQLException("ResultSet bombed");
+    it.updateRowId(columnLabel, x);
   }
   /** 
    * {@inheritDoc}
@@ -1978,6 +2004,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   @Override
   public void updateSQLXML(int columnIndex, SQLXML xmlObject)
           throws SQLException {
+    if (shouldThrow("updateSQLXML"))
+      throw new SQLException("ResultSet bombed");
+    it.updateSQLXML(columnIndex, xmlObject);
   }
   /** 
    * {@inheritDoc}
@@ -1986,13 +2015,19 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   @Override
   public void updateSQLXML(String columnLabel, SQLXML xmlObject)
           throws SQLException {
+    if (shouldThrow("updateSQLXML"))
+      throw new SQLException("ResultSet bombed");
+    it.updateSQLXML(columnLabel, xmlObject);
   }
   /** 
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
+  @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return false;
+    if (shouldThrow("isWrapperFor"))
+      throw new SQLException("ResultSet bombed");
+    return it.isWrapperFor(iface);
   }
   /** 
    * {@inheritDoc}
@@ -2000,7 +2035,9 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    */
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return null;
+    if (shouldThrow("unwrap"))
+      throw new SQLException("ResultSet bombed");
+    return it.unwrap(iface);
   }
 
 }

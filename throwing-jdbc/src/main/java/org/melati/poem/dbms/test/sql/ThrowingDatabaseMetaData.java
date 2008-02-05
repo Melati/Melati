@@ -1,3 +1,46 @@
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2007 Tim Pizey
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
+ */
 package org.melati.poem.dbms.test.sql;
 
 import java.sql.Connection;
@@ -1024,90 +1067,55 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
       throw new SQLException("DatabaseMetaData bombed");
     return it.usesLocalFiles();
   }
+
   
   /**
-   * JDK 1.6
-   * @param c
+   *  JDBC 4.0
    */
-  public ResultSet getFunctionColumns(String s1, String s2, String s3, String s4) {
-    s1 = s2;
-    s3 = s4;
-    s2 = s1;
-    s4 = s3;
-    return null;
-  }
-
-  /**
-   * JDK 1.6
-   * @param c
-   */
-  public ResultSet getFunctions(String s1, String s2, String s3) {
-    s1 = s2;
-    s2 = s1;
-    s3 = s1;
-    s2 = s3;
-    return null;
-  }
-  /**
-   * JDK 1.6
-   * @param c
-   */
-  public ResultSet getClientInfoProperties() {
-    return null;
-  }
+  
  
-  /**
-   * JDK 1.6
-   * @param c
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#autoCommitFailureClosesAllResultSets()
    */
-  public boolean autoCommitFailureClosesAllResultSets() {
-    return false;
+  @Override
+  public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
+    if (shouldThrow("autoCommitFailureClosesAllResultSets"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.autoCommitFailureClosesAllResultSets();
   }
- 
-  /**
-   * JDK 1.6
-   * @param c
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#getClientInfoProperties()
    */
-  public boolean supportsStoredFunctionsUsingCallSyntax() {
-    return false;
+  @Override
+  public ResultSet getClientInfoProperties() throws SQLException {
+    if (shouldThrow("getClientInfoProperties"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.getClientInfoProperties();
   }
-  /**
-   * JDK 1.6
-   * @param c
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#getFunctionColumns(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
-  public ResultSet getSchemas(String s1, String s2) {
-    s1 = s2;
-    s2 = s1;
-    return null;
+  @Override
+  public ResultSet getFunctionColumns(String catalog, String schemaPattern,
+          String functionNamePattern, String columnNamePattern)
+          throws SQLException {
+    if (shouldThrow("getFunctionColumns"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog);
   }
- 
-
-  /**
-   * JDK 1.6
-   * @param c
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#getFunctions(java.lang.String, java.lang.String, java.lang.String)
    */
-/*
-  public java.sql.RowIdLifeTime getRowIdLifetime() {
-    return null;
-  }
- */
-  /**
-   * JDK 1.6
-   * @param c
-   */
-  public boolean isWrapperFor(Class c) {
-    Class c2 = c;
-    c = c2;
-    return false;
-  }
-  /**
-   * JDK 1.6
-   * @param c
-   */
-  public Object unwrap(Class c) {
-    Class c2 = c;
-    c = c2;
-    return null;
+  @Override
+  public ResultSet getFunctions(String catalog, String schemaPattern,
+          String functionNamePattern) throws SQLException {
+    if (shouldThrow("getFunctions"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.getFunctions(catalog, schemaPattern, functionNamePattern);
   }
   /** 
    * {@inheritDoc}
@@ -1115,9 +1123,52 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    */
   @Override
   public RowIdLifetime getRowIdLifetime() throws SQLException {
-    return null;
+    if (shouldThrow("getRowIdLifetime"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.getRowIdLifetime();
   }
-
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#getSchemas(java.lang.String, java.lang.String)
+   */
+  @Override
+  public ResultSet getSchemas(String catalog, String schemaPattern)
+          throws SQLException {
+    if (shouldThrow("getSchemas"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.getSchemas();
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#supportsStoredFunctionsUsingCallSyntax()
+   */
+  @Override
+  public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
+    if (shouldThrow("supportsStoredFunctionsUsingCallSyntax"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.supportsStoredFunctionsUsingCallSyntax();
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
+   */
+  @Override
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    if (shouldThrow("isWrapperFor"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.isWrapperFor(iface);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#unwrap(java.lang.Class)
+   */
+  @Override
+  public <T> T unwrap(Class<T> iface) throws SQLException {
+    if (shouldThrow("unwrap"))
+      throw new SQLException("DatabaseMetaData bombed");
+    return it.unwrap(iface);
+  }
+  
 
 
 }

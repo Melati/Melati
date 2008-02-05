@@ -1,8 +1,49 @@
-/**
- * 
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2007 Tim Pizey
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 package org.melati.poem.dbms.test.sql;
 
+import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Clob;
@@ -10,13 +51,13 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.NClob;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
+import java.sql.Struct;
 import java.util.Map;
 import java.util.Properties;
 
@@ -424,33 +465,20 @@ public class ThrowingConnection extends Thrower implements Connection {
   }
   
   /**
-   * Dummy 1.6
+   *  JDBC 4.0
    */
-  public java.sql.Struct createStruct(String s, Object[] them) {
-    String s2 = s;
-    s = s2;
-    Object[] them2 = them;
-    them = them2;
-    return null;
-  }
-
-  /**
-   * Dummy 1.6
-   */
-  public java.sql.Array createArrayOf(String s, Object[] them) {
-    String s2 = s;
-    s = s2;
-    Object[] them2 = them;
-    them = them2;
-    return null;
-  }
+  
+  
   /** 
-   * JDK 1.6
    * {@inheritDoc}
-   * @see java.sql.Connection#getClientInfo()
+   * @see java.sql.Connection#createArrayOf(java.lang.String, java.lang.Object[])
    */
-  public Properties getClientInfo() {
-    return null;
+  @Override
+  public Array createArrayOf(String typeName, Object[] elements)
+          throws SQLException {
+    if (shouldThrow("createArrayOf"))
+      throw new SQLException("Connection bombed");
+    return it.createArrayOf(typeName, elements);
   }
   /** 
    * {@inheritDoc}
@@ -458,7 +486,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public Blob createBlob() throws SQLException {
-    return null;
+    if (shouldThrow("createBlob"))
+      throw new SQLException("Connection bombed");
+    return it.createBlob();
   }
   /** 
    * {@inheritDoc}
@@ -466,7 +496,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public Clob createClob() throws SQLException {
-    return null;
+    if (shouldThrow("createClob"))
+      throw new SQLException("Connection bombed");
+    return it.createClob();
   }
   /** 
    * {@inheritDoc}
@@ -474,7 +506,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public NClob createNClob() throws SQLException {
-    return null;
+    if (shouldThrow("createNClob"))
+      throw new SQLException("Connection bombed");
+    return it.createNClob();
   }
   /** 
    * {@inheritDoc}
@@ -482,7 +516,30 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public SQLXML createSQLXML() throws SQLException {
-    return null;
+    if (shouldThrow("createSQLXML"))
+      throw new SQLException("Connection bombed");
+    return it.createSQLXML();
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#createStruct(java.lang.String, java.lang.Object[])
+   */
+  @Override
+  public Struct createStruct(String typeName, Object[] attributes)
+          throws SQLException {
+    if (shouldThrow("createStruct"))
+      throw new SQLException("Connection bombed");
+    return it.createStruct(typeName, attributes);
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#getClientInfo()
+   */
+  @Override
+  public Properties getClientInfo() throws SQLException {
+    if (shouldThrow("getClientInfo"))
+      throw new SQLException("Connection bombed");
+    return it.getClientInfo();
   }
   /** 
    * {@inheritDoc}
@@ -490,7 +547,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public String getClientInfo(String name) throws SQLException {
-    return null;
+    if (shouldThrow("getClientInfo"))
+      throw new SQLException("Connection bombed");
+    return it.getClientInfo(name);
   }
   /** 
    * {@inheritDoc}
@@ -498,7 +557,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public boolean isValid(int timeout) throws SQLException {
-    return false;
+    if (shouldThrow("isValid"))
+      throw new SQLException("Connection bombed");
+    return it.isValid(timeout);
   }
   /** 
    * {@inheritDoc}
@@ -507,6 +568,9 @@ public class ThrowingConnection extends Thrower implements Connection {
   @Override
   public void setClientInfo(Properties properties)
           throws SQLClientInfoException {
+    if (shouldThrow("setClientInfo"))
+      throw new SQLClientInfoException();
+    it.setClientInfo(properties);
   }
   /** 
    * {@inheritDoc}
@@ -515,6 +579,9 @@ public class ThrowingConnection extends Thrower implements Connection {
   @Override
   public void setClientInfo(String name, String value)
           throws SQLClientInfoException {
+    if (shouldThrow("setClientInfo"))
+      throw new SQLClientInfoException();
+    it.setClientInfo(name, value);
   }
   /** 
    * {@inheritDoc}
@@ -522,7 +589,9 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return false;
+    if (shouldThrow("isWrapperFor"))
+      throw new SQLException("Connection bombed");
+    return it.isWrapperFor(iface);
   }
   /** 
    * {@inheritDoc}
@@ -530,8 +599,10 @@ public class ThrowingConnection extends Thrower implements Connection {
    */
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return null;
+    if (shouldThrow("unwrap"))
+      throw new SQLException("Connection bombed");
+    return it.unwrap(iface);
   }
- 
+  
 
 }

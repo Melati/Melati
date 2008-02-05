@@ -1517,7 +1517,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getHoldability()
    */
-  @Override
+
   public int getHoldability() throws SQLException {
     if (shouldThrow("getHoldability"))
       throw new SQLException("ResultSet bombed");
@@ -1527,7 +1527,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNCharacterStream(int)
    */
-  @Override
+
   public Reader getNCharacterStream(int columnIndex) throws SQLException {
     if (shouldThrow("getNCharacterStream"))
       throw new SQLException("ResultSet bombed");
@@ -1537,7 +1537,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNCharacterStream(java.lang.String)
    */
-  @Override
+
   public Reader getNCharacterStream(String columnLabel) throws SQLException {
     if (shouldThrow("getNCharacterStream"))
       throw new SQLException("ResultSet bombed");
@@ -1547,7 +1547,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNClob(int)
    */
-  @Override
+
   public NClob getNClob(int columnIndex) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("ResultSet bombed");
@@ -1557,7 +1557,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNClob(java.lang.String)
    */
-  @Override
+
   public NClob getNClob(String columnLabel) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("ResultSet bombed");
@@ -1567,7 +1567,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNString(int)
    */
-  @Override
+
   public String getNString(int columnIndex) throws SQLException {
     if (shouldThrow("getNString"))
       throw new SQLException("ResultSet bombed");
@@ -1577,7 +1577,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getNString(java.lang.String)
    */
-  @Override
+
   public String getNString(String columnLabel) throws SQLException {
     if (shouldThrow("getNString"))
       throw new SQLException("ResultSet bombed");
@@ -1587,7 +1587,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getRowId(int)
    */
-  @Override
+
   public RowId getRowId(int columnIndex) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("ResultSet bombed");
@@ -1597,7 +1597,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getRowId(java.lang.String)
    */
-  @Override
+
   public RowId getRowId(String columnLabel) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("ResultSet bombed");
@@ -1607,7 +1607,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getSQLXML(int)
    */
-  @Override
+
   public SQLXML getSQLXML(int columnIndex) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("ResultSet bombed");
@@ -1617,7 +1617,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#getSQLXML(java.lang.String)
    */
-  @Override
+
   public SQLXML getSQLXML(String columnLabel) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("ResultSet bombed");
@@ -1627,7 +1627,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#isClosed()
    */
-  @Override
+
   public boolean isClosed() throws SQLException {
     if (shouldThrow("isClosed"))
       throw new SQLException("ResultSet bombed");
@@ -1637,7 +1637,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateAsciiStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void updateAsciiStream(int columnIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("updateAsciiStream"))
@@ -1648,7 +1648,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateAsciiStream(int, java.io.InputStream)
    */
-  @Override
+
   public void updateAsciiStream(int columnIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("updateAsciiStream"))
@@ -1659,7 +1659,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateAsciiStream(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void updateAsciiStream(String columnLabel, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("updateAsciiStream"))
@@ -1670,7 +1670,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateAsciiStream(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void updateAsciiStream(String columnLabel, InputStream x)
           throws SQLException {
     if (shouldThrow("updateAsciiStream"))
@@ -1681,7 +1681,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBinaryStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void updateBinaryStream(int columnIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("updateBinaryStream"))
@@ -1692,7 +1692,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBinaryStream(int, java.io.InputStream)
    */
-  @Override
+
   public void updateBinaryStream(int columnIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("updateBinaryStream"))
@@ -1703,7 +1703,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBinaryStream(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void updateBinaryStream(String columnLabel, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("updateBinaryStream"))
@@ -1714,7 +1714,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBinaryStream(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void updateBinaryStream(String columnLabel, InputStream x)
           throws SQLException {
     if (shouldThrow("updateBinaryStream"))
@@ -1725,7 +1725,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBlob(int, java.io.InputStream, long)
    */
-  @Override
+
   public void updateBlob(int columnIndex, InputStream inputStream, long length)
           throws SQLException {
     if (shouldThrow("updateBlob"))
@@ -1736,7 +1736,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBlob(int, java.io.InputStream)
    */
-  @Override
+
   public void updateBlob(int columnIndex, InputStream inputStream)
           throws SQLException {
     if (shouldThrow("updateBlob"))
@@ -1747,7 +1747,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBlob(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void updateBlob(String columnLabel, InputStream inputStream,
           long length) throws SQLException {
     if (shouldThrow("updateBlob"))
@@ -1758,7 +1758,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateBlob(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void updateBlob(String columnLabel, InputStream inputStream)
           throws SQLException {
     if (shouldThrow("updateBlob"))
@@ -1769,7 +1769,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void updateCharacterStream(int columnIndex, Reader x, long length)
           throws SQLException {
     if (shouldThrow("updateCharacterStream"))
@@ -1780,7 +1780,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void updateCharacterStream(int columnIndex, Reader x)
           throws SQLException {
     if (shouldThrow("updateCharacterStream"))
@@ -1791,7 +1791,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateCharacterStream(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void updateCharacterStream(String columnLabel, Reader reader,
           long length) throws SQLException {
     if (shouldThrow("updateCharacterStream"))
@@ -1802,7 +1802,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateCharacterStream(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void updateCharacterStream(String columnLabel, Reader reader)
           throws SQLException {
     if (shouldThrow("updateCharacterStream"))
@@ -1813,7 +1813,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void updateClob(int columnIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("updateClob"))
@@ -1824,7 +1824,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateClob(int, java.io.Reader)
    */
-  @Override
+
   public void updateClob(int columnIndex, Reader reader) throws SQLException {
     if (shouldThrow("updateClob"))
       throw new SQLException("ResultSet bombed");
@@ -1834,7 +1834,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateClob(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void updateClob(String columnLabel, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("updateClob"))
@@ -1845,7 +1845,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateClob(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void updateClob(String columnLabel, Reader reader) throws SQLException {
     if (shouldThrow("updateClob"))
       throw new SQLException("ResultSet bombed");
@@ -1855,7 +1855,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void updateNCharacterStream(int columnIndex, Reader x, long length)
           throws SQLException {
     if (shouldThrow("updateNCharacterStream"))
@@ -1866,7 +1866,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void updateNCharacterStream(int columnIndex, Reader x)
           throws SQLException {
     if (shouldThrow("updateNCharacterStream"))
@@ -1877,7 +1877,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNCharacterStream(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void updateNCharacterStream(String columnLabel, Reader reader,
           long length) throws SQLException {
     if (shouldThrow("updateNCharacterStream"))
@@ -1888,7 +1888,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNCharacterStream(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void updateNCharacterStream(String columnLabel, Reader reader)
           throws SQLException {
     if (shouldThrow("updateNCharacterStream"))
@@ -1899,7 +1899,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(int, java.sql.NClob)
    */
-  @Override
+
   public void updateNClob(int columnIndex, NClob clob) throws SQLException {
     if (shouldThrow("updateNClob"))
       throw new SQLException("ResultSet bombed");
@@ -1909,7 +1909,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void updateNClob(int columnIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("updateNClob"))
@@ -1920,7 +1920,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(int, java.io.Reader)
    */
-  @Override
+
   public void updateNClob(int columnIndex, Reader reader) throws SQLException {
     if (shouldThrow("updateNClob"))
       throw new SQLException("ResultSet bombed");
@@ -1930,7 +1930,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(java.lang.String, java.sql.NClob)
    */
-  @Override
+
   public void updateNClob(String columnLabel, NClob clob) throws SQLException {
     if (shouldThrow("updateNClob"))
       throw new SQLException("ResultSet bombed");
@@ -1940,7 +1940,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void updateNClob(String columnLabel, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("updateNClob"))
@@ -1951,7 +1951,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNClob(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void updateNClob(String columnLabel, Reader reader)
           throws SQLException {
     if (shouldThrow("updateNClob"))
@@ -1962,7 +1962,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNString(int, java.lang.String)
    */
-  @Override
+
   public void updateNString(int columnIndex, String string) throws SQLException {
     if (shouldThrow("updateNString"))
       throw new SQLException("ResultSet bombed");
@@ -1972,7 +1972,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateNString(java.lang.String, java.lang.String)
    */
-  @Override
+
   public void updateNString(String columnLabel, String string)
           throws SQLException {
     if (shouldThrow("updateNString"))
@@ -1983,7 +1983,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateRowId(int, java.sql.RowId)
    */
-  @Override
+
   public void updateRowId(int columnIndex, RowId x) throws SQLException {
     if (shouldThrow("updateRowId"))
       throw new SQLException("ResultSet bombed");
@@ -1993,7 +1993,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateRowId(java.lang.String, java.sql.RowId)
    */
-  @Override
+
   public void updateRowId(String columnLabel, RowId x) throws SQLException {
     if (shouldThrow("updateRowId"))
       throw new SQLException("ResultSet bombed");
@@ -2003,7 +2003,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateSQLXML(int, java.sql.SQLXML)
    */
-  @Override
+
   public void updateSQLXML(int columnIndex, SQLXML xmlObject)
           throws SQLException {
     if (shouldThrow("updateSQLXML"))
@@ -2014,7 +2014,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.ResultSet#updateSQLXML(java.lang.String, java.sql.SQLXML)
    */
-  @Override
+
   public void updateSQLXML(String columnLabel, SQLXML xmlObject)
           throws SQLException {
     if (shouldThrow("updateSQLXML"))
@@ -2025,7 +2025,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("ResultSet bombed");
@@ -2035,7 +2035,7 @@ public class ThrowingResultSet<T> extends Thrower implements ResultSet {
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T1> T1 unwrap(Class<T1> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("ResultSet bombed");

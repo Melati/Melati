@@ -1078,7 +1078,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#autoCommitFailureClosesAllResultSets()
    */
-  @Override
   public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
     if (shouldThrow("autoCommitFailureClosesAllResultSets"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -1088,7 +1087,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#getClientInfoProperties()
    */
-  @Override
   public ResultSet getClientInfoProperties() throws SQLException {
     if (shouldThrow("getClientInfoProperties"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -1098,7 +1096,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#getFunctionColumns(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
-  @Override
   public ResultSet getFunctionColumns(String catalog, String schemaPattern,
           String functionNamePattern, String columnNamePattern)
           throws SQLException {
@@ -1110,7 +1107,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#getFunctions(java.lang.String, java.lang.String, java.lang.String)
    */
-  @Override
   public ResultSet getFunctions(String catalog, String schemaPattern,
           String functionNamePattern) throws SQLException {
     if (shouldThrow("getFunctions"))
@@ -1121,7 +1117,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#getRowIdLifetime()
    */
-  @Override
   public RowIdLifetime getRowIdLifetime() throws SQLException {
     if (shouldThrow("getRowIdLifetime"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -1131,7 +1126,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#getSchemas(java.lang.String, java.lang.String)
    */
-  @Override
   public ResultSet getSchemas(String catalog, String schemaPattern)
           throws SQLException {
     if (shouldThrow("getSchemas"))
@@ -1142,7 +1136,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.DatabaseMetaData#supportsStoredFunctionsUsingCallSyntax()
    */
-  @Override
   public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
     if (shouldThrow("supportsStoredFunctionsUsingCallSyntax"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -1152,7 +1145,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -1162,7 +1154,6 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("DatabaseMetaData bombed");

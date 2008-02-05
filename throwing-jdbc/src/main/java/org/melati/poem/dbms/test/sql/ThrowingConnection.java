@@ -475,7 +475,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createArrayOf(java.lang.String, java.lang.Object[])
    */
-  @Override
+
   public Array createArrayOf(String typeName, Object[] elements)
           throws SQLException {
     if (shouldThrow("createArrayOf"))
@@ -486,7 +486,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createBlob()
    */
-  @Override
+
   public Blob createBlob() throws SQLException {
     if (shouldThrow("createBlob"))
       throw new SQLException("Connection bombed");
@@ -496,7 +496,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createClob()
    */
-  @Override
+
   public Clob createClob() throws SQLException {
     if (shouldThrow("createClob"))
       throw new SQLException("Connection bombed");
@@ -506,7 +506,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createNClob()
    */
-  @Override
+
   public NClob createNClob() throws SQLException {
     if (shouldThrow("createNClob"))
       throw new SQLException("Connection bombed");
@@ -516,7 +516,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createSQLXML()
    */
-  @Override
+
   public SQLXML createSQLXML() throws SQLException {
     if (shouldThrow("createSQLXML"))
       throw new SQLException("Connection bombed");
@@ -526,7 +526,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#createStruct(java.lang.String, java.lang.Object[])
    */
-  @Override
+
   public Struct createStruct(String typeName, Object[] attributes)
           throws SQLException {
     if (shouldThrow("createStruct"))
@@ -537,7 +537,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#getClientInfo()
    */
-  @Override
+
   public Properties getClientInfo() throws SQLException {
     if (shouldThrow("getClientInfo"))
       throw new SQLException("Connection bombed");
@@ -547,7 +547,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#getClientInfo(java.lang.String)
    */
-  @Override
+
   public String getClientInfo(String name) throws SQLException {
     if (shouldThrow("getClientInfo"))
       throw new SQLException("Connection bombed");
@@ -557,7 +557,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#isValid(int)
    */
-  @Override
+
   public boolean isValid(int timeout) throws SQLException {
     if (shouldThrow("isValid"))
       throw new SQLException("Connection bombed");
@@ -567,7 +567,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#setClientInfo(java.util.Properties)
    */
-  @Override
+
   public void setClientInfo(Properties properties)
           throws SQLClientInfoException {
     if (shouldThrow("setClientInfo"))
@@ -578,7 +578,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Connection#setClientInfo(java.lang.String, java.lang.String)
    */
-  @Override
+
   public void setClientInfo(String name, String value)
           throws SQLClientInfoException {
     if (shouldThrow("setClientInfo"))
@@ -589,7 +589,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("Connection bombed");
@@ -599,7 +599,7 @@ public class ThrowingConnection extends Thrower implements Connection {
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("Connection bombed");

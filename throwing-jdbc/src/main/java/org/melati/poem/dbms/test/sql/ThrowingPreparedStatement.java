@@ -971,7 +971,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setAsciiStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -982,7 +982,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream)
    */
-  @Override
+
   public void setAsciiStream(int parameterIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -993,7 +993,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setBinaryStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -1004,7 +1004,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream)
    */
-  @Override
+
   public void setBinaryStream(int parameterIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -1015,7 +1015,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setBlob(int parameterIndex, InputStream inputStream, long length)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -1026,7 +1026,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream)
    */
-  @Override
+
   public void setBlob(int parameterIndex, InputStream inputStream)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -1037,7 +1037,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void setCharacterStream(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1048,7 +1048,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void setCharacterStream(int parameterIndex, Reader reader)
           throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1059,7 +1059,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void setClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setClob"))
@@ -1070,7 +1070,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setClob(int, java.io.Reader)
    */
-  @Override
+
   public void setClob(int parameterIndex, Reader reader) throws SQLException {
     if (shouldThrow("setClob"))
       throw new SQLException("PreparedStatement bombed");
@@ -1080,7 +1080,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void setNCharacterStream(int parameterIndex, Reader value, long length)
           throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1091,7 +1091,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void setNCharacterStream(int parameterIndex, Reader value)
           throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1102,7 +1102,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.sql.NClob)
    */
-  @Override
+
   public void setNClob(int parameterIndex, NClob value) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("PreparedStatement bombed");
@@ -1112,7 +1112,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void setNClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setNClob"))
@@ -1123,7 +1123,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader)
    */
-  @Override
+
   public void setNClob(int parameterIndex, Reader reader) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("PreparedStatement bombed");
@@ -1133,7 +1133,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNString(int, java.lang.String)
    */
-  @Override
+
   public void setNString(int parameterIndex, String value) throws SQLException {
     if (shouldThrow("setNString"))
       throw new SQLException("PreparedStatement bombed");
@@ -1143,7 +1143,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setRowId(int, java.sql.RowId)
    */
-  @Override
+
   public void setRowId(int parameterIndex, RowId x) throws SQLException {
     if (shouldThrow("setRowId"))
       throw new SQLException("PreparedStatement bombed");
@@ -1153,7 +1153,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setSQLXML(int, java.sql.SQLXML)
    */
-  @Override
+
   public void setSQLXML(int parameterIndex, SQLXML xmlObject)
           throws SQLException {
     if (shouldThrow("setSQLXML"))
@@ -1164,7 +1164,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.Statement#isClosed()
    */
-  @Override
+
   public boolean isClosed() throws SQLException {
     if (shouldThrow("isClosed"))
       throw new SQLException("PreparedStatement bombed");
@@ -1174,7 +1174,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.Statement#isPoolable()
    */
-  @Override
+
   public boolean isPoolable() throws SQLException {
     if (shouldThrow("isPoolable"))
       throw new SQLException("PreparedStatement bombed");
@@ -1184,7 +1184,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.Statement#setPoolable(boolean)
    */
-  @Override
+
   public void setPoolable(boolean poolable) throws SQLException {
     if (shouldThrow("setPoolable"))
       throw new SQLException("PreparedStatement bombed");
@@ -1194,7 +1194,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("PreparedStatement bombed");
@@ -1204,7 +1204,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("PreparedStatement bombed");

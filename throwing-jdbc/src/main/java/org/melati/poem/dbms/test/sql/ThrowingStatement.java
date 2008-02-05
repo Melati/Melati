@@ -531,7 +531,7 @@ public class ThrowingStatement extends Thrower implements Statement {
    * {@inheritDoc}
    * @see java.sql.Statement#isClosed()
    */
-  @Override
+
   public boolean isClosed() throws SQLException {
     if (shouldThrow("isClosed"))
       throw new SQLException("Statement bombed");
@@ -541,7 +541,7 @@ public class ThrowingStatement extends Thrower implements Statement {
    * {@inheritDoc}
    * @see java.sql.Statement#isPoolable()
    */
-  @Override
+
   public boolean isPoolable() throws SQLException {
     if (shouldThrow("isPoolable"))
       throw new SQLException("Statement bombed");
@@ -551,7 +551,7 @@ public class ThrowingStatement extends Thrower implements Statement {
    * {@inheritDoc}
    * @see java.sql.Statement#setPoolable(boolean)
    */
-  @Override
+
   public void setPoolable(boolean poolable) throws SQLException {
     if (shouldThrow("setPoolable"))
       throw new SQLException("Statement bombed");
@@ -561,7 +561,7 @@ public class ThrowingStatement extends Thrower implements Statement {
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("Statement bombed");
@@ -571,7 +571,7 @@ public class ThrowingStatement extends Thrower implements Statement {
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("Statement bombed");

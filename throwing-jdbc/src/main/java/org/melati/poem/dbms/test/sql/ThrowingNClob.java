@@ -88,7 +88,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#free()
    */
-  @Override
+
   public void free() throws SQLException {
     if (shouldThrow("free"))
       throw new SQLException("NClob bombed");
@@ -99,7 +99,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#getAsciiStream()
    */
-  @Override
+
   public InputStream getAsciiStream() throws SQLException {
     if (shouldThrow("getAsciiStream"))
       throw new SQLException("NClob bombed");
@@ -110,7 +110,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#getCharacterStream()
    */
-  @Override
+
   public Reader getCharacterStream() throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("NClob bombed");
@@ -121,7 +121,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#getCharacterStream(long, long)
    */
-  @Override
+
   public Reader getCharacterStream(long pos, long length) throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("NClob bombed");
@@ -132,7 +132,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#getSubString(long, int)
    */
-  @Override
+
   public String getSubString(long pos, int length) throws SQLException {
     if (shouldThrow("getSubString"))
       throw new SQLException("NClob bombed");
@@ -143,7 +143,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#length()
    */
-  @Override
+
   public long length() throws SQLException {
     if (shouldThrow("length"))
       throw new SQLException("NClob bombed");
@@ -154,7 +154,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#position(java.lang.String, long)
    */
-  @Override
+
   public long position(String searchstr, long start) throws SQLException {
     if (shouldThrow("position"))
       throw new SQLException("NClob bombed");
@@ -165,7 +165,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#position(java.sql.Clob, long)
    */
-  @Override
+
   public long position(Clob searchstr, long start) throws SQLException {
     if (shouldThrow("position"))
       throw new SQLException("NClob bombed");
@@ -176,7 +176,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#setAsciiStream(long)
    */
-  @Override
+
   public OutputStream setAsciiStream(long pos) throws SQLException {
     if (shouldThrow("setAsciiStream"))
       throw new SQLException("NClob bombed");
@@ -187,7 +187,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#setCharacterStream(long)
    */
-  @Override
+
   public Writer setCharacterStream(long pos) throws SQLException {
     if (shouldThrow("setCharacterStream"))
       throw new SQLException("NClob bombed");
@@ -198,7 +198,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#setString(long, java.lang.String)
    */
-  @Override
+
   public int setString(long pos, String str) throws SQLException {
     if (shouldThrow("setString"))
       throw new SQLException("NClob bombed");
@@ -209,7 +209,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#setString(long, java.lang.String, int, int)
    */
-  @Override
+
   public int setString(long pos, String str, int offset, int len)
           throws SQLException {
     if (shouldThrow("setString"))
@@ -221,7 +221,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    * {@inheritDoc}
    * @see java.sql.Clob#truncate(long)
    */
-  @Override
+
   public void truncate(long len) throws SQLException {
     if (shouldThrow("truncate"))
       throw new SQLException("NClob bombed");

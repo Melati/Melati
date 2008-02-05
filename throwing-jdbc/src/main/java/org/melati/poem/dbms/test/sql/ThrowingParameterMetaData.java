@@ -144,7 +144,7 @@ public class ThrowingParameterMetaData extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("DatabaseMetaData bombed");
@@ -154,7 +154,7 @@ public class ThrowingParameterMetaData extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("DatabaseMetaData bombed");

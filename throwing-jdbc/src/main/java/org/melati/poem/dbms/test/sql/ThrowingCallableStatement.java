@@ -866,7 +866,7 @@ public class ThrowingCallableStatement extends Thrower implements
   public ResultSet getResultSet() throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("CallableStatement bombed");
-    return new ThrowingResultSet(it.getResultSet());
+    return new ThrowingResultSet<Object>(it.getResultSet());
   }
   public int getResultSetConcurrency() throws SQLException {
     if (shouldThrow("getResultSetConcurrency"))
@@ -938,7 +938,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setAsciiStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -949,7 +949,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream)
    */
-  @Override
+
   public void setAsciiStream(int parameterIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -960,7 +960,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setBinaryStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -971,7 +971,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream)
    */
-  @Override
+
   public void setBinaryStream(int parameterIndex, InputStream x)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -982,7 +982,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream, long)
    */
-  @Override
+
   public void setBlob(int parameterIndex, InputStream inputStream, long length)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -993,7 +993,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream)
    */
-  @Override
+
   public void setBlob(int parameterIndex, InputStream inputStream)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -1004,7 +1004,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void setCharacterStream(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1015,7 +1015,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void setCharacterStream(int parameterIndex, Reader reader)
           throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1026,7 +1026,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void setClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setClob"))
@@ -1037,7 +1037,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setClob(int, java.io.Reader)
    */
-  @Override
+
   public void setClob(int parameterIndex, Reader reader) throws SQLException {
     if (shouldThrow("setClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1047,7 +1047,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader, long)
    */
-  @Override
+
   public void setNCharacterStream(int parameterIndex, Reader value, long length)
           throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1058,7 +1058,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader)
    */
-  @Override
+
   public void setNCharacterStream(int parameterIndex, Reader value)
           throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1069,7 +1069,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.sql.NClob)
    */
-  @Override
+
   public void setNClob(int parameterIndex, NClob value) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1079,7 +1079,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader, long)
    */
-  @Override
+
   public void setNClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setNClob"))
@@ -1090,7 +1090,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader)
    */
-  @Override
+
   public void setNClob(int parameterIndex, Reader reader) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1100,7 +1100,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setNString(int, java.lang.String)
    */
-  @Override
+
   public void setNString(int parameterIndex, String value) throws SQLException {
     if (shouldThrow("setNString"))
       throw new SQLException("CallableStatement bombed");
@@ -1110,7 +1110,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setRowId(int, java.sql.RowId)
    */
-  @Override
+
   public void setRowId(int parameterIndex, RowId x) throws SQLException {
     if (shouldThrow("setRowId"))
       throw new SQLException("CallableStatement bombed");
@@ -1120,7 +1120,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.PreparedStatement#setSQLXML(int, java.sql.SQLXML)
    */
-  @Override
+
   public void setSQLXML(int parameterIndex, SQLXML xmlObject)
           throws SQLException {
     if (shouldThrow("setSQLXML"))
@@ -1131,7 +1131,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Statement#isClosed()
    */
-  @Override
+
   public boolean isClosed() throws SQLException {
     if (shouldThrow("isClosed"))
       throw new SQLException("CallableStatement bombed");
@@ -1141,7 +1141,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Statement#isPoolable()
    */
-  @Override
+
   public boolean isPoolable() throws SQLException {
     if (shouldThrow("isPoolable"))
       throw new SQLException("CallableStatement bombed");
@@ -1151,7 +1151,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Statement#setPoolable(boolean)
    */
-  @Override
+
   public void setPoolable(boolean poolable) throws SQLException {
     if (shouldThrow("setPoolable"))
       throw new SQLException("CallableStatement bombed");
@@ -1161,7 +1161,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("CallableStatement bombed");
@@ -1171,7 +1171,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("CallableStatement bombed");
@@ -1181,7 +1181,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getCharacterStream(int)
    */
-  @Override
+
   public Reader getCharacterStream(int parameterIndex) throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("CallableStatement bombed");
@@ -1191,7 +1191,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getCharacterStream(java.lang.String)
    */
-  @Override
+
   public Reader getCharacterStream(String parameterName) throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("CallableStatement bombed");
@@ -1201,7 +1201,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNCharacterStream(int)
    */
-  @Override
+
   public Reader getNCharacterStream(int parameterIndex) throws SQLException {
     if (shouldThrow("getNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
@@ -1211,7 +1211,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNCharacterStream(java.lang.String)
    */
-  @Override
+
   public Reader getNCharacterStream(String parameterName) throws SQLException {
     if (shouldThrow("getNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
@@ -1221,7 +1221,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNClob(int)
    */
-  @Override
+
   public NClob getNClob(int parameterIndex) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1231,7 +1231,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNClob(java.lang.String)
    */
-  @Override
+
   public NClob getNClob(String parameterName) throws SQLException {
     if (shouldThrow("getNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1241,7 +1241,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNString(int)
    */
-  @Override
+
   public String getNString(int parameterIndex) throws SQLException {
     if (shouldThrow("getNString"))
       throw new SQLException("CallableStatement bombed");
@@ -1251,7 +1251,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getNString(java.lang.String)
    */
-  @Override
+
   public String getNString(String parameterName) throws SQLException {
     if (shouldThrow("getNString"))
       throw new SQLException("CallableStatement bombed");
@@ -1261,7 +1261,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getRowId(int)
    */
-  @Override
+
   public RowId getRowId(int parameterIndex) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("CallableStatement bombed");
@@ -1271,7 +1271,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getRowId(java.lang.String)
    */
-  @Override
+
   public RowId getRowId(String parameterName) throws SQLException {
     if (shouldThrow("getRowId"))
       throw new SQLException("CallableStatement bombed");
@@ -1281,7 +1281,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getSQLXML(int)
    */
-  @Override
+
   public SQLXML getSQLXML(int parameterIndex) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("CallableStatement bombed");
@@ -1291,7 +1291,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#getSQLXML(java.lang.String)
    */
-  @Override
+
   public SQLXML getSQLXML(String parameterName) throws SQLException {
     if (shouldThrow("getSQLXML"))
       throw new SQLException("CallableStatement bombed");
@@ -1301,7 +1301,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setAsciiStream(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void setAsciiStream(String parameterName, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -1312,7 +1312,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setAsciiStream(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void setAsciiStream(String parameterName, InputStream x)
           throws SQLException {
     if (shouldThrow("setAsciiStream"))
@@ -1323,7 +1323,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setBinaryStream(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void setBinaryStream(String parameterName, InputStream x, long length)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -1334,7 +1334,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setBinaryStream(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void setBinaryStream(String parameterName, InputStream x)
           throws SQLException {
     if (shouldThrow("setBinaryStream"))
@@ -1345,7 +1345,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setBlob(java.lang.String, java.sql.Blob)
    */
-  @Override
+
   public void setBlob(String parameterName, Blob x) throws SQLException {
     if (shouldThrow("setBlob"))
       throw new SQLException("CallableStatement bombed");
@@ -1355,7 +1355,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setBlob(java.lang.String, java.io.InputStream, long)
    */
-  @Override
+
   public void setBlob(String parameterName, InputStream inputStream, long length)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -1366,7 +1366,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setBlob(java.lang.String, java.io.InputStream)
    */
-  @Override
+
   public void setBlob(String parameterName, InputStream inputStream)
           throws SQLException {
     if (shouldThrow("setBlob"))
@@ -1377,7 +1377,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setCharacterStream(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void setCharacterStream(String parameterName, Reader reader,
           long length) throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1388,7 +1388,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setCharacterStream(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void setCharacterStream(String parameterName, Reader reader)
           throws SQLException {
     if (shouldThrow("setCharacterStream"))
@@ -1399,7 +1399,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setClob(java.lang.String, java.sql.Clob)
    */
-  @Override
+
   public void setClob(String parameterName, Clob x) throws SQLException {
     if (shouldThrow("setClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1409,7 +1409,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setClob(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void setClob(String parameterName, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setClob"))
@@ -1420,7 +1420,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setClob(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void setClob(String parameterName, Reader reader) throws SQLException {
     if (shouldThrow("setClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1430,7 +1430,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNCharacterStream(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void setNCharacterStream(String parameterName, Reader value,
           long length) throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1441,7 +1441,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNCharacterStream(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void setNCharacterStream(String parameterName, Reader value)
           throws SQLException {
     if (shouldThrow("setNCharacterStream"))
@@ -1452,7 +1452,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNClob(java.lang.String, java.sql.NClob)
    */
-  @Override
+
   public void setNClob(String parameterName, NClob value) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1462,7 +1462,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNClob(java.lang.String, java.io.Reader, long)
    */
-  @Override
+
   public void setNClob(String parameterName, Reader reader, long length)
           throws SQLException {
     if (shouldThrow("setNClob"))
@@ -1473,7 +1473,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNClob(java.lang.String, java.io.Reader)
    */
-  @Override
+
   public void setNClob(String parameterName, Reader reader) throws SQLException {
     if (shouldThrow("setNClob"))
       throw new SQLException("CallableStatement bombed");
@@ -1483,7 +1483,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setNString(java.lang.String, java.lang.String)
    */
-  @Override
+
   public void setNString(String parameterName, String value)
           throws SQLException {
     if (shouldThrow("setNString"))
@@ -1494,7 +1494,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setRowId(java.lang.String, java.sql.RowId)
    */
-  @Override
+
   public void setRowId(String parameterName, RowId x) throws SQLException {
     if (shouldThrow("setRowId"))
       throw new SQLException("CallableStatement bombed");
@@ -1504,7 +1504,7 @@ public class ThrowingCallableStatement extends Thrower implements
    * {@inheritDoc}
    * @see java.sql.CallableStatement#setSQLXML(java.lang.String, java.sql.SQLXML)
    */
-  @Override
+
   public void setSQLXML(String parameterName, SQLXML xmlObject)
           throws SQLException {
     if (shouldThrow("setSQLXML"))

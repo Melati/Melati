@@ -85,7 +85,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    * {@inheritDoc}
    * @see java.sql.Struct#getAttributes()
    */
-  @Override
+
   public Object[] getAttributes() throws SQLException {
     if (shouldThrow("getAttributes"))
       throw new SQLException("Struct bombed");
@@ -96,7 +96,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    * {@inheritDoc}
    * @see java.sql.Struct#getAttributes(java.util.Map)
    */
-  @Override
+
   public Object[] getAttributes(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getAttributes"))
       throw new SQLException("Struct bombed");
@@ -107,7 +107,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    * {@inheritDoc}
    * @see java.sql.Struct#getSQLTypeName()
    */
-  @Override
+
   public String getSQLTypeName() throws SQLException {
     if (shouldThrow("getSQLTypeName"))
       throw new SQLException("Struct bombed");

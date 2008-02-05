@@ -124,7 +124,7 @@ public class ThrowingDriver implements Driver {
    * {@inheritDoc}
    * @see java.sql.Driver#getMajorVersion()
    */
-  @Override
+
   public int getMajorVersion() {
     return it.getMajorVersion();
   }
@@ -133,7 +133,7 @@ public class ThrowingDriver implements Driver {
    * {@inheritDoc}
    * @see java.sql.Driver#getMinorVersion()
    */
-  @Override
+
   public int getMinorVersion() {
     return it.getMinorVersion();
   }
@@ -142,7 +142,7 @@ public class ThrowingDriver implements Driver {
    * {@inheritDoc}
    * @see java.sql.Driver#jdbcCompliant()
    */
-  @Override
+
   public boolean jdbcCompliant() {
     return it.jdbcCompliant();
   }
@@ -156,7 +156,7 @@ public class ThrowingDriver implements Driver {
    * {@inheritDoc}
    * @see java.sql.Driver#getPropertyInfo(java.lang.String, java.util.Properties)
    */
-  @Override
+
   public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
           throws SQLException {
     if (shouldThrow("getPropertyInfo"))

@@ -85,7 +85,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#free()
    */
-  @Override
   public void free() throws SQLException {
     if (shouldThrow("free"))
       throw new SQLException("Array bombed");
@@ -96,7 +95,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray()
    */
-  @Override
   public Object getArray() throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("Array bombed");
@@ -107,7 +105,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray(java.util.Map)
    */
-  @Override
   public Object getArray(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("Array bombed");
@@ -118,7 +115,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray(long, int)
    */
-  @Override
   public Object getArray(long index, int count) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("Array bombed");
@@ -129,7 +125,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray(long, int, java.util.Map)
    */
-  @Override
   public Object getArray(long index, int count, Map<String, Class<?>> map)
           throws SQLException {
     if (shouldThrow("getArray"))
@@ -141,7 +136,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getBaseType()
    */
-  @Override
   public int getBaseType() throws SQLException {
     if (shouldThrow("getBaseType"))
       throw new SQLException("Array bombed");
@@ -152,7 +146,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getBaseTypeName()
    */
-  @Override
   public String getBaseTypeName() throws SQLException {
     if (shouldThrow("getBaseTypeName"))
       throw new SQLException("Array bombed");
@@ -163,7 +156,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet()
    */
-  @Override
   public ResultSet getResultSet() throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
@@ -174,7 +166,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(java.util.Map)
    */
-  @Override
   public ResultSet getResultSet(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
@@ -185,7 +176,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(long, int)
    */
-  @Override
   public ResultSet getResultSet(long index, int count) throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
@@ -196,7 +186,6 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(long, int, java.util.Map)
    */
-  @Override
   public ResultSet getResultSet(long index, int count, Map<String, Class<?>> map)
           throws SQLException {
     if (shouldThrow("getResultSet"))

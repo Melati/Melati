@@ -81,7 +81,7 @@ public class ThrowingRowId extends Thrower implements RowId {
    * {@inheritDoc}
    * @see java.sql.RowId#getBytes()
    */
-  @Override
+
   public byte[] getBytes() {
     if (shouldThrow("getBytes"))
       throw new RuntimeException("RowId bombed");

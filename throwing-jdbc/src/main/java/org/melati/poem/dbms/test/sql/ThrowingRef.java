@@ -84,7 +84,7 @@ public class ThrowingRef extends Thrower implements Ref {
    * {@inheritDoc}
    * @see java.sql.Ref#getBaseTypeName()
    */
-  @Override
+
   public String getBaseTypeName() throws SQLException {
     if (shouldThrow("getBaseTypeName"))
       throw new SQLException("Ref bombed");
@@ -95,7 +95,7 @@ public class ThrowingRef extends Thrower implements Ref {
    * {@inheritDoc}
    * @see java.sql.Ref#getObject()
    */
-  @Override
+
   public Object getObject() throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("Ref bombed");
@@ -106,7 +106,7 @@ public class ThrowingRef extends Thrower implements Ref {
    * {@inheritDoc}
    * @see java.sql.Ref#getObject(java.util.Map)
    */
-  @Override
+
   public Object getObject(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("Ref bombed");
@@ -117,7 +117,7 @@ public class ThrowingRef extends Thrower implements Ref {
    * {@inheritDoc}
    * @see java.sql.Ref#setObject(java.lang.Object)
    */
-  @Override
+
   public void setObject(Object value) throws SQLException {
     if (shouldThrow("setObject"))
       throw new SQLException("Ref bombed");

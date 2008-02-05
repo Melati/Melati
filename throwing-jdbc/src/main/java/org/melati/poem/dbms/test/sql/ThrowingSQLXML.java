@@ -90,7 +90,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#free()
    */
-  @Override
+
   public void free() throws SQLException {
     if (shouldThrow("free"))
       throw new SQLException("SQLXML bombed");
@@ -101,7 +101,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#getBinaryStream()
    */
-  @Override
+
   public InputStream getBinaryStream() throws SQLException {
     if (shouldThrow("getBinaryStream"))
       throw new SQLException("SQLXML bombed");
@@ -112,7 +112,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#getCharacterStream()
    */
-  @Override
+
   public Reader getCharacterStream() throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("SQLXML bombed");
@@ -123,7 +123,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#getSource(java.lang.Class)
    */
-  @Override
+
   public <T extends Source> T getSource(Class<T> sourceClass)
           throws SQLException {
     if (shouldThrow("getSource"))
@@ -135,7 +135,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#getString()
    */
-  @Override
+
   public String getString() throws SQLException {
     if (shouldThrow("getString"))
       throw new SQLException("SQLXML bombed");
@@ -146,7 +146,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#setBinaryStream()
    */
-  @Override
+
   public OutputStream setBinaryStream() throws SQLException {
     if (shouldThrow("setBinaryStream"))
       throw new SQLException("SQLXML bombed");
@@ -157,7 +157,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#setCharacterStream()
    */
-  @Override
+
   public Writer setCharacterStream() throws SQLException {
     if (shouldThrow("setCharacterStream"))
       throw new SQLException("SQLXML bombed");
@@ -168,7 +168,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#setResult(java.lang.Class)
    */
-  @Override
+
   public <T extends Result> T setResult(Class<T> resultClass)
           throws SQLException {
     if (shouldThrow("setResult"))
@@ -180,7 +180,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    * {@inheritDoc}
    * @see java.sql.SQLXML#setString(java.lang.String)
    */
-  @Override
+
   public void setString(String value) throws SQLException {
     if (shouldThrow("setString"))
       throw new SQLException("SQLXML bombed");

@@ -215,7 +215,7 @@ public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaD
    * {@inheritDoc}
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
-  @Override
+
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
     if (shouldThrow("isWrapperFor"))
       throw new SQLException("ResultSetMetaData bombed");
@@ -225,7 +225,7 @@ public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaD
    * {@inheritDoc}
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
-  @Override
+
   public <T> T unwrap(Class<T> iface) throws SQLException {
     if (shouldThrow("unwrap"))
       throw new SQLException("ResultSetMetaData bombed");

@@ -150,7 +150,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     assertTrue(m.getWriter().toString().startsWith("[java.lang.Object@"));
 
     t = ClassNameTempletLoader.getInstance().templet(
-            templateEngine, ml,"SelectionWindow");
+            templateEngine, ml,"org.melati.poem.ReferencePoemType-SelectionWindow");
     tc = m.getTemplateContext();
     tc.put("melati", m);
     tc.put("ml", ml);

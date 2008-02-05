@@ -11,11 +11,14 @@ import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Date;
+import java.sql.NClob;
 import java.sql.Ref;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.SQLXML;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -25,10 +28,11 @@ import java.util.Map;
 
 /**
  * @author timp
+ * @param <T>
  * @since 11 Feb 2007
  *
  */
-public class ThrowingResultSet extends Thrower implements ResultSet {
+public class ThrowingResultSet<T> extends Thrower implements ResultSet {
   final static String className = ThrowingResultSet.class.getName() + ".";
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
@@ -1812,6 +1816,191 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     Reader r2 = r;
     r = r2;    
   }
-
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getHoldability()
+   */
+  @Override
+  public int getHoldability() throws SQLException {
+    return 0;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNCharacterStream(int)
+   */
+  @Override
+  public Reader getNCharacterStream(int columnIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNCharacterStream(java.lang.String)
+   */
+  @Override
+  public Reader getNCharacterStream(String columnLabel) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNClob(int)
+   */
+  @Override
+  public NClob getNClob(int columnIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNClob(java.lang.String)
+   */
+  @Override
+  public NClob getNClob(String columnLabel) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNString(int)
+   */
+  @Override
+  public String getNString(int columnIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getNString(java.lang.String)
+   */
+  @Override
+  public String getNString(String columnLabel) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getRowId(int)
+   */
+  @Override
+  public RowId getRowId(int columnIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getRowId(java.lang.String)
+   */
+  @Override
+  public RowId getRowId(String columnLabel) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getSQLXML(int)
+   */
+  @Override
+  public SQLXML getSQLXML(int columnIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#getSQLXML(java.lang.String)
+   */
+  @Override
+  public SQLXML getSQLXML(String columnLabel) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#isClosed()
+   */
+  @Override
+  public boolean isClosed() throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNCharacterStream(int, java.io.Reader, long)
+   */
+  @Override
+  public void updateNCharacterStream(int columnIndex, Reader x, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNCharacterStream(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void updateNCharacterStream(String columnLabel, Reader reader,
+          long length) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(int, java.sql.NClob)
+   */
+  @Override
+  public void updateNClob(int columnIndex, NClob clob) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNClob(java.lang.String, java.sql.NClob)
+   */
+  @Override
+  public void updateNClob(String columnLabel, NClob clob) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNString(int, java.lang.String)
+   */
+  @Override
+  public void updateNString(int columnIndex, String string) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateNString(java.lang.String, java.lang.String)
+   */
+  @Override
+  public void updateNString(String columnLabel, String string)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateRowId(int, java.sql.RowId)
+   */
+  @Override
+  public void updateRowId(int columnIndex, RowId x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateRowId(java.lang.String, java.sql.RowId)
+   */
+  @Override
+  public void updateRowId(String columnLabel, RowId x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateSQLXML(int, java.sql.SQLXML)
+   */
+  @Override
+  public void updateSQLXML(int columnIndex, SQLXML xmlObject)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.ResultSet#updateSQLXML(java.lang.String, java.sql.SQLXML)
+   */
+  @Override
+  public void updateSQLXML(String columnLabel, SQLXML xmlObject)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
+   */
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#unwrap(java.lang.Class)
+   */
+  @Override
+  public <T> T unwrap(Class<T> iface) throws SQLException {
+    return null;
+  }
 
 }

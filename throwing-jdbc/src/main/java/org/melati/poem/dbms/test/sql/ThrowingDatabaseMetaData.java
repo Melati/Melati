@@ -3,6 +3,7 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.sql.RowIdLifetime;
 import java.sql.SQLException;
 
 
@@ -1106,6 +1107,14 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
   public Object unwrap(Class c) {
     Class c2 = c;
     c = c2;
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.DatabaseMetaData#getRowIdLifetime()
+   */
+  @Override
+  public RowIdLifetime getRowIdLifetime() throws SQLException {
     return null;
   }
 

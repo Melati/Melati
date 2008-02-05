@@ -10,12 +10,15 @@ import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.NClob;
 import java.sql.ParameterMetaData;
 import java.sql.Ref;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -1061,6 +1064,30 @@ public class ThrowingCallableStatement extends Thrower implements
     long l2 = l;
     l = l2;
   }
+  /**
+   * 
+   */
+  public void updateNCharacterStream(int i, Reader r, long l){
+    int i2 = i;
+    i = i2;
+    Reader r2 = r;
+    r = r2;    
+    long l2 = l;
+    l = l2;
+  }
+
+  /**
+   * 
+   */
+  public void updateNCharacterStream(String s, Reader r, long l){
+    String s2 = s;
+    s = s2;
+    Reader r2 = r;
+    r = r2;    
+    long l2 = l;
+    l = l2;
+  }
+
 
 
   /**
@@ -1161,6 +1188,310 @@ public class ThrowingCallableStatement extends Thrower implements
     i = i2;
     InputStream is2 = is;
     is = is2;    
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setAsciiStream(int, java.io.InputStream, long)
+   */
+  @Override
+  public void setAsciiStream(int parameterIndex, InputStream x, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setBinaryStream(int, java.io.InputStream, long)
+   */
+  @Override
+  public void setBinaryStream(int parameterIndex, InputStream x, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setBlob(int, java.io.InputStream, long)
+   */
+  @Override
+  public void setBlob(int parameterIndex, InputStream inputStream, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setClob(int, java.io.Reader, long)
+   */
+  @Override
+  public void setClob(int parameterIndex, Reader reader, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNCharacterStream(int, java.io.Reader, long)
+   */
+  @Override
+  public void setNCharacterStream(int parameterIndex, Reader value, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNClob(int, java.sql.NClob)
+   */
+  @Override
+  public void setNClob(int parameterIndex, NClob value) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNClob(int, java.io.Reader, long)
+   */
+  @Override
+  public void setNClob(int parameterIndex, Reader reader, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setNString(int, java.lang.String)
+   */
+  @Override
+  public void setNString(int parameterIndex, String value) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setRowId(int, java.sql.RowId)
+   */
+  @Override
+  public void setRowId(int parameterIndex, RowId x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.PreparedStatement#setSQLXML(int, java.sql.SQLXML)
+   */
+  @Override
+  public void setSQLXML(int parameterIndex, SQLXML xmlObject)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Statement#isClosed()
+   */
+  @Override
+  public boolean isClosed() throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Statement#isPoolable()
+   */
+  @Override
+  public boolean isPoolable() throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Statement#setPoolable(boolean)
+   */
+  @Override
+  public void setPoolable(boolean poolable) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
+   */
+  @Override
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#unwrap(java.lang.Class)
+   */
+  @Override
+  public <T> T unwrap(Class<T> iface) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getCharacterStream(int)
+   */
+  @Override
+  public Reader getCharacterStream(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getCharacterStream(java.lang.String)
+   */
+  @Override
+  public Reader getCharacterStream(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNCharacterStream(int)
+   */
+  @Override
+  public Reader getNCharacterStream(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNCharacterStream(java.lang.String)
+   */
+  @Override
+  public Reader getNCharacterStream(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNClob(int)
+   */
+  @Override
+  public NClob getNClob(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNClob(java.lang.String)
+   */
+  @Override
+  public NClob getNClob(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNString(int)
+   */
+  @Override
+  public String getNString(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getNString(java.lang.String)
+   */
+  @Override
+  public String getNString(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getRowId(int)
+   */
+  @Override
+  public RowId getRowId(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getRowId(java.lang.String)
+   */
+  @Override
+  public RowId getRowId(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getSQLXML(int)
+   */
+  @Override
+  public SQLXML getSQLXML(int parameterIndex) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#getSQLXML(java.lang.String)
+   */
+  @Override
+  public SQLXML getSQLXML(String parameterName) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setAsciiStream(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void setAsciiStream(String parameterName, InputStream x, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setBinaryStream(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void setBinaryStream(String parameterName, InputStream x, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setBlob(java.lang.String, java.sql.Blob)
+   */
+  @Override
+  public void setBlob(String parameterName, Blob x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setBlob(java.lang.String, java.io.InputStream, long)
+   */
+  @Override
+  public void setBlob(String parameterName, InputStream inputStream, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setClob(java.lang.String, java.sql.Clob)
+   */
+  @Override
+  public void setClob(String parameterName, Clob x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setClob(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void setClob(String parameterName, Reader reader, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setNCharacterStream(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void setNCharacterStream(String parameterName, Reader value,
+          long length) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setNClob(java.lang.String, java.sql.NClob)
+   */
+  @Override
+  public void setNClob(String parameterName, NClob value) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setNClob(java.lang.String, java.io.Reader, long)
+   */
+  @Override
+  public void setNClob(String parameterName, Reader reader, long length)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setNString(java.lang.String, java.lang.String)
+   */
+  @Override
+  public void setNString(String parameterName, String value)
+          throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setRowId(java.lang.String, java.sql.RowId)
+   */
+  @Override
+  public void setRowId(String parameterName, RowId x) throws SQLException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.CallableStatement#setSQLXML(java.lang.String, java.sql.SQLXML)
+   */
+  @Override
+  public void setSQLXML(String parameterName, SQLXML xmlObject)
+          throws SQLException {
   }
 
 

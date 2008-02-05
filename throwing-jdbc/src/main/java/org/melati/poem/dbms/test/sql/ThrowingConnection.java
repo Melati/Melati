@@ -3,16 +3,22 @@
  */
 package org.melati.poem.dbms.test.sql;
 
+import java.sql.Blob;
 import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.NClob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -438,11 +444,92 @@ public class ThrowingConnection extends Thrower implements Connection {
     them = them2;
     return null;
   }
-  /**
+  /** 
    * JDK 1.6
-   * @param c
+   * {@inheritDoc}
+   * @see java.sql.Connection#getClientInfo()
    */
-  public ResultSet getClientInfo() {
+  public Properties getClientInfo() {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#createBlob()
+   */
+  @Override
+  public Blob createBlob() throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#createClob()
+   */
+  @Override
+  public Clob createClob() throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#createNClob()
+   */
+  @Override
+  public NClob createNClob() throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#createSQLXML()
+   */
+  @Override
+  public SQLXML createSQLXML() throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#getClientInfo(java.lang.String)
+   */
+  @Override
+  public String getClientInfo(String name) throws SQLException {
+    return null;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#isValid(int)
+   */
+  @Override
+  public boolean isValid(int timeout) throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#setClientInfo(java.util.Properties)
+   */
+  @Override
+  public void setClientInfo(Properties properties)
+          throws SQLClientInfoException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Connection#setClientInfo(java.lang.String, java.lang.String)
+   */
+  @Override
+  public void setClientInfo(String name, String value)
+          throws SQLClientInfoException {
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
+   */
+  @Override
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see java.sql.Wrapper#unwrap(java.lang.Class)
+   */
+  @Override
+  public <T> T unwrap(Class<T> iface) throws SQLException {
     return null;
   }
  

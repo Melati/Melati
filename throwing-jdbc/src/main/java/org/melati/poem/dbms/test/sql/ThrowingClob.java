@@ -44,19 +44,16 @@
 
 package org.melati.poem.dbms.test.sql;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
 import java.sql.Clob;
-import java.sql.SQLException;
 
 /**
  * @author timp
  * @since 5 Feb 2008
  *
  */
-public class ThrowingClob extends Thrower implements Clob {
+public class ThrowingClob 
+    extends ThrowingClobVariant 
+    implements Clob {
 
   final static String className = ThrowingClob.class.getName() + ".";
   
@@ -73,7 +70,6 @@ public class ThrowingClob extends Thrower implements Clob {
     return Thrower.shouldThrow(className  +  methodName);
   }
 
-  Clob it = null;
   
 
   /**
@@ -83,148 +79,5 @@ public class ThrowingClob extends Thrower implements Clob {
     it = c;
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#free()
-   */
-
-  public void free() throws SQLException {
-    if (shouldThrow("free"))
-      throw new SQLException("Clob bombed");
-    it.free();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#getAsciiStream()
-   */
-
-  public InputStream getAsciiStream() throws SQLException {
-    if (shouldThrow("getAsciiStream"))
-      throw new SQLException("Clob bombed");
-    return it.getAsciiStream();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#getCharacterStream()
-   */
-
-  public Reader getCharacterStream() throws SQLException {
-    if (shouldThrow("getCharacterStream"))
-      throw new SQLException("Clob bombed");
-    return it.getCharacterStream();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#getCharacterStream(long, long)
-   */
-
-  public Reader getCharacterStream(long pos, long length) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
-      throw new SQLException("Clob bombed");
-    return it.getCharacterStream(pos, length);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#getSubString(long, int)
-   */
-
-  public String getSubString(long pos, int length) throws SQLException {
-    if (shouldThrow("getSubString"))
-      throw new SQLException("Clob bombed");
-    return it.getSubString(pos, length);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#length()
-   */
-
-  public long length() throws SQLException {
-    if (shouldThrow("length"))
-      throw new SQLException("Clob bombed");
-    return it.length();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#position(java.lang.String, long)
-   */
-
-  public long position(String searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
-      throw new SQLException("Clob bombed");
-    return it.position(searchstr, start);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#position(java.sql.Clob, long)
-   */
-
-  public long position(Clob searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
-      throw new SQLException("Clob bombed");
-    return it.position(searchstr, start);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#setAsciiStream(long)
-   */
-
-  public OutputStream setAsciiStream(long pos) throws SQLException {
-    if (shouldThrow("setAsciiStream"))
-      throw new SQLException("Clob bombed");
-    return it.setAsciiStream(pos);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#setCharacterStream(long)
-   */
-
-  public Writer setCharacterStream(long pos) throws SQLException {
-    if (shouldThrow("setCharacterStream"))
-      throw new SQLException("Clob bombed");
-    return it.setCharacterStream(pos);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#setString(long, java.lang.String)
-   */
-
-  public int setString(long pos, String str) throws SQLException {
-    if (shouldThrow("setString"))
-      throw new SQLException("Clob bombed");
-    return it.setString(pos, str);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#setString(long, java.lang.String, int, int)
-   */
-
-  public int setString(long pos, String str, int offset, int len)
-          throws SQLException {
-    if (shouldThrow("setString"))
-      throw new SQLException("Clob bombed");
-    return it.setString(pos, str, offset, len);
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#truncate(long)
-   */
-
-  public void truncate(long len) throws SQLException {
-    if (shouldThrow("truncate"))
-      throw new SQLException("Clob bombed");
-    it.truncate(len);
-  }
 
 }

@@ -54,7 +54,7 @@ import java.util.Map;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingArray extends Thrower implements Array {
+public class ThrowingArray  extends ThrowingArrayVariant implements Array {
 
   final static String className = ThrowingArray.class.getName() + ".";
   
@@ -71,8 +71,6 @@ public class ThrowingArray extends Thrower implements Array {
     return Thrower.shouldThrow(className  +  methodName);
   }
 
-  Array it = null;
-  
 
   /**
    * Constructor.
@@ -81,15 +79,6 @@ public class ThrowingArray extends Thrower implements Array {
     it = a;
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Array#free()
-   */
-  public void free() throws SQLException {
-    if (shouldThrow("free"))
-      throw new SQLException("Array bombed");
-    it.free();
-  }
 
   /** 
    * {@inheritDoc}
@@ -105,7 +94,7 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray(java.util.Map)
    */
-  public Object getArray(Map<String, Class<?>> map) throws SQLException {
+  public Object getArray(Map map) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
@@ -125,7 +114,7 @@ public class ThrowingArray extends Thrower implements Array {
    * {@inheritDoc}
    * @see java.sql.Array#getArray(long, int, java.util.Map)
    */
-  public Object getArray(long index, int count, Map<String, Class<?>> map)
+  public Object getArray(long index, int count, Map map)
           throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("Array bombed");
@@ -159,17 +148,17 @@ public class ThrowingArray extends Thrower implements Array {
   public ResultSet getResultSet() throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
-    return new ThrowingResultSet<Object>(it.getResultSet());
+    return new ThrowingResultSet(it.getResultSet());
   }
 
   /** 
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(java.util.Map)
    */
-  public ResultSet getResultSet(Map<String, Class<?>> map) throws SQLException {
+  public ResultSet getResultSet(Map map) throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
-    return  new ThrowingResultSet<Object>(it.getResultSet());
+    return  new ThrowingResultSet(it.getResultSet());
   }
 
   /** 
@@ -179,18 +168,18 @@ public class ThrowingArray extends Thrower implements Array {
   public ResultSet getResultSet(long index, int count) throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
-    return  new ThrowingResultSet<Object>(it.getResultSet());
+    return  new ThrowingResultSet(it.getResultSet());
   }
 
   /** 
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(long, int, java.util.Map)
    */
-  public ResultSet getResultSet(long index, int count, Map<String, Class<?>> map)
+  public ResultSet getResultSet(long index, int count, Map map)
           throws SQLException {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Array bombed");
-    return  new ThrowingResultSet<Object>(it.getResultSet());
+    return  new ThrowingResultSet(it.getResultSet());
   }
 
 }

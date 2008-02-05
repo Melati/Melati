@@ -45,15 +45,13 @@
 package org.melati.poem.dbms.test.sql;
 
 import java.sql.Ref;
-import java.sql.SQLException;
-import java.util.Map;
 
 /**
  * @author timp
  * @since 5 Feb 2008
  *
  */
-public class ThrowingRef extends Thrower implements Ref {
+public class ThrowingRef extends ThrowingRefJdbc3 implements Ref {
 
   final static String className = ThrowingRef.class.getName() + ".";
   
@@ -70,8 +68,6 @@ public class ThrowingRef extends Thrower implements Ref {
     return Thrower.shouldThrow(className  +  methodName);
   }
 
-  Ref it = null;
-  
 
   /**
    * Constructor.
@@ -79,49 +75,4 @@ public class ThrowingRef extends Thrower implements Ref {
   public ThrowingRef(Ref r) {
     it = r;
   }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Ref#getBaseTypeName()
-   */
-
-  public String getBaseTypeName() throws SQLException {
-    if (shouldThrow("getBaseTypeName"))
-      throw new SQLException("Ref bombed");
-    return it.getBaseTypeName();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Ref#getObject()
-   */
-
-  public Object getObject() throws SQLException {
-    if (shouldThrow("getObject"))
-      throw new SQLException("Ref bombed");
-    return it.getObject();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Ref#getObject(java.util.Map)
-   */
-
-  public Object getObject(Map<String, Class<?>> map) throws SQLException {
-    if (shouldThrow("getObject"))
-      throw new SQLException("Ref bombed");
-    return it.getObject();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Ref#setObject(java.lang.Object)
-   */
-
-  public void setObject(Object value) throws SQLException {
-    if (shouldThrow("setObject"))
-      throw new SQLException("Ref bombed");
-    it.setObject(value);
-  }
-
 }

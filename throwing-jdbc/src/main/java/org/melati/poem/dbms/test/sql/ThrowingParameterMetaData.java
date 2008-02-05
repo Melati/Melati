@@ -44,15 +44,15 @@
 package org.melati.poem.dbms.test.sql;
 
 import java.sql.ParameterMetaData;
-import java.sql.SQLException;
 
 /**
  * @author timp
  * @since 22 Feb 2007
  *
  */
-public class ThrowingParameterMetaData extends Thrower implements
-        ParameterMetaData {
+public class ThrowingParameterMetaData 
+    extends ThrowingParameterMetaDataVariant  
+    implements ParameterMetaData {
   
   final static String className = ThrowingParameterMetaData.class.getName() + ".";
   public static void startThrowing(String methodName) {
@@ -68,7 +68,6 @@ public class ThrowingParameterMetaData extends Thrower implements
     return Thrower.shouldThrow(className  +  methodName);
   }
 
-  ParameterMetaData it = null;
   
   /**
    * Constructor.
@@ -76,89 +75,6 @@ public class ThrowingParameterMetaData extends Thrower implements
    */
   public ThrowingParameterMetaData(ParameterMetaData parameterMetaData) {
     this.it = parameterMetaData;
-  }
-
-
-  public String getParameterClassName(int param) throws SQLException {
-    if (shouldThrow("getParameterClassName"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getParameterClassName(param);
-  }
-
-  public int getParameterCount() throws SQLException {
-    if (shouldThrow("getParameterCount"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getParameterCount();
-  }
-
-  public int getParameterMode(int param) throws SQLException {
-    if (shouldThrow("getParameterMode"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getParameterMode(param);
-  }
-
-  public int getParameterType(int param) throws SQLException {
-    if (shouldThrow("getParameterType"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getParameterType(param);
-  }
-
-  public String getParameterTypeName(int param) throws SQLException {
-    if (shouldThrow("getParameterTypeName"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getParameterTypeName(param);
-  }
-
-  public int getPrecision(int param) throws SQLException {
-    if (shouldThrow("getPrecision"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getPrecision(param);
-  }
-
-  public int getScale(int param) throws SQLException {
-    if (shouldThrow("getScale"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.getScale(param);
-  }
-
-  public int isNullable(int param) throws SQLException {
-    if (shouldThrow("isNullable"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.isNullable(param);
-  }
-
-  public boolean isSigned(int param) throws SQLException {
-    if (shouldThrow("isSigned"))
-      throw new SQLException("ParameterMetaData bombed");
-    return it.isSigned(param);
-  }
-  
-
-
-  /**
-   *  JDBC 4.0
-   */
-  
-  
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
-   */
-
-  public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
-      throw new SQLException("DatabaseMetaData bombed");
-    return it.isWrapperFor(iface);
-  }
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Wrapper#unwrap(java.lang.Class)
-   */
-
-  public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
-      throw new SQLException("DatabaseMetaData bombed");
-    return it.unwrap(iface);
   }
 
 }

@@ -49,7 +49,6 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.sql.Clob;
-import java.sql.NClob;
 import java.sql.SQLException;
 
 /**
@@ -57,44 +56,12 @@ import java.sql.SQLException;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingNClob extends Thrower implements NClob {
+public abstract class ThrowingClobJdbc3 
+    extends Thrower 
+    implements Clob {
+
+  Clob it = null;
   
-  final static String className = ThrowingNClob.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
-  NClob it = null;
-  
-
-  /**
-   * Constructor.
-   */
-  public ThrowingNClob(NClob nc) {
-    it = nc;
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#free()
-   */
-
-  public void free() throws SQLException {
-    if (shouldThrow("free"))
-      throw new SQLException("NClob bombed");
-    it.free();
-  }
-
   /** 
    * {@inheritDoc}
    * @see java.sql.Clob#getAsciiStream()
@@ -102,7 +69,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public InputStream getAsciiStream() throws SQLException {
     if (shouldThrow("getAsciiStream"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.getAsciiStream();
   }
 
@@ -113,19 +80,8 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public Reader getCharacterStream() throws SQLException {
     if (shouldThrow("getCharacterStream"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.getCharacterStream();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Clob#getCharacterStream(long, long)
-   */
-
-  public Reader getCharacterStream(long pos, long length) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
-      throw new SQLException("NClob bombed");
-    return it.getCharacterStream(pos, length);
   }
 
   /** 
@@ -135,7 +91,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public String getSubString(long pos, int length) throws SQLException {
     if (shouldThrow("getSubString"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.getSubString(pos, length);
   }
 
@@ -146,7 +102,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public long length() throws SQLException {
     if (shouldThrow("length"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.length();
   }
 
@@ -157,7 +113,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public long position(String searchstr, long start) throws SQLException {
     if (shouldThrow("position"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.position(searchstr, start);
   }
 
@@ -168,7 +124,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public long position(Clob searchstr, long start) throws SQLException {
     if (shouldThrow("position"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.position(searchstr, start);
   }
 
@@ -179,7 +135,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public OutputStream setAsciiStream(long pos) throws SQLException {
     if (shouldThrow("setAsciiStream"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.setAsciiStream(pos);
   }
 
@@ -190,7 +146,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public Writer setCharacterStream(long pos) throws SQLException {
     if (shouldThrow("setCharacterStream"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.setCharacterStream(pos);
   }
 
@@ -201,7 +157,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public int setString(long pos, String str) throws SQLException {
     if (shouldThrow("setString"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.setString(pos, str);
   }
 
@@ -213,7 +169,7 @@ public class ThrowingNClob extends Thrower implements NClob {
   public int setString(long pos, String str, int offset, int len)
           throws SQLException {
     if (shouldThrow("setString"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     return it.setString(pos, str, offset, len);
   }
 
@@ -224,7 +180,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public void truncate(long len) throws SQLException {
     if (shouldThrow("truncate"))
-      throw new SQLException("NClob bombed");
+      throw new SQLException("Clob bombed");
     it.truncate(len);
   }
 

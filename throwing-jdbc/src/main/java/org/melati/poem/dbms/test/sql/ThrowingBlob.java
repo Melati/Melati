@@ -54,7 +54,7 @@ import java.sql.SQLException;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingBlob extends Thrower implements Blob {
+public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
 
   final static String className = ThrowingBlob.class.getName() + ".";
   
@@ -71,7 +71,6 @@ public class ThrowingBlob extends Thrower implements Blob {
     return Thrower.shouldThrow(className  +  methodName);
   }
 
-  Blob it = null;
   
 
   /**
@@ -83,29 +82,9 @@ public class ThrowingBlob extends Thrower implements Blob {
 
   /** 
    * {@inheritDoc}
-   * @see java.sql.Blob#free()
-   */
-  public void free() throws SQLException {
-    if (shouldThrow("free"))
-      throw new SQLException("Blob bombed");
-    it.free();
-  }
-
-  /** 
-   * {@inheritDoc}
    * @see java.sql.Blob#getBinaryStream()
    */
   public InputStream getBinaryStream() throws SQLException {
-    if (shouldThrow("getBinaryStream"))
-      throw new SQLException("Blob bombed");
-    return it.getBinaryStream();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see java.sql.Blob#getBinaryStream(long, long)
-   */
-  public InputStream getBinaryStream(long pos, long length) throws SQLException {
     if (shouldThrow("getBinaryStream"))
       throw new SQLException("Blob bombed");
     return it.getBinaryStream();

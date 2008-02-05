@@ -97,7 +97,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    * @see java.sql.Struct#getAttributes(java.util.Map)
    */
 
-  public Object[] getAttributes(Map<String, Class<?>> map) throws SQLException {
+  public Object[] getAttributes(Map map) throws SQLException {
     if (shouldThrow("getAttributes"))
       throw new SQLException("Struct bombed");
     return it.getAttributes();

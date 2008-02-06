@@ -50,7 +50,9 @@ import java.sql.ResultSet;
  * @since 11 Feb 2007
  *
  */
-public class ThrowingResultSet extends ThrowingResultSetVariant implements ResultSet {
+public class ThrowingResultSet 
+    extends ThrowingResultSetVariant 
+    implements ResultSet {
   
   final static String className = ThrowingResultSet.class.getName() + ".";
 

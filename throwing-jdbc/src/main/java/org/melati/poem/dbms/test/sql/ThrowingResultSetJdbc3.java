@@ -68,7 +68,9 @@ import java.util.Map;
  * @since  5 Feb 2008
  *
  */
-public abstract class ThrowingResultSetJdbc3 extends Thrower implements ResultSet {
+public abstract class ThrowingResultSetJdbc3 
+    extends Thrower 
+    implements ResultSet {
 
   ResultSet it = null;
 

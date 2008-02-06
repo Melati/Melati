@@ -108,6 +108,9 @@ public abstract class Database implements TransactionPool {
    * Used in testing to check caching.
    */
   private int queryCount = 0;
+  /** Used in tests to check caching etc. */
+  private String lastQuery = null;
+  
 
   //
   // ================
@@ -1037,7 +1040,7 @@ public abstract class Database implements TransactionPool {
       token.toTidy().add(rs);
       if (logSQL())
         log(new SQLLogEvent(sql));
-      incrementQueryCount();
+      incrementQueryCount(sql);
       return rs;
     }
     catch (SQLException e) {
@@ -1074,7 +1077,7 @@ public abstract class Database implements TransactionPool {
       int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
-      incrementQueryCount();
+      incrementQueryCount(sql);
       return n;
     }
     catch (SQLException e) {
@@ -1460,10 +1463,17 @@ public abstract class Database implements TransactionPool {
   /**
    * Increment query count.
    */
-  public void incrementQueryCount() {
+  public void incrementQueryCount(String sql) {
+    lastQuery = sql;
     queryCount++; 
   }
 
+  /**
+   * @return the most recent query
+   */
+  public String getLastQuery() { 
+    return lastQuery;
+  }
   /**
    * @return the name
    */

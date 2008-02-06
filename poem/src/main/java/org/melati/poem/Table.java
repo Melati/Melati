@@ -600,7 +600,7 @@ public class Table implements Selectable {
       database.getCommittedConnection().commit();
       if (database.logCommits()) database.log(new CommitLogEvent(null));
       if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
-      database.incrementQueryCount();
+      database.incrementQueryCount(sql);
     }
     catch (SQLException e) {
       throw new StructuralModificationFailedPoemException(sql, e);
@@ -836,7 +836,7 @@ public class Table implements Selectable {
         ResultSet rs = select.executeQuery();
         if (database.logSQL())
           database.log(new SQLLogEvent(select.toString()));
-        database.incrementQueryCount();
+        database.incrementQueryCount(select.toString());
         try {
           if (!rs.next())
             persistent.setStatusNonexistent();
@@ -896,7 +896,7 @@ public class Table implements Selectable {
       catch (SQLException e) {
         throw dbms().exceptionForUpdate(this, modify, false, e);
       }
-      database.incrementQueryCount();
+      database.incrementQueryCount(modify.toString());
 
       if (database.logSQL())
         database.log(new SQLLogEvent(modify.toString()));
@@ -917,7 +917,7 @@ public class Table implements Selectable {
       catch (SQLException e) {
         throw dbms().exceptionForUpdate(this, insert, true, e);
       }
-      database.incrementQueryCount();
+      database.incrementQueryCount(insert.toString());
       if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));
     }
@@ -945,7 +945,7 @@ public class Table implements Selectable {
         throw new RowDisappearedPoemException(this,troid);
       }
       deleteStatement.close();
-      database.incrementQueryCount();
+      database.incrementQueryCount(sql);
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
 
@@ -1200,7 +1200,7 @@ public class Table implements Selectable {
 
       Statement selectionStatement = connection.createStatement();
       ResultSet rs = selectionStatement.executeQuery(sql);
-      database.incrementQueryCount();
+      database.incrementQueryCount(sql);
 
       SessionToken token = PoemThread._sessionToken();
       if (token != null) {
@@ -1717,7 +1717,7 @@ public class Table implements Selectable {
 
       Statement s = connection.createStatement();
       ResultSet rs = s.executeQuery(sql);
-      database.incrementQueryCount();
+      database.incrementQueryCount(sql);
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       rs.next();
@@ -2849,7 +2849,7 @@ public class Table implements Selectable {
       ResultSet maxTroid =
           selectionStatement.
               executeQuery(sql);
-      database.incrementQueryCount();
+      database.incrementQueryCount(sql);
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       if (maxTroid.next())

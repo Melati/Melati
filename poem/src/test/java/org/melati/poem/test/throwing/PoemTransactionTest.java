@@ -3,6 +3,9 @@
  */
 package org.melati.poem.test.throwing;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
@@ -56,20 +59,20 @@ public class PoemTransactionTest extends
   }
 
   public void testClose() {
-    ThrowingPreparedStatement.startThrowing("executeQuery");
+    ThrowingPreparedStatement.startThrowing(PreparedStatement.class, "executeQuery");
     super.testClose();
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    ThrowingPreparedStatement.stopThrowing(PreparedStatement.class, "executeQuery");
   }
 
   public void testCommit() {
-    ThrowingConnection.startThrowing("commit");
+    ThrowingConnection.startThrowing(Connection.class, "commit");
     try { 
       super.testCommit();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("Connection bombed", e.innermostException().getMessage());      
     }
-    ThrowingConnection.stopThrowing("commit");
+    ThrowingConnection.stopThrowing(Connection.class, "commit");
   }
 
   public void testGetBlockedOn() {
@@ -85,18 +88,18 @@ public class PoemTransactionTest extends
   }
 
   public void testPoemTransaction() {
-    ThrowingConnection.startThrowing("setAutoCommit");
+    ThrowingConnection.startThrowing(Connection.class, "setAutoCommit");
     try { 
       super.testPoemTransaction();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("Connection bombed", e.innermostException().getMessage());      
     }
-    ThrowingConnection.stopThrowing("setAutoCommit");
+    ThrowingConnection.stopThrowing(Connection.class, "setAutoCommit");
   }
 
   public void testRollback() {
-    ThrowingConnection.startThrowing("rollback");
+    ThrowingConnection.startThrowing(Connection.class, "rollback");
     User u = new User("tester","tester","tester");
     try { 
       getDb().getUserTable().create(u); 
@@ -108,7 +111,7 @@ public class PoemTransactionTest extends
     } catch (SQLSeriousPoemException e) { 
       assertEquals("Connection bombed", e.innermostException().getMessage());      
     }
-    ThrowingConnection.stopThrowing("rollback");
+    ThrowingConnection.stopThrowing(Connection.class, "rollback");
     u.delete();    
   }
 

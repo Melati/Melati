@@ -3,6 +3,9 @@
  */
 package org.melati.poem.test.throwing;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PreparedSQLSeriousPoemException;
@@ -59,14 +62,14 @@ public class PreparedStatementFactoryTest extends
   }
 
   public void testPreparedStatement() throws Exception {
-    ThrowingConnection.startThrowing("prepareStatement");
+    ThrowingConnection.startThrowing(Connection.class, "prepareStatement");
     try {
       super.testPreparedStatement();
       fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    ThrowingConnection.stopThrowing("prepareStatement");
+    ThrowingConnection.stopThrowing(Connection.class, "prepareStatement");
   }
 
   public void testPreparedStatementFactory() {
@@ -81,13 +84,13 @@ public class PreparedStatementFactoryTest extends
     PreparedStatementFactory it = new PreparedStatementFactory(getDb(),
         getDb().getUserTable().selectionSQL(null,null,null,true,false));
     try {
-      ThrowingPreparedStatement.startThrowing("executeQuery");
+      ThrowingPreparedStatement.startThrowing(PreparedStatement.class, "executeQuery");
       it.resultSet();
       fail("Should have bombed");
     } catch (PreparedSQLSeriousPoemException e) {
       assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
     }
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    ThrowingPreparedStatement.stopThrowing(PreparedStatement.class, "executeQuery");
   }
 
 }

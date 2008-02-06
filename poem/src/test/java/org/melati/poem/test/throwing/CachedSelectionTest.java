@@ -1,9 +1,12 @@
 package org.melati.poem.test.throwing;
 
+import java.sql.ResultSet;
+
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+
 
 /**
  * @author timp
@@ -60,20 +63,17 @@ public class CachedSelectionTest extends
   }
 
   /** 
-   * {@inheritDoc}
    * @see org.melati.poem.test.CachedSelectionTest#testFirstObject()
    */
-  public void FixmeTestFirstObject() {
-    ThrowingResultSet.startThrowing("close");
-    ThrowingResultSet.startThrowing("next");
+  public void testFirstObject() {
+    ThrowingResultSet.startThrowing(ResultSet.class, "next");
     try { 
       super.testFirstObject();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());      
     }
-    ThrowingResultSet.stopThrowing("close");
-    ThrowingResultSet.stopThrowing("next");
+    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
 
   }
 

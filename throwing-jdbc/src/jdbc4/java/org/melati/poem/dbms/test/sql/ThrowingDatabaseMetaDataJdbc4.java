@@ -79,7 +79,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
   public ResultSet getClientInfoProperties() throws SQLException {
     if (shouldThrow("getClientInfoProperties"))
       throw new SQLException("DatabaseMetaData bombed");
-    return new ThrowingResultSet<Object>(it.getClientInfoProperties());
+    return new ThrowingResultSet(it.getClientInfoProperties());
   }
   /** 
    * {@inheritDoc}
@@ -90,7 +90,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
           throws SQLException {
     if (shouldThrow("getFunctionColumns"))
       throw new SQLException("DatabaseMetaData bombed");
-    return  new ThrowingResultSet<Object>(it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog));
+    return  new ThrowingResultSet(it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog));
   }
   /** 
    * {@inheritDoc}
@@ -100,7 +100,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
           String functionNamePattern) throws SQLException {
     if (shouldThrow("getFunctions"))
       throw new SQLException("DatabaseMetaData bombed");
-    return  new ThrowingResultSet<Object>(it.getFunctions(catalog, schemaPattern, functionNamePattern));
+    return  new ThrowingResultSet(it.getFunctions(catalog, schemaPattern, functionNamePattern));
   }
   /** 
    * {@inheritDoc}
@@ -119,7 +119,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
           throws SQLException {
     if (shouldThrow("getSchemas"))
       throw new SQLException("DatabaseMetaData bombed");
-    return  new ThrowingResultSet<Object>(it.getSchemas());
+    return  new ThrowingResultSet(it.getSchemas());
   }
   /** 
    * {@inheritDoc}

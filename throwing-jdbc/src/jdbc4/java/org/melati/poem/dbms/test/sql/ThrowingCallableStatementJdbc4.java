@@ -46,6 +46,7 @@ package org.melati.poem.dbms.test.sql;
 import java.io.InputStream;
 import java.io.Reader;
 import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.NClob;
 import java.sql.RowId;
@@ -58,7 +59,8 @@ import java.sql.SQLXML;
  * From src/jdbc4
  */
 public abstract class ThrowingCallableStatementJdbc4 
-    extends ThrowingCallableStatementJdbc3 {
+    extends ThrowingCallableStatementJdbc3 
+    implements CallableStatement {
 
   
   /**

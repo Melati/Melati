@@ -47,6 +47,7 @@ package org.melati.poem.dbms.test.sql;
 import java.io.InputStream;
 import java.io.Reader;
 import java.sql.NClob;
+import java.sql.ResultSet;
 import java.sql.RowId;
 import java.sql.SQLXML;
 import java.sql.SQLException;
@@ -56,13 +57,15 @@ import java.sql.SQLException;
  * @since  5 Feb 2008
  *
  */
-public abstract class ThrowingResultSetJdbc4 extends ThrowingResultSetJdbc3 implements PreparedStatement{
+public abstract class ThrowingResultSetJdbc4 
+    extends ThrowingResultSetJdbc3 
+    implements ResultSet {
+  
   /**
    *  JDBC 4.0
    */
   
-  
-  
+
   /** 
    * {@inheritDoc}
    * @see java.sql.ResultSet#getHoldability()

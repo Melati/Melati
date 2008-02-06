@@ -68,6 +68,7 @@ public class ThrowingRowId extends Thrower implements RowId {
     return Thrower.shouldThrow(className  +  methodName);
   }
 
+  RowId it = null;
 
   /**
    * 

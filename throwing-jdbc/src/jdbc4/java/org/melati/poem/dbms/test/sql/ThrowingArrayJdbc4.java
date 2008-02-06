@@ -44,6 +44,7 @@
 
 package org.melati.poem.dbms.test.sql;
 
+import java.sql.Array;
 import java.sql.SQLException;
 
 /**
@@ -51,7 +52,9 @@ import java.sql.SQLException;
  * @since 5 Feb 2008
  *
  */
-public abstract class ThrowingArrayJdbc4 extends ThrowingArrayJdbc3 {
+public abstract class ThrowingArrayJdbc4 
+    extends ThrowingArrayJdbc3 
+    implements Array {
 
   /** 
    * {@inheritDoc}

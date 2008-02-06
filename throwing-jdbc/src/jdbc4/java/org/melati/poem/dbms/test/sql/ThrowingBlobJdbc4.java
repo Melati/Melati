@@ -45,6 +45,7 @@
 package org.melati.poem.dbms.test.sql;
 
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 
 /**
@@ -52,7 +53,9 @@ import java.sql.SQLException;
  * @since  5 Feb 2008
  *
  */
-public abstract class ThrowingBlobJdbc4 extends ThrowingBlobJdbc3 {
+public abstract class ThrowingBlobJdbc4 
+    extends ThrowingBlobJdbc3 
+    implements Blob {
 
   /** 
    * {@inheritDoc}

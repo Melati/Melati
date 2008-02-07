@@ -157,7 +157,7 @@ public class org.melati.poem.test.throwing.DatabaseTest
 <subsection name=" Throw on third call Example">
 <p>
 The exception handling you want to excercise is actually the third call 
-to that method.
+to that method in your test's tragectory to the method under test.
 </p>
 <blockquote>
 <pre>
@@ -174,8 +174,10 @@ to that method.
 }
 </pre>
 </blockquote>
-
 </subsection>
+<p>
+Do send feedback to TimP at this address.
+</p>
 </section>
 </body>
 </document>

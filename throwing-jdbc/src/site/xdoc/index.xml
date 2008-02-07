@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp At paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" JDBC ">
+<p>
+This module is a reusable test utility which provides a mechanism 
+for Error Injection, thereby enabling otherwise untestable 
+exception handling to be covered in tests without the use of mock objects.
+</p>
+<p>
+The JDBC API, especially version 4, is quite big, so hopefully sharing this 
+module will save other people the wear and tear on their fingers.
+</p>
+<p>
+The technique used could be applied to any interface, 
+but are particularly suited to the JDBC API as it has a single entry point, 
+the <tt>Connection</tt>, from which all other objects in the API are obtained.
+</p>
+<subsection name=" Motivation ">
+<p>
+In the same way as the way to use IDE warnings is to have none so 
+test coverage is only worth having if it is complete. 
+</p>
+<p>
+The reasons for this are 
+<ul>
+<li>
+The coverage reports are only fun to read if there is a good reason 
+for each non-covered line.
+</li>
+<li>
+It is annoying to keep re-reading the same page because the coverage 
+is not complete.
+When it is you can focus on the 
+real uncovered code rather than revisiting pages you can do no more about.
+</li>
+<li>
+Automatons and managers only look at agregate figures so 
+covering trivia is good.
+</li>
+<li>
+The bugs are only revealed in the last five percent of coverage testing.
+</li>
+</ul>
+</p>
+</subsection>
+<subsection name=" How it works ">
+<p>
+Each interface within the API has a decorator whose constructor takes 
+an instance. Any of the methods which return another instance of the API 
+will now return a decorated instance.
+</p>
+<p>
+The decorated instance can be told to throw an Exception, either 
+whenever it is called or after being called a number of times.
+This enables you to cover cases that would otherwise be impossible to 
+cover without a custom mock.
+</p>
+</subsection>
+<subsection name=" HSQLDB Throwing Driver ">
+<p>
+In the case of the JDBC API you can sub-class your <pre>Driver</pre> 
+such that is returns  a <tt>ThrowingConnection</tt> 
+from it instead of the <pre>Connection</pre>, 
+then use the <tt>ThrowingConnection</tt> 
+as you would the <tt>Connection</tt>. 
+</p>
+<blockquote>
+<pre>
+import java.sql.Driver;
+
+import org.hsqldb.jdbcDriver;
+import org.melati.poem.dbms.test.sql.ThrowingDriver;
+
+/**
+ * A decorated Hsqldb jdbcDriver.
+ *
+ */
+public class HsqldbThrowingJdbcDriver 
+    extends ThrowingDriver 
+    implements Driver {
+
+  public HsqldbThrowingJdbcDriver() {
+    super(new jdbcDriver());
+  }
+}
+</pre>
+</blockquote>
+</subsection>
+<subsection name=" Simple Example ">
+<p>
+You notice that there is uncovered exception handling associated 
+with failure of <tt>ResultSet.close()</tt> during database initialisation.
+</p>
+<blockquote>
+<pre>
+  public void testConnect() {
+    ThrowingResultSet.startThrowing(ResultSet.class, "close");     
+    try { 
+      getDb();
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
+  }
+</pre>
+</blockquote>
+</subsection>
+<subsection name=" Sub-classed Test Example">
+<p>
+The test is written to test the functionality in the normal way, 
+then subclassed with a <tt>ThrowingConnection</tt> 
+to test the exception handling.
+</p>
+<blockquote>
+<pre>
+public class org.melati.poem.test.throwing.DatabaseTest 
+     extends org.melati.poem.test.DatabaseTest {
+  public void testFirstObject() {
+    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    try { 
+      super.testFirstObject();
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+  }
+}
+</pre>
+</blockquote>
+</subsection>
+<subsection name=" Throw on third call Example">
+<p>
+The exception handling you want to excercise is actually the third call 
+to that method.
+</p>
+<blockquote>
+<pre>
+  public void testGetObjectInt() {
+    ThrowingConnection.startThrowingAfter(Connection.class,"prepareStatement", 2);
+    try { 
+      super.testGetObjectInt();
+      fail("Should have blown up");
+    } catch (SimplePrepareFailedPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingConnection.stopThrowing(Connection.class, "prepareStatement");
+    }
+}
+</pre>
+</blockquote>
+
+</subsection>
+</section>
+</body>
+</document>
+
+

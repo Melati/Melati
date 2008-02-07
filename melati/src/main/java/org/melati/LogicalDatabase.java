@@ -71,7 +71,7 @@ public final class LogicalDatabase {
     if (databaseDefs == null)
       try { 
         databaseDefs =
-            PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
+            PropertiesUtils.fromResource(LogicalDatabase.class,
                 getPropertiesName());
       } catch (IOException e) {
         throw new MelatiBugMelatiException("Cannot open database properties file " + getPropertiesName(), e);

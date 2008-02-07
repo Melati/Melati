@@ -53,7 +53,9 @@ import java.util.Map;
  * @since  5 Feb 2008
  *
  */
-public class ThrowingRefJdbc3 extends Thrower implements Ref {
+public class ThrowingRefJdbc3 
+    extends Thrower 
+    implements Ref {
 
   Ref it = null;
 

@@ -501,7 +501,7 @@ public abstract class ThrowingPreparedStatementJdbc3
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "setUnicodeStream"))
       throw new SQLException("PreparedStatement bombed");
-   // p.setUnicodeStream(parameterIndex, x, length);
+    it.setUnicodeStream(parameterIndex, x, length);
   }
 
   /**

@@ -51,7 +51,9 @@ import java.sql.Savepoint;
  * @since 10 Feb 2007
  *
  */
-public class ThrowingSavepoint extends Thrower implements Savepoint {
+public class ThrowingSavepoint 
+    extends Thrower 
+    implements Savepoint {
   
   Savepoint it = null;
   

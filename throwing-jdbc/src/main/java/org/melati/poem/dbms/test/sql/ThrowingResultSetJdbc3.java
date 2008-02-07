@@ -233,7 +233,7 @@ public abstract class ThrowingResultSetJdbc3
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    return null;//r.getBigDecimal(columnIndex, scale);
+    return it.getBigDecimal(columnIndex, scale);
   }
 
   /**
@@ -244,7 +244,7 @@ public abstract class ThrowingResultSetJdbc3
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    return null;//r.getBigDecimal(columnName, scale);
+    return it.getBigDecimal(columnName, scale);
   }
 
   /**
@@ -798,7 +798,7 @@ public abstract class ThrowingResultSetJdbc3
   public InputStream getUnicodeStream(int columnIndex) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");
-    return null;//r.getUnicodeStream(columnIndex);
+    return it.getUnicodeStream(columnIndex);
   }
 
   /**
@@ -808,7 +808,7 @@ public abstract class ThrowingResultSetJdbc3
   public InputStream getUnicodeStream(String columnName) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");
-    return null;//r.getUnicodeStream(columnName);
+    return it.getUnicodeStream(columnName);
   }
 
   /**

@@ -56,7 +56,9 @@ import java.sql.Statement;
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingStatement extends ThrowingStatementVariant implements Statement {
+public class ThrowingStatement 
+    extends ThrowingStatementVariant 
+    implements Statement {
   
   /**
    * Constructor.

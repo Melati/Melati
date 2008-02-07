@@ -53,7 +53,9 @@ import java.sql.ResultSetMetaData;
  * @since 12 Feb 2007
  *
  */
-public class ThrowingResultSetMetaData extends ThrowingResultSetMetaDataVariant implements ResultSetMetaData {
+public class ThrowingResultSetMetaData 
+    extends ThrowingResultSetMetaDataVariant 
+    implements ResultSetMetaData {
   
   /**
    * Constructor.

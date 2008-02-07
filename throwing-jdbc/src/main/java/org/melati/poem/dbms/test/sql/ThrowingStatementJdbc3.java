@@ -55,7 +55,9 @@ import java.sql.Statement;
  * @since  5 Feb 2008
  *
  */
-public abstract class ThrowingStatementJdbc3 extends Thrower implements Statement{
+public abstract class ThrowingStatementJdbc3 
+    extends Thrower 
+    implements Statement{
 
   Statement it = null;
   

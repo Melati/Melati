@@ -53,7 +53,9 @@ import java.util.Map;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingStruct extends Thrower implements Struct {
+public class ThrowingStruct 
+    extends Thrower 
+    implements Struct {
 
 
   Struct it = null;

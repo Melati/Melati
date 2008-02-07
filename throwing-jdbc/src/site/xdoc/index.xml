@@ -83,10 +83,10 @@ cover without a custom mock.
 <subsection name=" HSQLDB Throwing Driver ">
 <p>
 In the case of the JDBC API you can sub-class your <tt>Driver</tt> 
-such that is returns  a <tt>ThrowingConnection</tt> 
-from it instead of the <tt>Connection</tt>, 
+such that it returns  a <tt>ThrowingConnection</tt> 
+instead of a <tt>Connection</tt>, 
 then use the <tt>ThrowingConnection</tt> 
-as you would the <tt>Connection</tt>. 
+as you would have the <tt>Connection</tt>. 
 </p>
 <blockquote>
 <pre>

@@ -7,9 +7,11 @@ import java.util.Properties;
 import java.util.Vector;
 
 import org.melati.LogicalDatabase;
+import org.melati.poem.Database;
 import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.util.DatabaseInitException;
+import org.melati.util.NoSuchPropertyException;
 
 /**
  * @author timp
@@ -61,8 +63,11 @@ public class LogicalDatabaseTest extends PoemTestCase {
   public void testGetInitialisedDatabaseNames() {
     Vector them = LogicalDatabase.getInitialisedDatabaseNames();
     assertTrue(them.size() > 0);
-    String name = (String)them.get(0);
-    assertEquals("melatijunit", name);
+    boolean found = false;
+    for (int i = 0; i < them.size(); i++)
+      if (((String)them.get(i)).equals("melatijunit"))
+              found = true;
+    assertTrue(found);
     
   }
 
@@ -113,9 +118,10 @@ public class LogicalDatabaseTest extends PoemTestCase {
    Properties empty = new Properties(); 
    LogicalDatabase.setDatabaseDefs(empty);
    try { 
-     LogicalDatabase.getDatabase("empty");
-     fail("Should have blown up");
+     Database ld = LogicalDatabase.getDatabase("unknown");
+     fail("Should have blown up but LD = " + ld);
    } catch (DatabaseInitException e) {
+     assertTrue(e.subException instanceof NoSuchPropertyException);
      e = null;
    }
    LogicalDatabase.setDatabaseDefs(null);

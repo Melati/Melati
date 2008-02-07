@@ -155,7 +155,7 @@ public final class PersistentFactory {
         }
       } 
       try {
-        raw = memberGetter.invoke(pojo, new Class[] {});
+        raw = memberGetter.invoke(pojo, (Object[])new Class[] {});
       } catch (Exception e) {
         throw new AppBugPoemException(
                 "Problem invoking getter on column  " + col.getName(), e);

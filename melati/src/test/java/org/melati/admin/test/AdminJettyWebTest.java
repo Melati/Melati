@@ -270,6 +270,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("No records found");
   }
   
+  /**
+   * User story.
+   */
   public void testCreateTableStory() { 
     setScriptingEnabled(false);
     loginAsAdministrator();

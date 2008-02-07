@@ -64,7 +64,6 @@ public abstract class Thrower {
    */
   public static void startThrowing(Class i, String methodName) {
     String fullName = i.getName() + "." + methodName;
-    System.err.println("StartThrowing: " + fullName);
     throwers.put(fullName, new Integer(1));
   }
   /**
@@ -92,7 +91,6 @@ public abstract class Thrower {
    */
   public static boolean shouldThrow(Class i, String methodName) {
     String fullName = i.getName() + "." + methodName;
-    System.err.println("Shouldthrow: " + fullName);
     if (throwers.get(fullName) == null) 
       throwers.put(fullName, new Integer(0));
     int toGo = ((Integer)throwers.get(fullName)).intValue(); 

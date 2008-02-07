@@ -445,5 +445,10 @@ public class PoemTestCase extends TestCase implements Test {
       assertEquals(null, expected, actual);
   }
 
-  
+  /**
+   * Soem test runners seem to think there should be a test in this file.
+   */
+  public void testNothing() { 
+    
+  }
 }

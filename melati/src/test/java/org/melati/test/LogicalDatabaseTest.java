@@ -103,6 +103,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
      //e.printStackTrace();
      e = null;
    }
+   LogicalDatabase.setDatabaseDefs(null);
   }
 
   /**

@@ -527,7 +527,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
     // Force bomb of simpleGet
     getDb().getGroupTable().invalidateTransactionStuffs();
     ThrowingConnection.startThrowingAfter(Connection.class,"prepareStatement", 2);
-    System.err.println("About to");
     try { 
       super.testGetObjectInt();
       fail("Should have blown up");

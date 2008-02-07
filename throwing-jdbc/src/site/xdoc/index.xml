@@ -37,7 +37,7 @@ module will save other people the wear and tear on their fingers.
 <p>
 The technique used could be applied to any interface, 
 but are particularly suited to the JDBC API as it has a single entry point, 
-the <tt>Connection</tt>, from which all other objects in the API are obtained.
+the <tt>Driver</tt>, from which all other objects in the API are obtained.
 </p>
 <subsection name=" Motivation ">
 <p>

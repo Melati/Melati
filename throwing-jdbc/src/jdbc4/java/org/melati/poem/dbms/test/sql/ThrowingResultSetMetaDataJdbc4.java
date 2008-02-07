@@ -64,7 +64,7 @@ public abstract class ThrowingResultSetMetaDataJdbc4 extends
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isWrapperFor(iface);
   }
@@ -74,7 +74,7 @@ public abstract class ThrowingResultSetMetaDataJdbc4 extends
    */
 
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.unwrap(iface);
   }

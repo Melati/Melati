@@ -80,7 +80,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#absolute(int)
    */
   public boolean absolute(int row) throws SQLException {
-    if (shouldThrow("absolute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "absolute"))
       throw new SQLException("ResultSet bombed");
      return it.absolute(row);
   }
@@ -90,7 +90,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#afterLast()
    */
   public void afterLast() throws SQLException {
-    if (shouldThrow("afterLast"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "afterLast"))
       throw new SQLException("ResultSet bombed");
     it.afterLast();
   }
@@ -100,7 +100,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#beforeFirst()
    */
   public void beforeFirst() throws SQLException {
-    if (shouldThrow("beforeFirst"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "beforeFirst"))
       throw new SQLException("ResultSet bombed");
     it.beforeFirst();
   }
@@ -110,7 +110,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#cancelRowUpdates()
    */
   public void cancelRowUpdates() throws SQLException {
-    if (shouldThrow("cancelRowUpdates"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "cancelRowUpdates"))
       throw new SQLException("ResultSet bombed");
     it.cancelRowUpdates();
   }
@@ -120,7 +120,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#clearWarnings()
    */
   public void clearWarnings() throws SQLException {
-    if (shouldThrow("clearWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "clearWarnings"))
       throw new SQLException("ResultSet bombed");
     it.clearWarnings();
   }
@@ -130,7 +130,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#close()
    */
   public void close() throws SQLException {
-    if (shouldThrow("close"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "close"))
       throw new SQLException("ResultSet bombed");
     it.close();
   }
@@ -140,7 +140,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#deleteRow()
    */
   public void deleteRow() throws SQLException {
-    if (shouldThrow("deleteRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "deleteRow"))
       throw new SQLException("ResultSet bombed");
     it.deleteRow();
   }
@@ -150,7 +150,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#findColumn(java.lang.String)
    */
   public int findColumn(String columnName) throws SQLException {
-    if (shouldThrow("findColumn"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "findColumn"))
       throw new SQLException("ResultSet bombed");
     return it.findColumn(columnName);
   }
@@ -160,7 +160,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#first()
    */
   public boolean first() throws SQLException {
-    if (shouldThrow("first"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "first"))
       throw new SQLException("ResultSet bombed");
     return it.first();
   }
@@ -170,7 +170,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getArray(int)
    */
   public Array getArray(int i) throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingArray(it.getArray(i));
   }
@@ -180,7 +180,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getArray(java.lang.String)
    */
   public Array getArray(String colName) throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingArray(it.getArray(colName));
   }
@@ -190,7 +190,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getAsciiStream(int)
    */
   public InputStream getAsciiStream(int columnIndex) throws SQLException {
-    if (shouldThrow("getAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAsciiStream"))
       throw new SQLException("ResultSet bombed");
     return it.getAsciiStream(columnIndex);
   }
@@ -200,7 +200,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getAsciiStream(java.lang.String)
    */
   public InputStream getAsciiStream(String columnName) throws SQLException {
-    if (shouldThrow("getAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAsciiStream"))
       throw new SQLException("ResultSet bombed");
     return it.getAsciiStream(columnName);
   }
@@ -210,7 +210,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBigDecimal(int)
    */
   public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-    if (shouldThrow("getBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
     return it.getBigDecimal(columnIndex);
   }
@@ -220,7 +220,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBigDecimal(java.lang.String)
    */
   public BigDecimal getBigDecimal(String columnName) throws SQLException {
-    if (shouldThrow("getBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
     return it.getBigDecimal(columnName);
   }
@@ -231,7 +231,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public BigDecimal getBigDecimal(int columnIndex, int scale)
       throws SQLException {
-    if (shouldThrow("getBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
     return null;//r.getBigDecimal(columnIndex, scale);
   }
@@ -242,7 +242,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public BigDecimal getBigDecimal(String columnName, int scale)
       throws SQLException {
-    if (shouldThrow("getBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
       throw new SQLException("ResultSet bombed");
     return null;//r.getBigDecimal(columnName, scale);
   }
@@ -252,7 +252,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBinaryStream(int)
    */
   public InputStream getBinaryStream(int columnIndex) throws SQLException {
-    if (shouldThrow("getBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBinaryStream"))
       throw new SQLException("ResultSet bombed");
     return it.getBinaryStream(columnIndex);
   }
@@ -262,7 +262,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBinaryStream(java.lang.String)
    */
   public InputStream getBinaryStream(String columnName) throws SQLException {
-    if (shouldThrow("getBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBinaryStream"))
       throw new SQLException("ResultSet bombed");
     return it.getBinaryStream(columnName);
   }
@@ -272,7 +272,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBlob(int)
    */
   public Blob getBlob(int i) throws SQLException {
-    if (shouldThrow("getBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBlob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingBlob(it.getBlob(i));
   }
@@ -282,7 +282,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBlob(java.lang.String)
    */
   public Blob getBlob(String colName) throws SQLException {
-    if (shouldThrow("getBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBlob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingBlob(it.getBlob(colName));
   }
@@ -292,7 +292,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBoolean(int)
    */
   public boolean getBoolean(int columnIndex) throws SQLException {
-    if (shouldThrow("getBoolean"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBoolean"))
       throw new SQLException("ResultSet bombed");
     return it.getBoolean(columnIndex);
   }
@@ -302,7 +302,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBoolean(java.lang.String)
    */
   public boolean getBoolean(String columnName) throws SQLException {
-    if (shouldThrow("getBoolean"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBoolean"))
       throw new SQLException("ResultSet bombed");
     return it.getBoolean(columnName);
   }
@@ -312,7 +312,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getByte(int)
    */
   public byte getByte(int columnIndex) throws SQLException {
-    if (shouldThrow("getByte"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getByte"))
       throw new SQLException("ResultSet bombed");
     return it.getByte(columnIndex);
   }
@@ -322,7 +322,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getByte(java.lang.String)
    */
   public byte getByte(String columnName) throws SQLException {
-    if (shouldThrow("getByte"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getByte"))
       throw new SQLException("ResultSet bombed");
     return it.getByte(columnName);
   }
@@ -332,7 +332,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBytes(int)
    */
   public byte[] getBytes(int columnIndex) throws SQLException {
-    if (shouldThrow("getBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBytes"))
       throw new SQLException("ResultSet bombed");
     return it.getBytes(columnIndex);
   }
@@ -342,7 +342,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getBytes(java.lang.String)
    */
   public byte[] getBytes(String columnName) throws SQLException {
-    if (shouldThrow("getBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBytes"))
       throw new SQLException("ResultSet bombed");
     return it.getBytes(columnName);
   }
@@ -352,7 +352,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getCharacterStream(int)
    */
   public Reader getCharacterStream(int columnIndex) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("ResultSet bombed");
     return it.getCharacterStream(columnIndex);
   }
@@ -362,7 +362,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getCharacterStream(java.lang.String)
    */
   public Reader getCharacterStream(String columnName) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("ResultSet bombed");
     return it.getCharacterStream(columnName);
   }
@@ -372,7 +372,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getClob(int)
    */
   public Clob getClob(int i) throws SQLException {
-    if (shouldThrow("getClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getClob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingClob(it.getClob(i));
   }
@@ -382,7 +382,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getClob(java.lang.String)
    */
   public Clob getClob(String colName) throws SQLException {
-    if (shouldThrow("getClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getClob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingClob(it.getClob(colName));
   }
@@ -392,7 +392,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getConcurrency()
    */
   public int getConcurrency() throws SQLException {
-    if (shouldThrow("getConcurrency"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getConcurrency"))
       throw new SQLException("ResultSet bombed");
     return it.getConcurrency();
   }
@@ -402,7 +402,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getCursorName()
    */
   public String getCursorName() throws SQLException {
-    if (shouldThrow("getCursorName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCursorName"))
       throw new SQLException("ResultSet bombed");
     return it.getCursorName();
   }
@@ -412,7 +412,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDate(int)
    */
   public Date getDate(int columnIndex) throws SQLException {
-    if (shouldThrow("getDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDate"))
       throw new SQLException("ResultSet bombed");
     return it.getDate(columnIndex);
   }
@@ -422,7 +422,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDate(java.lang.String)
    */
   public Date getDate(String columnName) throws SQLException {
-    if (shouldThrow("getDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDate"))
       throw new SQLException("ResultSet bombed");
     return it.getDate(columnName);
   }
@@ -432,7 +432,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDate(int, java.util.Calendar)
    */
   public Date getDate(int columnIndex, Calendar cal) throws SQLException {
-    if (shouldThrow("getDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDate"))
       throw new SQLException("ResultSet bombed");
     return it.getDate(columnIndex, cal);
   }
@@ -442,7 +442,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDate(java.lang.String, java.util.Calendar)
    */
   public Date getDate(String columnName, Calendar cal) throws SQLException {
-    if (shouldThrow("getDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDate"))
       throw new SQLException("ResultSet bombed");
     return it.getDate(columnName, cal);
   }
@@ -452,7 +452,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDouble(int)
    */
   public double getDouble(int columnIndex) throws SQLException {
-    if (shouldThrow("getDouble"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDouble"))
       throw new SQLException("ResultSet bombed");
     return it.getDouble(columnIndex);
   }
@@ -462,7 +462,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getDouble(java.lang.String)
    */
   public double getDouble(String columnName) throws SQLException {
-    if (shouldThrow("getDouble"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getDouble"))
       throw new SQLException("ResultSet bombed");
     return it.getDouble(columnName);
   }
@@ -472,7 +472,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getFetchDirection()
    */
   public int getFetchDirection() throws SQLException {
-    if (shouldThrow("getFetchDirection"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFetchDirection"))
       throw new SQLException("ResultSet bombed");
     return it.getFetchDirection();
   }
@@ -482,7 +482,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getFetchSize()
    */
   public int getFetchSize() throws SQLException {
-    if (shouldThrow("getFetchSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFetchSize"))
       throw new SQLException("ResultSet bombed");
     return it.getFetchSize();
   }
@@ -492,7 +492,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getFloat(int)
    */
   public float getFloat(int columnIndex) throws SQLException {
-    if (shouldThrow("getFloat"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFloat"))
       throw new SQLException("ResultSet bombed");
     return it.getFloat(columnIndex);
   }
@@ -502,7 +502,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getFloat(java.lang.String)
    */
   public float getFloat(String columnName) throws SQLException {
-    if (shouldThrow("getFloat"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFloat"))
       throw new SQLException("ResultSet bombed");
     return it.getFloat(columnName);
   }
@@ -512,7 +512,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getInt(int)
    */
   public int getInt(int columnIndex) throws SQLException {
-    if (shouldThrow("getInt"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getInt"))
       throw new SQLException("ResultSet bombed");
     return it.getInt(columnIndex);
   }
@@ -522,7 +522,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getInt(java.lang.String)
    */
   public int getInt(String columnName) throws SQLException {
-    if (shouldThrow("getInt"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getInt"))
       throw new SQLException("ResultSet bombed");
     return it.getInt(columnName);
   }
@@ -532,7 +532,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getLong(int)
    */
   public long getLong(int columnIndex) throws SQLException {
-    if (shouldThrow("getLong"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getLong"))
       throw new SQLException("ResultSet bombed");
     return it.getLong(columnIndex);
   }
@@ -542,7 +542,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getLong(java.lang.String)
    */
   public long getLong(String columnName) throws SQLException {
-    if (shouldThrow("getLong"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getLong"))
       throw new SQLException("ResultSet bombed");
     return it.getLong(columnName);
   }
@@ -552,7 +552,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getMetaData()
    */
   public ResultSetMetaData getMetaData() throws SQLException {
-    if (shouldThrow("getMetaData"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMetaData"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingResultSetMetaData(it.getMetaData());
   }
@@ -562,7 +562,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getObject(int)
    */
   public Object getObject(int columnIndex) throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
     return it.getObject(columnIndex);
   }
@@ -572,7 +572,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getObject(java.lang.String)
    */
   public Object getObject(String columnName) throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
     return it.getObject(columnName);
   }
@@ -582,7 +582,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getObject(int, java.util.Map)
    */
   public Object getObject(int i, Map map) throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
 
     return it.getObject(i, map);
@@ -593,7 +593,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getObject(java.lang.String, java.util.Map)
    */
   public Object getObject(String colName, Map map) throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
     return it.getObject(colName, map);
   }
@@ -603,7 +603,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getRef(int)
    */
   public Ref getRef(int i) throws SQLException {
-    if (shouldThrow("getRef"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRef"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingRef(it.getRef(i));
   }
@@ -613,7 +613,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getRef(java.lang.String)
    */
   public Ref getRef(String colName) throws SQLException {
-    if (shouldThrow("getRef"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRef"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingRef(it.getRef(colName));
   }
@@ -623,7 +623,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getRow()
    */
   public int getRow() throws SQLException {
-    if (shouldThrow("getRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRow"))
       throw new SQLException("ResultSet bombed");
     return it.getRow();
   }
@@ -633,7 +633,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getShort(int)
    */
   public short getShort(int columnIndex) throws SQLException {
-    if (shouldThrow("getShort"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getShort"))
       throw new SQLException("ResultSet bombed");
     return it.getShort(columnIndex);
   }
@@ -643,7 +643,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getShort(java.lang.String)
    */
   public short getShort(String columnName) throws SQLException {
-    if (shouldThrow("getShort"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getShort"))
       throw new SQLException("ResultSet bombed");
     return it.getShort(columnName);
   }
@@ -653,7 +653,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getStatement()
    */
   public Statement getStatement() throws SQLException {
-    if (shouldThrow("getStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getStatement"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingStatement(it.getStatement());
   }
@@ -663,7 +663,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getString(int)
    */
   public String getString(int columnIndex) throws SQLException {
-    if (shouldThrow("getString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getString"))
       throw new SQLException("ResultSet bombed");
     return it.getString(columnIndex);
   }
@@ -673,7 +673,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getString(java.lang.String)
    */
   public String getString(String columnName) throws SQLException {
-    if (shouldThrow("getString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getString"))
       throw new SQLException("ResultSet bombed");
     return it.getString(columnName);
   }
@@ -683,7 +683,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTime(int)
    */
   public Time getTime(int columnIndex) throws SQLException {
-    if (shouldThrow("getTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTime"))
       throw new SQLException("ResultSet bombed");
     return it.getTime(columnIndex);
   }
@@ -693,7 +693,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTime(java.lang.String)
    */
   public Time getTime(String columnName) throws SQLException {
-    if (shouldThrow("getTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTime"))
       throw new SQLException("ResultSet bombed");
     return it.getTime(columnName);
   }
@@ -703,7 +703,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTime(int, java.util.Calendar)
    */
   public Time getTime(int columnIndex, Calendar cal) throws SQLException {
-    if (shouldThrow("getTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTime"))
       throw new SQLException("ResultSet bombed");
     return it.getTime(columnIndex, cal);
   }
@@ -713,7 +713,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTime(java.lang.String, java.util.Calendar)
    */
   public Time getTime(String columnName, Calendar cal) throws SQLException {
-    if (shouldThrow("getTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTime"))
       throw new SQLException("ResultSet bombed");
     return it.getTime(columnName, cal);
   }
@@ -723,7 +723,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTimestamp(int)
    */
   public Timestamp getTimestamp(int columnIndex) throws SQLException {
-    if (shouldThrow("getTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTimestamp"))
       throw new SQLException("ResultSet bombed");
     return it.getTimestamp(columnIndex);
   }
@@ -733,7 +733,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getTimestamp(java.lang.String)
    */
   public Timestamp getTimestamp(String columnName) throws SQLException {
-    if (shouldThrow("getTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTimestamp"))
       throw new SQLException("ResultSet bombed");
     return it.getTimestamp(columnName);
   }
@@ -744,7 +744,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public Timestamp getTimestamp(int columnIndex, Calendar cal)
       throws SQLException {
-    if (shouldThrow("getTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTimestamp"))
       throw new SQLException("ResultSet bombed");
     return it.getTimestamp(columnIndex, cal);
   }
@@ -755,7 +755,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public Timestamp getTimestamp(String columnName, Calendar cal)
       throws SQLException {
-    if (shouldThrow("getTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTimestamp"))
       throw new SQLException("ResultSet bombed");
     return it.getTimestamp(columnName, cal);
   }
@@ -765,7 +765,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getType()
    */
   public int getType() throws SQLException {
-    if (shouldThrow("getType"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getType"))
       throw new SQLException("ResultSet bombed");
     return it.getType();
   }
@@ -775,7 +775,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getURL(int)
    */
   public URL getURL(int columnIndex) throws SQLException {
-    if (shouldThrow("getURL"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getURL"))
       throw new SQLException("ResultSet bombed");
     return it.getURL(columnIndex);
   }
@@ -785,7 +785,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getURL(java.lang.String)
    */
   public URL getURL(String columnName) throws SQLException {
-    if (shouldThrow("getURL"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getURL"))
       throw new SQLException("ResultSet bombed");
 
     return it.getURL(columnName);
@@ -796,7 +796,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getUnicodeStream(int)
    */
   public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-    if (shouldThrow("getUnicodeStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");
     return null;//r.getUnicodeStream(columnIndex);
   }
@@ -806,7 +806,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getUnicodeStream(java.lang.String)
    */
   public InputStream getUnicodeStream(String columnName) throws SQLException {
-    if (shouldThrow("getUnicodeStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");
     return null;//r.getUnicodeStream(columnName);
   }
@@ -816,7 +816,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#getWarnings()
    */
   public SQLWarning getWarnings() throws SQLException {
-    if (shouldThrow("getWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getWarnings"))
       throw new SQLException("ResultSet bombed");
     return it.getWarnings();
   }
@@ -826,7 +826,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#insertRow()
    */
   public void insertRow() throws SQLException {
-    if (shouldThrow("insertRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "insertRow"))
       throw new SQLException("ResultSet bombed");
     it.insertRow();
   }
@@ -836,7 +836,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#isAfterLast()
    */
   public boolean isAfterLast() throws SQLException {
-    if (shouldThrow("isAfterLast"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isAfterLast"))
       throw new SQLException("ResultSet bombed");
     return it.isAfterLast();
   }
@@ -846,7 +846,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#isBeforeFirst()
    */
   public boolean isBeforeFirst() throws SQLException {
-    if (shouldThrow("isBeforeFirst"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isBeforeFirst"))
       throw new SQLException("ResultSet bombed");
     return it.isBeforeFirst();
   }
@@ -856,7 +856,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#isFirst()
    */
   public boolean isFirst() throws SQLException {
-    if (shouldThrow("isFirst"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isFirst"))
       throw new SQLException("ResultSet bombed");
     return it.isFirst();
   }
@@ -866,7 +866,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#isLast()
    */
   public boolean isLast() throws SQLException {
-    if (shouldThrow("isLast"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isLast"))
       throw new SQLException("ResultSet bombed");
     return it.isLast();
   }
@@ -876,7 +876,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#last()
    */
   public boolean last() throws SQLException {
-    if (shouldThrow("last"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "last"))
       throw new SQLException("ResultSet bombed");
     return it.last();
   }
@@ -886,7 +886,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#moveToCurrentRow()
    */
   public void moveToCurrentRow() throws SQLException {
-    if (shouldThrow("moveToCurrentRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "moveToCurrentRow"))
       throw new SQLException("ResultSet bombed");
     it.moveToCurrentRow();
   }
@@ -896,7 +896,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#moveToInsertRow()
    */
   public void moveToInsertRow() throws SQLException {
-    if (shouldThrow("moveToInsertRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "moveToInsertRow"))
       throw new SQLException("ResultSet bombed");
     it.moveToInsertRow();
   }
@@ -906,7 +906,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#next()
    */
   public boolean next() throws SQLException {
-    if (shouldThrow("next"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "next"))
       throw new SQLException("ResultSet bombed");
 
     return it.next();
@@ -917,7 +917,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#previous()
    */
   public boolean previous() throws SQLException {
-    if (shouldThrow("previous"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "previous"))
       throw new SQLException("ResultSet bombed");
     return it.previous();
   }
@@ -927,7 +927,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#refreshRow()
    */
   public void refreshRow() throws SQLException {
-    if (shouldThrow("refreshRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "refreshRow"))
       throw new SQLException("ResultSet bombed");
     it.refreshRow();
   }
@@ -937,7 +937,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#relative(int)
    */
   public boolean relative(int rows) throws SQLException {
-    if (shouldThrow("relative"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "relative"))
       throw new SQLException("ResultSet bombed");
     return it.relative(rows);
   }
@@ -947,7 +947,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#rowDeleted()
    */
   public boolean rowDeleted() throws SQLException {
-    if (shouldThrow("rowDeleted"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "rowDeleted"))
       throw new SQLException("ResultSet bombed");
     return it.rowDeleted();
   }
@@ -957,7 +957,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#rowInserted()
    */
   public boolean rowInserted() throws SQLException {
-    if (shouldThrow("rowInserted"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "rowInserted"))
       throw new SQLException("ResultSet bombed");
     return it.rowInserted();
   }
@@ -967,7 +967,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#rowUpdated()
    */
   public boolean rowUpdated() throws SQLException {
-    if (shouldThrow("rowUpdated"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "rowUpdated"))
       throw new SQLException("ResultSet bombed");
     return it.rowUpdated();
   }
@@ -977,7 +977,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#setFetchDirection(int)
    */
   public void setFetchDirection(int direction) throws SQLException {
-    if (shouldThrow("setFetchDirection"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setFetchDirection"))
       throw new SQLException("ResultSet bombed");
     it.setFetchDirection(direction);
   }
@@ -987,7 +987,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#setFetchSize(int)
    */
   public void setFetchSize(int rows) throws SQLException {
-    if (shouldThrow("setFetchSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setFetchSize"))
       throw new SQLException("ResultSet bombed");
     it.setFetchSize(rows);
   }
@@ -997,7 +997,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateArray(int, java.sql.Array)
    */
   public void updateArray(int columnIndex, Array x) throws SQLException {
-    if (shouldThrow("updateArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateArray"))
       throw new SQLException("ResultSet bombed");
     it.updateArray(columnIndex, x);
   }
@@ -1007,7 +1007,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateArray(java.lang.String, java.sql.Array)
    */
   public void updateArray(String columnName, Array x) throws SQLException {
-    if (shouldThrow("updateArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateArray"))
       throw new SQLException("ResultSet bombed");
     it.updateArray(columnName, x);
   }
@@ -1018,7 +1018,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateAsciiStream(int columnIndex, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnIndex, x, length);
   }
@@ -1029,7 +1029,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateAsciiStream(String columnName, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnName, x, length);
   }
@@ -1040,7 +1040,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateBigDecimal(int columnIndex, BigDecimal x)
       throws SQLException {
-    if (shouldThrow("updateBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBigDecimal"))
       throw new SQLException("ResultSet bombed");
     it.updateBigDecimal(columnIndex, x);
   }
@@ -1051,7 +1051,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateBigDecimal(String columnName, BigDecimal x)
       throws SQLException {
-    if (shouldThrow("updateBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBigDecimal"))
       throw new SQLException("ResultSet bombed");
     it.updateBigDecimal(columnName, x);
   }
@@ -1062,7 +1062,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateBinaryStream(int columnIndex, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnIndex, x, length);
   }
@@ -1073,7 +1073,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateBinaryStream(String columnName, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnName, x, length);
   }
@@ -1083,7 +1083,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBlob(int, java.sql.Blob)
    */
   public void updateBlob(int columnIndex, Blob x) throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnIndex, x);
   }
@@ -1093,7 +1093,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBlob(java.lang.String, java.sql.Blob)
    */
   public void updateBlob(String columnName, Blob x) throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnName, x);
   }
@@ -1103,7 +1103,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBoolean(int, boolean)
    */
   public void updateBoolean(int columnIndex, boolean x) throws SQLException {
-    if (shouldThrow("updateBoolean"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBoolean"))
       throw new SQLException("ResultSet bombed");
     it.updateBoolean(columnIndex, x);
   }
@@ -1113,7 +1113,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBoolean(java.lang.String, boolean)
    */
   public void updateBoolean(String columnName, boolean x) throws SQLException {
-    if (shouldThrow("updateBoolean"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBoolean"))
       throw new SQLException("ResultSet bombed");
     it.updateBoolean(columnName, x);
   }
@@ -1123,7 +1123,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateByte(int, byte)
    */
   public void updateByte(int columnIndex, byte x) throws SQLException {
-    if (shouldThrow("updateByte"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateByte"))
       throw new SQLException("ResultSet bombed");
     it.updateByte(columnIndex, x);
   }
@@ -1133,7 +1133,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateByte(java.lang.String, byte)
    */
   public void updateByte(String columnName, byte x) throws SQLException {
-    if (shouldThrow("updateByte"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateByte"))
       throw new SQLException("ResultSet bombed");
     it.updateByte(columnName, x);
   }
@@ -1143,7 +1143,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBytes(int, byte[])
    */
   public void updateBytes(int columnIndex, byte[] x) throws SQLException {
-    if (shouldThrow("updateBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBytes"))
       throw new SQLException("ResultSet bombed");
     it.updateBytes(columnIndex, x);
   }
@@ -1153,7 +1153,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateBytes(java.lang.String, byte[])
    */
   public void updateBytes(String columnName, byte[] x) throws SQLException {
-    if (shouldThrow("updateBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBytes"))
       throw new SQLException("ResultSet bombed");
     it.updateBytes(columnName, x);
   }
@@ -1164,7 +1164,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateCharacterStream(int columnIndex, Reader x, int length)
       throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnIndex, x, length);
   }
@@ -1175,7 +1175,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateCharacterStream(String columnName, Reader reader, int length)
       throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnName, reader, length);
   }
@@ -1185,7 +1185,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateClob(int, java.sql.Clob)
    */
   public void updateClob(int columnIndex, Clob x) throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnIndex, x);
   }
@@ -1195,7 +1195,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateClob(java.lang.String, java.sql.Clob)
    */
   public void updateClob(String columnName, Clob x) throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnName, x);
   }
@@ -1205,7 +1205,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateDate(int, java.sql.Date)
    */
   public void updateDate(int columnIndex, Date x) throws SQLException {
-    if (shouldThrow("updateDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateDate"))
       throw new SQLException("ResultSet bombed");
     it.updateDate(columnIndex, x);
   }
@@ -1215,7 +1215,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateDate(java.lang.String, java.sql.Date)
    */
   public void updateDate(String columnName, Date x) throws SQLException {
-    if (shouldThrow("updateDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateDate"))
       throw new SQLException("ResultSet bombed");
     it.updateDate(columnName, x);
   }
@@ -1225,7 +1225,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateDouble(int, double)
    */
   public void updateDouble(int columnIndex, double x) throws SQLException {
-    if (shouldThrow("updateDouble"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateDouble"))
       throw new SQLException("ResultSet bombed");
     it.updateDouble(columnIndex, x);
   }
@@ -1235,7 +1235,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateDouble(java.lang.String, double)
    */
   public void updateDouble(String columnName, double x) throws SQLException {
-    if (shouldThrow("updateDouble"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateDouble"))
       throw new SQLException("ResultSet bombed");
     it.updateDouble(columnName, x);
   }
@@ -1245,7 +1245,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateFloat(int, float)
    */
   public void updateFloat(int columnIndex, float x) throws SQLException {
-    if (shouldThrow("updateFloat"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateFloat"))
       throw new SQLException("ResultSet bombed");
     it.updateFloat(columnIndex, x);
   }
@@ -1255,7 +1255,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateFloat(java.lang.String, float)
    */
   public void updateFloat(String columnName, float x) throws SQLException {
-    if (shouldThrow("updateFloat"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateFloat"))
       throw new SQLException("ResultSet bombed");
     it.updateFloat(columnName, x);
   }
@@ -1265,7 +1265,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateInt(int, int)
    */
   public void updateInt(int columnIndex, int x) throws SQLException {
-    if (shouldThrow("updateInt"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateInt"))
       throw new SQLException("ResultSet bombed");
     it.updateInt(columnIndex, x);
   }
@@ -1275,7 +1275,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateInt(java.lang.String, int)
    */
   public void updateInt(String columnName, int x) throws SQLException {
-    if (shouldThrow("updateInt"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateInt"))
       throw new SQLException("ResultSet bombed");
     it.updateInt(columnName, x);
   }
@@ -1285,7 +1285,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateLong(int, long)
    */
   public void updateLong(int columnIndex, long x) throws SQLException {
-    if (shouldThrow("updateLong"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateLong"))
       throw new SQLException("ResultSet bombed");
     it.updateLong(columnIndex, x);
   }
@@ -1295,7 +1295,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateLong(java.lang.String, long)
    */
   public void updateLong(String columnName, long x) throws SQLException {
-    if (shouldThrow("updateLong"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateLong"))
       throw new SQLException("ResultSet bombed");
     it.updateLong(columnName, x);
   }
@@ -1305,7 +1305,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateNull(int)
    */
   public void updateNull(int columnIndex) throws SQLException {
-    if (shouldThrow("updateNull"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNull"))
       throw new SQLException("ResultSet bombed");
     it.updateNull(columnIndex);
   }
@@ -1315,7 +1315,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateNull(java.lang.String)
    */
   public void updateNull(String columnName) throws SQLException {
-    if (shouldThrow("updateNull"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNull"))
       throw new SQLException("ResultSet bombed");
     it.updateNull(columnName);
   }
@@ -1325,7 +1325,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateObject(int, java.lang.Object)
    */
   public void updateObject(int columnIndex, Object x) throws SQLException {
-    if (shouldThrow("updateObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateObject"))
       throw new SQLException("ResultSet bombed");
     it.updateObject(columnIndex, x);
   }
@@ -1335,7 +1335,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateObject(java.lang.String, java.lang.Object)
    */
   public void updateObject(String columnName, Object x) throws SQLException {
-    if (shouldThrow("updateObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateObject"))
       throw new SQLException("ResultSet bombed");
     it.updateObject(columnName, x);
   }
@@ -1346,7 +1346,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateObject(int columnIndex, Object x, int scale)
       throws SQLException {
-    if (shouldThrow("updateObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateObject"))
       throw new SQLException("ResultSet bombed");
     it.updateObject(columnIndex, x, scale);
   }
@@ -1357,7 +1357,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateObject(String columnName, Object x, int scale)
       throws SQLException {
-    if (shouldThrow("updateObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateObject"))
       throw new SQLException("ResultSet bombed");
     it.updateObject(columnName, x, scale);
   }
@@ -1367,7 +1367,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateRef(int, java.sql.Ref)
    */
   public void updateRef(int columnIndex, Ref x) throws SQLException {
-    if (shouldThrow("updateRef"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateRef"))
       throw new SQLException("ResultSet bombed");
     it.updateRef(columnIndex, x);
   }
@@ -1377,7 +1377,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateRef(java.lang.String, java.sql.Ref)
    */
   public void updateRef(String columnName, Ref x) throws SQLException {
-    if (shouldThrow("updateRef"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateRef"))
       throw new SQLException("ResultSet bombed");
     it.updateRef(columnName, x);
   }
@@ -1387,7 +1387,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateRow()
    */
   public void updateRow() throws SQLException {
-    if (shouldThrow("updateRow"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateRow"))
       throw new SQLException("ResultSet bombed");
     it.updateRow();
   }
@@ -1397,7 +1397,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateShort(int, short)
    */
   public void updateShort(int columnIndex, short x) throws SQLException {
-    if (shouldThrow("updateShort"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateShort"))
       throw new SQLException("ResultSet bombed");
     it.updateShort(columnIndex, x);
   }
@@ -1407,7 +1407,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateShort(java.lang.String, short)
    */
   public void updateShort(String columnName, short x) throws SQLException {
-    if (shouldThrow("updateShort"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateShort"))
       throw new SQLException("ResultSet bombed");
     it.updateShort(columnName, x);
   }
@@ -1417,7 +1417,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateString(int, java.lang.String)
    */
   public void updateString(int columnIndex, String x) throws SQLException {
-    if (shouldThrow("updateString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateString"))
       throw new SQLException("ResultSet bombed");
     it.updateString(columnIndex, x);
   }
@@ -1427,7 +1427,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateString(java.lang.String, java.lang.String)
    */
   public void updateString(String columnName, String x) throws SQLException {
-    if (shouldThrow("updateString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateString"))
       throw new SQLException("ResultSet bombed");
     it.updateString(columnName, x);
   }
@@ -1437,7 +1437,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateTime(int, java.sql.Time)
    */
   public void updateTime(int columnIndex, Time x) throws SQLException {
-    if (shouldThrow("updateTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateTime"))
       throw new SQLException("ResultSet bombed");
     it.updateTime(columnIndex, x);
   }
@@ -1447,7 +1447,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateTime(java.lang.String, java.sql.Time)
    */
   public void updateTime(String columnName, Time x) throws SQLException {
-    if (shouldThrow("updateTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateTime"))
       throw new SQLException("ResultSet bombed");
     it.updateTime(columnName, x);
   }
@@ -1457,7 +1457,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#updateTimestamp(int, java.sql.Timestamp)
    */
   public void updateTimestamp(int columnIndex, Timestamp x) throws SQLException {
-    if (shouldThrow("updateTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateTimestamp"))
       throw new SQLException("ResultSet bombed");
     it.updateTimestamp(columnIndex, x);
   }
@@ -1468,7 +1468,7 @@ public abstract class ThrowingResultSetJdbc3
    */
   public void updateTimestamp(String columnName, Timestamp x)
       throws SQLException {
-    if (shouldThrow("updateTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateTimestamp"))
       throw new SQLException("ResultSet bombed");
     it.updateTimestamp(columnName, x);
   }
@@ -1478,7 +1478,7 @@ public abstract class ThrowingResultSetJdbc3
    * @see java.sql.ResultSet#wasNull()
    */
   public boolean wasNull() throws SQLException {
-    if (shouldThrow("wasNull"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "wasNull"))
       throw new SQLException("ResultSet bombed");
     return it.wasNull();
   }

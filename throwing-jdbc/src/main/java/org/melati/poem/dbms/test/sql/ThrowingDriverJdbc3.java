@@ -67,7 +67,7 @@ public abstract class ThrowingDriverJdbc3
    * @see java.sql.Driver#acceptsURL(java.lang.String)
    */
   public boolean acceptsURL(String url) throws SQLException {
-    if (shouldThrow("acceptsURL"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "acceptsURL"))
       throw new SQLException("Driver bombed");
     return it.acceptsURL(url);
   }
@@ -78,7 +78,7 @@ public abstract class ThrowingDriverJdbc3
    * @see java.sql.Driver#connect(java.lang.String, java.util.Properties)
    */
   public Connection connect(String url, Properties info) throws SQLException {
-    if (shouldThrow("connect"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "connect"))
       throw new SQLException("Driver bombed");
     return new ThrowingConnection(it.connect(url, info));
   }
@@ -117,7 +117,7 @@ public abstract class ThrowingDriverJdbc3
 
   public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
           throws SQLException {
-    if (shouldThrow("getPropertyInfo"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getPropertyInfo"))
       throw new SQLException("Driver bombed");
     return it.getPropertyInfo(url, info);
   }

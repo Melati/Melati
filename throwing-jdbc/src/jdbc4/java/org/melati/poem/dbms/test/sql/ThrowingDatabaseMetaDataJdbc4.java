@@ -68,7 +68,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.DatabaseMetaData#autoCommitFailureClosesAllResultSets()
    */
   public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
-    if (shouldThrow("autoCommitFailureClosesAllResultSets"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "autoCommitFailureClosesAllResultSets"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.autoCommitFailureClosesAllResultSets();
   }
@@ -77,7 +77,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.DatabaseMetaData#getClientInfoProperties()
    */
   public ResultSet getClientInfoProperties() throws SQLException {
-    if (shouldThrow("getClientInfoProperties"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getClientInfoProperties"))
       throw new SQLException("DatabaseMetaData bombed");
     return new ThrowingResultSet(it.getClientInfoProperties());
   }
@@ -88,7 +88,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
   public ResultSet getFunctionColumns(String catalog, String schemaPattern,
           String functionNamePattern, String columnNamePattern)
           throws SQLException {
-    if (shouldThrow("getFunctionColumns"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFunctionColumns"))
       throw new SQLException("DatabaseMetaData bombed");
     return  new ThrowingResultSet(it.getFunctionColumns(catalog, schemaPattern, functionNamePattern, catalog));
   }
@@ -98,7 +98,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    */
   public ResultSet getFunctions(String catalog, String schemaPattern,
           String functionNamePattern) throws SQLException {
-    if (shouldThrow("getFunctions"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFunctions"))
       throw new SQLException("DatabaseMetaData bombed");
     return  new ThrowingResultSet(it.getFunctions(catalog, schemaPattern, functionNamePattern));
   }
@@ -107,7 +107,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.DatabaseMetaData#getRowIdLifetime()
    */
   public RowIdLifetime getRowIdLifetime() throws SQLException {
-    if (shouldThrow("getRowIdLifetime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRowIdLifetime"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.getRowIdLifetime();
   }
@@ -117,7 +117,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    */
   public ResultSet getSchemas(String catalog, String schemaPattern)
           throws SQLException {
-    if (shouldThrow("getSchemas"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSchemas"))
       throw new SQLException("DatabaseMetaData bombed");
     return  new ThrowingResultSet(it.getSchemas());
   }
@@ -126,7 +126,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.DatabaseMetaData#supportsStoredFunctionsUsingCallSyntax()
    */
   public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
-    if (shouldThrow("supportsStoredFunctionsUsingCallSyntax"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "supportsStoredFunctionsUsingCallSyntax"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.supportsStoredFunctionsUsingCallSyntax();
   }
@@ -135,7 +135,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
    */
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.isWrapperFor(iface);
   }
@@ -144,7 +144,7 @@ public abstract class ThrowingDatabaseMetaDataJdbc4
    * @see java.sql.Wrapper#unwrap(java.lang.Class)
    */
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.unwrap(iface);
   }

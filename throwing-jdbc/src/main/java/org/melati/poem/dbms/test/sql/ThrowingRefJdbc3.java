@@ -63,7 +63,7 @@ public class ThrowingRefJdbc3 extends Thrower implements Ref {
    */
 
   public String getBaseTypeName() throws SQLException {
-    if (shouldThrow("getBaseTypeName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBaseTypeName"))
       throw new SQLException("Ref bombed");
     return it.getBaseTypeName();
   }
@@ -74,7 +74,7 @@ public class ThrowingRefJdbc3 extends Thrower implements Ref {
    */
 
   public Object getObject() throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("Ref bombed");
     return it.getObject();
   }
@@ -85,7 +85,7 @@ public class ThrowingRefJdbc3 extends Thrower implements Ref {
    */
 
   public Object getObject(Map map) throws SQLException {
-    if (shouldThrow("getObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("Ref bombed");
     return it.getObject();
   }
@@ -96,7 +96,7 @@ public class ThrowingRefJdbc3 extends Thrower implements Ref {
    */
 
   public void setObject(Object value) throws SQLException {
-    if (shouldThrow("setObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setObject"))
       throw new SQLException("Ref bombed");
     it.setObject(value);
   }

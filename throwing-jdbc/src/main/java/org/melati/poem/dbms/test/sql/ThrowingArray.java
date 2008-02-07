@@ -54,23 +54,9 @@ import java.util.Map;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingArray  extends ThrowingArrayVariant implements Array {
-
-  final static String className = ThrowingArray.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
+public class ThrowingArray  
+    extends ThrowingArrayVariant 
+    implements Array {
 
   /**
    * Constructor.
@@ -85,7 +71,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getArray()
    */
   public Object getArray() throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
   }
@@ -95,7 +81,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getArray(java.util.Map)
    */
   public Object getArray(Map map) throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
   }
@@ -105,7 +91,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getArray(long, int)
    */
   public Object getArray(long index, int count) throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
   }
@@ -116,7 +102,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    */
   public Object getArray(long index, int count, Map map)
           throws SQLException {
-    if (shouldThrow("getArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
   }
@@ -126,7 +112,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getBaseType()
    */
   public int getBaseType() throws SQLException {
-    if (shouldThrow("getBaseType"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBaseType"))
       throw new SQLException("Array bombed");
     return it.getBaseType();
   }
@@ -136,7 +122,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getBaseTypeName()
    */
   public String getBaseTypeName() throws SQLException {
-    if (shouldThrow("getBaseTypeName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBaseTypeName"))
       throw new SQLException("Array bombed");
     return it.getBaseTypeName();
   }
@@ -146,7 +132,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getResultSet()
    */
   public ResultSet getResultSet() throws SQLException {
-    if (shouldThrow("getResultSet"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");
     return new ThrowingResultSet(it.getResultSet());
   }
@@ -156,7 +142,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getResultSet(java.util.Map)
    */
   public ResultSet getResultSet(Map map) throws SQLException {
-    if (shouldThrow("getResultSet"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");
     return  new ThrowingResultSet(it.getResultSet());
   }
@@ -166,7 +152,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    * @see java.sql.Array#getResultSet(long, int)
    */
   public ResultSet getResultSet(long index, int count) throws SQLException {
-    if (shouldThrow("getResultSet"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");
     return  new ThrowingResultSet(it.getResultSet());
   }
@@ -177,7 +163,7 @@ public class ThrowingArray  extends ThrowingArrayVariant implements Array {
    */
   public ResultSet getResultSet(long index, int count, Map map)
           throws SQLException {
-    if (shouldThrow("getResultSet"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");
     return  new ThrowingResultSet(it.getResultSet());
   }

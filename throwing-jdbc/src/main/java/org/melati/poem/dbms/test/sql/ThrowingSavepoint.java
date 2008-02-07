@@ -53,21 +53,6 @@ import java.sql.Savepoint;
  */
 public class ThrowingSavepoint extends Thrower implements Savepoint {
   
-  final static String className = ThrowingSavepoint.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-  
   Savepoint it = null;
   
   /**
@@ -83,7 +68,7 @@ public class ThrowingSavepoint extends Thrower implements Savepoint {
    * @see java.sql.Savepoint#getSavepointId()
    */
   public int getSavepointId() throws SQLException {
-    if (shouldThrow("getSavepointId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSavepointId"))
       throw new SQLException("Savepoint bombed");
     return it.getSavepointId();
   }
@@ -93,7 +78,7 @@ public class ThrowingSavepoint extends Thrower implements Savepoint {
    * @see java.sql.Savepoint#getSavepointName()
    */
   public String getSavepointName() throws SQLException {
-    if (shouldThrow("getSavepointName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSavepointName"))
       throw new SQLException("Savepoint bombed");
     return it.getSavepointName();
   }

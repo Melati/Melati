@@ -75,7 +75,7 @@ public abstract class ThrowingConnectionJdbc4
 
   public Array createArrayOf(String typeName, Object[] elements)
           throws SQLException {
-    if (shouldThrow("createArrayOf"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createArrayOf"))
       throw new SQLException("Connection bombed");
     return new ThrowingArray(it.createArrayOf(typeName, elements));
   }
@@ -85,7 +85,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public Blob createBlob() throws SQLException {
-    if (shouldThrow("createBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createBlob"))
       throw new SQLException("Connection bombed");
     return new ThrowingBlob(it.createBlob());
   }
@@ -95,7 +95,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public Clob createClob() throws SQLException {
-    if (shouldThrow("createClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createClob"))
       throw new SQLException("Connection bombed");
     return new ThrowingClob(it.createClob());
   }
@@ -105,7 +105,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public NClob createNClob() throws SQLException {
-    if (shouldThrow("createNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createNClob"))
       throw new SQLException("Connection bombed");
     return  new ThrowingNClob(it.createNClob());
   }
@@ -115,7 +115,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public SQLXML createSQLXML() throws SQLException {
-    if (shouldThrow("createSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createSQLXML"))
       throw new SQLException("Connection bombed");
     return new ThrowingSQLXML(it.createSQLXML());
   }
@@ -126,7 +126,7 @@ public abstract class ThrowingConnectionJdbc4
 
   public Struct createStruct(String typeName, Object[] attributes)
           throws SQLException {
-    if (shouldThrow("createStruct"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createStruct"))
       throw new SQLException("Connection bombed");
     return new ThrowingStruct(it.createStruct(typeName, attributes));
   }
@@ -136,7 +136,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public Properties getClientInfo() throws SQLException {
-    if (shouldThrow("getClientInfo"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getClientInfo"))
       throw new SQLException("Connection bombed");
     return it.getClientInfo();
   }
@@ -146,7 +146,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public String getClientInfo(String name) throws SQLException {
-    if (shouldThrow("getClientInfo"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getClientInfo"))
       throw new SQLException("Connection bombed");
     return it.getClientInfo(name);
   }
@@ -156,7 +156,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public boolean isValid(int timeout) throws SQLException {
-    if (shouldThrow("isValid"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isValid"))
       throw new SQLException("Connection bombed");
     return it.isValid(timeout);
   }
@@ -167,7 +167,7 @@ public abstract class ThrowingConnectionJdbc4
 
   public void setClientInfo(Properties properties)
           throws SQLClientInfoException {
-    if (shouldThrow("setClientInfo"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClientInfo"))
       throw new SQLClientInfoException();
     it.setClientInfo(properties);
   }
@@ -178,7 +178,7 @@ public abstract class ThrowingConnectionJdbc4
 
   public void setClientInfo(String name, String value)
           throws SQLClientInfoException {
-    if (shouldThrow("setClientInfo"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClientInfo"))
       throw new SQLClientInfoException();
     it.setClientInfo(name, value);
   }
@@ -188,7 +188,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("Connection bombed");
     return it.isWrapperFor(iface);
   }
@@ -198,7 +198,7 @@ public abstract class ThrowingConnectionJdbc4
    */
 
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("Connection bombed");
     return it.unwrap(iface);
   }

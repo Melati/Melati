@@ -80,7 +80,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#addBatch()
    */
   public void addBatch() throws SQLException {
-    if (shouldThrow("addBatch"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "addBatch"))
       throw new SQLException("PreparedStatement bombed");
     it.addBatch();
   }
@@ -91,7 +91,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#clearParameters()
    */
   public void clearParameters() throws SQLException {
-    if (shouldThrow("clearParameters"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "clearParameters"))
       throw new SQLException("PreparedStatement bombed");
     it.clearParameters();
   }
@@ -102,7 +102,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#execute()
    */
   public boolean execute() throws SQLException {
-    if (shouldThrow("execute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "execute"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.execute();
@@ -114,7 +114,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#executeQuery()
    */
   public ResultSet executeQuery() throws SQLException {
-    if (shouldThrow("executeQuery"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingResultSet(it.executeQuery());
@@ -126,7 +126,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#executeUpdate()
    */
   public int executeUpdate() throws SQLException {
-    if (shouldThrow("executeUpdate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeUpdate();
@@ -138,7 +138,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#getMetaData()
    */
   public ResultSetMetaData getMetaData() throws SQLException {
-    if (shouldThrow("getMetaData"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingResultSetMetaData(it.getMetaData());
@@ -150,7 +150,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#getParameterMetaData()
    */
   public ParameterMetaData getParameterMetaData() throws SQLException {
-    if (shouldThrow("getParameterMetaData"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingParameterMetaData(it.getParameterMetaData());
@@ -162,7 +162,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setArray(int, java.sql.Array)
    */
   public void setArray(int i, Array x) throws SQLException {
-    if (shouldThrow("setArray"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setArray"))
       throw new SQLException("PreparedStatement bombed");
     it.setArray(i, x);
   }
@@ -175,7 +175,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setAsciiStream(int parameterIndex, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("PreparedStatement bombed");
     it.setAsciiStream(parameterIndex, x, length);
   }
@@ -187,7 +187,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setBigDecimal(int parameterIndex, BigDecimal x)
       throws SQLException {
-    if (shouldThrow("setBigDecimal"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBigDecimal"))
       throw new SQLException("PreparedStatement bombed");
     it.setBigDecimal(parameterIndex, x);
   }
@@ -200,7 +200,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setBinaryStream(int parameterIndex, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("PreparedStatement bombed");
     it.setBinaryStream(parameterIndex, x, length);
   }
@@ -211,7 +211,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setBlob(int, java.sql.Blob)
    */
   public void setBlob(int i, Blob x) throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("PreparedStatement bombed");
     it.setBlob(i, x);
   }
@@ -222,7 +222,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setBoolean(int, boolean)
    */
   public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-    if (shouldThrow("setBoolean"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBoolean"))
       throw new SQLException("PreparedStatement bombed");
     it.setBoolean(parameterIndex, x);
   }
@@ -233,7 +233,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setByte(int, byte)
    */
   public void setByte(int parameterIndex, byte x) throws SQLException {
-    if (shouldThrow("setByte"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setByte"))
       throw new SQLException("PreparedStatement bombed");
     it.setByte(parameterIndex, x);
   }
@@ -244,7 +244,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setBytes(int, byte[])
    */
   public void setBytes(int parameterIndex, byte[] x) throws SQLException {
-    if (shouldThrow("setBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBytes"))
       throw new SQLException("PreparedStatement bombed");
     it.setBytes(parameterIndex, x);
   }
@@ -257,7 +257,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setCharacterStream(int parameterIndex, Reader reader, int length)
       throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("PreparedStatement bombed");
     it.setCharacterStream(parameterIndex, reader, length);
   }
@@ -268,7 +268,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setClob(int, java.sql.Clob)
    */
   public void setClob(int i, Clob x) throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("PreparedStatement bombed");
     it.setClob(i, x);
   }
@@ -279,7 +279,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setDate(int, java.sql.Date)
    */
   public void setDate(int parameterIndex, Date x) throws SQLException {
-    if (shouldThrow("setDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setDate"))
       throw new SQLException("PreparedStatement bombed");
     it.setDate(parameterIndex, x);
   }
@@ -292,7 +292,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setDate(int parameterIndex, Date x, Calendar cal)
       throws SQLException {
-    if (shouldThrow("setDate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setDate"))
       throw new SQLException("PreparedStatement bombed");
     it.setDate(parameterIndex, x, cal);
   }
@@ -303,7 +303,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setDouble(int, double)
    */
   public void setDouble(int parameterIndex, double x) throws SQLException {
-    if (shouldThrow("setDouble"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setDouble"))
       throw new SQLException("PreparedStatement bombed");
     it.setDouble(parameterIndex, x);
   }
@@ -314,7 +314,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setFloat(int, float)
    */
   public void setFloat(int parameterIndex, float x) throws SQLException {
-    if (shouldThrow("setFloat"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setFloat"))
       throw new SQLException("PreparedStatement bombed");
     it.setFloat(parameterIndex, x);
   }
@@ -325,7 +325,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setInt(int, int)
    */
   public void setInt(int parameterIndex, int x) throws SQLException {
-    if (shouldThrow("setInt"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setInt"))
       throw new SQLException("PreparedStatement bombed");
     it.setInt(parameterIndex, x);
   }
@@ -336,7 +336,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setLong(int, long)
    */
   public void setLong(int parameterIndex, long x) throws SQLException {
-    if (shouldThrow("setLong"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setLong"))
       throw new SQLException("PreparedStatement bombed");
     it.setLong(parameterIndex, x);
   }
@@ -347,7 +347,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setNull(int, int)
    */
   public void setNull(int parameterIndex, int sqlType) throws SQLException {
-    if (shouldThrow("setNull"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNull"))
       throw new SQLException("PreparedStatement bombed");
     it.setNull(parameterIndex, sqlType);
   }
@@ -359,7 +359,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setNull(int paramIndex, int sqlType, String typeName)
       throws SQLException {
-    if (shouldThrow("setNull"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNull"))
       throw new SQLException("PreparedStatement bombed");
     it.setNull(paramIndex, sqlType, typeName);
   }
@@ -370,7 +370,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setObject(int, java.lang.Object)
    */
   public void setObject(int parameterIndex, Object x) throws SQLException {
-    if (shouldThrow("setObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setObject"))
       throw new SQLException("PreparedStatement bombed");
     it.setObject(parameterIndex, x);
   }
@@ -382,7 +382,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setObject(int parameterIndex, Object x, int targetSqlType)
       throws SQLException {
-    if (shouldThrow("setObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setObject"))
       throw new SQLException("PreparedStatement bombed");
     it.setObject(parameterIndex, x, targetSqlType);
   }
@@ -394,7 +394,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setObject(int parameterIndex, Object x, int targetSqlType,
       int scale) throws SQLException {
-    if (shouldThrow("setObject"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setObject"))
       throw new SQLException("PreparedStatement bombed");
     it.setObject(parameterIndex, x, targetSqlType, scale);
   }
@@ -405,7 +405,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setRef(int, java.sql.Ref)
    */
   public void setRef(int i, Ref x) throws SQLException {
-    if (shouldThrow("setRef"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setRef"))
       throw new SQLException("PreparedStatement bombed");
     it.setRef(i, x);
   }
@@ -416,7 +416,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setShort(int, short)
    */
   public void setShort(int parameterIndex, short x) throws SQLException {
-    if (shouldThrow("setShort"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setShort"))
       throw new SQLException("PreparedStatement bombed");
     it.setShort(parameterIndex, x);
   }
@@ -427,7 +427,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setString(int, java.lang.String)
    */
   public void setString(int parameterIndex, String x) throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("PreparedStatement bombed");
     it.setString(parameterIndex, x);
   }
@@ -438,7 +438,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setTime(int, java.sql.Time)
    */
   public void setTime(int parameterIndex, Time x) throws SQLException {
-    if (shouldThrow("setTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTime"))
       throw new SQLException("PreparedStatement bombed");
     it.setTime(parameterIndex, x);
   }
@@ -451,7 +451,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setTime(int parameterIndex, Time x, Calendar cal)
       throws SQLException {
-    if (shouldThrow("setTime"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTime"))
       throw new SQLException("PreparedStatement bombed");
     it.setTime(parameterIndex, x, cal);
   }
@@ -462,7 +462,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setTimestamp(int, java.sql.Timestamp)
    */
   public void setTimestamp(int parameterIndex, Timestamp x) throws SQLException {
-    if (shouldThrow("setTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTimestamp"))
       throw new SQLException("PreparedStatement bombed");
     it.setTimestamp(parameterIndex, x);
   }
@@ -475,7 +475,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal)
       throws SQLException {
-    if (shouldThrow("setTimestamp"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTimestamp"))
       throw new SQLException("PreparedStatement bombed");
     it.setTimestamp(parameterIndex, x, cal);
   }
@@ -486,7 +486,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setURL(int, java.net.URL)
    */
   public void setURL(int parameterIndex, URL x) throws SQLException {
-    if (shouldThrow("setURL"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setURL"))
       throw new SQLException("PreparedStatement bombed");
     it.setURL(parameterIndex, x);
   }
@@ -499,7 +499,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public void setUnicodeStream(int parameterIndex, InputStream x, int length)
       throws SQLException {
-    if (shouldThrow("setUnicodeStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setUnicodeStream"))
       throw new SQLException("PreparedStatement bombed");
    // p.setUnicodeStream(parameterIndex, x, length);
   }
@@ -510,7 +510,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#addBatch(java.lang.String)
    */
   public void addBatch(String sql) throws SQLException {
-    if (shouldThrow("addBatch"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "addBatch"))
       throw new SQLException("PreparedStatement bombed");
     it.addBatch();
   }
@@ -521,7 +521,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#cancel()
    */
   public void cancel() throws SQLException {
-    if (shouldThrow("cancel"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "cancel"))
       throw new SQLException("PreparedStatement bombed");
     it.cancel();
   }
@@ -532,7 +532,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#clearBatch()
    */
   public void clearBatch() throws SQLException {
-    if (shouldThrow("clearBatch"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "clearBatch"))
       throw new SQLException("PreparedStatement bombed");
     it.clearBatch();
   }
@@ -543,7 +543,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#clearWarnings()
    */
   public void clearWarnings() throws SQLException {
-    if (shouldThrow("clearWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "clearWarnings"))
       throw new SQLException("PreparedStatement bombed");
     it.clearWarnings();
   }
@@ -554,7 +554,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#close()
    */
   public void close() throws SQLException {
-    if (shouldThrow("close"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "close"))
       throw new SQLException("PreparedStatement bombed");
     it.close();
   }
@@ -565,7 +565,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#execute(java.lang.String)
    */
   public boolean execute(String sql) throws SQLException {
-    if (shouldThrow("execute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "execute"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.execute(sql);
@@ -577,7 +577,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#execute(java.lang.String, int)
    */
   public boolean execute(String sql, int autoGeneratedKeys) throws SQLException {
-    if (shouldThrow("execute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "execute"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.execute(sql, autoGeneratedKeys);
@@ -589,7 +589,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#execute(java.lang.String, int[])
    */
   public boolean execute(String sql, int[] columnIndexes) throws SQLException {
-    if (shouldThrow("execute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "execute"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.execute(sql, columnIndexes);
@@ -601,7 +601,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#execute(java.lang.String, java.lang.String[])
    */
   public boolean execute(String sql, String[] columnNames) throws SQLException {
-    if (shouldThrow("execute"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "execute"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.execute(sql, columnNames);
@@ -613,7 +613,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#executeBatch()
    */
   public int[] executeBatch() throws SQLException {
-    if (shouldThrow("executeBatch"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeBatch"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeBatch();
@@ -625,7 +625,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#executeQuery(java.lang.String)
    */
   public ResultSet executeQuery(String sql) throws SQLException {
-    if (shouldThrow("executeQuery"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingResultSet(it.executeQuery(sql));
@@ -637,7 +637,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#executeUpdate(java.lang.String)
    */
   public int executeUpdate(String sql) throws SQLException {
-    if (shouldThrow("executeUpdate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeUpdate(sql);
@@ -650,7 +650,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public int executeUpdate(String sql, int autoGeneratedKeys)
       throws SQLException {
-    if (shouldThrow("executeUpdate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeUpdate(sql, autoGeneratedKeys);
@@ -662,7 +662,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#executeUpdate(java.lang.String, int[])
    */
   public int executeUpdate(String sql, int[] columnIndexes) throws SQLException {
-    if (shouldThrow("executeUpdate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeUpdate(sql, columnIndexes);
@@ -675,7 +675,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    */
   public int executeUpdate(String sql, String[] columnNames)
       throws SQLException {
-    if (shouldThrow("executeUpdate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.executeUpdate(sql, columnNames);
@@ -687,7 +687,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getConnection()
    */
   public Connection getConnection() throws SQLException {
-    if (shouldThrow("getConnection"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getConnection"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingConnection(it.getConnection());
@@ -699,7 +699,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getFetchDirection()
    */
   public int getFetchDirection() throws SQLException {
-    if (shouldThrow("getFetchDirection"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFetchDirection"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getFetchDirection();
@@ -711,7 +711,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getFetchSize()
    */
   public int getFetchSize() throws SQLException {
-    if (shouldThrow("getFetchSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getFetchSize"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getFetchSize();
@@ -723,7 +723,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getGeneratedKeys()
    */
   public ResultSet getGeneratedKeys() throws SQLException {
-    if (shouldThrow("getGeneratedKeys"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getGeneratedKeys"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingResultSet(it.getGeneratedKeys());
@@ -735,7 +735,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getMaxFieldSize()
    */
   public int getMaxFieldSize() throws SQLException {
-    if (shouldThrow("getMaxFieldSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMaxFieldSize"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getMaxFieldSize();
@@ -747,7 +747,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getMaxRows()
    */
   public int getMaxRows() throws SQLException {
-    if (shouldThrow("getMaxRows"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMaxRows"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getMaxRows();
@@ -759,7 +759,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getMoreResults()
    */
   public boolean getMoreResults() throws SQLException {
-    if (shouldThrow("getMoreResults"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMoreResults"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getMoreResults();
@@ -771,7 +771,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getMoreResults(int)
    */
   public boolean getMoreResults(int current) throws SQLException {
-    if (shouldThrow("getMoreResults"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMoreResults"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getMoreResults(current);
@@ -783,7 +783,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getQueryTimeout()
    */
   public int getQueryTimeout() throws SQLException {
-    if (shouldThrow("getQueryTimeout"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getQueryTimeout"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getQueryTimeout();
@@ -795,7 +795,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getResultSet()
    */
   public ResultSet getResultSet() throws SQLException {
-    if (shouldThrow("getResultSet"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("PreparedStatement bombed");
 
     return new ThrowingResultSet(it.getResultSet());
@@ -807,7 +807,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getResultSetConcurrency()
    */
   public int getResultSetConcurrency() throws SQLException {
-    if (shouldThrow("getResultSetConcurrency"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSetConcurrency"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getResultSetConcurrency();
@@ -819,7 +819,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getResultSetHoldability()
    */
   public int getResultSetHoldability() throws SQLException {
-    if (shouldThrow("getResultSetHoldability"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSetHoldability"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getResultSetHoldability();
@@ -831,7 +831,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getResultSetType()
    */
   public int getResultSetType() throws SQLException {
-    if (shouldThrow("getResultSetType"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSetType"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getResultSetType();
@@ -843,7 +843,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getUpdateCount()
    */
   public int getUpdateCount() throws SQLException {
-    if (shouldThrow("getUpdateCount"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getUpdateCount"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getUpdateCount();
@@ -855,7 +855,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#getWarnings()
    */
   public SQLWarning getWarnings() throws SQLException {
-    if (shouldThrow("getWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getWarnings"))
       throw new SQLException("PreparedStatement bombed");
 
     return it.getWarnings();
@@ -867,7 +867,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setCursorName(java.lang.String)
    */
   public void setCursorName(String name) throws SQLException {
-    if (shouldThrow("setCursorName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCursorName"))
       throw new SQLException("PreparedStatement bombed");
     it.setCursorName(name);
   }
@@ -878,7 +878,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setEscapeProcessing(boolean)
    */
   public void setEscapeProcessing(boolean enable) throws SQLException {
-    if (shouldThrow("setEscapeProcessing"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setEscapeProcessing"))
       throw new SQLException("PreparedStatement bombed");
     it.setEscapeProcessing(enable);
   }
@@ -889,7 +889,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setFetchDirection(int)
    */
   public void setFetchDirection(int direction) throws SQLException {
-    if (shouldThrow("setFetchDirection"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setFetchDirection"))
       throw new SQLException("PreparedStatement bombed");
     it.setFetchDirection(direction);
   }
@@ -900,7 +900,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setFetchSize(int)
    */
   public void setFetchSize(int rows) throws SQLException {
-    if (shouldThrow("setFetchSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setFetchSize"))
       throw new SQLException("PreparedStatement bombed");
     it.setFetchSize(rows);
   }
@@ -911,7 +911,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setMaxFieldSize(int)
    */
   public void setMaxFieldSize(int max) throws SQLException {
-    if (shouldThrow("setMaxFieldSize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setMaxFieldSize"))
       throw new SQLException("PreparedStatement bombed");
     it.setMaxFieldSize(max);
   }
@@ -922,7 +922,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setMaxRows(int)
    */
   public void setMaxRows(int max) throws SQLException {
-    if (shouldThrow("setMaxRows"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setMaxRows"))
       throw new SQLException("PreparedStatement bombed");
     it.setMaxRows(max);
   }
@@ -933,7 +933,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.Statement#setQueryTimeout(int)
    */
   public void setQueryTimeout(int seconds) throws SQLException {
-    if (shouldThrow("setQueryTimeout"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setQueryTimeout"))
       throw new SQLException("PreparedStatement bombed");
     it.setQueryTimeout(seconds);
   }

@@ -57,127 +57,127 @@ public abstract class ThrowingResultSetMetaDataJdbc3 extends Thrower implements 
   ResultSetMetaData it = null;
 
   public String getCatalogName(int column) throws SQLException {
-    if (shouldThrow("getCatalogName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCatalogName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getCatalogName(column);
   }
 
   public String getColumnClassName(int column) throws SQLException {
-    if (shouldThrow("getColumnClassName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnClassName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnClassName(column);
   }
 
   public int getColumnCount() throws SQLException {
-    if (shouldThrow("getColumnCount"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnCount"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnCount();
   }
 
   public int getColumnDisplaySize(int column) throws SQLException {
-    if (shouldThrow("getColumnDisplaySize"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnDisplaySize"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnDisplaySize(column);
   }
 
   public String getColumnLabel(int column) throws SQLException {
-    if (shouldThrow("getColumnLabel"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnLabel"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnLabel(column);
   }
 
   public String getColumnName(int column) throws SQLException {
-    if (shouldThrow("getColumnName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnName(column);
   }
 
   public int getColumnType(int column) throws SQLException {
-    if (shouldThrow("getColumnType"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnType"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnType(column);
   }
 
   public String getColumnTypeName(int column) throws SQLException {
-    if (shouldThrow("getColumnTypeName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getColumnTypeName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getColumnTypeName(column);
  }
 
   public int getPrecision(int column) throws SQLException {
-    if (shouldThrow("getPrecision"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getPrecision"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getPrecision(column);
   }
 
   public int getScale(int column) throws SQLException {
-    if (shouldThrow("getScale"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getScale"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getScale(column);
   }
 
   public String getSchemaName(int column) throws SQLException {
-    if (shouldThrow("getSchemaName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSchemaName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getSchemaName(column);
   }
 
   public String getTableName(int column) throws SQLException {
-    if (shouldThrow("getTableName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTableName"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.getTableName(column);
   }
 
   public boolean isAutoIncrement(int column) throws SQLException {
-    if (shouldThrow("isAutoIncrement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isAutoIncrement"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isAutoIncrement(column);
   }
 
   public boolean isCaseSensitive(int column) throws SQLException {
-    if (shouldThrow("isCaseSensitive"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isCaseSensitive"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isCaseSensitive(column);
   }
 
   public boolean isCurrency(int column) throws SQLException {
-    if (shouldThrow("isCurrency"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isCurrency"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isCurrency(column);
   }
 
   public boolean isDefinitelyWritable(int column) throws SQLException {
-    if (shouldThrow("isDefinitelyWritable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isDefinitelyWritable"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isDefinitelyWritable(column);
   }
 
   public int isNullable(int column) throws SQLException {
-    if (shouldThrow("isNullable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isNullable"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isNullable(column);
   }
 
   public boolean isReadOnly(int column) throws SQLException {
-    if (shouldThrow("isReadOnly"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isReadOnly"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isReadOnly(column);
   }
 
   public boolean isSearchable(int column) throws SQLException {
-    if (shouldThrow("isSearchable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isSearchable"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isSearchable(column);
   }
 
   public boolean isSigned(int column) throws SQLException {
-    if (shouldThrow("isSigned"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isSigned"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isSigned(column);
   }
 
   public boolean isWritable(int column) throws SQLException {
-    if (shouldThrow("isWritable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWritable"))
       throw new SQLException("ResultSetMetaData bombed");
     return it.isWritable(column);
   }

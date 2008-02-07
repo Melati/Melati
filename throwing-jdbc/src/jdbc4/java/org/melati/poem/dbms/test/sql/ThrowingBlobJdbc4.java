@@ -62,7 +62,7 @@ public abstract class ThrowingBlobJdbc4
    * @see java.sql.Blob#free()
    */
   public void free() throws SQLException {
-    if (shouldThrow("free"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "free"))
       throw new SQLException("Blob bombed");
     it.free();
   }
@@ -72,7 +72,7 @@ public abstract class ThrowingBlobJdbc4
    * @see java.sql.Blob#getBinaryStream(long, long)
    */
   public InputStream getBinaryStream(long pos, long length) throws SQLException {
-    if (shouldThrow("getBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBinaryStream"))
       throw new SQLException("Blob bombed");
     return it.getBinaryStream();
   }

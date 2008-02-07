@@ -56,38 +56,6 @@ public class ThrowingDriver
     extends ThrowingDriverVariant 
     implements Driver {
 
-  final static String className = ThrowingDriver.class.getName() + ".";
-  
-  /**
-   * @param methodName the name of the method to set to start to throw
-   */
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  
-  /**
-   * @param methodName the name of the method to set to start to throw
-   * @param goes the number of invocations before throwing should be happen
-   */
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  /**
-   * @param methodName the name of the method to set to no longer throw
-   */
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  
-  /**
-   * @param methodName the name of the method to check
-   * @return whether the named method should throw an exception
-   */
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
-  
   /**
    * Constructor.
    * @param d the driver to decorate

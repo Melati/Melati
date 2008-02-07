@@ -61,21 +61,6 @@ import javax.xml.transform.Source;
  */
 public class ThrowingSQLXML extends Thrower implements SQLXML {
   
-  final static String className = ThrowingSQLXML.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
   SQLXML it = null;
   
 
@@ -92,7 +77,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public void free() throws SQLException {
-    if (shouldThrow("free"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "free"))
       throw new SQLException("SQLXML bombed");
     it.free();
   }
@@ -103,7 +88,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public InputStream getBinaryStream() throws SQLException {
-    if (shouldThrow("getBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBinaryStream"))
       throw new SQLException("SQLXML bombed");
     return it.getBinaryStream();
   }
@@ -114,7 +99,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public Reader getCharacterStream() throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("SQLXML bombed");
     return it.getCharacterStream();
   }
@@ -126,7 +111,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
 
   public <T extends Source> T getSource(Class<T> sourceClass)
           throws SQLException {
-    if (shouldThrow("getSource"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSource"))
       throw new SQLException("SQLXML bombed");
     return it.getSource(sourceClass);
   }
@@ -137,7 +122,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public String getString() throws SQLException {
-    if (shouldThrow("getString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getString"))
       throw new SQLException("SQLXML bombed");
     return it.getString();
   }
@@ -148,7 +133,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public OutputStream setBinaryStream() throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("SQLXML bombed");
     return it.setBinaryStream();
   }
@@ -159,7 +144,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public Writer setCharacterStream() throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("SQLXML bombed");
     return it.setCharacterStream();
   }
@@ -171,7 +156,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
 
   public <T extends Result> T setResult(Class<T> resultClass)
           throws SQLException {
-    if (shouldThrow("setResult"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setResult"))
       throw new SQLException("SQLXML bombed");
     return it.setResult(resultClass);
   }
@@ -182,7 +167,7 @@ public class ThrowingSQLXML extends Thrower implements SQLXML {
    */
 
   public void setString(String value) throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("SQLXML bombed");
     it.setString(value);
   }

@@ -59,41 +59,50 @@ public abstract class Thrower {
 
   /**
    * Tell named method to start throwing exceptions.
+   * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void startThrowing(String methodName) {
-    throwers.put(methodName, new Integer(1));
+  public static void startThrowing(Class i, String methodName) {
+    String fullName = i.getName() + "." + methodName;
+    System.err.println("StartThrowing: " + fullName);
+    throwers.put(fullName, new Integer(1));
   }
   /**
    * Tell named method to start throwing exceptions.
+   * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void startThrowingAfter(String methodName, int goes) {
-    throwers.put(methodName, new Integer(1 + goes));
+  public static void startThrowingAfter(Class i, String methodName, int goes) {
+    String fullName = i.getName() + "." + methodName;
+    throwers.put(fullName, new Integer(1 + goes));
   }
   /**
    * Tell named method to stop throwing exceptions.
+   * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void stopThrowing(String methodName) {
-    throwers.put(methodName, new Integer(0));
+  public static void stopThrowing(Class i, String methodName) {
+    String fullName = i.getName() + "." + methodName;
+    throwers.put(fullName, new Integer(0));
   }
   /**
+   * @param i Interface class object
    * @param methodName name in class.methodName format
    * @return whether method named should throw exception
    */
-  public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null) 
-      throwers.put(methodName, new Integer(0));
-    int toGo = ((Integer)throwers.get(methodName)).intValue(); 
+  public static boolean shouldThrow(Class i, String methodName) {
+    String fullName = i.getName() + "." + methodName;
+    System.err.println("Shouldthrow: " + fullName);
+    if (throwers.get(fullName) == null) 
+      throwers.put(fullName, new Integer(0));
+    int toGo = ((Integer)throwers.get(fullName)).intValue(); 
     if (toGo == 0)  
       return false;
     else { 
       toGo = toGo - 1;
-      throwers.put(methodName, new Integer(toGo));
+      throwers.put(fullName, new Integer(toGo));
       return toGo == 0 ? true : false;
     }
   }
-
 
 }

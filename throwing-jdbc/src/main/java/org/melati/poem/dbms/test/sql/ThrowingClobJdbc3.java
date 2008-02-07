@@ -68,7 +68,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public InputStream getAsciiStream() throws SQLException {
-    if (shouldThrow("getAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAsciiStream"))
       throw new SQLException("Clob bombed");
     return it.getAsciiStream();
   }
@@ -79,7 +79,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public Reader getCharacterStream() throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("Clob bombed");
     return it.getCharacterStream();
   }
@@ -90,7 +90,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public String getSubString(long pos, int length) throws SQLException {
-    if (shouldThrow("getSubString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSubString"))
       throw new SQLException("Clob bombed");
     return it.getSubString(pos, length);
   }
@@ -101,7 +101,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public long length() throws SQLException {
-    if (shouldThrow("length"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "length"))
       throw new SQLException("Clob bombed");
     return it.length();
   }
@@ -112,7 +112,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public long position(String searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("Clob bombed");
     return it.position(searchstr, start);
   }
@@ -123,7 +123,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public long position(Clob searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("Clob bombed");
     return it.position(searchstr, start);
   }
@@ -134,7 +134,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public OutputStream setAsciiStream(long pos) throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("Clob bombed");
     return it.setAsciiStream(pos);
   }
@@ -145,7 +145,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public Writer setCharacterStream(long pos) throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("Clob bombed");
     return it.setCharacterStream(pos);
   }
@@ -156,7 +156,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public int setString(long pos, String str) throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("Clob bombed");
     return it.setString(pos, str);
   }
@@ -168,7 +168,7 @@ public abstract class ThrowingClobJdbc3
 
   public int setString(long pos, String str, int offset, int len)
           throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("Clob bombed");
     return it.setString(pos, str, offset, len);
   }
@@ -179,7 +179,7 @@ public abstract class ThrowingClobJdbc3
    */
 
   public void truncate(long len) throws SQLException {
-    if (shouldThrow("truncate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "truncate"))
       throw new SQLException("Clob bombed");
     it.truncate(len);
   }

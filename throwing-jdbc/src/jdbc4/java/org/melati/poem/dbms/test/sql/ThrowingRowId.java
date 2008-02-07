@@ -53,20 +53,6 @@ import java.sql.RowId;
  */
 public class ThrowingRowId extends Thrower implements RowId {
   
-  final static String className = ThrowingRowId.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
 
   RowId it = null;
 
@@ -83,7 +69,7 @@ public class ThrowingRowId extends Thrower implements RowId {
    */
 
   public byte[] getBytes() {
-    if (shouldThrow("getBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBytes"))
       throw new RuntimeException("RowId bombed");
     return it.getBytes();
   }

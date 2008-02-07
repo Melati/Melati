@@ -74,7 +74,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setAsciiStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("CallableStatement bombed");
     it.setAsciiStream(parameterIndex, x, length);
   }
@@ -85,7 +85,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setAsciiStream(int parameterIndex, InputStream x)
           throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("CallableStatement bombed");
     it.setAsciiStream(parameterIndex, x);
   }
@@ -96,7 +96,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBinaryStream(int parameterIndex, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("CallableStatement bombed");
     it.setBinaryStream(parameterIndex, x, length);
   }
@@ -107,7 +107,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBinaryStream(int parameterIndex, InputStream x)
           throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("CallableStatement bombed");
     it.setBinaryStream(parameterIndex, x);
   }
@@ -118,7 +118,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBlob(int parameterIndex, InputStream inputStream, long length)
           throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("CallableStatement bombed");
     it.setBlob(parameterIndex, inputStream, length);
   }
@@ -129,7 +129,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBlob(int parameterIndex, InputStream inputStream)
           throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("CallableStatement bombed");
     it.setBlob(parameterIndex, inputStream);
   }
@@ -140,7 +140,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setCharacterStream(int parameterIndex, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setCharacterStream(parameterIndex, reader, length);
   }
@@ -151,7 +151,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setCharacterStream(int parameterIndex, Reader reader)
           throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setCharacterStream(parameterIndex, reader);
   }
@@ -162,7 +162,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("CallableStatement bombed");
     it.setClob(parameterIndex, reader, length);
   }
@@ -172,7 +172,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setClob(int parameterIndex, Reader reader) throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("CallableStatement bombed");
     it.setClob(parameterIndex, reader);
   }
@@ -183,7 +183,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNCharacterStream(int parameterIndex, Reader value, long length)
           throws SQLException {
-    if (shouldThrow("setNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setNCharacterStream(parameterIndex, value, length);
   }
@@ -194,7 +194,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNCharacterStream(int parameterIndex, Reader value)
           throws SQLException {
-    if (shouldThrow("setNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setNCharacterStream(parameterIndex, value);
   }
@@ -204,7 +204,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setNClob(int parameterIndex, NClob value) throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterIndex, value);
   }
@@ -215,7 +215,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNClob(int parameterIndex, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterIndex, reader, length);
   }
@@ -225,7 +225,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setNClob(int parameterIndex, Reader reader) throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterIndex, reader);
   }
@@ -235,7 +235,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setNString(int parameterIndex, String value) throws SQLException {
-    if (shouldThrow("setNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNString"))
       throw new SQLException("CallableStatement bombed");
     it.setNString(parameterIndex, value);
   }
@@ -245,7 +245,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setRowId(int parameterIndex, RowId x) throws SQLException {
-    if (shouldThrow("setRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setRowId"))
       throw new SQLException("CallableStatement bombed");
     it.setRowId(parameterIndex, x);
   }
@@ -256,7 +256,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setSQLXML(int parameterIndex, SQLXML xmlObject)
           throws SQLException {
-    if (shouldThrow("setSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setSQLXML"))
       throw new SQLException("CallableStatement bombed");
     it.setSQLXML(parameterIndex, xmlObject);
   }
@@ -266,7 +266,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public boolean isClosed() throws SQLException {
-    if (shouldThrow("isClosed"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isClosed"))
       throw new SQLException("CallableStatement bombed");
     return it.isClosed();
   }
@@ -276,7 +276,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public boolean isPoolable() throws SQLException {
-    if (shouldThrow("isPoolable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isPoolable"))
       throw new SQLException("CallableStatement bombed");
     return it.isPoolable();
   }
@@ -286,7 +286,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setPoolable(boolean poolable) throws SQLException {
-    if (shouldThrow("setPoolable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setPoolable"))
       throw new SQLException("CallableStatement bombed");
     it.setPoolable(poolable);
   }
@@ -296,7 +296,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("CallableStatement bombed");
     return it.isWrapperFor(iface);
   }
@@ -306,7 +306,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("CallableStatement bombed");
     return it.unwrap(iface);
   }
@@ -316,7 +316,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public Reader getCharacterStream(int parameterIndex) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     return it.getCharacterStream(parameterIndex);
   }
@@ -326,7 +326,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public Reader getCharacterStream(String parameterName) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     return it.getCharacterStream(parameterName);
   }
@@ -336,7 +336,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public Reader getNCharacterStream(int parameterIndex) throws SQLException {
-    if (shouldThrow("getNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     return it.getNCharacterStream(parameterIndex);
   }
@@ -346,7 +346,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public Reader getNCharacterStream(String parameterName) throws SQLException {
-    if (shouldThrow("getNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     return it.getNCharacterStream(parameterName);
   }
@@ -356,7 +356,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public NClob getNClob(int parameterIndex) throws SQLException {
-    if (shouldThrow("getNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNClob"))
       throw new SQLException("CallableStatement bombed");
     return new ThrowingNClob(it.getNClob(parameterIndex));
   }
@@ -366,7 +366,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public NClob getNClob(String parameterName) throws SQLException {
-    if (shouldThrow("getNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNClob"))
       throw new SQLException("CallableStatement bombed");
     return new ThrowingNClob(it.getNClob(parameterName));
   }
@@ -376,7 +376,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public String getNString(int parameterIndex) throws SQLException {
-    if (shouldThrow("getNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNString"))
       throw new SQLException("CallableStatement bombed");
     return it.getNString(parameterIndex);
   }
@@ -386,7 +386,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public String getNString(String parameterName) throws SQLException {
-    if (shouldThrow("getNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNString"))
       throw new SQLException("CallableStatement bombed");
     return it.getNString(parameterName);
   }
@@ -396,7 +396,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public RowId getRowId(int parameterIndex) throws SQLException {
-    if (shouldThrow("getRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRowId"))
       throw new SQLException("CallableStatement bombed");
     return new ThrowingRowId(it.getRowId(parameterIndex));
   }
@@ -406,7 +406,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public RowId getRowId(String parameterName) throws SQLException {
-    if (shouldThrow("getRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRowId"))
       throw new SQLException("CallableStatement bombed");
     return new ThrowingRowId(it.getRowId(parameterName));
   }
@@ -416,7 +416,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public SQLXML getSQLXML(int parameterIndex) throws SQLException {
-    if (shouldThrow("getSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSQLXML"))
       throw new SQLException("CallableStatement bombed");
     return new ThrowingSQLXML(it.getSQLXML(parameterIndex));
   }
@@ -426,7 +426,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public SQLXML getSQLXML(String parameterName) throws SQLException {
-    if (shouldThrow("getSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSQLXML"))
       throw new SQLException("CallableStatement bombed");
     return  new ThrowingSQLXML(it.getSQLXML(parameterName));
   }
@@ -437,7 +437,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setAsciiStream(String parameterName, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("CallableStatement bombed");
     it.setAsciiStream(parameterName, x, length);
   }
@@ -448,7 +448,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setAsciiStream(String parameterName, InputStream x)
           throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("CallableStatement bombed");
     it.setAsciiStream(parameterName, x);
   }
@@ -459,7 +459,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBinaryStream(String parameterName, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("CallableStatement bombed");
     it.setBinaryStream(parameterName, x, length);
   }
@@ -470,7 +470,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBinaryStream(String parameterName, InputStream x)
           throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("CallableStatement bombed");
     it.setBinaryStream(parameterName, x);
   }
@@ -480,7 +480,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setBlob(String parameterName, Blob x) throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("CallableStatement bombed");
     it.setBlob(parameterName, x);
   }
@@ -491,7 +491,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBlob(String parameterName, InputStream inputStream, long length)
           throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("CallableStatement bombed");
     it.setBlob(parameterName, inputStream, length);
   }
@@ -502,7 +502,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setBlob(String parameterName, InputStream inputStream)
           throws SQLException {
-    if (shouldThrow("setBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBlob"))
       throw new SQLException("CallableStatement bombed");
     it.setBlob(parameterName, inputStream);
   }
@@ -513,7 +513,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setCharacterStream(String parameterName, Reader reader,
           long length) throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setCharacterStream(parameterName, reader);
   }
@@ -524,7 +524,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setCharacterStream(String parameterName, Reader reader)
           throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setCharacterStream(parameterName, reader);
   }
@@ -534,7 +534,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setClob(String parameterName, Clob x) throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("CallableStatement bombed");
     it.setClob(parameterName, x);
   }
@@ -545,7 +545,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setClob(String parameterName, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("CallableStatement bombed");
     it.setClob(parameterName, reader, length);
   }
@@ -555,7 +555,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setClob(String parameterName, Reader reader) throws SQLException {
-    if (shouldThrow("setClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setClob"))
       throw new SQLException("CallableStatement bombed");
     it.setClob(parameterName, reader);
   }
@@ -566,7 +566,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNCharacterStream(String parameterName, Reader value,
           long length) throws SQLException {
-    if (shouldThrow("setNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setNCharacterStream(parameterName, value);
   }
@@ -577,7 +577,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNCharacterStream(String parameterName, Reader value)
           throws SQLException {
-    if (shouldThrow("setNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNCharacterStream"))
       throw new SQLException("CallableStatement bombed");
     it.setNCharacterStream(parameterName, value);
   }
@@ -587,7 +587,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setNClob(String parameterName, NClob value) throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterName, value);
   }
@@ -598,7 +598,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNClob(String parameterName, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterName, reader, length);
   }
@@ -608,7 +608,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setNClob(String parameterName, Reader reader) throws SQLException {
-    if (shouldThrow("setNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNClob"))
       throw new SQLException("CallableStatement bombed");
     it.setNClob(parameterName, reader);
   }
@@ -619,7 +619,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setNString(String parameterName, String value)
           throws SQLException {
-    if (shouldThrow("setNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setNString"))
       throw new SQLException("CallableStatement bombed");
     it.setNString(parameterName, value);
   }
@@ -629,7 +629,7 @@ public abstract class ThrowingCallableStatementJdbc4
    */
 
   public void setRowId(String parameterName, RowId x) throws SQLException {
-    if (shouldThrow("setRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setRowId"))
       throw new SQLException("CallableStatement bombed");
     it.setRowId(parameterName, x);
   }
@@ -640,7 +640,7 @@ public abstract class ThrowingCallableStatementJdbc4
 
   public void setSQLXML(String parameterName, SQLXML xmlObject)
           throws SQLException {
-    if (shouldThrow("setSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setSQLXML"))
       throw new SQLException("CallableStatement bombed");
     it.setSQLXML(parameterName, xmlObject);
   }

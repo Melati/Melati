@@ -63,7 +63,7 @@ public abstract class ThrowingClobJdbc4
    */
 
   public void free() throws SQLException {
-    if (shouldThrow("free"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "free"))
       throw new SQLException("Clob bombed");
     it.free();
   }
@@ -74,7 +74,7 @@ public abstract class ThrowingClobJdbc4
    */
 
   public Reader getCharacterStream(long pos, long length) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("Clob bombed");
     return it.getCharacterStream(pos, length);
   }

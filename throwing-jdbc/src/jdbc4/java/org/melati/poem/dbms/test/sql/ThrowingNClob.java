@@ -59,22 +59,6 @@ import java.sql.SQLException;
  */
 public class ThrowingNClob extends Thrower implements NClob {
   
-  final static String className = ThrowingNClob.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
-  
   NClob it = null;
 
   /**
@@ -90,7 +74,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public void free() throws SQLException {
-    if (shouldThrow("free"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "free"))
       throw new SQLException("NClob bombed");
     it.free();
   }
@@ -101,7 +85,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public InputStream getAsciiStream() throws SQLException {
-    if (shouldThrow("getAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAsciiStream"))
       throw new SQLException("NClob bombed");
     return it.getAsciiStream();
   }
@@ -112,7 +96,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public Reader getCharacterStream() throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("NClob bombed");
     return it.getCharacterStream();
   }
@@ -123,7 +107,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public Reader getCharacterStream(long pos, long length) throws SQLException {
-    if (shouldThrow("getCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCharacterStream"))
       throw new SQLException("NClob bombed");
     return it.getCharacterStream(pos, length);
   }
@@ -134,7 +118,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public String getSubString(long pos, int length) throws SQLException {
-    if (shouldThrow("getSubString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSubString"))
       throw new SQLException("NClob bombed");
     return it.getSubString(pos, length);
   }
@@ -145,7 +129,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public long length() throws SQLException {
-    if (shouldThrow("length"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "length"))
       throw new SQLException("NClob bombed");
     return it.length();
   }
@@ -156,7 +140,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public long position(String searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("NClob bombed");
     return it.position(searchstr, start);
   }
@@ -167,7 +151,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public long position(Clob searchstr, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("NClob bombed");
     return it.position(searchstr, start);
   }
@@ -178,7 +162,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public OutputStream setAsciiStream(long pos) throws SQLException {
-    if (shouldThrow("setAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAsciiStream"))
       throw new SQLException("NClob bombed");
     return it.setAsciiStream(pos);
   }
@@ -189,7 +173,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public Writer setCharacterStream(long pos) throws SQLException {
-    if (shouldThrow("setCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCharacterStream"))
       throw new SQLException("NClob bombed");
     return it.setCharacterStream(pos);
   }
@@ -200,7 +184,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public int setString(long pos, String str) throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("NClob bombed");
     return it.setString(pos, str);
   }
@@ -212,7 +196,7 @@ public class ThrowingNClob extends Thrower implements NClob {
 
   public int setString(long pos, String str, int offset, int len)
           throws SQLException {
-    if (shouldThrow("setString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setString"))
       throw new SQLException("NClob bombed");
     return it.setString(pos, str, offset, len);
   }
@@ -223,7 +207,7 @@ public class ThrowingNClob extends Thrower implements NClob {
    */
 
   public void truncate(long len) throws SQLException {
-    if (shouldThrow("truncate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "truncate"))
       throw new SQLException("NClob bombed");
     it.truncate(len);
   }

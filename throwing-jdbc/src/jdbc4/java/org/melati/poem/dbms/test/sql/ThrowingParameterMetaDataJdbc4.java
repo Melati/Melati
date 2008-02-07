@@ -69,7 +69,7 @@ public abstract class ThrowingParameterMetaDataJdbc4
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.isWrapperFor(iface);
   }
@@ -79,7 +79,7 @@ public abstract class ThrowingParameterMetaDataJdbc4
    */
 
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("DatabaseMetaData bombed");
     return it.unwrap(iface);
   }

@@ -56,22 +56,6 @@ import java.sql.SQLException;
  */
 public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
 
-  final static String className = ThrowingBlob.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
-  
 
   /**
    * Constructor.
@@ -85,7 +69,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#getBinaryStream()
    */
   public InputStream getBinaryStream() throws SQLException {
-    if (shouldThrow("getBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBinaryStream"))
       throw new SQLException("Blob bombed");
     return it.getBinaryStream();
   }
@@ -95,7 +79,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#getBytes(long, int)
    */
   public byte[] getBytes(long pos, int length) throws SQLException {
-    if (shouldThrow("getBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getBytes"))
       throw new SQLException("Blob bombed");
     return it.getBytes(pos, length);
   }
@@ -105,7 +89,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#length()
    */
   public long length() throws SQLException {
-    if (shouldThrow("length"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "length"))
       throw new SQLException("Blob bombed");
     return it.length();
   }
@@ -115,7 +99,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#position(byte[], long)
    */
   public long position(byte[] pattern, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("Blob bombed");
     return it.position(pattern, start);
   }
@@ -125,7 +109,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#position(java.sql.Blob, long)
    */
   public long position(Blob pattern, long start) throws SQLException {
-    if (shouldThrow("position"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "position"))
       throw new SQLException("Blob bombed");
     return it.position(pattern, start);
   }
@@ -135,7 +119,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#setBinaryStream(long)
    */
   public OutputStream setBinaryStream(long pos) throws SQLException {
-    if (shouldThrow("setBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBinaryStream"))
       throw new SQLException("Blob bombed");
     return it.setBinaryStream(pos);
   }
@@ -145,7 +129,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#setBytes(long, byte[])
    */
   public int setBytes(long pos, byte[] bytes) throws SQLException {
-    if (shouldThrow("setBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBytes"))
       throw new SQLException("Blob bombed");
     return it.setBytes(pos, bytes);
   }
@@ -156,7 +140,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    */
   public int setBytes(long pos, byte[] bytes, int offset, int len)
           throws SQLException {
-    if (shouldThrow("setBytes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setBytes"))
       throw new SQLException("Blob bombed");
     return it.setBytes(pos, bytes, offset, len);
   }
@@ -166,7 +150,7 @@ public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
    * @see java.sql.Blob#truncate(long)
    */
   public void truncate(long len) throws SQLException {
-    if (shouldThrow("truncate"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "truncate"))
       throw new SQLException("Blob bombed");
     it.truncate(len);
   }

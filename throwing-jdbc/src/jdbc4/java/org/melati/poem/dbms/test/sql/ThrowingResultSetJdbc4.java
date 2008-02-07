@@ -72,7 +72,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public int getHoldability() throws SQLException {
-    if (shouldThrow("getHoldability"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getHoldability"))
       throw new SQLException("ResultSet bombed");
     return it.getHoldability();
   }
@@ -82,7 +82,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public Reader getNCharacterStream(int columnIndex) throws SQLException {
-    if (shouldThrow("getNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     return it.getNCharacterStream(columnIndex);
   }
@@ -92,7 +92,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public Reader getNCharacterStream(String columnLabel) throws SQLException {
-    if (shouldThrow("getNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     return it.getNCharacterStream(columnLabel);
   }
@@ -102,7 +102,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public NClob getNClob(int columnIndex) throws SQLException {
-    if (shouldThrow("getNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNClob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingNClob(it.getNClob(columnIndex));
   }
@@ -112,7 +112,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public NClob getNClob(String columnLabel) throws SQLException {
-    if (shouldThrow("getNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNClob"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingNClob(it.getNClob(columnLabel));
   }
@@ -122,7 +122,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public String getNString(int columnIndex) throws SQLException {
-    if (shouldThrow("getNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNString"))
       throw new SQLException("ResultSet bombed");
     return it.getNString(columnIndex);
   }
@@ -132,7 +132,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public String getNString(String columnLabel) throws SQLException {
-    if (shouldThrow("getNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getNString"))
       throw new SQLException("ResultSet bombed");
     return it.getNString(columnLabel);
   }
@@ -142,7 +142,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public RowId getRowId(int columnIndex) throws SQLException {
-    if (shouldThrow("getRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRowId"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingRowId(it.getRowId(columnIndex));
   }
@@ -152,7 +152,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public RowId getRowId(String columnLabel) throws SQLException {
-    if (shouldThrow("getRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getRowId"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingRowId(it.getRowId(columnLabel));
   }
@@ -162,7 +162,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public SQLXML getSQLXML(int columnIndex) throws SQLException {
-    if (shouldThrow("getSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSQLXML"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingSQLXML(it.getSQLXML(columnIndex));
   }
@@ -172,7 +172,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public SQLXML getSQLXML(String columnLabel) throws SQLException {
-    if (shouldThrow("getSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSQLXML"))
       throw new SQLException("ResultSet bombed");
     return new ThrowingSQLXML(it.getSQLXML(columnLabel));
   }
@@ -182,7 +182,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public boolean isClosed() throws SQLException {
-    if (shouldThrow("isClosed"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isClosed"))
       throw new SQLException("ResultSet bombed");
     return it.isClosed();
   }
@@ -193,7 +193,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateAsciiStream(int columnIndex, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnIndex, x, length);
   }
@@ -204,7 +204,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateAsciiStream(int columnIndex, InputStream x)
           throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnIndex, x);
   }
@@ -215,7 +215,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateAsciiStream(String columnLabel, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnLabel, x, length);
   }
@@ -226,7 +226,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateAsciiStream(String columnLabel, InputStream x)
           throws SQLException {
-    if (shouldThrow("updateAsciiStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
     it.updateAsciiStream(columnLabel, x);
   }
@@ -237,7 +237,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBinaryStream(int columnIndex, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnIndex, x, length);
   }
@@ -248,7 +248,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBinaryStream(int columnIndex, InputStream x)
           throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnIndex, x);
   }
@@ -259,7 +259,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBinaryStream(String columnLabel, InputStream x, long length)
           throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnLabel, x, length);
   }
@@ -270,7 +270,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBinaryStream(String columnLabel, InputStream x)
           throws SQLException {
-    if (shouldThrow("updateBinaryStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
     it.updateBinaryStream(columnLabel, x);
   }
@@ -281,7 +281,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBlob(int columnIndex, InputStream inputStream, long length)
           throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnIndex, inputStream, length);
   }
@@ -292,7 +292,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBlob(int columnIndex, InputStream inputStream)
           throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnIndex, inputStream);
   }
@@ -303,7 +303,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBlob(String columnLabel, InputStream inputStream,
           long length) throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnLabel, inputStream);
   }
@@ -314,7 +314,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateBlob(String columnLabel, InputStream inputStream)
           throws SQLException {
-    if (shouldThrow("updateBlob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateBlob"))
       throw new SQLException("ResultSet bombed");
     it.updateBlob(columnLabel, inputStream);
   }
@@ -325,7 +325,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateCharacterStream(int columnIndex, Reader x, long length)
           throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnIndex, x, length);
   }
@@ -336,7 +336,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateCharacterStream(int columnIndex, Reader x)
           throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnIndex, x);
   }
@@ -347,7 +347,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateCharacterStream(String columnLabel, Reader reader,
           long length) throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnLabel, reader);
   }
@@ -358,7 +358,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateCharacterStream(String columnLabel, Reader reader)
           throws SQLException {
-    if (shouldThrow("updateCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateCharacterStream(columnLabel, reader);
   }
@@ -369,7 +369,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateClob(int columnIndex, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnIndex, reader, length);
   }
@@ -379,7 +379,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateClob(int columnIndex, Reader reader) throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnIndex, reader);
   }
@@ -390,7 +390,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateClob(String columnLabel, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnLabel, reader, length);
   }
@@ -400,7 +400,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateClob(String columnLabel, Reader reader) throws SQLException {
-    if (shouldThrow("updateClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateClob"))
       throw new SQLException("ResultSet bombed");
     it.updateClob(columnLabel, reader);
   }
@@ -411,7 +411,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNCharacterStream(int columnIndex, Reader x, long length)
           throws SQLException {
-    if (shouldThrow("updateNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateNCharacterStream(columnIndex, x, length);
   }
@@ -422,7 +422,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNCharacterStream(int columnIndex, Reader x)
           throws SQLException {
-    if (shouldThrow("updateNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateNCharacterStream(columnIndex, x);
   }
@@ -433,7 +433,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNCharacterStream(String columnLabel, Reader reader,
           long length) throws SQLException {
-    if (shouldThrow("updateNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateNCharacterStream(columnLabel, reader);
   }
@@ -444,7 +444,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNCharacterStream(String columnLabel, Reader reader)
           throws SQLException {
-    if (shouldThrow("updateNCharacterStream"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNCharacterStream"))
       throw new SQLException("ResultSet bombed");
     it.updateNCharacterStream(columnLabel, reader);
   }
@@ -454,7 +454,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateNClob(int columnIndex, NClob clob) throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnIndex, clob);
   }
@@ -465,7 +465,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNClob(int columnIndex, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnIndex, reader, length);
   }
@@ -475,7 +475,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateNClob(int columnIndex, Reader reader) throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnIndex, reader);
   }
@@ -485,7 +485,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateNClob(String columnLabel, NClob clob) throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnLabel, clob);
   }
@@ -496,7 +496,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNClob(String columnLabel, Reader reader, long length)
           throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnLabel, reader, length);
   }
@@ -507,7 +507,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNClob(String columnLabel, Reader reader)
           throws SQLException {
-    if (shouldThrow("updateNClob"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNClob"))
       throw new SQLException("ResultSet bombed");
     it.updateNClob(columnLabel, reader);
   }
@@ -517,7 +517,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateNString(int columnIndex, String string) throws SQLException {
-    if (shouldThrow("updateNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNString"))
       throw new SQLException("ResultSet bombed");
     it.updateNString(columnIndex, string);
   }
@@ -528,7 +528,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateNString(String columnLabel, String string)
           throws SQLException {
-    if (shouldThrow("updateNString"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateNString"))
       throw new SQLException("ResultSet bombed");
     it.updateNString(columnLabel, string);
   }
@@ -538,7 +538,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateRowId(int columnIndex, RowId x) throws SQLException {
-    if (shouldThrow("updateRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateRowId"))
       throw new SQLException("ResultSet bombed");
     it.updateRowId(columnIndex, x);
   }
@@ -548,7 +548,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public void updateRowId(String columnLabel, RowId x) throws SQLException {
-    if (shouldThrow("updateRowId"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateRowId"))
       throw new SQLException("ResultSet bombed");
     it.updateRowId(columnLabel, x);
   }
@@ -559,7 +559,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateSQLXML(int columnIndex, SQLXML xmlObject)
           throws SQLException {
-    if (shouldThrow("updateSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateSQLXML"))
       throw new SQLException("ResultSet bombed");
     it.updateSQLXML(columnIndex, xmlObject);
   }
@@ -570,7 +570,7 @@ public abstract class ThrowingResultSetJdbc4
 
   public void updateSQLXML(String columnLabel, SQLXML xmlObject)
           throws SQLException {
-    if (shouldThrow("updateSQLXML"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "updateSQLXML"))
       throw new SQLException("ResultSet bombed");
     it.updateSQLXML(columnLabel, xmlObject);
   }
@@ -580,7 +580,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("ResultSet bombed");
     return it.isWrapperFor(iface);
   }
@@ -590,7 +590,7 @@ public abstract class ThrowingResultSetJdbc4
    */
 
   public <T1> T1 unwrap(Class<T1> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("ResultSet bombed");
     return it.unwrap(iface);
   }

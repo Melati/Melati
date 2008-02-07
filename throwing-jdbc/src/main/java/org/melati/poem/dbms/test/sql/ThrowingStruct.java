@@ -56,21 +56,6 @@ import java.util.Map;
 public class ThrowingStruct extends Thrower implements Struct {
 
 
-  final static String className = ThrowingStruct.class.getName() + ".";
-  
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
-
   Struct it = null;
   
 
@@ -87,7 +72,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    */
 
   public Object[] getAttributes() throws SQLException {
-    if (shouldThrow("getAttributes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAttributes"))
       throw new SQLException("Struct bombed");
     return it.getAttributes();
   }
@@ -98,7 +83,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    */
 
   public Object[] getAttributes(Map map) throws SQLException {
-    if (shouldThrow("getAttributes"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAttributes"))
       throw new SQLException("Struct bombed");
     return it.getAttributes();
   }
@@ -109,7 +94,7 @@ public class ThrowingStruct extends Thrower implements Struct {
    */
 
   public String getSQLTypeName() throws SQLException {
-    if (shouldThrow("getSQLTypeName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getSQLTypeName"))
       throw new SQLException("Struct bombed");
     return it.getSQLTypeName();
   }

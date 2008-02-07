@@ -71,7 +71,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#clearWarnings()
    */
   public void clearWarnings() throws SQLException {
-    if (shouldThrow("clearWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "clearWarnings"))
       throw new SQLException("Connection bombed");
     it.clearWarnings();
   }
@@ -81,7 +81,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#close()
    */
   public void close() throws SQLException {
-    if (shouldThrow("close"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "close"))
       throw new SQLException("Connection bombed");
     it.close();
   }
@@ -91,7 +91,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#commit()
    */
   public void commit() throws SQLException {
-    if (shouldThrow("commit"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "commit"))
       throw new SQLException("Connection bombed");
     it.commit();
   }
@@ -101,7 +101,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#createStatement()
    */
   public Statement createStatement() throws SQLException {
-    if (shouldThrow("createStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingStatement(it.createStatement());
   }
@@ -112,7 +112,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public Statement createStatement(int resultSetType, int resultSetConcurrency)
       throws SQLException {
-    if (shouldThrow("createStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingStatement(it.createStatement(resultSetType,resultSetConcurrency));
   }
@@ -123,7 +123,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public Statement createStatement(int resultSetType, int resultSetConcurrency,
       int resultSetHoldability) throws SQLException {
-    if (shouldThrow("createStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "createStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingStatement(it.createStatement(resultSetType, resultSetConcurrency));
   }
@@ -133,7 +133,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getAutoCommit()
    */
   public boolean getAutoCommit() throws SQLException {
-    if (shouldThrow("getAutoCommit"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getAutoCommit"))
       throw new SQLException("Connection bombed");
     return it.getAutoCommit();
   }
@@ -143,7 +143,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getCatalog()
    */
   public String getCatalog() throws SQLException {
-    if (shouldThrow("getCatalog"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getCatalog"))
       throw new SQLException("Connection bombed");
     return it.getCatalog();
   }
@@ -153,7 +153,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getHoldability()
    */
   public int getHoldability() throws SQLException {
-    if (shouldThrow("getHoldability"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getHoldability"))
       throw new SQLException("Connection bombed");
     return it.getHoldability();
   }
@@ -163,7 +163,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getMetaData()
    */
   public DatabaseMetaData getMetaData() throws SQLException {
-    if (shouldThrow("getMetaData"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getMetaData"))
       throw new SQLException("Connection bombed");
     return new ThrowingDatabaseMetaData(it.getMetaData());
   }
@@ -173,7 +173,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getTransactionIsolation()
    */
   public int getTransactionIsolation() throws SQLException {
-    if (shouldThrow("getTransactionIsolation"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTransactionIsolation"))
       throw new SQLException("Connection bombed");
     return it.getTransactionIsolation();
   }
@@ -183,7 +183,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getTypeMap()
    */
   public Map getTypeMap() throws SQLException {
-    if (shouldThrow("getTypeMap()"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getTypeMap()"))
       throw new SQLException("Connection bombed");
     return it.getTypeMap();
   }
@@ -193,7 +193,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#getWarnings()
    */
   public SQLWarning getWarnings() throws SQLException {
-    if (shouldThrow("getWarnings"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getWarnings"))
       throw new SQLException("Connection bombed");
     return it.getWarnings();
   }
@@ -203,7 +203,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#isClosed()
    */
   public boolean isClosed() throws SQLException {
-    if (shouldThrow("isClosed"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isClosed"))
       throw new SQLException("Connection bombed");
     return it.isClosed();
   }
@@ -213,7 +213,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#isReadOnly()
    */
   public boolean isReadOnly() throws SQLException {
-    if (shouldThrow("isReadOnly"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isReadOnly"))
       throw new SQLException("Connection bombed");
     return it.isReadOnly();
   }
@@ -223,7 +223,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#nativeSQL(java.lang.String)
    */
   public String nativeSQL(String sql) throws SQLException {
-    if (shouldThrow("nativeSQL"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "nativeSQL"))
       throw new SQLException("Connection bombed");
     return it.nativeSQL(sql);
   }
@@ -233,7 +233,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#prepareCall(java.lang.String)
    */
   public CallableStatement prepareCall(String sql) throws SQLException {
-    if (shouldThrow("prepareCall"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareCall"))
       throw new SQLException("Connection bombed");
     return new ThrowingCallableStatement(it.prepareCall(sql));
   }
@@ -244,7 +244,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public CallableStatement prepareCall(String sql, int resultSetType,
       int resultSetConcurrency) throws SQLException {
-    if (shouldThrow("prepareCall"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareCall"))
       throw new SQLException("Connection bombed");
     return new ThrowingCallableStatement(it.prepareCall(sql, resultSetType, resultSetConcurrency));
   }
@@ -255,7 +255,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public CallableStatement prepareCall(String sql, int resultSetType,
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-    if (shouldThrow("prepareCall"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareCall"))
       throw new SQLException("Connection bombed");
     return new ThrowingCallableStatement(it.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
@@ -265,7 +265,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#prepareStatement(java.lang.String)
    */
   public PreparedStatement prepareStatement(String sql) throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql));
   }
@@ -276,7 +276,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys)
       throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql, autoGeneratedKeys));
   }
@@ -287,7 +287,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public PreparedStatement prepareStatement(String sql, int[] columnIndexes)
       throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql, columnIndexes));
   }
@@ -298,7 +298,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public PreparedStatement prepareStatement(String sql, String[] columnNames)
       throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql, columnNames));
   }
@@ -309,7 +309,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public PreparedStatement prepareStatement(String sql, int resultSetType,
       int resultSetConcurrency) throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql, resultSetType, resultSetConcurrency));
   }
@@ -320,7 +320,7 @@ public abstract class ThrowingConnectionJdbc3
    */
   public PreparedStatement prepareStatement(String sql, int resultSetType,
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-    if (shouldThrow("prepareStatement"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "prepareStatement"))
       throw new SQLException("Connection bombed");
     return new ThrowingPreparedStatement(it.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
@@ -330,7 +330,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#releaseSavepoint(java.sql.Savepoint)
    */
   public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-    if (shouldThrow("releaseSavepoint"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "releaseSavepoint"))
       throw new SQLException("Connection bombed");
     it.releaseSavepoint(savepoint);
   }
@@ -340,7 +340,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#rollback()
    */
   public void rollback() throws SQLException {
-    if (shouldThrow("rollback"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "rollback"))
       throw new SQLException("Connection bombed");
     it.rollback();
   }
@@ -350,7 +350,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#rollback(java.sql.Savepoint)
    */
   public void rollback(Savepoint savepoint) throws SQLException {
-    if (shouldThrow("rollback"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "rollback"))
       throw new SQLException("Connection bombed");
     it.rollback(savepoint);
   }
@@ -360,7 +360,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setAutoCommit(boolean)
    */
   public void setAutoCommit(boolean autoCommit) throws SQLException {
-    if (shouldThrow("setAutoCommit"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setAutoCommit"))
       throw new SQLException("Connection bombed");
     it.setAutoCommit(autoCommit);
   }
@@ -370,7 +370,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setCatalog(java.lang.String)
    */
   public void setCatalog(String catalog) throws SQLException {
-    if (shouldThrow("setCatalog"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setCatalog"))
       throw new SQLException("Connection bombed");
     it.setCatalog(catalog);
   }
@@ -380,7 +380,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setHoldability(int)
    */
   public void setHoldability(int holdability) throws SQLException {
-    if (shouldThrow("setHoldability"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setHoldability"))
       throw new SQLException("Connection bombed");
     it.setHoldability(holdability);
   }
@@ -390,7 +390,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setReadOnly(boolean)
    */
   public void setReadOnly(boolean readOnly) throws SQLException {
-    if (shouldThrow("setReadOnly"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setReadOnly"))
       throw new SQLException("Connection bombed");
     it.setReadOnly(readOnly);
   }
@@ -400,7 +400,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setSavepoint()
    */
   public Savepoint setSavepoint() throws SQLException {
-    if (shouldThrow("setSavepoint"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setSavepoint"))
       throw new SQLException("Connection bombed");
     return new ThrowingSavepoint(it.setSavepoint());
   }
@@ -410,7 +410,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setSavepoint(java.lang.String)
    */
   public Savepoint setSavepoint(String name) throws SQLException {
-    if (shouldThrow("setSavepoint"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setSavepoint"))
       throw new SQLException("Connection bombed");
     return new ThrowingSavepoint(it.setSavepoint(name));
   }
@@ -420,7 +420,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setTransactionIsolation(int)
    */
   public void setTransactionIsolation(int level) throws SQLException {
-    if (shouldThrow("setTransactionIsolation"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTransactionIsolation"))
       throw new SQLException("Connection bombed");
     it.setTransactionIsolation(level);
   }
@@ -430,7 +430,7 @@ public abstract class ThrowingConnectionJdbc3
    * @see java.sql.Connection#setTypeMap(java.util.Map)
    */
   public void setTypeMap(Map map) throws SQLException {
-    if (shouldThrow("setTypeMap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setTypeMap"))
       throw new SQLException("Connection bombed");
     it.setTypeMap(map);
   }

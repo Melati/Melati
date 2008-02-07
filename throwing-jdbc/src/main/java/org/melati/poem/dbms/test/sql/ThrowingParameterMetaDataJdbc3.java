@@ -59,55 +59,55 @@ public abstract class ThrowingParameterMetaDataJdbc3 extends Thrower
 
 
   public String getParameterClassName(int param) throws SQLException {
-    if (shouldThrow("getParameterClassName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterClassName"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getParameterClassName(param);
   }
 
   public int getParameterCount() throws SQLException {
-    if (shouldThrow("getParameterCount"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterCount"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getParameterCount();
   }
 
   public int getParameterMode(int param) throws SQLException {
-    if (shouldThrow("getParameterMode"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterMode"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getParameterMode(param);
   }
 
   public int getParameterType(int param) throws SQLException {
-    if (shouldThrow("getParameterType"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterType"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getParameterType(param);
   }
 
   public String getParameterTypeName(int param) throws SQLException {
-    if (shouldThrow("getParameterTypeName"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParameterTypeName"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getParameterTypeName(param);
   }
 
   public int getPrecision(int param) throws SQLException {
-    if (shouldThrow("getPrecision"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getPrecision"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getPrecision(param);
   }
 
   public int getScale(int param) throws SQLException {
-    if (shouldThrow("getScale"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getScale"))
       throw new SQLException("ParameterMetaData bombed");
     return it.getScale(param);
   }
 
   public int isNullable(int param) throws SQLException {
-    if (shouldThrow("isNullable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isNullable"))
       throw new SQLException("ParameterMetaData bombed");
     return it.isNullable(param);
   }
 
   public boolean isSigned(int param) throws SQLException {
-    if (shouldThrow("isSigned"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isSigned"))
       throw new SQLException("ParameterMetaData bombed");
     return it.isSigned(param);
   }

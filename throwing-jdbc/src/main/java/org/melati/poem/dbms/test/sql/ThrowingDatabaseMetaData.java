@@ -55,20 +55,6 @@ public class ThrowingDatabaseMetaData
     extends ThrowingDatabaseMetaDataVariant
     implements DatabaseMetaData {
   
-  final static String className = ThrowingDatabaseMetaData.class.getName() + ".";
-
-  public static void startThrowing(String methodName) {
-    Thrower.startThrowing(className  +  methodName);
-  }
-  public static void startThrowingAfter(String methodName, int goes) {
-    Thrower.startThrowingAfter(className  +  methodName, goes);
-  }
-  public static void stopThrowing(String methodName) {
-    Thrower.stopThrowing(className  +  methodName);
-  }
-  public static boolean shouldThrow(String methodName) { 
-    return Thrower.shouldThrow(className  +  methodName);
-  }
 
   /**
    * Decorator constructor. 

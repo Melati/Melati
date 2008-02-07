@@ -63,7 +63,7 @@ public abstract class ThrowingStatementJdbc4 extends ThrowingStatementJdbc3 {
    */
 
   public boolean isClosed() throws SQLException {
-    if (shouldThrow("isClosed"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isClosed"))
       throw new SQLException("Statement bombed");
     return it.isClosed();
   }
@@ -73,7 +73,7 @@ public abstract class ThrowingStatementJdbc4 extends ThrowingStatementJdbc3 {
    */
 
   public boolean isPoolable() throws SQLException {
-    if (shouldThrow("isPoolable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isPoolable"))
       throw new SQLException("Statement bombed");
     return it.isPoolable();
   }
@@ -83,7 +83,7 @@ public abstract class ThrowingStatementJdbc4 extends ThrowingStatementJdbc3 {
    */
 
   public void setPoolable(boolean poolable) throws SQLException {
-    if (shouldThrow("setPoolable"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "setPoolable"))
       throw new SQLException("Statement bombed");
     it.setPoolable(poolable);
   }
@@ -93,7 +93,7 @@ public abstract class ThrowingStatementJdbc4 extends ThrowingStatementJdbc3 {
    */
 
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    if (shouldThrow("isWrapperFor"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "isWrapperFor"))
       throw new SQLException("Statement bombed");
     return it.isWrapperFor(iface);
   }
@@ -103,7 +103,7 @@ public abstract class ThrowingStatementJdbc4 extends ThrowingStatementJdbc3 {
    */
 
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    if (shouldThrow("unwrap"))
+    if (shouldThrow(this.getClass().getInterfaces()[0], "unwrap"))
       throw new SQLException("Statement bombed");
     return it.unwrap(iface);
   }

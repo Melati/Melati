@@ -57,6 +57,8 @@ public abstract class Thrower {
   
   static Hashtable throwers = new Hashtable();
 
+  protected Thrower() {}
+  
   /**
    * Tell named method to start throwing exceptions.
    * @param i Interface class object
@@ -85,6 +87,7 @@ public abstract class Thrower {
     throwers.put(fullName, new Integer(0));
   }
   /**
+   * Check whether method should throw, called once for every method invocation.
    * @param i Interface class object
    * @param methodName name in class.methodName format
    * @return whether method named should throw exception

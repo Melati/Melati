@@ -50,7 +50,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    */
   public void testInitialisedDatabases() {
     Vector them = LogicalDatabase.initialisedDatabases();
-    assertTrue(them.size()> 1);
+    assertTrue(them.size()> 0);
   }
 
   /**
@@ -60,7 +60,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    */
   public void testGetInitialisedDatabaseNames() {
     Vector them = LogicalDatabase.getInitialisedDatabaseNames();
-    assertTrue(them.size()> 1);
+    assertTrue(them.size() > 0);
     String name = (String)them.get(0);
     assertEquals("melatijunit", name);
     

@@ -43,13 +43,14 @@ public class LogicalDatabaseTest extends PoemTestCase {
   }
 
   /**
-   * This fails under crap4j, so this is a difference between crap4j/eclipse and maven.
+   * When run in eclipse only one is know, when run through a suite 
+   * then all dbs are found.
    * 
    * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
     Vector them = LogicalDatabase.initialisedDatabases();
-    assertEquals(1,them.size());
+    assertTrue(them.size()> 1);
   }
 
   /**
@@ -59,7 +60,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    */
   public void testGetInitialisedDatabaseNames() {
     Vector them = LogicalDatabase.getInitialisedDatabaseNames();
-    assertEquals(1,them.size()); 
+    assertTrue(them.size()> 1);
     String name = (String)them.get(0);
     assertEquals("melatijunit", name);
     

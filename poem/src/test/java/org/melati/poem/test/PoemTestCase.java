@@ -120,7 +120,7 @@ public class PoemTestCase extends TestCase implements Test {
       // methods. getDeclaredMethods returns all
       // methods of this class but excludes the
       // inherited ones.
-      final Method runMethod = getClass().getMethod(fName, null);
+      final Method runMethod = getClass().getMethod(fName, (Class[])null);
       if (!Modifier.isPublic(runMethod.getModifiers())) {
         fail("Method \"" + fName + "\" should be public");
       }
@@ -131,7 +131,7 @@ public class PoemTestCase extends TestCase implements Test {
           new PoemTask() {
             public void run() {
               try {
-                runMethod.invoke(_this, new Class[0]);
+                runMethod.invoke(_this, (Object[])new Class[0]);
               } catch (Throwable e) {
                 problem = true;
                 e.fillInStackTrace();

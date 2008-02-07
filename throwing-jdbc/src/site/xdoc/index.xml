@@ -112,7 +112,7 @@ public class HsqldbThrowingJdbcDriver
 </subsection>
 <subsection name=" Simple Example ">
 <p>
-You notice that there is uncovered exception handling associated 
+You notice that there is uncovered <tt>Exception</tt> handling associated 
 with failure of <tt>ResultSet.close()</tt> during database initialisation.
 </p>
 <blockquote>

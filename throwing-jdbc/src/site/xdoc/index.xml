@@ -41,7 +41,7 @@ the <tt>Driver</tt>, from which all other objects in the API are obtained.
 </p>
 <subsection name=" Motivation ">
 <p>
-In the same way as the way to use IDE warnings is to have none so 
+Just as the way to use IDE warnings is to have none so 
 test coverage is only worth having if it is complete. 
 </p>
 <p>

@@ -534,7 +534,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
       e.printStackTrace();
       assertEquals("Connection bombed", e.innermostException().getMessage());
     } finally { 
-      ThrowingConnection.stopThrowing(ResultSet.class, "prepareStatement");
+      ThrowingConnection.stopThrowing(Connection.class, "prepareStatement");
     }
     
   }

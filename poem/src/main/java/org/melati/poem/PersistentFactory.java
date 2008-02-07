@@ -142,12 +142,12 @@ public final class PersistentFactory {
       Method memberGetter;
       Object raw;
       try {
-        memberGetter = c.getMethod("get"
-                + StringUtils.capitalised(col.getName()), new Class[] {});
+        memberGetter = c.getMethod("get" + StringUtils.capitalised(col.getName()), 
+                   new Class[] {});
       } catch (NoSuchMethodException e) {
         try {
-          memberGetter = c.getMethod("is"
-                  + StringUtils.capitalised(col.getName()), new Class[] {});
+          memberGetter = c.getMethod("is" + StringUtils.capitalised(col.getName()), 
+                                     new Class[] {});
         } catch (NoSuchMethodException e1) {
           throw new AppBugPoemException(
                   "No getter available for field " + col.getName() + 
@@ -155,7 +155,7 @@ public final class PersistentFactory {
         }
       } 
       try {
-        raw = memberGetter.invoke(pojo, new Class[] {});
+        raw = memberGetter.invoke(pojo, new Object[] {});
       } catch (Exception e) {
         throw new AppBugPoemException(
                 "Problem invoking getter on column  " + col.getName(), e);

@@ -131,7 +131,7 @@ public class PoemTestCase extends TestCase implements Test {
           new PoemTask() {
             public void run() {
               try {
-                runMethod.invoke(_this, (Object[])new Class[0]);
+                runMethod.invoke(_this, new Object[0]);
               } catch (Throwable e) {
                 problem = true;
                 e.fillInStackTrace();

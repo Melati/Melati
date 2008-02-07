@@ -207,9 +207,6 @@
        <include>**/*Test.java</include>
       </includes>
       <excludes>
-        <!-- Old example test -->
-       <exclude>**/UserTableTest.java</exclude>
-
        <!-- exclude>**/throwing/*Test.java</exclude -->
 
        <!-- MSAccess problem -->

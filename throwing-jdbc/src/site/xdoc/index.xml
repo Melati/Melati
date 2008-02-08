@@ -55,7 +55,7 @@ When a class has complete coverage you can focus on the
 real uncovered code rather than revisiting pages you can do no more about.
 </li>
 <li>
-<a href="http://www.crap4j.org/benchmark/stats/77">Automatons</a>a> and managers only look at aggregate figures so 
+<a href="http://www.crap4j.org/benchmark/stats/77">Automatons</a> and managers only look at aggregate figures so 
 covering trivia is good.
 </li>
 <li>
@@ -94,7 +94,6 @@ import org.melati.poem.dbms.test.sql.ThrowingDriver;
 
 /**
  * A decorated Hsqldb jdbcDriver.
- *
  */
 public class HsqldbThrowingJdbcDriver 
     extends ThrowingDriver 
@@ -154,7 +153,7 @@ public class org.melati.poem.test.throwing.DatabaseTest
 <subsection name=" Throw on third call Example">
 <p>
 The exception handling you want to excercise is actually the third call 
-to that method in your test's tragectory to the method under test.
+to that method in your test's trajectory to the method under test.
 </p>
 <blockquote>
 <pre>

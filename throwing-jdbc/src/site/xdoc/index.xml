@@ -3,11 +3,11 @@
 <document>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
+    <title>JDBC - java.sql error injector </title>
     <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
+      JDBC, JDBC3, JDBC4, ORM, Persistence, Java, SQL, Database, Object Relational Mapping,
+      error injection, java.sql 
     </keywords>
   </properties>
 
@@ -27,8 +27,11 @@ This page last updated: $Date$ $Author$
 <section name=" JDBC ">
 <p>
 This module is a reusable test utility which provides a mechanism 
-for Error Injection, thereby enabling otherwise untestable 
-exception handling to be covered in tests without the use of mock objects.
+for Error Injection.
+</p>
+<p>
+It enables testing of exception handling within a JDBC3 or 4 framework, 
+without the use of mock objects.
 </p>
 <p>
 The JDBC API, especially version 4, is quite big, so hopefully sharing this 
@@ -36,29 +39,23 @@ module will save other people the wear and tear on their fingers.
 </p>
 <p>
 The technique used could be applied to any interface, 
-but are particularly suited to the JDBC API as it has a single entry point, 
+but is particularly suited to the JDBC API as it has a single entry point, 
 the <tt>Driver</tt>, from which all other objects in the API are obtained.
 </p>
 <subsection name=" Motivation ">
 <p>
-Just as the way to use IDE warnings is to have none so 
-test coverage is only worth having if it is complete. 
-</p>
-<p>
-The reasons for this are 
+Test coverage is only worth having if it is complete because: 
 <ul>
 <li>
 The coverage reports are only fun to read if there is a good reason 
 for each non-covered line.
 </li>
 <li>
-It is annoying to keep re-reading the same page because the coverage 
-is not complete.
-When it is you can focus on the 
+When a class has complete coverage you can focus on the 
 real uncovered code rather than revisiting pages you can do no more about.
 </li>
 <li>
-Automatons and managers only look at aggregate figures so 
+<a href="http://www.crap4j.org/benchmark/stats/77">Automatons</a>a> and managers only look at aggregate figures so 
 covering trivia is good.
 </li>
 <li>

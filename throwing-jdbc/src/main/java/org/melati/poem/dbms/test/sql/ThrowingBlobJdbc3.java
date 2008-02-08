@@ -54,7 +54,7 @@ import java.sql.SQLException;
  * @since  5 Feb 2008
  *
  */
-public class ThrowingBlobJdbc3 
+public abstract class ThrowingBlobJdbc3 
     extends Thrower 
     implements Blob {
 

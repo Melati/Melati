@@ -132,7 +132,8 @@
 <form method="GET" 
     action="$melati.LoginURL"
     target="_top"
-    style="display:inline;">
+    style="display:inline;"
+    >
  <input type="hidden"
      name="continuationURL"
      value="$admin.MainURL($melati)"
@@ -147,7 +148,8 @@
 <form method="GET" 
       action="$melati.LogoutURL"
       target="_top"
-      style="display:inline">
+      style="display:inline"
+      >
  <input type="hidden"
      name="continuationURL"
      value="$admin.MainURL($melati)"
@@ -161,8 +163,9 @@
  #end
  <form method="GET" 
       action="$admin.getHomepageURL($melati)" 
+      target="admin_bottom"
       style="display:inline;"
-      target="admin_bottom">
+      >
  <input type="submit" 
      value=" Home " 
      id="home"

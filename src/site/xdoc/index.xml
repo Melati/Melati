@@ -51,9 +51,7 @@ This page last updated: $Date$ $Author$
   POEM provides:
    <ul>
     <li>
-    industrial-strength open source object database technology, delivering 
-    <b><a href="http://www.odmg.org/">ODMG 3.0</a></b> compliant Java
-    support.
+    industrial-strength open source object database technology.
     </li>
     <li>
     an API which enables the database to be seen as a collection of 

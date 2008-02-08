@@ -52,6 +52,8 @@ import java.sql.Clob;
 import java.sql.SQLException;
 
 /**
+ * The JDBC3 members of a {@link Clob}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 5 Feb 2008
  *

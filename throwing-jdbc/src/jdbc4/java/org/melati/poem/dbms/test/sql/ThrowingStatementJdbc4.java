@@ -45,8 +45,11 @@
 package org.melati.poem.dbms.test.sql;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
+ * The JDBC4 members of a {@link Statement}, decorated to throw SQLException on command.
+ *  
  * @author timp
  * @since  5 Feb 2008
  *

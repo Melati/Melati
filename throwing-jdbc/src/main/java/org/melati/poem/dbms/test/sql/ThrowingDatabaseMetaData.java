@@ -47,6 +47,8 @@ import java.sql.DatabaseMetaData;
 
 
 /**
+ * A {@link DatabaseMetaData} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 3 May 2007
  *

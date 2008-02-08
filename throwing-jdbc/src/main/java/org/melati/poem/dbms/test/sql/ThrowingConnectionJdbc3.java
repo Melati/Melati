@@ -55,6 +55,8 @@ import java.sql.Statement;
 import java.util.Map;
 
 /**
+ * A JDBC3 {@link Connection}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

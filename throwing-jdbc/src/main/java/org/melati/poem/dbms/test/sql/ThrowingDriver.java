@@ -47,7 +47,8 @@ import java.sql.Driver;
 
 
 /**
- * A {@link Driver} decorated with a {@link Thrower}.
+ * A {@link Driver} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 22 Feb 2007
  *

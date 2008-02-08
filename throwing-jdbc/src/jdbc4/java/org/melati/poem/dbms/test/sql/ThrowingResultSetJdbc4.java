@@ -47,12 +47,15 @@ package org.melati.poem.dbms.test.sql;
 import java.io.InputStream;
 import java.io.Reader;
 import java.sql.NClob;
+import java.sql.Ref;
 import java.sql.ResultSet;
 import java.sql.RowId;
 import java.sql.SQLXML;
 import java.sql.SQLException;
 
 /**
+ * The JDBC4 methods of a {@link Ref}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

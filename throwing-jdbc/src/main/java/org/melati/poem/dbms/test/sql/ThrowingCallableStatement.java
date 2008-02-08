@@ -46,6 +46,8 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.CallableStatement;
 
 /**
+ * A {@link CallableStatement} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 3 May 2007
  *

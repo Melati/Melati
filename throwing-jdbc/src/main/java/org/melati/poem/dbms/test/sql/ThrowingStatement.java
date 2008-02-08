@@ -50,8 +50,8 @@ import java.sql.Statement;
 
 
 /**
-*  A {@link Statement} decorated to throw SQLException on command.
-*  
+ *  A {@link Statement} decorated to throw SQLException on command.
+ *  
  * @author timp
  * @since 10 Feb 2007
  * 

@@ -47,6 +47,8 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.Blob;
 
 /**
+ * A {@link Blob} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 5 Feb 2008
  *

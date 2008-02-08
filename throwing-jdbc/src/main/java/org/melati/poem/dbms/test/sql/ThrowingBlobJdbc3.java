@@ -50,6 +50,8 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 /**
+ * The JDBC3 members of a {@link Blob}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

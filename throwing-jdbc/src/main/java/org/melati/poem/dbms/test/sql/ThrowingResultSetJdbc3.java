@@ -64,6 +64,8 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
+ * The JDBC3 methods of a {@link ResultSet}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

@@ -53,6 +53,8 @@ import java.sql.SQLException;
 import java.sql.SQLXML;
 
 /**
+ * The JDBC4 members of a {@link PreparedStatement}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

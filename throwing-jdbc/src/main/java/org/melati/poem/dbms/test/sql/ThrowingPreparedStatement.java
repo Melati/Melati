@@ -46,7 +46,7 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.PreparedStatement;
 
 /**
- *  A PreparedStatement which can throw SQLException on command.
+ * A {@link PreparedStatement} decorated to throw an SQLException on command.
  *  
  * @author timp
  * @since 10 Feb 2007

@@ -56,6 +56,8 @@ import java.sql.Struct;
 import java.util.Properties;
 
 /**
+ * A JDBC4 {@link Connection}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

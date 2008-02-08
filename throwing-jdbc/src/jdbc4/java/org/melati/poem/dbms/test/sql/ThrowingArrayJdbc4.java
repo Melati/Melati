@@ -48,6 +48,8 @@ import java.sql.Array;
 import java.sql.SQLException;
 
 /**
+ * The JDBC 4 members of an {@link Array}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 5 Feb 2008
  *

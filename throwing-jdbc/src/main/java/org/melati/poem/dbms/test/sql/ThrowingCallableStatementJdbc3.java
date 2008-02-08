@@ -66,6 +66,8 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
+ * The JDBC3 members of a {@link CallableStatement}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

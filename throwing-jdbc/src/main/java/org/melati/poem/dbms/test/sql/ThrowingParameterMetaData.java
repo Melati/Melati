@@ -46,6 +46,8 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.ParameterMetaData;
 
 /**
+ * A {@link ParameterMetaData} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 22 Feb 2007
  *

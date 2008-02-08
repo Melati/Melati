@@ -49,6 +49,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 /**
+ * The JDBC3 methods of a {@link Ref}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

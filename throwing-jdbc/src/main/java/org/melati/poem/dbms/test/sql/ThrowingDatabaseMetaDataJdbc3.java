@@ -50,6 +50,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * The JDBC3 members of a {@link DatabaseMetaData}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

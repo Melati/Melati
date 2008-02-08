@@ -49,6 +49,8 @@ import java.sql.SQLException;
 
 
 /**
+ * The JDBC4 members of a {@link ParameterMetaData}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

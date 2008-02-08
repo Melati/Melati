@@ -50,7 +50,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 /**
- * The JDBC 3 members of an {@link Array} decorated to throw an SQLException on command.
+ * The JDBC 3 members of an {@link Array}, decorated to throw an SQLException on command.
  * 
  * @author timp
  * @since  5 Feb 2008

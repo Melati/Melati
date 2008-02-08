@@ -47,6 +47,8 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 
 /**
+ * A {@link SavePoint} decorated to throw an {@SQLException} on command.
+ * 
  * @author timp
  * @since 10 Feb 2007
  *

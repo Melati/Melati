@@ -51,6 +51,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
+ * The JDBC3 members of a {@link Driver}, decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since  5 Feb 2008
  *

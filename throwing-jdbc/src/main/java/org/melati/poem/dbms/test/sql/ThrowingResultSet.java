@@ -46,6 +46,8 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.ResultSet;
 
 /**
+ * A {@link ResultSet} decorated to throw an SQLException on command.
+ * 
  * @author timp
  * @since 11 Feb 2007
  *

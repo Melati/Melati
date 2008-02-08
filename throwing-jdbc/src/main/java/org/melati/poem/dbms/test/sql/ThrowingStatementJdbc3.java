@@ -51,6 +51,8 @@ import java.sql.SQLWarning;
 import java.sql.Statement;
 
 /**
+ *  The JDBC3 members of a {@link Statement}, decorated to throw SQLException on command.
+ *  
  * @author timp
  * @since  5 Feb 2008
  *

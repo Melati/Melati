@@ -49,6 +49,7 @@ import java.sql.Struct;
 import java.util.Map;
 
 /**
+ *  A {@link Stuct} decorated to throw SQLException on command.
  * @author timp
  * @since 5 Feb 2008
  *

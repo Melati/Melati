@@ -33,7 +33,34 @@
   <artifactId>jdbc</artifactId>
   <name>JDBC</name>
   <description>A set of decorators of the JDBC API.</description>
-
+  <developers>
+    <developer>
+      <name>Tim Pizey</name>
+      <id>timp</id>
+      <email>timp AT paneris.org</email>
+      <roles>
+        <role>Original author</role>
+        <role>Maven maven</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~timp</url>
+      <organization>Context Computing</organization>
+      <organizationUrl>http://www.context-computing.co.uk/</organizationUrl>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Myles Chippendale</name>
+      <email>mylesc AT paneris.org</email>
+      <organization>MJC Solutions</organization>
+      <roles>
+        <role>Reviewer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~mylesc</url>
+    </contributor>
+  </contributors>
+  
     <profiles>
         <profile>
             <id>jdbc3</id>
@@ -125,11 +152,12 @@
         </profile>
     </profiles>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-        </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>

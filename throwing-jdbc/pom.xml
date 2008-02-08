@@ -3,19 +3,11 @@
     ~ Generously contributed by Brett Porter of maven, brett.porter@gmail.com.
     ~ to the TestNg project.
     ~
-    ~ Usage:
-    ~
-    ~ mvn clean install -P jdbc3
-    ~ mvn clean install -P jdbc4
-    ~
     ~ gotchas:
     ~
     ~    * can't build them both in one go. This would be done by having a -core, -jdbc3 and -jdbc4 library instead
     ~    * you end up with a jdbc-$version.jar as well as the per-jdbc versions
     ~    * doesn't run tests
-    ~
-    ~ There are certainly better ways to do this (especially if restructuring is an option), but this
-    ~ was the most expedient to get things in the local repo.
     ~
     ~
     ~ Creating an ibiblio upload bundle (added by jesse) :
@@ -55,7 +47,7 @@
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <configuration>
                             <sources>
-                                <source>src/jdbc3</source>
+                                <source>src/jdbc3/java</source>
                             </sources>
                         </configuration>
                         <executions>
@@ -117,7 +109,7 @@
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <configuration>
                             <sources>
-                                <source>src/jdbc4</source>
+                                <source>src/jdbc4/java</source>
                             </sources>
                         </configuration>
                         <executions>
@@ -140,7 +132,7 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
 	    <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

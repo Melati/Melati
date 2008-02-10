@@ -66,7 +66,10 @@ public class CachedSelectionTest extends
    * @see org.melati.poem.test.CachedSelectionTest#testFirstObject()
    */
   public void testFirstObject() {
+    // Hit next in compute()
     ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    // Hit finally in compute()
+    ThrowingResultSet.startThrowing(ResultSet.class, "close");
     try { 
       super.testFirstObject();
       fail("Should have bombed");
@@ -74,7 +77,7 @@ public class CachedSelectionTest extends
       assertEquals("ResultSet bombed", e.innermostException().getMessage());      
     }
     ThrowingResultSet.stopThrowing(ResultSet.class, "next");
-
+    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
   }
 
   /** 

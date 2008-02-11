@@ -115,25 +115,6 @@ Some of the things you might wish to do with Melati.
  </li>
 </ol>
 </subsection>
-<subsection name=" Use an Access database ">
-<ol>
- <li>Register with <a href="http://www.easysoft.com/">EasySoft</a> </li>
- <li>Download and install the JDBC-ODBC bridge software</li>
- <li>If you are not using an existing Access DB then create an empty one</li>
- <li>Register your DB as an ODBC Datasource with a System DSN</li>
- <li>Update your <code>org.melati.LogicalDatabase.properties</code> file to select the 
-     <code>MSAccess</code> <code>DbmsClass</code>
- </li>
- <li>In the <code>build</code> directory type
- <pre>
-   ant go
- </pre>
- </li>
- <li>
-  point your browser at <a href="http://127.0.0.1:8081/Admin/contacts/Main">http://127.0.0.1:8081/Admin/contacts/Main</a>
- </li>
-</ol>
-</subsection>
 <subsection name=" Extend Melati's metadata ">
 <p>
 In your DSD extend the <tt>TableInfo</tt> and/or <tt>ColumnInfo</tt> tables. 
@@ -216,6 +197,25 @@ subclass your chosen <tt>dbms</tt> class, such as <a href='/xref/org/melati/poem
   }
 </pre>
 </p>
+</subsection>
+<subsection name=" Use an Access database ">
+<ol>
+ <li>Register with <a href="http://www.easysoft.com/">EasySoft</a> </li>
+ <li>Download and install the JDBC-ODBC bridge software</li>
+ <li>If you are not using an existing Access DB then create an empty one</li>
+ <li>Register your DB as an ODBC Datasource with a System DSN</li>
+ <li>Update your <code>org.melati.LogicalDatabase.properties</code> file to select the 
+     <code>MSAccess</code> <code>DbmsClass</code>
+ </li>
+ <li>In the <code>build</code> directory type
+ <pre>
+   ant go
+ </pre>
+ </li>
+ <li>
+  point your browser at <a href="http://127.0.0.1:8081/Admin/contacts/Main">http://127.0.0.1:8081/Admin/contacts/Main</a>
+ </li>
+</ol>
 </subsection>
 </section>
 </body>

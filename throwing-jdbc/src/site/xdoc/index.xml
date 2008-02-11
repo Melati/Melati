@@ -24,7 +24,7 @@ This page last updated: $Date$ $Author$
   
 <!-- menu -->
 
-<section name=" Throwing JDBC - java.sql error injector <">
+<section name=" Throwing JDBC - java.sql error injector ">
 <p>
 This module is a reusable test utility which provides a mechanism 
 for Error Injection.

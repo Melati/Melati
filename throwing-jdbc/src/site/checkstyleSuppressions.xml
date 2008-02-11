@@ -5,7 +5,7 @@
 
 <suppressions>
     <suppress checks="LineLength"
-              files="ThrowingDatabaseMetaDataJdbc3.java" />
+              files="ThrowingDatabaseMetaDataJdbc3" />
     <suppress checks="LineLength"
-              files="ThrowingConnectionJdbc3.java" />
+              files="ThrowingConnectionJdbc3" />
 </suppressions>

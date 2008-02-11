@@ -26,8 +26,9 @@ This page last updated: $Date$ $Author$
 
 <section name=" Melati ">
 <P>
-  Melati is a tool for building websites backed by a
-  database or accessing a database over <tt>HTTP</tt>.
+  Melati is a tool for producing documents from databases.
+  This is particularly good for building websites backed by a
+  database.
   It is written in Java and provides the following features:
 </P>
 <ul>

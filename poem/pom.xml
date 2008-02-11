@@ -20,7 +20,7 @@
       <dependencies>
        <dependency>
         <groupId>org.melati</groupId>
-        <artifactId>jdbc</artifactId>
+        <artifactId>throwing-jdbc</artifactId>
         <version>${project.version}</version>
         <classifier>jdbc3</classifier>
         <scope>test</scope>
@@ -35,7 +35,7 @@
       <dependencies>
        <dependency>
         <groupId>org.melati</groupId>
-        <artifactId>jdbc</artifactId>
+        <artifactId>throwing-jdbc</artifactId>
         <version>${project.version}</version>
         <classifier>jdbc4</classifier>
         <scope>test</scope>

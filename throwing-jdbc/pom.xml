@@ -30,8 +30,8 @@
     <version>0.7.8-RC1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>jdbc</artifactId>
-  <name>JDBC</name>
+  <artifactId>throwing-jdbc</artifactId>
+  <name>Throwing JDBC</name>
   <description>A set of decorators of the JDBC API.</description>
   <developers>
     <developer>

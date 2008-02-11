@@ -7,7 +7,6 @@
   <name>Melati Home</name>
   <modules>
     <module>poem</module>
-    <module>jdbc</module>
     <module>melati</module>
     <module>melati-example-contacts</module>
     <module>melati-example-odmg</module>
@@ -15,6 +14,7 @@
     <module>melati-webapp</module>
     <module>melati-archetype</module>
     <module>melati-skin</module>
+    <module>throwing-jdbc</module>
   </modules>  
   <version>0.7.8-RC1-SNAPSHOT</version>
   <description>
@@ -421,8 +421,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

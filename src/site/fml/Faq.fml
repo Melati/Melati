@@ -48,12 +48,9 @@ A cooked object is one which has attached metadata.
       <question>How are input widgets rendered?</question>
       <answer>
         <p>
-        Input widgets, such as select boxes and popup selections, are either 
-        rendered using a templet named after their class or a templet named 
-        in their field attributes.
-        </p>
-        <p>
-        Templets are found on the classpath in a sub directory of your configured template engine.
+        Input widgets, such as select boxes and popup selections, are  
+        rendered using a templet named after their class with an optional classifier 
+        called <b></b>brenderInfo>in their field attributes.
         </p>
       </answer>
     </faq>

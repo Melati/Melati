@@ -18,8 +18,9 @@
     </links>
     <menu ref="parent" inherit="top"/>
     <menu name="Melati Contacts Example">
-        <item name="Home" href="index.html"/>
-        <item name="Download" href="Download.html"/>
+      <item name="About" href="index.html"/>
+      <item name="Schema" href="schemaspy/index.html"/>
+      <item name="Download" href="Download.html"/>
     </menu>
     ${reports}
   </body>

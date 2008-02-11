@@ -76,7 +76,7 @@
         <contextPath>/</contextPath>
        </configuration>
       </plugin>
-      <!--plugin>
+      <plugin>
        <groupId>org.codehaus.mojo</groupId>
        <artifactId>exec-maven-plugin</artifactId>
        <executions>
@@ -88,32 +88,32 @@
          </execution>
        </executions>
        <configuration>
+         <includePluginDependencies>true</includePluginDependencies>
          <mainClass>net.sourceforge.schemaspy.Main</mainClass>
-       <arguments>
-        <argument>-t=src/site/schemaspy/properties/hsqldb-file.properties</argument>
-        <argument>-cp hsqldb-1.8.0.7.jar </argument>
-        <argument>-db=contacts</argument>
-        <argument>-desc=Melati Example Contacts Database Schema</argument>
-        <argument>-dir=/dist/melati/db</argument>
-        <argument>-u=sa</argument>
-        <argument>-s=PUBLIC</argument>
-        <argument>-o=target/site/schemaspy</argument>
-
-       </arguments>
-     </configuration>
-     <dependencies>
-      <dependency>
-       <groupId>net.sourceforge</groupId>
-       <artifactId>schemaSpy</artifactId>
-       <version>3.1.1</version>
-      </dependency>
-      <dependency>
-        <groupId>hsqldb</groupId>
-        <artifactId>hsqldb</artifactId>
-        <version>1.8.0.7</version>
-      </dependency>
-     </dependencies>
-    </plugin-->
+         <arguments>
+          <argument>-t=src/site/schemaspy/properties/hsqldb-file.properties</argument>
+          <argument>-cp=hsqldb-1.8.0.7.jar </argument>
+          <argument>-db=contacts</argument>
+          <argument>-desc=Melati Example Contacts Database Schema</argument>
+          <argument>-dir=/dist/melati/db</argument>
+          <argument>-u=sa</argument>
+          <argument>-s=PUBLIC</argument>
+          <argument>-o=target/site/schemaspy</argument>
+         </arguments>
+       </configuration>
+       <dependencies>
+        <dependency>
+         <groupId>net.sourceforge</groupId>
+         <artifactId>schemaSpy</artifactId>
+         <version>3.1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>hsqldb</groupId>
+          <artifactId>hsqldb</artifactId>
+          <version>1.8.0.7</version>
+        </dependency>
+      </dependencies>
+    </plugin>
     </plugins>
   </build>
   <reporting>

@@ -47,12 +47,12 @@ the <tt>Driver</tt>, from which all other objects in the API are obtained.
 Test coverage is only worth having if it is complete because: 
 <ul>
 <li>
-The coverage reports are only fun to read if there is a good reason 
-for each non-covered line.
+It is a pain to keep reviewing classes you can do no more about, 
+if you get 100 percent coverage then they will drop off the todo list.
 </li>
 <li>
-When a class has complete coverage you can focus on the 
-real uncovered code rather than revisiting pages you can do no more about.
+The coverage reports are only fun to read if there is a good reason 
+for each non-covered line.
 </li>
 <li>
 <a href="http://www.crap4j.org/benchmark/stats/77">Automatons</a> and managers only look at aggregate figures so 

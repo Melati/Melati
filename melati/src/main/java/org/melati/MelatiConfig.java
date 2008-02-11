@@ -64,7 +64,6 @@ import org.melati.template.YMDDateAdaptor;
 import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
 import org.melati.util.HttpHeader;
-import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
 
 /**
@@ -92,9 +91,6 @@ public class MelatiConfig {
   /**
    * Allows creation of a <code>MelatiConfig</code> with default config
    * params.
-   * 
-   * @throws MelatiException
-   *         if anything goes wrong.
    */
   public MelatiConfig() {
     try {
@@ -120,8 +116,6 @@ public class MelatiConfig {
    * 
    * @param propertiesName
    *        the name of a properties file
-   * @throws MelatiException
-   *         if anything goes wrong.
    */
   public MelatiConfig(String propertiesName) {
     this.propertiesName = propertiesName;

@@ -387,7 +387,7 @@ public abstract class Database implements TransactionPool {
     try {
       Table table = info.actualTable();
       info.delete(); // Ensure we have no references in metadata
-      table.dbModifyStructure(" DROP TABLE " + table.quotedName() );
+      table.dbModifyStructure(" DROP TABLE " + table.quotedName());
       synchronized (tables) {
         tables.remove(table);
         tablesByName.remove(table.getName().toLowerCase());

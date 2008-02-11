@@ -2248,7 +2248,7 @@ public class Table implements Selectable {
       if (database.getDbms().canDropColumns())
         dbModifyStructure(
             "ALTER TABLE " + quotedName() +
-            " DROP " + column.quotedName() );
+            " DROP " + column.quotedName());
       // else silently leave it
       
       columns = (Column[])ArrayUtils.removed(columns, column);

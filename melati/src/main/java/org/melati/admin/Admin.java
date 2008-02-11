@@ -128,7 +128,7 @@ public class Admin extends TemplateServlet {
   /**
    * Creates a row for a table using field data in a template context.
    */
-  static protected Persistent create(Table table,
+  protected static Persistent create(Table table,
       final ServletTemplateContext context) {
     Persistent result = table.create(new Initialiser() {
       public void init(Persistent object) throws AccessPoemException,
@@ -143,14 +143,14 @@ public class Admin extends TemplateServlet {
   /**
    * Return the resource path for an admin template.
    */
-  static protected final String adminTemplate(String name) {
+  protected static final String adminTemplate(String name) {
     return "org/melati/admin/" + name;
   }
 
   /**
    * @return a DSD for the database
    */
-  static protected String dsdTemplate(ServletTemplateContext context) {
+  protected static String dsdTemplate(ServletTemplateContext context) {
     // Webmacro security prevents access from within template
 
     // Note: getPackage() can return null dependant upon
@@ -167,7 +167,7 @@ public class Admin extends TemplateServlet {
   /**
    * @return primary select template
    */
-  static protected String primarySelectTemplate(ServletTemplateContext context,
+  protected static String primarySelectTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     final Table table = melati.getTable();
 
@@ -191,7 +191,7 @@ public class Admin extends TemplateServlet {
   /**
    * Return template for a selection of records from a table.
    */
-  static protected String selectionTemplate(ServletTemplateContext context,
+  protected static String selectionTemplate(ServletTemplateContext context,
       Melati melati) {
     selection(context, melati);
     return adminTemplate("Selection");
@@ -203,7 +203,7 @@ public class Admin extends TemplateServlet {
    * 
    * @return SelectionRight template.
    */
-  static protected String selectionRightTemplate(
+  protected static String selectionRightTemplate(
       ServletTemplateContext context, Melati melati) {
     selection(context, melati);
     context.put("inRight", Boolean.TRUE);
@@ -229,7 +229,7 @@ public class Admin extends TemplateServlet {
    * @return The modified context.
    * @see #adminTemplate(ServletTemplateContext, String)
    */
-  static protected ServletTemplateContext selection(
+  protected static ServletTemplateContext selection(
       ServletTemplateContext context, Melati melati) {
     final Table table = melati.getTable();
 
@@ -323,13 +323,13 @@ public class Admin extends TemplateServlet {
   /**
    * Implements the field search/selection request method.
    */
-  static protected String popUpTemplate(ServletTemplateContext context,
+  protected static String popUpTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     popup(context, melati);
     return adminTemplate("PopupSelect");
   }
 
-  static protected ServletTemplateContext popup(ServletTemplateContext context,
+  protected static ServletTemplateContext popup(ServletTemplateContext context,
       Melati melati) throws PoemException {
     final Table table = melati.getTable();
 
@@ -386,7 +386,7 @@ public class Admin extends TemplateServlet {
   /**
    * @return primary select template
    */
-  static protected String selectionWindowPrimarySelectTemplate(
+  protected static String selectionWindowPrimarySelectTemplate(
       ServletTemplateContext context, Melati melati) throws PoemException {
     context.put("inPopup", Boolean.TRUE);
     return primarySelectTemplate(context, melati);
@@ -395,7 +395,7 @@ public class Admin extends TemplateServlet {
   /**
    * @return select template (a selection of records from a table)
    */
-  static protected String selectionWindowSelectionTemplate(
+  protected static String selectionWindowSelectionTemplate(
       ServletTemplateContext context, Melati melati) {
     selection(context, melati);
     context.put("inPopup", Boolean.TRUE);
@@ -412,7 +412,7 @@ public class Admin extends TemplateServlet {
    * The Form does not normally contain values, but this could be used as a
    * mechanism for providing defaults.
    */
-  static protected String addTemplate(final ServletTemplateContext context,
+  protected static String addTemplate(final ServletTemplateContext context,
       Melati melati) throws PoemException {
 
     /*
@@ -463,7 +463,7 @@ public class Admin extends TemplateServlet {
    * If successful the template will say so while reloading according to the
    * returnTarget and returnURL values from the Form in context.
    */
-  static protected String addUpdateTemplate(ServletTemplateContext context,
+  protected static String addUpdateTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
 
     Persistent newPersistent = create(melati.getTable(), context);
@@ -486,7 +486,7 @@ public class Admin extends TemplateServlet {
    * If successful the template will say so while reloading according to the
    * returnTarget and returnURL values from the Form in context.
    */
-  static protected String updateTemplate(ServletTemplateContext context,
+  protected static String updateTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     Persistent object = melati.getObject();
     object.preEdit();
@@ -495,7 +495,7 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Updated");
   }
 
-  static protected String deleteTemplate(ServletTemplateContext context,
+  protected static String deleteTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     try {
       if (melati.getTable().getName().equals("tableinfo")) {
@@ -517,7 +517,7 @@ public class Admin extends TemplateServlet {
     }
   }
 
-  static protected String duplicateTemplate(ServletTemplateContext context,
+  protected static String duplicateTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     Persistent dup = melati.getObject().duplicated();
     Form.extractFields(context, dup);
@@ -539,7 +539,7 @@ public class Admin extends TemplateServlet {
    * @see #deleteTemplate(ServletTemplateContext, Melati)
    * @see #duplicateTemplate(ServletTemplateContext, Melati)
    */
-  static protected String modifyTemplate(ServletTemplateContext context,
+  protected static String modifyTemplate(ServletTemplateContext context,
       Melati melati) throws FormParameterException {
     String action = melati.getRequest().getParameter("action");
     if ("Update".equals(action))
@@ -553,13 +553,13 @@ public class Admin extends TemplateServlet {
             "action", "Bad action from Edit: " + action);
   }
 
-  static protected String uploadTemplate(ServletTemplateContext context)
+  protected static String uploadTemplate(ServletTemplateContext context)
       throws PoemException {
     context.put("field", context.getForm("field"));
     return adminTemplate("Upload");
   }
 
-  static protected String setupTemplate(ServletTemplateContext context,
+  protected static String setupTemplate(ServletTemplateContext context,
       Melati melati) {
     screenStylesheetURL = melati.getDatabase().getSettingTable().ensure(
         Admin.class.getName() + ".ScreenStylesheetURL", "/blue.css",
@@ -591,7 +591,7 @@ public class Admin extends TemplateServlet {
    * @return a template name
    */
 
-  static protected String uploadDoneTemplate(ServletTemplateContext context)
+  protected static String uploadDoneTemplate(ServletTemplateContext context)
       throws PoemException {
     String field = context.getForm("field");
     context.put("field", field);

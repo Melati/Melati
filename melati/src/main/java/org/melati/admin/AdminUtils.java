@@ -212,7 +212,7 @@ public class AdminUtils {
     else 
       url += getPrimaryDisplayTable(melati); 
     if (melati.getObject() != null)
-      url += "/" + melati.getObject().getTroid() ;
+      url += "/" + melati.getObject().getTroid();
     url += "/Bottom";
     return url;
   }
@@ -313,7 +313,7 @@ public class AdminUtils {
           "&returnTarget=" + (returnTarget == null ? "" : returnTarget) + 
           (melati.getObject() == null ? 
               "" : 
-              "&field_id=" + melati.getObject().troid()) ;
+              "&field_id=" + melati.getObject().troid());
   }
   
   /**
@@ -336,7 +336,7 @@ public class AdminUtils {
    * @return The Edit Header URL.
    */
   public String EditHeaderURL(Melati melati) throws AccessPoemException {
-    if (melati.getObject() == null )
+    if (melati.getObject() == null)
       return getURL(melati, "blank");
     else
       return getURL(melati, "EditHeader");
@@ -346,7 +346,7 @@ public class AdminUtils {
    * @return The Edit URL.
    */
   public String EditURL(Melati melati) throws AccessPoemException {
-    if (melati.getObject() == null )
+    if (melati.getObject() == null)
       return getURL(melati, "blank");
     else
       return getURL(melati, "Edit");
@@ -533,7 +533,7 @@ public class AdminUtils {
   
   /**
    *  Create a tree. 
-   * @param node  a tree node
+   * @param table  the table to tree 
    * @return a tree with node as its root
    */
   public JSStaticTree createForest(Table table) {

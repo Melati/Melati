@@ -3,7 +3,7 @@
 <document>
 
   <properties>
-    <title>JDBC - java.sql error injector </title>
+    <title>Throwing JDBC - java.sql error injector </title>
     <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       JDBC, JDBC3, JDBC4, ORM, Persistence, Java, SQL, Database, Object Relational Mapping,
@@ -24,7 +24,7 @@ This page last updated: $Date$ $Author$
   
 <!-- menu -->
 
-<section name=" JDBC ">
+<section name=" Throwing JDBC - java.sql error injector <">
 <p>
 This module is a reusable test utility which provides a mechanism 
 for Error Injection.

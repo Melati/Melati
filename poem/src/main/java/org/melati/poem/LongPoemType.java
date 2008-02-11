@@ -128,7 +128,7 @@ public class LongPoemType extends AtomPoemType {
     // Sql type code is not checked
     if (other instanceof LongPoemType) 
       return true;
-    return other instanceof IntegerPoemType ;
+    return other instanceof IntegerPoemType;
   }
 
   /**

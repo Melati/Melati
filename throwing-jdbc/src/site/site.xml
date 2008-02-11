@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="jdbc">
+<project name="throwing-jdbc">
   <skin>
     <groupId>org.melati</groupId>
     <artifactId>melati-skin</artifactId>
@@ -18,7 +18,7 @@
 
   <body>
     <menu ref="parent" inherit="top" />
-    <menu name="JDBC">
+    <menu name="Throwing JDBC">
         <item name="About" href="index.html"/>
     </menu>
     ${reports}

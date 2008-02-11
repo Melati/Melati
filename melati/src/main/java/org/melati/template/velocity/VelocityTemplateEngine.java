@@ -52,7 +52,6 @@ import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
 import org.melati.template.TemplateContext;
-import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
@@ -200,7 +199,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @param template
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
-   *        the {@link ServletTemplateContext} to expand the template against
+   *        the {@link TemplateContext} to expand the template against
    */
   public void expandTemplate(MelatiWriter out,
       org.melati.template.Template template, TemplateContext templateContext)
@@ -229,7 +228,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @param template
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
-   *        the {@link ServletTemplateContext} to expand the template against
+   *        the {@link TemplateContext} to expand the template against
    * @throws IOException if TemplateEngine does
    * @return the interpolated template as a String
    * {@inheritDoc}

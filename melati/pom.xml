@@ -13,20 +13,6 @@
   </description>
   <profiles>
     <profile>
-      <id>jetty</id>
-      <activation>
-        <jdk>!1.4</jdk>
-      </activation>
-      <dependencies>
-       <dependency>
-         <groupId>javax.servlet</groupId>
-         <artifactId>jsp-api</artifactId>
-         <version>2.0</version>
-         <scope>compile</scope>
-       </dependency>
-      </dependencies>
-    </profile>
-    <profile>
       <id>nojetty</id>
       <activation>
         <jdk>1.4</jdk>
@@ -149,7 +135,12 @@
      <version>2.4</version>
      <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>

@@ -1081,7 +1081,6 @@ public abstract class Database implements TransactionPool {
       return n;
     }
     catch (SQLException e) {
-      e.printStackTrace();
       throw dbms.exceptionForUpdate(null, sql,
                                     sql.indexOf("INSERT") >= 0 ||
                                       sql.indexOf("insert") >= 0,

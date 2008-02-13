@@ -130,7 +130,7 @@ $Form.returnURL
         href="Edit"  
   #end
   #if ($Form.returnTarget) #begin
-        target="$Form.returnTarget"
+        target="$admin.simpleName($Form.returnTarget)"
   #end #else #begin
         target=""
   #end

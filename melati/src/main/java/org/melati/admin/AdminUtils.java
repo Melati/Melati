@@ -545,5 +545,11 @@ public class AdminUtils {
     return new JSStaticTree(children, getStaticURL());
   }
 
-  
+  public static String simpleName(String qualifiedName) { 
+    return qualifiedName.substring(
+        qualifiedName.lastIndexOf('.') != -1 ?
+            qualifiedName.lastIndexOf('.') + 1 : 
+            0,
+        qualifiedName.length());
+  }
 }

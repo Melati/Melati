@@ -85,7 +85,7 @@
 </TR>
 <TR>
   <TD>
-    <a href='$admin.AddURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
+    <a href='$admin.AddURL($melati.Table)?returnTarget=parent.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
        title="New $melati.Table.DisplayName" 
        id="add"
        target="admin_record"><IMG 

@@ -360,14 +360,15 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#cachedSelectionWhereEq(Object)
    */
   public void testCachedSelectionWhereEq() {
-    int queries = getDb().getQueryCount();
     CachedSelection cs = getDb().getColumnInfoTable().getHeightColumn().
         cachedSelectionWhereEq(new Integer(1));
+    assertEquals(69,cs.count());
+    int queries = getDb().getQueryCount();
+    assertEquals(69,cs.count());
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
-    assertEquals(69,cs.count());
     int queries3 = getDb().getQueryCount();
-    assertEquals(queries2 + 1, queries3);
+    assertEquals(queries2, queries3);
   }
 
   /**

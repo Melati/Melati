@@ -269,7 +269,27 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_selection");
     assertTextPresent("No records found");
   }
+
   
+  public void testSearchAndGoto() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/" + dbName + "/Main");
+    gotoRootWindow();
+    gotoFrame("admin_top");
+    setWorkingForm("goto");
+    selectOption("goto","Column");
+    assertFormPresent("goto");
+    submit();
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_left");
+    gotoFrame("admin_navigation");
+    clickLink("search");
+    gotoWindow("admin_search");
+    setTextField("field_displayname", "Id");
+    selectOption("field_order-1","Id");
+    selectOption("field_order-2","Owning table");
+  }
   /**
    * User story.
    */

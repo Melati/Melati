@@ -289,6 +289,12 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setTextField("field_displayname", "Id");
     selectOption("field_order-1","Id");
     selectOption("field_order-2","Owning table");
+    submit();
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_left");
+    gotoFrame("admin_selection");
+    assertTextPresent("Records 1 to 9 of 9");
   }
   /**
    * User story.

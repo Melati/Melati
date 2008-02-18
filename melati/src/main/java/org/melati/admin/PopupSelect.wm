@@ -105,7 +105,7 @@
     <tr>
      <td></td><td>
       <font face="Arial, Helvetica" size="-1">
-       <INPUT NAME="action" VALUE="Search" TYPE="submit" alt="Search $melati.Table.DisplayName" 
+       <INPUT NAME="action" VALUE="Search" TYPE="submit" alt="Select records from the $melati.Table.DisplayName table" 
            ONCLICK="return validate(this.form);">
       </font>
      </td>

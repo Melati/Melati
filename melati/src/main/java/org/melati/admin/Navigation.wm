@@ -52,15 +52,15 @@
       type="text/css" media="screen">
 <script TYPE="text/javascript">
 <!--
-  if (top.searchWindow && !top.searchWindow.closed) {
-    top.searchWindow.close();
+  if (top.admin_search && !top.admin_search.closed) {
+    top.admin_search.close();
   }
 
   function openWindow() {
-    top.searchWindow = window.open("", "searchWindow", "width=470,height=500,resizable=yes,scrollbars=yes");
-    if (top.searchWindow != null) {
-      top.searchWindow.location.href = '$admin.PopUpURL($melati.Table)';
-      top.searchWindow.focus();
+    top.admin_search = window.open("", "admin_search", "width=470,height=500,resizable=yes,scrollbars=yes");
+    if (top.admin_search != null) {
+      top.admin_search.location.href = '$admin.PopUpURL($melati.Table)';
+      top.admin_search.focus();
     }
     return false;
   }
@@ -76,7 +76,8 @@
 <TD>
    <a onClick ='openWindow();'
       href='$admin.PopUpURL($melati.Table)' 
-      target='searchWindow'
+      id="search"
+      target='admin_search'
       title='Open search window'><IMG 
       src='$admin.StaticURL/search.gif' 
       border='0' 

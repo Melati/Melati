@@ -80,7 +80,7 @@ public class Logout extends TemplateServlet {
     HttpSession session = melati.getSession();
     String returnURL = Form.getFieldNulled(context,"continuationURL");
     if (returnURL == null) {
-      context.put("continuationURL", "/");
+      context.put("continuationURL", melati.getZoneURL() + "/");
     } else {
       context.put("continuationURL", returnURL);
     }

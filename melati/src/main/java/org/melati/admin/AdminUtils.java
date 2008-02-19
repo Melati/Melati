@@ -545,6 +545,10 @@ public class AdminUtils {
     return new JSStaticTree(children, getStaticURL());
   }
 
+  /**
+   * @param qualifiedName
+   * @return text followuing the last dot
+   */
   public static String simpleName(String qualifiedName) { 
     return qualifiedName.substring(
         qualifiedName.lastIndexOf('.') != -1 ?

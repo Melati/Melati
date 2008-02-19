@@ -271,6 +271,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   }
 
   
+  /**
+   * Search for a set of records.
+   */
   public void testSearchAndGoto() {
     setScriptingEnabled(false);
     beginAt("/Admin/" + dbName + "/Main");

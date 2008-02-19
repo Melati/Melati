@@ -111,10 +111,14 @@ public class AdminUtilsTest extends PoemTestCase {
     // TODO they are treeable now
   }
 
+  /**
+   * Test simpleName.
+   */
   public void testSimpleName() { 
     assertEquals("admin", AdminUtils.simpleName("org.melati.admin"));    
     assertEquals("admin", AdminUtils.simpleName(".admin"));    
     assertEquals("", AdminUtils.simpleName("admin."));    
+    assertEquals("admin", AdminUtils.simpleName("admin"));    
   }
   
 }

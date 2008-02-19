@@ -75,6 +75,8 @@ public class CommandLineAccessHandler implements AccessHandler {
 
   private boolean commandLineUserCredentialsSet = false;
 
+  BufferedReader inputReader = null;
+
   /**
    * Constructor.
    */
@@ -82,6 +84,7 @@ public class CommandLineAccessHandler implements AccessHandler {
     super();
     commandLineUserCredentialsSet = false;
   }
+
 
   /**
    * Actually handle the {@link AccessPoemException}.
@@ -91,8 +94,6 @@ public class CommandLineAccessHandler implements AccessHandler {
    * @see org.melati.login.AccessHandler#handleAccessException
    *      (org.melati.Melati, org.melati.poem.AccessPoemException)
    */
-  BufferedReader inputReader = null;
-
   public void handleAccessException(Melati melati,
       AccessPoemException accessException) throws Exception {
     Authorization auth = null;

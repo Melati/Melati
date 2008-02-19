@@ -17,6 +17,7 @@ import net.sourceforge.jwebunit.junit.WebTestCase;
 public abstract class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
+  private static String contextName = "test";
 
   /**
    * Constructor.
@@ -37,7 +38,7 @@ public abstract class JettyWebTestCase extends WebTestCase {
     // Port 0 means "assign arbitrarily port number"
     server = new Server(0);
     WebAppContext wac = new WebAppContext(
-        "src/test/webapp", "/");
+        "src/test/webapp", "/" + contextName);
     org.mortbay.resource.FileResource.setCheckAliases(false); 
     server.addHandler(wac);
     server.start();
@@ -45,7 +46,8 @@ public abstract class JettyWebTestCase extends WebTestCase {
     // getLocalPort returns the port that was actually assigned
     int actualPort = server.getConnectors()[0].getLocalPort();
     getTestContext().setBaseUrl(
-        "http://localhost:" + actualPort + "/");
+        "http://localhost:" + actualPort + "/" );
+    wac.dumpUrl();
   }
 
   protected void tearDown() throws Exception {
@@ -71,5 +73,12 @@ public abstract class JettyWebTestCase extends WebTestCase {
     beginAt("/index.html");
     assertTextPresent("Hello World!");
   }
-
+  
+   /**
+   * {@inheritDoc}
+   * @see net.sourceforge.jwebunit.junit.WebTestCase#beginAt(java.lang.String)
+   */
+  public void beginAt(String url) { 
+    super.beginAt("/" + contextName  + url);
+  }
 }

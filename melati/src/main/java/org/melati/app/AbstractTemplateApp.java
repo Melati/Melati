@@ -83,8 +83,10 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
       } catch (IOException e) {
         e = null;
       }
-      throw new MelatiConfigurationException("Have you configured a template engine? " + 
-              "Currently set to " + templateEngine);
+      throw new MelatiConfigurationException(
+          "Have you configured a template engine? " + 
+          "org.melati.MelatiConfig.templateEngine currently set to " + 
+          templateEngine.getClass().getName());
     }
     melati.setTemplateContext(templateContext);
     String[] argsWithoutOutput = melati.getArguments();

@@ -304,7 +304,12 @@ public class TemplateAppTest extends TestCase {
       it.run(args);
       fail("Should have blown up");
     } catch (MelatiConfigurationException e) {
-      assertEquals("org.melati.util.MelatiConfigurationException: Have you configured a template engine? Currently set to null",e.getMessage());
+      System.err.println(e.getMessage());
+      assertEquals("org.melati.util.MelatiConfigurationException: " +
+          "Have you configured a template engine? " +
+          "org.melati.MelatiConfig.templateEngine currently set to " + 
+          "org.melati.template.NoTemplateEngine",
+                   e.getMessage());
       e = null;
     }
     File fileIn = new File(fileName);

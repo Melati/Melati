@@ -82,8 +82,7 @@ public abstract class TemplateServlet extends PoemServlet {
     super.init(config);
     try {
       templateEngine = melatiConfig.getServletTemplateEngine();
-      if (templateEngine != null)
-        templateEngine.init(melatiConfig, this);
+      templateEngine.init(melatiConfig, this);
     } catch (TemplateEngineException e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!

@@ -75,11 +75,8 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     Melati melati = super.init(args);
     templateEngine = melatiConfig.getTemplateEngine();
     TemplateContext templateContext = null;
-    if (templateEngine != null) { 
-      templateEngine.init(melatiConfig);
-      templateContext =
-        templateEngine.getTemplateContext(melati);
-    }
+    templateEngine.init(melatiConfig);
+    templateContext = templateEngine.getTemplateContext(melati);
     if (templateContext == null) {
       try {
         super.term(melati);

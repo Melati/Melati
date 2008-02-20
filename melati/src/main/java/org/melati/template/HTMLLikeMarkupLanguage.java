@@ -107,14 +107,11 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
     return escaped(o.displayString(locale, DateFormat.MEDIUM));
   }
 
-  /**
-   * Encode a String using the User's encoding. 
-   * 
-   * @param s the String to encode
-   * @return the encoded String
-   */
   public String encoded(String s) {
     return UTF8URLEncoder.encode(s, melati.getEncoding());
+  }
+  public String decoded(String s) {
+    return UTF8URLEncoder.decode(s, melati.getEncoding());
   }
 }
 

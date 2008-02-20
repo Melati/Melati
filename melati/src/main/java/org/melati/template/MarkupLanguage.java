@@ -212,14 +212,19 @@ public interface MarkupLanguage {
   String escaped(Persistent o);
 
   /**
-   * Encode a String using the User's encoding. 
+   * Encode a String as a UTF-8 URL. 
    * 
    * @param s the String to encode
    * @return the encoded String
    */
   String encoded(String s);
   
-  
+  /**
+   * Decode a UTF-8 URL encode string.
+   * @param s
+   * @return the decoded String
+   */
+  String decoded(String s);
 }
 
 

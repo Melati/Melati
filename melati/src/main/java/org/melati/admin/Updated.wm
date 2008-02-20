@@ -144,8 +144,10 @@ $Form.returnURL
 <input type="hidden" name="troid"
 #if ($melati.Object) #begin
   value="$melati.Object.troid()"
+  source="melati"
 #end #else  #begin
   value="$object.troid()"
+  source="object"
 #end
 >
 </form>

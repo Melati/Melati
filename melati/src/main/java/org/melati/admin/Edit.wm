@@ -120,13 +120,13 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
   #end
 
 #if ($Form.returnURL) #begin
-  <input type="hidden" name="returnURL" value='$Form.returnURL'>
-#end #else #begin
-  #if ($CGI.HTTP_REFERER) #begin
-
-    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
-  #end
-#end
+  <input type="hidden" name="returnURL" value='$ml.decoded($Form.returnURL)'>
+#end 
+###else #begin
+##  #if ($CGI.HTTP_REFERER) #begin
+##    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+##  #end
+###end
 #if ($Form.returnTarget) #begin
 
   <input type="hidden" name="returnTarget" value='$Form.returnTarget'>

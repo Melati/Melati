@@ -65,6 +65,7 @@ import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.ColumnTypePoemType;
 import org.melati.poem.Database;
 import org.melati.poem.DeletionIntegrityPoemException;
+import org.melati.poem.DisplayLevel;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.Initialiser;
@@ -105,7 +106,7 @@ import org.melati.util.MelatiRuntimeException;
  * <p>
  * These methods are called to modify the context:
  * <ul>
- * <li>{@link #popup(ServletTemplateContext, Melati)}</li>
+ * <li>{@link #popupSelect(ServletTemplateContext, Melati)}</li>
  * <li>{@link #primarySelect(ServletTemplateContext, Melati)}</li>
  * <li>{@link #selection(ServletTemplateContext, Melati)}</li>
  * </ul>
@@ -257,24 +258,15 @@ public class Admin extends TemplateServlet {
     context.put("whereClause", EnumUtils.concatenated("&", whereClause
         .elements()));
 
-    // sort out ordering (FIXME this is a bit out of control and is mostly
-    // duplicated in popup())
+    // sort out ordering 
 
-    PoemType searchColumnsType = new ReferencePoemType(database
-        .getColumnInfoTable(), true) {
-      protected Enumeration _possibleRaws() {
-        return new MappedEnumeration(table.getSearchCriterionColumns()) {
-          public Object mapped(Object column) {
-            return ((Column) column).getColumnInfo().getTroid();
-          }
-        };
-      }
-    };
+    PoemType searchColumnsType = getSearchColumnsType(database, table);
 
     Vector orderings = new Vector();
     Vector orderClause = new Vector();
 
-    for (int o = 1; o <= 2; ++o) {
+    
+    for (int o = 1; o <= table.displayColumnsCount(DisplayLevel.summary); ++o) {
       String name = "field_order-" + o;
       String orderColumnIDString = Form.getFieldNulled(context, name);
       Integer orderColumnID = null;
@@ -323,13 +315,13 @@ public class Admin extends TemplateServlet {
   /**
    * Implements the field search/selection request method.
    */
-  protected static String popUpTemplate(ServletTemplateContext context,
+  protected static String popupSelectTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
-    popup(context, melati);
+    popupSelect(context, melati);
     return adminTemplate("PopupSelect");
   }
 
-  protected static ServletTemplateContext popup(ServletTemplateContext context,
+  protected static ServletTemplateContext popupSelect(ServletTemplateContext context,
       Melati melati) throws PoemException {
     final Table table = melati.getTable();
 
@@ -347,12 +339,29 @@ public class Admin extends TemplateServlet {
     };
 
     context.put("criteria", EnumUtils.vectorOf(criterias));
+    PoemType searchColumnsType = getSearchColumnsType(database, table);
 
-    // sort out ordering (FIXME this is a bit out of control and is mostly
-    // duplicated in selection())
+    Vector orderings = new Vector();
+    // NOTE Order by searchable columns, this could be summary columns
+    Enumeration searchColumns = searchColumnsType.possibleRaws();
+    int o = 0;
+    while (searchColumns.hasMoreElements()) {
+      String name = "order-" + o++;
+      orderings.addElement(new Field(searchColumns.nextElement(), 
+          new BaseFieldAttributes(name, searchColumnsType)));
+    }
 
+    context.put("orderings", orderings);
+
+    return context;
+  }
+
+  /**
+   * @return a type whose whose possible members are the search columns of the table
+   */
+  private static PoemType getSearchColumnsType(final Database database, final Table table) {
     PoemType searchColumnsType = new ReferencePoemType(database
-        .getColumnInfoTable(), true) {
+        .getColumnInfoTable(), false) {
       protected Enumeration _possibleRaws() {
         return new MappedEnumeration(table.getSearchCriterionColumns()) {
           public Object mapped(Object column) {
@@ -361,26 +370,7 @@ public class Admin extends TemplateServlet {
         };
       }
     };
-
-    Vector orderings = new Vector();
-
-    for (int o = 1; o <= 2; ++o) {
-      String name = "order-" + o;
-      String orderColumnIDString = Form
-          .getFieldNulled(context, "field_" + name);
-      Integer orderColumnID = null;
-      if (orderColumnIDString != null) {
-        orderColumnID = (Integer) searchColumnsType
-            .rawOfString(orderColumnIDString);
-      }
-
-      orderings.addElement(new Field(orderColumnID, new BaseFieldAttributes(
-          name, searchColumnsType)));
-    }
-
-    context.put("orderings", orderings);
-
-    return context;
+    return searchColumnsType;
   }
 
   /**
@@ -674,7 +664,7 @@ public class Admin extends TemplateServlet {
       if (melati.getMethod().equals("Navigation"))
         return adminTemplate("Navigation");
       if (melati.getMethod().equals("PopUp"))
-        return popUpTemplate(context, melati);
+        return popupSelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindow"))
         return adminTemplate("SelectionWindow");
       if (melati.getMethod().equals("SelectionWindowPrimarySelect"))

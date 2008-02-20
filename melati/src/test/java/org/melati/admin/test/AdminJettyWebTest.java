@@ -152,12 +152,11 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("_administrator_");
 
     // Note that logging out has no effect if rememberme was chosen
-    beginAt("/Logout/" + dbName + "");
+    gotoPage("/Logout/" + dbName + "");
     gotoPage("/Admin/" + dbName + "/user/1/Edit");
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     submit("action");
-    dumpHtml();
     assertTextPresent("Updated a User Record");
     assertTextPresent("Done");
   }

@@ -37,16 +37,20 @@ public abstract class JettyWebTestCase extends WebTestCase {
   protected void setUp() throws Exception {
     // Port 0 means "assign arbitrarily port number"
     server = new Server(0);
-    WebAppContext wac = new WebAppContext(
-        "src/test/webapp", "/" + contextName);
-    org.mortbay.resource.FileResource.setCheckAliases(false); 
-    server.addHandler(wac);
-    server.start();
+    startServer();
   
     // getLocalPort returns the port that was actually assigned
     int actualPort = server.getConnectors()[0].getLocalPort();
     getTestContext().setBaseUrl(
         "http://localhost:" + actualPort + "/" );
+  }
+
+  private static void startServer() throws Exception {
+    WebAppContext wac = new WebAppContext(
+        "src/test/webapp", "/" + contextName);
+    org.mortbay.resource.FileResource.setCheckAliases(false); 
+    server.addHandler(wac);
+    server.start();
     wac.dumpUrl();
   }
 
@@ -60,11 +64,7 @@ public abstract class JettyWebTestCase extends WebTestCase {
    */
   public static void main(String[] args) throws Exception {
     server = new Server(8080);
-    WebAppContext wac = new WebAppContext(
-        "src/test/webapp", "/");
-    org.mortbay.resource.FileResource.setCheckAliases(false); 
-    server.addHandler(wac);
-    server.start();
+    startServer();
   }
   /**
    * Just to say hello.

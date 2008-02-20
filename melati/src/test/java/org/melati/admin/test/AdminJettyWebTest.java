@@ -152,11 +152,12 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("_administrator_");
 
     // Note that logging out has no effect if rememberme was chosen
-    gotoPage("/Logout/" + dbName + "");
+    beginAt("/Logout/" + dbName + "");
     gotoPage("/Admin/" + dbName + "/user/1/Edit");
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     submit("action");
+    dumpHtml();
     assertTextPresent("Updated a User Record");
     assertTextPresent("Done");
   }
@@ -244,7 +245,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public void testLoginWithContinuation() {
     setScriptingEnabled(false);
-    beginAt("/Login/" + dbName + "?continuationURL=/index.html");
+    beginAt("/Login/" + dbName + "?continuationURL=" + contextUrl("/index.html"));
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
@@ -298,6 +299,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_left");
     gotoFrame("admin_selection");
     assertTextPresent("Records 1 to 9 of 9");
+    String page = getPageSource();
+    System.err.println(page);
   }
   /**
    * User story.

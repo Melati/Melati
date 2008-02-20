@@ -79,6 +79,16 @@ public abstract class JettyWebTestCase extends WebTestCase {
    * @see net.sourceforge.jwebunit.junit.WebTestCase#beginAt(java.lang.String)
    */
   public void beginAt(String url) { 
-    super.beginAt("/" + contextName  + url);
+    super.beginAt(contextUrl(url));
+  }
+  /**
+   * {@inheritDoc}
+   * @see net.sourceforge.jwebunit.junit.WebTestCase#gotoPage(java.lang.String)
+   */
+  public void gotoPage(String url) { 
+    super.gotoPage(contextUrl(url));
+  }
+  protected String contextUrl(String url) { 
+    return "/" + contextName  + url;
   }
 }

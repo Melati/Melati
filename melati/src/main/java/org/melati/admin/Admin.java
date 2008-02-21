@@ -83,6 +83,7 @@ import org.melati.poem.ValidationPoemException;
 
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiRuntimeException;
 
 /**
@@ -300,8 +301,8 @@ public class Admin extends TemplateServlet {
       try {
         start = Math.max(0, Integer.parseInt(startString));
       } catch (NumberFormatException e) {
-        throw new AnticipatedException(new FormParameterException("start",
-            "Param must be an Integer"));
+        throw new MelatiBugMelatiException("How did you get that in there?",
+            new FormParameterException("start", "Param must be an Integer"));
       }
     }
 
@@ -538,9 +539,10 @@ public class Admin extends TemplateServlet {
       return deleteTemplate(context, melati);
     if ("Duplicate".equals(action))
       return duplicateTemplate(context, melati);
-    
-    throw new FormParameterException(
-            "action", "Bad action from Edit: " + action);
+    else
+      throw new MelatiBugMelatiException("How did you get that in there?",
+          new FormParameterException(
+            "action", "Bad action from Edit: " + action));
   }
 
   protected static String uploadTemplate(ServletTemplateContext context)

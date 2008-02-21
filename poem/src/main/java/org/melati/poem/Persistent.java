@@ -61,7 +61,7 @@ import java.util.Map;
 public interface Persistent extends Persistable, Treeable {
 
   /**
-   * @return whether this object has been deleted
+   * @return whether this object has been persisted
    */
   boolean statusNonexistent();
 

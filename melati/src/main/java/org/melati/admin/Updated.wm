@@ -112,7 +112,6 @@ $Form.returnURL
 <BODY bgcolor="#cccccc" onLoad="reload()" id="done">
 #end
 <br/><br/><br/><br/>
-<h3 align="center"><font face="Arial, Helvetica">Done</font></h3>
 <h3 align="center">
   <font face="Arial, Helvetica">
     <a 
@@ -137,7 +136,7 @@ $Form.returnURL
 #end
 
         id="continue"
-    >Continue</a>
+    >Done</a>
   </font>
 </h3>
 <form method="GET" action="?">

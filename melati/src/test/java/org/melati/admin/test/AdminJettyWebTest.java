@@ -3,6 +3,12 @@
  */
 package org.melati.admin.test;
 
+import java.util.ArrayList;
+
+import net.sourceforge.jwebunit.html.Cell;
+import net.sourceforge.jwebunit.html.Row;
+import net.sourceforge.jwebunit.html.Table;
+
 import org.melati.JettyWebTestCase;
 
 /**
@@ -110,6 +116,76 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     beginAt("/Admin/" + dbName + "/user/Selection?target=&returnTarget=");
     assertTextPresent("Full name");
     assertTextPresent("Melati guest user");
+    Table s = getTable("selectionTable");
+    ArrayList rows = s.getRows();
+    for (int i = 0; i< rows.size(); i++) { 
+      ArrayList cells = ((Row)rows.get(i)).getCells();
+      for (int j = 0; j< cells.size(); j++) { 
+        String value = ((Cell)cells.get(j)).getValue();
+        System.err.println(i + "," + j + "=" + value);
+        if(i == 2 && j == 2)
+          assertEquals("_guest_", value);
+        if(i == 3 && j == 2)
+          assertEquals("_administrator_", value);
+      }
+    }
+    clickLinkWithText("Full name");
+    s = getTable("selectionTable");
+    rows = s.getRows();
+    for (int i = 0; i< rows.size(); i++) { 
+      ArrayList cells = ((Row)rows.get(i)).getCells();
+      for (int j = 0; j< cells.size(); j++) { 
+        String value = ((Cell)cells.get(j)).getValue();
+        System.err.println(i + "," + j + "=" + value);
+        if(i == 2 && j == 2)
+          assertEquals("_guest_", value);
+        if(i == 3 && j == 2)
+          assertEquals("_administrator_", value);
+      }
+    }
+    clickLinkWithText("Full name");
+    s = getTable("selectionTable");
+    rows = s.getRows();
+    for (int i = 0; i< rows.size(); i++) { 
+      ArrayList cells = ((Row)rows.get(i)).getCells();
+      for (int j = 0; j< cells.size(); j++) { 
+        String value = ((Cell)cells.get(j)).getValue();
+        System.err.println(i + "," + j + "=" + value);
+        if(i == 2 && j == 2)
+          assertEquals("_administrator_", value);
+        if(i == 3 && j == 2)
+          assertEquals("_guest_", value);
+      }
+    }
+    clickLinkWithText("Full name");
+    s = getTable("selectionTable");
+    rows = s.getRows();
+    for (int i = 0; i< rows.size(); i++) { 
+      ArrayList cells = ((Row)rows.get(i)).getCells();
+      for (int j = 0; j< cells.size(); j++) { 
+        String value = ((Cell)cells.get(j)).getValue();
+        System.err.println(i + "," + j + "=" + value);
+        if(i == 2 && j == 2)
+          assertEquals("_guest_", value);
+        if(i == 3 && j == 2)
+          assertEquals("_administrator_", value);
+      }
+    }
+  }
+  /**
+   * Can we get to page three and back.
+   */
+  public void testSelectionPaging() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/" + dbName + "/columninfo/Selection?target=&returnTarget=");
+    clickLinkWithText(">");
+    clickLinkWithText(">");
+    clickLinkWithText(">");
+    assertTextPresent("Records 61 to 69 of 69");
+    clickLinkWithText("<");
+    clickLinkWithText("<");
+    clickLinkWithText("<");
+    assertTextPresent("Records 1 to 20 of 69");
   }
   /**
    * 
@@ -160,7 +236,15 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Updated a User Record");
     assertTextPresent("Done");
   }
-  
+  /**
+   * Test that we are challenged to get into the everything db.
+   */
+  public void testEverythingIsProtected() {
+    setScriptingEnabled(false);
+    beginAt("/Admin/everything/Main");
+    assertTextPresent("You need to log in");
+    
+  }
   /**
    * 
    */

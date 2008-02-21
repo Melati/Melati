@@ -84,14 +84,14 @@
   #if ($results.PrevPageStart) #begin
       <a title="Previous page" 
          href="$melati.sameURLWith("start","$results.PrevPageStart")">
-     &lt;&lt;</a>
+     &lt;</a>
   #end
       Records $results.PageStart to $results.PageEnd of $results.TotalCount
 
   #if ($results.NextPageStart) #begin
        <a title="Next page" 
           href="$melati.sameURLWith("start","$results.NextPageStart")">
-       &gt;&gt;</a>
+       &gt;</a>
   #end
      </b></font>
     </td>

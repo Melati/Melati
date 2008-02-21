@@ -123,9 +123,9 @@ import org.melati.util.MelatiRuntimeException;
 public class Admin extends TemplateServlet {
   private static final long serialVersionUID = 1L;
 
-  static String screenStylesheetURL = null;
-  static String primaryDisplayTable = null;
-  static String homepageURL = null;
+  private static String screenStylesheetURL = null;
+  private static String primaryDisplayTable = null;
+  private static String homepageURL = null;
 
   /**
    * Creates a row for a table using field data in a template context.
@@ -682,5 +682,47 @@ public class Admin extends TemplateServlet {
       return dsdTemplate(context);
 
     throw new InvalidUsageException(this, melati.getPoemContext());
+  }
+
+  /**
+   * @return the screenStylesheetURL
+   */
+  static String getScreenStylesheetURL() {
+    return screenStylesheetURL;
+  }
+
+  /**
+   * @param screenStylesheetURL the screenStylesheetURL to set
+   */
+  static void setScreenStylesheetURL(String screenStylesheetURL) {
+    Admin.screenStylesheetURL = screenStylesheetURL;
+  }
+
+  /**
+   * @return the primaryDisplayTable
+   */
+  static String getPrimaryDisplayTable() {
+    return primaryDisplayTable;
+  }
+
+  /**
+   * @param primaryDisplayTable the primaryDisplayTable to set
+   */
+  static void setPrimaryDisplayTable(String primaryDisplayTable) {
+    Admin.primaryDisplayTable = primaryDisplayTable;
+  }
+
+  /**
+   * @return the homepageURL
+   */
+  static String getHomepageURL() {
+    return homepageURL;
+  }
+
+  /**
+   * @param homepageURL the homepageURL to set
+   */
+  static void setHomepageURL(String homepageURL) {
+    Admin.homepageURL = homepageURL;
   }
 }

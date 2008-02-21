@@ -97,12 +97,12 @@ public class AdminUtils {
    * @return the name of the default table to display  
    */
   public static String getPrimaryDisplayTable(Melati melati) { 
-    if (Admin.primaryDisplayTable == null) 
-      Admin.primaryDisplayTable = melati.getDatabase().
-          getSettingTable().get(Admin.class.getName() + ".PrimaryDisplayTable");
-    if (Admin.primaryDisplayTable == null)
-      Admin.primaryDisplayTable = "columninfo";
-    return Admin.primaryDisplayTable;
+    if (Admin.getPrimaryDisplayTable() == null) 
+      Admin.setPrimaryDisplayTable( melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".PrimaryDisplayTable"));
+    if (Admin.getPrimaryDisplayTable() == null)
+      Admin.setPrimaryDisplayTable("columninfo");
+    return Admin.getPrimaryDisplayTable();
   }
   
   /**
@@ -110,12 +110,12 @@ public class AdminUtils {
    * @return the stylesheet for screen media  
    */
   public String getScreenStylesheetURL(Melati melati) {
-    if (Admin.screenStylesheetURL == null) 
-      Admin.screenStylesheetURL = melati.getDatabase().
-          getSettingTable().get(Admin.class.getName() + ".ScreenStylesheetURL");
-    if (Admin.screenStylesheetURL == null)
-      Admin.screenStylesheetURL = "/admin.css";
-    return staticURL + Admin.screenStylesheetURL;
+    if (Admin.getScreenStylesheetURL() == null) 
+      Admin.setScreenStylesheetURL(melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".ScreenStylesheetURL"));
+    if (Admin.getScreenStylesheetURL() == null)
+      Admin.setScreenStylesheetURL("/admin.css");
+    return staticURL + Admin.getScreenStylesheetURL();
   }
   /**
    * @return the settings table setup url
@@ -134,12 +134,12 @@ public class AdminUtils {
    * @return the homepage URL for this databse  
    */
   public String getHomepageURL(Melati melati) {
-    if (Admin.homepageURL == null) 
-      Admin.homepageURL = melati.getDatabase().
-          getSettingTable().get(Admin.class.getName() + ".HomepageURL");
-    if (Admin.homepageURL == null)
-      Admin.homepageURL = "http://www.melati.org/";
-    return Admin.homepageURL;
+    if (Admin.getHomepageURL() == null) 
+      Admin.setHomepageURL(melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".HomepageURL"));
+    if (Admin.getHomepageURL() == null)
+      Admin.setHomepageURL("http://www.melati.org/");
+    return Admin.getHomepageURL();
   }
   
   /**

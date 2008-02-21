@@ -87,7 +87,7 @@ public class AdminUtils {
     this.staticURL = staticURL;
     this.logicalDatabase = logicalDatabase;
     // HACK if we are using 2.0 Servlet API then zone is
-    // included in servlet and contextPath is null
+    // included in servlet and contextPath is empty
     if (contextPath == "") {
       this.contextPath = servlet.substring(0, servlet.lastIndexOf("/"));
     }
@@ -98,20 +98,21 @@ public class AdminUtils {
    */
   public static String getPrimaryDisplayTable(Melati melati) { 
     if (Admin.primaryDisplayTable == null) 
-      Admin.primaryDisplayTable = melati.getDatabase().getSettingTable().get(
-          Admin.class.getName() + ".PrimaryDisplayTable");
+      Admin.primaryDisplayTable = melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".PrimaryDisplayTable");
     if (Admin.primaryDisplayTable == null)
       Admin.primaryDisplayTable = "columninfo";
     return Admin.primaryDisplayTable;
   }
+  
   /**
    * @param melati to get db from
    * @return the stylesheet for screen media  
    */
   public String getScreenStylesheetURL(Melati melati) {
     if (Admin.screenStylesheetURL == null) 
-      Admin.screenStylesheetURL = melati.getDatabase().getSettingTable().get(
-          Admin.class.getName() + ".ScreenStylesheetURL");
+      Admin.screenStylesheetURL = melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".ScreenStylesheetURL");
     if (Admin.screenStylesheetURL == null)
       Admin.screenStylesheetURL = "/admin.css";
     return staticURL + Admin.screenStylesheetURL;
@@ -134,8 +135,8 @@ public class AdminUtils {
    */
   public String getHomepageURL(Melati melati) {
     if (Admin.homepageURL == null) 
-      Admin.homepageURL = melati.getDatabase().getSettingTable().get(
-          Admin.class.getName() + ".HomepageURL");
+      Admin.homepageURL = melati.getDatabase().
+          getSettingTable().get(Admin.class.getName() + ".HomepageURL");
     if (Admin.homepageURL == null)
       Admin.homepageURL = "http://www.melati.org/";
     return Admin.homepageURL;

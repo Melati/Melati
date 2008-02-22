@@ -13,8 +13,8 @@
   <name>DSD Processor</name>
   <url>http://melati.org/maven-dsd-plugin/</url>
   <description>
-  A processor of the DSD language which can run as an application or as a 
-  Maven MOJO plugin to run during the process-sources phase of a project.
+  A processor of the Data Structure Definition (DSD) language which can run as an application or as a 
+  Maven plugin.
   </description>
 
   <dependencies>

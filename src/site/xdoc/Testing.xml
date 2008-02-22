@@ -30,9 +30,9 @@ The unit tests have been retro-fitted, JUnit did not exist when the code
 was first written, so the objectives of the tests are: 
 </p>
 <ul>
-<li>to highlight missing coverage </li>
 <li>to illustrate how to use public methods</li>
 <li>to act as a comprehensive regression test</li>
+<li>to highlight unused code </li>
 </ul>
 <subsection name="JUnit tests">
 <p>
@@ -58,12 +58,12 @@ build:
 </subsection>
 <subsection name=" Provoked SQLExceptions ">
 <p>
-The test suite uses a separate package (<a href="/jdbc/">JDBC</a>
-containing  a decorated version of the <tt>java.ja.sql</tt> API to 
+The test suite uses a separate package (<a href="/throwing-jdbc/">JDBC</a>
+containing  a decorated version of the <tt>java.sql</tt> API to 
 cover the handling of <tt>SQLException</tt>s thrown by the JDBC connection.
 </p>
 <p>
-The <tt>Connection</tt> and any <tt>sql</tt> object obtained from it can be 
+The <tt>Driver</tt> and any <tt>sql</tt> object obtained from it can be 
 instructed to throw an exception by use of a static method. 
 This enables coverage of exception handling in a closed API.
 </p>

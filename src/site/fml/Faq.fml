@@ -50,7 +50,7 @@ A cooked object is one which has attached metadata.
         <p>
         Input widgets, such as select boxes and popup selections, are  
         rendered using a templet named after their class with an optional classifier 
-        called <b></b>brenderInfo>in their field attributes.
+        called <b>renderInfo</b> in their field attributes.
         </p>
       </answer>
     </faq>

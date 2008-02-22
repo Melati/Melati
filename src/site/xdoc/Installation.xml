@@ -96,13 +96,13 @@ Ant is a language, Maven is a build system : stop using Ant, we have.
 <section name="Database Setup"> 
 <subsection name="HSQLDB">
 <p>
-Melati works well with HSQLDB, this is set by default to save the databse as an SQL script 
+Melati works well with HSQLDB, this is set by default to save the database as an SQL script 
 upon either servlet container restart or jvm exit, enabling all state to be 
 maintained and editted by hand if neccessary. HSQLDB file or memory urls are supported, 
 so the data can be persisted or not  as required.
 </p>
 <p>
-There is no setup required for HSQLDB, other than specifying the databse url.
+There is no setup required for HSQLDB, other than specifying the database url.
 </p>
 </subsection>
 <subsection name="Postgresql">

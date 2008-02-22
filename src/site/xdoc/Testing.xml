@@ -44,9 +44,6 @@ test is run on its own, in Eclipse for example, to when it is run as part of
 a suite.
 To this end all database tests inherit a method to ensure that the 
 number of rows in the database is unchanged.
-Currently there is no way to delete a column from a table, so the tests 
-for column addition are not well behaved, this is worked around by not 
-checking the number of rows in the ColumnInfo table.
 </p>
 <p>
 <a href="http://junit.org/">JUnit</a> tests are incorporated into the
@@ -61,7 +58,8 @@ build:
 </subsection>
 <subsection name=" Provoked SQLExceptions ">
 <p>
-The test suite contains a decorated version of the <tt>java.ja.sql</tt> API to 
+The test suite uses a separate package (<a href="/jdbc/">JDBC</a>
+containing  a decorated version of the <tt>java.ja.sql</tt> API to 
 cover the handling of <tt>SQLException</tt>s thrown by the JDBC connection.
 </p>
 <p>

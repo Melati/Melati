@@ -118,6 +118,7 @@ import org.melati.util.MelatiRuntimeException;
  * @todo Make Chooser JS agnostic
  * @todo Make Navigation JS agnostic
  * @todo Rename Left template to Table
+ * @FIXME primaryDisplayTable should not be static as this messes with DB switching
  */
 
 public class Admin extends TemplateServlet {

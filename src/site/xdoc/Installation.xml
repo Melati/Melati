@@ -85,18 +85,7 @@ Though the tests are automatically run during the install.
 </subsection>
 <subsection name="Using ant still?">
 <p>
-  To get a complete replica of the Melati website using ant:
-  <pre><code>
-cd build
-ant go </code></pre>
-</p>
-<p>
-  <i>Note that you need a modern version (1.5 or higher) of <a
-  href="http://jakarta.apache.org/ant/" target="ant">Ant</a> to use 
-  the site html regeneration.</i><br />
-  Point your browser at <a
-  href="http://localhost:8080/">http://localhost:8080/</a> and you
-  should find you can browse the website.
+Ant is a language, Maven is a build system : stop using Ant, we have.
 </p>
 <p>
   Further installation instructions are in the <a

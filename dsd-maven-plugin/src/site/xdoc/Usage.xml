@@ -26,6 +26,101 @@ This page last updated: $Date$ $Author$
 <p>
 The DSD processor is used to generate java code from a Data Structure Definition file. 
 </p>
+<p>
+  The preprocessor's task is to map a
+  succinct Java-style &quot;Data Structure Definition&quot; file, in which the
+  application programmer describes the schema of the database to which they
+  expect their code to be attached, into a set of boilerplate Java source files
+  implementing a statically-typed object-oriented API for that schema.
+</p>
+<subsection name=" Outline ">
+
+<UL>
+  <LI> <B>Think about your schema.</B>
+       <P>
+         Melati POEM encourages you to think about your relational database in
+         an object-oriented way.  A table row corresponds to a Java
+         object and can be given Java methods.
+       </P>
+       <P>
+          If you database SQL definition contains repetition,
+          say every table contains the fields <tt>changetime</tt> and
+          <tt>changedbyuser</tt> these fields can be separated out into a
+          an abstract table which all your other tables extend.
+       </P>
+  </LI>
+  <LI> <B>Write your data structure definition.</B>
+       <P>
+          POEM's DSD grammar is simple (similar to Java's syntax for defining
+          class fields) and provides a convenient way of specifying display
+          attributes for your objects' fields.
+       </P>
+  </LI>
+  <LI> <B>Run the DSD preprocessor.</B>
+       <P>
+         The DSD processor turns your DSD file into boilerplate classes which
+         implement a type-safe API for your schema, and automatically
+         create/validate your database at application startup time.
+       </P>
+  </LI>
+  <LI> <B>Compile and inspect your schema.</B>
+       <P>
+         Before going any further you can look at your schema using the
+         Melati Admin system.
+       </P>
+       <P>
+         Use the Admin system to fill in data in your schema.
+       </P>
+  </LI>
+  <LI> <B>Add Java methods.</B>
+       <P>
+         The DSD also outputs stub classes to which you can add any special
+         Java methods you wish to attach to your row-objects.
+       </P>
+       <P>
+         It is a good idea to use <tt>ensure</tt> methods to prepopulate
+         code tables with values which are essential to the working of the
+         system;
+         see for example <a href="/melati/apidocs/org/melati/poem/CapabilityTable.html#ensure(java.lang.String)">CapabilityTable.ensure(java.lang.String)</a>
+       </P>
+  </LI>
+  <LI> <B>Review you DSD by exporting it</B>
+       <P>
+         You may wish to use the DSD export function to review your DSD,
+         <A href="/db/org.melati.admin.Admin/melatitest/DSD?comments">
+         http://www.melati.org/db/org.melati.admin.Admin/melatitest/DSD?comments</A>
+         though be aware that this function does not preserve abstract tables
+         and enforces the <b>only first letter capitalised</b> rule for table
+         names.
+       </P>
+  </LI>
+</UL>
+
+</subsection>
+<subsection name=" Notes ">
+<P>
+  You might like to look at <a href="/melati-static/poem/Poem.dsd">POEM's own DSD</a>.
+</P>
+<P>
+  The <tt>package</tt> statement should be changed to the name of your
+  package eg <tt>org.paneris.myproj.model</tt>.
+  <br>
+  <strong>Note</strong> that this should also be reflected in
+  <tt>LogicalDatabase.Properties</tt>
+<pre>
+<tt>
+org.melati.LogicalDatabase.myproj.class=org.paneris.myproj.model.MyprojDatabase
+</tt>
+</pre>
+
+</P>
+
+<P>
+  It will only overwrite files in the generated directory, once it has created a stub 
+  it will not overwrite it.
+</P>
+
+</subsection>
 <subsection name=" Command line ">
 <p>
 At the command line type:

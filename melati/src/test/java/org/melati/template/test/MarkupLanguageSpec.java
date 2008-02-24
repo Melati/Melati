@@ -155,8 +155,8 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * Test entity substitution - FIXME how to write this so it works on Windows and Linux??
    */
   public void testEntitySubstitution() throws Exception { 
-    assertEquals("&amp;%&pound;", ml.rendered("&%£"));
-    assertEquals("&amp;%&pound;", aml.rendered("&%£"));
+    assertEquals("&amp;%&pound;", ml.rendered("&%ï¿½"));
+    assertEquals("&amp;%&pound;", aml.rendered("&%ï¿½"));
   }
 
   /**
@@ -445,7 +445,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     kid2.setParent(parent);
     kid2.makePersistent();
     Tree testTree = new Tree(parent);
-    JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
+    JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin/static");
     m.setPoemContext(new PoemContext());
       
     String renderedTree = ml.rendered(tree);

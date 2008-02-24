@@ -160,7 +160,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 
 </FORM>
 
-#if (!($Form.detailed || $melati.Object.Table.DetailDisplayColumnsCount == $melati.Object.Table.RecordDisplayColumnsCount)) #begin
+#if (!($Form.detailed || $melati.Object.Table.DetailDisplayColumnsCount != $melati.Object.Table.RecordDisplayColumnsCount)) #begin
 <P>
  <FONT SIZE="-1" FACE="Arial, Helvetica">
   <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>

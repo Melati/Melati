@@ -3,7 +3,6 @@
  */
 package org.melati.admin.test;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -14,7 +13,6 @@ import org.melati.servlet.test.MockServletRequest;
 import org.melati.servlet.test.MockServletResponse;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.util.MelatiStringWriter;
 
 
 /**

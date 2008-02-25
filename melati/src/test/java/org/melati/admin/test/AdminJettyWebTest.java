@@ -83,7 +83,36 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("File to upload:");
   }
   
+  public void testAdminSpecialised() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/admintest/uploadedfile/Add");
+    setTextField("field_filename","test.txt");
+    setTextField("field_path","/");
+    setTextField("field_description","A file");
+    setTextField("field_size","2");
+    setTextField("field_when","12/12/2008");
+    submit();
+    beginAt("/Admin/admintest/uploadedfile/0/Edit");
+    assertTextPresent("Hi");    
+  }
   
+  public void testNoPrimarySearch() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/admintest/user/PrimarySelect");
+    assertTablePresent("primarySelectTable");
+    beginAt("/Admin/admintest/uploadedfile/PrimarySelect");
+    assertTableNotPresent("primarySelectTable");
+    beginAt("/Admin/admintest/user/PrimarySelect?field_name=");
+    assertTablePresent("primarySelectTable");
+  }
+  
+
+  // Getting the coverage is proof enough
+  public void testDescendingOrder() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
+    beginAt("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
+  }
   /**
    * 
    */

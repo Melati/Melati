@@ -1,0 +1,40 @@
+package org.melati.admin.test;
+
+table UploadedFile
+    (displayname = "Uploaded File")
+    (description = "A file uploaded by a user")
+    (category = "Data")
+    (cachelimit = unlimited)
+    (seqcached) {
+
+    (primary)Integer id
+        (displaylevel = record);
+
+    String filename (size=unlimited) (width=40)
+        (description = "The name of the file, as uploaded")
+        (displaylevel = primary)
+        (displayorderpriority = 0)
+        (searchability = yes);
+
+    String path (size=unlimited) (width=40)
+        (description = "The full path to this file on the server")
+        (displaylevel = record)
+        (searchability = yes);
+
+    String description (size=unlimited) (width=60) (height=5)
+        (description = "A description of the file")
+        (displaylevel = record)
+        (searchability = yes);
+
+    String size (size=unlimited) (width=40)
+        (description = "The size of this file")
+        (displaylevel = record)
+        (searchability = no);
+
+    Date when
+        (description = "The date on which this file was uploaded")
+        (displaylevel = summary)
+        (searchability = no);
+
+}
+

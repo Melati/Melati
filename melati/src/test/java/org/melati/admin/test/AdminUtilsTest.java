@@ -10,11 +10,12 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.admin.AdminUtils;
 import org.melati.poem.test.PoemTestCase;
+import org.melati.servlet.test.MockServletRequest;
+import org.melati.servlet.test.MockServletResponse;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiStringWriter;
 
-import com.mockobjects.dynamic.Mock;
 
 /**
  * @author timp
@@ -44,7 +45,12 @@ public class AdminUtilsTest extends PoemTestCase {
     if (templateEngine != null)
       templateEngine.init(mc);
     else fail();
-    m = new Melati(mc, new MelatiStringWriter());
+    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    mockHttpServletRequest.setPathInfo("melatitest/user/Selection");
+    mockHttpServletRequest.setRequestURI("melatitest/user/Selection");
+    System.err.println(mockHttpServletRequest.getRequestURI());
+    MockServletResponse mockServletResponse = new MockServletResponse();
+    m = new Melati(mc, mockHttpServletRequest, mockServletResponse);
     m.setTemplateEngine(templateEngine);
     assertNotNull(m.getTemplateEngine());
     TemplateContext templateContext =
@@ -54,19 +60,8 @@ public class AdminUtilsTest extends PoemTestCase {
     pc.setLogicalDatabase("melatijunit");
     pc.setTable("user");
     pc.setTroid(new Integer(1));
+    pc.setMethod("Selection");
     m.setPoemContext(pc);
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "/Admin"); 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Language", null); 
-    m.setRequest((HttpServletRequest)mockHttpServletRequest.proxy());    
     au = new AdminUtils(m);
   }
 
@@ -94,6 +89,13 @@ public class AdminUtilsTest extends PoemTestCase {
     m.loadTableAndObject();
     assertEquals("", 
         au.specialFacilities(m, m.getMarkupLanguage(), m.getObject()));
+  }
+  
+  public void testToggledOrderSelectionURL() throws Exception { 
+    m.loadTableAndObject();
+    
+    assertEquals("melatitest/user/Selection?field_order-1=23&field_order-1-toggle=true", 
+        au.ToggledOrderSelectionURL(m, "field_order-1", "23"));    
   }
 
   /**

@@ -121,7 +121,7 @@
 #end
     target="$(selectionWindowTargetName)">
 
- <table cellspacing="2" cellpadding="2" border="0" width="100%">
+ <table cellspacing="2" cellpadding="2" border="0" width="100%" id="primarySelectTable">
   <tr>
    <td align="right" valign="middle">
    <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>

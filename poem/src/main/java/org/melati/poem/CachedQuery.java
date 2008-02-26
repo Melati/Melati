@@ -99,7 +99,7 @@ public abstract class CachedQuery {
     return statements;
   }
 
-  protected final Object extract(ResultSet rs) throws SQLException {
+  protected Object extract(ResultSet rs) throws SQLException {
     return new Integer(rs.getInt(1));
   }
 

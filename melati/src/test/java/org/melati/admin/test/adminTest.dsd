@@ -15,7 +15,9 @@ table UploadedFile
         (description = "The name of the file, as uploaded")
         (displaylevel = primary)
         (displayorderpriority = 0)
-        (searchability = yes);
+        (searchability = yes)
+        (renderinfo="ImageUpload")
+        ;
 
     String path (size=unlimited) (width=40)
         (description = "The full path to this file on the server")

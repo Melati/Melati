@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.util.Hashtable;
 import org.melati.Melati;
 import org.melati.util.DelimitedBufferedInputStream;
+import org.melati.util.MelatiBugMelatiException;
 
 /**
  * Parses a multipart/form-data request into its different
@@ -233,6 +234,9 @@ public class MultipartDataDecoder {
     }
     catch (NullPointerException e) { 
       e = null; // shut PMD up
+    }
+    catch (StringIndexOutOfBoundsException e2) { 
+      throw new MelatiBugMelatiException("Could not extract file name from header:" + header);
     }
     field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));

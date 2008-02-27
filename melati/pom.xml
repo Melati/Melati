@@ -121,7 +121,6 @@
      <scope>test</scope>
     </dependency>
     <dependency>
-     <!-- Not needed but I hate warnings -->
      <groupId>org.mortbay.jetty</groupId>
      <artifactId>jsp-2.1</artifactId>
      <version>6.1.5</version>
@@ -155,17 +154,30 @@
      <artifactId>maven-dsd-plugin</artifactId>
      <executions>
        <execution>
+         <id>tree</id>
          <phase>generate-test-sources</phase>
          <goals>
            <goal>generate</goal>
          </goals>
-       </execution>
-     </executions>
      <configuration>
        <sourceDirectory>src/test/java</sourceDirectory>
        <dsdPackage>org.melati.util.test</dsdPackage>
        <dsdFile>Tree.dsd</dsdFile>
      </configuration>
+       </execution>
+       <execution>
+         <id>admin</id>
+         <phase>generate-test-sources</phase>
+         <goals>
+           <goal>generate</goal>
+         </goals>
+     <configuration>
+       <sourceDirectory>src/test/java</sourceDirectory>
+       <dsdPackage>org.melati.admin.test</dsdPackage>
+       <dsdFile>adminTest.dsd</dsdFile>
+     </configuration>
+       </execution>
+     </executions>
      <dependencies>
       <dependency>
        <groupId>org.melati</groupId>

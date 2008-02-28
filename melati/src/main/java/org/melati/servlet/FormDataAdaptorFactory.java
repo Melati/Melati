@@ -50,6 +50,7 @@ import java.util.Hashtable;
 import org.melati.Melati;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
+import org.melati.poem.PoemThread;
 
 /**
  * A way to implement policies about how to save uploaded files.
@@ -76,15 +77,18 @@ public abstract class FormDataAdaptorFactory {
     if (melati.getDatabase() == null) {
       holder.put("hereiam",getIt(melati,field));
     } else {
-      melati.getDatabase().inSession (
-        AccessToken.root, new PoemTask() {
-          public void run () {
-            melati.getConfig().getAccessHandler().establishUser(melati);
-            melati.loadTableAndObject();
-            holder.put("hereiam",getIt(melati,field));
+      if (PoemThread.inSession())
+        holder.put("hereiam",getIt(melati,field));
+      else         
+        melati.getDatabase().inSession (
+          AccessToken.root, new PoemTask() {
+            public void run () {
+              melati.getConfig().getAccessHandler().establishUser(melati);
+              melati.loadTableAndObject();
+              holder.put("hereiam",getIt(melati,field));
+            }
           }
-        }
-      );
+        );
     }
     return (FormDataAdaptor)holder.get("hereiam");
   }

@@ -45,6 +45,7 @@
 ## Upload an image file and display it in a thumbnail with a popup.
 ##
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
+melati
 <a name="anchor_$ml.escaped($field.Name)"></a>
 #if ($field.Height != 1) #begin
   <textarea name="field_$ml.rendered($field.Name)"

@@ -58,7 +58,7 @@ import java.io.IOException;
 import org.melati.util.DelimitedBufferedInputStream;
 
 /**
- * Interface for a file uploaded from a HTML form.
+ * Common elements of uploading a file from an HTML form.
  *
  * We store the data uploaded from a multipart form by saving it to
  * a file on disk and, optionally, give it an associated URL.

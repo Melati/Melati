@@ -66,7 +66,7 @@ public class ConfigServletTestOverride extends ConfigServletTest {
   }
   
   protected String getUploadMessage(Melati melati) {
-    return "This will save your file in your /tmp directory. " + 
+    return "This will save your file in the server's /tmp directory. " + 
            "Try saving a file in "+
            "memory <a href='" + melati.getZoneURL() +
            "/org.melati.test.ConfigServletTest/'>here</a>.";

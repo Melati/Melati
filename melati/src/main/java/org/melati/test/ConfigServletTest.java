@@ -110,7 +110,7 @@ public class ConfigServletTest extends ConfigServlet {
     output.write(
     "<html><head><title>ConfigServlet Test</title></head>\n");
     output.write(
-    "<body><h2>ConfigServlet Test</h2>");
+    "<body><h2>ConfigServlet Test</h2>\n");
     output.write(
     "<p>This servlet tests your basic melati " +
     "configuration. <br>\n" +
@@ -151,7 +151,7 @@ public class ConfigServletTest extends ConfigServlet {
     config.getTempletLoader().getClass().getName() +
     "</td></tr>\n");
     output.write(
-    "</table>" +
+    "</table>\n" +
 
     "<h4>This servlet was called with the following Method (taken from " +
     "melati.getMethod()): " + 
@@ -162,24 +162,29 @@ public class ConfigServletTest extends ConfigServlet {
     "You can test melati Exception handling by " +
     "clicking <a href=" + 
     melati.getSameURL() + 
-    "/Exception>Exception</a><br>You can test melati Redirect " +
+    "/Exception>Exception</a><br>\n");
+    output.write(
+    "You can test melati Redirect " +
     "handling by clicking <a href=" +
     melati.getSameURL() + 
-    "/Redirect>Redirect</a><br>You can test your " +
+    "/Redirect>Redirect</a><br>\n");
+    output.write(
+    "You can test your " +
     "POEM setup (connecting to logical database <tt>melatitest</tt>) by " +
     "clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.PoemServletTest/melatitest/>" +
-    "org.melati.test.PoemServletTest/melatitest/</a><br>" +
+    "org.melati.test.PoemServletTest/melatitest/</a><br>\n");
+    output.write(
     "<form method=\"post\" action=\"" + 
     melati.getSameURL() + 
-    "/Upload\" enctype=\"multipart/form-data\" target=_blank>" +
-    "You can upload a file here:<br>" +
-    "<input type=hidden name=upload value=yes>" +
+    "/Upload\" enctype=\"multipart/form-data\" target='Upload'>" +
+    "You can upload a file here:<br>\n" +
+    "<input type=hidden name='upload' value='yes'>" +
     "<input type=\"file\" name=\"file\" enctype=\"multipart/form-data\">" +
     "<input type=\"submit\" name=\"Submit\" value=\"Upload file\"><br>" +
     getUploadMessage(melati) +
-    "</form>");
+    "</form>\n");
     if (method != null) {
       if (method.equals("Exception")) 
         throw new MelatiBugMelatiException("It got caught!");

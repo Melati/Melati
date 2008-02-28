@@ -53,7 +53,6 @@ import java.io.InputStream;
 import java.util.Hashtable;
 import org.melati.Melati;
 import org.melati.util.DelimitedBufferedInputStream;
-import org.melati.util.MelatiBugMelatiException;
 
 /**
  * Parses a multipart/form-data request into its different
@@ -219,26 +218,17 @@ public class MultipartDataDecoder {
     field.setContentDisposition(extractField(header, 
                                              "content-disposition:", ";"));
     String fieldName = extractField(header, "name=",";");
-    try {
+    if (fieldName.length() != 0) {
       if(fieldName.charAt(0) == '\"')
         fieldName = fieldName.substring(1, fieldName.length() - 1);
+      field.setFieldName(fieldName);
     }
-    catch (NullPointerException e) { 
-      e = null; // shut PMD up
-    }
-    field.setFieldName(fieldName);
     String fileName = extractField(header, "filename=", ";");
-    try {
+    if(fileName.length() != 0 ) {
       if(fileName.charAt(0) == '\"')
         fileName = fileName.substring(1, fileName.length()-1);
+      field.setUploadedFilePath(fileName);
     }
-    catch (NullPointerException e) { 
-      e = null; // shut PMD up
-    }
-    catch (StringIndexOutOfBoundsException e2) { 
-      throw new MelatiBugMelatiException("Could not extract file name from header:" + header);
-    }
-    field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));
   }
 

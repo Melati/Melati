@@ -295,7 +295,7 @@ public abstract class ConfigServlet extends HttpServlet {
     PoemContext it = new PoemContext();
     String[] parts = melati.getPathInfoParts();
     if (parts.length > 0)
-     it.setMethod(StringUtils.nulled(parts[parts.length - 1]));
+     it.setMethod(parts[parts.length - 1]);
    return it;
  }
   
@@ -316,7 +316,9 @@ public abstract class ConfigServlet extends HttpServlet {
    * @return a new {@link MelatiConfig}
    */
   protected MelatiConfig melatiConfig() {
-    return new MelatiConfig();
+    MelatiConfig m = new MelatiConfig();
+    m.setRealPath(getServletConfig().getServletContext().getRealPath("/"));
+    return m;
   }
   
   /**

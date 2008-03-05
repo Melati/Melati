@@ -58,7 +58,7 @@ import org.melati.poem.Database;
 public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
   /**
-   * Get the parameters for the adaptor from the database and 
+   * Get the defaulted parameters for the adaptor from the database and 
    * create it.
    *
    * @param melati the {@link Melati}
@@ -69,12 +69,18 @@ public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
                                             MultipartFormField field) {
 
     Database db = melati.getDatabase();
-    String uploadDir = (String)db.getSettingTable().
-                                  getOrDie("UploadDir");
-    String uploadURL = (String)db.getSettingTable().
-                                  getOrDie("UploadURL");
+    String uploadDir = db.getSettingTable().
+                                  ensure("UploadDir", 
+                                         "melati-static/admin/static", 
+                                         "Upload Directory",
+                                         "Directory to upload to").getValue();
+    String uploadURL = db.getSettingTable().
+                                  ensure("UploadURL",
+                                          melati.getConfig().getStaticURL(), 
+                                          "Uploaded URL",
+                                          "URL of uploaded files, defaults to Melati Static ").getValue();
 
-    return new DefaultFileDataAdaptor(melati, uploadDir, uploadURL);
+    return new DefaultFileDataAdaptor(melati, melati.getConfig().getRealPath() + uploadDir, uploadURL);
   }
 }
 

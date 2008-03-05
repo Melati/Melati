@@ -107,9 +107,17 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
     return escaped(o.displayString(locale, DateFormat.MEDIUM));
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#encoded(java.lang.String)
+   */
   public String encoded(String s) {
     return UTF8URLEncoder.encode(s, melati.getEncoding());
   }
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#decoded(java.lang.String)
+   */
   public String decoded(String s) {
     return UTF8URLEncoder.decode(s, melati.getEncoding());
   }

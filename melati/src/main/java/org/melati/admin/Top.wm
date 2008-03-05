@@ -72,7 +72,7 @@
   </font>
 </td>
 <td align="left" valign="middle">
-<form method="GET" id="goto" target="admin_bottom" action="$admin.MainURL($melati)">
+<form method="GET" id="goto" target="admin_bottom" action="$admin.BottomURL($melati)">
 <font size="-1" face="Arial, Helvetica">
 <select name="goto" OnChange="goto_page();" title="Select table to edit">
 #set $lasttype = ""

@@ -49,6 +49,7 @@ import java.util.Vector;
 import java.util.Enumeration;
 
 import org.melati.Melati;
+import org.melati.servlet.FormDataAdaptor;
 import org.melati.servlet.InvalidUsageException;
 import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
@@ -179,10 +180,13 @@ public class Admin extends TemplateServlet {
     Column column = table.primaryCriterionColumn();
     if (column != null) {
       String sea = context.getForm("field_" + column.getName());
-      primaryCriterion = new Field(sea == null || sea.equals("") ? (melati
-          .getObject() == null ? null : column.getRaw(melati.getObject()))
-          : column.getType().rawOfString(sea), new BaseFieldAttributes(column,
-          column.getType().withNullable(true)));
+      primaryCriterion = new Field(
+          sea == null ? 
+           (
+            melati.getObject() == null ? 
+                null : column.getRaw(melati.getObject()))
+          : column.getType().rawOfString(sea), 
+          new BaseFieldAttributes(column,column.getType().withNullable(true)));
     } else
       primaryCriterion = null;
 
@@ -552,25 +556,6 @@ public class Admin extends TemplateServlet {
     return adminTemplate("Upload");
   }
 
-  protected static String setupTemplate(ServletTemplateContext context,
-      Melati melati) {
-    screenStylesheetURL = melati.getDatabase().getSettingTable().ensure(
-        Admin.class.getName() + ".ScreenStylesheetURL", "/blue.css",
-        "ScreenStylesheetURL",
-        "path to stylesheet, relative to melati-static, starting with a slash")
-        .getValue();
-    primaryDisplayTable = melati.getDatabase().getSettingTable().ensure(
-        Admin.class.getName() + ".PrimaryDisplayTable", "setting",
-        "PrimaryDisplayTable", "The default table to display").getValue();
-    Setting homepageURLSetting = melati.getDatabase().getSettingTable().ensure(
-        Admin.class.getName() + ".HomepageURL", "http://www.melati.org/",
-        "HomepageURL", "The home page for this database");
-    homepageURL = homepageURLSetting.getValue();
-    // HACK Not very satisfactory, but only to get tests working elsewhere
-    context.put("object", homepageURLSetting);
-    return adminTemplate("Updated");
-  }
-
   /**
    * Finished uploading.
    * 
@@ -591,18 +576,41 @@ public class Admin extends TemplateServlet {
     String url = "";
     url = context.getMultipartForm("file").getDataURL();
     if (url == null)
-      throw new NullUrlDataAdaptorException();
+      throw new NullUrlDataAdaptorException(context.getMultipartForm("file").getFormDataAdaptor());
     context.put("url", url);
     return adminTemplate("UploadDone");
   }
 
   static class NullUrlDataAdaptorException extends MelatiRuntimeException {
     private static final long serialVersionUID = 1L;
+    private FormDataAdaptor fda;
+    NullUrlDataAdaptorException(FormDataAdaptor fda) { 
+      this.fda = fda;
+    }
 
     /** @return the message */
     public String getMessage() {
-      return "The configured FormDataAdaptor returns a null URL.";
+      return "The configured FormDataAdaptor (" + fda.getClass().getName() + ") returns a null URL.";
     }
+  }
+
+  protected static String setupTemplate(ServletTemplateContext context,
+      Melati melati) {
+    screenStylesheetURL = melati.getDatabase().getSettingTable().ensure(
+        Admin.class.getName() + ".ScreenStylesheetURL", "/blue.css",
+        "ScreenStylesheetURL",
+        "path to stylesheet, relative to melati-static, starting with a slash")
+        .getValue();
+    primaryDisplayTable = melati.getDatabase().getSettingTable().ensure(
+        Admin.class.getName() + ".PrimaryDisplayTable", "setting",
+        "PrimaryDisplayTable", "The default table to display").getValue();
+    Setting homepageURLSetting = melati.getDatabase().getSettingTable().ensure(
+        Admin.class.getName() + ".HomepageURL", "http://www.melati.org/",
+        "HomepageURL", "The home page for this database");
+    homepageURL = homepageURLSetting.getValue();
+    // HACK Not very satisfactory, but only to get tests working elsewhere
+    context.put("object", homepageURLSetting);
+    return adminTemplate("Updated");
   }
 
   protected String doTemplateRequest(Melati melati,

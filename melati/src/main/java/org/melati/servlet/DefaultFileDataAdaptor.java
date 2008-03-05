@@ -99,7 +99,6 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
   }
 
   protected File calculateLocalFile() {
-    // FIXME decode surely?
     File f = new File(uploadDir,
                       UTF8URLEncoder.encode(field.getUploadedFileName(), melati.getEncoding()));
     return makeUnique ? FileUtils.withUniqueName(f) : f;

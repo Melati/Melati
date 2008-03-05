@@ -88,6 +88,8 @@ public class MelatiConfig {
   private static String loginPageServletClassName = "org.melati.login.Login";
   private static String logoutPageServletClassName = "org.melati.login.Logout";
 
+  private static String realPath = null;
+  
   /**
    * Allows creation of a <code>MelatiConfig</code> with default config
    * params.
@@ -487,6 +489,19 @@ public class MelatiConfig {
    */
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
+  }
+
+  /**
+   * @param realPathP the path to set 
+   */
+  public void setRealPath(String realPathP) {
+    realPath = realPathP;
+  }
+  /**
+   * @return the real path, if set null otherwise
+   */
+  public String getRealPath() {
+    return realPath;
   }
 
 }

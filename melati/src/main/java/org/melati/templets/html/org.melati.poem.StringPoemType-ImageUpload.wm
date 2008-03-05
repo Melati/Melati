@@ -45,7 +45,7 @@
 ## Upload an image file and display it in a thumbnail with a popup.
 ##
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
-melati
+
 <a name="anchor_$ml.escaped($field.Name)"></a>
 #if ($field.Height != 1) #begin
   <textarea name="field_$ml.rendered($field.Name)"
@@ -71,20 +71,24 @@ melati
            !$field.Type.Nullable)
 </script>
 
-<a href="#anchor_$ml.escaped($field.Name)" onClick="popup = window.open('imagename_$ml.escaped($field.Name)','Zoom','scrollbars=yes,width=650,height=450');popup.focus()"><img src="$field.RawString" 
+<a id="zoomOut_$ml.escaped($field.Name)"
+   target="ZoomOut_$ml.escaped($field.Name)" 
+   title="Click to view full size image"
+   onClick="popupImage_$ml.escaped($field.Name)(); return false;"
+   href="$field.RawString"
+><img src="$field.RawString" 
    width="40" height="40" 
-   name="$ml.escaped($field.Name)" align="top" 
-
-#if ($field.Description) #begin
- title="$field.Description"
- alt="$field.Description"
-#end
-border="0" /></a>
-<a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
+   name="$ml.escaped($field.Name)" 
+   align="top" 
+   alt="Uploaded image thumbnail"
+   title="Uploaded image thumbnail"
+   border="0" /></a>
+<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
 
 
 <script language="JavaScript1.2" type="text/javascript">
 var uploadwin_$ml.escaped($field.Name);
+var imageURL = '$field.RawString';
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
     = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
@@ -95,8 +99,15 @@ function update_$ml.escaped($field.Name) (url) {
   document.images.$(ml.escaped($field.Name)).src = url;
   imagename_$ml.escaped($field.Name) = url;
   document.forms[0].field_$(ml.rendered($field.Name)).value = url;
+  imageURL = url;
   uploadwin_$(ml.escaped($field.Name)).close();
 }
+function popupImage_$ml.escaped($field.Name)() { 
+  popup = window.open(imageURL,'ZoomOut_$ml.escaped($field.Name)','scrollbars=yes,width=650,height=450');
+  popup.focus();
+  return false;
+}
+
 </script>
 
 

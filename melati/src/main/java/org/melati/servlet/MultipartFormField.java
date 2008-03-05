@@ -193,6 +193,12 @@ public class MultipartFormField {
   }
 
   /**
+   * @return the adaptor
+   */
+  public FormDataAdaptor getFormDataAdaptor() {
+    return adaptor;
+  }
+  /**
    * Work with an uploaded file/stored value.
    * 
    * We can store uploaded files or values in different ways depending
@@ -302,5 +308,6 @@ public class MultipartFormField {
     returnString += "; url=" + url;
     return returnString;
   }
+
   
 }

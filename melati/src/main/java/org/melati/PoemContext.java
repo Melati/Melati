@@ -44,6 +44,8 @@
 
 package org.melati;
 
+import org.melati.util.StringUtils;
+
 
 /**
  * Holds the names of the database, table and method and the value of the 
@@ -142,7 +144,7 @@ public class PoemContext implements Cloneable {
    * @param method The method to set.
    */
   public void setMethod(String method) {
-    this.method = method;
+    this.method = StringUtils.nulled(method);
   }
   /**
    * @param table The table to set.

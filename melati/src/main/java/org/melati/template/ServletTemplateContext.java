@@ -58,7 +58,7 @@ public interface ServletTemplateContext extends TemplateContext {
    * Get a field from an HTML Form.
    * 
    * @param s the field's name
-   * @return the field value
+   * @return the field value, null if not set
    */
   String getForm(String s);
 

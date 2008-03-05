@@ -469,7 +469,7 @@ public final class HttpServletRequestCompat {
    *        url String
    * @return the real path
    * @deprecated Servlet API 2.1
-   * @see javax.servlet.http.HttpServletRequest#getRealPath(String)
+   * @see javax.servlet.ServletRequest#getRealPath(String)
    * @since 2.0
    */
   public static String getRealPath(HttpServletRequest it, String arg) {

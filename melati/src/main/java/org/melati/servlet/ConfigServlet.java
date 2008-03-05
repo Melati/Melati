@@ -58,7 +58,6 @@ import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
 import org.melati.util.ConnectionPendingException;
-import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 
 /**

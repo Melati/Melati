@@ -277,11 +277,11 @@ public class StringUtils {
   /**
    * Turn an empty String into a null.
    * 
-   * @param s input String, possibly of zero length
+   * @param s input String, possibly of zero length or null
    * @return null if input is empty, input otherwise
    */
   public static String nulled(String s) {
-    if (s.equals(""))
+    if (s != null && s.equals(""))
       return null;
     return s;
   }

@@ -58,12 +58,29 @@
 <p>
 If you can read this message, it means that you have successfully 
 configured a Melati, created a POEM session 
-and loaded a Template Engine (in this case WebMacro).
+and loaded a Template Engine (currently $melati.TemplateEngine.Name ).
 <p>
 
-<p>Your <b>PoemContext</b> is set up as: $melati.PoemContext
-<br>, try playing with the PathInfo to see the results (or click 
-<a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/user/1/View">melatitest/user/1/View</a>).</p>
+<h4>PoemContext</h4>
+
+<p>
+The current <b>PoemContext</b> is : $melati.PoemContext.
+</p>
+<p>
+The poem context can be controlled using the servlets <b>PathInfo</b>.
+</p>
+
+<ul>
+<li>
+ <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/tableinfo/0/View">melatitest/tableinfo/0/View</a>).
+</li>
+<li>
+ <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/columninfo/0/View">melatitest/columninfo/0/View</a>).
+</li>
+<li>
+ <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/user/1/View">melatitest/user/1/View</a>).
+</li>
+</ul>
 
 #if ($thisisnull) #begin
 <p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!
@@ -111,14 +128,23 @@ AccessPoemException by clicking <a href="?passback=true">?passback=true</a>.
 You can test melati Exception handling by clicking <a href="./Exception">Exception</a>
 </p>
 <h3>Further Testing</h3>
-You can test melati Redirect handling by clicking <a href="./Redirect">Redirect</a><br>
+<p>
+You can test melati Redirect handling by clicking <a href="./Redirect">Redirect</a>
+</p>
+<p>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
-clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
-You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main</a>.<br>
+clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a>
+</p>
+<p>
+You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main</a>.
+</p>
+<p>
 You can test that you are able to override your AccessHandler mode by clicking 
-<a href=$melati.ZoneURL/org.melati.test.TemplateServletTestOverride>override your AccessHandler</a>.
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestOverride">override your AccessHandler</a>.
+
 This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
-is configured by default in your org.melati.MelatiServlet.properties file).<br>
+is configured by default in your org.melati.MelatiServlet.properties file).
+</p>
 
 <form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
 You can upload a file here:<br>

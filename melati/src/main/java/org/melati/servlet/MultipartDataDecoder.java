@@ -224,7 +224,7 @@ public class MultipartDataDecoder {
       field.setFieldName(fieldName);
     }
     String fileName = extractField(header, "filename=", ";");
-    if(fileName.length() != 0 ) {
+    if(fileName.length() != 0) {
       if(fileName.charAt(0) == '\"')
         fileName = fileName.substring(1, fileName.length()-1);
       field.setUploadedFilePath(fileName);

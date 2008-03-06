@@ -98,7 +98,7 @@ public class AdminUtils {
    */
   public static String getPrimaryDisplayTable(Melati melati) { 
     if (Admin.getPrimaryDisplayTable() == null) 
-      Admin.setPrimaryDisplayTable( melati.getDatabase().
+      Admin.setPrimaryDisplayTable(melati.getDatabase().
           getSettingTable().get(Admin.class.getName() + ".PrimaryDisplayTable"));
     if (Admin.getPrimaryDisplayTable() == null)
       Admin.setPrimaryDisplayTable("columninfo");

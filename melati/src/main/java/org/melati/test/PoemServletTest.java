@@ -89,37 +89,8 @@ public class PoemServletTest extends PoemServlet {
      throws ServletException, IOException {
      String method = melati.getMethod();
      if (method != null && method.equals("Upload")) {
-       melati.getDatabase().getSettingTable().ensure("UploadDir","/tmp","","");
-       melati.getDatabase().getSettingTable().ensure("UploadURL","tmp","","");
-
-       Hashtable fields = null;
-       try {
-         InputStream in = melati.getRequest().getInputStream();
-         MultipartDataDecoder decoder=
-           new MultipartDataDecoder(melati,
-                 in,
-                 melati.getRequest().getContentType(),
-                 melati.getConfig().getFormDataAdaptorFactory());
-         fields = decoder.parseData();
-       }
-       catch (IOException e) {
-         melati.getWriter().write(
-           "There was some error uploading your file:" +
-             ExceptionUtils.stackTrace(e));
-         return;
-       }
-       MultipartFormField field = (MultipartFormField)fields.get("file");
-       System.err.println("File:"+ field + ":");
-       byte[] data = field.getData();
-       if (data.length == 0) {
-         melati.getWriter().write("No file was uploaded");
-         return;
-       }
-       melati.getResponse().setContentType(field.getContentType());
-       OutputStream output = melati.getResponse().getOutputStream();
-       output.write(data);
-       output.close();
-       return;
+       doUpload(melati);
+      return;
      }
 
      melati.getResponse().setContentType("text/html");
@@ -190,7 +161,9 @@ public class PoemServletTest extends PoemServlet {
 
      output.write("<h4>File upload</h4>\n");
      output.write("<p>\n");
-     output.write("A <b>PoemFileDataAdaptor</b> obtains the name of the file upload directory from a setting in the settings table.\n");
+     output.write("A <b>PoemFileDataAdaptor</b> ");
+     output.write("obtains the name of the file upload directory from ");
+     output.write("a setting in the settings table.\n");
      output.write("</p>\n");
      
      output.write(
@@ -258,6 +231,39 @@ public class PoemServletTest extends PoemServlet {
 
    
    }
+
+  private void doUpload(Melati melati) throws IOException {
+    melati.getDatabase().getSettingTable().ensure("UploadDir","/tmp","","");
+    melati.getDatabase().getSettingTable().ensure("UploadURL","tmp","","");
+
+    Hashtable fields = null;
+    try {
+      InputStream in = melati.getRequest().getInputStream();
+      MultipartDataDecoder decoder =
+          new MultipartDataDecoder(melati,
+               in,
+               melati.getRequest().getContentType(),
+               melati.getConfig().getFormDataAdaptorFactory());
+      fields = decoder.parseData();
+    }
+    catch (IOException e) {
+      melati.getWriter().write(
+         "There was some error uploading your file:" +
+          ExceptionUtils.stackTrace(e));
+      return;
+    }
+    MultipartFormField field = (MultipartFormField)fields.get("file");
+    byte[] data = field.getData();
+    if (data.length == 0) {
+      melati.getWriter().write("No file was uploaded");
+      return;
+    }
+    melati.getResponse().setContentType(field.getContentType());
+    OutputStream output = melati.getResponse().getOutputStream();
+    output.write(data);
+    output.close();
+    return;
+  }
   
 /**
  * How to use a different melati configuration.

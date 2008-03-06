@@ -156,15 +156,6 @@ public class UserTable extends UserTableBase {
 
   protected void postInitialise() {
     super.postInitialise();
-    if (getTableInfo().getDefaultcanwrite() == null)
-      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
-    if (getTableInfo().getDefaultcandelete() == null)
-      getTableInfo().setDefaultcandelete(getDatabase().administerCapability());
-    if (getTableInfo().getCancreate() == null)
-      getTableInfo().setCancreate(getDatabase().administerCapability());
-
-    // see above
-
 //     canReadPasswords =
 //         (Capability)getDatabase().getCapabilityTable().getNameColumn().
 //             ensure(canReadPasswords);

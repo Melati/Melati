@@ -113,17 +113,4 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
 
   // programmer's domain-specific code here
 
-  /**
-   * Apply default protection to this table 
-   * if it has not already been protected.
-   */ 
-  protected void postInitialise() {
-    super.postInitialise();
-    if (getTableInfo().getDefaultcanwrite() == null)
-      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
-    if (getTableInfo().getDefaultcandelete() == null)
-      getTableInfo().setDefaultcandelete(getDatabase().administerCapability());
-    if (getTableInfo().getCancreate() == null)
-      getTableInfo().setCancreate(getDatabase().administerCapability());
-  }
 }

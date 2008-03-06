@@ -262,15 +262,4 @@ public class SettingTable extends SettingTableBase {
                      value ? Boolean.TRUE : Boolean.FALSE, 
                      displayname, description); 
      } 
-     
-  protected void postInitialise() {
-    super.postInitialise();
-    if (getTableInfo().getDefaultcandelete() == null)
-      getTableInfo().setDefaultcandelete(getDatabase().administerCapability());
-    if (getTableInfo().getDefaultcanwrite() == null)
-      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
-    if (getTableInfo().getCancreate() == null)
-      getTableInfo().setCancreate(getDatabase().administerCapability());
-  }
-
 }

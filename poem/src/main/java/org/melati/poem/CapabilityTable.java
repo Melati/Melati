@@ -116,12 +116,6 @@ public class CapabilityTable extends CapabilityTableBase {
     super.unifyWithDB(colDescs);
 
     administer = ensure("_administer_");
-    if (getTableInfo().getDefaultcanwrite() == null)
-      getTableInfo().setDefaultcanwrite(administer);
-    if (getTableInfo().getDefaultcandelete() == null)
-      getTableInfo().setDefaultcandelete(administer);
-    if (getTableInfo().getCancreate() == null)
-      getTableInfo().setCancreate(administer);
     
     ensure("canRead");
     ensure("canWrite");

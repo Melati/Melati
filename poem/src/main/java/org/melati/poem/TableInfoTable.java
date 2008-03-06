@@ -117,19 +117,6 @@ public class TableInfoTable extends TableInfoTableBase {
 
   // programmer's domain-specific code here
 
-  /**
-   * Setup default capabilities required to read and write.
-   *  
-   * @see org.melati.poem.Table#postInitialise()
-   */
-  protected void postInitialise() {
-    super.postInitialise();
-    TableInfo info = ((Table)this).info;
-    if (info.getDefaultcanwrite() == null)
-      info.setDefaultcanwrite(getDatabase().administerCapability());
-    if (info.getCancreate() == null)
-      info.setCancreate(getDatabase().administerCapability());
-  }
 
   /**
    * Create a {@link TableInfo} of the correct type for our DB.

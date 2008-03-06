@@ -77,18 +77,27 @@ public class ConfigServletTestTest extends JettyWebTestCase {
     super.tearDown();
   }
 
+  /**
+   * Click Exception link.
+   */
   public void testException() {
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTest");
     clickLinkWithText("Exception");
     assertTextPresent("MelatiBugMelatiException");
   }
+  /**
+   * Click Redirect link.
+   */
   public void testRedirect() {
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTest");
     clickLinkWithText("Redirect");
     assertTextPresent("Melati is a tool");
   }
+  /**
+   * Fill and click upload.
+   */
   public void testUpload() { 
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTest");

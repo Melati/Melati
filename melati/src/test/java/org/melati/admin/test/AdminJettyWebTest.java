@@ -83,6 +83,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("File to upload:");
   }
   
+  /**
+   * Test that an AdminSpecialised object has its special templet included in edit.
+   */
   public void testAdminSpecialised() { 
     setScriptingEnabled(false);
     loginAsAdministrator();
@@ -116,6 +119,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Hi");    
   }
   
+  /**
+   * Test that an AdminSpecialised object invokes its own handler.
+   */
   public void testAdminSpecialisedHandler() { 
     setScriptingEnabled(false);
     beginAt("/Admin/admintest/specialised/Main");
@@ -130,7 +136,11 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Hi, I'm Special.");        
   }
   
-  public void testNoPrimarySearch() { 
+  /**
+   * Test that if there is no primary select column on the table 
+   * no primary criteria are displayed. 
+   */
+  public void testNoPrimarySelect() { 
     setScriptingEnabled(false);
     beginAt("/Admin/admintest/user/PrimarySelect");
     assertTablePresent("primarySelectTable");
@@ -146,7 +156,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   }
   
 
-  // Getting the coverage is proof enough
+  /**
+   *  Getting the coverage is proof enough.
+   */
   public void testDescendingOrder() { 
     setScriptingEnabled(false);
     beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");

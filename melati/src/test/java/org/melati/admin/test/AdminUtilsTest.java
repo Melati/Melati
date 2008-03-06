@@ -89,6 +89,9 @@ public class AdminUtilsTest extends PoemTestCase {
         au.specialFacilities(m, m.getMarkupLanguage(), m.getObject()));
   }
   
+  /**
+   * @see org.melati.admin.AdminUtils#ToggledOrderSelectionURL(Melati, String, String)
+   */
   public void testToggledOrderSelectionURL() throws Exception { 
     m.loadTableAndObject();
     

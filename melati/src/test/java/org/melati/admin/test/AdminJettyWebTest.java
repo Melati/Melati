@@ -85,15 +85,49 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   
   public void testAdminSpecialised() { 
     setScriptingEnabled(false);
-    beginAt("/Admin/admintest/uploadedfile/Add");
-    setTextField("field_filename","test.txt");
-    setTextField("field_path","/");
-    setTextField("field_description","A file");
-    setTextField("field_size","2");
-    setTextField("field_when","12/12/2008");
+    loginAsAdministrator();
+    gotoPage("/Admin/admintest/uploadedfile/Main");
+    gotoRootWindow();
+    gotoFrame("admin_top");
+    setWorkingForm("goto");
+    selectOption("goto","Uploaded File");
+    assertFormPresent("goto");
     submit();
-    beginAt("/Admin/admintest/uploadedfile/0/Edit");
+    setScriptingEnabled(true);
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_left");
+    gotoFrame("admin_navigation");
+    clickLink("add");
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_record");
+    
+    setTextField("field_filename","test.txt");
+    clickLinkWithText("Upload new file");
+    gotoWindow("filename");
+    setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
+    
+    submit();
+    gotoFrame("admin_bottom");
+    gotoFrame("admin_record");
+    submit();
+    gotoPage("/Admin/admintest/uploadedfile/0/Edit");
     assertTextPresent("Hi");    
+  }
+  
+  public void testAdminSpecialisedHandler() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/admintest/specialised/Main");
+    gotoAddRecord("Specialised");
+    setTextField("field_name", "test");
+    submit();
+    assertTextPresent("Done");
+    beginAt("/Admin/admintest/specialised/0/NotAnAdminMethod");
+    assertTextPresent("Hi, I'm Special."); 
+    // Hmm, is this intended behaviour?
+    beginAt("/Admin/admintest/specialised/0/Edit");
+    assertTextPresent("Hi, I'm Special.");        
   }
   
   public void testNoPrimarySearch() { 
@@ -104,6 +138,11 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTableNotPresent("primarySelectTable");
     beginAt("/Admin/admintest/user/PrimarySelect?field_name=");
     assertTablePresent("primarySelectTable");
+
+    // Relies upon an object already being created in previous test
+    beginAt("/Admin/admintest/specialised/0/PrimarySelect");
+    assertTableNotPresent("primarySelectTable");
+    
   }
   
 
@@ -111,6 +150,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testDescendingOrder() { 
     setScriptingEnabled(false);
     beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
+    beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
+    beginAt("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
     beginAt("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
   }
   /**

@@ -28,6 +28,10 @@ This page last updated: $Date$ $Author$
 
 <table align="center" bgcolor="#ffffff">
  <tr>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://maven.apache.org/"><img
+  src="images/maven.png" alt="Built with Maven" border="0" 
+  width="90" height="30" align="center" valign="middle"/></a>
+  </td>
   <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.webmacro.org/"><img
   src="images/webmacro.gif" alt="Works with WebMacro" border="0" 
   width="68" height="68" align="center" valign="middle"/></a>
@@ -36,18 +40,15 @@ This page last updated: $Date$ $Author$
   src="images/velocity.gif" alt="Works with Velocity" border="0" 
   width="71" height="32" align="center" valign="middle"/></a>
   </td>
-  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://jakarta.apache.org/ant"><img
-  src="images/ant.gif" alt="Built with Ant" border="0" 
-  width="126" height="88" align="center" valign="middle"/></a>
-  </td>
   <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.odmg.org/"><img
   src="images/odmg.gif" alt="ODMG 3.0 compliant" border="0" 
   width="134" height="32" align="center" valign="middle"/></a>
   </td>
-  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://maven.apache.org/"><img
-  src="images/maven.png" alt="Checked with Maven" border="0" 
-  width="90" height="30" align="center" valign="middle"/></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://htmlunit.sourceforge.net/"><img
+  src="images/GargoyleSoftwareLogo.jpg" alt="Tested with HtmlUnit" border="0" 
+  width="58" height="79" align="center" valign="middle"/></a>
   </td>
+
  </tr>
  <tr>
   <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.postgres.org/"><img

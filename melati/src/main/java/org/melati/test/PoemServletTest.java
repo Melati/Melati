@@ -104,16 +104,16 @@ public class PoemServletTest extends PoemServlet {
      output.write("<p>This servlet tests your melati/poem configuration. " +
      "</p>\n");
      output.write("<p>If you can read this message, it means that you have " +
-     "successfully created a  POEM session using the configurations given in " +
-     "org.melati.LogicalDatabase.properties. </p>\n");
+                  "successfully created a  POEM session, \n");
+     output.write("using the configurations given in " +
+                  "org.melati.LogicalDatabase.properties. </p>\n");
      output.write("<p><b>Note</b> that this " +
-     "servlet does not initialise a template engine.</p>\n");
+                  "servlet does not initialise a template engine.</p>\n");
      output.write("<h4>The PoemContext</h4>\n");
      output.write("<h4>The PoemContext enables access to a database, a table, a record and a method.</h4>\n");
-     output.write("<p>Your " +
-     "<b>PoemContext</b> is set up as: " +
-     melati.getPoemContext() +
-     ".</p> \n");
+     output.write("<p>Your <b>PoemContext</b> is set up as: " +
+                  melati.getPoemContext() +
+                  ".</p> \n");
      output.write("<p>Method:" + method + "</p>\n");
      
      output.write("<p>\nThe PoemContext can be setup using the servlet's PathInfo.</p>\n");
@@ -150,11 +150,11 @@ public class PoemServletTest extends PoemServlet {
      for (Enumeration e = melati.getDatabase().getDisplayTables(); 
          e.hasMoreElements();) {
        Table t = (Table)e.nextElement();
-       output.write("<tr><td>");
+       output.write("<tr>\n <td>");
        output.write(t.getDisplayName());
-       output.write("</td><td>\n");
+       output.write("</td>\n <td>");
        output.write(t.getDescription());
-       output.write("</td></tr>\n");
+       output.write("</td>\n</tr>\n");
      }
      output.write("</table>\n");
 
@@ -182,10 +182,14 @@ public class PoemServletTest extends PoemServlet {
      output.write("You curently have the access token " + melati.getUser() + ".\n");     
      output.write("<ul>\n");
      output.write("<li>\n");
-     output.write("<a href='Exception'>Exception</a>\n");
+     output.write("<a href='" + 
+             melati.getSameURL() +
+             "/Exception'>Exception</a>\n");
      output.write("</li>\n");
      output.write("<li>\n");
-     output.write("<a href='AccessPoemException'>Access Poem " +
+     output.write("<a href='" +
+             melati.getSameURL() +
+             "/AccessPoemException'>Access Poem " +
      "Exception</a> (requiring you to log-in as an administrator)\n");
      output.write("</li>\n");
      output.write("</ul>\n");

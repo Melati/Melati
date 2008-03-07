@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  *     Bohemian Enterprise
  *     Predmerice nad Jizerou 77
  *     294 74
@@ -56,7 +56,6 @@ import javax.servlet.ServletException;
 
 import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
-//import org.melati.util.MelatiWriter;
 
 /**
  * Test display of various characters without using a Template Engine.
@@ -110,9 +109,5 @@ public class CharsetServletTest extends ConfigServlet {
     w.println("</html>");
   }
 
-  public String getServletName() {
-      return "org.melati.test.CharsetServletTest";
-  }
-  
   
 }

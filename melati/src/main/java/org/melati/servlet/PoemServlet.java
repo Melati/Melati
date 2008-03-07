@@ -181,6 +181,9 @@ import org.melati.util.StringUtils;
 public abstract class PoemServlet extends ConfigServlet {
 
   /**
+   * A place to do things before entering the session 
+   * of the user, here is a good place to use root access token.
+   * 
    * Overriden in TemplateServlet.
    * 
    * @param melati

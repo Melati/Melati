@@ -26,12 +26,14 @@ This page last updated: $Date$ $Author$
 
 <section name=" Throwing JDBC - java.sql error injector ">
 <p>
-This module is a reusable test utility which provides a mechanism 
-for Error Injection.
+This module is a reusable JDBC wrapper which provides a mechanism 
+for <em>Error Injection</em>.
 </p>
 <p>
 It enables testing of exception handling within a JDBC3 or 4 framework, 
-without the use of mock objects.
+without the use of mock objects by 
+selectively throwing exceptions either whenever a method is called or after 
+a given number of calls.
 </p>
 <p>
 The JDBC API, especially version 4, is quite big, so hopefully sharing this 

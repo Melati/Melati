@@ -81,8 +81,8 @@ public class CharsetTemplateServletTestTest extends JettyWebTestCase {
     beginAt("/org.melati.test.CharsetTemplateServletTest");
     assertTextNotPresent("Wrong");
     assertTextNotPresent("Exception");
-    // Broken on Windows !!
-    //assertTextNotPresent("Cannot");
+    //FIXME Broken in Eclipse on Windows and Linux but works under Maven
+    assertTextNotPresent("Cannot");
   }
 
 }

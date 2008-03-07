@@ -46,7 +46,10 @@
 package org.melati.servlet;
 
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.poem.Database;
+import org.melati.poem.PoemThread;
+import org.melati.poem.Setting;
 
 /**
  * Save the uploaded file to disk in a particular directory
@@ -56,6 +59,9 @@ import org.melati.poem.Database;
  * and <code>UploadURL</code> in the Setting table of the current Database.
  */
 public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
+
+  private String uploadDir;
+  private String uploadURL;
 
   /**
    * Get the defaulted parameters for the adaptor from the database and 
@@ -69,18 +75,13 @@ public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
                                             MultipartFormField field) {
 
     Database db = melati.getDatabase();
-    String uploadDir = db.getSettingTable().
-                                  ensure("UploadDir", 
-                                         "melati-static/admin/static", 
-                                         "Upload Directory",
-                                         "Directory to upload to").getValue();
-    String uploadURL = db.getSettingTable().
-                                  ensure("UploadURL",
-                                          melati.getConfig().getStaticURL(), 
-                                          "Uploaded URL",
-                                          "URL of uploaded files, defaults to Melati Static ").getValue();
+    if (uploadDir == null)
+      uploadDir = (String)db.getSettingTable().getOrDie("UploadDir"); 
+    if(uploadURL == null) 
+      uploadURL = (String)db.getSettingTable().getOrDie("UploadURL");
 
-    return new DefaultFileDataAdaptor(melati, melati.getConfig().getRealPath() + uploadDir, uploadURL);
+    return new DefaultFileDataAdaptor(melati, 
+        melati.getConfig().getRealPath() + uploadDir, uploadURL);
   }
 }
 

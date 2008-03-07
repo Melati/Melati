@@ -45,8 +45,6 @@ package org.melati.test.test;
 
 import org.melati.JettyWebTestCase;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-
 /**
  * @author timp
  * @since 7 Mar 2008
@@ -82,37 +80,43 @@ public class TemplateServletTestTest extends JettyWebTestCase {
    */
   public void testException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.PoemServletTest/melatitest");
+    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
     clickLinkWithText("Exception");
     assertTextPresent("MelatiBugMelatiException");
   }
   /**
-   * Click Exception link.
+   * Click passback link, see exception message.
    */
-  public void testAccessException() {
+  public void testPassbackException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.PoemServletTest/melatitest");
-    try { 
-      clickLinkWithText("Access Poem Exception");
-      fail("Should have bombed.");
-    } catch (FailingHttpStatusCodeException e) { 
-      System.err.println(e.getMessage());
-      assertEquals(e.getMessage().indexOf("401"), 0);
-    }
-    assertTextPresent("Error 401");
+    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
+    clickLinkWithText("?passback=true");
+    assertTextPresent("org.melati.poem.AccessPoemException");
+    assertTextPresent("You tried to access a RestrictedAccessObject");
     assertTextPresent("You need the capability _administer_ ");
   }
   /**
+   * Click propagate link, get login screen.
+   */
+  public void testPropagateException() {
+    setScriptingEnabled(false);
+    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
+    clickLinkWithText("?propagate=true");
+    assertTextPresent("You need to log in");
+    assertTextPresent("You need the capability _administer_ ");
+  }
+
+  /**
    * Fill and click upload.
    */
-  public void BorkedTestUpload() { 
+  public void testUpload() { 
     setScriptingEnabled(false);
     beginAt("/org.melati.login.Login/admintest");
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
     submit();
-    gotoPage("/org.melati.test.PoemServletTest/admintest/");
+    gotoPage("/org.melati.test.TemplateServletTest/admintest/");
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");

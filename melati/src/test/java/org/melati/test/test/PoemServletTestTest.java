@@ -106,13 +106,13 @@ public class PoemServletTestTest extends JettyWebTestCase {
   /**
    * Fill and click upload.
    */
-  public void BorkedTestUpload() { 
+  public void testUpload() { 
     setScriptingEnabled(false);
     beginAt("/org.melati.login.Login/admintest");
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
-    submit();
+    submit("action");
     gotoPage("/org.melati.test.PoemServletTest/admintest/");
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();

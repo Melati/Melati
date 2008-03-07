@@ -48,9 +48,6 @@ package org.melati.servlet;
 import java.util.Hashtable;
 
 import org.melati.Melati;
-import org.melati.poem.AccessToken;
-import org.melati.poem.PoemTask;
-import org.melati.poem.PoemThread;
 
 /**
  * A way to implement policies about how to save uploaded files.

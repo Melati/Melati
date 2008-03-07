@@ -46,10 +46,7 @@
 package org.melati.servlet;
 
 import org.melati.Melati;
-import org.melati.MelatiConfig;
 import org.melati.poem.Database;
-import org.melati.poem.PoemThread;
-import org.melati.poem.Setting;
 
 /**
  * Save the uploaded file to disk in a particular directory

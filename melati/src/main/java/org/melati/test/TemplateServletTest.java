@@ -48,7 +48,9 @@ package org.melati.test;
 import java.io.OutputStream;
 
 import org.melati.servlet.TemplateServlet;
+import org.melati.servlet.TemporaryFileDataAdaptorFactory;
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
 import org.melati.PoemContext;
 import org.melati.servlet.MultipartFormField;
@@ -56,7 +58,8 @@ import org.melati.template.ServletTemplateContext;
 import org.melati.util.MelatiBugMelatiException;
 
 /**
- * Test a Melati configuration with a Template Engine.
+ * Test a Melati configuration with a Template Engine and a 
+ * temporary file form data adaptor.
  *
  * @author Tim Joyce
  * $Revision$
@@ -93,7 +96,7 @@ public class TemplateServletTest extends TemplateServlet {
   }
 
 /**
- * Set up the melati context so we don't have to specify the 
+ * Set up the POEM context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  
  *
  * Useful when writing appications where you are typically only accessing
@@ -106,6 +109,19 @@ public class TemplateServletTest extends TemplateServlet {
       return poemContextWithLDB(melati,"melatitest");
     else 
       return super.poemContext(melati);
+  }
+
+  /** 
+   * Set the form data adaptor.
+   * 
+   * @see org.melati.servlet.ConfigServlet#melatiConfig()
+   */
+  protected MelatiConfig melatiConfig() {
+    MelatiConfig config = super.melatiConfig();
+    TemporaryFileDataAdaptorFactory factory = 
+        new TemporaryFileDataAdaptorFactory();
+    config.setFormDataAdaptorFactory(factory);
+    return config;
   }
   
 }

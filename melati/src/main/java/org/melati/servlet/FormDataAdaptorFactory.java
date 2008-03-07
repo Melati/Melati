@@ -77,20 +77,8 @@ public abstract class FormDataAdaptorFactory {
     if (melati.getDatabase() == null) {
       holder.put("hereiam",getIt(melati,field));
     } else {
-      if (PoemThread.inSession()) {
-        melati.getConfig().getAccessHandler().establishUser(melati);
-        melati.loadTableAndObject();
-        holder.put("hereiam",getIt(melati,field));
-      } else         
-        melati.getDatabase().inSession (
-          AccessToken.root, new PoemTask() {
-            public void run () {
-              melati.getConfig().getAccessHandler().establishUser(melati);
-              melati.loadTableAndObject();
-              holder.put("hereiam",getIt(melati,field));
-            }
-          }
-        );
+      melati.loadTableAndObject();
+      holder.put("hereiam",getIt(melati,field));
     }
     return (FormDataAdaptor)holder.get("hereiam");
   }

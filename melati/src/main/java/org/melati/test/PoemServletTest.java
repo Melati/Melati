@@ -56,6 +56,8 @@ import javax.servlet.ServletException;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
+import org.melati.poem.Database;
+import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
@@ -84,8 +86,37 @@ public class PoemServletTest extends PoemServlet {
    public PoemServletTest() {
      super();
    }
+   
 
-   protected void doPoemRequest(Melati melati)
+  /**
+   * Normally one would ensure that these settings are present in 
+   * the database, but they are ensured here so that everything 
+   * is in one place.
+   * {@inheritDoc}
+   * @see org.melati.servlet.PoemServlet#prePoemSession(org.melati.Melati)
+   */
+  protected void prePoemSession(Melati melati) throws Exception {
+    final Database db = melati.getDatabase();
+    final MelatiConfig mc = melati.getConfig();
+    db.inSession(AccessToken.root, new PoemTask() {
+      public void run() {
+        db.getSettingTable().
+        ensure("UploadDir", 
+               mc.getStaticURL(), 
+               "Upload Directory",
+               "Directory to upload to");
+        db.getSettingTable().
+        ensure("UploadURL",
+               mc.getStaticURL(), 
+               "Uploaded URL",
+               "URL of uploaded files, defaults to Melati Static ");
+      }
+    });
+    
+  }
+
+
+  protected void doPoemRequest(Melati melati)
      throws ServletException, IOException {
      String method = melati.getMethod();
      if (method != null && method.equals("Upload")) {
@@ -237,8 +268,6 @@ public class PoemServletTest extends PoemServlet {
    }
 
   private void doUpload(Melati melati) throws IOException {
-    melati.getDatabase().getSettingTable().ensure("UploadDir","/tmp","","");
-    melati.getDatabase().getSettingTable().ensure("UploadURL","tmp","","");
 
     Hashtable fields = null;
     try {
@@ -271,14 +300,14 @@ public class PoemServletTest extends PoemServlet {
   
 /**
  * How to use a different melati configuration.
+ * 
+ * This is not a good place to poulate the FormDataAdaptorFactory, 
+ * as that requires that you are not already in a databse session, 
+ * as it creates entries in the settings table. 
  */
   protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
     config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
-    PoemFileDataAdaptorFactory factory = 
-      new PoemFileDataAdaptorFactory();
-    config.setFormDataAdaptorFactory(factory);
-
     return config;
   }
 

@@ -70,12 +70,13 @@ public class TemplateServletTest extends TemplateServlet {
   protected String doTemplateRequest(Melati melati,
                                      ServletTemplateContext templateContext) 
       throws Exception {
+    
+    String method = melati.getMethod();
     templateContext.put("RestrictedAccessObject", 
-                        new RestrictedAccessObject());
+            new RestrictedAccessObject());
+    if (method != null) {
 
-    if (melati.getMethod() != null) {
-
-      if (melati.getMethod().equals("Upload")) {
+      if (method.equals("Upload")) {
         MultipartFormField field = templateContext.getMultipartForm("file");
         byte[] data = field.getData();
         melati.getResponse().setContentType(field.getContentType());
@@ -85,12 +86,14 @@ public class TemplateServletTest extends TemplateServlet {
         return null;
       }
 
-      if (melati.getMethod().equals("Redirect")) {
+      if (method.equals("Redirect")) {
         melati.getResponse().sendRedirect("http://www.melati.org");
         return null;
       }
-      if (melati.getMethod().equals("Exception")) 
+      if (method.equals("Exception")) {  
+
         throw new MelatiBugMelatiException("It got caught!");
+      }
     }   
     return("org/melati/test/TemplateServletTest");
   }

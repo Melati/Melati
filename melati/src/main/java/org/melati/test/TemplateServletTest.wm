@@ -38,7 +38,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
@@ -110,7 +110,7 @@ $nonexistant
 <h4>Passback and propogate exception</h4>
 
 #if ($Form.passback != null || $Form.propagate != null) #begin
-<p>You have tried to access a RestrictedAccessObject but:<br />
+<p>You tried to access a RestrictedAccessObject but:<br />
 <b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
 #end
 
@@ -125,11 +125,11 @@ AccessPoemException by clicking <a href="?passback=true">?passback=true</a>.
 
 <h4>Handling other Exceptions</h4>
 <p>
-You can test melati Exception handling by clicking <a href="./Exception">Exception</a>
+You can test melati Exception handling by clicking <a href="$melati.getSameURL()/Exception">Exception</a>
 </p>
 <h3>Further Testing</h3>
 <p>
-You can test melati Redirect handling by clicking <a href="./Redirect">Redirect</a>
+You can test melati Redirect handling by clicking <a href="$melati.getSameURL()/Redirect">Redirect</a>
 </p>
 <p>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
@@ -146,9 +146,9 @@ This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAcc
 is configured by default in your org.melati.MelatiServlet.properties file).
 </p>
 
-<form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
+<form method="post" action="Upload" enctype="multipart/form-data" target="Upload">
 You can upload a file here:<br>
-<input type=hidden name=upload value=yes>
+<input type="hidden" name="upload" value="yes">
 <input type="file" name="file">
 <input type="submit" name="Submit" value="Upload file">
 <br>
@@ -159,15 +159,23 @@ org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the d
 (and you will have to set ``UploadURL'' too).<br>
 </form>
 
-<h3>Your Database has the following tables:</h3>
+<h3>Your Database has the following tables</h3>
+<table>
 #foreach $tab in $melati.Database.DisplayTables #begin
-  $tab.DisplayName<br>
+<tr>
+  <td>$tab.DisplayName</td>
+  <td>$tab.Description</td>
+</tr>
 #end
-
+</table>
 
 <h3>Example Application</h3>
-<p>You run the example application by clicking <a href=$melati.ZoneURL/org.melati.example.contacts.Search>org.melati.example.contacts.Search</a>.</p>
-<p><b>Please Note:</b> you will need (something very similar to) the following in your LogicalDatabase.properties file, and to have created a database called <tt>contacts</tt></p>
+<p>You run the example application by clicking 
+<a href="$melati.ZoneURL/org.melati.example.contacts.Search"
+>org.melati.example.contacts.Search</a>.</p>
+<p><b>Note:</b> you will need 
+(something very similar to) the following in your LogicalDatabase.properties file, 
+and to have created a database called <tt>contacts</tt></p>
 <pre>
 org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
 org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql

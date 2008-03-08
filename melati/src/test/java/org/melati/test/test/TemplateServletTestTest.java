@@ -52,6 +52,7 @@ import org.melati.JettyWebTestCase;
  */
 public class TemplateServletTestTest extends JettyWebTestCase {
 
+  protected String servletName;
   /**
    * @param name
    */
@@ -65,6 +66,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    servletName = "/org.melati.test.TemplateServletTest/admintest/";
   }
 
   /** 
@@ -80,7 +82,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
    */
   public void testException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
+    beginAt(servletName);
     clickLinkWithText("Exception");
     assertTextPresent("MelatiBugMelatiException");
   }
@@ -89,7 +91,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
    */
   public void testPassbackException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
+    beginAt(servletName);
     clickLinkWithText("?passback=true");
     assertTextPresent("org.melati.poem.AccessPoemException");
     assertTextPresent("You tried to access a RestrictedAccessObject");
@@ -100,7 +102,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
    */
   public void testPropagateException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.TemplateServletTest/melatitest/");
+    beginAt(servletName);
     clickLinkWithText("?propagate=true");
     assertTextPresent("You need to log in");
     assertTextPresent("You need the capability _administer_ ");
@@ -116,7 +118,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
     submit();
-    gotoPage("/org.melati.test.TemplateServletTest/admintest/");
+    gotoPage(servletName);
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");

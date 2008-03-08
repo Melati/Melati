@@ -55,7 +55,7 @@ import org.webmacro.servlet.WebContext;
  * 
  * Extend this class, overriding the {@link #handle(Melati, WebContext)} method.
  * 
- * If you are agnostic as to which TemplateEngine to use then extend {@link TemplateServlet} directly.
+ * If you are agnostic as to what TemplateEngine to use then extend {@link TemplateServlet} directly.
  *  
  * @author Tim Joyce
  * $Revision$

@@ -46,39 +46,21 @@
 package org.melati.test;
 
 
-import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
-import org.melati.poem.AccessToken;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.Capability;
-import org.melati.poem.PoemThread;
-import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.PathInfoException;
-import org.melati.PoemContext;
-import org.melati.template.ServletTemplateContext;
 
 /**
- * Illustrate overridden exception handling.
- * AccessHandler is assumed to be set to 
+ * Illustrate overridden authentication handling.
+ * AccessHandler is initialsed from MelatiConfig, whis is assumed 
+ * to set to 
  * <code>org.melati.login.HttpSessionAccessHandler</code> in 
- * <code>org.melati.MelatiConfig.properties</code>.
+ * <code>org.melati.MelatiConfig.properties</code>;
+ * we then override that configuration.
  *
  * @author Tim Joyce
  * $Revision$
  */
-public class TemplateServletTestOverride extends TemplateServlet {
-  private static final long serialVersionUID = 1L;
-
-  protected String doTemplateRequest(Melati melati,
-                                     ServletTemplateContext templateContext) 
-      throws Exception {
-
-    // thow exception to illustrate it being handled.
-    Capability admin = PoemThread.database().getCanAdminister();
-    AccessToken token = PoemThread.accessToken();
-    throw new AccessPoemException(token, admin);
-  }
+public class TemplateServletTestOverride extends TemplateServletTest {
 
 /**
  * Override the default (set) authentication method.
@@ -90,18 +72,6 @@ public class TemplateServletTestOverride extends TemplateServlet {
     return config;
   }
 
-/**
- * Set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  
- *
- * This is a good idea when writing appications where you are 
- * typically only accessing a single database.
- */
-  protected PoemContext poemContext(Melati melati)
-      throws PathInfoException {
-    return poemContextWithLDB(melati,"melatitest");
-  }
-  
 }
 
 

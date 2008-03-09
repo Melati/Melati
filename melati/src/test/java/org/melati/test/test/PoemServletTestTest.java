@@ -122,6 +122,7 @@ public class PoemServletTestTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     beginAt("/" + servletName +"/melatitest/");
     clickLinkWithText("tableinfo/0/View");
+    assertTextPresent("logicalDatabase = melatitest, table = tableinfo, troid = 0, method = View");
   }
   /**
    * Fill and click upload.

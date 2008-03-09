@@ -55,7 +55,6 @@ import javax.servlet.ServletException;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
-import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.poem.Database;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
@@ -199,17 +198,17 @@ public class PoemServletTest extends PoemServlet {
      output.write(
          "<form method=\"post\" action=\"Upload" + 
          "\" enctype=\"multipart/form-data\" target='Upload'>" +
-         "You can upload a file here:<br>\n" +
-         "<input type=hidden name='upload' value='yes'>" +
-         "<input type=\"file\" name=\"file\" enctype=\"multipart/form-data\">" +
-         "<input type=\"submit\" name=\"Submit\" value=\"Upload file\"><br>" +
+         p("You can upload a file here:") +
+         "<input type=hidden name='upload' value='yes'>\n" +
+         "<input type=\"file\" name=\"file\" enctype=\"multipart/form-data\">\n" +
+         "<input type=\"submit\" name=\"Submit\" value=\"Upload file\">\n" +
          getUploadMessage(melati) +
          "</form>\n");
      
-     output.write("<h4>Melati Exception handling</h4>");
-     output.write("An exception is rendered to the output.\n");     
-     output.write("An access violation provokes a login challenge.\n");     
-     output.write("You curently have the access token " + melati.getUser() + ".\n");     
+     output.write("<h4>Melati Exception handling</h4\n>");
+     output.write("<p>An exception is rendered to the output.</p>\n");     
+     output.write("<p>An access violation provokes a login challenge.</p>\n");     
+     output.write("<p>You curently have the access token " + melati.getUser() + ".</p>\n<");     
      output.write("<ul>\n");
      output.write("<li>\n");
      output.write("<a href='" + 
@@ -230,6 +229,7 @@ public class PoemServletTest extends PoemServlet {
       if (method.equals("AccessPoemException")) {
         Capability admin = PoemThread.database().administerCapability();
         AccessToken token = PoemThread.accessToken();
+        output.write("<p>You are logged in as "+token+" and have " + admin + " capability.</p>\n");
         if (!token.givesCapability(admin))
           throw new AccessPoemException(token, admin);
       }
@@ -237,31 +237,29 @@ public class PoemServletTest extends PoemServlet {
 
     output.write("<h3>Further Testing</h3>\n");
     output.write("<h4>Template Engine Testing</h4>\n");
-    output.write("You are currently using: <b>" + 
+    output.write(p("You are currently using: <b>" + 
     melati.getConfig().getTemplateEngine().getClass().getName() + 
-    "</b>.<br>\n");
-    output.write("You can test your WebMacro installation by clicking <a href=" + 
+    "</b>."));
+    output.write(p("You can test your WebMacro installation by clicking <a href=" + 
     melati.getZoneURL() + 
-    "/org.melati.test.WebmacroStandalone/>WebmacroStandalone</a>" + 
-    "<br>\n");
-    output.write("You can test your Template Engine working with " +
+    "/org.melati.test.WebmacroStandalone/>WebmacroStandalone</a>"));
+    output.write(p("You can test your Template Engine working with " +
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.TemplateServletTest/" + 
     melati.getPoemContext().getLogicalDatabase() + 
     ">" + 
     "org.melati.test.TemplateServletTest/" + 
-    melati.getPoemContext().getLogicalDatabase() + "</a><br/>\n");
+    melati.getPoemContext().getLogicalDatabase() + "</a>"));
 
-    output.write("<p>\n");
-    output.write("Make sure the <a href='"+ 
+    output.write(p("Make sure the <a href='"+ 
       melati.getZoneURL() + 
       "/org.melati.admin.Admin/" + 
       melati.getPoemContext().getLogicalDatabase() + 
       "/Main'>Admin System</a> is working." + 
-      "\n");
-    output.write("</p>\n");  
-
+      "\n"));
+    
+    output.write("</body></html>");
 
    
    }
@@ -280,14 +278,14 @@ public class PoemServletTest extends PoemServlet {
     }
     catch (IOException e) {
       melati.getWriter().write(
-         "There was some error uploading your file:" +
-          ExceptionUtils.stackTrace(e));
+         p("There was some error uploading your file:" +
+          ExceptionUtils.stackTrace(e)));
       return;
     }
     MultipartFormField field = (MultipartFormField)fields.get("file");
     byte[] data = field.getData();
     if (data.length == 0) {
-      melati.getWriter().write("No file was uploaded");
+      melati.getWriter().write(p("No file was uploaded"));
       return;
     }
     melati.getResponse().setContentType(field.getContentType());
@@ -297,19 +295,6 @@ public class PoemServletTest extends PoemServlet {
     return;
   }
   
-/**
- * How to use a different melati configuration.
- * 
- * This is not a good place to poulate the FormDataAdaptorFactory, 
- * as that requires that you are not already in a databse session, 
- * as it creates entries in the settings table. 
- */
-  protected MelatiConfig melatiConfig() {
-    MelatiConfig config = super.melatiConfig();
-    config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
-    return config;
-  }
-
 /**
  * Set up the melati context so we don't have to specify the 
  * logical database on the pathinfo.  
@@ -328,13 +313,15 @@ public class PoemServletTest extends PoemServlet {
   }
 
   protected String getUploadMessage(Melati melati) {
-    return "This will save your file in a file at a path specified in the database's Settings table.<br>\n" + 
-    "  Try saving a file in your " +
+    return p("This will save your file in a file at a path specified in the database's Settings table.") + 
+    p("  Try saving a file in your " +
            "/tmp directory <a href='" + melati.getZoneURL() +
-           "/org.melati.test.ConfigServletTestOverride/'>here</a>.";
+           "/org.melati.test.ConfigServletTestOverride/'>here</a>.");
   }
   
-  
+  private String p(String sentence) { 
+    return "<p>" + sentence + "</p>\n";
+  }
 
 }
 

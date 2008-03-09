@@ -45,8 +45,6 @@ package org.melati.test.test;
 
 import org.melati.JettyWebTestCase;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-
 
 /**
  * @author timp
@@ -55,11 +53,14 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
  */
 public class PoemServletTestTest extends JettyWebTestCase {
 
+  protected String servletName;
+  
   /**
    * @param name
    */
   public PoemServletTestTest(String name) {
     super(name);
+    servletName = "org.melati.test.PoemServletTest";
   }
 
   /** 
@@ -83,7 +84,7 @@ public class PoemServletTestTest extends JettyWebTestCase {
    */
   public void testException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.PoemServletTest/melatitest");
+    beginAt("/" + servletName + "/melatitest");
     clickLinkWithText("Exception");
     assertTextPresent("MelatiBugMelatiException");
   }
@@ -92,17 +93,31 @@ public class PoemServletTestTest extends JettyWebTestCase {
    */
   public void testAccessException() {
     setScriptingEnabled(false);
-    beginAt("/org.melati.test.PoemServletTest/melatitest");
-    try { 
-      clickLinkWithText("Access Poem Exception");
-      fail("Should have bombed.");
-    } catch (FailingHttpStatusCodeException e) { 
-      System.err.println(e.getMessage());
-      assertEquals(e.getMessage().indexOf("401"), 0);
-    }
-    assertTextPresent("Error 401");
+    beginAt("/" + servletName );
+    clickLinkWithText("Access Poem Exception");
     assertTextPresent("You need the capability _administer_ ");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit("action");
+    assertTextPresent("You are logged in as _administrator_ and have _administer_ capability");
   }
+  
+  /**
+   * Click Exception link.
+   */
+  public void testAccessAllowed() {
+    setScriptingEnabled(false);
+    beginAt("/org.melati.login.Login/admintest");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit("action");
+    gotoPage("/" + servletName + "/admintest");
+    clickLinkWithText("Access Poem Exception");
+    assertTextPresent("You are logged in as _administrator_ and have _administer_ capability");
+  }
+  
   /**
    * Fill and click upload.
    */
@@ -113,7 +128,8 @@ public class PoemServletTestTest extends JettyWebTestCase {
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
     submit("action");
-    gotoPage("/org.melati.test.PoemServletTest/admintest/");
+    gotoPage("/" + servletName + "/admintest/");
+
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");
@@ -121,6 +137,24 @@ public class PoemServletTestTest extends JettyWebTestCase {
     submit();
     gotoWindow("Upload");
     assertTextPresent("GNU GENERAL PUBLIC LICENSE");
+    
+  }
+  /**
+   * Fill and click upload.
+   */
+  public void testUploadNothing() { 
+    setScriptingEnabled(false);
+    beginAt("/org.melati.login.Login/admintest");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit("action");
+    gotoPage("/" + servletName + "/admintest/");
+
+    //setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
+    submit();
+    gotoWindow("Upload");
+    assertTextPresent("No file was uploaded");
     
   }
 

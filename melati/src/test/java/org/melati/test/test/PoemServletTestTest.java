@@ -93,7 +93,7 @@ public class PoemServletTestTest extends JettyWebTestCase {
    */
   public void testAccessException() {
     setScriptingEnabled(false);
-    beginAt("/" + servletName );
+    beginAt("/" + servletName + "/melatitest/" );
     clickLinkWithText("Access Poem Exception");
     assertTextPresent("You need the capability _administer_ ");
     setTextField("field_login", "_administrator_");
@@ -117,7 +117,12 @@ public class PoemServletTestTest extends JettyWebTestCase {
     clickLinkWithText("Access Poem Exception");
     assertTextPresent("You are logged in as _administrator_ and have _administer_ capability");
   }
-  
+
+  public void testView() { 
+    setScriptingEnabled(false);
+    beginAt("/" + servletName +"/melatitest/");
+    clickLinkWithText("tableinfo/0/View");
+  }
   /**
    * Fill and click upload.
    */

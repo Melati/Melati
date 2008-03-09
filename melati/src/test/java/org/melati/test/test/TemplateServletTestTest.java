@@ -129,5 +129,14 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     
   }
 
+  /**
+   * Click Redirect link.
+   */
+  public void testRedirect() {
+    setScriptingEnabled(false);
+    beginAt(servletName);
+    clickLinkWithText("Redirect");
+    assertTextPresent("Melati is a tool");
+  }
   
 }

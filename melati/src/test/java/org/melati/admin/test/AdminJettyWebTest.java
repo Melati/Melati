@@ -425,15 +425,18 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     loginAsAdministrator();
     gotoFrame("admin_top");
-    clickLinkWithText("Setup");    
-    deleteRecord("setting","org.melati.admin.Admin.ScreenStylesheetURL", 0);
-    deleteRecord("setting","org.melati.admin.Admin.PrimaryDisplayTable", 1);
-    deleteRecord("setting","org.melati.admin.Admin.HomepageURL", 2);
-    gotoPage("/Admin/" + dbName + "/setting/Main");
+    clickLinkWithText("Setup");
+    gotoRootWindow();
     gotoFrame("admin_bottom");
-    gotoFrame("admin_left");
-    gotoFrame("admin_selection");
-    assertTextPresent("No records found");
+    assertTextPresent("Done");
+    //deleteRecord("setting","org.melati.admin.Admin.ScreenStylesheetURL", 0);
+    //deleteRecord("setting","org.melati.admin.Admin.PrimaryDisplayTable", 1);
+    //deleteRecord("setting","org.melati.admin.Admin.HomepageURL", 2);
+    //gotoPage("/Admin/" + dbName + "/setting/Main");
+    //gotoFrame("admin_bottom");
+    //gotoFrame("admin_left");
+    //gotoFrame("admin_selection");
+    //assertTextPresent("No records found");
   }
 
   

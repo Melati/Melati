@@ -74,6 +74,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>org.melati.test.HttpAuthenticationPoemServletTest</servlet-name>
+    <servlet-class>org.melati.test.HttpAuthenticationPoemServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
     <servlet-class>org.melati.test.TemplateServletTest</servlet-class>
   </servlet>
@@ -192,6 +197,15 @@
   <servlet-mapping>
     <servlet-name>org.melati.test.PoemServletTest</servlet-name>
     <url-pattern>/org.melati.test.PoemServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.HttpAuthenticationPoemServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.HttpAuthenticationPoemServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.HttpAuthenticationPoemServletTest</servlet-name>
+    <url-pattern>/org.melati.test.HttpAuthenticationPoemServletTest/*</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

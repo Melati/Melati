@@ -62,11 +62,9 @@ import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
-import org.melati.PoemContext;
 import org.melati.servlet.MultipartDataDecoder;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PoemServlet;
-import org.melati.servlet.PathInfoException;
 import org.melati.util.ExceptionUtils;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
@@ -152,7 +150,8 @@ public class PoemServletTest extends PoemServlet {
          melati.getZoneURL() +
          "/org.melati.test.PoemServletTest/" +
          melati.getPoemContext().getLogicalDatabase() +
-         "/tableinfo/0/View>tableinfo/0/View" +
+         "/tableinfo/0/View>" + 
+         "tableinfo/0/View" +
          "</a>)\n");
      output.write("</li>\n");
      output.write("<li>\n");
@@ -160,7 +159,8 @@ public class PoemServletTest extends PoemServlet {
          melati.getZoneURL() +
          "/org.melati.test.PoemServletTest/" +
          melati.getPoemContext().getLogicalDatabase() +
-         "/columninfo/0/View>columninfo/0/View" +
+         "/columninfo/0/View>" + 
+         "columninfo/0/View" +
          "</a>)\n");
      output.write("</li>\n");
      output.write("<li>\n");
@@ -295,22 +295,6 @@ public class PoemServletTest extends PoemServlet {
     return;
   }
   
-/**
- * Set up the melati context so we don't have to specify the 
- * logical database on the pathinfo.  
- * <p>
- * This is a very good idea when
- * writing your applications where you are typically only accessing
- * a single database.
- */
-  protected PoemContext poemContext(Melati melati)
-  throws PathInfoException {
-    String[] parts = melati.getPathInfoParts();
-    if (parts.length == 0) 
-      return poemContextWithLDB(melati,"melatitest");
-    else 
-      return super.poemContext(melati);
-  }
 
   protected String getUploadMessage(Melati melati) {
     return p("This will save your file in a file at a path specified in the database's Settings table.") + 

@@ -112,4 +112,16 @@ public class ConfigServletTestTest extends JettyWebTestCase {
     assertTextPresent("GNU GENERAL PUBLIC LICENSE");
     
   }
+  /**
+   * Fill and click upload.
+   */
+  public void testUploadNothing() { 
+    setScriptingEnabled(false);
+    beginAt("/org.melati.test.ConfigServletTest");
+    submit();
+    gotoWindow("Upload");
+    assertTextPresent("No file was uploaded");
+    
+  }
+
 }

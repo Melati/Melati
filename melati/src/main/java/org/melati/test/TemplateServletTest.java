@@ -74,6 +74,7 @@ public class TemplateServletTest extends TemplateServlet {
     String method = melati.getMethod();
     templateContext.put("RestrictedAccessObject", 
             new RestrictedAccessObject());
+    templateContext.put("servletName", this.getClass().getName());
     if (method != null) {
 
       if (method.equals("Upload")) {

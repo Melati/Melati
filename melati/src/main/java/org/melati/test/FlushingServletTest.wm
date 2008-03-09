@@ -23,9 +23,9 @@ underlying http request going, without it timing out,
 you also want to be able to update the user as to progress.
 </p>
 #if ($melati.Method != "unflushed") #begin
-<p>To see what would happen if you did not flush, click <a href=unflushed>here</a> (remember to wait :)
+<p>To see what would happen if you did not flush, click <a href=unflushed>here</a> (remember to wait :)</p>
 #end #else #begin
-<p>To see what would happen if you did flush, click <a href=flushed>here</a>
+<p>To see what would happen if you did flush, click <a href=flushed>here</a></p>
 #end
 <h3>Your Database has the following tables:</h3>
 #set $wait = 1500

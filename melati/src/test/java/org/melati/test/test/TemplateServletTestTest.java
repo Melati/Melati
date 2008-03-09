@@ -138,5 +138,12 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     clickLinkWithText("Redirect");
     assertTextPresent("Melati is a tool");
   }
-  
+
+  public void testView() { 
+    setScriptingEnabled(false);
+    beginAt(servletName );
+    clickLinkWithText("tableinfo/0/View");
+    assertTextPresent("logicalDatabase = melatitest, table = tableinfo, troid = 0, method = View");
+  }
+
 }

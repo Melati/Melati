@@ -69,16 +69,15 @@ The current <b>PoemContext</b> is : $melati.PoemContext.
 <p>
 The poem context can be controlled using the servlets <b>PathInfo</b>.
 </p>
-
 <ul>
 <li>
- <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/tableinfo/0/View">melatitest/tableinfo/0/View</a>).
+ <a href="$melati.ZoneURL/$servletName/melatitest/tableinfo/0/View">melatitest/tableinfo/0/View</a>).
 </li>
 <li>
- <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/columninfo/0/View">melatitest/columninfo/0/View</a>).
+ <a href="$melati.ZoneURL/$servletName/melatitest/columninfo/0/View">melatitest/columninfo/0/View</a>).
 </li>
 <li>
- <a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/user/1/View">melatitest/user/1/View</a>).
+ <a href="$melati.ZoneURL/$servletName/melatitest/user/1/View">melatitest/user/1/View</a>).
 </li>
 </ul>
 
@@ -169,21 +168,6 @@ org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the d
 #end
 </table>
 
-<h3>Example Application</h3>
-<p>You run the example application by clicking 
-<a href="$melati.ZoneURL/org.melati.example.contacts.Search"
->org.melati.example.contacts.Search</a>.</p>
-<p><b>Note:</b> you will need 
-(something very similar to) the following in your LogicalDatabase.properties file, 
-and to have created a database called <tt>contacts</tt></p>
-<pre>
-org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
-org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
-org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
-org.melati.LogicalDatabase.contacts.user=postgres
-org.melati.LogicalDatabase.contacts.pass=*
-org.melati.LogicalDatabase.contacts.maxtransactions=4
-</pre>
 
 </body>
 </html>

@@ -73,4 +73,12 @@ public class DisplayJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Melati guest user");
   }
 
+  /**
+   * Test Display using default template.
+   */
+  public void testDisplayParameterDotsNoObject() {
+    beginAt("/Display/melatijunit/User/?template=org.melati.admin.Display");
+    assertTextPresent("null");
+  }
+
 }

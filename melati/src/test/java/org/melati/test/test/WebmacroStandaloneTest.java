@@ -90,13 +90,13 @@ public class WebmacroStandaloneTest extends JettyWebTestCase {
   public void testOther() throws Exception { 
     beginAt("/org.melati.test.WebmacroStandalone");
     assertTextPresent("Hello again");
-    beginAt("/org.melati.test.WebmacroStandalone?other=Jeremy");
+    gotoPage("/org.melati.test.WebmacroStandalone?other=Jeremy");
     assertTextPresent("Jeremy");
   }
   public void testTemplateName() throws Exception { 
     beginAt("/org.melati.test.WebmacroStandalone?templateName=org/melati/test/WebmacroStandalone.wm");
     assertTextPresent("Hello again");
-    beginAt("/org.melati.test.WebmacroStandalone?templateName=org/melati/test/notThere");
+    gotoPage("/org.melati.test.WebmacroStandalone?templateName=org/melati/test/notThere");
     assertTextPresent("ERROR!  Could not locate template org/melati/test/notThere");
   }
   public void testUnknownVariableReferenced() throws Exception { 

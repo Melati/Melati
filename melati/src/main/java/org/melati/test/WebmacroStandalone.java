@@ -112,48 +112,53 @@ public class WebmacroStandalone extends HttpServlet {
    * be able to locate the template you've requested in which case it'll throw a
    * NotFoundException. Second, the template will expect to find certain
    * information in the TemplateContext, and if you fail to provide that
-   * information a ContextException will be thrown. 
+   * information a ContextException will be thrown.
    */
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  public void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
     String templateName = "org/melati/test/WebmacroStandalone.wm";
 
-      WebContext c = new WebContext(_wm.getBroker(), req, resp);
+    WebContext c = new WebContext(_wm.getBroker(), req, resp);
 
-      // fill up the context with our data
-      c.put("Today", new Date());
-      c.put("Number", new Long(23));
+    // fill up the context with our data
+    c.put("Today", new Date());
+    c.put("Number", new Long(23));
 
-      // WebContext provides some utilities as well
-      String other = c.getForm("other");
-      if (other == null) {
-        c.put("hello", "hello again!"); // put this into the hash
-      } else {
-        c.put("hello", other); // else put this in
-      }
+    // WebContext provides some utilities as well
+    String other = c.getForm("other");
+    if (other == null) {
+      c.put("hello", "Hello again!"); // put this into the hash
+    } else {
+      c.put("hello", other); // else put this in
+    }
+    String templateNameFromForm = c.getForm("templateName");
+    if (templateNameFromForm != null )
+      templateName = templateNameFromForm;
+    FastWriter fw = new FastWriter(_wm.getBroker(), resp.getOutputStream(),
+        resp.getCharacterEncoding());
+    // get the template we intend to execute
+    Template t = null;
+    try {
+      t = _wm.getTemplate(templateName);
+    } catch (ResourceException e) {
 
-      FastWriter fw = new FastWriter(_wm.getBroker(), resp.getOutputStream(),
-          resp.getCharacterEncoding());
-        // get the template we intend to execute
-      Template t = null;
-      try {
-        t = _wm.getTemplate(templateName);
-      } catch (ResourceException e) {
-
-        fw.write("ERROR!  Could not locate template " + templateName
-            + ", if you are not using a modified WebMacro.properties then it should be on the CLASSPATH.");
-        e.printStackTrace();
-        fw.close();
-        return;        
-      } 
-      try {
-        // write the template to the output, using our context
-        t.write(fw.getOutputStream(), c);
-      } catch (org.webmacro.ContextException e) {
-        fw.write("ERROR! "
-            + "Could not locate required data in the TemplateContext.");
-        e.printStackTrace();
-      } 
+      fw
+          .write("ERROR!  Could not locate template "
+              + templateName
+              + ", if you are not using a modified WebMacro.properties then it should be on the CLASSPATH.");
+      e.printStackTrace();
       fw.close();
+      return;
+    }
+    try {
+      // write the template to the output, using our context
+      t.write(fw.getOutputStream(), c);
+    } catch (org.webmacro.ContextException e) {
+      fw.write("ERROR! "
+          + "Could not locate required data in the TemplateContext.");
+      e.printStackTrace();
+    }
+    fw.close();
   }
 
 }

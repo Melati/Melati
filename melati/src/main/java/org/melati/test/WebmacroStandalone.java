@@ -112,12 +112,7 @@ public class WebmacroStandalone extends HttpServlet {
    * be able to locate the template you've requested in which case it'll throw a
    * NotFoundException. Second, the template will expect to find certain
    * information in the TemplateContext, and if you fail to provide that
-   * information a ContextException will be thrown. Aside than WebMacro, in a
-   * servlet environment you also have to deal with the IOException that can be
-   * thrown if something goes wrong with the network connection back to the
-   * client.
-   * @throws IOException 
-   * @throws IOException 
+   * information a ContextException will be thrown. 
    */
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     String templateName = "org/melati/test/WebmacroStandalone.wm";
@@ -142,18 +137,12 @@ public class WebmacroStandalone extends HttpServlet {
       Template t = null;
       try {
         t = _wm.getTemplate(templateName);
-      } catch (org.webmacro.NotFoundException e) {
+      } catch (ResourceException e) {
 
         fw.write("ERROR!  Could not locate template " + templateName
-            + ", check that your template path is set "
-            + "properly in WebMacro.properties");
+            + ", if you are not using a modified WebMacro.properties then it should be on the CLASSPATH.");
         e.printStackTrace();
         fw.close();
-        return;        
-      } catch (ResourceException e) {
-        fw.write("ERROR! "
-            + "Could not locate required Resource in the TemplateContext.");
-        e.printStackTrace();
         return;        
       } 
       try {

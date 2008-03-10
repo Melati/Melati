@@ -139,6 +139,9 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     assertTextPresent("Melati is a tool");
   }
 
+  /**
+   * Click view.
+   */
   public void testView() { 
     setScriptingEnabled(false);
     beginAt(servletName );

@@ -118,6 +118,9 @@ public class PoemServletTestTest extends JettyWebTestCase {
     assertTextPresent("You are logged in as _administrator_ and have _administer_ capability");
   }
 
+  /**
+   * Click view.
+   */
   public void testView() { 
     setScriptingEnabled(false);
     beginAt("/" + servletName +"/melatitest/");

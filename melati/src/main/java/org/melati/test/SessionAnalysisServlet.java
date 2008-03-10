@@ -62,40 +62,41 @@ import org.melati.util.MelatiWriter;
 
 /**
  * Displays information about the status of this JVM and the databases
- * running from it. Well, with JServ it's for this servlet zone.
+ * running in it. Well, with JServ it's for this servlet zone.
  *
  * It shows us information about any Poem sessions running and
- * each transaction in (think 'connection to') a database.
+ * each transaction (think 'connection to') in a database.
  */
 
 public class SessionAnalysisServlet extends ConfigServlet {
   private static final long serialVersionUID = 1L;
+  private MelatiWriter output;
 
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {
 
     melati.getResponse().setContentType("text/html");
-    MelatiWriter output = melati.getWriter();
+    output = melati.getWriter();
     Date now = new Date();
-    output.write("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD " 
+    println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD " 
                  + "HTML 4.01 Transitional//EN\">\n");
-    output.write("<html>\n"
-                  + "<head>\n"
-                  + "<title>Transaction Analysis</title>\n");
+    println("<html>\n");
+    println("<head>\n");
+    println("<title>Transaction Analysis</title>\n");
     String repeat = melati.getRequest().getParameter("repeat");
     if (repeat != null)
-      output.write("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"" 
+      println("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"" 
                     + repeat + "; URL="
                     + melati.getRequest().getRequestURI() + "?repeat="
                     + repeat + "\">");
-    output.write("  <link rel='stylesheet' title='Default' href='" + 
+    println("  <link rel='stylesheet' title='Default' href='" + 
                  melati.getConfig().getStaticURL() + "/admin.css' \n" +
                  "type='text/css' media='screen'>\n");
-    output.write("</head>\n"
-                  + "<body>\n"
-                  + "<h1>Transactions Analysis</h1>"
-                  + "<p>Run at " + now + "</p>\n"
-                  + "<p>JVM Free memory: " +
+    println("</head>");
+    println("<body>");
+    println("<h1>Transactions Analysis</h1>");
+    println("<p>Run at " + now + "</p>\n");
+    println("<p>JVM Free memory: " +
    NumberFormat.getInstance().format(Runtime.getRuntime().freeMemory())
                   + "</p>\n"
                   + "<p>JVM Total memory: " +
@@ -103,45 +104,59 @@ public class SessionAnalysisServlet extends ConfigServlet {
                   + "</p>\n"
                   + "<form action=''>Reload every "  
                   + "<input name='repeat' size='5' value='"
-                  + repeat + "'> seconds <input type=submit></form>\n"
-                  + "<h2>Poem sessions in use</h2>\n");
+                  + repeat + "'> seconds <input type=submit></form>\n");
+
+    
+    println("<h2>Poem sessions</h2>\n");
 
     Enumeration e = PoemThread.openSessions().elements();
 
+    int totalSessions = 0;
     while(e.hasMoreElements()) {
+      totalSessions++;
       SessionToken token = (SessionToken) e.nextElement();
-      output.write("<table border=1 cellspacing=0 cellpadding=1>\n"
-                 + " <tr><th colspan=2>Session: " + token + "</td></tr>\n"
-                 + " <tr><th>Running for</th><td>"
-                 + (now.getTime() - token.getStarted()) + " ms</td></tr>\n"
-                 + " <tr><th>Thread</th><td>" + token.getThread() + "</td></tr>\n"
-                 + " <tr><th>PoemTransaction</th><td>"
+      println("<table border='1' cellspacing='0' cellpadding='1'>");
+      println(" <tr><th colspan='2'>Session: " + token + "</td></tr>");
+      println(" <tr><th>Running for</th><td>" + (now.getTime() - token.getStarted()) + " ms</td></tr>");
+      println(" <tr><th>Thread</th><td>" + token.getThread() + "</td></tr>");
+      println(" <tr><th>PoemTransaction</th><td>"
                  + token.getTransaction() + "<br>(Database:"
-                 + token.getTransaction().getDatabase() + ")</td></tr>\n"
-                 + " <tr><th>PoemTask</th><td>" + token.getTask() + "</td></tr>\n");
+                 + token.getTransaction().getDatabase() + ")</td></tr>");
+      println(" <tr><th>PoemTask</th><td>" + token.getTask() + "</td></tr>\n");
       Enumeration o = token.toTidy().elements();
       if(o.hasMoreElements()) {
-        output.write("<tr><th>Open: </th><td>");
+        println("<tr><th>Open: </th><td>");
         while (o.hasMoreElements()) {
-          output.write(o.nextElement() + "<br>");
+          println(o.nextElement() + "<br>");
         }
-        output.write("</td></tr>\n");
+        println("</td></tr>\n");
       }
-      output.write("</table>\n");
+      println("</table>\n");
     }
+    println("<h4>Poem sessions in use: " + totalSessions + "</h4>\n");
 
-    output.write("<h2>Initialised Databases</h2>\n"
-                 + "<table border=1 cellspacing=0 cellpadding=1>"
-                 + "<tr><th>Database</th><th>PoemTransaction</th>"
-                 + "<th>Free</th><th>Blocked</th></tr>\n");
+    println("<h2>Initialised Databases</h2>");
+    println("<table border=1 cellspacing=0 cellpadding=1>");
+    println("<tr><th>Database</th><th>PoemTransaction</th>");
+    println("<th>Free</th><th>Blocked</th></tr>\n");
+    
+    int totalDbs = 0;
     Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
                                                    elements();
     while(dbs.hasMoreElements()) {
+      totalDbs++;
       Database db = (Database)dbs.nextElement();
-      for(int i=0; i<db.transactionsMax(); i++) {
+      println("<tr>");
+      println(" <td>" + db.getDisplayName() + "</td>");
+      println(" <td>" + db + "</td>");
+      println(" <td>" + db.getFreeTransactionsCount() + "</td>");
+      println(" <td>" + (db.transactionsMax() - db.getFreeTransactionsCount()) + "</td>");
+      //println(" <td>" + db.getLastQuery() + "</td>");
+      println("</tr>");
+      for(int i=0; i < db.transactionsMax(); i++) {
         boolean isFree = db.isFree(db.poemTransaction(i));
         Transaction blockedOn = db.poemTransaction(i).getBlockedOn();
-        output.write("<tr><td>" + db + "</td>\n"
+        println("<tr><td>&nbsp</td>\n"
                      + "<td>" + db.poemTransaction(i) + "</td>\n"
                      + "<td bgcolor=" + (isFree ? "green" : "red") + ">"
                      + isFree + "</td>\n"
@@ -150,11 +165,17 @@ public class SessionAnalysisServlet extends ConfigServlet {
                      + "</tr>\n");
       }
     }
-    output.write("</table>\n"
-                 + "</body>\n"
-                 + "</html>\n");
+    println("</table>\n");
+    println("<h4>Initialised databases in use: " + totalDbs + "</h4>");
+    
+    
+    println("</body>\n");
+    println("</html>\n");
   }
 
+  void println(String in) throws IOException { 
+    output.write(in + "\n");
+  }
 }
 
 

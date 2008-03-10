@@ -91,11 +91,11 @@ public class ConfigServletTest extends ConfigServlet {
         return;
       }
       MultipartFormField field = (MultipartFormField)fields.get("file");
-      if (field == null) {
+      byte[] data = field.getData();
+      if (data.length == 0) {
         melati.getWriter().write("No file was uploaded");
         return;
       }
-      byte[] data = field.getData();
       melati.getResponse().setContentType(field.getContentType());
       OutputStream output = melati.getResponse().getOutputStream();
       output.write(data);

@@ -82,6 +82,9 @@ public class WebmacroStandaloneTest extends JettyWebTestCase {
   public void testInvoke() throws Exception {
     beginAt("/org.melati.test.WebmacroStandalone");
     assertTextPresent("Here is a list of your stuff");
+    assertTextNotPresent("turquoise");
+    beginAt("/org.melati.test.WebmacroStandalone?color=turquoise");
+    assertTextPresent("turquoise");
   }
 
 

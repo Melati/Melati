@@ -80,6 +80,9 @@ public class WebmacroMelatiServletTestTest extends JettyWebTestCase {
    * @throws Exception
    */
   public void testInvoke() throws Exception {
+    beginAt("/org.melati.test.WebmacroMelatiServletTest");
+    assertTextNotPresent("hey it got rendered correctly!");
+    assertTextPresent("Your Database has the following tables");
     beginAt("/org.melati.test.WebmacroMelatiServletTest/StandAlone");
     assertTextPresent("hey it got rendered correctly!");
     assertTextPresent("Your Database has the following tables");

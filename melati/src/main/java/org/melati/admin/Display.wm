@@ -56,9 +56,13 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 </head>
 <body>
 <h1>Default Display Template</h1>
+#if ($object) #begin
 <h2>Object: </h2>
 $object
 <h2>Rendered:</h2>
 $ml.rendered($object)
+#end #else #begin
+null
+#end
 </body>
 </html>

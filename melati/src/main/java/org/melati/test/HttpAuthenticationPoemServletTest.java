@@ -53,6 +53,8 @@ import org.melati.login.HttpBasicAuthenticationAccessHandler;
  *
  */
 public class HttpAuthenticationPoemServletTest extends PoemServletTest {
+  private static final long serialVersionUID = -6638485486556424156L;
+
   /**
    * How to use a different melati configuration.
    * 

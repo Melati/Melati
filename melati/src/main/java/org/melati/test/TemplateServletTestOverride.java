@@ -62,6 +62,8 @@ import org.melati.login.HttpBasicAuthenticationAccessHandler;
  */
 public class TemplateServletTestOverride extends TemplateServletTest {
 
+  private static final long serialVersionUID = -6816954042196744208L;
+
 /**
  * Override the default (set) authentication method.
  * Demonstrates how to override individual set properties.

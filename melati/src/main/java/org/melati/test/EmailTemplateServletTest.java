@@ -98,7 +98,6 @@ public class EmailTemplateServletTest extends TemplateServlet {
       "subject");
       String message = Form.getFieldNulled(melati.getServletTemplateContext(),
       "message");
-      System.err.println("Context=" + context.getClass().getName());
       MultipartFormField referencedField = context.getMultipartForm("referencedFile");
       File referencedFile = null;
       if (referencedField != null){

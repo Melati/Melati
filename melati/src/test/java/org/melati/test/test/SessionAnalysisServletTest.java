@@ -82,6 +82,17 @@ public class SessionAnalysisServletTest extends JettyWebTestCase {
   public void testInvoke() throws Exception {
     beginAt("/org.melati.test.SessionAnalysisServlet");
     assertTextPresent("Transactions Analysis");
+    assertTextPresent("Initialised databases in use: 0");
+    assertTextPresent("Poem sessions in use: 0");
+    setScriptingEnabled(false);
+    gotoPage("/Admin/melatitest/Main");
+    gotoPage("/org.melati.test.SessionAnalysisServlet");
+    assertTextPresent("Initialised databases in use: 1");
+    assertTextPresent("Poem sessions in use: 0");
+    gotoPage("/Admin/admintest/Main");
+    gotoPage("/org.melati.test.SessionAnalysisServlet");
+    assertTextPresent("Initialised databases in use: 2");
+    assertTextPresent("Poem sessions in use: 0");
   }
 
 }

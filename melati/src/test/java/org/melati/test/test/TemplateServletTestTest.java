@@ -106,6 +106,15 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     clickLinkWithText("?propagate=true");
     assertTextPresent("You need to log in");
     assertTextPresent("You need the capability _administer_ ");
+    setScriptingEnabled(false);
+    beginAt("/org.melati.login.Login/admintest");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit();
+    gotoPage(servletName);
+    clickLinkWithText("?propagate=true");
+    assertTextPresent("You are logged in as an Administrator");
   }
 
   /**

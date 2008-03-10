@@ -237,7 +237,7 @@
         <excludes>
           <exclude>**/*Exception.class</exclude>
           <exclude>**/*ExitServlet.class</exclude>
-          <exclude>**/*CharData.class</exclude>
+          <exclude>**/*CharData*</exclude>
           <exclude reason="Not used anywhere">**/AccessForbiddenToken.class</exclude>
           <exclude reason="Not used anywhere">**/UnindexableLogEvent.class</exclude>
         </excludes>

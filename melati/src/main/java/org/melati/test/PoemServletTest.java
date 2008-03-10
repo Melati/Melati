@@ -65,7 +65,6 @@ import org.melati.poem.PoemThread;
 import org.melati.servlet.MultipartDataDecoder;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PoemServlet;
-import org.melati.util.ExceptionUtils;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 
@@ -74,7 +73,8 @@ import org.melati.util.MelatiWriter;
  * without using a Template Engine.
  */
 public class PoemServletTest extends PoemServlet {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = -2216872878288661630L;
 
   /**
    * Constructor.
@@ -267,21 +267,13 @@ public class PoemServletTest extends PoemServlet {
   private void doUpload(Melati melati) throws IOException {
 
     Hashtable fields = null;
-    try {
-      InputStream in = melati.getRequest().getInputStream();
-      MultipartDataDecoder decoder =
-          new MultipartDataDecoder(melati,
-               in,
-               melati.getRequest().getContentType(),
-               melati.getConfig().getFormDataAdaptorFactory());
-      fields = decoder.parseData();
-    }
-    catch (IOException e) {
-      melati.getWriter().write(
-         p("There was some error uploading your file:" +
-          ExceptionUtils.stackTrace(e)));
-      return;
-    }
+    InputStream in = melati.getRequest().getInputStream();
+    MultipartDataDecoder decoder =
+        new MultipartDataDecoder(melati,
+            in,
+            melati.getRequest().getContentType(),
+            melati.getConfig().getFormDataAdaptorFactory());
+    fields = decoder.parseData();
     MultipartFormField field = (MultipartFormField)fields.get("file");
     byte[] data = field.getData();
     if (data.length == 0) {

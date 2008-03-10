@@ -248,6 +248,9 @@ public final class Email {
     // and much more besides.
     java.util.Properties properties = System.getProperties();
     properties.put("mail.smtp.host", smtpServer);
+    // this is required if InetAddress.getLocalHost().getHostName()  returns null
+    // which it does nor me in Eclipse
+    properties.put("mail.smtp.localhost", smtpServer);
     Session session = Session.getInstance(properties, null);
     MimeMessage message = new MimeMessage(session);
     // Set the from address

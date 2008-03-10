@@ -32,7 +32,7 @@ Check your email.
  <tr>
   <th>Smtp Server</th>
   <td>
-   <input type="text" name="SMTPServer" value="rama.paneris.org" />
+   <input type="text" name="SMTPServer" value="localhost" />
   </td>
  </tr>
  <tr>

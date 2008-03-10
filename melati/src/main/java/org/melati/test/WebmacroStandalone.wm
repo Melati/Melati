@@ -48,4 +48,8 @@ Select colors:
 </select><br>
 <input type=submit name=submit value="try it"> <br>
 </form>
+
+#if ($Form.die) #begin
+$undefinedVariable
+#end
 </body></html>

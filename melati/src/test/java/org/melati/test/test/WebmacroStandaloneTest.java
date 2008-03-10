@@ -99,6 +99,10 @@ public class WebmacroStandaloneTest extends JettyWebTestCase {
     beginAt("/org.melati.test.WebmacroStandalone?templateName=org/melati/test/notThere");
     assertTextPresent("ERROR!  Could not locate template org/melati/test/notThere");
   }
+  public void testUnknownVariableReferenced() throws Exception { 
+    beginAt("/org.melati.test.WebmacroStandalone?die=true");
+    assertTextPresent("Attempted to write an undefined variable");
+  }
 
 
 }

@@ -82,8 +82,8 @@ public class EmailTemplateServletTestTest extends JettyWebTestCase {
   public void testInvoke() throws Exception {
     beginAt("/org.melati.test.EmailTemplateServletTest");
     assertTextPresent("Smtp Server");
-    //submit();
-    //dumpHtml();
+    submit();
+    assertTextPresent("Check your email");
   }
 
 }

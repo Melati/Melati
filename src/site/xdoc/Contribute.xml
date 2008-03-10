@@ -26,7 +26,7 @@ This page last updated: $Date$ $Author$
 
 <section name=" Contribute ">
 <p>
-  We would greatly appreciate <a href="MailingList.html">feedback</a>
+  I would greatly appreciate <a href="MailingList.html">feedback</a>
   from new users of Melati. 
 </p>
 <p>
@@ -42,18 +42,17 @@ This page last updated: $Date$ $Author$
   href="http://maven.melati.org/melati/taglist.html"><b>todo</b> list</a>. 
 </p>
 <p>
-  In principle we give CVS write access to anyone who asks.
-  The main quality policy we ask people to enforce is that 
-  committed changes should compile correctly, 
-  and that they should be believed to work. <br />
-  However we have put quite a bit of work into ensuring that 
-  the codebase meets minimal code standards as defined by 
-  <a href="http://maven.apache.org/">Maven</a> 
-  so please try not to add to the errors listed on the 
-  <a href="http://maven.melati.org/melati/checkstyle.html">Checkstyle 
-  Report</a>.<br />
-  To make changes, please follow this procedure:
+  In principle I would give CVS write access to anyone who asks.
 </p>
+<p>
+  There are now extensive junit tests. 
+  You should, ideally, ensure that your changes do not break the tests. 
+</p>
+<p>
+  It is also good if you do not introduce new problems to the 
+  Checkstyle Report</a> for the element you are changing.
+</p>
+<subsection name="Change procedure" >
 <ol>
  <li>Email <a href="MailingList.html">Developer List</a> detailing 
      what you plan to do.  </li>
@@ -61,6 +60,7 @@ This page last updated: $Date$ $Author$
  <li>Email <a href="MailingList.html">Developer List</a> detailing 
      what you have done.  </li>
 </ol>
+</subsection>
 </section>
 </body>
 </document>

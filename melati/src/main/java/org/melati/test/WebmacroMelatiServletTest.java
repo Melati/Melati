@@ -101,7 +101,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
   }
 
 /**
- * set up the melati context so we don't have to specify the 
+ * Set up the melati context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  
  *
  * This is a very good idea when

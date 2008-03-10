@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp/
  */
 
@@ -157,10 +157,6 @@ public class EmailTemplateServletTest extends TemplateServlet {
     }
 
     return "org/melati/test/EmailTemplateServletTest";
-  }
-
-  public String getServletName() {
-    return "org.melati.test.EmailTemplateServletTest";
   }
 
   /**

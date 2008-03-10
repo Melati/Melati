@@ -94,12 +94,14 @@ the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
 <h3>Exception Testing</h3>
 
 <h4>Undefined variables</h4>
+<p>
 You can test how the PropagateVariableExceptionHandler handles 
 undefined variable template expansion exceptions by clicking 
 <a href="?nonexistant=true">?nonexistant=true</a> (expect Melati Error Template).
-<br>
+</p>
 #if ($Form != null && $Form.nonexistant != null) #begin
-<p>Here is an object that is not in the Form (if you see this things are broken)<br>
+<p>
+Here is an object that is not in the Form (if you see this things are broken)<br>
 <textarea cols="60" rows="5">
 $nonexistant
 </textarea>
@@ -109,8 +111,8 @@ $nonexistant
 <h4>Passback and propogate exception</h4>
 
 #if ($Form.passback != null || $Form.propagate != null) #begin
-<p>You tried to access a RestrictedAccessObject but:<br />
-<b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
+<p>You tried to access a RestrictedAccessObject :<br />
+<b>$ml.rendered($RestrictedAccessObject.getAccessPoemException())</b></p>
 #end
 
 <p>
@@ -140,22 +142,34 @@ You can test your administration interface  by clicking <a href=$melati.ZoneURL/
 <p>
 You can test that you are able to override your AccessHandler mode by clicking 
 <a href="$melati.ZoneURL/org.melati.test.TemplateServletTestOverride">override your AccessHandler</a>.
-
+</p>
+<p>
 This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
 is configured by default in your org.melati.MelatiServlet.properties file).
 </p>
 
+
+<h3>Test File upload</h3>
+<p>
+Your file will be saved in different ways depending on your setting 
+of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):
+</p>
+<ul>
+<li>
+org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory
+</li>
+<li>
+org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file
+</li>
+<li>
+org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the directory named in the database's ``UploadDir'' setting
+(and you will have to set ``UploadURL'' too).
+</li>
+<ul>
 <form method="post" action="Upload" enctype="multipart/form-data" target="Upload">
-You can upload a file here:<br>
 <input type="hidden" name="upload" value="yes">
 <input type="file" name="file">
 <input type="submit" name="Submit" value="Upload file">
-<br>
-Your file will be saved in different ways depending on your setting of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):<br>
-org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory<br>
-org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file<br>
-org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the directory named in the database's ``UploadDir'' setting
-(and you will have to set ``UploadURL'' too).<br>
 </form>
 
 <h3>Your Database has the following tables</h3>

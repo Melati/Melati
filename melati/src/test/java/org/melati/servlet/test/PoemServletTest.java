@@ -101,8 +101,8 @@ public class PoemServletTest extends TestCase {
 
     MockServletConfig mockServletConfig = new MockServletConfig();
 
-    org.melati.test.PoemServletTest aServlet = 
-          new org.melati.test.PoemServletTest();
+    org.melati.test.HttpAuthenticationPoemServletTest aServlet = 
+          new org.melati.test.HttpAuthenticationPoemServletTest();
     aServlet.init(mockServletConfig);
     aServlet.doGet(mockHttpServletRequest,  
                    mockHttpServletResponse);
@@ -127,8 +127,8 @@ public class PoemServletTest extends TestCase {
            
     MockServletConfig mockServletConfig = new MockServletConfig();
 
-    org.melati.test.PoemServletTest aServlet = 
-          new org.melati.test.PoemServletTest();
+    org.melati.test.HttpAuthenticationPoemServletTest aServlet = 
+      new org.melati.test.HttpAuthenticationPoemServletTest();
     aServlet.init(mockServletConfig);
     aServlet.doPost(mockHttpServletRequest,  
                     mockHttpServletResponse);

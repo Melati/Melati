@@ -61,13 +61,13 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
-import org.melati.util.ExceptionUtils;
 
 /**
  * Test a Melati configuration without using a Template Engine.
  */
 public class ConfigServletTest extends ConfigServlet {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = 5538437218064525327L;
 
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {
@@ -75,21 +75,13 @@ public class ConfigServletTest extends ConfigServlet {
     String method = melati.getMethod();
     if (method != null && method.equals("Upload")) {
       Hashtable fields = null;
-      try {
-        InputStream in = melati.getRequest().getInputStream();
-        MultipartDataDecoder decoder=
-          new MultipartDataDecoder(melati,
-                in,
-                melati.getRequest().getContentType(),
-                melati.getConfig().getFormDataAdaptorFactory());
-        fields = decoder.parseData();
-      }
-      catch (IOException e) {
-        melati.getWriter().write(
-          "There was some error uploading your file:" +
-            ExceptionUtils.stackTrace(e));
-        return;
-      }
+      InputStream in = melati.getRequest().getInputStream();
+      MultipartDataDecoder decoder=
+        new MultipartDataDecoder(melati,
+            in,
+            melati.getRequest().getContentType(),
+            melati.getConfig().getFormDataAdaptorFactory());
+      fields = decoder.parseData();
       MultipartFormField field = (MultipartFormField)fields.get("file");
       byte[] data = field.getData();
       if (data.length == 0) {

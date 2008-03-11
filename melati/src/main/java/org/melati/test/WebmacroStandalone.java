@@ -25,6 +25,7 @@ import org.webmacro.ResourceException;
 import org.webmacro.WebMacro;
 import org.webmacro.WM;
 import org.melati.template.webmacro.FastWriter;
+import org.melati.util.MelatiBugMelatiException;
 import org.webmacro.Template;
 import org.webmacro.InitException;
 import org.webmacro.servlet.WebContext;
@@ -154,11 +155,10 @@ public class WebmacroStandalone extends HttpServlet {
       // write the template to the output, using our context
       t.write(fw.getOutputStream(), c);
     } catch (org.webmacro.ContextException e) {
-      fw.write("ERROR! "
-          + "Could not locate required data in the TemplateContext.");
-      e.printStackTrace();
+       throw new MelatiBugMelatiException("You have misconfigured WebMacro.");
+    } finally { 
+      fw.close();
     }
-    fw.close();
   }
 
 }

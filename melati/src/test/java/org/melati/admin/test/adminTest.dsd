@@ -41,6 +41,22 @@ table Specialised
         (searchability = yes)
         (renderinfo="UploadURL")
         ;
+}
+
+
+table User extends org.melati.poem.User 
+    (displayorder = 2010)
+    (description = "An emailed User")
+    (category = "User") {
+
+    String email 
+      (size=unlimited) 
+      (width=40)
+      (description = "The user's email address")
+      (displaylevel = summary)
+      (displayorder = 50)
+      (searchability = yes);
 
 }
+
 

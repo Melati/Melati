@@ -77,6 +77,7 @@ public class EmailTemplateServletTestTest extends JettyWebTestCase {
     super.tearDown();
   }
   /**
+   * Will only work on a machine allowed to relay.
    * @throws Exception
    */
   public void testInvoke() throws Exception {

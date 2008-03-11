@@ -81,27 +81,6 @@ public class MultipartFormField {
   /** Constructor. */
   public MultipartFormField() {}
     
-  /** 
-   * Constructor.
-   *
-   * @param contentDisposition whether attachment or inline 
-   * @param fieldName          the name of this field
-   * @param filePath           the path to the file in the file system
-   * @param contentType        the MIME content type
-   * @param adaptor            the Melati data adaptor
-   */
-  public MultipartFormField(String contentDisposition,
-                            String fieldName,
-                            String filePath,
-                            String contentType,
-                            FormDataAdaptor adaptor) {
-    this.contentDisposition = contentDisposition;
-    this.fieldName = fieldName;
-    this.filePath = filePath;
-    this.contentType = contentType;
-    this.adaptor = adaptor;
-  }
-    
   /**
    * Mime information
    */

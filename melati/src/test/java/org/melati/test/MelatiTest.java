@@ -579,6 +579,7 @@ public class MelatiTest extends TestCase {
       e = null;
     }
     m.setTemplateEngine(mc.getTemplateEngine());
+    // FIXME Velocity returns null
     assertTrue(m.getPassbackVariableExceptionHandler() instanceof PassbackEvaluationExceptionHandler);
   }
 

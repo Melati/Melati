@@ -88,6 +88,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
   }
   /**
    * Click passback link, see exception message.
+   * FIXME Webmacro only test
    */
   public void testPassbackException() {
     setScriptingEnabled(false);

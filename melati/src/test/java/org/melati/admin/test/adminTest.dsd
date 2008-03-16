@@ -51,6 +51,7 @@ table User extends org.melati.poem.User
 
     String email 
       (size=unlimited) 
+      (nullable)
       (width=40)
       (description = "The user's email address")
       (displaylevel = summary)

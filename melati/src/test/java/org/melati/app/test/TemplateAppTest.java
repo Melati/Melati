@@ -86,15 +86,15 @@ public class TemplateAppTest extends TestCase {
       output += in.readLine();
     }
     in.close();
-    fileIn.delete();      
+    fileIn.delete(); 
     assertEquals("Hello _guest_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : user (from the data structure definition)"  +
-            "Object   : _guest_" + 
-            "Troid    : 0" + 
-            "Method   : org/melati/app/TemplateApp" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : user (from the data structure definition) "  +
+            "Object   : _guest_ " + 
+            "Troid    : 0 " + 
+            "Method   : org/melati/app/TemplateApp " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -122,18 +122,19 @@ public class TemplateAppTest extends TestCase {
     }
     in.close();
     fileIn.delete();      
+    System.err.println(output);    
     assertEquals("Hello _guest_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : null"  +
-            "Object   : null" + 
-            "Troid    : null" + 
-            "Method   : null" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : null "  +
+            "Object   : null " + 
+            "Troid    : null " + 
+            "Method   : null " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
-            "  Melati database administrator" , output);
+            "  Melati database administrator",output);
   }
 
   /**
@@ -147,14 +148,16 @@ public class TemplateAppTest extends TestCase {
       it.run(args);
       fail("Should have blown up");
     } catch (UnhandledExceptionException e) {
-      assertEquals("org.melati.template.NotFoundException: Could not find template user.wm",e.innermostException().getMessage());
+      e.printStackTrace();
+      assertEquals("org.melati.template.NotFoundException: Could not find template user.wm",
+          e.subException.getMessage());
       e = null;
     }
     File fileIn = new File(fileName);
     assertTrue(fileIn.delete());
     
     fileName = "t2a.tmp";
-    args = new String[] { "appjunit", "org/melati/app/TemplateApp.wm", "-o", fileName };
+    args = new String[] { "appjunit", "org/melati/app/TemplateApp", "-o", fileName };
     TemplateApp.main(args);
     String output = "";
     fileIn = new File(fileName);
@@ -165,13 +168,13 @@ public class TemplateAppTest extends TestCase {
     in.close();
     fileIn.delete();      
     assertEquals("Hello _guest_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : null"  +
-            "Object   : null" + 
-            "Troid    : null" + 
-            "Method   : org/melati/app/TemplateApp.wm" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : null "  +
+            "Object   : null " + 
+            "Troid    : null " + 
+            "Method   : org/melati/app/TemplateApp " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -196,13 +199,13 @@ public class TemplateAppTest extends TestCase {
     in.close();
     fileIn.delete();      
     assertEquals("Hello _guest_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : user (from the data structure definition)"  +
-            "Object   : _guest_" + 
-            "Troid    : 0" + 
-            "Method   : null" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : user (from the data structure definition) "  +
+            "Object   : _guest_ " + 
+            "Troid    : 0 " + 
+            "Method   : null " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -217,7 +220,7 @@ public class TemplateAppTest extends TestCase {
   public void testMainFourArgs() throws Exception {
     String fileName = "t4.tmp";
     String[] args = { "appjunit", "user", "0",
-        "org/melati/app/TemplateApp.wm",  "-o", fileName };
+        "org/melati/app/TemplateApp",  "-o", fileName };
     TemplateApp it = new TemplateApp();
     it.run(args);
     String output = "";
@@ -229,13 +232,13 @@ public class TemplateAppTest extends TestCase {
     in.close();
     fileIn.delete();      
     assertEquals("Hello _guest_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : user (from the data structure definition)"  +
-            "Object   : _guest_" + 
-            "Troid    : 0" + 
-            "Method   : org/melati/app/TemplateApp.wm" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : user (from the data structure definition) "  +
+            "Object   : _guest_ " + 
+            "Troid    : 0 " + 
+            "Method   : org/melati/app/TemplateApp " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -278,13 +281,13 @@ public class TemplateAppTest extends TestCase {
     in.close();
     fileIn.delete();      
     assertEquals("Hello _administrator_" + 
-            "You have expanded template org/melati/app/TemplateApp.wm " + 
+            "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit" + 
-            "Table    : user (from the data structure definition)"  +
-            "Object   : _guest_" + 
-            "Troid    : 0" + 
-            "Method   : org/melati/app/TemplateApp" + 
+            "Database : jdbc:hsqldb:mem:appjunit " + 
+            "Table    : user (from the data structure definition) "  +
+            "Object   : _guest_ " + 
+            "Troid    : 0 " + 
+            "Method   : org/melati/app/TemplateApp " + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 

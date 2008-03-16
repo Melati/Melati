@@ -63,7 +63,7 @@ $Form.returnURL
 
 -->
 
-#if ($melati.Table.Name = "tableinfo") #begin
+#if ($melati.getTable().getName().equals("tableinfo")) #begin
  <script type="text/javascript">
   function reload() {
    #if ($object) #begin
@@ -115,7 +115,7 @@ $Form.returnURL
 <h3 align="center">
   <font face="Arial, Helvetica">
     <a 
-#if ($melati.Table.Name="tableinfo") #begin
+#if ($melati.getTable().getName().equals("tableinfo")) #begin
    #if ($object) #begin
         href="$admin.MainURL($melati.Table,$object)"
    #end #else #begin

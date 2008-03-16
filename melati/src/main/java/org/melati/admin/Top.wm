@@ -92,7 +92,7 @@
      #set $selected = true
    #end
   #end #else #begin  
-    #if ($tab.Name = $admin.getPrimaryDisplayTable($melati)) #begin
+    #if ($tab.getName().equals($admin.getPrimaryDisplayTable($melati))) #begin
     selected="selected"
       #set $selected = true
     #end

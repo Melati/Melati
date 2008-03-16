@@ -165,9 +165,9 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
               "Problem converting a WebMacro template to a Velocity template: " + templateName,
               p);
         } catch (ResourceNotFoundException e2) {
-            throw new NotFoundException(e2);
+            throw new NotFoundException("Could not find template " + templateName);
         } 
-      } else throw new NotFoundException(e);
+      } else throw new NotFoundException("Could not find template " + templateName);
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }

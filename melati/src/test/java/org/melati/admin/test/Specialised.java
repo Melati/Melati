@@ -47,7 +47,7 @@ public class Specialised
       Melati melatiContext,
       MarkupLanguage markupLanguage)
       throws Exception {
-      return "org/melati/admin/test/Specialised.wm";
+      return "org/melati/admin/test/Specialised";
     }
 
   public String adminSpecialFacilities(

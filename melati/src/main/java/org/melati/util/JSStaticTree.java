@@ -49,7 +49,6 @@ import org.melati.poem.Treeable;
  */
 public class JSStaticTree extends Tree {
 
-  private String nodeLabelTemplet = "org/melati/template/webmacro/templets/html/StaticNode.wm";
   private String backgroundColour = "FFFFFF";
   private Integer depthPerDownload = new Integer(-1);
   private String verticalLinkImage;
@@ -109,21 +108,6 @@ public class JSStaticTree extends Tree {
     leafLImage = staticURL + "/last_node.gif";
     leafImage = staticURL + "/file.gif";
     imageBaseRef = staticURL;
-  }
-  /**
-   * @return the name of the node label templet
-   */
-  public String getNodeLabelTemplet() {
-    return nodeLabelTemplet;
-  }
-
-  /**
-   * Set the Node Label Templet.
-   * 
-   * @param nlt the name of the Node Label Templet to set
-   */
-  public void setNodeLabelTemplet(String nlt) {
-    nodeLabelTemplet = nlt;
   }
 
   /**

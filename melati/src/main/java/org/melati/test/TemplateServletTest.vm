@@ -1,92 +1,187 @@
-#set( $Response.ContentType = "text/html" )
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##     Foundation; either version 2 of the License, or (at your option)
+##     any later version,
+##
+##     or
+##
+## (b) any version of the Melati Software License, as published
+##     at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     William Chesters <williamc At paneris.org>
+##     http://paneris.org/~williamc
+##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##
+#set( $melati.ResponseContentType = "text/html" )
 #set( $ml = $melati.HTMLMarkupLanguage )
 #if( $Form.passback )
  $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 #end
 <HTML>
 <HEAD>
-<TITLE>TemplateServlet Test with Velocity</TITLE>
+<TITLE>TemplateServlet Test</TITLE>
 </head>
 <body>
-<h2>TemplateServlet Test with Velocity</h2>
-<p>This servlet tests your basic melati/poem/template engine configuration. 
-If you can read this message, it means that you have successfully created a POEM session 
-and loaded a Template Engine (in this case Velocity).<p>
+<h2>TemplateServlet Test</h2>
+<h3>This servlet tests your melati/poem/template engine configuration. </h3>
 
-<p>Your <b>MelatiContext</b> is set up as: $melati.Context
-<br>, try playing with the PathInfo to see the results (or click 
-<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/melatitest/user/1/View">user/1/View</a>).</p>
+<p>
+If you can read this message, it means that you have successfully 
+configured a Melati, created a POEM session 
+and loaded a Template Engine (currently $melati.TemplateEngine.Name ).
+<p>
+
+<h4>PoemContext</h4>
+
+<p>
+The current <b>PoemContext</b> is : $melati.PoemContext.
+</p>
+<p>
+The poem context can be controlled using the servlets <b>PathInfo</b>.
+</p>
+<ul>
+<li>
+ <a href="$melati.ZoneURL/$servletName/melatitest/tableinfo/0/View">melatitest/tableinfo/0/View</a>).
+</li>
+<li>
+ <a href="$melati.ZoneURL/$servletName/melatitest/columninfo/0/View">melatitest/columninfo/0/View</a>).
+</li>
+<li>
+ <a href="$melati.ZoneURL/$servletName/melatitest/user/1/View">melatitest/user/1/View</a>).
+</li>
+</ul>
 
 #if( $thisisnull )
 <p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!
 the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
 #end
+
 #if( $Form.test )
 <p><b>$Form.test</b> was passed in the parameter <b>test</b>.
 #end
-<p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
+<p>To test Form parameter passing, <a href="?test=HelloWorld">click here</a></p>
 
 <h3>Exception Testing</h3>
 
-#if( $Form.nonexistant )
-<p>Here is an object that doesn't exist<br>
-<textarea cols=60 rows=5>
+<h4>Undefined variables</h4>
+<p>
+You can test how the PropagateVariableExceptionHandler handles 
+undefined variable template expansion exceptions by clicking 
+<a href="?nonexistant=true">?nonexistant=true</a> (expect Melati Error Template).
+</p>
+#if( $Form && $Form.nonexistant )
+<p>
+Here is an object that is not in the Form (if you see this things are broken)<br>
+<textarea cols="60" rows="5">
 $nonexistant
 </textarea>
 </p>
 #end
 
-#if ( $Form.passback || $Form.propagate )
-<p>You have tried to access a RestrictedAccessObject but:<br>
-<p>$ml.rendered($RestrictedAccessObject.AccessPoemException)</p>
+<h4>Passback and propogate exception</h4>
+
+#if( $Form.passback || $Form.propagate )
+<p>You tried to access a RestrictedAccessObject :<br />
+<b>$ml.rendered($RestrictedAccessObject.getAccessPoemException())</b></p>
 #end
 
-You can test how the PropagateVariableExceptionHandler handles "normal" template expansion exceptions by clicking <a href=?nonexistant=true>?nonexistant=true</a>.<br>
-You can test how the PassbackVariableExceptionHandler handles AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.<br>
-You can test how the PropagateVariableExceptionHandler handles AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.<br>
+<p>
+You can test how the PropagateVariableExceptionHandler handles 
+AccessPoemException by clicking <a href="?propagate=true">?propagate=true</a>.
+</p>
+<p>
+You can test how the PassbackVariableExceptionHandler handles 
+AccessPoemException by clicking <a href="?passback=true">?passback=true</a>.
+</p>
 
-
+<h4>Handling other Exceptions</h4>
+<p>
+You can test melati Exception handling by clicking <a href="$melati.getSameURL()/Exception">Exception</a>
+</p>
 <h3>Further Testing</h3>
-You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>
-You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>
+<p>
+You can test melati Redirect handling by clicking <a href="$melati.getSameURL()/Redirect">Redirect</a>
+</p>
+<p>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
-clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
-You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.LogicalDatabase/Main</a>.<br>
+clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a>
+</p>
+<p>
+You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main</a>.
+</p>
+<p>
 You can test that you are able to override your AccessHandler mode by clicking 
-<a href=$melati.ZoneURL/org.melati.test.TemplateServletTestOverride>override your AccessHandler</a>.
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestOverride">override your AccessHandler</a>.
+</p>
+<p>
 This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
-is configured by default in your org.melati.MelatiServlet.properties file).<br>
+is configured by default in your org.melati.MelatiServlet.properties file).
+</p>
 
-<form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
-You can upload a file here:<br>
-<input type=hidden name=upload value=yes>
-<input type="file" name="file" enctype="multipart/form-data">
-<input type="submit" name="Submit" value="Upload file">
-<br>
-Your file will be saved in different ways depending on your setting of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):<br>
-org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory<br>
-org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file<br>
+
+<h3>Test File upload</h3>
+<p>
+Your file will be saved in different ways depending on your setting 
+of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):
+</p>
+<ul>
+<li>
+org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory
+</li>
+<li>
+org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file
+</li>
+<li>
 org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the directory named in the database's ``UploadDir'' setting
-(and you will have to set ``UploadURL'' too).<br>
+(and you will have to set ``UploadURL'' too).
+</li>
+<ul>
+<form method="post" action="Upload" enctype="multipart/form-data" target="Upload">
+<input type="hidden" name="upload" value="yes">
+<input type="file" name="file">
+<input type="submit" name="Submit" value="Upload file">
 </form>
 
-<h3>Your Database has the following tables:</h3>
+<h3>Your Database has the following tables</h3>
+<table>
 #foreach( $tab in $melati.Database.DisplayTables )
-  $tab.DisplayName<br>
+<tr>
+  <td>$tab.DisplayName</td>
+  <td>$tab.Description</td>
+</tr>
 #end
+</table>
 
-
-<h3>Example Application</h3>
-<p>You run the example application by clicking <a href=$melati.ZoneURL/org.melati.example.contacts.Search>org.melati.example.contacts.Search</a>.</p>
-<p><b>Please Note:</b> you will need (something very similar to) the following in your LogicalDatabase.properties file, and to have created a database called <tt>contacts</tt></p>
-<pre>
-org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
-org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
-org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
-org.melati.LogicalDatabase.contacts.user=postgres
-org.melati.LogicalDatabase.contacts.pass=*
-org.melati.LogicalDatabase.contacts.maxtransactions=4
-</pre>
 
 </body>
 </html>

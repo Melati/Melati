@@ -56,7 +56,7 @@ function init() {
 
 
 #foreach $node in $tree.flattened($tree.DepthPerDownload) #begin
-    Node$node.UniqueName = new TreeNode(#include as template "$tree.NodeLabelTemplet" , $node.Depth, $node.isLeaf(), "$node.UniqueName","$node.Data.Table.Name",$node.Data.Troid);
+    Node$node.UniqueName = new TreeNode("$ml.rendered($node)" , $node.Depth, $node.isLeaf(), "$node.UniqueName","$node.Data.Table.Name",$node.Data.Troid);
   #if ($node.Parent) #begin
   
       Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName);

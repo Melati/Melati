@@ -48,15 +48,17 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.template.ServletTemplateContext;
 import org.melati.servlet.MultipartFormField;
+import org.webmacro.Context;
 import org.webmacro.servlet.WebContext;
-import org.webmacro.engine.EvaluationExceptionHandler;
 
 /**
  * Implements a template context for Melati using Webmacro.
  * 
  * @author Tim Joyce
  */
-public class WebmacroServletTemplateContext implements ServletTemplateContext {
+public class WebmacroServletTemplateContext 
+    extends WebmacroTemplateContext
+    implements ServletTemplateContext {
 
   /** The webcontext. */
   public WebContext webContext;
@@ -65,20 +67,13 @@ public class WebmacroServletTemplateContext implements ServletTemplateContext {
    * Constructor.
    * @param wc WebMacro context
    */
-  public WebmacroServletTemplateContext(WebContext wc) {
-    webContext = wc;
+  public WebmacroServletTemplateContext(Context wc) {
+    super(wc);
+    webContext = (WebContext)wc;
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
     webContext.setEvaluationExceptionHandler(
       new PropagateEvaluationExceptionHandler());
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
-   */
-  public void put(String s, Object o) {
-    webContext.put(s,o);
   }
 
   /**
@@ -103,35 +98,12 @@ public class WebmacroServletTemplateContext implements ServletTemplateContext {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#get(java.lang.String)
-   */
-  public Object get(String s) {
-    return webContext.get(s);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#getContext()
-   */
-  public Object getContext() {
-    return webContext;
-  }
-
-  /**
-   * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getSession()
    */
   public HttpSession getSession() {
     return webContext.getSession();
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
-   */
-  public void setVariableExceptionHandler(Object veh) {
-    webContext.setEvaluationExceptionHandler((EvaluationExceptionHandler)veh);
-  }
 }
 
 

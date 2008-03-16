@@ -56,13 +56,13 @@ public class DSDAppTest extends TestCase {
     int line = 0;
     while (in.ready()) {
       line++;
-      if (line == 3)
+      if (line == 2)
         output += in.readLine();
       else 
         in.readLine();
     }
     in.close();
-    fileIn.delete();   
+    fileIn.delete();
     assertEquals(" * DSD for jdbc:hsqldb:mem:appjunit (org.melati.poem.PoemDatabase)" , output);
   }
 

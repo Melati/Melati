@@ -40,7 +40,6 @@
 ##     Tim Pizey <timp At paneris.org>
 ##
 #set $melati.ResponseContentType = "text/plain"
-
 ## Add comments if user requests them
 #if ($Form.comments) #begin
 #set $c = true
@@ -49,12 +48,10 @@
 #if ($comments) #begin
 #set $c = true
 #end
-
 ## Add system, dynamically created and inherited tables if user requests them
 #if ($Form.all) #begin
 #set $all = true
 #end
-
 /*
  * DSD for $melati.Database ($melati.Database.Class.Name)
  * 
@@ -141,7 +138,6 @@ table $table.DsdName
     //$column 
 #end
     $column.getType().toDsdType() $column.getName()
-
 #if ($column.isTroidColumn()) #begin
       (primary)
 #end

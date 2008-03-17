@@ -70,6 +70,9 @@ public class NotFoundException extends MelatiException {
     super(underlying);
     message = underlying.toString();
   }
+  /**
+   * Constructor. 
+   */
   public NotFoundException(String message, Exception underlying) {
     super(message, underlying);
   }

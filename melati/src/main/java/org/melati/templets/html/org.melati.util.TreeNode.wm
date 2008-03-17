@@ -1,7 +1,3 @@
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
-#set $ml=$melati.MarkupLanguage
-##   Static Node Label templet
-##  This templet is evaluated for every node in a StaticTree
-## It needs to start and end with a double quote and be on a single line, ie no blank line at end of file
-" <font face='Arial, Helvetica' size='1'>&nbsp; <a href='$admin.RecordURL($object.Data,"parent.parent.parent.admin_bottom.admin_left.admin_selection","$ml.encoded($admin.TreeURL($object.Data.Table))")' target='admin_record' title='Edit the $ml.rendered($object.Data.Table) record $ml.rendered($object.Data)' class='node'>$ml.rendered($object.Data.displayString())<\\/a><\\/font>"
-##?returnTarget=Form.returnTarget&returnURL=Form.returnURL' target=admin_edit$object.Data.Table.Name$object.Data.troid()
+#set $ml=$melati.MarkupLanguage  ## It needs to be on a single line, ie no blank line at end of file
+<font face='Arial, Helvetica' size='1'>&nbsp; <a href='$admin.RecordURL($object.Data,"parent.parent.parent.admin_bottom.admin_left.admin_selection","$ml.encoded($admin.TreeURL($object.Data.Table))")' target='admin_record' title='Edit the $ml.rendered($object.Data.Table) record $ml.rendered($object.Data)' class='node'>$ml.rendered($object.Data.displayString())<\\/a><\\/font>

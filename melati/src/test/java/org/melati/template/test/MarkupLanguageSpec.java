@@ -94,11 +94,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    //assertTrue(ml.rendered(ape).indexOf(
-    //      "org.melati.poem.AccessPoemException: " + 
-    //      "You need the capability Cool but " + 
-    //      "your access token _guest_ doesn&#39;t confer it") != -1);
-    //System.err.println(ml.rendered(ape));
     assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));

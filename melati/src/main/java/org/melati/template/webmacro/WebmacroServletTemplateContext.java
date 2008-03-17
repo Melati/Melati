@@ -70,10 +70,6 @@ public class WebmacroServletTemplateContext
   public WebmacroServletTemplateContext(Context wc) {
     super(wc);
     webContext = (WebContext)wc;
-    // always put a PropagateVariableExceptionHandler in otherwise
-    // we never get our errors out!
-    webContext.setEvaluationExceptionHandler(
-      new PropagateEvaluationExceptionHandler());
   }
 
   /**

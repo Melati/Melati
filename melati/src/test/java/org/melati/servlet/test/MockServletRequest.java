@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author timp
+ * @since 2006/12/05
  *
  */
 public class MockServletRequest implements HttpServletRequest {

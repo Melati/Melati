@@ -1,0 +1,4 @@
+${object.toString()
+#foreach( $a in $object )
+$a
+#end

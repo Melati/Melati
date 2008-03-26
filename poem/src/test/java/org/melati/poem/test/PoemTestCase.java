@@ -352,7 +352,7 @@ public class PoemTestCase extends TestCase implements Test {
    * @param properties the {@link Properties} object to look in 
    * @param propertyName the property to get 
    * @return the property value
-   * @throws NoSuchPropertyException if the property is not set
+   * @throws RuntimeException if the property is not set
    */
   public static String getOrDie(Properties properties, String propertyName) {
     String value = properties.getProperty(propertyName);

@@ -32,7 +32,7 @@ public class ArrayUtilsTest extends TestCase {
   }
 
   /**
-   * @see org.melati.poem.util.ArrayUtils#arrayOf(Enumeration)
+   * @see org.melati.poem.util.ArrayUtils#arrayOf(java.util.Enumeration)
    */
   public void testArrayOfEnumeration() {
     assertEquals(new String[]{}.length, 

@@ -85,7 +85,9 @@ This page last updated: $Date$ $Author$
   a generic <A HREF="http://shopping.paneris.net/">Shopping Trolley</A> 
   and a <A HREF="http://paneris.net/site/">CMS</A> are also available.
 </p>
-
+<p>
+For a detailed exposition of Melati see <a href="http://caml.inria.fr/pub/ml-archives/caml-list/2001/07/42ab620c33c8755f9fea1a4ea8814063.en.html">William's post to the OCAML list</a>.
+</p>
 <!--P>
   For a comparison of Melati with J2EE see 
   <A href="http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/">

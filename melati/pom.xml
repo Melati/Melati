@@ -108,11 +108,13 @@
      <groupId>net.sourceforge.jwebunit</groupId>
      <artifactId>jwebunit-core</artifactId>
      <version>1.4.1</version>
+     <scope>test</scope>
     </dependency>
     <dependency>
      <groupId>net.sourceforge.jwebunit</groupId>
      <artifactId>jwebunit-htmlunit-plugin</artifactId>
      <version>1.4.1</version>
+     <scope>test</scope>
     </dependency>
     <dependency>
      <groupId>org.mortbay.jetty</groupId>
@@ -239,6 +241,8 @@
           <exclude>**/*Exception.class</exclude>
           <exclude>**/*ExitServlet.class</exclude>
           <exclude>**/*CharData*</exclude>
+          <exclude reason="Just a toy">**/*JspServlet*</exclude>
+          <exclude reason="Not committed yet">**/*CachingTemplateServlet*</exclude>
           <exclude reason="Not used anywhere">**/AccessForbiddenToken.class</exclude>
           <exclude reason="Not used anywhere">**/UnindexableLogEvent.class</exclude>
         </excludes>

@@ -1065,7 +1065,7 @@ public abstract class Database implements TransactionPool {
    * @see Table#selection()
    * @see Table#selection(java.lang.String)
    * @see Column#selectionWhereEq(java.lang.Object)
-   * @see #uncacheContents
+   * @see #uncache
    */
   public int sqlUpdate(String sql) throws SQLPoemException {
     SessionToken token = PoemThread.sessionToken();

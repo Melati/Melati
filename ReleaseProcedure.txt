@@ -14,20 +14,20 @@ MAKING A RELEASE
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1.  Change the version number and date in ../pom.xml and ../project.xml
-1a. Remove SNAPSHOT from currentVersion in ../project.xml 
+1.  Change the version number and date in ../pom.xml
+1a. Remove SNAPSHOT from currentVersion in ../pom.xml 
     and increment it. 
 2.  If your change requires upgrade action by the user make a note
-    in the Upgrading section of ../melati/README.html
+    in the Upgrading section of ../src/site/resources/README.html
 3.  Change Last Updated and Updated By and add a new paragraph to 
-    ../melati/RELEASE-NOTES.html
-4.  Add a paragraph about this release to ../melati/site/xdoc/Releases.xml
-    Update ../melati/site/xdoc/Download.ahtml
-    Review ../melati/site/xdoc/Roadmap.ahtml
+    ../src/site/resources/RELEASE-NOTES.html
+4.  Add a paragraph about this release to ../src/site/xdoc/Releases.xml
+    Update ../src/site/xdoc/Download.ahtml
+    Review ../src/site/xdoc/Roadmap.ahtml
 5.  CVS commit all of the above
 6.  CVS tag this release (cvs tag Melati-0-7-8)
 9.  Test everything
-10. Commit project.xml to initiate a maven build on the server
+10. 
 11. On rama:
     cd /dist/melati
     cvs update
@@ -59,8 +59,7 @@ cvs commit
        wvm@messageboards.paneris.org
 16. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
-17. Add SNAPSHOT to currentVersion in ../project.xml
-18. Add SNAPSHOT to currentVersion in ../pom.xml
+17. Add SNAPSHOT to currentVersion in ../pom.xml
 
 
 

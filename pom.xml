@@ -16,7 +16,7 @@
     <module>melati-skin</module>
     <module>throwing-jdbc</module>
   </modules>  
-  <version>0.7.8-RC1-SNAPSHOT</version>
+  <version>0.7.8-RC2-SNAPSHOT</version>
   <description>
 Melati Java Web Development Suite
   </description>

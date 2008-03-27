@@ -269,7 +269,7 @@ public final class TableFactory {
     else {
       Table referredTable = fromClass(table.getDatabase(), fieldClass);
       columnInfo.setTypefactory(PoemTypeFactory.forCode(table.getDatabase(),
-              referredTable.info.troid().intValue()));
+              referredTable.getInfo().troid().intValue()));
     }
     columnInfo.makePersistent();
     table.addColumnAndCommit(columnInfo);

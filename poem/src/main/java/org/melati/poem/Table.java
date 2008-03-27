@@ -88,7 +88,7 @@ public class Table implements Selectable {
   private String quotedName;
   private DefinitionSource definitionSource;
 
-  TableInfo info = null;
+  private TableInfo info = null;
 
   private TableListener[] listeners = {};
 

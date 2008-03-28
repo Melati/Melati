@@ -926,7 +926,7 @@ public class Table implements Selectable {
 
   /**
    * The Transaction cannot be null, as this is trapped in 
-   * {@link Persistent#deleteLock(SessionToken)}.
+   * #deleteLock(SessionToken).
    * @param troid id of row to delete
    * @param transaction a non-null transaction
    */
@@ -2135,8 +2135,7 @@ public class Table implements Selectable {
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
    *
-   *@return the capability needed to read this table
-   * @see Persistent#getCanRead()
+   * @return the capability needed to read this table
    */
   public final Capability getDefaultCanRead() {
     return info == null ? null : info.getDefaultcanread();
@@ -2147,7 +2146,6 @@ public class Table implements Selectable {
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
    *
-   * @see Persistent#getCanWrite()
    * @return the default  {@link Capability} required to write  a 
    *         {@link Persistent}, if any
    */

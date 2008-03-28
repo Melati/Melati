@@ -132,11 +132,9 @@ public interface Persistent extends Persistable, Treeable {
    *
    * @exception AccessPoemException if the check fails
    *
-   * @see #getCanRead
    * @see Database#inSession
    * @see Table#getDefaultCanRead
    *
-   * TODO Ensure token is not stale
    */
 
   void assertCanRead(AccessToken token) throws AccessPoemException;
@@ -162,10 +160,7 @@ public interface Persistent extends Persistable, Treeable {
    * (<I>mutatis mutandis</I>) here as well.
    *
    * @see #assertCanRead()
-   * @see #getCanWrite
    * @see Table#getDefaultCanWrite
-   * 
-   * @todo Ensure token is not stale
    */
 
   void assertCanWrite(AccessToken token) throws AccessPoemException;
@@ -183,10 +178,8 @@ public interface Persistent extends Persistable, Treeable {
    * (<I>mutatis mutandis</I>) here as well.
    *
    * @see #assertCanRead()
-   * @see #getCanDelete
    * @see Table#getDefaultCanDelete
    *
-   * @todo Ensure token is not stale
    */
 
   void assertCanDelete(AccessToken token) throws AccessPoemException;
@@ -553,7 +546,6 @@ public interface Persistent extends Persistable, Treeable {
    * @return the Field of that name
    * @throws NoSuchColumnPoemException if there is no column of that name
    * @throws AccessPoemException if the current AccessToken does not grant access capability
-   * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
   Field getField(String name) throws NoSuchColumnPoemException,
           AccessPoemException;
@@ -775,11 +767,9 @@ public interface Persistent extends Persistable, Treeable {
    * Optionally called after this instance is edited by a user.
    * <p>
    * Unlike {@link #postModify()} and {@link #postInsert()} this
-   * is not called during
-   * {@link #writeDown(Transaction)} but can be called by
-   * applications such as {@link org.melati.admin#Admin} after
-   * individual field edits by the user have been reflected in
-   * the instance.
+   * is not called during write down but can be called by
+   * applications after individual field edits by the user
+   * have been reflected in the instance.
    * <p>
    * It can be be overridden to enforce data model constraints
    * such as validity of columns relative to other columns.

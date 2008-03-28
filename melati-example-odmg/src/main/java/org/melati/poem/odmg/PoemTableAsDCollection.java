@@ -47,8 +47,8 @@ import java.util.Iterator;
 import java.util.Collection;
 import java.util.Enumeration;
 
-import org.melati.poem.Table;
 import org.melati.poem.Persistent;
+import org.melati.poem.Table;
 
 /**
  * Wrapper class to present a Poem Table as a Collection.

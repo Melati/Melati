@@ -55,9 +55,10 @@
 package org.melati.poem.csv;
 
 import java.util.Vector;
-import org.melati.poem.Table;
+
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
+import org.melati.poem.Table;
 
 /**
  * A record within a CSV File.

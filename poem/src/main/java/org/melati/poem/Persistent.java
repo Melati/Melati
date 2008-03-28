@@ -133,7 +133,7 @@ public interface Persistent extends Persistable, Treeable {
    * @exception AccessPoemException if the check fails
    *
    * @see Database#inSession
-   * @see Table#getDefaultCanRead
+   * @see JdbcTable#getDefaultCanRead
    *
    */
 
@@ -160,7 +160,7 @@ public interface Persistent extends Persistable, Treeable {
    * (<I>mutatis mutandis</I>) here as well.
    *
    * @see #assertCanRead()
-   * @see Table#getDefaultCanWrite
+   * @see JdbcTable#getDefaultCanWrite
    */
 
   void assertCanWrite(AccessToken token) throws AccessPoemException;
@@ -178,7 +178,7 @@ public interface Persistent extends Persistable, Treeable {
    * (<I>mutatis mutandis</I>) here as well.
    *
    * @see #assertCanRead()
-   * @see Table#getDefaultCanDelete
+   * @see JdbcTable#getDefaultCanDelete
    *
    */
 
@@ -206,7 +206,7 @@ public interface Persistent extends Persistable, Treeable {
    *
    * @see #assertCanRead()
    * @see #assertCanWrite()
-   * @see Table#getCanCreate
+   * @see JdbcTable#getCanCreate
    */
 
   void assertCanCreate(AccessToken token);

@@ -65,7 +65,7 @@ public class RestrictedAccessObject {
    * @return a String assuring that current user has admin priviledges
    * @throws AccessPoemException is current user is not an administrator
    */
-  public String getAccessPoemException() throws AccessPoemException {
+  public String getRestrictedAccessObject() throws AccessPoemException {
     Capability admin = PoemThread.database().administerCapability();
     AccessToken token = PoemThread.accessToken();
     if (token.givesCapability(admin)) 

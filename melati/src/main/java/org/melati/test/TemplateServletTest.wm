@@ -112,7 +112,7 @@ $nonexistant
 
 #if ($Form.passback != null || $Form.propagate != null) #begin
 <p>You tried to access a RestrictedAccessObject :<br />
-<b>$ml.rendered($RestrictedAccessObject.getAccessPoemException())</b></p>
+<b>$ml.rendered($RestrictedAccessObject.getRestrictedAccessObject())</b></p>
 #end
 
 <p>

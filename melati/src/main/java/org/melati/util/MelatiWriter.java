@@ -55,7 +55,7 @@ public abstract class MelatiWriter extends Writer {
 
   protected Writer out;
   protected boolean flush = false;
-  // the flusher send output to the client ever x seconds
+  // the flusher sends output to the client every x seconds
   private Flusher flusher = null;
   
   /**

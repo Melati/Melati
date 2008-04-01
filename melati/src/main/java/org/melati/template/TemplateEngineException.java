@@ -68,6 +68,15 @@ public class TemplateEngineException extends MelatiRuntimeException {
    * Constructor with message.
    * @param message message
    */
+  public TemplateEngineException(String message, Exception underlying) {
+    super(underlying);    
+    this.message = message;
+  }
+
+  /**
+   * Constructor with message.
+   * @param message message
+   */
   public TemplateEngineException(String message) {
     this.message = message;
   }

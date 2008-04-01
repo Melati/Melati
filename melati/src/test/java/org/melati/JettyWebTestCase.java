@@ -17,7 +17,7 @@ import net.sourceforge.jwebunit.junit.WebTestCase;
 public abstract class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
-  private static String contextName = "test";
+  private static String contextName = "melatitest";
 
   /**
    * Constructor.

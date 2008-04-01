@@ -97,13 +97,13 @@ public class DSD {
   final Vector importedDSDs = new Vector();
 
   static void expect(StreamTokenizer tokens, String what)
-                                      throws ParsingDSDException, IOException {
+                                      throws ParsingDSDException {
     if (tokens.ttype != StreamTokenizer.TT_WORD || !tokens.sval.equals(what))
       throw new ParsingDSDException(what, tokens);
   }
 
   static void expect(StreamTokenizer tokens, char what)
-                                      throws ParsingDSDException, IOException {
+                                      throws ParsingDSDException {
     if (tokens.ttype != what)
       throw new ParsingDSDException("" + what, tokens);
   }

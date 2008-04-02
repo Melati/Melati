@@ -103,7 +103,7 @@ public class AdminUtilsTest extends PoemTestCase {
    * @see org.melati.admin.AdminUtils#getStaticURL()
    */
   public void testGetStaticURL() {
-    assertEquals("/test/melati-static/admin/static", au.getStaticURL());
+    assertEquals("/melatitest/melati-static/admin/static", au.getStaticURL());
   }
 
   /**

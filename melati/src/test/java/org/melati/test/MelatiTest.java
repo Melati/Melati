@@ -10,7 +10,6 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.Field;
-import org.melati.template.webmacro.PassbackEvaluationExceptionHandler;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
@@ -562,26 +561,6 @@ public class MelatiTest extends TestCase {
 
   }
 
-  /**
-   * @see org.melati.Melati#getPassbackVariableExceptionHandler()
-   */
-  public void testGetPassbackVariableExceptionHandler() throws Exception {
-    MelatiConfig mc = new MelatiConfig();
-    Melati m = new Melati(mc, new MelatiStringWriter());
-    m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
-    m.setRequest(mock);
-    assertNull(m.getTemplateEngine());
-    try { 
-      m.getPassbackVariableExceptionHandler();
-      fail("Should have blown up");
-    } catch (NullPointerException e) { 
-      e = null;
-    }
-    m.setTemplateEngine(mc.getTemplateEngine());
-    // FIXME Velocity returns null
-    assertTrue(m.getPassbackVariableExceptionHandler() instanceof PassbackEvaluationExceptionHandler);
-  }
 
   /**
    * @see org.melati.Melati#setVariableExceptionHandler(Object)

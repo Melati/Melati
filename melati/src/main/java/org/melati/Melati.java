@@ -918,31 +918,24 @@ public class Melati {
   }
 
   /**
-   * Get a PassbackVariableExceptionHandler for the ServletTemplateEngine.
    * This allows an Exception to be handled inline during Template expansion
    * for example, if you would like to render AccessPoemExceptions to a
    * String to be displayed on the page that is returned to the client.
-   *
-   * @return - PassbackVariableExceptionHandler specific to the
-   * template engine
-   *
+   * 
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    * @see org.melati.poem.TailoredQuery
    */
-  public Object getPassbackVariableExceptionHandler() {
-    return templateEngine.getPassbackVariableExceptionHandler();
+  public void setPassbackExceptionHandling() { 
+    templateContext.setPassbackExceptionHandling();
   }
-
+  
   /**
-   * Set the <code>VariableExceptionHandler</code> to the
-   * passed in parameter.
-   *
-   * @param veh a <code>VariableExceptionHandler</code>.
+   * The normal state of afairs: an exception is thrown and 
+   * it is handled by the servlet.
    */
-  public void setVariableExceptionHandler(Object veh) {
-    templateContext.setVariableExceptionHandler(veh);
+  public void setPropagateExceptionHandling() { 
+    templateContext.setPropagateExceptionHandling();
   }
-
   /**
    * Get a User for this request (if they are logged in).
    * NOTE POEM studiously assumes there isn't necessarily a user, only

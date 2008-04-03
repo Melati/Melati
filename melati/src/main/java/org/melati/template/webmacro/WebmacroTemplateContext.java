@@ -47,7 +47,6 @@ package org.melati.template.webmacro;
 
 import org.melati.template.TemplateContext;
 import org.webmacro.Context;
-import org.webmacro.engine.EvaluationExceptionHandler;
 
 /**
  * Implements a template context for Melati / Webmacro without a Servlet.
@@ -66,8 +65,7 @@ public class WebmacroTemplateContext implements TemplateContext {
     context = c;
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
-    context.setEvaluationExceptionHandler(
-      new PropagateEvaluationExceptionHandler());
+    setPropagateExceptionHandling();
   }
 
   /**
@@ -103,13 +101,21 @@ public class WebmacroTemplateContext implements TemplateContext {
   }
 
   /**
-   * Set the Variable Exception Handler.
-   * 
-   * @param veh the Variable Exception Handler
-   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setPassbackExceptionHandling()
    */
-  public void setVariableExceptionHandler(Object veh) {
-    context.setEvaluationExceptionHandler((EvaluationExceptionHandler)veh);
+  public void setPassbackExceptionHandling() {
+    context.setEvaluationExceptionHandler(
+        new PassbackEvaluationExceptionHandler());    
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setPropagateExceptionHandling()
+   */
+  public void setPropagateExceptionHandling() {
+    context.setEvaluationExceptionHandler(
+        new PropagateEvaluationExceptionHandler());
   }
 }
 

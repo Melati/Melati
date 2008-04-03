@@ -75,14 +75,14 @@ public interface TemplateContext {
   Object getContext();
 
   /**
-   * Set the Variable Exception Handler.
-   * A Variable Exception Handler is an object which can be retrieved from 
-   * the context and tells the engine whether to render the exception 
-   * to the template output or to throw in the normal way.  
-   * 
-   * @param veh the Variable Exception Handler
+   * Set the current exception handling style.
    */
-  void setVariableExceptionHandler(Object veh);
+  void setPassbackExceptionHandling();
+
+  /**
+   * Set the current exception handling style.
+   */
+  void setPropagateExceptionHandling();
 
 }
 

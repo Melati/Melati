@@ -50,7 +50,6 @@ import org.melati.template.ServletTemplateContext;
 import org.melati.servlet.MultipartFormField;    
 import org.apache.velocity.VelocityContext;    
 import org.apache.velocity.app.event.EventCartridge;    
-import org.apache.velocity.app.event.EventHandler;    
     
 /**    
  * Implements a template context for Melati with Velocity.
@@ -78,7 +77,9 @@ public class VelocityTemplateContext implements ServletTemplateContext {
    * @param vc context
    */
   public VelocityTemplateContext(VelocityContext vc) {    
-    velContext = vc;    
+    velContext = vc;
+    setPropagateExceptionHandling();
+    velContext.put("Form", new Form((HttpServletRequestWrap)velContext.get(REQUEST)));
   }    
     
   /**
@@ -131,16 +132,29 @@ public class VelocityTemplateContext implements ServletTemplateContext {
     
   /**
    * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   * @see org.melati.template.TemplateContext#setPassbackExceptionHandling()
    */
-  public void setVariableExceptionHandler(Object eeh) {    
+  public void setPassbackExceptionHandling() {
     EventCartridge ec = velContext.getEventCartridge();    
     if (ec == null) {    
       ec = new EventCartridge();    
       velContext.attachEventCartridge(ec);    
     }    
-    ec.addEventHandler((EventHandler)eeh);    
-  }    
+    ec.addEventHandler(new PassbackEvaluationExceptionHandler(velContext));        
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setPropagateExceptionHandling()
+   */
+  public void setPropagateExceptionHandling() {
+    EventCartridge ec = velContext.getEventCartridge();    
+    if (ec == null) {    
+      ec = new EventCartridge();    
+      velContext.attachEventCartridge(ec);    
+    }    
+    ec.addEventHandler(new PropagateEvaluationExceptionHandler());        
+  }
     
 }    
     

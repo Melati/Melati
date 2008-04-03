@@ -185,12 +185,21 @@ public class MultipartTemplateContext implements ServletTemplateContext {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   * @see org.melati.template.TemplateContext#setPassbackExceptionHandling()
    */
-  public void setVariableExceptionHandler(Object veh) {
-    peer.setVariableExceptionHandler(veh);
+  public void setPassbackExceptionHandling() {
+    peer.setPassbackExceptionHandling();    
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setPropagateExceptionHandling()
+   */
+  public void setPropagateExceptionHandling() {
+    peer.setPropagateExceptionHandling();    
+  }
+
+  
 }
 
 

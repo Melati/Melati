@@ -87,7 +87,11 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
    */
   public void close() throws IOException {
     super.close();
-    buffer.writeTo(underlying);
+    try { 
+      buffer.writeTo(underlying);
+    } catch (IOException e) { 
+      e = null;
+    }
     buffer.close(); 
     underlying.flush();
     underlying.close();

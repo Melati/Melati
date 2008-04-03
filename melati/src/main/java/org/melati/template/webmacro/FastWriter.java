@@ -232,10 +232,10 @@ public class FastWriter extends Writer
         _buffered = true;
     }
 
-    /*
-* Write a string to the underlying output stream, performing
-* unicode conversion.
-*/
+   /**
+    * Write a string to the underlying output stream, performing
+    * unicode conversion.
+    */
     public void write (final String s, final int off, final int len) throws java.io.IOException
     {
         try

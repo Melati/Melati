@@ -273,7 +273,7 @@ public class TemplateServletTest extends PoemServletTest {
                     mockHttpServletResponse);
     aServlet.destroy();
       
-    assertTrue(mockHttpServletResponse.getWritten().indexOf("You need the capability _administer_ but your access token _guest_") != -1);
+    assertTrue(mockHttpServletResponse.getWritten().indexOf("[Access denied to Melati guest user]") != -1);
     
   }
   /**

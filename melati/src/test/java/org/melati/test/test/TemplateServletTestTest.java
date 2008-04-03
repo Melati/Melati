@@ -94,9 +94,7 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     beginAt(servletName);
     clickLinkWithText("?passback=true");
-    assertTextPresent("org.melati.poem.AccessPoemException");
-    assertTextPresent("You tried to access a RestrictedAccessObject");
-    assertTextPresent("You need the capability _administer_ ");
+    assertTextPresent("[Access denied to Melati guest user]");
   }
   /**
    * Click propagate link, get login screen.

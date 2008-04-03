@@ -42,7 +42,6 @@
 ##     Tim Joyce <timj At paneris.org>
 ##     http://paneris.org/~timj
 ##
-#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- PrimarySelect.wm -->
 <HTML>

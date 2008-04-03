@@ -43,7 +43,6 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>

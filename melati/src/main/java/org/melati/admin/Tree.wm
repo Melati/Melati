@@ -1,5 +1,4 @@
 #set $melati.ResponseContentType = "text/html"
-#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- start org/melati/admin/Tree.wm -->
 <HTML>

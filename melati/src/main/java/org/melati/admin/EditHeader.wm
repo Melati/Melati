@@ -42,7 +42,6 @@
 ##     Tim Joyce <timj At paneris.org>
 ##     http://paneris.org/~timj
 ##
-#set $onVariableException = $melati.PassbackVariableExceptionHandler
 #set $returnTarget = $Form.returnTarget
 #if ($returnTarget == null) #begin
  #set $returnTarget = ""

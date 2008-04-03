@@ -47,13 +47,13 @@ package org.melati.test;
 
 import java.io.ByteArrayOutputStream;
 
-import org.melati.template.webmacro.WebmacroMelatiServlet;
+import org.melati.template.ServletTemplateContext;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
+import org.melati.servlet.TemplateServlet;
 import org.melati.PoemContext;
 import org.melati.template.webmacro.MelatiFastWriter;
-import org.webmacro.servlet.WebContext;
 
 import org.webmacro.WebMacro;
 import org.webmacro.WM;
@@ -61,62 +61,51 @@ import org.webmacro.Context;
 import org.webmacro.Template;
 
 /**
- * Test Melati in standalone mode (outside the servlet API) by expanding 
- * a template to a string and then including it within a template.
- *
- * You would not normally do this this way, a much better approach would
- * be to use templets.
- *
- * @author Tim Joyce
- * $Revision$
+ * Test WebMacro in standalone mode (outside the servlet API) by expanding a
+ * template to a string and then including it within a template.
+ * 
+ * You would not normally do this this way, a much better approach would be to
+ * use templets.
+ * 
+ * @author Tim Joyce $Revision$
  */
-public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
-  private static final long serialVersionUID = 1L;
+public class WebmacroMelatiServletTest extends TemplateServlet {
 
-  public String handle(Melati melati, WebContext context) 
-      throws Exception {
+  protected String doTemplateRequest(Melati melati,
+      ServletTemplateContext templateContext) throws Exception {
 
-      if (melati.getMethod() != null && 
-              melati.getMethod().equals("StandAlone")) {
-        // construct a Melati with a StringWriter instead of a servlet
-        // request and response
-        WebMacro wm = new WM();
-        ByteArrayOutputStream sw = new ByteArrayOutputStream();
-        MelatiFastWriter fmw = 
-                new MelatiFastWriter(wm.getBroker(), sw, melati.getEncoding());
-        Melati m = new Melati(new MelatiConfig(),fmw);
-        Context context2 = wm.getContext();
-        context2.put("melati",m);
-        context2.put("ml", m.getMarkupLanguage());
-        Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
-        template.write(fmw.getOutputStream(), context2);
-        fmw.flush();
-        // write to the StringWriter
-        String out = sw.toString();
-        // finally, put what we have into the original templateContext
-        context.put("StandAlone",out);
-      }
-      // Note we assume .wm extension
+    if (melati.getMethod() != null && melati.getMethod().equals("StandAlone")) {
+      // construct a Melati with a StringWriter instead of a servlet
+      // request and response
+      WebMacro wm = new WM();
+      ByteArrayOutputStream sw = new ByteArrayOutputStream();
+      MelatiFastWriter fmw = new MelatiFastWriter(wm.getBroker(), sw, melati
+          .getEncoding());
+      Melati m = new Melati(new MelatiConfig(), fmw);
+      Context context2 = wm.getContext();
+      context2.put("melati", m);
+      context2.put("ml", m.getMarkupLanguage());
+      Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
+      template.write(fmw.getOutputStream(), context2);
+      fmw.flush();
+      // write to the StringWriter
+      String out = sw.toString();
+      // finally, put what we have into the original templateContext
+      templateContext.put("StandAlone", out);
+    }
     return "org/melati/test/WebmacroMelatiServletTest";
   }
 
-/**
- * Set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  
- *
- * This is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
- */
-  protected PoemContext poemContext(Melati melati)
-  throws PathInfoException {
-    return poemContextWithLDB(melati,"melatitest");
+  /**
+   * Set up the melati context so we don't have to specify the logicaldatabase
+   * on the pathinfo.
+   * 
+   * This is a very good idea when writing your appications where you are
+   * typically only accessing a single database
+   */
+  protected PoemContext poemContext(Melati melati) throws PathInfoException {
+    return poemContextWithLDB(melati, "melatitest");
   }
 
+
 }
-
-
-
-
-
-

@@ -44,9 +44,6 @@
 ##
 #set $melati.ResponseContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
-#if ($Form.passback) #begin
- $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
-#end
 <HTML>
 <HEAD>
 <TITLE>TemplateServlet Test</TITLE>

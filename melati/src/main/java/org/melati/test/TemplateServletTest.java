@@ -47,6 +47,7 @@ package org.melati.test;
 
 import java.io.OutputStream;
 
+import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.TemporaryFileDataAdaptorFactory;
 import org.melati.Melati;
@@ -95,7 +96,9 @@ public class TemplateServletTest extends TemplateServlet {
 
         throw new MelatiBugMelatiException("It got caught!");
       }
-    }   
+    }
+    if (Form.getFieldNulled(melati.getServletTemplateContext(), "passback") != null)
+      melati.setPassbackExceptionHandling();
     return("org/melati/test/TemplateServletTest");
   }
 

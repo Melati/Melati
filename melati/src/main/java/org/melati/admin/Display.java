@@ -59,10 +59,13 @@ import org.melati.Melati;
  * otherwise the default template is used.
  */
 public class Display extends TemplateServlet {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = -6265097127167864313L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
+    context.put("admin", new AdminUtils(melati));
+
     java.util.Date now = new java.util.Date();
     context.put("now", now);
     context.put("includedir", "");

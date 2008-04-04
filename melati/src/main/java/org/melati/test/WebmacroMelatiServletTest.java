@@ -71,6 +71,8 @@ import org.webmacro.Template;
  */
 public class WebmacroMelatiServletTest extends TemplateServlet {
 
+  private static final long serialVersionUID = 8747414296960744530L;
+
   protected String doTemplateRequest(Melati melati,
       ServletTemplateContext templateContext) throws Exception {
 

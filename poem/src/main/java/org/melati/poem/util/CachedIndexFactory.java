@@ -67,6 +67,10 @@ public abstract class CachedIndexFactory implements IndexFactory {
   private Vector cache = new Vector();
   private static final Object nullFromFactory = new Object();
 
+  /**
+   * @param index of the item, possibly a troid
+   * @return the cached Object
+   */
   protected abstract Object reallyGet(int index);
 
   /**

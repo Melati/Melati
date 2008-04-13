@@ -100,7 +100,7 @@ public class TableSortedMap extends TableMap implements SortedMap {
   public Object lastKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
-    return new Integer(table.nextTroid);
+    return new Integer(table.getMostRecentTroid());
   }
 
   /** 

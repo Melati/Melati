@@ -76,7 +76,7 @@ public class DatabasePerformInCommittedTransactionTest
   }
 
   protected void checkDbUnchanged() {
-    getDb().inSession(AccessToken.root, // HACK
+    getDb().inSession(AccessToken.root,
         new PoemTask() {
           public void run() {
             if (dbName.equals("poemtest")) {

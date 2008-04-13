@@ -149,7 +149,7 @@ public class PoemTestCase extends TestCase implements Test {
 
 
   protected void checkDbUnchanged() {
-    getDb().inSession(AccessToken.root, // HACK
+    getDb().inSession(AccessToken.root,
         new PoemTask() {
           public void run() {
             databaseUnchanged();

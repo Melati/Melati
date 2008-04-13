@@ -543,7 +543,7 @@ public abstract class Column implements FieldAttributes {
         new PreparedStatementFactory(
           getDatabase(),
           getTable().selectionSQL(
-            null,
+            getTable().quotedName(),
             fullQuotedName()
               + " = "
               + dbms().preparedStatementPlaceholder(getType()),

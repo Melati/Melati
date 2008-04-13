@@ -944,51 +944,6 @@ public class PersistentTest extends EverythingTestCase {
     p.postEdit(false);
   }
 
-  /**
-   * @see org.melati.poem.Persistent#countMatchSQL(boolean, boolean)
-   */
-  public void testCountMatchSQL() {
-    //try { 
-    //  Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
-     //p.countMatchSQL(true, true);
-      //fail("Should have blown up");
-    //} catch (ClassCastException e) {
-    //  e = null;
-   // }
-    //User u = (User)getDb().getUserTable().newPersistent();
-    // All the same as we have no deleted or unselectable columns
-    //assertEquals("SELECT count(*) FROM " + 
-    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, true));
-    //assertEquals("SELECT count(*) FROM " + 
-    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, false));
-    //assertEquals("SELECT count(*) FROM " + 
-    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, true));
-    //assertEquals("SELECT count(*) FROM " + 
-    //        getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, false));
-
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#fromClause()
-   * @todo Delete this method has gone 
-   */
-  public void testFromClause() {
-    //Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
-    //assertEquals(getDb().getDbms().getQuotedName("user"), p.fromClause());
-    
-    //p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
-    //assertEquals(getDb().getDbms().getQuotedName("user") + ", " + 
-    //        getDb().getDbms().getQuotedName("capability"), p.fromClause());
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#otherMatchTables()
-   * @todo Delete this method has gone 
-   */
-  public void testOtherMatchTables() {
-    //Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
-    //assertTrue(p.otherMatchTables().length == 0);
-  }
 
   /**
    * Test the representation of an uninitialised Persistent.

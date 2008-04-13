@@ -141,8 +141,8 @@ public class Table implements Selectable {
    * ensure required rows exist in tables that define numeric ID's for
    * codes.
    *
-   * see #notifyColumnInfo(ColumnInfo)
-   * see #clearColumnInfoCaches()
+   * @see #notifyColumnInfo(ColumnInfo)
+   * @see #clearColumnInfoCaches()
    */
   protected void postInitialise() {
     clearColumnInfoCaches();
@@ -288,7 +288,7 @@ public class Table implements Selectable {
    * @param columnInfoID
    * @return the Column with a TROID equal to columnInfoID
    */
-  Column columnWithColumnInfoID(int columnInfoID) {
+  protected Column columnWithColumnInfoID(int columnInfoID) {
     for (Enumeration c = columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       Integer id = column.columnInfoID();
@@ -335,7 +335,7 @@ public class Table implements Selectable {
     return displayColumn == null ? troidColumn : displayColumn;
   }
 
-  final void setDisplayColumn(Column column) {
+  protected final void setDisplayColumn(Column column) {
     displayColumn = column;
   }
 
@@ -355,7 +355,7 @@ public class Table implements Selectable {
     return searchColumn;
   }
 
-  void setSearchColumn(Column column) {
+  protected void setSearchColumn(Column column) {
     searchColumn = column;
   }
 
@@ -399,13 +399,13 @@ public class Table implements Selectable {
     return clause;
   }
 
-  void clearColumnInfoCaches() {
+  protected void clearColumnInfoCaches() {
     defaultOrderByClause = null;
     for (int i = 0; i < displayColumns.length; ++i)
       displayColumns[i] = null;
   }
 
-  void notifyColumnInfo(ColumnInfo infoP) {
+  protected void notifyColumnInfo(ColumnInfo infoP) {
     // FIXME info == null means deleted: effect is too broad really
     if (infoP == null || infoP.getTableinfo_unsafe().equals(tableInfoID()))
       clearColumnInfoCaches();
@@ -624,7 +624,7 @@ public class Table implements Selectable {
    * Constraints are not used in POEM, but you might want to use them if 
    * exporting the db or using schema visualisation tools.
    */
-  void dbAddConstraints() {
+  protected void dbAddConstraints() {
     StringBuffer sqb = new StringBuffer();
     for (int c = 0; c < columns.length; ++c) {
       if (columns[c].getSQLType() instanceof TroidPoemType){
@@ -869,7 +869,7 @@ public class Table implements Selectable {
    * @param transaction possibly null if working with the committed transaction
    * @param persistent the Persistent to load
    */
-  void load(PoemTransaction transaction, Persistent persistent) {
+  protected void load(PoemTransaction transaction, Persistent persistent) {
     load(transaction == null ?
             getCommittedTransactionStuff().get :
             ((TransactionStuff)transactionStuffs.get(transaction.index)).get,
@@ -930,7 +930,7 @@ public class Table implements Selectable {
    * @param troid id of row to delete
    * @param transaction a non-null transaction
    */
-  void delete(Integer troid, PoemTransaction transaction) {
+  protected void delete(Integer troid, PoemTransaction transaction) {
     String sql =
         "DELETE FROM " + quotedName() +
         " WHERE " + troidColumn.quotedName() + " = " +
@@ -956,7 +956,7 @@ public class Table implements Selectable {
     }
   }
 
-  void writeDown(PoemTransaction transaction, Persistent p) {
+  protected void writeDown(PoemTransaction transaction, Persistent p) {
     JdbcPersistent persistent = (JdbcPersistent)p;
     // NOTE No race, provided that the one-thread-per-transaction parity is
     // maintained
@@ -1010,7 +1010,7 @@ public class Table implements Selectable {
       listenersLocal[l].notifyUncached(this);
   }
 
-  void trimCache(int maxSize) {
+  protected void trimCache(int maxSize) {
     cache.trim(maxSize);
   }
 
@@ -1036,7 +1036,7 @@ public class Table implements Selectable {
    * @param transaction the transaction in which the change will be made
    * @param persistent  the record to be changed
    */
-  void notifyTouched(PoemTransaction transaction, Persistent persistent) {
+  protected void notifyTouched(PoemTransaction transaction, Persistent persistent) {
     serial.increment(transaction);
 
     TableListener[] listenersLocal = this.listeners;
@@ -1394,54 +1394,55 @@ public class Table implements Selectable {
    * @return a ResultSet as an Enumeration 
    * @see #selection(java.lang.String)
    */   
-   public Enumeration selection(String whereClause, String orderByClause,
+  public Enumeration selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
      return objectsFromTroids(troidSelection(whereClause, orderByClause,
                                              includeDeleted));
   }
 
-   /**
-    * Return a selection of rows given an exemplar.
-    *
-    * @param criteria Represents selection criteria possibly on joined tables
-    * @return an enumeration of like objects
-    * @see #selection(String, String, boolean)
-    */
-    public Enumeration selection(Persistent criteria)
+  /**
+   * Return a selection of rows given an exemplar.
+   *
+   * @param criteria Represents selection criteria possibly on joined tables
+   * @return an enumeration of like objects
+   * @see #selection(String, String, boolean)
+   */
+  public Enumeration selection(Persistent criteria)
       throws SQLPoemException {
-      return selection(criteria, 
+    return selection(criteria, 
                        criteria.getTable().defaultOrderByClause(), false, true);
-    }
+  }
     
-    /**
-     * Return a selection of rows given arguments specifying a query.
-     *
-     * @see #selection(String, String, boolean)
-     * @param criteria Represents selection criteria possibly on joined tables
-     * @param orderByClause Comma separated list
-     * @return an enumeration of like objects with the specified ordering
-     */
-     public Enumeration selection(Persistent criteria, String orderByClause)
-       throws SQLPoemException {
-       return selection(criteria, orderByClause, false, true);
-     }
-    /**
-     * Return a selection of rows given arguments specifying a query.
-     *
-     * @see #selection(String, String, boolean)
-     * @param criteria Represents selection criteria possibly on joined tables
-     * @param orderByClause Comma separated list
-     * @param excludeUnselectable Whether to append unselectable exclusion SQL
-     * @return an enumeration of like Persistents 
-     */
-     public Enumeration selection(Persistent criteria, String orderByClause,
-                                  boolean includeDeleted, boolean excludeUnselectable)
-       throws SQLPoemException {
-       return objectsFromTroids(troidSelection(criteria, orderByClause,
-                                               includeDeleted, excludeUnselectable, 
-                                               null));
-     }
+  /**
+   * Return a selection of rows given arguments specifying a query.
+   *
+   * @see #selection(String, String, boolean)
+   * @param criteria Represents selection criteria possibly on joined tables
+   * @param orderByClause Comma separated list
+   * @return an enumeration of like objects with the specified ordering
+   */
+  public Enumeration selection(Persistent criteria, String orderByClause)
+      throws SQLPoemException {
+    return selection(criteria, orderByClause, false, true);
+  }
+   
+  /**
+   * Return a selection of rows given arguments specifying a query.
+   *
+   * @see #selection(String, String, boolean)
+   * @param criteria Represents selection criteria possibly on joined tables
+   * @param orderByClause Comma separated list
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL
+   * @return an enumeration of like Persistents 
+   */
+  public Enumeration selection(Persistent criteria, String orderByClause,
+                                boolean includeDeleted, boolean excludeUnselectable)
+      throws SQLPoemException {
+    return objectsFromTroids(troidSelection(criteria, orderByClause,
+                                            includeDeleted, excludeUnselectable, 
+                                            null));
+  }
 
   /**
    * @return an enumeration of objects given an enumeration of troids.
@@ -1505,7 +1506,7 @@ public class Table implements Selectable {
         cachedCount(criteria, includeDeleted, excludeUnselectable).count());
   }
 
-  String countSQL(String whereClause) {
+  protected String countSQL(String whereClause) {
     return countSQL(null, whereClause, false, true);
   }
 
@@ -2120,7 +2121,7 @@ public class Table implements Selectable {
   /**
    * The number of `extra' (non-DSD-defined) columns in the table.
    */
-  int extrasCount() {
+  protected int extrasCount() {
     return extrasIndex;
   }
 
@@ -2175,19 +2176,19 @@ public class Table implements Selectable {
     return info == null ? null : info.getCancreate();
   }
 
-  final Column canReadColumn() {
+  protected final Column canReadColumn() {
     return canReadColumn == null ? canSelectColumn() : canReadColumn;
   }
 
-  final Column canSelectColumn() {
+  protected final Column canSelectColumn() {
     return canSelectColumn;
   }
 
-  final Column canWriteColumn() {
+  protected final Column canWriteColumn() {
     return canWriteColumn;
   }
 
-  final Column canDeleteColumn() {
+  protected final Column canDeleteColumn() {
     return canDeleteColumn;
   }
 
@@ -2581,9 +2582,16 @@ public class Table implements Selectable {
     }
   }
 
-  int extrasIndex = 0;
+  private int extrasIndex = 0;
 
-  void setTableInfo(TableInfo tableInfo) {
+  /**
+   * @return incremented extra columns index 
+   */
+  protected int getNextExtrasIndex() { 
+    return extrasIndex++;
+  }
+  
+  protected void setTableInfo(TableInfo tableInfo) {
     info = tableInfo;
     rememberAllTroids(tableInfo.getSeqcached().booleanValue());
     setCacheLimit(tableInfo.getCachelimit());
@@ -2650,7 +2658,7 @@ public class Table implements Selectable {
    * 
    * @throws PoemException
    */
-  void createTableInfo() throws PoemException {
+  protected void createTableInfo() throws PoemException {
     if (info == null) {
       info = getDatabase().getTableInfoTable().defaultTableInfoFor(this);
       getDatabase().getTableInfoTable().create(info);
@@ -2662,7 +2670,7 @@ public class Table implements Selectable {
    * Match columnInfo with this Table's columns.
    * Conversely, create a ColumnInfo for any columns which don't have one. 
    */
-  synchronized void unifyWithColumnInfo() throws PoemException {
+  protected synchronized void unifyWithColumnInfo() throws PoemException {
 
     if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");

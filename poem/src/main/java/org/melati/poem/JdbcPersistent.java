@@ -1092,7 +1092,6 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * <p>
    * By default just the table name is returned, quoted as necessary for
    * the DBMS.
-   * One way of changing this is to override {@link #otherMatchTables()}.
    * <p>
    * Subtypes must ensure the result is compatible with the
    * result of {@link Table #appendWhereClause(StringBuffer, JdbcPersistent)}.

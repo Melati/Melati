@@ -47,12 +47,14 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 
+import org.melati.poem.util.EnumUtils;
+
  /**
   * Thrown when an attempt is made to delete a {@link Persistent} which is 
   * referred to by others and where the {@link IntegrityFix} is 
   * <tt>prevent</tt>.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   *
   */
 public class DeletionIntegrityPoemException extends PoemException {
@@ -72,8 +74,7 @@ public class DeletionIntegrityPoemException extends PoemException {
 
   /** @return A description. */
   public String toString() {
-    return "You can't delete " + object + " since there are references to it";
-    // FIXME 
-    //+ references == null ? "" : EnumUtils.concatenated(",",references);
+    return "You can't delete " + object + " since there are references to it"
+    + references == null ? "" : EnumUtils.concatenated(",",references);
   }
 }

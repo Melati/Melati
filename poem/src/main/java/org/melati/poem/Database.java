@@ -636,8 +636,9 @@ public abstract class Database implements TransactionPool {
    * Find a transaction by its index.
    * <p>
    * transaction(i).index() == i
+   * 
    * @param index the index of the Transaction to return
-   * @return the Transactoion with that index
+   * @return the Transaction with that index
    */
   public PoemTransaction poemTransaction(int index) {
     return (PoemTransaction)transactions.elementAt(index);

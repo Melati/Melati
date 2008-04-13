@@ -338,10 +338,10 @@ public class TailoredQuery {
    *
    * Normally, Melati's response to an "access-denied" fields is to terminate
    * template expansion and ask the user to log in, then continue where they
-   * were left off.  If, however, you put <TT>#set $onVariableException =
-   * $melati.PassbackVariableExceptionHandler</TT> at the top of the template,
-   * they will be rendered as warning notices (by <I>e.g.</I>
-   * <TT>HTMLMarkupLanguage</TT>).
+   * were left off.  If, however, you put 
+   * <TT>$melati.setPassbackExceptionHandling()</TT> 
+   * at the top of the template, or in the servlet, 
+   * they will be rendered as warnings by <I>e.g.</I> <TT>HTMLMarkupLanguage</TT>.
    *
    * <P>
    *

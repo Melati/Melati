@@ -68,7 +68,7 @@ public class Form {
   /**
    * Get a form value.
    */
-  final public Object get(String field)
+  final public String get(String field)
   {
       String[] values = _request.getParameterValues(field);
       return values == null ? null : values[0];

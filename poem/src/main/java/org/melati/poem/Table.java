@@ -1949,38 +1949,6 @@ public class Table implements Selectable {
   }
 
  /**
-  * Thrown when an unauthorised attempt to create an object is made.
-  */
-  public static class AccessibleCreationException extends AccessPoemException {
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @param e the cause
-     */
-    public AccessibleCreationException(AccessPoemException e) {
-      super(e);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see org.melati.poem.AccessPoemException#getActionDescription()
-     */
-    public String getActionDescription() {
-      return "create an object which can only be accessed by users with the " +
-             "capability " + capability;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see org.melati.poem.AccessPoemException#getMessage()
-     */
-    public String getMessage() {
-      return "You cannot " + getActionDescription() + " since your access " +
-             "token " + token + " doesn't confer that capability";
-    }
-  }
-
-  /**
    * Write a new row containing the given object.
    * <p>
    * The given object will be assigned the next troid and its internal

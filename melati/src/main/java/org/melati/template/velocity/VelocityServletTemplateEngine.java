@@ -121,10 +121,10 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
     org.melati.template.velocity.HttpServletRequestWrap req = 
       new org.melati.template.velocity.HttpServletRequestWrap(
           melati.getRequest());
-    context.put(VelocityTemplateContext.REQUEST, req);
+    context.put(VelocityServletTemplateContext.REQUEST, req);
     context.put(FORM, req);
-    context.put(VelocityTemplateContext.RESPONSE, melati.getResponse());
-    return new VelocityTemplateContext(context);
+    context.put(VelocityServletTemplateContext.RESPONSE, melati.getResponse());
+    return new VelocityServletTemplateContext(context);
   }
 
   

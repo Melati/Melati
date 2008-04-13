@@ -129,7 +129,7 @@ public final class TableFactory {
         !(Persistent.class.isAssignableFrom(clazz)))
       troidName = "poemId";
     table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
-            DefinitionSource.runtime, table.extrasIndex++));
+            DefinitionSource.runtime, table.getNextExtrasIndex()));
     table.setTableInfo(tableInfo);
     table.unifyWithColumnInfo();
     table.unifyWithDB(null);

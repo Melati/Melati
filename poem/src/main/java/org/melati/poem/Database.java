@@ -368,7 +368,7 @@ public abstract class Database implements TransactionPool {
     table.defineColumn(new ExtraColumn(table, troidName,
                                        TroidPoemType.it,
                                        DefinitionSource.infoTables,
-                                       table.extrasIndex++));
+                                       table.getNextExtrasIndex()));
     table.setTableInfo(info);
     table.unifyWithColumnInfo();
     table.unifyWithDB(null);

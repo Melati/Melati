@@ -52,6 +52,9 @@ import org.apache.velocity.VelocityContext;
     
 /**    
  * Implements a template context for Melati with Velocity.
+ * 
+ * The Request and Response are placed in the context 
+ * so that they can be accessed by the Form object. 
  *     
  * @author Tim Joyce    
  */    
@@ -69,15 +72,19 @@ public class VelocityServletTemplateContext
   */    
   public static final String RESPONSE = "Response";    
     
+  /** Mimicking the $Form behaviour of Webmacro. */
+  public static final String FORM = "Form";
     
+  private Form form;
+  
   /**
    * Constructor.
-   * @param vc context
+   * @param vc context containing RESPONSE and REQUEST
    */
-  public VelocityServletTemplateContext(VelocityContext vc) {    
-    velContext = vc;
-    setPropagateExceptionHandling();
-    velContext.put("Form", new Form((HttpServletRequestWrap)velContext.get(REQUEST)));
+  public VelocityServletTemplateContext(VelocityContext vc) {
+    super(vc);
+    form = new Form((HttpServletRequestWrap)velContext.get(REQUEST));
+    velContext.put(FORM, form);
   }    
     
   /**
@@ -85,12 +92,12 @@ public class VelocityServletTemplateContext
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
    */
   public String getForm(String s) {    
-    return ((HttpServletRequestWrap)velContext.get(REQUEST)).getParameter(s);    
+    return form.get(s);    
   }    
     
   /**
+   * Return null, bad smell.
    * {@inheritDoc}
-   * FIXME Discover equivalent in Velocity
    * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
    */
   public MultipartFormField getMultipartForm(String s) {    

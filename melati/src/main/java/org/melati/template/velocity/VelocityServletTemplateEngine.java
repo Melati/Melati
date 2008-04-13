@@ -106,9 +106,6 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
     }
   }
 
-  /** Mimicking the $Form behaviour of Webmacro. */
-  public static final String FORM = "Form";
-
   /**
    * Get the template context for Velocity, with servlet specific objects added.
    * 
@@ -122,7 +119,6 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
       new org.melati.template.velocity.HttpServletRequestWrap(
           melati.getRequest());
     context.put(VelocityServletTemplateContext.REQUEST, req);
-    context.put(FORM, req);
     context.put(VelocityServletTemplateContext.RESPONSE, melati.getResponse());
     return new VelocityServletTemplateContext(context);
   }

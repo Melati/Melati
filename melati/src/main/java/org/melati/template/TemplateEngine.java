@@ -164,15 +164,6 @@ public interface TemplateEngine {
       throws IOException;
 
   /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return a <code>PassbackVariableExceptionHandler</code> 
-   *         appropriate for this engine.
-   */
-  Object getPassbackVariableExceptionHandler();
-
-  /** 
    * @return a {@link MelatiStringWriter}.
    * @see Melati#getStringWriter() 
    */

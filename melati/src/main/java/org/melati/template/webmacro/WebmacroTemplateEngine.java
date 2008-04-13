@@ -221,17 +221,4 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
     return wm;
   }
 
-  /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return a <code>PassbackVariableExceptionHandler</code> 
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()
-   */
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackEvaluationExceptionHandler();
-  }
-
-
 }

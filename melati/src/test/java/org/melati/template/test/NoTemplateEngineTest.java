@@ -108,13 +108,6 @@ public class NoTemplateEngineTest extends ServletTemplateEngineSpec {
   }
 
   /**
-   * Test method for {@link org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()}.
-   */
-  public void testGetPassbackVariableExceptionHandler() {
-    assertNull(servletTemplateEngine.getPassbackVariableExceptionHandler());    
-  }
-  
-  /**
    * Test method for {@link org.melati.template.TemplateEngine#getEngine()}.
    */
   public void testGetEngine() {

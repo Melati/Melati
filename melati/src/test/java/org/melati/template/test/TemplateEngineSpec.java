@@ -142,13 +142,6 @@ public abstract class TemplateEngineSpec extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()}.
-   */
-  public void testGetPassbackVariableExceptionHandler() {
-    
-  }
-
-  /**
    * Test method for {@link org.melati.template.TemplateEngine#getStringWriter()}.
    */
   public void testGetStringWriter() {

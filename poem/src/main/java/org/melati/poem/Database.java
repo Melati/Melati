@@ -134,7 +134,7 @@ public abstract class Database implements TransactionPool {
   private synchronized void init() {
     if (!initialised) {
       for (Enumeration t = this.tables.elements(); t.hasMoreElements();)
-        ((JdbcTable)t.nextElement()).init();
+        ((Table)t.nextElement()).init();
       initialised = true;
     }
   }

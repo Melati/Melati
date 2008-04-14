@@ -66,6 +66,8 @@ public final class LogicalDatabase {
 
   /** Properties, named for this class. */
   private static Properties databaseDefs = null;
+  
+  private static final int MAX_TRANSACTIONS_DEFAULT = 8;
 
   private static synchronized Properties databaseDefs() {
     if (databaseDefs == null)
@@ -132,9 +134,8 @@ public final class LogicalDatabase {
         addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
         logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
         logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
-        // max transactions default to 8 if not set
         maxTrans = PropertiesUtils.
-                         getOrDefault_int(defs, pref + "maxtransactions", 8);
+                         getOrDefault_int(defs, pref + "maxtransactions", MAX_TRANSACTIONS_DEFAULT);
       } catch (PropertyException e) {
         throw new DatabaseInitException(getPropertiesName(),name, e);
       }

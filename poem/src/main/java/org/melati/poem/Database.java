@@ -134,7 +134,7 @@ public abstract class Database implements TransactionPool {
   private synchronized void init() {
     if (!initialised) {
       for (Enumeration t = this.tables.elements(); t.hasMoreElements();)
-        ((Table)t.nextElement()).init();
+        ((JdbcTable)t.nextElement()).init();
       initialised = true;
     }
   }
@@ -363,7 +363,7 @@ public abstract class Database implements TransactionPool {
     // For permission control we rely on them having successfully created a
     // TableInfo
 
-    Table table = new Table(this, info.getName(),
+    Table table = new JdbcTable(this, info.getName(),
                             DefinitionSource.infoTables);
     table.defineColumn(new ExtraColumn(table, troidName,
                                        TroidPoemType.it,
@@ -413,7 +413,7 @@ public abstract class Database implements TransactionPool {
       Table table = (Table)tablesByName.get(tableInfo.getName().toLowerCase());
       if (table == null) {
         if (debug) log("Defining table:" + tableInfo.getName());
-        table = new Table(this, tableInfo.getName(),
+        table = new JdbcTable(this, tableInfo.getName(),
                           DefinitionSource.infoTables);
         defineTable(table);
       }
@@ -455,7 +455,7 @@ public abstract class Database implements TransactionPool {
             if (dbms.canRepresent(
                    defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
               try {
-                table = new Table(this, tableName,
+                table = new JdbcTable(this, tableName,
                                   DefinitionSource.sqlMetaData);
                 defineTable(table);
               }
@@ -521,7 +521,7 @@ public abstract class Database implements TransactionPool {
     }
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
-      ((Table)t.nextElement()).postInitialise();
+      ((JdbcTable)t.nextElement()).postInitialise();
     
   }
 
@@ -977,8 +977,8 @@ public abstract class Database implements TransactionPool {
    * @see Persistent#getCanRead
    * @see Persistent#getCanWrite
    * @see Persistent#getCanDelete
-   * @see Table#getDefaultCanRead
-   * @see Table#getDefaultCanWrite
+   * @see JdbcTable#getDefaultCanRead
+   * @see JdbcTable#getDefaultCanWrite
    * @see User
    * @see #getUserTable
    * @see Group
@@ -1223,7 +1223,6 @@ public abstract class Database implements TransactionPool {
    *
    * @return the required {@link Capability} to administer the db
    * (<tt>null</tt> unless overridden)
-   * @see org.melati.admin.Admin
    */
   public Capability getCanAdminister() {
     return canAdminister;

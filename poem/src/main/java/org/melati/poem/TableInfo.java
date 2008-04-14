@@ -116,7 +116,7 @@ public class TableInfo extends TableInfoBase {
    * 
    * @param table from which to get metadata
    */
-  public TableInfo(Table table) {
+  public TableInfo(JdbcTable table) {
     setName_unsafe(table.getName());
     setDisplayname_unsafe(table.defaultDisplayName());
     setDisplayorder_unsafe(new Integer(table.defaultDisplayOrder()));

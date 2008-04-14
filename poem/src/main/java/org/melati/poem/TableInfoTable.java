@@ -126,7 +126,7 @@ public class TableInfoTable extends TableInfoTableBase {
    * @return a new TableInfo Persistent
    */
   protected TableInfo defaultTableInfoFor(Table table) {
-    return new TableInfo(table);
+    return new TableInfo((JdbcTable)table);
   }
   
 }

@@ -98,7 +98,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @param table the table of the Persistent
    * @param troid its Table Row Object Id
    */
-  public JdbcPersistent(Table table, Integer troid) {
+  public JdbcPersistent(JdbcTable table, Integer troid) {
     super(table.getDatabase());
     this.table = table;
     this.troid = troid;
@@ -286,7 +286,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
     return table;
   }
 
-  synchronized void setTable(Table table, Integer troid) {
+  synchronized void setTable(JdbcTable table, Integer troid) {
     setTransactionPool(table.getDatabase());
     this.table = table;
     this.troid = troid;

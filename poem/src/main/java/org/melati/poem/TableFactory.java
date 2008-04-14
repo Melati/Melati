@@ -123,7 +123,7 @@ public final class TableFactory {
     tableInfo.setCachelimit(555);
     tableInfo.makePersistent();
 
-    Table table = new Table(db, simpleName, DefinitionSource.runtime);
+    Table table = new JdbcTable(db, simpleName, DefinitionSource.runtime);
     String troidName = "id";
     if (ClassUtils.getNoArgMethod(clazz, "getId") != null &&
         !(Persistent.class.isAssignableFrom(clazz)))

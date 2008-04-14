@@ -1,6 +1,6 @@
 package org.melati.poem.test;
 
-import org.melati.poem.Table;
+import org.melati.poem.JdbcTable;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.Database;
 import org.melati.poem.PoemException;
@@ -8,7 +8,7 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifyable inheritance hook.
  */
-public class EverythingTable extends Table {
+public class EverythingTable extends JdbcTable {
 
  /**
   * Constructor. 

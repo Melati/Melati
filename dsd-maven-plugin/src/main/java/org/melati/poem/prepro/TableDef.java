@@ -433,7 +433,7 @@ public class TableDef {
         "    return (" + dsd.databaseTablesClassName + ")getDatabase();\n" + 
         "  }\n" + 
         "\n" + 
-        "  protected void init() throws PoemException {\n" + 
+        "  public void init() throws PoemException {\n" + 
         "    super.init();\n");
 
     for (Enumeration f = fields.elements(); f.hasMoreElements();) {

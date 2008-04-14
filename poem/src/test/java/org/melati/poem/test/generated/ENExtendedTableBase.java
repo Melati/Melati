@@ -78,7 +78,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
     return (EverythingDatabaseTables)getDatabase();
   }
 
-  protected void init() throws PoemException {
+  public void init() throws PoemException {
     super.init();
     defineColumn(col_binaryfield2 =
         new Column(this, "binaryfield2",

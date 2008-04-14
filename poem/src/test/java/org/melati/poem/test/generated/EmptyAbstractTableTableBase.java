@@ -47,7 +47,7 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
     return (EverythingDatabaseTables)getDatabase();
   }
 
-  protected void init() throws PoemException {
+  public void init() throws PoemException {
     super.init();
   }
 

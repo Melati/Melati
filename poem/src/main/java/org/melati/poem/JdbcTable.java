@@ -2891,7 +2891,7 @@ public class JdbcTable implements Selectable, Table {
   /**
    * Override this to perform pre-unification initialisation.
    */
-  protected void init() {
+  public void init() {
   }
 
   /**

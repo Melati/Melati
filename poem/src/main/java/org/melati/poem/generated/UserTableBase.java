@@ -62,7 +62,7 @@ public class UserTableBase extends PoemTable {
     return (PoemDatabaseTables)getDatabase();
   }
 
-  protected void init() throws PoemException {
+  public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
         new Column(this, "id",

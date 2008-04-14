@@ -64,6 +64,14 @@ public interface Table {
      */
     Database getDatabase();
 
+    /**
+     * Initialise the table.
+     */
+    void init();
+    
+    /**
+     * Create the metadata record for this Table.
+     */
     void createTableInfo();
     /**
      * The table's programmatic name.  Identical with its name in the DSD (if the
@@ -515,7 +523,6 @@ public interface Table {
      *         without provoking a <TT>PoemAccessException</TT>.  If the table
      *         has a <TT>deleted</TT> column, the objects flagged as deleted will
      *         be passed over.
-     * {@inheritDoc}
      * @see Selectable#selection()
      */
     Enumeration selection() throws SQLPoemException;

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -508,7 +508,7 @@ public class DSD {
    * @param w the project table writer
    */
   void generateProjectTableJava(Writer w) throws IOException {
-    w.write("import org.melati.poem.Table;\n");
+    w.write("import org.melati.poem.JdbcTable;\n");
     w.write("import org.melati.poem.DefinitionSource;\n");
     w.write("import org.melati.poem.Database;\n");
     w.write("import org.melati.poem.PoemException;\n");
@@ -519,7 +519,7 @@ public class DSD {
             "programmer modifyable inheritance hook.\n" +
             " */\n");
     w.write("public class " + getProjectTableClassName() +
-            " extends Table {\n");
+            " extends JdbcTable {\n");
     
     w.write("\n /**\n" + "  * Constructor. \n" + "  * \n" 
             + "  * @generator " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"

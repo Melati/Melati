@@ -99,7 +99,7 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
 
   // programmer's domain-specific code here
 
-  protected void postInitialise() {
+  public void postInitialise() {
     super.postInitialise();
 
     Database d = getDatabase();

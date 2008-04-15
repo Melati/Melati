@@ -154,7 +154,7 @@ public class UserTable extends UserTableBase {
     administratorUser = (User)getLoginColumn().ensure(administratorUser);
   }
 
-  protected void postInitialise() {
+  public void postInitialise() {
     super.postInitialise();
 //     canReadPasswords =
 //         (Capability)getDatabase().getCapabilityTable().getNameColumn().

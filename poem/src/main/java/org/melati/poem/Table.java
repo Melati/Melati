@@ -68,6 +68,20 @@ public interface Table {
      * Initialise the table.
      */
     void init();
+    /**
+     * Do stuff immediately after table initialisation.
+     * <p>
+     * This base method clears the column info caches and adds a listener
+     * to the column info table to maintain the caches.
+     * <p>
+     * It may be overridden to perform other actions. For example to
+     * ensure required rows exist in tables that define numeric ID's for
+     * codes.
+     *
+     * @see #notifyColumnInfo(ColumnInfo)
+     * @see #clearColumnInfoCaches()
+     */
+    void postInitialise();
     
     /**
      * Create the metadata record for this Table.

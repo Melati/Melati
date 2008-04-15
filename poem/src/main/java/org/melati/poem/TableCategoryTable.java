@@ -107,7 +107,7 @@ public class TableCategoryTable extends TableCategoryTableBase {
  /**
   * Setup default access capabilities and ensure that the Normal category exists.
   */
-  protected void postInitialise() {
+  public void postInitialise() {
     super.postInitialise();
     NORMAL = ensure(normalTableCategoryName);
   }

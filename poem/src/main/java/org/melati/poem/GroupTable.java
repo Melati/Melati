@@ -102,7 +102,7 @@ public class GroupTable extends GroupTableBase {
     return administratorsGroup;
   }
 
-  protected void postInitialise() {
+  public void postInitialise() {
     super.postInitialise();
 
     administratorsGroup = ensure("Melati database administrators");

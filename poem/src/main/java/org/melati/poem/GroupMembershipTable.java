@@ -96,7 +96,7 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
 
   // programmer's domain-specific code here
 
-  protected void postInitialise() {
+  public void postInitialise() {
     super.postInitialise();
 
     Database d = getDatabase();

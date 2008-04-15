@@ -148,7 +148,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
    */
-  protected void postInitialise() {
+  public void postInitialise() {
     clearColumnInfoCaches();
     database.getColumnInfoTable().addListener(
         new TableListener() {

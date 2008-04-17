@@ -50,7 +50,6 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
 
 
 /**
@@ -129,31 +128,3 @@ public class BooleanPoemType extends AtomPoemType {
 
 }
 
-/**
- * The possible raw values of a {@link BooleanPoemType}.
- */
-class BooleanPossibleRawEnumeration implements Enumeration {
-  private int state = 0;
-
-  /**
-   * {@inheritDoc}
-   * @see java.util.Enumeration#hasMoreElements()
-   */
-  public boolean hasMoreElements() {
-    return state < 2;
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see java.util.Enumeration#nextElement()
-   */
-  public synchronized Object nextElement() {
-    if (state == 2)
-      throw new NoSuchElementException();
-    else 
-      // Perfectly good, but the only usage I have ever seen.
-      // return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
-      return ++state == 1 ? Boolean.FALSE : Boolean.TRUE;
-  }
-
-}

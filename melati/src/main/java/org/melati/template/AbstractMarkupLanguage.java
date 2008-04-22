@@ -272,6 +272,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * Render an Object in a MarkupLanguage specific way, rendering to
    * a supplied Writer.
    *
+   * NOTE The context always contains objects with the names melati, object and  ml  
+   *
    * @param o - the Object to be rendered
    * @param writer - the MelatiWriter to render this Object to
    */

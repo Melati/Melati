@@ -73,6 +73,37 @@ This page last updated: $Date$ $Author$
   </td>
  </tr>
 </table>
+<subsection name="Intellij IDEA License">
+<table>
+<tr>
+<td>
+<a href="http://www.jetbrains.com/idea/"><img
+  src="images/idea_btn3.gif" alt="Idea License donated by Intellij" border="0" 
+  width="88" height="31" align="center" valign="middle"/></a>
+</td>
+<td>
+<p>
+The nice people at <a href="http://www.jetbrains.com/">JetBrains</a> 
+have been kind enough to donate a license to use their rather good 
+Idea Java IDE to the project. 
+</p>
+<p>
+Idea was able to perform the rather extensive and difficult refactoring of Table 
+to an interface when Eclipse had failed with an exception and I had made 
+two previous attempts before giving up.
+</p>
+<p>
+If you are a committer then you are eligable to use the license, let me know 
+if you are interested.
+</p>
+<p>
+Thanks JetBrains!
+</p>
+
+</td>
+</tr>
+</table>
+</subsection>
 
 </section>
 </body>

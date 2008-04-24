@@ -23,29 +23,29 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
-    <menu name="Melati">
-        <item name="Home"              href="/index.html"/>
-        <item name="Features"          href="/Features.html"/>
-        <item name="Show Case"         href="/ShowCase.html"/>
-        <item name="Download"          href="/Download.html"/>
-        <item name="Installation"      href="/Installation.html"/>
-        <item name="Testing"           href="/Testing.html"/>
-        <item name="Unification"       href="/Unification.html"/>
-        <item name="Extension"         href="/Extension.html"/>
-        <item name="HowTo"             href="/HowTo.html"/>
-        <item name="DB Design"         href="/DB_Design.html"/>
-        <item name="POJOs"             href="/POJOs.html"/>
-        <item name="FAQ"               href="/Faq.html"/>
-        <item name="Documentation"     href="/Documentation.html"/>
-        <item name="Road Map"          href="/RoadMap.html"/>
-        <item name="Contribute"        href="/Contribute.html"/>
-        <item name="Hire"              href="/Hire.html"/>
-        <item name="Licence"           href="/Licence.html"/>
-        <item name="Release History"   href="/Releases.html"/>
-        <item name="Links"             href="/Links.html"/>
-        <item name="Logos"             href="/Logos.html"/>
+    <menu name="Melati" inherit="top">
+        <item name="Home"              href="index.html"/>
+        <item name="Features"          href="Features.html"/>
+        <item name="Show Case"         href="ShowCase.html"/>
+        <item name="Download"          href="Download.html"/>
+        <item name="Installation"      href="Installation.html"/>
+        <item name="Testing"           href="Testing.html"/>
+        <item name="Unification"       href="Unification.html"/>
+        <item name="Extension"         href="Extension.html"/>
+        <item name="HowTo"             href="HowTo.html"/>
+        <item name="DB Design"         href="DB_Design.html"/>
+        <item name="POJOs"             href="POJOs.html"/>
+        <item name="FAQ"               href="Faq.html"/>
+        <item name="Documentation"     href="Documentation.html"/>
+        <item name="Road Map"          href="RoadMap.html"/>
+        <item name="Contribute"        href="Contribute.html"/>
+        <item name="Hire"              href="Hire.html"/>
+        <item name="Licence"           href="Licence.html"/>
+        <item name="Release History"   href="Releases.html"/>
+        <item name="Links"             href="Links.html"/>
+        <item name="Logos"             href="Logos.html"/>
     </menu>
     <menu ref="modules" name="Modules" inherit="bottom"/>
-    ${reports}
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>

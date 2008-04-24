@@ -13,11 +13,11 @@
 
   <body>
     <links>
-      <item name="Melati"                href="http://www.melati.org" />
+      <item name="TimP"                  href="http://www.context-computing.co.uk/~timp/" />
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
     <menu ref="parent" inherit="top" name="Parent"/>
-${reports}
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>

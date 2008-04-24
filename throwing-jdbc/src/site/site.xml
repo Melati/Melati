@@ -17,10 +17,15 @@
   </bannerRight>
 
   <body>
+    <links>
+      <item name="TimP"                  href="http://www.context-computing.co.uk/~timp/" />
+      <item name="PanEris.org"           href="http://www.paneris.org" />
+      <item name="PanEris.net"           href="http://www.paneris.net" />
+    </links>
     <menu ref="parent" inherit="top" />
     <menu name="Throwing JDBC">
         <item name="About" href="index.html"/>
     </menu>
-    ${reports}
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>

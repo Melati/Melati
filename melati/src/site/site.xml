@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="melati">
-  <skin>
-    <groupId>org.melati</groupId>
-    <artifactId>melati-skin</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </skin>
-  <bannerLeft>
-    <name>Melati</name>
-    <src>http://www.melati.org/images/logo.jpg</src> 
-    <href>http://www.melati.org/</href>
-  </bannerLeft>
-  <bannerRight>
-    <name>PanEris</name>
-    <src>http://www.paneris.org/images/corporate/pelogo.png</src> 
-    <href>http://www.paneris.org/</href>
-  </bannerRight>
-
   <body>
     <menu ref="parent" inherit="top" />
     <menu name="Melati">
         <item name="About" href="index.html"/>
     </menu>
-    ${reports}
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>

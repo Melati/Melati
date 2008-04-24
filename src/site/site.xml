@@ -23,7 +23,7 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
-    <menu name="Melati" inherit="top">
+    <menu name="Melati" >
         <item name="Home"              href="index.html"/>
         <item name="Features"          href="Features.html"/>
         <item name="Show Case"         href="ShowCase.html"/>

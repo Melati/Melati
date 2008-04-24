@@ -5,6 +5,6 @@
     <menu name="Melati Skin">
         <item name="Home" href="index.html"/>
     </menu>
-    ${reports}
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>

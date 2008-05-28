@@ -52,6 +52,36 @@
 <script language="JavaScript1.2" type="text/javascript" >
 
 function init() {
+  
+    ## NOTE sizes hard coded
+    // Preloading images gives big speed improveemnt on firefox
+    if (document.images)
+    {
+      var vertline = new Image(16,22);
+      vertline.src = "$tree.VerticalLinkImage";
+      var spacer = new Image(600, 72);
+      spacer.src = "$tree.SpacerImage";
+      var node_minus = new Image(16,22);
+      node_minus.src = "$tree.OpenedTImage";  
+      var lastnode_minus = new Image(16,22);
+      lastnode_minus.src = "$tree.OpenedLImage";  
+      var node_plus = new Image(16,22);
+      node_plus.src = "$tree.ClosedTImage";  
+      var lastnode_plus = new Image(16,22);
+      lastnode_plus.src = "$tree.ClosedLImage";  
+      var node = new Image(16,22);
+      node.src = "$tree.LeafTImage";    
+      var last_node = new Image(16,22);
+      last_node = "$tree.LeafLImage";
+      var openfolder = new Image(24,22);
+      openfolder.src = "$tree.OpenedFolderImage";
+      var closedfolder = new Image(24,22);
+      closedfolder.src = "$tree.ClosedFolderImage";
+      var file = new Image(8,10);
+      file.src = "$tree.LeafImage";
+    }
+
+  
   // Go through nodes adding items and lists
 
 

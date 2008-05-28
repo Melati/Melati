@@ -45,6 +45,8 @@
 package org.melati.admin;
 
 
+import java.util.Hashtable;
+
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
@@ -57,7 +59,6 @@ import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.JSStaticTree;
 import org.melati.util.Tree;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
 /**
  * A utility object for placing in a <code>ServletTemplateContext</code>.

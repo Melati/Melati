@@ -42,7 +42,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <notifier>
       <type>mail</type>
       <configuration>
-       <address>timp@champion.co.uk</address>
+       <address>timp@paneris.org</address>
       </configuration>
      </notifier>
     </notifiers>

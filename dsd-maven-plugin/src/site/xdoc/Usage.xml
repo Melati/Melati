@@ -104,7 +104,7 @@ The DSD processor is used to generate java code from a Data Structure Definition
 <P>
   The <tt>package</tt> statement should be changed to the name of your
   package eg <tt>org.paneris.myproj.model</tt>.
-  <br>
+  <br/>
   <strong>Note</strong> that this should also be reflected in
   <tt>LogicalDatabase.Properties</tt>
 <pre>

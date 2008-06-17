@@ -229,8 +229,7 @@ public abstract class PoemServlet extends ConfigServlet {
       public void run() {
         String poemAdministratorsName = null;
         String poemAdministratorsEmail = null;
-        melati.getConfig().getAccessHandler().establishUser(melati);
-        melati.loadTableAndObject();
+
         try {
           try {
             poemAdministratorsName = melati.getDatabase().administratorUser().getName();
@@ -244,6 +243,21 @@ public abstract class PoemServlet extends ConfigServlet {
             _this.setSysAdminName(poemAdministratorsName);
             _this.setSysAdminEmail(poemAdministratorsEmail);
             
+          } catch (Exception e) {
+            _handleException(melati, e);
+          }
+        } catch (Exception e) {
+          // we have to log this here, otherwise we lose the stacktrace
+          error(melati, e);
+          throw new TrappedException(e.toString());
+        }
+        
+        
+        melati.getConfig().getAccessHandler().establishUser(melati);
+        melati.loadTableAndObject();
+
+        try {
+          try {
             _this.doPoemRequest(melati);
           } catch (Exception e) {
             _handleException(melati, e);

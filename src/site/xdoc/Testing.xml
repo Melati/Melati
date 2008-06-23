@@ -111,7 +111,7 @@ Illustrate the difference between flushing and not flushing
 your output buffer.
 </td></tr>
 <tr><td>
-<a href="/melati-webapp/org.melati.test.PoemServletTest">PoemServletTest</a>
+<a href="/melati-webapp/org.melati.test.PoemServletTest/melatitest">PoemServletTest</a>
 </td><td>
 Test a Melati configuration which accesses a POEM database 
 without using a Template Engine.

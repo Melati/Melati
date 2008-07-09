@@ -77,6 +77,29 @@ public final class HttpUtil {
   }
 
   /**
+   * Return the server URL.
+   *  
+   * @param request the request to interrogate
+   */
+  public static String getServerURL(HttpServletRequest request) {
+    StringBuffer url = new StringBuffer();
+    String scheme = request.getScheme();
+    url.append(scheme);
+    url.append("://");
+    url.append(request.getServerName());
+    if ((scheme.equals("http") && 
+        request.getServerPort() != 80
+        )
+        ||
+        (scheme.equals("https") && 
+        request.getServerPort() != 443)) {
+      url.append(':');
+      url.append(request.getServerPort());
+    }
+    return url.toString();
+  }
+
+  /**
    * Append relative servlet zone url.
    * 
    * Note that this function should return 

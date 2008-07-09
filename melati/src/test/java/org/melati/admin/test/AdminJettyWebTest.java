@@ -12,7 +12,7 @@ import net.sourceforge.jwebunit.html.Table;
 import org.melati.JettyWebTestCase;
 
 /**
- * 
+ * FIXME bug when id specified in url db/Main?id=0
  * @author timp
  * @since 2008/01/01
  */

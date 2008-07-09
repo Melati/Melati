@@ -71,7 +71,10 @@ public class TableFactoryTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableFactory#fromInstance(org.melati.poem.Database, java.lang.Object)}.
    */
   public void testFromUnKnownInstance() {
-    assertEquals("ClassWithNoIdAndPublicMembers", TableFactory.fromInstance(getDb(), new ClassWithNoIdAndPublicMembers()).getName());
+    Table t = TableFactory.fromInstance(getDb(), new ClassWithNoIdAndPublicMembers());
+    assertEquals("ClassWithNoIdAndPublicMembers", t.getName());
+    // FIXME Delete tableinfo and columnInfo
+    //getDb().delete(t);
     //getDb().dump();
   }
   /**

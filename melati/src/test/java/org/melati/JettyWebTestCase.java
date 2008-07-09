@@ -18,6 +18,7 @@ public abstract class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
   private static String contextName = "melatitest";
+  private static boolean started = false;
 
   /**
    * Constructor.
@@ -44,16 +45,6 @@ public abstract class JettyWebTestCase extends WebTestCase {
     getTestContext().setBaseUrl(
         "http://localhost:" + actualPort + "/" );
   }
-
-  private static void startServer() throws Exception {
-    WebAppContext wac = new WebAppContext(
-        "src/test/webapp", "/" + contextName);
-    org.mortbay.resource.FileResource.setCheckAliases(false); 
-    server.addHandler(wac);
-    server.start();
-    wac.dumpUrl();
-  }
-
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -66,6 +57,19 @@ public abstract class JettyWebTestCase extends WebTestCase {
     server = new Server(8080);
     startServer();
   }
+
+  private static void startServer() throws Exception {
+    if (!started) { 
+      WebAppContext wac = new WebAppContext(
+          "src/test/webapp", "/" + contextName);
+      org.mortbay.resource.FileResource.setCheckAliases(false); 
+      server.addHandler(wac);
+      server.start();
+      wac.dumpUrl();
+      started = true;
+    }
+  }
+  
   /**
    * Just to say hello.
    */

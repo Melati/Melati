@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.Database;
 import org.melati.poem.NoSuchTablePoemException;
 import org.melati.poem.PoemDatabaseFactory;
@@ -165,13 +166,13 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
     assertEquals("TableCategory changed", 3, getDb().getTableCategoryTable().count());
     assertEquals("User changed", 2, getDb().getUserTable().count());
-    //ColumnInfo newOne = null; 
-    //try{ 
-    //  newOne = (ColumnInfo)getDb().getColumnInfoTable().getObject(69);
-    //} catch (Exception e) {}
-    //if (newOne != null) { 
-    //  System.err.println(newOne.getName() + " " + newOne.getTableinfo().getName());
-    //}
+    ColumnInfo newOne = null; 
+    try{ 
+      newOne = (ColumnInfo)getDb().getColumnInfoTable().getObject(69);
+    } catch (Exception e) {}
+    if (newOne != null) { 
+      System.err.println(getDb() + " " + newOne.getName() + " " + newOne.getTableinfo().getName());
+    }
     assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
     checkTablesAndColumns(9,69);

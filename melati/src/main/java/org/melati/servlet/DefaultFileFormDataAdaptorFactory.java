@@ -54,6 +54,7 @@ import org.melati.Melati;
 public class DefaultFileFormDataAdaptorFactory extends FormDataAdaptorFactory {
 
   protected String uploadDir = null;
+  protected String uploadURL = null;
 
   /**
    * Return the directory to save files in.
@@ -74,8 +75,6 @@ public class DefaultFileFormDataAdaptorFactory extends FormDataAdaptorFactory {
   public void setUploadDir(String dir) {
     uploadDir = dir;
   }
-
-  protected String uploadURL = null;
 
   /** @return the URL to the uploadDir */
   public String getUploadURL() {

@@ -79,17 +79,17 @@ org.melati.MelatiConfig.javascriptLibraryURL=/melati-static/admin/static
 
 # This one reads all uploaded data into memory.
 
-org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.MemoryDataAdaptorFactory
+org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.MemoryFormDataAdaptorFactory
 
 # This one saves them in a directory named by the ``UploadDir''
 # entry in the database's Setting table (and calculates its
 # URL from the ``UploadURL'' Setting)
 
-#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.PoemFileDataAdaptorFactory
+#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.PoemFileFormDataAdaptorFactory
 
 # This one saves them as temporary files (deleted when the JVM quits)
 
-#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.TemporaryFileDataAdaptorFactory
+#org.melati.MelatiConfig.formDataAdaptorFactory=org.melati.servlet.TemporaryFileFormDataAdaptorFactory
 
 #
 # ------------------------------------------

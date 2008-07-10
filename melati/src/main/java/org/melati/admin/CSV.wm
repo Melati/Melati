@@ -45,8 +45,14 @@
 #foreach $column in $melati.Table.RecordDisplayColumns #begin
 "$admin.csvEscaped($column.Name)",#end
 
+#if ($results) #begin 
+ #set $enum = $results.All
+#end #else #begin
+ #set $enum = $melati.Table.selection()
+#end 
 
-#foreach $result in $melati.Table.selection() #begin
+
+#foreach $result in $enum #begin
   #foreach $field in $result.RecordDisplayFields #begin
 "$admin.csvEscaped($field.CookedString)",#end 
 

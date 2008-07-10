@@ -78,8 +78,8 @@ public class ConfigServletTestOverrideTest extends ConfigServletTestTest{
   public void testUpload() { 
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTestOverride");
-    assertTextPresent("DefaultFileDataAdaptorFactory");
-    assertTextPresent("org.melati.servlet.DefaultFileDataAdaptorFactory");
+    assertTextPresent("DefaultFileFormDataAdaptorFactory");
+    assertTextPresent("org.melati.servlet.DefaultFileFormDataAdaptorFactory");
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");

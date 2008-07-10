@@ -85,34 +85,43 @@ public class StringUtils {
   }
 
   /**
+   * @param b the buffer to append to 
+   * @param s the String to append
+   * @param character the character to escape
+   */
+  public static void appendEscaped(StringBuffer b, String s, char character) {
+    appendEscaped(b, s, character, '\\');
+  }
+  /**
    * Append a String to a StringBuffer, and escaping any occurances 
    * of the char in the String.
    * 
    * @param b the buffer to append to 
    * @param s the String to append
-   * @param e the character to escape
+   * @param character the character to escape
+   * @param escapeChar the character to escape with
    */
-  public static void appendEscaped(StringBuffer b, String s, char e) {
+  public static void appendEscaped(StringBuffer b, 
+          String s, char character, char escapeChar) {
     int l = s.length();
     for (int i = 0; i < l; ++i) {
       char c = s.charAt(i);
-      if (c == '\\' || c == e) {
+      if (c == escapeChar || c == character) {
         // damn, found one; catch up to here ...
 
         for (int j = 0; j < i; ++j)
           b.append(s.charAt(j));
-        b.append('\\');
+        b.append(escapeChar);
         b.append(c);
 
         // ... and continue
 
         for (++i; i < l; ++i) {
           c = s.charAt(i);
-          if (c == '\\' || c == e)
-            b.append('\\');
+          if (c == escapeChar || c == character)
+            b.append(escapeChar);
           b.append(c);
         }
-
         return;
       }
     }

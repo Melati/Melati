@@ -2,6 +2,7 @@ package org.melati;
 
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
+import org.mortbay.resource.FileResource;
 
 import net.sourceforge.jwebunit.junit.WebTestCase;
 
@@ -14,14 +15,15 @@ import net.sourceforge.jwebunit.junit.WebTestCase;
  * @since 2008/01/01
  * 
  */
-public abstract class JettyWebTestCase extends WebTestCase {
+public class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
-  private static String contextName = "melatitest";
   private static boolean started = false;
+  protected static String contextName = "melatitest";
+  protected static String webAppDirName = "src/test/webapp";
 
   /**
-   * Constructor.
+   * Default constructor.
    */
   public JettyWebTestCase() {
     super();
@@ -37,37 +39,38 @@ public abstract class JettyWebTestCase extends WebTestCase {
 
   protected void setUp() throws Exception {
     // Port 0 means "assign arbitrarily port number"
-    server = new Server(0);
-    startServer();
+    startServer(8083);
   
     // getLocalPort returns the port that was actually assigned
     int actualPort = server.getConnectors()[0].getLocalPort();
-    getTestContext().setBaseUrl(
-        "http://localhost:" + actualPort + "/" );
+    getTestContext().setBaseUrl("http://localhost:" + actualPort + "/" );
   }
+
   protected void tearDown() throws Exception {
     super.tearDown();
   }
+  
   /**
    * If you don't know by now.
    * @param args
    * @throws Exception
    */
   public static void main(String[] args) throws Exception {
-    server = new Server(8080);
-    startServer();
+    startServer(8080);
   }
 
-  private static void startServer() throws Exception {
+  private static void startServer(int port) throws Exception {
     if (!started) { 
+      server = new Server(port);
       WebAppContext wac = new WebAppContext(
-          "src/test/webapp", "/" + contextName);
-      org.mortbay.resource.FileResource.setCheckAliases(false); 
+              getWebAppDirName(), "/" + getContextName());
+      FileResource.setCheckAliases(false); 
       server.addHandler(wac);
       server.start();
       wac.dumpUrl();
       started = true;
     }
+    
   }
   
   /**
@@ -93,6 +96,21 @@ public abstract class JettyWebTestCase extends WebTestCase {
     super.gotoPage(contextUrl(url));
   }
   protected String contextUrl(String url) { 
-    return "/" + contextName  + url;
+    return "/" + getContextName()  + url;
   }
+
+  /**
+   * @return the contextName
+   */
+  public static String getContextName() {
+    return contextName;
+  }
+  
+  /**
+   * @return relative path of webapp dir
+   */
+  public static String getWebAppDirName() {
+    return webAppDirName;
+  }
+  
 }

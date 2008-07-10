@@ -156,7 +156,7 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
 
 
   /**
-   * @return the start position of page
+   * @return All Pages
    */
   public Vector getPages() {
     Vector ret = new Vector(totalCount / pageSize);
@@ -168,6 +168,12 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
     return ret;
   }
 
+  /**
+   * @return the underlying enumeration
+   */
+  public Enumeration getAll() { 
+    return us;
+  }
 
 /**
  * A 'screen full' of results.

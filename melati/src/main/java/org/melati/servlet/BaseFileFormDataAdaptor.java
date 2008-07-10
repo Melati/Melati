@@ -63,7 +63,7 @@ import org.melati.util.DelimitedBufferedInputStream;
  * We store the data uploaded from a multipart form by saving it to
  * a file on disk and, optionally, give it an associated URL.
  */
-public abstract class BaseFileDataAdaptor implements FormDataAdaptor {
+public abstract class BaseFileFormDataAdaptor implements FormDataAdaptor {
   /** Size for byte buffers. */
   protected int BUFSIZE = 2048;
 

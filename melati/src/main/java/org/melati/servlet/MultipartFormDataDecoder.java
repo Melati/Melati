@@ -58,7 +58,7 @@ import org.melati.util.DelimitedBufferedInputStream;
  * Parses a multipart/form-data request into its different
  * fields, saving any files it finds along the way.
  */
-public class MultipartDataDecoder {
+public class MultipartFormDataDecoder {
 
   private int maxSize = 2048;
   private Melati melati = null;
@@ -83,7 +83,7 @@ public class MultipartDataDecoder {
    * @param factory     A {@link FormDataAdaptorFactory} to determine how to 
    *                    store the object's data
    */
-  public MultipartDataDecoder(Melati melati,
+  public MultipartFormDataDecoder(Melati melati,
                               InputStream in,
                               String contentType,
                               FormDataAdaptorFactory factory) {
@@ -103,7 +103,7 @@ public class MultipartDataDecoder {
    *                    store the object's data
    * @param maxSize     The maximum size of the data
    */
-  public MultipartDataDecoder(Melati melati,
+  public MultipartFormDataDecoder(Melati melati,
                               InputStream in,
                               String contentType,
                               FormDataAdaptorFactory factory,
@@ -199,7 +199,7 @@ public class MultipartDataDecoder {
         FormDataAdaptor adaptor = null;
         // Field should never be null but eclipse doesn't know that 
         if (field != null && field.getUploadedFileName().equals("")) { // no file uploaded
-          adaptor = new MemoryDataAdaptor(); // store data in memory
+          adaptor = new MemoryFormDataAdaptor(); // store data in memory
         }
         else {
           adaptor = factory.get(melati, field); 

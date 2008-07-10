@@ -38,29 +38,58 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
 package org.melati.servlet;
 
-import org.melati.Melati;
+import java.io.File;
+import java.io.IOException;
 
 /**
- * Save uploaded files as a <code>byte[]</code> in memory.
+ * Save uploaded files in a temporary file which is deleted when
+ * the JVM exits.
  */
-public class MemoryDataAdaptorFactory extends FormDataAdaptorFactory {
+public class TemporaryFileFormDataAdaptor extends BaseFileFormDataAdaptor {
 
+  private String temporaryFileName;
+  
   /**
-   * Return the right {@link FormDataAdaptor}.
-   *
-   * @param melati the {@link Melati}
-   * @param field  a {@link MultipartFormField}
-   * @return the {@link FormDataAdaptor}
+   * Constructor.
    */
-  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
-    return new MemoryDataAdaptor();
+  public TemporaryFileFormDataAdaptor() {
+    temporaryFileName = "melati";
+  }
+  /**
+   * Constructor specifying temporary file name.
+   * @param temporaryFileName the temporary fle name ot use
+   */
+  public TemporaryFileFormDataAdaptor(String temporaryFileName) {
+    this.temporaryFileName = temporaryFileName;
+  }
+  
+  protected File calculateLocalFile() {
+    File fileL = null;
+    try {
+      fileL = File.createTempFile(temporaryFileName, null);
+      fileL.deleteOnExit();
+      return fileL;
+    }
+    catch (IOException ioe) {
+      throw new FormDataAdaptorException(
+        "Couldn't save the uploaded file in a temporary file", ioe);
+    }
   }
 
+  protected String calculateURL() {
+    return null;
+  }
 }
+
+
+
+
+
+

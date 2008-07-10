@@ -51,7 +51,7 @@ import org.melati.Melati;
  * Create a FormDataAdaptor from a {@link Melati} and
  * the {@link MultipartFormField} which was uploaded.
  */
-public class TemporaryFileDataAdaptorFactory extends FormDataAdaptorFactory {
+public class TemporaryFileFormDataAdaptorFactory extends FormDataAdaptorFactory {
 
   /** 
    * Get the {@link FormDataAdaptor}. 
@@ -61,7 +61,7 @@ public class TemporaryFileDataAdaptorFactory extends FormDataAdaptorFactory {
    * @return The {@link FormDataAdaptor}
    */
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
-    return new TemporaryFileDataAdaptor();
+    return new TemporaryFileFormDataAdaptor();
   }
 }
 

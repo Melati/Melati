@@ -58,7 +58,7 @@ import org.melati.util.FileUtils;
  * to that directory.
  */
 
-public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
+public class DefaultFileFormDataAdaptor extends BaseFileFormDataAdaptor {
 
   protected Melati melati;
   protected String uploadDir = null;
@@ -73,8 +73,9 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
    * @param uploadUrlP A URL pointing to this directory (null if there
    *                   isn't an appropriate URL)
    */
-  public DefaultFileDataAdaptor(Melati melatiP, String uploadDirP, String uploadUrlP) {
+  public DefaultFileFormDataAdaptor(Melati melatiP, String uploadDirP, String uploadUrlP) {
     this.melati = melatiP;
+    if (uploadDirP == null) throw new NullPointerException();
     this.uploadDir = uploadDirP;
     this.uploadURL = uploadUrlP;
   }
@@ -83,18 +84,19 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
    * Constructor.
    * 
    * @param melatiP    The current melati
-   * @param uploadDir  The directory to save this file in
-   * @param uploadURL  A URL pointing to this directory  (null if there
+   * @param uploadDirP  The directory to save this file in
+   * @param uploadURLP  A URL pointing to this directory  (null if there
    *                   isn't an appropriate URL)
    * @param makeUnique Whether we should make sure the new file has a unique
    *                   name within the <code>uploadDir</code> directory
    */
 
-  public DefaultFileDataAdaptor(Melati melatiP, String uploadDir, String uploadURL,
+  public DefaultFileFormDataAdaptor(Melati melatiP, String uploadDirP, String uploadURLP,
                                 boolean makeUnique) {
     this.melati = melatiP;
-    this.uploadDir = uploadDir;
-    this.uploadURL = uploadURL;
+    this.uploadDir = uploadDirP;
+    if (uploadDirP == null) throw new NullPointerException();
+    this.uploadURL = uploadURLP;
     this.makeUnique = makeUnique;
   }
 

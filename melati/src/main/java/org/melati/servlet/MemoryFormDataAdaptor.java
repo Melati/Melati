@@ -53,7 +53,7 @@ import org.melati.util.DelimitedBufferedInputStream;
 /**
  * Store the uploaded data in a byte array in memory.
  */
-public class MemoryDataAdaptor implements FormDataAdaptor {
+public class MemoryFormDataAdaptor implements FormDataAdaptor {
   /** Size for byte buffers */
   protected int BUFSIZE = 512;
 

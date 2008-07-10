@@ -46,57 +46,21 @@
 package org.melati.servlet;
 
 import org.melati.Melati;
-import org.melati.poem.AccessToken;
-import org.melati.poem.Database;
-import org.melati.poem.PoemException;
-import org.melati.poem.PoemTask;
-import org.melati.poem.PoemThread;
 
 /**
- * Save the uploaded file to disk in a particular directory which has a
- * particular URL.
- * 
- * We get these values from the values of <code>UploadDir</code> and
- * <code>UploadURL</code> in the Setting table of the current Database.
+ * Save uploaded files as a <code>byte[]</code> in memory.
  */
-public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
-
-  private String uploadDir;
-
-  private String uploadURL;
+public class MemoryFormDataAdaptorFactory extends FormDataAdaptorFactory {
 
   /**
-   * Get the defaulted parameters for the adaptor from the database and create
-   * it.
-   * 
-   * @param melati
-   *          the {@link Melati}
-   * @param field
-   *          a {@link MultipartFormField}
-   * @return a {@link FormDataAdaptor}
+   * Return the right {@link FormDataAdaptor}.
+   *
+   * @param melati the {@link Melati}
+   * @param field  a {@link MultipartFormField}
+   * @return the {@link FormDataAdaptor}
    */
-  public synchronized FormDataAdaptor getIt(Melati melati,
-      MultipartFormField field) {
-
-    if (uploadDir == null || uploadURL == null) {
-      final Database db = melati.getDatabase();
-      if (PoemThread.inSession()) {
-        uploadDir = (String) db.getSettingTable().getOrDie("UploadDir");
-        uploadURL = (String) db.getSettingTable().getOrDie("UploadURL");
-      } else {
-        db.inSession(AccessToken.root, new PoemTask() {
-          public void run() throws PoemException {
-            uploadDir = (String) db.getSettingTable().getOrDie("UploadDir");
-            uploadURL = (String) db.getSettingTable().getOrDie("UploadURL");
-          }
-
-          public String toString() {
-            return "Getting UploadDir and UploadURL settings";
-          }
-        });
-      }
-    }
-    return new DefaultFileDataAdaptor(melati, melati.getConfig().getRealPath()
-        + uploadDir, uploadURL);
+  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
+    return new MemoryFormDataAdaptor();
   }
+
 }

@@ -45,51 +45,63 @@
 
 package org.melati.servlet;
 
-import java.io.File;
-import java.io.IOException;
+import org.melati.Melati;
 
 /**
- * Save uploaded files in a temporary file which is deleted when
- * the JVM exits.
+ * Save the uploaded file to disk in a particular directory with a particular
+ * URL.
  */
-public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
+public class DefaultFileFormDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  private String temporaryFileName;
-  
+  protected String uploadDir = null;
+
   /**
-   * Constructor.
+   * Return the directory to save files in.
+   * 
+   * @return the directory as a <code>String</code>
    */
-  public TemporaryFileDataAdaptor() {
-    temporaryFileName = "melati";
-  }
-  /**
-   * Constructor specifying temporary file name.
-   * @param temporaryFileName the temporary fle name ot use
-   */
-  public TemporaryFileDataAdaptor(String temporaryFileName) {
-    this.temporaryFileName = temporaryFileName;
-  }
-  
-  protected File calculateLocalFile() {
-    File fileL = null;
-    try {
-      fileL = File.createTempFile(temporaryFileName, null);
-      fileL.deleteOnExit();
-      return fileL;
-    }
-    catch (IOException ioe) {
-      throw new FormDataAdaptorException(
-        "Couldn't save the uploaded file in a temporary file", ioe);
-    }
+  public String getUploadDir() {
+    return uploadDir;
   }
 
-  protected String calculateURL() {
-    return null;
+  /**
+   * Set the directory to save files in.
+   * 
+   * @param dir
+   *        The value to set it to
+   */
+
+  public void setUploadDir(String dir) {
+    uploadDir = dir;
+  }
+
+  protected String uploadURL = null;
+
+  /** @return the URL to the uploadDir */
+  public String getUploadURL() {
+    return uploadURL;
+  }
+
+  /**
+   * Set the URL to the uploadDir.
+   * 
+   * @param url
+   *        The value to set it to
+   */
+  public void setUploadURL(String url) {
+    uploadURL = url;
+  }
+
+  /**
+   * Get the {@link FormDataAdaptor}.
+   * 
+   * @param melati
+   *        The {@link Melati}
+   * @param field
+   *        A {@link MultipartFormField}
+   * @return The {@link FormDataAdaptor}.
+   */
+  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
+    return new DefaultFileFormDataAdaptor(melati, uploadDir, uploadURL);
   }
 }
-
-
-
-
-
-

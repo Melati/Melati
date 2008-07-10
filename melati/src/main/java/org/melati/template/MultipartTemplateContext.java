@@ -53,7 +53,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
 import org.melati.Melati;
 import org.melati.servlet.MultipartFormField;
-import org.melati.servlet.MultipartDataDecoder;
+import org.melati.servlet.MultipartFormDataDecoder;
 
 
 /**
@@ -84,8 +84,8 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     this.melati = melati;
     try {
       InputStream in = melati.getRequest().getInputStream();
-      MultipartDataDecoder decoder=
-        new MultipartDataDecoder(
+      MultipartFormDataDecoder decoder=
+        new MultipartFormDataDecoder(
                              melati,
                              in,
                              melati.getRequest().getContentType(),
@@ -111,8 +111,8 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     this.melati = melati;
     try {
       InputStream in = melati.getRequest().getInputStream();
-      MultipartDataDecoder decoder=
-        new MultipartDataDecoder(melati,
+      MultipartFormDataDecoder decoder=
+        new MultipartFormDataDecoder(melati,
                              in,
                              melati.getRequest().getContentType(),
                              melati.getConfig().getFormDataAdaptorFactory(),

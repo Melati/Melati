@@ -128,7 +128,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), null));
 
     getDb().setCanAdminister();
-    // This is only true for a db that thas never had its administration set
+    // This is only true for a db that that never had its administration set
     assertFalse(getDb().hasCapability(getDb().getUserTable().guestUser(),
             getDb().getCanAdminister()));
     User u = (User)getDb().getUserTable().newPersistent();

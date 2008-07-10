@@ -177,7 +177,7 @@ public class MelatiConfig {
                        configuration,
                        fdaFactoryProp,
                        "org.melati.servlet.FormDataAdaptorFactory",
-                       "org.melati.servlet.MemoryDataAdaptorFactory"));
+                       "org.melati.servlet.MemoryFormDataAdaptorFactory"));
 
       String templetLoaderClassName =  (String)configuration.get(templetLoaderProp);
       if(templetLoaderClassName == null || 

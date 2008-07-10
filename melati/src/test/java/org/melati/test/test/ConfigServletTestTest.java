@@ -102,7 +102,7 @@ public class ConfigServletTestTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTest");
     assertTextPresent("FormDataAdaptorFactory");
-    assertTextPresent("org.melati.servlet.MemoryDataAdaptorFactory");
+    assertTextPresent("org.melati.servlet.MemoryFormDataAdaptorFactory");
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");

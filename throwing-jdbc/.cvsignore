@@ -1,0 +1,5 @@
+target
+maven.log
+velocity.log
+velocity.log.1
+*.ser

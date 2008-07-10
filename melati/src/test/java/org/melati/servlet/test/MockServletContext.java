@@ -115,7 +115,7 @@ public class MockServletContext implements ServletContext {
    * @see javax.servlet.ServletContext#getRealPath(java.lang.String)
    */
   public String getRealPath(String path) {
-    return null;
+    return "/dist/melati/melati/src/test/webapp";
   }
 
   /** 

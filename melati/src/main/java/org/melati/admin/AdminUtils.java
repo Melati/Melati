@@ -54,6 +54,7 @@ import org.melati.poem.Persistent;
 import org.melati.poem.Table;
 import org.melati.poem.Treeable;
 import org.melati.poem.util.ArrayUtils;
+import org.melati.poem.util.StringUtils;
 import org.melati.template.MarkupLanguage;
 import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.JSStaticTree;
@@ -579,5 +580,15 @@ public class AdminUtils {
             qualifiedName.lastIndexOf('.') + 1 : 
             0,
         qualifiedName.length());
+  }
+  
+  /**
+   * @param in the String to escape
+   * @return the escaped String
+   */
+  public static String csvEscape(String in) { 
+    StringBuffer b = new StringBuffer();
+    StringUtils.appendEscaped(b, in, '"', '"');
+    return b.toString();
   }
 }

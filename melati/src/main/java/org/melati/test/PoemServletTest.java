@@ -62,7 +62,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
-import org.melati.servlet.MultipartDataDecoder;
+import org.melati.servlet.MultipartFormDataDecoder;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PoemServlet;
 import org.melati.util.MelatiBugMelatiException;
@@ -268,8 +268,8 @@ public class PoemServletTest extends PoemServlet {
 
     Hashtable fields = null;
     InputStream in = melati.getRequest().getInputStream();
-    MultipartDataDecoder decoder =
-        new MultipartDataDecoder(melati,
+    MultipartFormDataDecoder decoder =
+        new MultipartFormDataDecoder(melati,
             in,
             melati.getRequest().getContentType(),
             melati.getConfig().getFormDataAdaptorFactory());

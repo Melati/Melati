@@ -49,7 +49,7 @@ import java.io.OutputStream;
 
 import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.TemporaryFileDataAdaptorFactory;
+import org.melati.servlet.TemporaryFileFormDataAdaptorFactory;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
@@ -125,8 +125,8 @@ public class TemplateServletTest extends TemplateServlet {
    */
   protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
-    TemporaryFileDataAdaptorFactory factory = 
-        new TemporaryFileDataAdaptorFactory();
+    TemporaryFileFormDataAdaptorFactory factory = 
+        new TemporaryFileFormDataAdaptorFactory();
     config.setFormDataAdaptorFactory(factory);
     return config;
   }

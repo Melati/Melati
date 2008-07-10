@@ -58,7 +58,7 @@ import org.melati.servlet.Form;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.TemporaryFileDataAdaptorFactory;
+import org.melati.servlet.TemporaryFileFormDataAdaptorFactory;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
 import org.melati.util.Email;
@@ -72,7 +72,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
   
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
-    FormDataAdaptorFactory fdaFactory = new TemporaryFileDataAdaptorFactory();
+    FormDataAdaptorFactory fdaFactory = new TemporaryFileFormDataAdaptorFactory();
 
     melatiConfig.setFormDataAdaptorFactory(fdaFactory);
   }

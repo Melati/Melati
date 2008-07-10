@@ -45,7 +45,7 @@
 
 package org.melati.test;
 
-import org.melati.servlet.DefaultFileDataAdaptorFactory;
+import org.melati.servlet.DefaultFileFormDataAdaptorFactory;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 
@@ -58,8 +58,8 @@ public class ConfigServletTestOverride extends ConfigServletTest {
 
   protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
-    DefaultFileDataAdaptorFactory factory = 
-        new DefaultFileDataAdaptorFactory();
+    DefaultFileFormDataAdaptorFactory factory = 
+        new DefaultFileFormDataAdaptorFactory();
     factory.setUploadDir("/tmp");
     config.setFormDataAdaptorFactory(factory);
     return config;

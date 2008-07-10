@@ -54,9 +54,9 @@ import java.util.Hashtable;
 import javax.servlet.ServletException;
 
 import org.melati.servlet.ConfigServlet;
-import org.melati.servlet.MemoryDataAdaptorFactory;
+import org.melati.servlet.MemoryFormDataAdaptorFactory;
 import org.melati.servlet.MultipartFormField;
-import org.melati.servlet.MultipartDataDecoder;
+import org.melati.servlet.MultipartFormDataDecoder;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
@@ -76,8 +76,8 @@ public class ConfigServletTest extends ConfigServlet {
     if (method != null && method.equals("Upload")) {
       Hashtable fields = null;
       InputStream in = melati.getRequest().getInputStream();
-      MultipartDataDecoder decoder=
-        new MultipartDataDecoder(melati,
+      MultipartFormDataDecoder decoder=
+        new MultipartFormDataDecoder(melati,
             in,
             melati.getRequest().getContentType(),
             melati.getConfig().getFormDataAdaptorFactory());
@@ -192,7 +192,7 @@ public class ConfigServletTest extends ConfigServlet {
   */
   protected MelatiConfig melatiConfig() {
     MelatiConfig config = super.melatiConfig();
-    config.setFormDataAdaptorFactory(new MemoryDataAdaptorFactory());
+    config.setFormDataAdaptorFactory(new MemoryFormDataAdaptorFactory());
     return config;
   }
 

@@ -59,11 +59,7 @@ import org.melati.poem.PoemThread;
  * We get these values from the values of <code>UploadDir</code> and
  * <code>UploadURL</code> in the Setting table of the current Database.
  */
-public class PoemFileFormDataAdaptorFactory extends FormDataAdaptorFactory {
-
-  private String uploadDir;
-
-  private String uploadURL;
+public class PoemFileFormDataAdaptorFactory extends DefaultFileFormDataAdaptorFactory {
 
   /**
    * Get the defaulted parameters for the adaptor from the database and create

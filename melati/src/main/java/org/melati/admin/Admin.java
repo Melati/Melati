@@ -201,7 +201,8 @@ public class Admin extends TemplateServlet {
   protected static String selectionTemplate(ServletTemplateContext context,
       Melati melati) {
     selection(context, melati);
-    return adminTemplate("Selection");
+    String templateName = context.getForm("template");
+    return adminTemplate(templateName == null ? "Selection" : templateName);
   }
 
   /**

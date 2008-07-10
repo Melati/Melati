@@ -316,7 +316,10 @@ public abstract class ConfigServlet extends HttpServlet {
    */
   protected MelatiConfig melatiConfig() {
     MelatiConfig m = new MelatiConfig();
-    m.setRealPath(getServletConfig().getServletContext().getRealPath("/"));
+    String realPath = getServletConfig().getServletContext().getRealPath("/");
+    if (realPath == null)
+      throw new NullPointerException();
+    m.setRealPath(realPath);
     return m;
   }
   

@@ -586,7 +586,7 @@ public class AdminUtils {
    * @param in the String to escape
    * @return the escaped String
    */
-  public static String csvEscape(String in) { 
+  public static String csvEscaped(String in) { 
     StringBuffer b = new StringBuffer();
     StringUtils.appendEscaped(b, in, '"', '"');
     return b.toString();

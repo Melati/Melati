@@ -227,8 +227,6 @@ public class Admin extends TemplateServlet {
    * An encoding of the resulting whereClause is added to the context. "AND" is
    * replaced by an &amp; separator.
    * <p>
-   * The resulting orderClause is added to the context.
-   * <p>
    * A form field with name "start" is assumed to hold the number of the start
    * row in the result set. The default is zero. The next 20 rows are selected
    * and added as to the context as "results".

@@ -234,13 +234,21 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   /**
+   * @return cooked value as a String with defaulted Locale and DateFormat
+   * @throws AccessPoemException
+   */
+  public final String getCookedString()
+      throws AccessPoemException {
+    return getCookedString(PoemLocale.HERE,java.text.DateFormat.SHORT); 
+  }
+  /**
    * @param locale
    * @param style
    * @return a String representation of the Object represented by the raw
    * @throws AccessPoemException if the current AccessToken does not permit reading
    */
   public final String getCookedString(PoemLocale locale, int style)
-      throws AccessPoemException {
+  throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return raw == null ? "" :

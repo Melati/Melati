@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.poem.util;
+package org.melati.util;
 
 import java.util.Enumeration;
 import java.util.Vector;

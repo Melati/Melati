@@ -41,9 +41,11 @@
  *     Tim Pizey <timp At paneris.org>
  */
 
-package org.melati.poem.util;
+package org.melati.util;
 
 import java.util.Enumeration;
+
+import org.melati.poem.util.EnumUtils;
 
 /**
  * A {@link PagedEnumeration} which knows how big it is.

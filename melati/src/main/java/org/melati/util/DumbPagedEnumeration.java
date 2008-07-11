@@ -43,9 +43,11 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.poem.util;
+package org.melati.util;
 
 import java.util.Enumeration;
+
+import org.melati.poem.util.EnumUtils;
 
 /**
  * A {@link PagedEnumeration} which doesn't know how big it is.

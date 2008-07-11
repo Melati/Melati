@@ -198,13 +198,13 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     beginAt("/Admin/" + dbName + "/user/Selection?target=&returnTarget=");
     assertTextPresent("Full name");
     assertTextPresent("Melati guest user");
+    clickLinkWithText("Full name");
     Table s = getTable("selectionTable");
     ArrayList rows = s.getRows();
     for (int i = 0; i< rows.size(); i++) { 
       ArrayList cells = ((Row)rows.get(i)).getCells();
       for (int j = 0; j< cells.size(); j++) { 
         String value = ((Cell)cells.get(j)).getValue();
-        System.err.println(i + "," + j + "=" + value);
         if(i == 2 && j == 2)
           assertEquals("_guest_", value);
         if(i == 3 && j == 2)
@@ -218,21 +218,6 @@ public class AdminJettyWebTest extends JettyWebTestCase {
       ArrayList cells = ((Row)rows.get(i)).getCells();
       for (int j = 0; j< cells.size(); j++) { 
         String value = ((Cell)cells.get(j)).getValue();
-        System.err.println(i + "," + j + "=" + value);
-        if(i == 2 && j == 2)
-          assertEquals("_guest_", value);
-        if(i == 3 && j == 2)
-          assertEquals("_administrator_", value);
-      }
-    }
-    clickLinkWithText("Full name");
-    s = getTable("selectionTable");
-    rows = s.getRows();
-    for (int i = 0; i< rows.size(); i++) { 
-      ArrayList cells = ((Row)rows.get(i)).getCells();
-      for (int j = 0; j< cells.size(); j++) { 
-        String value = ((Cell)cells.get(j)).getValue();
-        System.err.println(i + "," + j + "=" + value);
         if(i == 2 && j == 2)
           assertEquals("_administrator_", value);
         if(i == 3 && j == 2)
@@ -246,11 +231,23 @@ public class AdminJettyWebTest extends JettyWebTestCase {
       ArrayList cells = ((Row)rows.get(i)).getCells();
       for (int j = 0; j< cells.size(); j++) { 
         String value = ((Cell)cells.get(j)).getValue();
-        System.err.println(i + "," + j + "=" + value);
         if(i == 2 && j == 2)
           assertEquals("_guest_", value);
         if(i == 3 && j == 2)
           assertEquals("_administrator_", value);
+      }
+    }
+    clickLinkWithText("Full name");
+    s = getTable("selectionTable");
+    rows = s.getRows();
+    for (int i = 0; i< rows.size(); i++) { 
+      ArrayList cells = ((Row)rows.get(i)).getCells();
+      for (int j = 0; j< cells.size(); j++) { 
+        String value = ((Cell)cells.get(j)).getValue();
+        if(i == 2 && j == 2)
+          assertEquals("_administrator_", value);
+        if(i == 3 && j == 2)
+          assertEquals("_guest_", value);
       }
     }
   }

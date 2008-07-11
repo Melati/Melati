@@ -59,7 +59,7 @@ public class JettyWebTestCase extends WebTestCase {
     startServer(8080);
   }
 
-  private static void startServer(int port) throws Exception {
+  protected static void startServer(int port) throws Exception {
     if (!started) { 
       server = new Server(port);
       WebAppContext wac = new WebAppContext(

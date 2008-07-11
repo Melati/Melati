@@ -200,9 +200,14 @@ public class Admin extends TemplateServlet {
    */
   protected static String selectionTemplate(ServletTemplateContext context,
       Melati melati) {
-    selection(context, melati);
     String templateName = context.getForm("template");
-    return adminTemplate(templateName == null ? "Selection" : templateName);
+    if (templateName == null) {
+      selection(context, melati, true);
+      return adminTemplate("Selection");
+    } else { 
+      selection(context, melati, false);
+      return adminTemplate(templateName);
+    }
   }
 
   /**
@@ -213,7 +218,7 @@ public class Admin extends TemplateServlet {
    */
   protected static String selectionRightTemplate(
       ServletTemplateContext context, Melati melati) {
-    selection(context, melati);
+    selection(context, melati, true);
     context.put("inRight", Boolean.TRUE);
     return adminTemplate("Selection");
   }
@@ -236,7 +241,7 @@ public class Admin extends TemplateServlet {
    * @see #adminTemplate(ServletTemplateContext, String)
    */
   protected static ServletTemplateContext selection(
-      ServletTemplateContext context, Melati melati) {
+      ServletTemplateContext context, Melati melati, boolean paged) {
     final Table table = melati.getTable();
 
     final Database database = table.getDatabase();
@@ -309,11 +314,13 @@ public class Admin extends TemplateServlet {
             new FormParameterException("start", "Param must be an Integer"));
       }
     }
-
-    final int resultsPerPage = 20;
-    context.put("results", table.selection(table.whereClause(criteria),
+    if (paged) { 
+      final int resultsPerPage = 20;
+      context.put("results", table.selection(table.whereClause(criteria),
         orderBySQL, false, start, resultsPerPage));
-
+    } else { 
+      context.put("results", table.selection(criteria, orderBySQL, false, false));
+    }
     return context;
   }
 
@@ -392,7 +399,7 @@ public class Admin extends TemplateServlet {
    */
   protected static String selectionWindowSelectionTemplate(
       ServletTemplateContext context, Melati melati) {
-    selection(context, melati);
+    selection(context, melati, true);
     context.put("inPopup", Boolean.TRUE);
     return adminTemplate("Selection");
   }

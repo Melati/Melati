@@ -45,8 +45,11 @@
 #foreach $column in $melati.Table.RecordDisplayColumns #begin
 "$admin.csvEscaped($column.Name)",#end
 
+##
+## This template can be used by Display and Admin
+##
 #if ($results) #begin 
- #set $enum = $results.All
+ #set $enum = $results
 #end #else #begin
  #set $enum = $melati.Table.selection()
 #end 
@@ -54,7 +57,7 @@
 
 #foreach $result in $enum #begin
   #foreach $field in $result.RecordDisplayFields #begin
-"$admin.csvEscaped($field.CookedString)",#end 
+"$admin.csvEscaped($field.RawString)",#end 
 
 #end
 

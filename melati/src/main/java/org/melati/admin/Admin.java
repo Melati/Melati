@@ -82,6 +82,7 @@ import org.melati.poem.TableInfo;
 import org.melati.poem.TableInfoTable;
 import org.melati.poem.ValidationPoemException;
 
+import org.melati.poem.util.CountedDumbPagedEnumeration;
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.util.MelatiBugMelatiException;
@@ -316,8 +317,12 @@ public class Admin extends TemplateServlet {
     }
     if (paged) { 
       final int resultsPerPage = 20;
-      context.put("results", table.selection(table.whereClause(criteria),
-        orderBySQL, false, start, resultsPerPage));
+      context.put("results", 
+                  new CountedDumbPagedEnumeration(
+                          table.selection(criteria, orderBySQL, false, false),
+                          start, resultsPerPage,
+                          table.cachedCount(criteria, false, false).count())
+      );
     } else { 
       context.put("results", table.selection(criteria, orderBySQL, false, false));
     }

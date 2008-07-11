@@ -82,7 +82,7 @@ import org.melati.poem.TableInfo;
 import org.melati.poem.TableInfoTable;
 import org.melati.poem.ValidationPoemException;
 
-import org.melati.poem.util.CountedDumbPagedEnumeration;
+import org.melati.util.CountedDumbPagedEnumeration;
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.util.MelatiBugMelatiException;

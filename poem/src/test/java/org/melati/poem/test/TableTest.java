@@ -605,26 +605,6 @@ public class TableTest extends PoemTestCase {
   public void testSelectionPersistentStringBooleanBoolean() {
 
   }
-
-  /**
-   * @see org.melati.poem.Table#selection(String, String, boolean, int, int)
-   */
-  public void testSelectionStringStringBooleanIntInt() {
-    Enumeration en = getDb().getUserTable().selection((String)null, null, false, false, 1, 10);
-    assertEquals(2, EnumUtils.vectorOf(en).size());
-  }
-
-  /**
-   * @see org.melati.poem.Table#selection(Persistent, String, boolean, boolean,
-   *      int, int)
-   */
-  public void testSelectionPersistentStringBooleanBooleanIntInt() {
-    Enumeration en = getDb().getUserTable().selection(
-            getDb().getUserTable().newPersistent(), null, false, true, 1, 10);
-    assertEquals(2, EnumUtils.vectorOf(en).size());
-
-  }
-
   /**
    * @see org.melati.poem.Table#countSQL(String)
    */

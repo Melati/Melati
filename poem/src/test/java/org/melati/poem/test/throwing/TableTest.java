@@ -664,10 +664,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
     // super.testSelectionPersistentStringBooleanBoolean();
   }
 
-  public void testSelectionPersistentStringBooleanBooleanIntInt() {
-    
-    // super.testSelectionPersistentStringBooleanBooleanIntInt();
-  }
 
   /** 
    * {@inheritDoc}
@@ -705,14 +701,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
     // super.testSelectionStringStringBoolean();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.test.TableTest#testSelectionStringStringBooleanIntInt()
-   */
-  public void testSelectionStringStringBooleanIntInt() {
-    
-    // super.testSelectionStringStringBooleanIntInt();
-  }
 
   /** 
    * {@inheritDoc}

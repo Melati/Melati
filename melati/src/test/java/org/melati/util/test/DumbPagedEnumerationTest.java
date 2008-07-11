@@ -1,12 +1,12 @@
 /**
  * 
  */
-package org.melati.poem.util.test;
+package org.melati.util.test;
 
 import java.util.Vector;
 
-import org.melati.poem.util.DumbPagedEnumeration;
-import org.melati.poem.util.PagedEnumeration;
+import org.melati.util.DumbPagedEnumeration;
+import org.melati.util.PagedEnumeration;
 
 /**
  * @author timp

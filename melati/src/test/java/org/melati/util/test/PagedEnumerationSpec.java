@@ -1,10 +1,10 @@
 /**
  * 
  */
-package org.melati.poem.util.test;
+package org.melati.util.test;
 
-import org.melati.poem.util.PagedEnumeration;
-import org.melati.poem.util.PagedEnumerationBase.Page;
+import org.melati.util.PagedEnumeration;
+import org.melati.util.PagedEnumerationBase.Page;
 
 import junit.framework.TestCase;
 

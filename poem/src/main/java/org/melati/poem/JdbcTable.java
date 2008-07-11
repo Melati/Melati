@@ -61,10 +61,8 @@ import org.melati.poem.util.ArrayEnumeration;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.Cache;
 import org.melati.poem.util.CachedIndexFactory;
-import org.melati.poem.util.CountedDumbPagedEnumeration;
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
-import org.melati.poem.util.PagedEnumeration;
 import org.melati.poem.util.Procedure;
 import org.melati.poem.util.FilteredEnumeration;
 import org.melati.poem.util.FlattenedEnumeration;
@@ -1486,56 +1484,6 @@ public class JdbcTable implements Selectable, Table {
       };
   }
 
-  /**
-   * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
-   * possibly including those flagged as deleted.  
-   * The results are returned in 'pages'.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
-   * is suitable for the target DBMS.
-   *
-   * @param orderByClause  the DBMS name of the field to order by
-   *                       if null, then the default order by clause is 
-   *                       applied, if it is an empty string, 
-   *                       ie "" then no ordering is applied
-   *
-   * @param includeDeleted      whether to return objects flagged as deleted
-   *                            (ignored if the table doesn't have a
-   *                            <TT>deleted</TT> column)
-   * @return a paged enumeration
-   * @see #selection(java.lang.String)
-   */
-  public PagedEnumeration selection(String whereClause, String orderByClause, 
-                                   boolean includeDeleted, boolean excludeUnselectable, 
-                                   int pageStart, 
-                                   int pageSize)
-      throws SQLPoemException {
-    return new CountedDumbPagedEnumeration(
-        selection(whereClause, orderByClause, includeDeleted),
-        pageStart, pageSize, cachedCount(whereClause, includeDeleted, excludeUnselectable).count());
-  }
-
-  /**
-   * Return pages of selected rows given arguments specifying a query.
-   *
-   * @see #selection(String, String, boolean, int, int)
-   * @param criteria Represents selection criteria possibly on joined tables
-   * @param includeDeleted      whether to return objects flagged as deleted
-   *                            (ignored if the table doesn't have a
-   *                            <TT>deleted</TT> column)
-   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
-   * @return a paged enumeration
-   */
-  public PagedEnumeration selection(Persistent criteria, String orderByClause, 
-                                   boolean includeDeleted, 
-                                   boolean excludeUnselectable, int pageStart, 
-                                   int pageSize)
-      throws SQLPoemException {
-    return new CountedDumbPagedEnumeration(
-        selection(criteria, orderByClause, includeDeleted, excludeUnselectable),
-        pageStart, pageSize,
-        cachedCount(criteria, includeDeleted, excludeUnselectable).count());
-  }
 
   /**
    * @param whereClause

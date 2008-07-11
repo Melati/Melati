@@ -46,7 +46,6 @@
 package org.melati.poem;
 
 import org.melati.poem.util.Cache;
-import org.melati.poem.util.PagedEnumeration;
 
 import java.util.Enumeration;
 import java.io.PrintStream;
@@ -638,47 +637,6 @@ public interface Table {
                                   boolean includeDeleted, boolean excludeUnselectable)
         throws SQLPoemException;
 
-    /**
-     * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
-     * possibly including those flagged as deleted.
-     * The results are returned in 'pages'.
-     *
-     * It is the programmer's responsibility to ensure that the where clause
-     * is suitable for the target DBMS.
-     *
-     * @param orderByClause  the DBMS name of the field to order by
-     *                       if null, then the default order by clause is
-     *                       applied, if it is an empty string,
-     *                       ie "" then no ordering is applied
-     *
-     * @param includeDeleted      whether to return objects flagged as deleted
-     *                            (ignored if the table doesn't have a
-     *                            <TT>deleted</TT> column)
-     * @return a paged enumeration
-     * @see #selection(String)
-     */
-    PagedEnumeration selection(String whereClause, String orderByClause,
-                                     boolean includeDeleted, boolean excludeUnselectable, 
-                                     int pageStart,
-                                     int pageSize)
-        throws SQLPoemException;
-
-    /**
-     * Return pages of selected rows given arguments specifying a query.
-     *
-     * @see #selection(String, String, boolean, int, int)
-     * @param criteria Represents selection criteria possibly on joined tables
-     * @param includeDeleted      whether to return objects flagged as deleted
-     *                            (ignored if the table doesn't have a
-     *                            <TT>deleted</TT> column)
-     * @param excludeUnselectable Whether to append unselectable exclusion SQL
-     * @return a paged enumeration
-     */
-    PagedEnumeration selection(Persistent criteria, String orderByClause,
-                                     boolean includeDeleted,
-                                     boolean excludeUnselectable, int pageStart,
-                                     int pageSize)
-        throws SQLPoemException;
 
     /**
      * @param whereClause

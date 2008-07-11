@@ -610,7 +610,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#selection(String, String, boolean, int, int)
    */
   public void testSelectionStringStringBooleanIntInt() {
-    Enumeration en = getDb().getUserTable().selection(null, null, false, 1, 10);
+    Enumeration en = getDb().getUserTable().selection((String)null, null, false, false, 1, 10);
     assertEquals(2, EnumUtils.vectorOf(en).size());
   }
 

@@ -656,10 +656,10 @@ public interface Table {
      *                            <TT>deleted</TT> column)
      * @return a paged enumeration
      * @see #selection(String)
-     * FIXME Needs excludeUnselectable
      */
     PagedEnumeration selection(String whereClause, String orderByClause,
-                                     boolean includeDeleted, int pageStart,
+                                     boolean includeDeleted, boolean excludeUnselectable, 
+                                     int pageStart,
                                      int pageSize)
         throws SQLPoemException;
 

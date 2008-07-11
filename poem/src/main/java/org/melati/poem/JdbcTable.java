@@ -1504,15 +1504,15 @@ public class JdbcTable implements Selectable, Table {
    *                            <TT>deleted</TT> column)
    * @return a paged enumeration
    * @see #selection(java.lang.String)
-   * FIXME Needs excludeUnselectable
    */
   public PagedEnumeration selection(String whereClause, String orderByClause, 
-                                   boolean includeDeleted, int pageStart, 
+                                   boolean includeDeleted, boolean excludeUnselectable, 
+                                   int pageStart, 
                                    int pageSize)
       throws SQLPoemException {
     return new CountedDumbPagedEnumeration(
         selection(whereClause, orderByClause, includeDeleted),
-        pageStart, pageSize, cachedCount(whereClause, includeDeleted).count());
+        pageStart, pageSize, cachedCount(whereClause, includeDeleted, excludeUnselectable).count());
   }
 
   /**

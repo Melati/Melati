@@ -42,7 +42,7 @@
 ##     Tim Pizey <timp At paneris.org>
 ##     http://paneris.org/~timp
 ##
-#foreach $column in $melati.Table.RecordDisplayColumns #begin
+#foreach $column in $melati.Table.DetailDisplayColumns #begin
 "$admin.csvEscaped($column.Name)",#end
 
 ##
@@ -56,7 +56,7 @@
 
 
 #foreach $result in $enum #begin
-  #foreach $field in $result.RecordDisplayFields #begin
+  #foreach $field in $result.DetailDisplayFields #begin
 "$admin.csvEscaped($field.RawString)",#end 
 
 #end

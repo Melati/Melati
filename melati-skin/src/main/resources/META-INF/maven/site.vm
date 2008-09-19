@@ -76,7 +76,6 @@
     #foreach( $subitem in $item.items )
       #set ( $subitemHref = $PathTool.calculateLink( $subitem.href, $relativePath ) )
       #set ( $subitemHref = $subitemHref.replaceAll( "\\", "/" ) )
-      #set ( $display = false )
       #if ( $alignedFileName == $subitemHref )
         #set ( $display = true )
       #end
@@ -168,7 +167,7 @@
   #if ( $publishDate && $publishDate.format )
     #set ( $format = $publishDate.format )
   #else
-    #set ( $format = "dd/MMM/yyyy" )
+    #set ( $format = "yyyy-MM-dd" )
   #end
 
   $dateFormat.applyPattern( $format )
@@ -306,7 +305,7 @@
     #end
 #end
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>$title</title>
     <style type="text/css" media="all">
@@ -321,10 +320,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=${outputEncoding}" />
     #if ( $decoration.body.head )
       #foreach( $item in $decoration.body.head.getChildren() )
+        ## Workaround for DOXIA-150 due to a non-desired behaviour in p-u
+        ## @see org.codehaus.plexus.util.xml.Xpp3Dom#toString()
+        ## @see org.codehaus.plexus.util.xml.Xpp3Dom#toUnescapedString()
+        #set ( $documentHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" )
+        #set ( $documentHeader = $documentHeader.replaceAll( "\\", "" ) )
         #if ( $item.name == "script" )
-          $item.toUnescapedString()
+          $StringUtils.replace( $item.toUnescapedString(), $documentHeader, "" )
         #else
-          $item.toString()
+          $StringUtils.replace( $item.toString(), $documentHeader, "" )
         #end
       #end
     #end

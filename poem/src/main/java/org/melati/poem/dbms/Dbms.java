@@ -131,7 +131,7 @@ public interface Dbms {
   String preparedStatementPlaceholder(PoemType type);
 
   /**
-   * Allow hsqldb to have a different create tbale syntax.
+   * Allow hsqldb to have a different create table syntax.
    * 
    * @return "CREATE TABLE " normally 
    */

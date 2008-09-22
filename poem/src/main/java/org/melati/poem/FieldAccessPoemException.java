@@ -52,6 +52,11 @@ package org.melati.poem;
 public abstract class FieldAccessPoemException
     extends PersistentAccessPoemException {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = 4615333903994178134L;
+  
   /** The Column we are dealing with. */
   public Column column;
 

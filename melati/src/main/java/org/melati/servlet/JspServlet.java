@@ -71,6 +71,11 @@ import org.melati.poem.util.StringUtils;
  */
 public abstract class JspServlet extends HttpServlet implements HttpJspPage {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = 9018372044518826369L;
+  
   static MelatiConfig melatiConfig;
 
   /**

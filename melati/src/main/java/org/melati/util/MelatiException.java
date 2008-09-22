@@ -51,6 +51,11 @@ package org.melati.util;
  */
 public abstract class MelatiException extends Exception {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = -5635532269280872906L;
+  
   /** A sub-exception we may be wrapping, otherwise null. */ 
   public Exception subException;
 

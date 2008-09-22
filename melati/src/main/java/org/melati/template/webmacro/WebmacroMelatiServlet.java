@@ -62,6 +62,11 @@ import org.webmacro.servlet.WebContext;
  */
 public abstract class WebmacroMelatiServlet extends TemplateServlet {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = -7514187750618897237L;
+
   protected String doTemplateRequest(Melati m, ServletTemplateContext c) 
    throws Exception {
     if (!m.getTemplateEngine().getName().equals(WebmacroTemplateEngine.NAME)) 

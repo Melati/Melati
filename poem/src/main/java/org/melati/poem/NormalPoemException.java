@@ -52,9 +52,15 @@ package org.melati.poem;
   * situation; rather it is to be used when no records are found or 
   * similar normal failures.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   */
 public abstract class NormalPoemException extends PoemException {
+  
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = 149217595325027700L;
+  
   /** Constructor. */
   public NormalPoemException(Exception subException) {
     super(subException);

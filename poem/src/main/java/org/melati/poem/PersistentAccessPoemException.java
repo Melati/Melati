@@ -52,6 +52,11 @@ package org.melati.poem;
 public abstract class PersistentAccessPoemException
     extends AccessPoemException {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = -4666000375767694972L;
+
   /** The Persistent that access is denied to.*/
   public Persistent object;
 

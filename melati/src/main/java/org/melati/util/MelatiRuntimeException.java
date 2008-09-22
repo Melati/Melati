@@ -53,6 +53,11 @@ import org.melati.poem.PoemException;
 public abstract class MelatiRuntimeException extends PoemException {
 
   /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = 5539218874152422978L;
+
+  /**
    * Constructor with message and initial cause.
    */
   public MelatiRuntimeException(String message, Exception subException) {

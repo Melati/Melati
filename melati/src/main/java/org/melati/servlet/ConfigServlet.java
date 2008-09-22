@@ -110,6 +110,11 @@ import org.melati.util.MelatiWriter;
 
 public abstract class ConfigServlet extends HttpServlet {
 
+  /**
+   * Eclipse generated.
+   */
+  private static final long serialVersionUID = 8995954958766276122L;
+  
   protected MelatiConfig melatiConfig;
   protected String sysAdminName = "nobody";
   protected String sysAdminEmail = "nobody@nobody.com";;

@@ -69,6 +69,11 @@ import org.melati.template.Template;
  */
 public abstract class TemplateServlet extends PoemServlet {
 
+  /**
+   * Eclipse generated. 
+   */
+  private static final long serialVersionUID = -5228388231472549208L;
+  
   // the template engine
   protected ServletTemplateEngine templateEngine;
 

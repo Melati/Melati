@@ -53,6 +53,10 @@ package org.melati.poem;
 public abstract class PoemException extends RuntimeException {
 
   /**
+   * 
+   */
+  private static final long serialVersionUID = 3801377407054077460L;
+  /**
    * Pre-java 1.4 initial cause.
    */
   public Exception subException;

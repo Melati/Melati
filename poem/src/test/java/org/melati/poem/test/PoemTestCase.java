@@ -447,7 +447,7 @@ public class PoemTestCase extends TestCase implements Test {
   }
 
   /**
-   * Soem test runners seem to think there should be a test in this file.
+   * Some test runners seem to think there should be a test in this file.
    */
   public void testNothing() { 
     

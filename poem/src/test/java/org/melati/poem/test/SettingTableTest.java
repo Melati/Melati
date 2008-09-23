@@ -56,6 +56,9 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#getCooked(String)
    */
   public void testGetCooked() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     //getDb().setLogSQL(true);
     Setting stringSetting = getDb().getSettingTable().ensure("stringSetting",
         "set", "String", "A set string setting");
@@ -85,6 +88,9 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#get(String)
    */
   public void testGet() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     Setting setting1 = getDb().getSettingTable().ensure("integerSettingG", 12, "Integer",
         "A set Integer setting");
     assertEquals("12", getDb().getSettingTable().get("integerSettingG"));
@@ -97,6 +103,9 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#getOrDie(String)
    */
   public void testGetOrDie() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     Setting s = getDb().getSettingTable().ensure("integerSettingGOD", 12, "Integer",
     "A set Integer setting");
     assertEquals("12", (String) getDb().getSettingTable().getOrDie("integerSettingGOD"));
@@ -114,6 +123,9 @@ public class SettingTableTest extends PoemTestCase {
    *      String, String)
    */
   public void testEnsureStringPoemTypeFactoryObjectStringString() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     Setting stringSetting1 = getDb().getSettingTable().ensure("stringSetting",
         PoemTypeFactory.STRING, "set", "String", "A set string setting");
     Setting stringSetting2 = getDb().getSettingTable().ensure("stringSetting",

@@ -330,10 +330,12 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#selectionWhereEq(Object)
    */
   public void testSelectionWhereEq() {
-    assertEquals(new Integer(69), 
-        new Integer(EnumUtils.vectorOf(
-            getDb().getColumnInfoTable().getHeightColumn().
-            selectionWhereEq(new Integer(1))).size()));
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(new Integer(69), 
+          new Integer(EnumUtils.vectorOf(
+              getDb().getColumnInfoTable().getHeightColumn().
+              selectionWhereEq(new Integer(1))).size()));
+    }
     try {
       getDb().getColumnInfoTable().getHeightColumn().
           selectionWhereEq(null);
@@ -362,13 +364,21 @@ public class ColumnTest extends PoemTestCase {
   public void testCachedSelectionWhereEq() {
     CachedSelection cs = getDb().getColumnInfoTable().getHeightColumn().
         cachedSelectionWhereEq(new Integer(1));
-    assertEquals(69,cs.count());
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(69,cs.count());
+    }
     int queries = getDb().getQueryCount();
-    assertEquals(69,cs.count());
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(69,cs.count());
+    }
     int queries2 = getDb().getQueryCount();
-    assertEquals(queries, queries2);
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(queries, queries2);
+    }
     int queries3 = getDb().getQueryCount();
-    assertEquals(queries2, queries3);
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(queries2, queries3);
+    }
   }
 
   /**

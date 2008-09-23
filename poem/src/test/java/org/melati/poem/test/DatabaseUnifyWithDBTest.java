@@ -67,7 +67,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     Statement s = c.createStatement();
     Hsqldb dbms = new Hsqldb();
     StringBuffer sqb = new StringBuffer();
-    sqb.append(dbms.createTableSql() + dbms.getQuotedName("testable") + " (");
+    sqb.append("CREATE TABLE " + dbms.getQuotedName("testable") + " (");
     sqb.append(dbms.getQuotedName("id") + " INTEGER NOT NULL");
     sqb.append(", ");
     sqb.append(dbms.getQuotedName("testname") + " VARCHAR(233) NOT NULL");
@@ -86,7 +86,11 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     try { 
       s.executeUpdate(sqb.toString());
     } catch (SQLException e) { 
-      assertTrue(e.getMessage().indexOf("already exists") > 0);
+      try { 
+        assertTrue(e.getMessage().indexOf("already exists") > 0);
+      } catch (Error e2) { 
+        throw e;
+      }
     }
     try { 
       s.executeUpdate("CREATE UNIQUE INDEX \"TESTABLE_ID_INDEX\" ON \"TESTABLE\" (\"ID\")");    

@@ -92,6 +92,9 @@ public class CachedSelectionTest extends PoemTestCase {
    */
   public void testFirstObject() {
     CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     assertEquals("tableinfo/0", cachedSelection.firstObject().toString());
   }
 
@@ -100,6 +103,9 @@ public class CachedSelectionTest extends PoemTestCase {
    */
   public void testNth() {
     CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     assertEquals("tableinfo/0", cachedSelection.nth(0).toString());
     assertEquals("tableinfo/7", cachedSelection.nth(6).toString());
     assertNull(cachedSelection.nth(999));

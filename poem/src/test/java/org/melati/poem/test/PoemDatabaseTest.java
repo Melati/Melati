@@ -83,7 +83,9 @@ public class PoemDatabaseTest extends PoemTestCase {
     while (en.hasMoreElements()) {
       result += en.nextElement().toString();
     }
-    assertEquals(expected, result);
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals(expected, result);
+    }
   }
 
   /**
@@ -462,7 +464,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testSqlUpdate2() {
     getDb().setLogSQL(true);
-    getDb().sqlUpdate(getDb().getDbms().createTableSql() + "RAWSQL (ID INT)");
+    getDb().sqlUpdate("CREATE TABLE RAWSQL (ID INT)");
     getDb().sqlUpdate("DROP TABLE RAWSQL");
     getDb().setLogSQL(false);
   }

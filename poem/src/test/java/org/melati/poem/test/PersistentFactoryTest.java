@@ -90,6 +90,9 @@ public class PersistentFactoryTest extends PoemTestCase {
    * 
    */
   public void testFromUnknownInstance() { 
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     // Create one before we start so that it can be compared and rejected
     ClassWithNoIdAndPublicMembers d1 = new ClassWithNoIdAndPublicMembers("Pepper");
     d1.setThoughts("Squirrels");
@@ -116,6 +119,9 @@ public class PersistentFactoryTest extends PoemTestCase {
    * @throws Exception 
    */
   public void testFrom() throws Exception {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     ClassWithNoIdAndPublicMembers pojo = new ClassWithNoIdAndPublicMembers("Fido");
     pojo.setThoughts("Food");
     pojo.setClassWithNoIdAndPrivateMembers(new ClassWithNoIdAndPrivateMembers("Tiddles"));
@@ -152,6 +158,9 @@ public class PersistentFactoryTest extends PoemTestCase {
    * 
    */
   public void testPersistentFromPojoWithIdSet() throws Exception { 
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     ClassWithStringId pojo = new ClassWithStringId();
     pojo.setId("99"); 
     Persistent persisted = PersistentFactory.fromInstance(getDb(), pojo);
@@ -168,6 +177,9 @@ public class PersistentFactoryTest extends PoemTestCase {
    * Test persisting an oject with a byte array member.
    */
   public void testPersistentFromPojoWithBinaryField() { 
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     ClassWithByteArrayMember pojo = new ClassWithByteArrayMember();
     pojo.setBinaryField(new byte[] {34,35,36});
     Persistent persisted = PersistentFactory.fromInstance(getDb(), pojo);
@@ -178,6 +190,9 @@ public class PersistentFactoryTest extends PoemTestCase {
    * Try to resurrect to wrong class.
    */
   public void testPojoFromWrongPersistent() throws Exception { 
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     ClassWithNoIdAndPublicMembers pojo = new ClassWithNoIdAndPublicMembers("Fido");
     pojo.setThoughts("Food");
     Persistent persisted = PersistentFactory.fromInstance(getDb(), pojo);

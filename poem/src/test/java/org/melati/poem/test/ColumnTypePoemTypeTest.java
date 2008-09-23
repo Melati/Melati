@@ -67,7 +67,8 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
       //System.err.println(type.intValue() + " : " + 
       //    PoemTypeFactory.forCode(getDb(),type.intValue()).getDisplayName());
     }
-    assertEquals(25,count);
+    if (getDb().getDbms().canDropColumns())
+      assertEquals(25,count);
   }
 
   public void testRawOfCooked() {

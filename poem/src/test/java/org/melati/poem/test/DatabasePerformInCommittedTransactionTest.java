@@ -90,6 +90,9 @@ public class DatabasePerformInCommittedTransactionTest
 
   }
   protected void melatijunitUnchanged() { 
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
     assertEquals(0, getDb().getSettingTable().count());
     assertEquals(1, getDb().getGroupTable().count());
     assertEquals(1, getDb().getGroupMembershipTable().count());
@@ -99,7 +102,6 @@ public class DatabasePerformInCommittedTransactionTest
     assertEquals(2, getDb().getUserTable().count());
     assertEquals(69, getDb().getColumnInfoTable().count());
     assertEquals(9, getDb().getTableInfoTable().count());
-
   }
   protected void poemtestUnchanged() { 
     assertEquals(0, getDb().getSettingTable().count());

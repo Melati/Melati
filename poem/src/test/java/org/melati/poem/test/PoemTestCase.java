@@ -173,9 +173,11 @@ public class PoemTestCase extends TestCase implements Test {
     if (newOne != null) { 
       System.err.println(getDb() + " " + newOne.getName() + " " + newOne.getTableinfo().getName());
     }
-    assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
-    assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
-    checkTablesAndColumns(9,69);
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
+      assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
+      checkTablesAndColumns(9,69);
+    }
   }
   
   protected void dropTable(String tableName) { 

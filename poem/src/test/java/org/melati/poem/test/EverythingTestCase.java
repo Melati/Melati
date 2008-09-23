@@ -55,9 +55,11 @@ public abstract class EverythingTestCase extends PoemTestCase implements Test {
     assertEquals("User changed", 2, getDb().getUserTable().count());
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
-    //assertEquals("ColumnInfo changed", 156, getDb().getColumnInfoTable().count());
-    assertEquals("TableInfo changed", 24, getDb().getTableInfoTable().count());
-    checkTables(24);
+    if (getDb().getDbms().canDropColumns()) {
+      assertEquals("ColumnInfo changed", 156, getDb().getColumnInfoTable().count());
+      assertEquals("TableInfo changed", 24, getDb().getTableInfoTable().count());
+      checkTables(24);
+    }
   }
   
 

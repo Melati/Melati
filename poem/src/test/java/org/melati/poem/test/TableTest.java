@@ -1035,7 +1035,8 @@ public class TableTest extends PoemTestCase {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     // A count of all table info records
     CachedCount cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
-    assertEquals(9, cached.count());
+    if (getDb().getDbms().canDropColumns()) 
+      assertEquals(9, cached.count());
     ti.setSeqcached(true);
     // A count of all records with seqCached true 
     cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
@@ -1056,7 +1057,8 @@ public class TableTest extends PoemTestCase {
   public void testCachedCountPersistent() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     CachedCount cached = getDb().getTableInfoTable().cachedCount(ti); 
-    assertEquals(9, cached.count());
+    if (getDb().getDbms().canDropColumns())
+      assertEquals(9, cached.count());
     ti.setSeqcached(true);
     cached = getDb().getTableInfoTable().cachedCount(ti); 
     assertEquals(7, cached.count());

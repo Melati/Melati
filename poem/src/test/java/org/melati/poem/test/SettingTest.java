@@ -15,7 +15,7 @@ import org.melati.poem.Setting.SettingValidationException;
  * @author timp
  * 
  */
-public class SettingTest extends PoemTestCase {
+public class SettingTest extends EverythingTestCase {
 
   /**
    * Constructor for SettingTest.

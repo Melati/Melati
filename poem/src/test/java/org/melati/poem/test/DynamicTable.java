@@ -61,6 +61,14 @@ public class DynamicTable extends DynamicTableBase {
   public synchronized void unifyWithDB(ResultSet colDescs)
       throws PoemException {
     super.unifyWithDB(colDescs);
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.JdbcTable#postInitialise()
+   */
+  public void postInitialise() {
+    super.postInitialise();
     dynamicOne = (Dynamic)getNameColumn().ensure(dynamicOne);
     dynamicTwo = (Dynamic)getNameColumn().ensure(dynamicTwo);
   }

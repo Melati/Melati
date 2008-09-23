@@ -174,5 +174,11 @@ public class MckoiTest extends DbmsSpec {
     assertEquals(expected, actual);
 
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   */
+  public void testCreateTableSql() {
+    assertEquals("CREATE TABLE \"USER\" (\"ID\" INTEGER NOT NULL, \"NAME\" VARCHAR(60) NOT NULL, \"LOGIN\" VARCHAR(255) NOT NULL, \"PASSWORD\" VARCHAR(20) NOT NULL)", it.createTableSql(getDb().getUserTable()));
+  }
 
 }

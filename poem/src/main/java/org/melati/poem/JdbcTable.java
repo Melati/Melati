@@ -624,18 +624,24 @@ public class JdbcTable implements Selectable, Table {
   }
 
   private void dbCreateTable() {
-    StringBuffer sqb = new StringBuffer();
-    sqb.append(dbms().createTableSql() + quotedName() + " (");
-    for (int c = 0; c < columns.length; ++c) {
-      if (c != 0) sqb.append(", ");
-      sqb.append(columns[c].quotedName() + " " +
-                 columns[c].getSQLType().sqlDefinition(dbms()));
+    String createTableSql = dbms().createTableSql(this);
+    dbModifyStructure(createTableSql);
+    String tableSetup = database.getDbms().tableInitialisationSql(this); 
+    if (tableSetup != null) { 
+      dbModifyStructure(tableSetup);
     }
-    sqb.append(")");
-    sqb.append(dbms().createTableOptionsSql());
-    dbModifyStructure(sqb.toString());
   }
   
+    
+
+  /**
+   * @return A type string eg "TEXT"
+   * @see {@link org.melati.poem.dbms.Hsqldb}
+   */
+  public String getDbmsTableType() {
+    return null;
+  }
+
   /**
    * Constraints are not used in POEM, but you might want to use them if 
    * exporting the db or using schema visualisation tools.

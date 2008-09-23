@@ -51,6 +51,7 @@ import java.sql.SQLException;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.Table;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -104,8 +105,14 @@ public class Hsqldb extends AnsiStandard {
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
-  public String createTableSql() {
-    return "CREATE CACHED TABLE ";
+  public String createTableTypeQualifierSql(Table table) {
+    String tableType;
+    if (table == null || table.getDbmsTableType() == null)
+      tableType = "CACHED ";
+    else
+      tableType = table.getDbmsTableType() + " "; 
+      
+    return tableType;
   }
 
   /*
@@ -114,7 +121,7 @@ public class Hsqldb extends AnsiStandard {
    *   
    * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
    */
-  
+
   /*
    public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {

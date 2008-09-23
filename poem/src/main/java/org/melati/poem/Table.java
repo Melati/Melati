@@ -1135,6 +1135,11 @@ public interface Table {
     TableInfo getTableInfo();
 
     /**
+     * @return a DBMS table type eg TEXT 
+     */
+    String getDbmsTableType();
+    
+    /**
      * Public method used in DSD.wm.
      * Duplicated because <code>defaultDisplayName()</code>
      * above is overwritten.

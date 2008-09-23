@@ -131,12 +131,29 @@ public interface Dbms {
   String preparedStatementPlaceholder(PoemType type);
 
   /**
-   * Allow hsqldb to have a different create table syntax.
    * 
-   * @return "CREATE TABLE " normally 
+   * @return The appropriate SQL string to create a table 
    */
-  String createTableSql();
-   
+  String createTableSql(Table table);
+  
+  /**
+   * Allow Hsqldb to have a different create table syntax.
+   * Should have trailing space if not empty String
+   */
+  String createTableTypeQualifierSql(Table table);
+  
+  /**
+   * Accomodate MySQL table creation options.
+   * @return DMBS specific table creation options or empty String
+   */
+  String createTableOptionsSql();
+
+  /**
+   * @param table
+   * @return SQL to be run after creation or null
+   */
+  String tableInitialisationSql(Table table);
+     
  /**
   * Retrieve a SQL type keyword used by the DBMS 
   * for the given Melati type name.
@@ -376,10 +393,4 @@ public interface Dbms {
    */
   String getSqlDefaultValue(SQLType type);
 
-  /**
-   * Accomodate table creation options.
-   * @return DMBS specific table creation options
-   */
-  String createTableOptionsSql();
-  
 }

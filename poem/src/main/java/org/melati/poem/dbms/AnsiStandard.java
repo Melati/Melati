@@ -60,6 +60,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.melati.poem.BigDecimalPoemType;
@@ -233,10 +234,34 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    */
-  public String createTableSql() {
-    return "CREATE TABLE ";
+  public String createTableSql(Table table) {
+    StringBuffer sqb = new StringBuffer();
+    sqb.append("CREATE " + createTableTypeQualifierSql(table) + 
+               "TABLE " + table.quotedName() + " (");
+    Enumeration columns = table.columns();
+    int colCount = 0;
+    while (columns.hasMoreElements()) { 
+      Column col = (Column)columns.nextElement();
+      if (colCount != 0)
+        sqb.append(", ");
+      colCount++;
+      sqb.append(col.quotedName() + " " +
+              col.getSQLType().sqlDefinition(this));
+      
+    }
+    sqb.append(")");
+    sqb.append(createTableOptionsSql());
+    return sqb.toString();
   }
   
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#createTableTypeQualifierSql(org.melati.poem.Table)
+   */
+  public String createTableTypeQualifierSql(Table table) {
+    return "";
+  }
+
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableOptionsSql()
@@ -245,6 +270,14 @@ public class AnsiStandard implements Dbms {
     return "";
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#tableInitialisationSql(org.melati.poem.Table)
+   */
+  public String tableInitialisationSql(Table table) {
+    return null;
+  }
+  
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)

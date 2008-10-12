@@ -76,12 +76,7 @@ public class Display extends TemplateServlet {
       melati.getObject().assertCanRead();
       context.put("object", melati.getObject());
     }
-    Enumeration e = melati.getRequest().getAttributeNames();
-    while (e.hasMoreElements()) { 
-      String name = (String)e.nextElement();
-      context.put(name, melati.getRequest().getAttribute(name));
-    }
-    e = melati.getRequest().getParameterNames();
+    Enumeration e = melati.getRequest().getParameterNames();
     while (e.hasMoreElements()) { 
       String name = (String)e.nextElement();
       context.put(name, melati.getRequest().getParameter(name));

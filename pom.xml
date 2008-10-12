@@ -96,7 +96,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
      <id>org.webmacro</id>
      <name>Webmacro repo</name>
-     <url>http://webmacro.sourceforge.net/maven2/</
+     <url>http://webmacro.sourceforge.net/maven2/</url>
     </repository>
    <repository>
      <id>apache.org</id>

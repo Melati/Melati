@@ -44,6 +44,8 @@
 
 package org.melati.admin;
 
+import java.util.Enumeration;
+
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
 import org.melati.util.StringUtils;
@@ -73,6 +75,11 @@ public class Display extends TemplateServlet {
     if (melati.getObject() != null) {
       melati.getObject().assertCanRead();
       context.put("object", melati.getObject());
+    }
+    Enumeration e = melati.getRequest().getAttributeNames();
+    while (e.hasMoreElements()) { 
+      String name = (String)e.nextElement();
+      context.put(name, melati.getRequest().getAttribute(name));
     }
 
     if (context.getForm("template") != null) { 

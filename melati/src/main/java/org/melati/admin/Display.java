@@ -84,7 +84,7 @@ public class Display extends TemplateServlet {
     e = melati.getRequest().getParameterNames();
     while (e.hasMoreElements()) { 
       String name = (String)e.nextElement();
-      context.put(name, melati.getRequest().getAttribute(name));
+      context.put(name, melati.getRequest().getParameter(name));
     }
 
     if (context.getForm("template") != null) { 

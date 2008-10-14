@@ -73,15 +73,11 @@ public class WebmacroServletTemplateContext
   }
 
   /**
-   * WebMacro may or may not return null if field not present, so ensure it does.
    * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
    */
   public String getForm(String k) {
-    String s =  webContext.getForm(k);
-    if (s != null && s.equals(""))
-      s = null;
-    return s;
+    return webContext.getForm(k);
   }
 
   /**

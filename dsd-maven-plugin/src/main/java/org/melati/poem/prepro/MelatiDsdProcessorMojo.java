@@ -150,7 +150,7 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
     File databaseTablesFile = new File(databaseTablesFileName);
     long dsdTimestamp = new File(dsdPath).lastModified();
     long databaseTablesTimestamp = 1;
-    if (databaseTablesFile != null && databaseTablesFile.exists()) {
+    if (databaseTablesFile.exists()) {
       databaseTablesTimestamp = databaseTablesFile.lastModified();
     }
     boolean doIt = true;
@@ -173,45 +173,43 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
     }
   }
 
-  private String existingDsdFileName(String dir, String dsdFileName)
-      throws MojoExecutionException {
+  private String existingDsdFileName(String dir, String dsdFileName) {
     String modelDirName = dir + "poem/";
     File modelDir = new File(modelDirName);
-    if (modelDir == null || !modelDir.exists()) {
+    if (!modelDir.exists()) {
       searchedLocations += " " + modelDirName + "\n";
       modelDirName = dir + "model/";
       modelDir = new File(modelDirName);
     }
-    if (modelDir == null || !modelDir.exists()) {
+    if (!modelDir.exists()) {
       searchedLocations += " " + modelDirName + "\n";
       modelDirName = dir;
       modelDir = new File(modelDirName);
     }
-    if (modelDir == null || !modelDir.exists()) {
+    if (!modelDir.exists()) {
       searchedLocations += " " + modelDirName + "\n";
       return null;
     }
     return dsdFileName(modelDirName, dsdFileName);
   }
 
-  private String dsdFileName(String dir, String dsdFileName)
-      throws MojoExecutionException {
+  private String dsdFileName(String dir, String dsdFileName) {
     if (dsdFileName != null) {
       dsdFileName = dir + dsdFileName;
       File foundDsdFile = new File(dsdFileName);
-      if (foundDsdFile == null || !foundDsdFile.exists()) {
+      if ( !foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         return null;
       }
     } else {
       dsdFileName = dir + artifactId + ".dsd";
       File foundDsdFile = new File(dsdFileName);
-      if (foundDsdFile == null || !foundDsdFile.exists()) {
+      if (!foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         dsdFileName = dir + capitalised(artifactId) + ".dsd";
         foundDsdFile = new File(dsdFileName);
       }
-      if (foundDsdFile == null || !foundDsdFile.exists()) {
+      if (!foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         return null;
       }

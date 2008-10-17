@@ -75,6 +75,8 @@ class ParsingDSDException extends RuntimeException {
   }
 
   ParsingDSDException(String expected, String got) {
+    this.expected = expected;
+    this.got = "\"" + got + "\"";
   }
 
   ParsingDSDException(String expected, StreamTokenizer got) {

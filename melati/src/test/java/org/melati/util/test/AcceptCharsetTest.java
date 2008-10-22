@@ -58,7 +58,7 @@ import org.melati.util.HttpHeader;
  * Tests the corresponding class in the superpackage.
  *
  * @see AcceptCharset
- * @author jimw@paneris.org
+ * @author jimw At paneris.org
  * @version $Version: $
  */
 public class AcceptCharsetTest extends TestCase {
@@ -82,7 +82,7 @@ public class AcceptCharsetTest extends TestCase {
       "ISO-8859-1",
     };
     AcceptCharset ac = new AcceptCharset(headerValue, supportedPreference);
-    assertEquals("ISO-8859-2", ac.clientChoice());
+    assertEquals("UTF-8", ac.clientChoice());
     assertEquals("UTF-16", ac.serverChoice());
 
     headerValue = "utf-8;q=0.66,ISO-8859-3,ISO-8859-2";
@@ -94,7 +94,7 @@ public class AcceptCharsetTest extends TestCase {
     };
     
     ac = new AcceptCharset(headerValue, supportedPreference);
-    assertEquals("ISO-8859-3", ac.clientChoice());
+    assertEquals("ISO-8859-1", ac.clientChoice());
     assertEquals("ISO-8859-1", ac.serverChoice());
 
     headerValue = "*;q=0.0";

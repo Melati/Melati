@@ -599,16 +599,20 @@ public class Melati {
           HttpServletResponse.SC_BAD_REQUEST +
           ": \"" + acs + '"', e);
     }
+    // Only allow requests/responses which make sense to us
+    responseCharset = ac.serverChoice();
+    //System.err.println("Melati.establishCharsets: " + responseCharset);
     if (request.getCharacterEncoding() == null) {
-      responseCharset = ac.clientChoice();
       try {
+        // I can't see when you would want to do this, 
+        //it certainly caused me a lot of pain
+        // by producing a db of mixed charsets.
+        //responseCharset = ac.clientChoice();
         request.setCharacterEncoding(responseCharset);
       }
       catch (UnsupportedEncodingException e) {
         throw new MelatiBugMelatiException("This should already have been checked by AcceptCharset", e);
       }
-    } else {
-      responseCharset = ac.serverChoice();
     }
   }
 

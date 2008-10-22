@@ -43,6 +43,7 @@
 
 package org.melati.template.webmacro;
 
+import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
@@ -78,12 +79,14 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
     // Sun's Javadocs java.nio.charset.Charset explains this well
     // where other references fail to spell it out: UTF-16 is cool.
     // Except Webmacro does not support it due to byte order mark.
+    // So Jim used UTF-16BE
+    // Changed to default in the desperate hope of getting something to work
     try {
-      return FastWriter.getInstance(wm.getBroker(), "UTF-16BE");
+      return FastWriter.getInstance(wm.getBroker(), Melati.DEFAULT_ENCODING);
     }
     catch (UnsupportedEncodingException e) {
       throw new MelatiBugMelatiException(
-              "Assumption that all JVMs and WebMacro support UTF-16BE has not held", e);
+              "Assumption that all JVMs and WebMacro support " + Melati.DEFAULT_ENCODING + " has not held", e);
     }
   }
 

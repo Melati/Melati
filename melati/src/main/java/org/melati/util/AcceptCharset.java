@@ -50,7 +50,6 @@ package org.melati.util;
 
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -61,19 +60,17 @@ import java.util.List;
  * Provides features for choosing a charset according to client or server
  * preferences.
  *
- * @author  jimw@paneris.org
+ * @author  jimw At paneris.org
  */
 public class AcceptCharset extends HttpHeader {
 
+  private boolean debug = false;
+  
   /**
-   * Preferred and supported charsets.
-   * <p>
-   * These are supported and either explicitly accepted by the client or
-   * preferred by the server.
-   * There may be others that are supported and accepted if the client
-   * included the wildcard * in its acceptable charsets.
+   * Charsets supported by the jvm and accepted by the client 
+   * or preferred by the server.
    */
-  protected HashMap supportedPreferred = new HashMap();
+  protected HashMap supportedAcceptedOrPreferred = new HashMap();
 
   /**
    * Client wildcard * specification if any.
@@ -82,7 +79,7 @@ public class AcceptCharset extends HttpHeader {
 
   /**
    * The name of the first server preferred charset that is not acceptable
-   * but is supported.
+   * to the client but is supported by the jvm.
    * <p>
    * This may be worth checking by the caller if there are no acceptable
    * charsets, or the caller can respond with a 406 error code.
@@ -91,15 +88,6 @@ public class AcceptCharset extends HttpHeader {
    */
   String firstOther = null;
 
-  /**
-   * Create an instance from the Accept-Charset header field values and
-   * a set of server preferred charset names given as an array for testing.
-   */
-  public AcceptCharset(String values, String[] serverPreference)
-      throws HttpHeaderException {
-    this(values, Arrays.asList(serverPreference));
-  }
-  
   /**
    * Create an instance from the Accept-Charset header field values and
    * a set of server preferred charset names.
@@ -112,35 +100,38 @@ public class AcceptCharset extends HttpHeader {
    * <code>null</code> is taken to mean there were no Accept-Charset header
    * fields.
    * <p>
-   * If there are any unsupported charsets they are just ignored.
-   * If the caller wants to ensure the there are not any then it must
-   * check for itself.
+   * If a client supported charset is unsupported by the JVM it is ignored.
+   * If the caller wants to ensure that there are none then it must check 
+   * for itself.
    * <p>
    * If the same charset is specified more than once (perhaps under
    * different names or aliases) then the first occurrence is significant.
    * <p>
-   * The server preferences also provides a list of charsets
-   * used if there is a wildcard specification.
+   * The server preferences provides a list of charsets used if there is 
+   * a wildcard specification.
+   * 
    * This class does not currently try other available charsets so
    * to avoid 406 errors to reasonable clients, enough reasonable charsets
-   * must be specified.
+   * must be listed in serverPreferences.
    */
   public AcceptCharset(String values, List serverPreference) throws HttpHeaderException {
     super(values);
+    if (debug) System.err.println("values:" + values);
+    if (debug) System.err.println("serverPreference:" + serverPreference);
     int position = 0;
     for (CharsetAndQValueIterator i = charsetAndQValueIterator(); 
          i.hasNext();) {
       CharsetAndQValue c = i.nextCharsetAndQValue();
       if (c.isWildcard()) {
         wildcard = c;
-        // System.err.println("Tested 1");
+        if (debug) System.err.println("Tested 1");
       } else {
         try {
           String n = c.charset.name();
-          if (supportedPreferred.get(c) == null) {
-            supportedPreferred.put(n, c);
+          if (supportedAcceptedOrPreferred.get(c) == null) {
+            supportedAcceptedOrPreferred.put(n, c);
             c.position = position++;
-            // System.err.println("Tested 2");
+             if (debug) System.err.println("Tested 2:" + n);
           }
         }
         catch (UnsupportedCharsetException uce) {
@@ -151,42 +142,42 @@ public class AcceptCharset extends HttpHeader {
     }
     if (wildcard == null) {
       Charset latin1 = Charset.forName("ISO-8859-1");
-      if (supportedPreferred.get(latin1.name()) == null) {
+      if (supportedAcceptedOrPreferred.get(latin1.name()) == null) {
         CharsetAndQValue c = new CharsetAndQValue(latin1, 1.0f);
-        supportedPreferred.put(latin1.name(), c);
-        // System.err.println("Tested 3");
+        supportedAcceptedOrPreferred.put(latin1.name(), c);
+        if (debug) System.err.println("Tested 3 + " + latin1.name());
       }
     }
     for (int i = 0; i < serverPreference.size(); i++) {
       try {
         Charset charset = Charset.forName((String)serverPreference.get(i));
         CharsetAndQValue acceptable =
-          (CharsetAndQValue)supportedPreferred.get(charset.name());
+            (CharsetAndQValue)supportedAcceptedOrPreferred.get(charset.name());
         if (acceptable == null) {
           if (wildcard == null) {
             if (firstOther == null) {
               firstOther = charset.name();
-              // System.err.println("Tested 4");
+              if (debug) System.err.println("Tested 4" + charset.name());
             }
           } else {
             CharsetAndQValue c = new CharsetAndQValue(charset, wildcard);
-            supportedPreferred.put(charset.name(), c);
+            supportedAcceptedOrPreferred.put(charset.name(), c);
             c.serverPreferability = i;
-            // System.err.println("Tested 5");
+            if (debug) System.err.println("Tested 5:" + charset.name());
           }
         } else {
+          supportedAcceptedOrPreferred.put(charset.name(), acceptable);
           if (i < acceptable.serverPreferability) {
             acceptable.serverPreferability = i;
-            // System.err.println("Tested 6");
+            if (debug) System.err.println("Tested 6");
           }
         }
       }
       catch (UnsupportedCharsetException uce) {
         // Ignore this charset
-        // System.err.println("Tested 7");
+        // if (debug) System.err.println("Tested 7");
         uce = null; // shut PMD up          
       }
-      
     }
   }
 
@@ -199,7 +190,7 @@ public class AcceptCharset extends HttpHeader {
      * @return the next one
      */
     public CharsetAndQValue nextCharsetAndQValue() throws HttpHeaderException {
-      // System.err.println("Tested 7a");
+      // if (debug) System.err.println("Tested 7a");
       return (CharsetAndQValue)AcceptCharset.this.nextTokenAndQValue();
     }
   }
@@ -209,7 +200,7 @@ public class AcceptCharset extends HttpHeader {
    * @see org.melati.util.HttpHeader#nextTokenAndQValue()
    */
   public TokenAndQValue nextTokenAndQValue() throws HttpHeaderException {
-    // System.err.println("Tested 7b");
+    // if (debug) System.err.println("Tested 7b");
     return new CharsetAndQValue(tokenizer);
   }
 
@@ -219,7 +210,7 @@ public class AcceptCharset extends HttpHeader {
    * @return a new Iterator
    */
   public CharsetAndQValueIterator charsetAndQValueIterator() {
-    // System.err.println("Tested 7c");
+    // if (debug) System.err.println("Tested 7c");
     return new CharsetAndQValueIterator();
   }
 
@@ -231,7 +222,7 @@ public class AcceptCharset extends HttpHeader {
    *  
    */
   public String clientChoice() {
-    // System.err.println("Tested 8");
+    // if (debug) System.err.println("Tested 8");
     return choice(clientComparator);
   }
 
@@ -242,7 +233,7 @@ public class AcceptCharset extends HttpHeader {
         result = two.serverPreferability - one.serverPreferability;
         if (result == 0) {
           result = super.compareCharsetAndQValue(one, two);
-          // System.err.println("Tested 9");
+          // if (debug) System.err.println("Tested 9");
         }
         return result;   
       }
@@ -253,7 +244,7 @@ public class AcceptCharset extends HttpHeader {
    * in order of server preference.
    */
   public String serverChoice() {
-    // System.err.println("Tested 10");
+    // if (debug) System.err.println("Tested 10");
     return choice(serverComparator);
   }
 
@@ -267,18 +258,18 @@ public class AcceptCharset extends HttpHeader {
    */
   public String choice(Comparator comparator) {
     CharsetAndQValue best = null;
-    for (Iterator i = supportedPreferred.values().iterator(); i.hasNext();) {
+    for (Iterator i = supportedAcceptedOrPreferred.values().iterator(); i.hasNext();) {
       CharsetAndQValue c = (CharsetAndQValue)i.next();
       if (best == null || comparator.compare(c, best) > 0) {
         best = c;
-        // System.err.println("Tested 11");
+        // if (debug) System.err.println("Tested 11");
       }
     }
     if (best == null || best.q == 0.0) {
-      // System.err.println("Tested 12");
+      // if (debug) System.err.println("Tested 12");
       return null;
     } else {
-      // System.err.println("Tested 13");
+      // if (debug) System.err.println("Tested 13");
       return best.charset.name();
     }
   }
@@ -293,25 +284,22 @@ public class AcceptCharset extends HttpHeader {
      * @see java.util.Comparator#compare(T, T)
      */
     public final int compare(Object one, Object two) {
-      // System.err.println("Tested 14");
+      // if (debug) System.err.println("Tested 14");
       return compareCharsetAndQValue((CharsetAndQValue)one, (CharsetAndQValue)two);
     }
     
     /**
-     * The same as {@link java.util.Comparator#compare(Object, Object)} except
-     * for the type of arguments.
-     * <p>
      * This default compares according to client requirements.
      */
     protected int compareCharsetAndQValue(CharsetAndQValue one, CharsetAndQValue two) {
       if (one.q == two.q) {
-        // System.err.println("Tested 15");
+        // if (debug) System.err.println("Tested 15");
         return two.position - one.position;
       } else if (one.q > two.q) {
-        // System.err.println("Tested 16");
+        // if (debug) System.err.println("Tested 16");
         return 1;
       } else {
-        // System.err.println("Tested 17");
+        // if (debug) System.err.println("Tested 17");
         //assert one.q < two.q : "Only this possibility";
         return -1;
       }
@@ -372,7 +360,7 @@ public class AcceptCharset extends HttpHeader {
       this.token = charset.name();
       this.charset = charset;        
       this.q = q;
-      // System.err.println("Tested 19");
+      // if (debug) System.err.println("Tested 19");
     }
 
     /**
@@ -381,49 +369,19 @@ public class AcceptCharset extends HttpHeader {
      */
     public CharsetAndQValue(Charset charset, CharsetAndQValue wildcard) {
       this(charset, wildcard.q);
-      // System.err.println("Tested 20");
+      // if (debug) System.err.println("Tested 20");
     }
 
     /**
      * @return whether the given charset token is an asterix
      */
     public boolean isWildcard() {
-      // System.err.println("Tested 20a");
+      // if (debug) System.err.println("Tested 20a");
       return token.equals("*");
     }
 
   }
 
-} // AcceptCharset
+} 
 
-/*
- * MODIFICATIONS
- * $Log$
- * Revision 1.9  2007/01/16 10:28:26  timp
- * Throw HttpHeaderException if charset unrecognised
- *
- * Revision 1.8  2007/01/11 13:23:34  timp
- * Javadoc
- *
- * Revision 1.7  2006/05/16 12:42:01  timp
- * Javadoc - do not refer to private methods
- *
- * Revision 1.6  2006/05/05 12:44:06  timp
- * Shut PMD up
- *
- * Revision 1.5  2005/11/19 11:13:22  timp
- * Comment out assert
- *
- * Revision 1.4  2005/01/14 13:15:51  timp
- * Stop barfing about empty catch blocks
- *
- * Revision 1.3  2004/11/25 18:44:34  timp
- * Avoid * imports
- *
- * Revision 1.2  2003/11/19 04:14:06  jimw
- * Added standard header.
- *
- * Revision 1.1  2003/11/14 03:47:41  jimw
- * Representation of the Accept-Charset header fields.
- *
- */
+

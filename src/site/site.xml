@@ -17,6 +17,12 @@
     <href>http://www.melati.org/</href>
     <alt>Melati - The flower of Java</alt>
   </bannerRight>
+ <poweredBy>
+    <logo name="Maven" href="http://maven.apache.org/"
+          img="/images/logos/maven-feather.png"/>
+    <logo name="java.net" href="http://www.java.net/"
+          img="/images/logos/javanet_button_90.gif"/>
+  </poweredBy>
   <body>
     <links>
       <item name="TimP"                  href="http://www.context-computing.co.uk/~timp/" />

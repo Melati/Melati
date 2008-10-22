@@ -64,7 +64,7 @@ import java.util.List;
  */
 public class AcceptCharset extends HttpHeader {
 
-  private boolean debug = false;
+  private boolean debug = true;
   
   /**
    * Charsets supported by the jvm and accepted by the client 

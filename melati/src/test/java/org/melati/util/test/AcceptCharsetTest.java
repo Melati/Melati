@@ -49,6 +49,8 @@
 package org.melati.util.test;
 
 
+import java.util.Arrays;
+
 import junit.framework.TestCase;
 
 import org.melati.util.AcceptCharset;
@@ -81,8 +83,8 @@ public class AcceptCharsetTest extends TestCase {
       "UTF-8",
       "ISO-8859-1",
     };
-    AcceptCharset ac = new AcceptCharset(headerValue, supportedPreference);
-    assertEquals("UTF-8", ac.clientChoice());
+    AcceptCharset ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
+    assertEquals("ISO-8859-2", ac.clientChoice());
     assertEquals("UTF-16", ac.serverChoice());
 
     headerValue = "utf-8;q=0.66,ISO-8859-3,ISO-8859-2";
@@ -93,8 +95,8 @@ public class AcceptCharsetTest extends TestCase {
       "BOLLOX",
     };
     
-    ac = new AcceptCharset(headerValue, supportedPreference);
-    assertEquals("ISO-8859-1", ac.clientChoice());
+    ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
+    assertEquals("ISO-8859-3", ac.clientChoice());
     assertEquals("ISO-8859-1", ac.serverChoice());
 
     headerValue = "*;q=0.0";
@@ -104,16 +106,16 @@ public class AcceptCharsetTest extends TestCase {
       "BOLLOX",
       "ISO-8859-1",
     };
-    ac = new AcceptCharset(headerValue, supportedPreference);
+    ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
     assertEquals(null, ac.clientChoice());
     assertEquals(null, ac.serverChoice());
 
-    ac = new AcceptCharset(null, supportedPreference);
+    ac = new AcceptCharset(null, Arrays.asList(supportedPreference));
     assertEquals("ISO-8859-1", ac.clientChoice());
     assertEquals("ISO-8859-1", ac.serverChoice());
 
     try { 
-      ac = new AcceptCharset("BOLLOX", supportedPreference);
+      ac = new AcceptCharset("BOLLOX", Arrays.asList(supportedPreference));
       fail("Should have blown up");
     } catch (HttpHeader.HttpHeaderException e) { 
       e = null;

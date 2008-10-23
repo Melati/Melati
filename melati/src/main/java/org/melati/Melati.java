@@ -613,6 +613,7 @@ public class Melati {
       catch (UnsupportedEncodingException e) {
         throw new MelatiBugMelatiException("This should already have been checked by AcceptCharset", e);
       }
+      System.err.println("Melati.establishCharsets request: " + request.getCharacterEncoding());
     }
   }
 

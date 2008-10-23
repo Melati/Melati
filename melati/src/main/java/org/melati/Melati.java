@@ -601,7 +601,7 @@ public class Melati {
     }
     // Only allow requests/responses which make sense to us
     responseCharset = ac.serverChoice();
-    //System.err.println("Melati.establishCharsets: " + responseCharset);
+    System.err.println("Melati.establishCharsets: " + responseCharset);
     if (request.getCharacterEncoding() == null) {
       try {
         // I can't see when you would want to do this, 
@@ -620,6 +620,7 @@ public class Melati {
    * Suggested character encoding for use in responses.
    */
   protected String responseCharset = null;
+  
 
   /**
    * Sets the content type for use in the response.
@@ -642,14 +643,23 @@ public class Melati {
    * @see #establishCharsets()
    */
   public void setResponseContentType(String type) {
+    contentType = type;
     if (responseCharset != null && type.startsWith("text/")
         && type.indexOf(";") == -1) {
-      type += "; charset=" + responseCharset;
+      contentType += "; charset=" + responseCharset;
     }
     if (response != null)
-      response.setContentType(type);
+      response.setContentType(contentType);
   }
-
+  protected String contentType = null;
+  /**
+   * @return the contentType
+   */
+  String getContentType() {
+    return contentType;
+  }
+  
+  
   /**
    * Use this method if you wish to use a different 
    * MarkupLanguage, WMLMarkupLanguage for example. 
@@ -991,5 +1001,7 @@ public class Melati {
     }
     return templateName;
   }
+
+
   
 }

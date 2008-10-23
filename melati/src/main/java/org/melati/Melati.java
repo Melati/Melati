@@ -655,7 +655,7 @@ public class Melati {
   /**
    * @return the contentType
    */
-  String getContentType() {
+  public String getContentType() {
     return contentType;
   }
   

@@ -45,6 +45,7 @@
 
 package org.melati.servlet;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -56,6 +57,7 @@ import org.melati.poem.Column;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TempletAdaptor;
 import org.melati.template.TempletAdaptorConstructionMelatiException;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.UTF8URLEncoder;
 
 /**
@@ -103,7 +105,31 @@ public final class Form {
             else
               column.setRawString(object, "");
           } else {
-            column.setRawString(object, rawString);
+            String branch;
+            String utf8StringISO = null;
+            String utf8StringUTF8 = null;
+            byte[] stringBytesISO;
+            byte[] stringBytesUTF8;
+            try {
+              stringBytesISO = rawString.getBytes("ISO-8859-1");
+              utf8StringISO = new String(stringBytesISO, "ISO-8859-1");
+              stringBytesUTF8 = rawString.getBytes("UTF-8");
+              utf8StringUTF8 = new String(stringBytesUTF8, "UTF-8");
+            
+              if (utf8StringISO.equals(rawString)) {
+                column.setRawString(object, utf8StringISO);
+                branch = "1";
+              } else if (utf8StringUTF8.equals(rawString)) {
+                column.setRawString(object, utf8StringUTF8);
+                branch = "2";
+              } else {
+                column.setRawString(object, rawString);              
+                branch = "3";
+              }
+            } catch (UnsupportedEncodingException e) {
+              throw new MelatiBugMelatiException("UTF-8 or ISO-8859-1 not supported", e);
+            }
+            System.err.println("Branch:"+branch+":"+rawString +":"+utf8StringUTF8+":"+utf8StringISO);
           }
         }
       }

@@ -81,7 +81,15 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
   * that string to the output stream we render directly to the output stream.
   */
   public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding()));
+    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding(), false));
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.AbstractMarkupLanguage#renderMarkup(java.lang.String, org.melati.util.MelatiWriter)
+   */
+  public void renderMarkup(String s, MelatiWriter writer) throws IOException { 
+    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding(), true));    
   }
 
   /**

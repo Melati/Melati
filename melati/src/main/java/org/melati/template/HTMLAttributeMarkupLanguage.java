@@ -94,7 +94,7 @@ public class HTMLAttributeMarkupLanguage extends HTMLMarkupLanguage
    *          org.melati.util.MelatiWriter)
    */
   public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitied(s, false, melati.getEncoding()));
+    writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), false));
   }
 
   /** 

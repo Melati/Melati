@@ -90,6 +90,13 @@ public interface MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    */
   String rendered(Object o) throws IOException;
+  
+  /**
+   * @param s markup fragment to render
+   * @return fragment rendered with markup unchanged
+   * @throws IOException  if there is a problem during rendering
+   */
+  String renderedMarkup(String s) throws IOException;
 
 
   /**
@@ -220,7 +227,7 @@ public interface MarkupLanguage {
   String encoded(String s);
   
   /**
-   * Decode a UTF-8 URL encode string.
+   * Decode a UTF-8 URL encoded string.
    * @param s
    * @return the decoded String
    */

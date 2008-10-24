@@ -172,14 +172,15 @@ public final class HTMLUtils {
    * @param c character to lookup entity for 
    * @param mapBR whether to replace line ends
    * @param ce an encoder
+   * @param markup whether string contains markup 
    * @return an entity or null
    */
-  public static String entityFor(char c, boolean mapBR, CharsetEncoder ce) {
+  public static String entityFor(char c, boolean mapBR, CharsetEncoder ce, boolean markup) {
     switch (c) {
       case '\n': return mapBR ? "<BR>\n" : null;
-      case '<': return "&lt;";
-      case '>': return "&gt;";
-   //   case '&': return "&amp;";
+      case '<': return markup ? null : "&lt;" ;
+      case '>': return markup ? null : "&gt;" ;
+      case '&': return markup ? null : "&amp;" ;
       case '"': return "&quot;";
       case '\'': return "&#39;";
       default:
@@ -200,9 +201,11 @@ public final class HTMLUtils {
    * @param s input String
    * @param mapBR whether to replace line ends with html breaks
    * @param encoding the encoding of the input string
+   * @param markup whether string is an sgml fragment
    * @return the input with appropriate substitutions
    */
-  public static String entitied(String s, boolean mapBR, String encoding) {
+  public static String entitied(String s, boolean mapBR, String encoding, boolean markup) {
+    System.err.println("encoding:" + encoding);
     int length = s.length();
     int i;
     String entity = null;
@@ -213,7 +216,7 @@ public final class HTMLUtils {
     }
 
     for (i = 0;
-         i < length && (entity = entityFor(s.charAt(i), mapBR, ce)) == null;
+         i < length && (entity = entityFor(s.charAt(i), mapBR, ce, markup)) == null;
          ++i);
 
     if (entity == null) return s;
@@ -227,7 +230,7 @@ public final class HTMLUtils {
     char c;
     for (++i; i < length; ++i) {
       c = s.charAt(i);
-      entity = entityFor(c, mapBR, ce);
+      entity = entityFor(c, mapBR, ce, markup);
       if (entity != null)
         b.append(entity);
       else
@@ -244,10 +247,10 @@ public final class HTMLUtils {
    *
    * @param s the String to replace special characters from
    * @return a new String with special characters replaced with entities
-   * @see #entitied(String, boolean, String)
+   * @see #entitied(String, boolean, String, boolean)
    */
   public static String entitied(String s) {
-    return entitied(s, true, null);
+    return entitied(s, true, null, false);
   }
 
   /**

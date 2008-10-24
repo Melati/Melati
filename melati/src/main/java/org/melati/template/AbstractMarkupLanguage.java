@@ -171,7 +171,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.Object)
    */
   public String rendered(Object o)
-      throws IOException {
+    throws IOException {
     MelatiStringWriter sw = getStringWriter();
     if (o instanceof String)
       render((String)o, sw);
@@ -182,6 +182,16 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     return sw.toString();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#renderedMarkup(java.lang.String)
+   */
+  public String renderedMarkup(String s)  
+      throws IOException {
+    MelatiStringWriter sw = getStringWriter();
+    renderMarkup(s, sw);
+    return sw.toString();    
+  }
 
   /**
    * Render a String in a MarkupLanguage specific way, limiting it's length.
@@ -206,6 +216,16 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    */
   protected abstract void render(String s, MelatiWriter writer) throws IOException;
+  
+  /**
+   * Render a markup fragment in a MarkupLanguage specific way
+   * to a supplied MelatiWriter.
+   *
+   * @param s - the fragment to be rendered
+   * @param writer - the MelatiWriter to render this String to
+   * @throws IOException - if there is a problem during rendering
+   */
+  protected abstract void renderMarkup(String s, MelatiWriter writer) throws IOException;
 
   /**
    * Render a Field Object in a MarkupLanguage specific way, 

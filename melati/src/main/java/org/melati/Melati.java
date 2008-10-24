@@ -599,21 +599,16 @@ public class Melati {
           HttpServletResponse.SC_BAD_REQUEST +
           ": \"" + acs + '"', e);
     }
-    // Only allow requests/responses which make sense to us
-    responseCharset = ac.serverChoice();
-    System.err.println("Melati.establishCharsets: " + responseCharset);
     if (request.getCharacterEncoding() == null) {
+      responseCharset = ac.clientChoice();
       try {
-        // I can't see when you would want to do this, 
-        //it certainly caused me a lot of pain
-        // by producing a db of mixed charsets.
-        //responseCharset = ac.clientChoice();
         request.setCharacterEncoding(responseCharset);
       }
       catch (UnsupportedEncodingException e) {
         throw new MelatiBugMelatiException("This should already have been checked by AcceptCharset", e);
       }
-      System.err.println("Melati.establishCharsets request: " + request.getCharacterEncoding());
+    } else {
+      responseCharset = ac.serverChoice();
     }
   }
 
@@ -633,7 +628,6 @@ public class Melati {
    * and a good response character set has been established based on
    * the request Accept-Charset header and server preferences, then this
    * and semicolon separator are automatically appended to the type.
-   * I am guessing that this makes sense.
    * <p>
    * Whether this function should be called at all may depend on
    * the application and templates.
@@ -649,8 +643,10 @@ public class Melati {
         && type.indexOf(";") == -1) {
       contentType += "; charset=" + responseCharset;
     }
-    if (response != null)
+    if (response != null) {
       response.setContentType(contentType);
+      System.err.println("Setting response:" + contentType);
+    }
   }
   protected String contentType = null;
   /**

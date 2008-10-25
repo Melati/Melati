@@ -181,20 +181,21 @@ public final class HTMLUtils {
       case '<' : return markup ? null : "&lt;" ;
       case '>' : return markup ? null : "&gt;" ;
       case '&' : return markup ? null : "&amp;" ;
-      case 224 : return markup ? null : "&agrave;" ;
       case 193 : return markup ? null : "&Aacute;" ;
       case 225 : return markup ? null : "&aacute;" ;
-      case 231 : return markup ? null : "&ccedil;" ;
-      case 232 : return markup ? null : "&egrave;" ;
-      case 249 : return markup ? null : "&ugrave;" ;
-      case 233 : return markup ? null : "&eacute;" ;
       case 226 : return markup ? null : "&acirc;" ;
+      case 224 : return markup ? null : "&agrave;" ;
+      case 228 : return markup ? null : "&auml;" ;
+      case 231 : return markup ? null : "&ccedil;" ;
+      case 201 : return markup ? null : "&Eacute;" ;
+      case 233 : return markup ? null : "&eacute;" ;
+      case 232 : return markup ? null : "&egrave;" ;
       case 234 : return markup ? null : "&ecirc;" ;
       case 238 : return markup ? null : "&icirc;" ;
       case 244 : return markup ? null : "&ocirc;" ;
       case 251 : return markup ? null : "&ucirc;" ;
-      case 228 : return markup ? null : "&auml;" ;
       case 252 : return markup ? null : "&uuml;" ;
+      case 249 : return markup ? null : "&ugrave;" ;
       case '"' : return "&quot;";
       case '\'': return "&#39;";
       default:

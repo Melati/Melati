@@ -178,10 +178,24 @@ public final class HTMLUtils {
   public static String entityFor(char c, boolean mapBR, CharsetEncoder ce, boolean markup) {
     switch (c) {
       case '\n': return mapBR ? "<BR>\n" : null;
-      case '<': return markup ? null : "&lt;" ;
-      case '>': return markup ? null : "&gt;" ;
-      case '&': return markup ? null : "&amp;" ;
-      case '"': return "&quot;";
+      case '<' : return markup ? null : "&lt;" ;
+      case '>' : return markup ? null : "&gt;" ;
+      case '&' : return markup ? null : "&amp;" ;
+      case 224 : return markup ? null : "&agrave;" ;
+      case 193 : return markup ? null : "&Aacute;" ;
+      case 225 : return markup ? null : "&aacute;" ;
+      case 231 : return markup ? null : "&ccedil;" ;
+      case 232 : return markup ? null : "&egrave;" ;
+      case 249 : return markup ? null : "&ugrave;" ;
+      case 233 : return markup ? null : "&eacute;" ;
+      case 226 : return markup ? null : "&acirc;" ;
+      case 234 : return markup ? null : "&ecirc;" ;
+      case 238 : return markup ? null : "&icirc;" ;
+      case 244 : return markup ? null : "&ocirc;" ;
+      case 251 : return markup ? null : "&ucirc;" ;
+      case 228 : return markup ? null : "&auml;" ;
+      case 252 : return markup ? null : "&uuml;" ;
+      case '"' : return "&quot;";
       case '\'': return "&#39;";
       default:
         if (ce == null || ce.canEncode(c)) {

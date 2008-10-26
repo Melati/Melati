@@ -177,27 +177,50 @@ public final class HTMLUtils {
    */
   public static String entityFor(char c, boolean mapBR, CharsetEncoder ce, boolean markup) {
     switch (c) {
-      case '\n': return mapBR ? "<BR>\n" : null;
+      case '\n': return mapBR && !markup ? "<BR>\n" : null;
       case '<' : return markup ? null : "&lt;" ;
       case '>' : return markup ? null : "&gt;" ;
       case '&' : return markup ? null : "&amp;" ;
-      case 193 : return markup ? null : "&Aacute;" ;
-      case 225 : return markup ? null : "&aacute;" ;
-      case 226 : return markup ? null : "&acirc;" ;
-      case 224 : return markup ? null : "&agrave;" ;
-      case 228 : return markup ? null : "&auml;" ;
-      case 231 : return markup ? null : "&ccedil;" ;
-      case 201 : return markup ? null : "&Eacute;" ;
-      case 233 : return markup ? null : "&eacute;" ;
-      case 232 : return markup ? null : "&egrave;" ;
-      case 234 : return markup ? null : "&ecirc;" ;
-      case 238 : return markup ? null : "&icirc;" ;
-      case 244 : return markup ? null : "&ocirc;" ;
-      case 251 : return markup ? null : "&ucirc;" ;
-      case 252 : return markup ? null : "&uuml;" ;
-      case 249 : return markup ? null : "&ugrave;" ;
-      case '"' : return "&quot;";
-      case '\'': return "&#39;";
+      // Unicode and ISO 8859-1
+
+      case 192 : return "&Agrave;" ;
+      case 193 : return "&Aacute;" ;
+      case 194 : return "&Acirc;" ;
+      case 199 : return "&Ccedil;" ;
+      case 200 : return "&Egrave;" ;
+      case 201 : return "&Eacute;" ;
+      case 202 : return "&Ecirc;" ;
+      case 204 : return "&Igrave;" ;
+      case 205 : return "&Iacute;" ;
+      case 206 : return "&Icirc;" ;
+      case 210 : return "&Ograve;" ;
+      case 211 : return "&Oacute;" ;
+      case 212 : return "&Ocirc;" ;
+      case 217 : return "&Ugrave;" ;
+      case 218 : return "&Uacute;" ;
+      case 219 : return "&Ucirc;" ;
+      case 224 : return "&agrave;" ;
+      case 225 : return "&aacute;" ;
+      case 226 : return "&acirc;" ;
+      case 228 : return "&auml;" ;
+      case 231 : return "&ccedil;" ;
+      case 232 : return "&egrave;" ;
+      case 233 : return "&eacute;" ;
+      case 234 : return "&ecirc;" ;
+      case 236 : return "&igrave;" ;
+      case 237 : return "&iacute;" ;
+      case 238 : return "&icirc;" ;
+      case 242 : return "&ograve;" ;
+      case 243 : return "&oacute;" ;
+      case 244 : return "&ocirc;" ;
+      case 249 : return "&ugrave;" ;
+      case 250 : return "&uacute;" ;
+      case 251 : return "&ucirc;" ;
+      case 252 : return "&uuml;" ;
+      
+      
+      case '"' : return markup ? null : "&quot;";
+      case '\'': return markup ? null : "&#39;";
       default:
         if (ce == null || ce.canEncode(c)) {
           return null;  
@@ -235,6 +258,7 @@ public final class HTMLUtils {
          ++i);
 
     if (entity == null) return s;
+    System.err.println("entitied:" + new Integer(s.charAt(i))+ "=" + entity);
 
     StringBuffer b = new StringBuffer(length * 2);
     for (int j = 0; j < i; ++j)
@@ -246,9 +270,10 @@ public final class HTMLUtils {
     for (++i; i < length; ++i) {
       c = s.charAt(i);
       entity = entityFor(c, mapBR, ce, markup);
-      if (entity != null)
+      if (entity != null) {
         b.append(entity);
-      else
+        System.err.println(new Integer(c) + "=" + entity);
+      } else
         b.append(c);
     }
     return b.toString();

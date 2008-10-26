@@ -89,7 +89,7 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
    * @see org.melati.template.AbstractMarkupLanguage#renderMarkup(java.lang.String, org.melati.util.MelatiWriter)
    */
   public void renderMarkup(String s, MelatiWriter writer) throws IOException { 
-    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding(), true));    
+    writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), true));    
   }
 
   /**

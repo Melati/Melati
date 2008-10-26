@@ -163,18 +163,6 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   }
 
   /**
-   * {@inheritDoc}
-   * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
-   */
-  public String expandedTemplate(org.melati.template.Template template,  
-                                 TemplateContext templateContext)
-      throws IOException {
-      MelatiStringWriter s = new MelatiWebmacroStringWriter();
-      expandTemplate(s, template, templateContext);
-      return s.toString();
-  }
-
-  /**
    * Expand the Template against the context.
    *
    * @param out             a {@link MelatiWriter} to output on
@@ -199,6 +187,18 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
       }
       throw problem;
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
+   */
+  public String expandedTemplate(org.melati.template.Template template,  
+                                 TemplateContext templateContext)
+      throws IOException {
+      MelatiStringWriter s = new MelatiWebmacroStringWriter();
+      expandTemplate(s, template, templateContext);
+      return s.toString();
   }
 
   /** 

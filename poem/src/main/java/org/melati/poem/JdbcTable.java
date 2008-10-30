@@ -855,7 +855,9 @@ public class JdbcTable implements Selectable, Table {
     try {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
+        System.err.println("here1");
         ResultSet rs = select.executeQuery();
+        System.err.println("here");
         if (database.logSQL())
           database.log(new SQLLogEvent(select.toString()));
         database.incrementQueryCount(select.toString());
@@ -880,7 +882,7 @@ public class JdbcTable implements Selectable, Table {
       }
     }
     catch (SQLException e) {
-      throw new SimpleRetrievalFailedPoemException(e);
+      throw new SimpleRetrievalFailedPoemException(e, select.toString());
     }
     catch (ValidationPoemException e) {
       throw new UnexpectedValidationPoemException(e);
@@ -1166,7 +1168,7 @@ public class JdbcTable implements Selectable, Table {
 
   /**
    * The from clause has been added as an argument because it is
-   * inextricably linked to the when clause, but the default is 
+   * inextricably linked to the where clause, but the default is 
    * {@link #quotedName()}.
    *
    * It is the programmer's responsibility to ensure that the where clause 

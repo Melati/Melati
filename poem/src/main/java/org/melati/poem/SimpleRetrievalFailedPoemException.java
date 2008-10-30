@@ -48,7 +48,7 @@ package org.melati.poem;
  /**
   * Thrown when there is a problem loading a {@link Table}.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC AT paneris.org
   */
 public class SimpleRetrievalFailedPoemException
     extends SQLSeriousPoemException {
@@ -57,5 +57,9 @@ public class SimpleRetrievalFailedPoemException
   /** Constructor. */
   public SimpleRetrievalFailedPoemException(java.sql.SQLException e) {
     super(e);
+  }
+  /** Constructor. */
+  public SimpleRetrievalFailedPoemException(java.sql.SQLException e, String message) {
+    super(e, message);
   }
 }

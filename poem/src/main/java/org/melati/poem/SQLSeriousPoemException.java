@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -86,7 +86,7 @@ public class SQLSeriousPoemException extends SeriousPoemException {
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {
-    return
+    return (sql == null ? "" : "Executing: " + sql) + 
         "An error was reported by the SQL driver:\n" +
         subException.getMessage();
   }

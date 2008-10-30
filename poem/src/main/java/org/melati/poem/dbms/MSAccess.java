@@ -77,8 +77,8 @@ public class MSAccess extends AnsiStandard {
   /** Constructor. */
   public MSAccess() {
     //  does not work as it does not implement getColumns !!
-    // setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
-    setDriverClassName("easysoft.sql.jobDriver"); 
+     setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
+    //setDriverClassName("easysoft.sql.jobDriver"); 
   }
 
   /**
@@ -271,7 +271,8 @@ public class MSAccess extends AnsiStandard {
      * }
      * </pre>
      */
-    if (md.getString("TYPE_NAME").equals("text"))
+    String typeName = md.getString("TYPE_NAME");
+    if (typeName.equals("text"))
       return new MSAccessStringPoemType(
                                      md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                                      md.getInt("COLUMN_SIZE"));
@@ -287,17 +288,17 @@ public class MSAccess extends AnsiStandard {
                                 md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                                 md.getInt("COLUMN_SIZE"));
 */                               
-    if (md.getString("TYPE_NAME").equals("BINARY"))
+    if (typeName.equals("BINARY"))
       return new BinaryPoemType(
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                    md.getInt("COLUMN_SIZE"));
-    if (md.getString("TYPE_NAME").equals("INT"))
+    if (typeName.equals("INT"))
       return new LongPoemType(
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    if (md.getString("TYPE_NAME").equals("SMALLINT"))
+    if (typeName.equals("SMALLINT"))
       return new IntegerPoemType(
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    if (md.getString("TYPE_NAME").equals("bit"))
+    if (typeName.equals("bit"))
       return new SQLServerBooleanPoemType(
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);

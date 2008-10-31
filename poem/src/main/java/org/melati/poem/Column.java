@@ -246,13 +246,13 @@ public abstract class Column implements FieldAttributes {
     }
   }
 
-  void unifyWithIndex(ResultSet index) throws SQLException, 
+  void unifyWithIndex(String indexName, ResultSet index) throws SQLException, 
                               IndexUniquenessPoemException {
     boolean indexUnique = !index.getBoolean("NON_UNIQUE");
     if (indexUnique != getUnique()) 
         throw new IndexUniquenessPoemException(
           this,
-          index.getString("INDEX_NAME"),
+          indexName,
           getUnique());
   }
 

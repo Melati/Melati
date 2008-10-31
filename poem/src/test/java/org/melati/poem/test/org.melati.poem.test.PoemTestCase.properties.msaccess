@@ -1,8 +1,8 @@
 
 org.melati.poem.test.PoemTestCase.everything.class=org.melati.poem.test.EverythingDatabase
 org.melati.poem.test.PoemTestCase.everything.dbmsclass=org.melati.poem.dbms.MSAccess
-org.melati.poem.test.PoemTestCase.everything.url=jdbc:easysoft:everything
-org.melati.poem.test.PoemTestCase.everything.user=
+org.melati.poem.test.PoemTestCase.everything.url=jdbc:odbc:everything
+org.melati.poem.test.PoemTestCase.everything.user=sa
 org.melati.poem.test.PoemTestCase.everything.password=
 org.melati.poem.test.PoemTestCase.everything.maxtransactions=4
 org.melati.poem.test.PoemTestCase.everything.addconstraints=false
@@ -11,11 +11,10 @@ org.melati.poem.test.PoemTestCase.everything.logcommits=true
 
 org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase
 org.melati.poem.test.PoemTestCase.melatijunit.dbmsclass=org.melati.poem.dbms.MSAccess
-org.melati.poem.test.PoemTestCase.melatijunit.url=jdbc:easysoft:melatijunit
-org.melati.poem.test.PoemTestCase.melatijunit.user=
+org.melati.poem.test.PoemTestCase.melatijunit.url=jdbc:odbc:melatijunit
+org.melati.poem.test.PoemTestCase.melatijunit.user=sa
 org.melati.poem.test.PoemTestCase.melatijunit.password=
 org.melati.poem.test.PoemTestCase.melatijunit.maxtransactions=4
-# Looks like there is a problem here
 org.melati.poem.test.PoemTestCase.melatijunit.addconstraints=false
 org.melati.poem.test.PoemTestCase.melatijunit.logsql=false
 org.melati.poem.test.PoemTestCase.melatijunit.logcommits=false

@@ -8,7 +8,6 @@ import java.util.Enumeration;
 import org.melati.poem.AccessToken;
 import org.melati.poem.CachedCount;
 import org.melati.poem.Capability;
-import org.melati.poem.DeletePersistentAccessPoemException;
 import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.Group;

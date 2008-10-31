@@ -313,13 +313,13 @@ public final class PoemDatabaseFactory {
             // we do want to be removed.
             e = null;
           }
-          System.err.println("\n*** PoemShutdownThread starting to shutdown dbs. ***\n");
+          System.err.println("*** PoemShutdownThread starting to shutdown dbs. ***");
           disconnectFromDatabases();
-          System.err.println("\n*** PoemShutdownThread has shutdown dbs. ***\n");
+          System.err.println("*** PoemShutdownThread has shutdown dbs. ***");
         } else 
-          System.err.println("\n*** PoemShutdownThread has already run. ***\n");
+          System.err.println("*** PoemShutdownThread has already run. ***");
       }
-     }
+    }
   }
   /**
    * @return the poemShutdownThread

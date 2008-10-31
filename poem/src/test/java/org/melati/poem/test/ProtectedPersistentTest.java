@@ -231,7 +231,7 @@ public class ProtectedPersistentTest extends PersistentTest {
     inOfficeWorkersMoneyPenny.setGroup(officeWorkers);
     inOfficeWorkersMoneyPenny.setUser(moneypenny);
     inOfficeWorkersMoneyPenny.makePersistent();
-    GroupCapability officeWorkersMonitor = db.getGroupCapabilityTable().ensure(officeWorkers, monitor);
+    //GroupCapability officeWorkersMonitor = db.getGroupCapabilityTable().ensure(officeWorkers, monitor);
     
     Group spyMasters = db.getGroupTable().ensure("spyMasters");
     GroupMembership inSpyMastersSmiley = (GroupMembership)db.getGroupMembershipTable().newPersistent();
@@ -239,10 +239,8 @@ public class ProtectedPersistentTest extends PersistentTest {
     inSpyMastersSmiley.setUser(smiley);
     inSpyMastersSmiley.makePersistent();
     
-    GroupCapability spyMastersCommission = 
-      db.getGroupCapabilityTable().ensure(spyMasters, commission);
-    GroupCapability spyMastersMonitor = 
-      db.getGroupCapabilityTable().ensure(spyMasters, monitor);
+    db.getGroupCapabilityTable().ensure(spyMasters, commission);
+    db.getGroupCapabilityTable().ensure(spyMasters, monitor);
     
     PoemThread.setAccessToken(smiley);
     spyMission.assertCanRead();

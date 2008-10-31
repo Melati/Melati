@@ -51,6 +51,14 @@ public class MSAccessTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.MSAccess");
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.test.DbmsSpec#testCanDropColumns()
+   */
+  public void testCanDropColumns() throws Exception {
+    assertFalse(it.canDropColumns());
+  }
+
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getStringSqlDefinition(java.lang.String)}.
@@ -207,6 +215,23 @@ public class MSAccessTest extends DbmsSpec {
   public void testSelectLimit() {
     assertEquals("SELECT TOP 1 * FROM \"USER\"", it.selectLimit("* FROM \"USER\"", 1));
   }
+
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, 
+   *                         java.lang.String, java.lang.String, 
+   *                         java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD FOREIGN KEY (\"MELATI_USER\") REFERENCES \"MELATI_USER\"(\"id\") ON DELETE RESTRICT",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "prevent"));
+    assertEquals(" ADD FOREIGN KEY (\"MELATI_USER\") REFERENCES \"MELATI_USER\"(\"id\") ON DELETE SET NULL",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "clear"));
+    assertEquals(" ADD FOREIGN KEY (\"MELATI_USER\") REFERENCES \"MELATI_USER\"(\"id\") ON DELETE CASCADE",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
+
 
   
 }

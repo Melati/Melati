@@ -39,7 +39,7 @@ public abstract class DbmsSpec extends PoemTestCase {
    * @see junit.framework.TestCase#setUp()
    */
   protected void setUp() throws Exception {
-    super.setUp();
+    //super.setUp();
     setObjectUnderTest();
   }
 
@@ -48,7 +48,7 @@ public abstract class DbmsSpec extends PoemTestCase {
    * @see junit.framework.TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    super.tearDown();
+    //super.tearDown();
     it.unloadDriver();
   }
 
@@ -127,7 +127,8 @@ public abstract class DbmsSpec extends PoemTestCase {
    * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
    */
   public void testCreateTableSql() {
-    assertEquals("CREATE TABLE \"user\" (\"id\" INT NOT NULL, \"name\" VARCHAR(60) NOT NULL, \"login\" VARCHAR(255) NOT NULL, \"password\" VARCHAR(20) NOT NULL)", it.createTableSql(getDb().getUserTable()));
+    if (getDb().getDbms() == it)
+      assertEquals("CREATE TABLE \"MELATI_USER\" (\"id\" INT NOT NULL, \"name\" VARCHAR(60) NOT NULL, \"login\" VARCHAR(255) NOT NULL, \"password\" VARCHAR(20) NOT NULL)", it.createTableSql(getDb().getUserTable()));
   }
 
   /**

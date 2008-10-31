@@ -689,7 +689,7 @@ public class DynamicTableTest extends EverythingTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void gtestAddColumnAndCommitBigDecimal() {
+  public void testAddColumnAndCommitBigDecimal() {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }

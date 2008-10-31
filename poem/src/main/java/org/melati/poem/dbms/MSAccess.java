@@ -127,7 +127,7 @@ public class MSAccess extends AnsiStandard {
    */
   public String melatiName(String name) {
     if (name == null) return name;
-    if (name != null && name.startsWith("~"))
+    if (name.startsWith("~"))
       return null;
     if(name.equalsIgnoreCase("MELATI_GROUP")) name = "group";
     if(name.equalsIgnoreCase("MELATI_USER")) name = "user";

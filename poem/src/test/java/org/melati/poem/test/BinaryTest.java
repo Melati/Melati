@@ -53,16 +53,18 @@ package org.melati.poem.test;
  */
 public class BinaryTest extends EverythingTestCase {
 
-  
   /**
    * Constructor for BinaryTest.
+   * 
    * @param arg0
    */
   public BinaryTest(String arg0) {
     super(arg0);
   }
+
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.test.EverythingTestCase#setUp()
    */
   protected void setUp() throws Exception {
@@ -71,6 +73,7 @@ public class BinaryTest extends EverythingTestCase {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.test.EverythingTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
@@ -78,18 +81,20 @@ public class BinaryTest extends EverythingTestCase {
   }
 
   /**
-   * Test create. 
+   * Test create.
    */
   public void testCreate() {
-    BinaryField aThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().firstSelection(null);
-    System.out.println(
-               aThing == null ?
-                  "Nothing in there" :
-                  "Found " + new String(aThing.getBinaryfield()));
+    if (getDb().getDbms().canStoreBlobs()) {
+      BinaryField aThing = (BinaryField)((EverythingDatabase)getDb())
+              .getBinaryFieldTable().firstSelection(null);
+      System.out.println(aThing == null ? "Nothing in there" : "Found "
+              + new String(aThing.getBinaryfield()));
 
-    BinaryField bThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().newPersistent();
-    bThing.setBinaryfield(new byte[] { 98, -3, -120 });
-    bThing.makePersistent();
-    bThing.delete();
+      BinaryField bThing = (BinaryField)((EverythingDatabase)getDb())
+              .getBinaryFieldTable().newPersistent();
+      bThing.setBinaryfield(new byte[] { 98, -3, -120 });
+      bThing.makePersistent();
+      bThing.delete();
+    }
   }
 }

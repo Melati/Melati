@@ -53,16 +53,6 @@ public class ProtectedPersistentTest extends PersistentTest {
   }
 
   protected void databaseUnchanged() { 
-    //spy.delete();
-    //smiley.delete();
-    //moneypenny.delete();
-    //commission.delete();
-    //monitor.delete();
-    //officeWorkers.delete();
-    //spyMasters.delete();
-    //officeWorkersMonitor.delete();
-    //spyMastersCommission.delete();
-    //spyMastersMonitor.delete();
     deleteUser("moneypenny");
     deleteUser("smiley");
     deleteUser("bond");
@@ -75,9 +65,12 @@ public class ProtectedPersistentTest extends PersistentTest {
   } 
   private void deleteCapability(String name) {
     Capability c = (Capability)getDb().getCapabilityTable().getNameColumn().firstWhereEq(name);
+    
     if (c != null) { 
       System.err.println("Cleaning up: " + c);      
       c.delete();      
+    } else { 
+      System.err.println("Nothing to clean up");            
     }
   }
 
@@ -86,7 +79,8 @@ public class ProtectedPersistentTest extends PersistentTest {
     if (u != null) { 
       System.err.println("Cleaning up: " + u);      
       u.delete();
-    }
+    } else 
+      System.err.println("Nothing to clean up");      
   }
   private void deleteGroup(String group) {
     Group g = (Group)getDb().getGroupTable().getNameColumn().firstWhereEq(group);
@@ -118,13 +112,36 @@ public class ProtectedPersistentTest extends PersistentTest {
     
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PersistentTest#testDelete()
+   */
+  public void testDelete() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
+    super.testDelete();
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PersistentTest#testDeleteAndCommit()
+   */
+  public void testDeleteAndCommit() {
+    if (!getDb().getDbms().canDropColumns()) {
+      return;
+    }
+    super.testDeleteAndCommit();
+  }
+
   /**
    * @see org.melati.poem.Persistent#assertCanRead(AccessToken)
    */
   public void testAssertCanReadAccessToken() {
     Persistent admin = getDb().getUserTable().administratorUser();
     AccessToken guest  = getDb().getUserTable().guestUser();
-    admin.assertCanRead(guest);
+    if (admin.getTable().getTableInfo().getDefaultcanread() == null) // May be set from previous run
+      admin.assertCanRead(guest);
     admin.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
     try {
       admin.assertCanRead(guest);
@@ -223,8 +240,10 @@ public class ProtectedPersistentTest extends PersistentTest {
     inSpyMastersSmiley.setUser(smiley);
     inSpyMastersSmiley.makePersistent();
     
-    GroupCapability spyMastersCommission = db.getGroupCapabilityTable().ensure(spyMasters, commission);
-    GroupCapability spyMastersMonitor = db.getGroupCapabilityTable().ensure(spyMasters, monitor);
+    GroupCapability spyMastersCommission = 
+      db.getGroupCapabilityTable().ensure(spyMasters, commission);
+    GroupCapability spyMastersMonitor = 
+      db.getGroupCapabilityTable().ensure(spyMasters, monitor);
     
     PoemThread.setAccessToken(smiley);
     spyMission.assertCanRead();
@@ -232,23 +251,11 @@ public class ProtectedPersistentTest extends PersistentTest {
     CachedCount cached = db.getProtectedTable().
       cachedCount(query,false,true); 
     assertEquals(1, cached.count());
-
+    
     spyMission.delete();
-    // FIXME To stop eclipse warning me
-    try {
-      spy.delete();
-      smiley.delete();
-      moneypenny.delete();
-      commission.delete();
-      monitor.delete();
-      officeWorkers.delete();
-      spyMasters.delete();
-      officeWorkersMonitor.delete();
-      spyMastersCommission.delete();
-      spyMastersMonitor.delete();
-    } catch (DeletePersistentAccessPoemException e) { 
-      e = null;
-    }
+
+    
+    // Deletion performed above
   }
   
   private User ensureUser(String name) {

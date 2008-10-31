@@ -855,9 +855,7 @@ public class JdbcTable implements Selectable, Table {
     try {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
-        System.err.println("here1");
         ResultSet rs = select.executeQuery();
-        System.err.println("here");
         if (database.logSQL())
           database.log(new SQLLogEvent(select.toString()));
         database.incrementQueryCount(select.toString());

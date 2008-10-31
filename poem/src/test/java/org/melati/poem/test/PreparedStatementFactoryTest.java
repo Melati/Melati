@@ -6,7 +6,9 @@ package org.melati.poem.test;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.melati.poem.Database;
 import org.melati.poem.PreparedStatementFactory;
+import org.melati.poem.UserTable;
 
 /**
  * @author timp
@@ -63,12 +65,21 @@ public class PreparedStatementFactoryTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.PreparedStatementFactory#preparedStatement()}.
    */
   public void testPreparedStatement() throws Exception {
-    PreparedStatementFactory it = new PreparedStatementFactory(getDb(),
-        getDb().getUserTable().selectionSQL(null,null,null,true,false));
-    //System.err.println(it.toString());
-    assertTrue(it.toString().endsWith("(SQL: SELECT " + getDb().getDbms().getQuotedName("user") + "." + 
-        getDb().getDbms().getQuotedName("id") + " FROM " + getDb().getDbms().getQuotedName("user") + 
-        " ORDER BY " + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("name") + ")"));
+    Database db = getDb();
+    UserTable ut = db.getUserTable();
+    String q = ut.selectionSQL(null,null,null,true,false);
+    String expected = 
+      "SELECT " + db.getDbms().getQuotedName("user") + "." + 
+      getDb().getDbms().getQuotedName("id") + 
+      " FROM " +db.getDbms().getQuotedName("user") + 
+      " ORDER BY " + getDb().getDbms().getQuotedName("user") + "." +db.getDbms().getQuotedName("name");
+      
+    assertEquals(expected, q);
+    PreparedStatementFactory it = new PreparedStatementFactory(db,
+        expected);
+    String sql = it.toString().substring(it.toString().indexOf('(') +6, it.toString().indexOf(')'));
+    assertEquals(expected, sql);
+    
     PreparedStatement ps = it.preparedStatement();
     ResultSet rs = ps.executeQuery();
     rs.next();

@@ -153,6 +153,14 @@ public class AnsiStandard implements Dbms {
     return true;
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#canStoreBlobs()
+   */
+  public boolean canStoreBlobs(){
+    return true;
+  }
+
   protected synchronized void loadDriver() {
     Class driverClass;
     try {

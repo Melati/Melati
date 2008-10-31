@@ -232,9 +232,15 @@ public interface Dbms {
    * Whether this DBMS can drop columns.
    * 
    * @return true if we can
-   * @throws SQLException
    */
   boolean canDropColumns(); 
+  
+  /**
+   * Whether this DBMS can store binary data.
+   * 
+   * @return true if we can
+   */
+  boolean canStoreBlobs();
 
   /**
    * An exception appropriate for expressing what really went wrong

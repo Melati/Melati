@@ -138,6 +138,7 @@ table $table.DsdName
     //$column 
 #end
     $column.getType().toDsdType() $column.getName()
+
 #if ($column.isTroidColumn()) #begin
       (primary)
 #end

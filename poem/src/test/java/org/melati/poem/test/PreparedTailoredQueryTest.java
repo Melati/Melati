@@ -129,8 +129,8 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
         Enumeration en = ptq2.selection();
-        assertEquals(2, EnumUtils.vectorOf(en).size());
         try {
+        assertEquals(2, EnumUtils.vectorOf(en).size());
           en = ptq2.selection();
           while (en.hasMoreElements()) {
             FieldSet tuple = (FieldSet)en.nextElement();

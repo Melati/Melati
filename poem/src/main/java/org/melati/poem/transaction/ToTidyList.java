@@ -50,6 +50,7 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
@@ -71,8 +72,15 @@ public class ToTidyList {
 
   private static void tidy(Object o) {
     try {
-      if (o instanceof ResultSet)
-        ((ResultSet)o).close();
+      if (o instanceof ResultSet) 
+        try { 
+          ((ResultSet)o).close();
+        } catch (SQLException e) {
+          // HACK MSAccess not playing nice
+          if (!e.getMessage().equals("ResultSet is closed"))
+            throw e;
+        }
+          
       else if (o instanceof Statement)
         ((Statement)o).close();
       else if (o instanceof Reader)

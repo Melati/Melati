@@ -42,6 +42,7 @@
  *
  */
 package org.melati.poem.dbms;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,9 +77,46 @@ public class MSAccess extends AnsiStandard {
 
   /** Constructor. */
   public MSAccess() {
-    //  does not work as it does not implement getColumns !!
-     setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
+    // Appears to work 
+     setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver");
+    // Worked once or twice
+    // Need new licence keys all the time
     //setDriverClassName("easysoft.sql.jobDriver"); 
+  }
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns()
+   */
+  public boolean canDropColumns() {
+    return false;
+  }
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#canStoreBlobs()
+   */
+  public boolean canStoreBlobs(){
+    return false;
+  }
+
+
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#shutdown(java.sql.Connection)
+   */
+  public void shutdown(Connection connection) throws SQLException {
+    // FIXME Something wrong here
+    connection.commit();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
+   */
+  public String unreservedName(String name) {
+    if(name.equalsIgnoreCase("GROUP")) name = "MELATI_" + name.toUpperCase();
+    if(name.equalsIgnoreCase("USER")) name = "MELATI_" + name.toUpperCase();
+    return name;
   }
 
   /**
@@ -88,18 +126,14 @@ public class MSAccess extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
+    if (name == null) return name;
     if (name != null && name.startsWith("~"))
       return null;
+    if(name.equalsIgnoreCase("MELATI_GROUP")) name = "group";
+    if(name.equalsIgnoreCase("MELATI_USER")) name = "user";
     return name;
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
-   */
-  public String unreservedName(String name) {
-    return name;
-  }
+
 
   /**
    * {@inheritDoc}

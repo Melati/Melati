@@ -66,24 +66,27 @@ public class UserTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.User#getPassword()}.
    */
   public void testGetPassword() {
-    assertEquals("guest",getDb().guestUser().getPassword());
-    User tester = (User)getDb().getUserTable().newPersistent();
-    tester.setName("tester");
-    tester.setLogin("tester");
-    tester.setPassword("pwd");
-    tester.makePersistent();
-    assertEquals("pwd",tester.getPassword());
-    
-    PoemThread.setAccessToken(getDb().guestUser());
-    assertEquals("guest",getDb().guestUser().getPassword());
-    try {
+    // Hsqldb memory database is the only one which finnesses the tidy up issue  
+    if (getDb().getDbms().toString().equals("org.melati.poem.dbms.Hsqldb")) { 
+      assertEquals("guest",getDb().guestUser().getPassword());
+      User tester = (User)getDb().getUserTable().newPersistent();
+      tester.setName("tester");
+      tester.setLogin("tester");
+      tester.setPassword("pwd");
+      tester.makePersistent();
       assertEquals("pwd",tester.getPassword());
-      fail("should have blown up");
-    } catch (ReadPasswordAccessPoemException e) {
-      e = null;
+    
+      PoemThread.setAccessToken(getDb().guestUser());
+      assertEquals("guest",getDb().guestUser().getPassword());
+      try {
+        assertEquals("pwd",tester.getPassword());
+        fail("should have blown up");
+      } catch (ReadPasswordAccessPoemException e) {
+        e = null;
+      }
+      assertFalse(tester.isGuest());
+      assertFalse(tester.isAdministrator());
     }
-    assertFalse(tester.isGuest());
-    assertFalse(tester.isAdministrator());
   }
 
   /**
@@ -91,25 +94,28 @@ public class UserTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.User#setPassword(java.lang.String)}.
    */
   public void testSetPassword() {
-    assertEquals("guest",getDb().guestUser().getPassword());
-    getDb().guestUser().setPassword("fred");
-    assertEquals("fred",getDb().guestUser().getPassword());
-    getDb().guestUser().setPassword("guest");
-    assertEquals("guest",getDb().guestUser().getPassword());
-    User tester = (User)getDb().getUserTable().newPersistent();
-    tester.setName("tester");
-    tester.setLogin("tester");
-    tester.setPassword("pwd");
-    tester.makePersistent();
-    assertEquals("pwd",tester.getPassword());
+    // Hsqldb memory database is the only one which finnesses the tidy up issue  
+    if (getDb().getDbms().toString().equals("org.melati.poem.dbms.Hsqldb")) { 
+      assertEquals("guest",getDb().guestUser().getPassword());
+      getDb().guestUser().setPassword("fred");
+      assertEquals("fred",getDb().guestUser().getPassword());
+      getDb().guestUser().setPassword("guest");
+      assertEquals("guest",getDb().guestUser().getPassword());
+      User tester = (User)getDb().getUserTable().newPersistent();
+      tester.setName("tester");
+      tester.setLogin("tester");
+      tester.setPassword("pwd");
+      tester.makePersistent();
+      assertEquals("pwd",tester.getPassword());
 
-    PoemThread.setAccessToken(tester);
-    assertEquals("pwd",tester.getPassword());
-    try {
-      tester.setPassword("new");
-      fail("should have blown up");
-    } catch (WritePersistentAccessPoemException e) {
-      e = null;
+      PoemThread.setAccessToken(tester);
+      assertEquals("pwd",tester.getPassword());
+      try {
+        tester.setPassword("new");
+        fail("should have blown up");
+      } catch (WritePersistentAccessPoemException e) {
+        e = null;
+      }
     }
   }
   /**
@@ -117,19 +123,22 @@ public class UserTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.User#setPassword(java.lang.String)}.
    */
   public void testSetPassword2() {
-    User tester = (User)getDb().getUserTable().newPersistent();
-    tester.setName("tester");
-    tester.setLogin("tester");
-    tester.setPassword("pwd");
-    tester.makePersistent();
-    assertEquals("pwd",tester.getPassword());
+    // Hsqldb memory database is the only one which finnesses the tidy up issue  
+    if (getDb().getDbms().toString().equals("org.melati.poem.dbms.Hsqldb")) { 
+      User tester = (User)getDb().getUserTable().newPersistent();
+      tester.setName("tester");
+      tester.setLogin("tester");
+      tester.setPassword("pwd");
+      tester.makePersistent();
+      assertEquals("pwd",tester.getPassword());
 
-    PoemThread.setAccessToken(getDb().guestAccessToken());
-    try {
-      tester.setPassword("new");
-      fail("should have blown up");
-    } catch (WriteFieldAccessPoemException e) {
-      e = null;
+      PoemThread.setAccessToken(getDb().guestAccessToken());
+      try {
+        tester.setPassword("new");
+        fail("should have blown up");
+      } catch (WriteFieldAccessPoemException e) {
+        e = null;
+      }
     }
   }
 

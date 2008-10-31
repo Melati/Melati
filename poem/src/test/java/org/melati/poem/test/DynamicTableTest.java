@@ -57,7 +57,9 @@ public class DynamicTableTest extends EverythingTestCase {
   protected void tearDown() throws Exception {
     // Do not do super or we will create a db again
     // super.tearDown();
-    checkDbUnchanged();
+    if (getDb().getDbms().canDropColumns()) {
+      checkDbUnchanged();
+    }
   }
 
   protected void databaseUnchanged() {

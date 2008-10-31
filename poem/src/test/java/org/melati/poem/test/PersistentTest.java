@@ -585,16 +585,16 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#delete()
    */
   public void testDelete() {
-    Persistent p = getDb().getGroupTable().newPersistent();
+    Persistent p = getDb().getCapabilityTable().newPersistent();
     try {
       p.delete();
       fail("Should have bombed");
     } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
       e = null;
     }
-    p.setCooked("name","testGroup");
+    p.setCooked("name","testCapability");
     p.makePersistent();
-    assertEquals("testGroup", p.getCooked("name"));
+    assertEquals("testCapability", p.getCooked("name"));
     p.delete();
     try { 
       p.delete();

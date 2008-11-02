@@ -2776,13 +2776,13 @@ public class JdbcTable implements Selectable, Table {
               String expectedIndex = indexName(column).toUpperCase(); 
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-                column.unifyWithIndex(index);
+                column.unifyWithIndex(mdIndexName,index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);                  
                 if(debug)System.err.println("Found Expected Index:" + 
                         expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               } else {
                 try { 
-                  column.unifyWithIndex(index);
+                  column.unifyWithIndex(mdIndexName,index);
                   dbHasIndexForColumn.put(column, Boolean.TRUE);                  
                   if(debug) System.err.println("Not creating index because one exists with different name:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);

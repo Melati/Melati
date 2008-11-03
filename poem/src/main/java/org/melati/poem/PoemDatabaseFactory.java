@@ -238,7 +238,7 @@ public final class PoemDatabaseFactory {
    */
   public static void disconnectDatabase(String name) {
     Database db = (Database)databases.get(name);
-    if(db != null) {
+    if(db != null && db.getCommittedConnection() != null) {
       db.disconnect();
       databases.remove(name);
     } 

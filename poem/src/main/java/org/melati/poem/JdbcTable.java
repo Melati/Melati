@@ -175,7 +175,7 @@ public class JdbcTable implements Selectable, Table {
     return database;
   }
 
-  /**
+  /** 
    * The table's programmatic name.  Identical with its name in the DSD (if the
    * table was defined there) and in its <TT>tableinfo</TT> entry.
    * This will normally be the same as the name in the RDBMS itself, however that name 
@@ -442,7 +442,7 @@ public class JdbcTable implements Selectable, Table {
         getDatabase().getColumnInfoTable().troidSelection(
             database.quotedName("tableinfo") + " = " + tableInfoID() + 
               " AND (" + whereClause + ")",
-            null, false, null);
+            null, false, PoemThread.inSession() ? PoemThread.transaction() : null);
 
     Vector them = new Vector();
     while (colIDs.hasMoreElements()) {
@@ -1214,15 +1214,12 @@ public class JdbcTable implements Selectable, Table {
     String sql = selectionSQL(fromClause, whereClause, orderByClause,
                               includeDeleted, excludeUnselectable);
 
-    if (transaction == null) {
-      transaction = PoemThread.transaction();
-    }
 
     try {
       Connection connection;
-      if (transaction == null)  // Cannot devise a test for this
+      if (transaction == null) {
         connection = getDatabase().getCommittedConnection();
-      else {
+      } else {
         transaction.writeDown();
         connection = transaction.getConnection();
       }
@@ -1482,7 +1479,7 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @return an enumeration of objects given an enumeration of troids.
    */
-  private Enumeration objectsFromTroids(Enumeration troids) {
+  public Enumeration objectsFromTroids(Enumeration troids) {
     return new MappedEnumeration(troids) {
         public Object mapped(Object troid) {
           return getObject((Integer)troid);
@@ -1944,7 +1941,6 @@ public class JdbcTable implements Selectable, Table {
    * state will also be modified.
    *
    * @exception InitialisationPoemException The object failed validation
-   *   (currently one of its field values failed).
    */
   public void create(Persistent p)
       throws AccessPoemException, ValidationPoemException,
@@ -2701,7 +2697,7 @@ public class JdbcTable implements Selectable, Table {
 
             column = new ExtraColumn(this, 
                                      dbms().melatiName(
-                                        colDescs.getString("COLUMN_NAME")),
+                                             colName),
                                      colType, DefinitionSource.sqlMetaData,
                                      extrasIndex++);
 
@@ -2776,13 +2772,13 @@ public class JdbcTable implements Selectable, Table {
               String expectedIndex = indexName(column).toUpperCase(); 
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-                column.unifyWithIndex(mdIndexName,index);
+                column.unifyWithIndex(mdIndexName, index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);                  
                 if(debug)System.err.println("Found Expected Index:" + 
                         expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               } else {
                 try { 
-                  column.unifyWithIndex(mdIndexName,index);
+                  column.unifyWithIndex(mdIndexName, index);
                   dbHasIndexForColumn.put(column, Boolean.TRUE);                  
                   if(debug) System.err.println("Not creating index because one exists with different name:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);

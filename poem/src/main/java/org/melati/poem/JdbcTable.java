@@ -1276,7 +1276,8 @@ public class JdbcTable implements Selectable, Table {
   }
 
   /**
-   * Return an enumeration of troids given a result set.
+   * Return an enumeration of troids given 
+   * a result set where the first column is an int. 
    */
   private Enumeration troidsFrom(ResultSet them) {
     return new ResultSetEnumeration(them) {

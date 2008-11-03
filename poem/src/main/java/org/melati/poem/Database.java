@@ -879,19 +879,29 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
+   * All the tables in the database in DisplayOrder
+   * order, using current transaction if there is one.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Table</TT>s
+   */
+  public Enumeration getDisplayTables() {
+    return getDisplayTables(PoemThread.inSession() ? PoemThread.transaction() : null);
+  }
+  
+  /**
    * Currently all the tables in the database in DisplayOrder
    * order.
    *
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s
    */
-  public Enumeration getDisplayTables() {
+  public Enumeration getDisplayTables(PoemTransaction transaction) {
     Table[] displayTablesL = this.displayTables;
 
     if (displayTablesL == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
         (String)null /* "displayable" */,
         quotedName("displayorder") + ", " + quotedName("name"),
-        false, null);
+        false, transaction);
 
       Vector them = new Vector();
       while (tableIDs.hasMoreElements()) {

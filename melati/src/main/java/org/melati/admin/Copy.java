@@ -48,20 +48,12 @@ import java.util.Enumeration;
 import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.PoemContext;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.AccessToken;
-import org.melati.poem.Column;
+import org.melati.poem.Database;
 import org.melati.poem.Field;
-import org.melati.poem.Initialiser;
-import org.melati.poem.JdbcTable;
-import org.melati.poem.NoSuchTablePoemException;
 import org.melati.poem.Persistent;
-import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
-import org.melati.poem.TableInfo;
-import org.melati.poem.ValidationPoemException;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
@@ -81,8 +73,8 @@ public class Copy extends TemplateServlet {
    * 
    */
   private static final long serialVersionUID = 1L;
-  static PoemDatabase fromDb = null;
-  static PoemDatabase toDb = null;
+  static Database fromDb = null;
+  static Database toDb = null;
   
   
   /** 
@@ -101,9 +93,6 @@ public class Copy extends TemplateServlet {
     
   }
   
-  protected void postPoemSession(Melati melati) throws Exception {
-  }
-
   /** 
    * {@inheritDoc}
    * @see org.melati.servlet.TemplateServlet#doTemplateRequest
@@ -126,15 +115,35 @@ public class Copy extends TemplateServlet {
   /**
    * @param from
    * @param to
+   * @return the updated db
    */
-  public static void copy(String from, String to) { 
+  public static Database copy(String from, String to) { 
     PoemContext fromContext = new PoemContext();
     PoemContext toContext = new PoemContext();
     fromContext.setLogicalDatabase(from);
     toContext.setLogicalDatabase(to);
-    fromDb = (PoemDatabase)LogicalDatabase.getDatabase(fromContext.getLogicalDatabase());
-    toDb = (PoemDatabase)LogicalDatabase.getDatabase(toContext.getLogicalDatabase());
-    toDb.inSession(AccessToken.root, 
+    fromDb = LogicalDatabase.getDatabase(fromContext.getLogicalDatabase());
+    toDb =  LogicalDatabase.getDatabase(toContext.getLogicalDatabase());
+    return copy();
+  }
+  /**
+   * @param fromDb
+   * @param toDb
+   * @return the updated db
+   */
+  public static Database copy(Database fromDbIn, final Database toDbIn) {
+    fromDb = fromDbIn;
+    toDb = toDbIn;
+    return copy();
+  }
+  /**
+   * @return the updated db
+   */
+  public static Database copy() { 
+    if (fromDb.getClass() != toDb.getClass()) 
+      throw new AnticipatedException("Both from(" + fromDb.getClass() + ") and " + 
+          "to(" + toDb.getClass() + ") databases must be of the same class");
+    toDb.inSessionAsRoot( 
             new PoemTask() {
               public void run() {
                 System.err.println("PoemThread " + PoemThread.database().getDisplayName());
@@ -143,40 +152,22 @@ public class Copy extends TemplateServlet {
                   while(en.hasMoreElements()) { 
                     Table fromTable = (Table)en.nextElement();
                     String fromTableName = fromTable.getName();
-                    System.err.println("From:" + fromTableName); 
-                    Table toTable = null;
-                    try { 
-                      toTable = toDb.getTable(fromTableName);
-                    } catch (NoSuchTablePoemException e) {
-                      TableInfo fromTableInfo = (TableInfo)fromTable.getInfo();
-                      TableInfo toTableInfo = (TableInfo)toDb.getTableInfoTable().newPersistent();
-                      Enumeration fromTIFields = fromTableInfo.getFields();
-                      while (fromTIFields.hasMoreElements())
-                      { 
-                        Field f = (Field)fromTIFields.nextElement();
-                        if (! (f.getType() instanceof  org.melati.poem.TroidPoemType)) {
-                          System.err.println(f.getType() + " " + f.getDisplayName());
-                          toTableInfo.setRaw(f.getName(), f.getRaw());
-                        }
-                      }
-                      toTableInfo.makePersistent(); 
-                      String troidName = fromTable.troidColumn().getName();
-                      toTable = toDb.addTableAndCommit(toTableInfo, troidName);
-                      System.err.println("Created table:" + fromTableName); 
-                    }
+                    System.err.println("From " + fromDb + " table " + fromTableName); 
+                    Table toTable = toDb.getTable(fromTableName);
                     if (!fromTable.getCategory().getName().equals("System") && 
                             !fromTable.getCategory().getName().equals("User")) {
                       System.err.println("Existing in both:" + fromTableName + "=" + toTable);
                       Enumeration oldRecs = toTable.selection();
                       while (oldRecs.hasMoreElements()) {
                         Persistent p = (Persistent)oldRecs.nextElement();
-                        System.err.println("Deleting:" + p.displayString());
+                        System.err.println("Deleted " + p.getTable().getDatabase() + " " + p.displayString());
                         p.delete();
                       }
                       
-                      Enumeration recs = ((JdbcTable)fromTable).objectsFromTroids(
+                      Enumeration recs = objectsFromTroids(
                               fromTable.troidSelection((String)null, 
-                                                       (String)null, false, null));
+                                                       (String)null, false, null), 
+                                                       fromTable);
                       while (recs.hasMoreElements()) {
                         Persistent p = (Persistent)recs.nextElement();
                         Persistent p2 = toTable.newPersistent();
@@ -186,11 +177,11 @@ public class Copy extends TemplateServlet {
                           p2.setRaw(f.getName(), f.getRaw());
                         }
                         p2.makePersistent();
-                        //System.err.println("Created:" + p2.displayString());
+                        System.err.println("Created:" + p2.displayString());
                       }
                     } else { 
-                      System.err.println("Ignoring " + fromTable.getDisplayName() + 
-                              " as it is a " +  fromTable.getCategory().getName() + " table");
+                      //System.err.println("Ignoring " + fromTable.getDisplayName() + 
+                      //        " as it is a " +  fromTable.getCategory().getName() + " table");
                     }
                    }
                 } catch (Throwable e) {
@@ -198,33 +189,20 @@ public class Copy extends TemplateServlet {
                   e.fillInStackTrace();
                   throw new RuntimeException(e);
                 }
-                toDb.disconnect();
-                //fromDb.disconnect();
               }
               public String toString() { 
                 return "Copying";
               }
             });
+    return toDb;
 
   }
-  /**
-   * Creates a row for a table using field data in a template context.
-   */
-  protected Persistent create(Table table, final Persistent from) {
-    Persistent result =
-      table.create(
-        new Initialiser() {
-          public void init(Persistent object)
-            throws AccessPoemException, ValidationPoemException {
-            for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
-              Column column = (Column)c.nextElement();
-              Object raw = object.getCooked(column.getName());
-              column.setRaw(object,raw);
-            }
-          }
-        });
-    result.postEdit(true);
-    return result;
+  static Enumeration objectsFromTroids(Enumeration troids, final Table t) {
+    return new MappedEnumeration(troids) {
+        public Object mapped(Object troid) {
+          return t.getObject((Integer)troid);
+        }
+      };
   }
 
 }

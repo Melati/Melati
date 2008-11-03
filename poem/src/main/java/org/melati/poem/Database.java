@@ -231,7 +231,7 @@ public abstract class Database implements TransactionPool {
       setDbms(DbmsFactory.getDbms(dbmsclass));
 
       if (committedConnection != null)
-        throw new ReconnectionPoemException();
+        throw new ReconnectionPoemException(this);
 
       setTransactionsMax(transactionsMaxP);
       committedConnection = getDbms().getConnection(url, username, password);
@@ -298,7 +298,7 @@ public abstract class Database implements TransactionPool {
    */
   public void disconnect() throws PoemException {
     if (committedConnection == null)
-      throw new ReconnectionPoemException();
+      throw new ReconnectionPoemException(this);
 
     try {
       Enumeration iter = freeTransactions.elements();

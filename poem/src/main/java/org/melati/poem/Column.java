@@ -749,7 +749,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
-   * Set value in a PreparedStatement wich is to be used to save to database.
+   * Set value in a PreparedStatement which is to be used to save to database.
    * 
    * @param g The {@link Persistent} containing unsaved values
    * @param ps <tt>PreparedStatement</tt> to save this column

@@ -784,6 +784,13 @@ public abstract class Database implements TransactionPool {
   public void inSession(AccessToken accessToken, PoemTask task) {
     perform(accessToken, task, false);
   }
+  
+  /**
+   * @param task the task to run
+   */
+  public void inSessionAsRoot(PoemTask task) { 
+    perform(AccessToken.root, task, false);
+  }
 
   /**
    * Start a db session.

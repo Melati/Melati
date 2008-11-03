@@ -196,10 +196,8 @@ public final class PoemDatabaseFactory {
         database = (Database)databaseObject;
 
         // Set properties
-        if (logSQL)
-          database.setLogSQL(true);
-        if (logCommits)
-          database.setLogCommits(true);
+        database.setLogSQL(logSQL);
+        database.setLogCommits(logCommits);
 
         database.connect(name, dbmsClass, url, user, password, maxTransactions);
 

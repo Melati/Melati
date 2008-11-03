@@ -112,12 +112,20 @@ public class PoemTransaction extends Transaction {
     try {
       if (commit)
         commit();
-      else  // Not used in poem
+      else
         rollback();
     }
     finally {
       database.notifyClosed(this);
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.transaction.Transaction#toString()
+   */
+  public String toString() {
+    return database + "/" + super.toString();
   }
 }
 

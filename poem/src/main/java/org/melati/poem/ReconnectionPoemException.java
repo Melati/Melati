@@ -48,9 +48,13 @@ package org.melati.poem;
 /**
  * Thrown when a committed <code>Connection</code> still exists.
  * 
- * @author WilliamC@paneris.org
+ * @author WilliamC AT paneris.org
  * 
  */
 public class ReconnectionPoemException extends AppBugPoemException {
   private static final long serialVersionUID = 1L;
+  public ReconnectionPoemException(Database db) {
+    super("Committed connection is null for database " + db);
+  }
+
 }

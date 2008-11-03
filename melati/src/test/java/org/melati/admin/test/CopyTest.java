@@ -1,5 +1,6 @@
 package org.melati.admin.test;
 
+import org.melati.admin.AnticipatedException;
 import org.melati.admin.Copy;
 
 import junit.framework.Test;
@@ -7,8 +8,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Generated code for the test suite <b>CopyTest</b> located at
- * <i>/melati/src/test/java/org/melati/admin/test/CopyTest.testsuite</i>.
  *
  * Test Copy
  */
@@ -46,6 +45,15 @@ public class CopyTest extends TestCase {
    * 
    */
   public void testCopy() {
-    Copy.copy("champion", "champion2");
+    Copy.copy("everything", "everything2");
   }  
+  
+  public void testCopyDissimilarDbs() { 
+    try { 
+      Copy.copy("everything", "melatitest");
+      fail("Should have bombed");
+    } catch (AnticipatedException e) { 
+      e = null;
+    }
+  }
 }

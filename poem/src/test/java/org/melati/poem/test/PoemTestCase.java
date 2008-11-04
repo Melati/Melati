@@ -43,7 +43,7 @@ public class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  protected int maxTrans = 0;
+  protected static int maxTrans = 0;
   
   /** Default db name */
   private String databaseName = "melatijunit";  // change to poemtest
@@ -53,7 +53,7 @@ public class PoemTestCase extends TestCase implements Test {
   boolean problem = false;
   String dbUrl = null;
 
-  private String propertiesFileName = "org.melati.poem.test.PoemTestCase.properties";
+  private static String propertiesFileName = "org.melati.poem.test.PoemTestCase.properties";
   
   protected static TestResult result;
   /**
@@ -330,7 +330,7 @@ public class PoemTestCase extends TestCase implements Test {
   /**
    * @return a Properties
    */
-  public Properties getProperties() {
+  public static Properties getProperties() {
     InputStream is = PoemTestCase.class.getResourceAsStream(getPropertiesFileName());
 
     if (is == null)
@@ -367,15 +367,15 @@ public class PoemTestCase extends TestCase implements Test {
   /**
    * @return the properties name
    */
-  public String getPropertiesFileName() {
+  public static String getPropertiesFileName() {
     return propertiesFileName;
   }
 
   /**
    * @param propertiesFileName the name to set
    */
-  public void setPropertiesFileName(String propertiesFileName) {
-    this.propertiesFileName = propertiesFileName;
+  public void setPropertiesFileName(String propertiesFileNameIn) {
+    PoemTestCase.propertiesFileName = propertiesFileNameIn;
   }
 
   /**

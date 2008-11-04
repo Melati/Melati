@@ -864,7 +864,7 @@ public abstract class Column implements FieldAttributes {
    * the given {@link Persistent}.
    * <p>
    * The given object is used to create a new row if
-   * necessary, in which case it will be assigned the next troid.and
+   * necessary, in which case it will be assigned the next troid and
    * cached.
    * @param orCreate the Persistent to use as criteria and ensure
    * @return the existing or newly created Persistent

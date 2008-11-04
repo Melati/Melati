@@ -617,7 +617,7 @@ public abstract class Database implements TransactionPool {
   private PoemTransaction openTransaction() {
     synchronized (freeTransactions) {
       if (freeTransactions.size() == 0)
-        throw new NoMoreTransactionsException("Database " + name + " has no free transactions of " 
+        throw new NoMoreTransactionsException("Database " + name + " has no free transactions remaining of " 
             + transactions.size() + " transactions.");
       PoemTransaction transaction =
           (PoemTransaction)freeTransactions.lastElement();

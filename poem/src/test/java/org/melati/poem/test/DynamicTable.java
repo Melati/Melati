@@ -45,11 +45,6 @@ public class DynamicTable extends DynamicTableBase {
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
-    dynamicOne = (Dynamic)newPersistent();
-    dynamicOne.setName_unsafe("dynamicOne");
-
-    dynamicTwo = (Dynamic)newPersistent();
-    dynamicTwo.setName_unsafe("dynamicTwo");
   }
 
   // programmer's domain-specific code here
@@ -69,6 +64,11 @@ public class DynamicTable extends DynamicTableBase {
    */
   public void postInitialise() {
     super.postInitialise();
+    dynamicOne = (Dynamic)newPersistent();
+    dynamicOne.setName_unsafe("dynamicOne");
+
+    dynamicTwo = (Dynamic)newPersistent();
+    dynamicTwo.setName_unsafe("dynamicTwo");
     dynamicOne = (Dynamic)getNameColumn().ensure(dynamicOne);
     dynamicTwo = (Dynamic)getNameColumn().ensure(dynamicTwo);
   }

@@ -45,7 +45,6 @@ public class CachedSelectionTest extends
 
   
   /** 
-   * {@inheritDoc}
    * @see org.melati.poem.test.PoemTestCase#getDatabase(java.lang.String)
    */
   public Database getDatabase(String name) {

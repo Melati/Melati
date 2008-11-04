@@ -125,7 +125,7 @@ public class PoemTransaction extends Transaction {
    * @see org.melati.poem.transaction.Transaction#toString()
    */
   public String toString() {
-    return database + "/" + super.toString();
+    return database.getName() + "/" + super.toString();
   }
 }
 

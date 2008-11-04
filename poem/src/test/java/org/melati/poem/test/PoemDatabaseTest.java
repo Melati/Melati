@@ -303,14 +303,14 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#poemTransaction(int)
    */
   public void testPoemTransaction() {
-    assertEquals(getDb().poemTransaction(0).toString(), "transaction0");
+    assertEquals(getDatabaseName() +"/transaction0", getDb().poemTransaction(0).toString());
   }
 
   /**
    * @see org.melati.poem.Database#transaction(int)
    */
   public void testTransaction() {
-    assertEquals(getDb().transaction(0).toString(), "transaction0");
+    assertEquals(getDatabaseName() +"/transaction0", getDb().transaction(0).toString());
   }
 
   /**

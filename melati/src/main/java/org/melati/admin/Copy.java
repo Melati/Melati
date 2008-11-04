@@ -47,7 +47,6 @@ import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
 import org.melati.Melati;
-import org.melati.PoemContext;
 import org.melati.poem.Database;
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
@@ -118,12 +117,8 @@ public class Copy extends TemplateServlet {
    * @return the updated db
    */
   public static Database copy(String from, String to) { 
-    PoemContext fromContext = new PoemContext();
-    PoemContext toContext = new PoemContext();
-    fromContext.setLogicalDatabase(from);
-    toContext.setLogicalDatabase(to);
-    fromDb = LogicalDatabase.getDatabase(fromContext.getLogicalDatabase());
-    toDb =  LogicalDatabase.getDatabase(toContext.getLogicalDatabase());
+    fromDb = LogicalDatabase.getDatabase(from);
+    toDb =  LogicalDatabase.getDatabase(to);
     return copy();
   }
   /**
@@ -142,7 +137,8 @@ public class Copy extends TemplateServlet {
   public static Database copy() { 
     if (fromDb.getClass() != toDb.getClass()) 
       throw new AnticipatedException("Both from(" + fromDb.getClass() + ") and " + 
-          "to(" + toDb.getClass() + ") databases must be of the same class");
+                                     "to(" + toDb.getClass() + ") databases " + 
+                                     "must be of the same class");
     toDb.inSessionAsRoot( 
             new PoemTask() {
               public void run() {

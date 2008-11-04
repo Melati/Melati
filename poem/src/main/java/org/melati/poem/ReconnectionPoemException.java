@@ -52,7 +52,13 @@ package org.melati.poem;
  * 
  */
 public class ReconnectionPoemException extends AppBugPoemException {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = -8004748317934448632L;
+
+  /**
+   * Constructor.
+   * @param db
+   */
   public ReconnectionPoemException(Database db) {
     super("Committed connection is null for database " + db);
   }

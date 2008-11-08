@@ -149,8 +149,9 @@ public class TemplateAppTest extends TestCase {
       fail("Should have blown up");
     } catch (UnhandledExceptionException e) {
       e.printStackTrace();
-      assertEquals("org.melati.template.NotFoundException: Could not find template user.wm",
-          e.subException.getMessage());
+      // Message is slightly different between WM and velocity
+      assertTrue(e.subException.getMessage().
+          startsWith("org.melati.template.NotFoundException: Could not find template user"));
       e = null;
     }
     File fileIn = new File(fileName);

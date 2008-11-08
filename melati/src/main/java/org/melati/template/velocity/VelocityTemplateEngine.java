@@ -155,17 +155,17 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     } catch (ResourceNotFoundException e) {
       if (templateName.endsWith(templateExtension())) {
         // have a go at loading the webmacro template, and converting it!
-        templateName = templateName.substring(0, templateName
+        String webmacroTemplateName = templateName.substring(0, templateName
             .lastIndexOf(templateExtension()))
             + ".wm";
         try {
-          return new VelocityTemplate(templateName);
+          return new VelocityTemplate(webmacroTemplateName);
         } catch (ParseErrorException p) {
           throw new MelatiBugMelatiException(
-              "Problem converting a WebMacro template to a Velocity template: " + templateName,
+              "Problem converting a WebMacro template to a Velocity template: " + webmacroTemplateName,
               p);
         } catch (ResourceNotFoundException e2) {
-            throw new NotFoundException("Could not find template " + templateName);
+            throw new NotFoundException("Could not find template " + templateName + " or " + webmacroTemplateName);
         } 
       } else throw new NotFoundException("Could not find template " + templateName);
     } catch (Exception e) {

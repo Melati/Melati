@@ -42,6 +42,26 @@ table Specialised
         (renderinfo="UploadURL")
         ;
 }
+table Markup
+    (displayname = "Markup")
+    (description = "An HTML markup fragment")
+    (category = "Data")
+    (cachelimit = unlimited)
+    (seqcached) {
+
+    (primary)Integer id
+        (displaylevel = summary)
+        (sortdescending);
+
+    String text
+        (size=unlimited) 
+        (width=40)
+        (description = "The text")
+        (displaylevel = primary)
+        (displayorderpriority = 0)
+        (searchability = yes)
+        ;
+}
 
 
 table User extends org.melati.poem.User 

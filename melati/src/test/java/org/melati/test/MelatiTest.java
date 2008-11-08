@@ -273,7 +273,7 @@ public class MelatiTest extends TestCase {
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
-    assertEquals("/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
+    assertEquals("/servletContext/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
   }
 
   /**
@@ -287,7 +287,7 @@ public class MelatiTest extends TestCase {
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
-    assertEquals("/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
+    assertEquals("/servletContext/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
 
   }
 
@@ -310,7 +310,7 @@ public class MelatiTest extends TestCase {
     MockServletRequest req = new MockServletRequest();
     req.setRequestURI("/");
     m.setRequest(req);
-    assertEquals("http://localhost/mockServletPath/",m.getServletURL());
+    assertEquals("http://localhost/servletContext/mockServletPath/",m.getServletURL());
   }
 
   /**

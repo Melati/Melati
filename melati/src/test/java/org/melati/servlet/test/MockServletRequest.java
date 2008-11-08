@@ -95,7 +95,7 @@ public class MockServletRequest implements HttpServletRequest {
     }
 
     public String getContextPath() {
-        return ""; // root context
+        return "/servletContext"; 
     }
 
     public String getQueryString() {

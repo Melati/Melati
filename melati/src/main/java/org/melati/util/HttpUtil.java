@@ -103,7 +103,7 @@ public final class HttpUtil {
    * Append relative servlet zone url.
    * 
    * Note that this function should return 
-   * http://host/zone from a request of form 
+   * /zone/servlet from a request of form 
    * http://host/zone/servlet/pathinfo?querystring
    * on all servlet API versions 2.0 through 2.3
    * In 2.0 the zone was returned in the ServletPath 

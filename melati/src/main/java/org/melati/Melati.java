@@ -472,7 +472,7 @@ public class Melati {
   /**
    * @return the relative url for the Servlet Zone of the current request
    */
-  public String getRelativeZoneUrl() { 
+  public String getRelativeZoneURL() { 
     return HttpUtil.zoneURL(getRequest());    
   }
   /**

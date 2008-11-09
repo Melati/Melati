@@ -473,7 +473,7 @@ public class Melati {
    * @return the relative url for the Servlet Zone of the current request
    */
   public String getRelativeZoneURL() { 
-    return HttpUtil.zoneURL(getRequest());    
+    return HttpUtil.getRelativeRequestURL(getRequest());    
   }
   /**
    * Get the URL for this request.

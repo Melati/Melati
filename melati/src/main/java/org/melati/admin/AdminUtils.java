@@ -537,17 +537,15 @@ public class AdminUtils {
   }
   
   /**
-   *  Create a tree. 
+   *  Create a forest of trees. 
    * @param table  the table to tree 
    * @return a tree with node as its root
    */
   public JSStaticTree createForest(Table table) {
     Object[] all = ArrayUtils.arrayOf(table.selection());
-    Treeable[] members = new Treeable[all.length];
     Hashtable hasParent = new Hashtable();
     for (int i = 0; i < all.length; i++) {
-      members[i] = (Treeable)all[i];
-      if (hasParent.get(all[i]) == null){ 
+      if (hasParent.get(all[i]) == null) { 
         Treeable[] kids = ((Treeable)all[i]).getChildren();
         for (int j = 0; j < kids.length; j++)
           hasParent.put(kids[j], Boolean.TRUE);
@@ -555,15 +553,15 @@ public class AdminUtils {
     }
     int count = 0;
     for (int i = 0; i < all.length; i++) {
-      if (hasParent.get(members[i]) == null){ 
+      if (hasParent.get(all[i]) == null){ 
         count++;
       }
     }
     Treeable[] roots = new Treeable[count];
     int j = 0;
     for (int i = 0; i < all.length; i++) {
-      if (hasParent.get(members[i]) == null){
-        roots[j] = members[i];
+      if (hasParent.get(all[i]) == null) {
+        roots[j] = (Treeable)all[i];
         j++;
       }
     }

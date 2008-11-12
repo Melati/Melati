@@ -208,7 +208,7 @@ public class TableDef {
     if (!isAbstract) {
       w.write("\n /**\n" + "  * Retrieves the "
           + naming.tableMainClassShortName() + " table.\n" + "  *\n"
-          + "  * @generator " + "org.melati.poem.prepro.TableDef"
+          + "  * @see " + "org.melati.poem.prepro.TableDef"
           + "#generateTableAccessorJava \n" + "  * @return the "
           + requiredReturnClass + " from this database\n" + "  */\n");
       w.write("  public " + requiredReturnClass + " get"
@@ -235,7 +235,7 @@ public class TableDef {
           + (naming.tableMainClassRootReturnClass().equals(
               naming.tableMainClassShortName()) ? ".\n" : ("as a  <code>"
               + naming.tableMainClassRootReturnClass() + "</code>.\n"))
-          + "  * \n" + "  * @generator " + "org.melati.poem.prepro.TableDef"
+          + "  * \n" + "  * @see " + "org.melati.poem.prepro.TableDef"
           + "#generateTableAccessorDefnJava \n" + "  * @return the "
           + naming.tableMainClassRootReturnClass() + " from this database\n"
           + "  */\n");
@@ -267,7 +267,7 @@ public class TableDef {
         + " * Melati POEM generated abstract base class for a "
         + "<code>Persistent</code> \n" + 
         " * <code>" + suffix + "</code> Object.\n" + " *\n" + 
-        " * @generator "
+        " * @see "
         + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
         " */\n");
     w.write("public abstract class " + naming.baseClassShortName()
@@ -275,7 +275,7 @@ public class TableDef {
 
     w.write("\n /**\n" + 
             "  * Retrieves the Database object.\n" + "  * \n" + 
-            "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
+            "  * @see " + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
             "  * @return the database\n" + "  */\n");
     w.write("  public " + dsd.databaseTablesClassName + " get"
         + dsd.databaseTablesClassName + "() {\n" + "    return ("
@@ -284,7 +284,7 @@ public class TableDef {
     w.write("\n /**\n" + "  * Retrieves the  <code>"
         + naming.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
-        + "  * @generator " + "org.melati.poem.prepro.TableDef"
+        + "  * @see " + "org.melati.poem.prepro.TableDef"
         + "#generatePersistentBaseJava \n" 
         + "  * @return the " + requiredReturnClass
         + "\n" + "  */\n");
@@ -347,7 +347,7 @@ public class TableDef {
                 .lastIndexOf(".") != description.length() - 1) ? "." : "")))
             + " * </p>\n" : ""));
     w.write(fieldSummaryTable());
-    w.write(" * \n" + " * @generator " + "org.melati.poem.prepro.TableDef"
+    w.write(" * \n" + " * @see " + "org.melati.poem.prepro.TableDef"
         + "#generatePersistentJava \n" + " */\n");
     w.write("public class " + naming.mainClassShortName() + " extends "
         + naming.baseClassShortName() + " {\n");
@@ -363,7 +363,7 @@ public class TableDef {
                     .javadocFormat(2, 3, (description + ((description
                         .lastIndexOf(".") != description.length() - 1) ? "."
                         : ""))) + "  * </p>\n") : "") + "  * \n"
-            + "  * @generator " + "org.melati.poem.prepro.TableDef"
+            + "  * @see " + "org.melati.poem.prepro.TableDef"
             + "#generatePersistentJava \n" + "  */\n");
 
     w.write("  public " + naming.mainClassShortName() + "() { }\n" + "\n"
@@ -386,7 +386,7 @@ public class TableDef {
     w.write("\n" + "/**\n" + " * Melati POEM generated base class for \n"
         + "<code>Table</code> <code>" + suffix + "</code>.\n");
     w.write(" *\n" 
-        + " * @generator " + "org.melati.poem.prepro.TableDef"
+        + " * @see " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + " */\n");
     w.write("\npublic class " + naming.tableBaseClassShortName() + " extends "
         + naming.superclassTableShortName() + " {\n" + "\n");
@@ -399,7 +399,7 @@ public class TableDef {
 
     w.write("\n /**\n" + "  * Constructor. \n" 
         + "  * \n" 
-        + "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
+        + "  * @see " + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param database          the POEM database we are using\n"
         + "  * @param name              the name of this <code>Table</code>\n"
         + "  * @param definitionSource  which definition is being used\n"
@@ -413,7 +413,7 @@ public class TableDef {
     
     //w.write("\n /**\n" + "  * Constructor.\n" 
     //    + "  *\n" 
-    //    + "  * @generator "
+    //    + "  * @see "
     //    + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
     //    + "  * @param database          the POEM database we are using\n"
     //    + "  * @param name              the name of this <code>Table</code>\n"
@@ -426,7 +426,7 @@ public class TableDef {
     //    + "\n");
     
     w.write("\n /**\n" + "  * Get the database tables.\n" + "  *\n"
-        + "  * @generator " + "org.melati.poem.prepro.TableDef"
+        + "  * @see " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + "  * @return the database tables\n"
         + "  */\n");
     w.write("  public " + dsd.databaseTablesClassName + " get"+ dsd.databaseTablesClassName + "() {\n" + 
@@ -457,7 +457,7 @@ public class TableDef {
         + naming.mainClassShortName() + "</code> as a <code>"
         + requiredReturnClass + "</code>.\n" 
         + "  *\n" 
-        + "  * @generator "
+        + "  * @see "
         + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param troid a Table Row Oject ID\n"
         + "  * @return the <code>Persistent</code> identified "
@@ -471,7 +471,7 @@ public class TableDef {
         + naming.mainClassShortName() + "</code> \n" 
         + "  * as a <code>" + requiredReturnClass + "</code>.\n" 
         + "  *\n" 
-        + "  * @generator "
+        + "  * @see "
         + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param troid a Table Row Object ID\n"
         + "  * @return the <code>Persistent</code> identified " + "  */\n");
@@ -539,7 +539,7 @@ public class TableDef {
             + " * </p>\n" : "") + " *\n");
     w.write(fieldSummaryTable());
     w.write(" * \n" 
-        + " * @generator  " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n" + " */\n");
+        + " * @see  " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n" + " */\n");
     w.write("public class " + naming.tableMainClassShortName() + " extends "
         + naming.tableBaseClassShortName() + " {\n");
     Object o = new Object() {
@@ -547,7 +547,7 @@ public class TableDef {
         return "\n /**\n"
             + "  * Constructor.\n"
             + "  * \n"
-            + "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n"
+            + "  * @see " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n"
             + "  * @param database          the POEM database we are using\n"
             + "  * @param name              the name of this <code>Table</code>\n"
             + "  * @param definitionSource  which definition is being used\n"

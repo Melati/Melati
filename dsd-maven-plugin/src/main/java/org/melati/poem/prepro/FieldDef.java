@@ -263,7 +263,7 @@ public abstract class FieldDef {
     w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
         + "</code> value, without locking, \n" + "  * for this <code>"
         + table.suffix + "</code> <code>Persistent</code>.\n" + "  *\n"
-        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n" + "  * @return the " + rawType + " " + name
         + "\n" + "  */\n");
     w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n"
@@ -271,7 +271,7 @@ public abstract class FieldDef {
     w.write("\n /**\n" + "  * Sets the <code>" + suffix
         + "</code> value directly, without checking, \n" + "  * for this "
         + table.suffix + " <code>Persistent</code>.\n" + "  * \n"
-        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n"
         + "  * @param cooked  the pre-validated value to set\n" + "  */\n");
     w.write("  public void set" + suffix + "_unsafe(" + rawType
@@ -290,7 +290,7 @@ public abstract class FieldDef {
     w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
         + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
         + table.suffix + "</code> <code>Persistent</code>.\n" + "  * \n"
-        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateFieldCreator \n" + "  * @throws AccessPoemException \n"
         + "  *         if the current <code>AccessToken</code> \n"
         + "  *         does not confer write access rights\n"
@@ -335,7 +335,7 @@ public abstract class FieldDef {
     w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
         + "</code> <code>Column</code> for this \n" + "  * <code>"
         + table.suffix + "</code> <code>Table</code>.\n" + "  * \n"
-        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateColAccessor \n" + "  * @return the " + name
         + " <code>Column</code>\n" + "  */\n");
     w.write("  public final Column get" + suffix + "Column() {\n"

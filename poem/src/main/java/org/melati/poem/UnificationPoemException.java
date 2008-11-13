@@ -49,15 +49,21 @@ package org.melati.poem;
   * Thrown when an <code>SQLException</codE> is thrown during unification 
   * of the {@link Database} with the other {@link DefinitionSource}s.
   * 
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   *
   */
 public class UnificationPoemException extends SeriousPoemException {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = 6509478980486787069L;
 
   /** Constructor. */
   public UnificationPoemException(Exception e) {
     super(e);
+  }
+  
+  /** Constructor. */
+  public UnificationPoemException(String message, Exception subException) {
+    super(message, subException);
   }
 
   /**
@@ -70,4 +76,5 @@ public class UnificationPoemException extends SeriousPoemException {
         "with the datadictionary and JDBC metadata\n" +
         subException;
   }
+
 }

@@ -2629,7 +2629,12 @@ public class JdbcTable implements Selectable, Table {
   public void createTableInfo() throws PoemException {
     if (info == null) {
       info = getDatabase().getTableInfoTable().defaultTableInfoFor(this);
-      getDatabase().getTableInfoTable().create(info);
+      try { 
+        getDatabase().getTableInfoTable().create(info);
+      } catch (PoemException e) { 
+        throw new UnificationPoemException(
+                "Problem creating new tableInfo for table " + getName() + ":", e);
+      }        
       setTableInfo(info);
     }
   }

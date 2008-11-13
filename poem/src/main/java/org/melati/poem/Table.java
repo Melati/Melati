@@ -83,7 +83,7 @@ public interface Table {
     void postInitialise();
     
     /**
-     * Create the metadata record for this Table.
+     * Create the (possibly overridden) TableInfo if it has not yet been created.
      */
     void createTableInfo();
     /**

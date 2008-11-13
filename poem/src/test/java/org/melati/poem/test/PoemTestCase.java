@@ -330,7 +330,7 @@ public class PoemTestCase extends TestCase implements Test {
   /**
    * @return a Properties
    */
-  public static Properties getProperties() {
+  public Properties getProperties() {
     InputStream is = PoemTestCase.class.getResourceAsStream(getPropertiesFileName());
 
     if (is == null)

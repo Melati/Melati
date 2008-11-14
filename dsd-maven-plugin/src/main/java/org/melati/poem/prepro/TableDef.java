@@ -203,6 +203,7 @@ public class TableDef {
 
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
+    // NOT !!
     String requiredReturnClass = naming.tableMainClassRootReturnClass();
 
     if (!isAbstract) {
@@ -213,8 +214,9 @@ public class TableDef {
           + requiredReturnClass + " from this database\n" + "  */\n");
       w.write("  public " + requiredReturnClass + " get"
           + naming.tableMainClassShortName() + "() {\n" + "    return ");
-      if (!requiredReturnClass.equals(naming.tableMainClassUnambiguous()))
-        w.write("(" + requiredReturnClass + ")");
+      // This cast is not actually required as ours is a subclass anyway
+      // if (!requiredReturnClass.equals(naming.tableMainClassUnambiguous()))
+      //   w.write("(" + requiredReturnClass + ")");
       w.write("tab_" + name + ";\n  }\n");
     }
   }

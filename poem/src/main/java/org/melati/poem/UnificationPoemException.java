@@ -55,7 +55,9 @@ package org.melati.poem;
 public class UnificationPoemException extends SeriousPoemException {
 
   private static final long serialVersionUID = 6509478980486787069L;
-
+  
+  private String bug;
+  
   /** Constructor. */
   public UnificationPoemException(Exception e) {
     super(e);
@@ -73,8 +75,8 @@ public class UnificationPoemException extends SeriousPoemException {
   public String getMessage() {
     return
         "Something went wrong while the DSD was being reconciled \n" + 
-        "with the datadictionary and JDBC metadata\n" +
-        subException;
+        "with the datadictionary and JDBC metadata\n"  + 
+        (bug ==  null ? "" : bug ) + super.getMessage(); 
   }
 
 }

@@ -640,10 +640,10 @@ public class Admin extends TemplateServlet {
 
     context.put("admin", new AdminUtils(melati));
 
-    if (melati.getMethod().equals("blank"))
-      return adminTemplate("blank");
     if (melati.getMethod() == null)
       return adminTemplate("Main");
+    if (melati.getMethod().equals("blank"))
+      return adminTemplate("blank");
     if (melati.getMethod().equals("setup"))
       return setupTemplate(context, melati);
     if (melati.getMethod().equals("Main"))

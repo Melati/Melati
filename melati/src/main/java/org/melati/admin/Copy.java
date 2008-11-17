@@ -150,16 +150,11 @@ public class Copy extends TemplateServlet {
                     String fromTableName = fromTable.getName();
                     System.err.println("From " + fromDb + " table " + fromTableName); 
                     Table toTable = toDb.getTable(fromTableName);
-                    if (!fromTable.getCategory().getName().equals("System") && 
-                            !fromTable.getCategory().getName().equals("User")) {
-                      System.err.println("Existing in both:" + fromTableName + "=" + toTable);
-                      Enumeration oldRecs = toTable.selection();
-                      while (oldRecs.hasMoreElements()) {
-                        Persistent p = (Persistent)oldRecs.nextElement();
-                        System.err.println("Deleted " + p.getTable().getDatabase() + " " + p.displayString());
-                        p.delete();
-                      }
-                      
+                    int count = toTable.count();
+                    if (count != 0 ) {
+                      System.err.println("Skipping " + toTable.getName() + " as it contains " + count + " records." );
+                    } else { 
+                      System.err.println(toTable.getName() + " in both and empty in destination.");
                       Enumeration recs = objectsFromTroids(
                               fromTable.troidSelection((String)null, 
                                                        (String)null, false, null), 
@@ -175,9 +170,6 @@ public class Copy extends TemplateServlet {
                         p2.makePersistent();
                         System.err.println("Created:" + p2.displayString());
                       }
-                    } else { 
-                      //System.err.println("Ignoring " + fromTable.getDisplayName() + 
-                      //        " as it is a " +  fromTable.getCategory().getName() + " table");
                     }
                    }
                 } catch (Throwable e) {

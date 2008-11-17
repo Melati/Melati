@@ -1,5 +1,6 @@
 package org.melati.admin.test;
 
+
 import junit.framework.TestCase;
 
 import org.melati.LogicalDatabase;
@@ -8,10 +9,10 @@ import org.melati.admin.Copy;
 import org.melati.poem.PoemTask;
 import org.melati.poem.test.Dynamic;
 import org.melati.poem.test.EverythingDatabase;
+import org.melati.poem.test.StringField;
 
 /**
- *
- * Test Copy
+ * Test Copy.
  */
 public class CopyTest extends TestCase {
   /**
@@ -54,6 +55,34 @@ public class CopyTest extends TestCase {
     final EverythingDatabase edb2 = (EverythingDatabase)LogicalDatabase.getDatabase("everything2");
     System.err.println("From " + edb);
     System.err.println("To " + edb2);
+    System.err.println("");
+    edb.inSessionAsRoot( 
+        new PoemTask() {
+          public void run() {
+          StringField p = (StringField)(edb).getStringFieldTable().newPersistent();
+            p.setStringfield("1");
+            p.makePersistent();
+            assertEquals(1, edb.getStringFieldTable().count());
+          }
+        });
+    Copy.copy(edb, edb2);
+    edb2.inSessionAsRoot( 
+        new PoemTask() {
+          public void run() {
+            assertEquals(1, edb2.getStringFieldTable().count());
+          }
+        });
+  }
+    
+  /**
+   * 
+   */
+  public void  testRecordsNotCopiedIfAnyPresent() {
+    final EverythingDatabase edb = (EverythingDatabase)LogicalDatabase.getDatabase("everything");
+    final EverythingDatabase edb2 = (EverythingDatabase)LogicalDatabase.getDatabase("everything2");
+    System.err.println("From " + edb);
+    System.err.println("To " + edb2);
+    System.err.println("");
     edb.inSessionAsRoot( 
         new PoemTask() {
           public void run() {
@@ -67,7 +96,7 @@ public class CopyTest extends TestCase {
     edb2.inSessionAsRoot( 
         new PoemTask() {
           public void run() {
-            assertEquals(3, edb2.getDynamicTable().count());
+            assertEquals(2, edb2.getDynamicTable().count());
           }
         });
   }

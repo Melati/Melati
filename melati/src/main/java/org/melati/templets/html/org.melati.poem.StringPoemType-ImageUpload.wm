@@ -68,7 +68,7 @@
   var imagename_$ml.escaped($field.Name) = '$field.RawString';
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
-           !$field.Type.Nullable)
+           !$field.Type.Nullable);
 </script>
 
 <a id="zoomOut_$ml.escaped($field.Name)"
@@ -83,7 +83,8 @@
    alt="Uploaded image thumbnail"
    title="Uploaded image thumbnail"
    border="0" /></a>
-<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
+<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)" 
+   onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
 
 
 <script language="JavaScript1.2" type="text/javascript">

@@ -48,21 +48,22 @@
 
 #if ($field.Height != 1) #begin
   <textarea name="field_$ml.rendered($field.Name)"
-            cols=$field.Width
 #if ($field.Description) #begin
             title="$field.Description" 
 #end
-            rows=$field.Height>$ml.rendered($field.RawString)</textarea>
+         cols="$field.Width"
+         rows="$field.Height">$ml.rendered($field.RawString)</textarea>
 #end #else #begin
   <input name="field_$ml.rendered($field.Name)" 
-         size="$field.Width"
 #if ($field.Description) #begin
          title="$field.Description"
 #end
+         size="$field.Width"
          value="$ml.Attr.rendered($field.RawString)" />
 #end
 <br />
-<a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
+<a href="javascript:void()" 
+   onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
 
 <script language="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",

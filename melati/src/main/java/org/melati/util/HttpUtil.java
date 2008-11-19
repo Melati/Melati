@@ -161,4 +161,17 @@ public final class HttpUtil {
     if (request.getPathInfo() != null) url.append(request.getPathInfo());
     return url.toString();
   }
+
+  /**
+   * @param url An url or relative url which may end in a slash
+   * @param relativeUrl A relative url which may start with a slash
+   * @return an url without a duplicated slash at the join
+   */
+  public static String concatenateUrls(String url, String relativeUrl) {
+    if (url.endsWith("/") && relativeUrl.startsWith("/"))
+      return url.substring(0, url.lastIndexOf('/')) + relativeUrl;
+    else 
+      return url + relativeUrl;
+  }
+
 }

@@ -46,11 +46,7 @@
 package org.melati.servlet;
 
 import org.melati.Melati;
-import org.melati.poem.AccessToken;
 import org.melati.poem.Database;
-import org.melati.poem.PoemException;
-import org.melati.poem.PoemTask;
-import org.melati.poem.PoemThread;
 
 /**
  * Save the uploaded file to disk in a particular directory which has a
@@ -75,22 +71,9 @@ public class PoemFileFormDataAdaptorFactory extends DefaultFileFormDataAdaptorFa
       MultipartFormField field) {
 
     if (uploadDir == null || uploadURL == null) {
-      final Database db = melati.getDatabase();
-      if (PoemThread.inSession()) {
-        uploadDir = (String) db.getSettingTable().getOrDie("UploadDir");
-        uploadURL = (String) db.getSettingTable().getOrDie("UploadURL");
-      } else {
-        db.inSession(AccessToken.root, new PoemTask() {
-          public void run() throws PoemException {
-            uploadDir = (String) db.getSettingTable().getOrDie("UploadDir");
-            uploadURL = (String) db.getSettingTable().getOrDie("UploadURL");
-          }
-
-          public String toString() {
-            return "Getting UploadDir and UploadURL settings";
-          }
-        });
-      }
+      Database db = melati.getDatabase();
+      uploadDir = (String) db.getSettingTable().getOrDie("UploadDir");
+      uploadURL = (String) db.getSettingTable().getOrDie("UploadURL");
     }
     return new DefaultFileFormDataAdaptor(melati, melati.getConfig().getRealPath()
         + uploadDir, uploadURL);

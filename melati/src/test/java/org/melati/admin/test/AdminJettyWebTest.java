@@ -5,14 +5,17 @@ package org.melati.admin.test;
 
 import java.util.ArrayList;
 
+import junit.framework.AssertionFailedError;
+
 import net.sourceforge.jwebunit.html.Cell;
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
 
 import org.melati.JettyWebTestCase;
+import org.melati.util.HTMLUtils;
 
 /**
- * FIXME bug when id specified in url db/Main?id=0
+ * FIXME bug when id specified in url db/table/Main?id=0
  * @author timp
  * @since 2008/01/01
  */
@@ -30,6 +33,14 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public AdminJettyWebTest(String name) {
     super(name);
+  }
+  /**
+   * If you don't know by now.
+   * @param args
+   * @throws Exception
+   */
+  public static void main(String[] args) throws Exception {
+    startServer(8080);
   }
 
   // Test Page calls
@@ -107,7 +118,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_record");
     
     setTextField("field_filename","test.txt");
-    clickLinkWithText("Upload new file");
+    clickLinkWithText("Upload a new file");
     gotoWindow("filename");
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     
@@ -284,6 +295,54 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Full name");
     assertTextPresent("_guest_");
   }
+  
+  /**
+   * 
+   */
+  public void testAdminEditField() { 
+    setScriptingEnabled(false);
+    beginAt("/Admin/admintest/markup/Main");
+    gotoAddRecord("Markup");
+    assertEquals("&Aacute;",HTMLUtils.entityFor("\u00C1".charAt(0),false, null, false));
+    //char it = 193;
+    //System.err.println("\u00C1".charAt(0));
+    //System.err.println(new Integer("\u00C1".charAt(0)));
+    //System.err.println(new Integer("?".charAt(0)));
+    //System.err.println("Acirc=" +new Integer("Â".charAt(0)));
+    //System.err.println("");
+
+    setTextField("field_text", "\u00C1");
+    submit();
+    assertTextPresent("Done");
+    beginAt("/Admin/admintest/markup/0/Edit");
+    assertEquals("\u00C1",getFormFieldValue("field_text"));
+    assertTextPresent("\u00C1");
+  }
+  /**
+   * @param fieldName
+   * @return value of named field
+   */
+  public String getFormFieldValue(String fieldName) { 
+    try { 
+      return getTester().getElementAttributByXPath(
+            "//input[@name='" + fieldName + "']", "value");
+    } catch (AssertionFailedError e) { 
+      System.out.println("Form element not present:" + fieldName);
+      System.out.println(getTester().getPageSource());
+      throw e;             
+    }
+    
+  }
+  /**
+   * @param fieldName
+   * @return value of named field
+   */
+  public String getFormTextareaValue(String fieldName) { 
+    return getTester().getElementTextByXPath(
+            "//textarea[@name='" + fieldName + "']");
+    
+  }
+
   /**
    * Test that login is required.
    */
@@ -464,8 +523,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_left");
     gotoFrame("admin_selection");
     assertTextPresent("Records 1 to 9 of 9");
-    String page = getPageSource();
-    System.err.println(page);
+    //String page = getPageSource();
+    //System.err.println(page);
   }
   /**
    * User story.
@@ -527,9 +586,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_edit_test_" + recordTroid);
     submit("action","Duplicate");
     assertTextPresent("Done");
-    String href = getElementAttributByXPath(
-        "//a[@id='" + "continue" + "']", "href");
-    System.err.println("Continue:" + href);
+    //String href = getElementAttributByXPath(
+    //    "//a[@id='" + "continue" + "']", "href");
+    //System.err.println("Continue:" + href);
     clickLink("continue");
     
     // Records will be sorted by id

@@ -126,4 +126,12 @@ public class HttpUtilTest extends TestCase {
     assertEquals("/servletContext/mockServletPath/",HttpUtil.getRelativeRequestURL(new MockServletRequest()));
   }
 
+  /**
+   * Test method for {@link org.melati.util.HttpUtil#concatenateUrls(String, String)}.
+   */
+  public void testConcatenateUrls() { 
+    assertEquals("/hi",HttpUtil.concatenateUrls("", "/hi"));
+    assertEquals("/hi",HttpUtil.concatenateUrls("/", "/hi"));
+    assertEquals("/hi/ho",HttpUtil.concatenateUrls("/hi/", "/ho"));
+  }
 }

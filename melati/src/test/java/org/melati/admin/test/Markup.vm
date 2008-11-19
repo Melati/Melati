@@ -1,0 +1,8 @@
+#if( $melati.Object )
+<p>
+:$ml.rendered($melati.Object.Text):
+</p>
+<p>
+:$ml.renderedMarkup($melati.Object.Text):
+</p>
+#end

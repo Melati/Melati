@@ -111,8 +111,15 @@ public abstract class TemplateServlet extends PoemServlet {
     ServletTemplateContext templateContext =
             templateEngine.getServletTemplateContext(melati);
 
+    melati.setTemplateContext(templateContext);
+  }
+
+  protected void doPoemRequest(Melati melati) throws Exception {
+    ServletTemplateContext templateContext = melati.getServletTemplateContext();
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
+    // This used to be in prePoemSession, but the use case was pretty thin,
+    // the main Adaptor is PoemFileFormDataAdaptor, which needs to be in session.
     String contentType = melati.getRequest().getHeader("content-type");
     if (contentType != null && contentType.length() >= 19 &&
         contentType.substring(0,19).equalsIgnoreCase("multipart/form-data")) {
@@ -120,11 +127,6 @@ public abstract class TemplateServlet extends PoemServlet {
         new MultipartTemplateContext(melati, templateContext);
     }
 
-    melati.setTemplateContext(templateContext);
-  }
-
-  protected void doPoemRequest(Melati melati) throws Exception {
-    ServletTemplateContext templateContext = melati.getServletTemplateContext();
     templateContext.put("melati", melati);
     templateContext.put("ml", melati.getMarkupLanguage());
 

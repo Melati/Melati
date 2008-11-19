@@ -27,7 +27,7 @@ public class AdminTestDatabase extends AdminTestDatabaseBase
               "Upload Directory",
               "Directory to upload to");
           getSettingTable().ensure("UploadURL",
-              "/melati-static/admin/static/", 
+              "/melatitest/melati-static/admin/static/", 
               "Uploaded URL",
               "URL of uploaded files, defaults to Melati Static ");
         }

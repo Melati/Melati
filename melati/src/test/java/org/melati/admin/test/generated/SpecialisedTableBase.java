@@ -260,7 +260,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   }
 
   protected int defaultDisplayOrder() {
-    return 1;
+    return 2;
   }
 }
 

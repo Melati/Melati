@@ -11,7 +11,32 @@ table UploadedFile
         (displaylevel = summary)
         (sortdescending);
 
-    String filename (size=unlimited) (width=40)
+    String filename 
+        (size=unlimited) 
+        (width=40)
+        (description = "The path name of the file, relative to the server root")
+        (displaylevel = primary)
+        (displayorderpriority = 0)
+        (searchability = yes)
+        (renderinfo="UploadURL")
+        ;
+
+}
+
+table UploadedImage
+    (displayname = "Uploaded Image")
+    (description = "An image uploaded by a user")
+    (category = "Data")
+    (cachelimit = unlimited)
+    (seqcached) {
+
+    (primary)Integer id
+        (displaylevel = summary)
+        (sortdescending);
+
+    String filename 
+        (size=unlimited)
+        (width=40)
         (description = "The path name of the file, relative to the server root")
         (displaylevel = primary)
         (displayorderpriority = 0)

@@ -107,7 +107,7 @@ function validate (form, allowSubmit) {
       else {
         // If this is a select box (but not a multiple select)...
         if (form[name].type == "select-one") {
-          value = form[name].options[form[name].selectedIndex].value;
+            value = form[name].options[form[name].selectedIndex].value;
         } else {
             value = form[name].value;
         }
@@ -120,7 +120,7 @@ function validate (form, allowSubmit) {
         // Check if we match the pattern
         else {
           if (pattern) {
-            if (RegExp)  // if this broswer supports RegExp
+            if (RegExp)  // if this browser supports RegExp
               if (value.search(pattern) == -1 ) // failed to match pattern
                 if (!snippet) { // If we don't have a code snippet 
                   display += "* "+heading+": " + the_value + " '"+value+"' " + is_not_allowed +"\n";

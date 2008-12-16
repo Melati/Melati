@@ -1,0 +1,16 @@
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+<input name="field_$ml.rendered($field.Name)" 
+       size="$field.Width"
+       value="$ml.Attr.rendered($field.RawString)"
+>&nbsp;&nbsp;&nbsp;&nbsp;e.g. me@my.com
+
+<script language="JavaScript1.2">
+  add_rule("field_$ml.escaped($field.Name)",
+           "$ml.escaped($field.DisplayName)",
+	   !$field.Type.Nullable,
+           "^[^@ 	,/]+@([^@. 	;,/]+[.])+[^@ 	;./]+\$");
+</script>

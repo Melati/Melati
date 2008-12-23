@@ -76,6 +76,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
   /** The maximum number of field possibilites to render.  */
   public static final int FIELD_POSSIBILITIES_LIMIT = 10000;
+  /** The maximum number of date field possibilites to render.  */
+  public static final int DATE_FIELD_POSSIBILITIES_LIMIT = 50;
 
   private String name;
 
@@ -267,11 +269,11 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     renderStart(field, sw);
     return sw.toString();
   }
-
+  
 
   protected void renderStart(Field field, MelatiWriter writer)
       throws IOException {
-    render(field, DateFormat.MEDIUM, 50, writer);
+    render(field, DateFormat.MEDIUM, DATE_FIELD_POSSIBILITIES_LIMIT, writer);
   }
 
   /**

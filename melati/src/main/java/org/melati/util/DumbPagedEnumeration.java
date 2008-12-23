@@ -46,6 +46,7 @@
 package org.melati.util;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 import org.melati.poem.util.EnumUtils;
 
@@ -95,4 +96,13 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
     return totalCountIsMinimum;
   }
 
+  public Vector getPageStartList() {
+    Vector ret = new Vector(totalCount / pageSize);
+    int i=1;
+    while((i-1)*pageSize < totalCount) {
+      ret.addElement(new Page(i,(i-1)*pageSize+1));
+      i++;
+    }
+    return ret;
+  }
 }

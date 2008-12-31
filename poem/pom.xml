@@ -177,7 +177,7 @@
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
         <!-- Bootstrap issues when we go up a version-->
-       <version>0.7.8-RC1-SNAPSHOT</version>
+       <version>0.7.8-RC2-SNAPSHOT</version>
        <!--version>${project.version}</version-->
       </dependency>
      </dependencies>

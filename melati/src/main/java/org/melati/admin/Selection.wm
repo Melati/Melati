@@ -74,7 +74,7 @@
 <BODY BGCOLOR="#eeeeee" id="selection">
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
-#if ($results && $results.TotalCount> 0) #begin
+#if ($results) #begin
   <tr>
     <td>&nbsp;</td>
     <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">

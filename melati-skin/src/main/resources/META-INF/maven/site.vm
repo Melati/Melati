@@ -343,23 +343,17 @@
       </td><td>
        <center>
        <div style="margin:1px; text-align:center; width: 468px; height:60px;">
-        <script type="text/javascript"><!--
-        google_ad_client = "pub-7262107064058357";
-        google_ad_width = 468;
-        google_ad_height = 60;
-        google_ad_format = "468x60_as";
-        google_ad_type ="text";
-        google_ad_channel ="";
-        google_page_url = document.location;
-        google_color_bg = "236248255";
-        google_color_url = "0051255";
-        google_color_link = "0051255";
-        google_color_text = "000000";
-        google_color_border = "221170170";
-        //--></script>
-        <script type="text/javascript"
-          src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7262107064058357";
+/* 728x90, created 1/20/09 */
+google_ad_slot = "6735433523";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
        </div>
       </center>
       </td><td>
@@ -411,22 +405,17 @@
     <div class="bottomGoogle">
       <center>
        <div style="margin:1px; text-align:center;">
-        <script type="text/javascript"><!--
-        google_ad_client = "pub-7262107064058357";
-        google_ad_width = 728;
-        google_ad_height = 90;
-        google_ad_format = "728x90_as";
-        google_ad_channel ="";
-        google_page_url = document.location;
-        google_color_bg = "236248255";
-        google_color_url = "0051255";
-        google_color_link = "0051255";
-        google_color_text = "000000";
-        google_color_border = "221170170";
-        //--></script>
-        <script type="text/javascript"
-          src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7262107064058357";
+/* 728x90, created 1/20/09 */
+google_ad_slot = "6735433523";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
        </div>
       </center>
      </div>

@@ -93,7 +93,11 @@ table Child
         (nullable)
         ;
     Boolean deleted
-        (description = "Whether deleted")
+      (deleted)
+      (indexed)
+      (description = "Whether deleted")
+      (displaylevel = record)
+      (searchability = no)
         ;
 }
 

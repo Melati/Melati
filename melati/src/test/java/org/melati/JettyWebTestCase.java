@@ -112,5 +112,19 @@ public class JettyWebTestCase extends WebTestCase {
   public static String getWebAppDirName() {
     return webAppDirName;
   }
+
+  /**
+   * @param contextName the contextName to set
+   */
+  protected static void setContextName(String contextName) {
+    JettyWebTestCase.contextName = contextName;
+  }
+
+  /**
+   * @param webAppDirName the webAppDirName to set
+   */
+  protected static void setWebAppDirName(String webAppDirName) {
+    JettyWebTestCase.webAppDirName = webAppDirName;
+  }
   
 }

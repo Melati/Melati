@@ -30,6 +30,8 @@ public class AdminTestDatabase extends AdminTestDatabaseBase
               "/melatitest/melati-static/admin/static/", 
               "Uploaded URL",
               "URL of uploaded files, defaults to Melati Static ");
+          System.err.println(getChildTable().ensure(getParentTable().ensure("Eunoia"),
+              "And all that"));
         }
       });
     }

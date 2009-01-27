@@ -651,7 +651,6 @@ public class Melati {
     }
     if (response != null) {
       response.setContentType(contentType);
-      System.err.println("Setting response:" + contentType);
     }
   }
   protected String contentType = null;

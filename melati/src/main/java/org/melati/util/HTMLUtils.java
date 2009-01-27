@@ -243,7 +243,6 @@ public final class HTMLUtils {
    * @return the input with appropriate substitutions
    */
   public static String entitied(String s, boolean mapBR, String encoding, boolean markup) {
-    System.err.println("encoding:" + encoding);
     int length = s.length();
     int i;
     String entity = null;
@@ -258,7 +257,6 @@ public final class HTMLUtils {
          ++i);
 
     if (entity == null) return s;
-    System.err.println("entitied:" + new Integer(s.charAt(i))+ "=" + entity);
 
     StringBuffer b = new StringBuffer(length * 2);
     for (int j = 0; j < i; ++j)
@@ -272,7 +270,6 @@ public final class HTMLUtils {
       entity = entityFor(c, mapBR, ce, markup);
       if (entity != null) {
         b.append(entity);
-        System.err.println(new Integer(c) + "=" + entity);
       } else
         b.append(c);
     }

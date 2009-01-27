@@ -45,6 +45,58 @@ table UploadedImage
         ;
 
 }
+table Parent
+    (category = "Data")
+    (cachelimit = unlimited)
+    (description = "A node with zero or more children")
+    (seqcached) {
+
+    (primary)Integer id
+        (displaylevel = summary)
+        (sortdescending);
+
+    String name
+        (size=unlimited) 
+        (description = "The name")
+        (width=40)
+        (displaylevel = primary)
+        (displayorderpriority = 0)
+        (searchability = yes)
+        ;
+    UploadedImage image 
+        (description = "The image")
+        (nullable)
+        ;
+}
+table Child
+    (category = "Data")
+    (description = "A node with a parent")
+    {
+
+        (primary)Integer id
+        (displaylevel = summary)
+        ;
+    Parent parent
+        (description="The parent")
+        ;
+    
+    String name
+        (size=unlimited) 
+        (width=40)
+        (description = "The name")
+        (displaylevel = primary)
+        (displayorderpriority = 0)
+        (searchability = yes)
+        ;
+    UploadedImage image 
+        (description = "The image")
+        (nullable)
+        ;
+    Boolean deleted
+        (description = "Whether deleted")
+        ;
+}
+
 
 table Specialised
     (displayname = "Specialised")
@@ -87,7 +139,6 @@ table Markup
         (searchability = yes)
         ;
 }
-
 
 table User extends org.melati.poem.User 
     (displayorder = 2010)

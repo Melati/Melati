@@ -281,10 +281,12 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminEditHeader() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/0/EditHeader");
-    assertTextPresent("User");
-    assertTextPresent("_guest_");
+    //setScriptingEnabled(false);
+    beginAt("/Admin/admintest/parent/0/EditHeader");
+    clickLinkWithText("Child");
+    gotoWindow("admin_edit_parent_0");
+    assertElementPresent("selection");
+    
   }
   /**
    * 

@@ -20,7 +20,7 @@ import org.melati.util.HTMLUtils;
  * @since 2008/01/01
  */
 public class AdminJettyWebTest extends JettyWebTestCase {
-   private String dbName = "melatijunit";
+   private String dbName = "admintest";
   
   /**
    * 
@@ -66,7 +66,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTop() {
     setScriptingEnabled(false);
     beginAt("/Admin/" + dbName + "/Top");
-    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
+    assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   /**
    * 
@@ -74,7 +74,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTopWithTable() {
     setScriptingEnabled(false);
     beginAt("/Admin/" + dbName + "/user/Top");
-    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
+    assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   /**
    * 
@@ -82,7 +82,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public void testAdminTopWithTableAndTroid() {
     setScriptingEnabled(false);
     beginAt("/Admin/" + dbName + "/user/0/Top");
-    assertTextPresent("Melati Database Admin Suite - Options for Melatijunit database");
+    assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   
   /**
@@ -271,18 +271,18 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     clickLinkWithText(">");
     clickLinkWithText(">");
     clickLinkWithText(">");
-    assertTextPresent("Records 61 to 69 of 69");
+    assertTextPresent("Records 61 to 80 of 86");
     clickLinkWithText("<");
     clickLinkWithText("<");
     clickLinkWithText("<");
-    assertTextPresent("Records 1 to 20 of 69");
+    assertTextPresent("Records 1 to 20 of 86");
   }
   /**
    * 
    */
   public void testAdminEditHeader() {
     //setScriptingEnabled(false);
-    beginAt("/Admin/admintest/parent/0/EditHeader");
+    beginAt("/Admin/" + dbName + "/parent/0/EditHeader");
     clickLinkWithText("Child");
     gotoWindow("admin_edit_parent_0");
     assertElementPresent("selection");
@@ -461,7 +461,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setScriptingEnabled(false);
     beginAt("/Admin/" + dbName + "/DSD");
     assertTextPresent("Generated for _guest_");
-    assertTextPresent("package org.melati.poem;");
+    assertTextPresent("package org.melati.admin.test;");
   }
   /**
    * Move to login
@@ -524,7 +524,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoFrame("admin_bottom");
     gotoFrame("admin_left");
     gotoFrame("admin_selection");
-    assertTextPresent("Records 1 to 9 of 9");
+    assertTextPresent("Records 1 to 15 of 15");
     //String page = getPageSource();
     //System.err.println(page);
   }
@@ -615,7 +615,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     clickLink("continue");
     assertTextPresent("Done");
     clickLink("continue");
-    assertTextPresent("Melati Database Admin Suite - Melatijunit database");
+    assertTextPresent("Melati Database Admin Suite - Admintest database");
   }
   private void gotoAddRecord(String table) {
     gotoRootWindow();

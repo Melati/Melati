@@ -1586,8 +1586,8 @@ public class JdbcTable implements Selectable, Table {
       whereClause = "(" + whereClause + ")";
     }
 
-    if (deletedColumn != null) {
-      if(! includeDeleted && whereClause.length() > 0) {
+    if (deletedColumn != null && !includeDeleted) {
+      if(whereClause.length() > 0) {
         whereClause += " AND";
       }
       whereClause += " NOT " + dbms().booleanTrueExpression(deletedColumn);

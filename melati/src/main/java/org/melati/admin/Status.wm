@@ -55,10 +55,11 @@
 <BODY bgcolor="#FFFFFF" id="status">
 <h1>Database Cache Status</h1>
 <TABLE>
-    <TR><TH>Table</TH><TH>Table Row IDs</TH></TR>
+    <TR><TH>Table</TH><TH>Record Count</TH><TH>Table Row IDs</TH></TR>
   #foreach $table in $melati.Database.tables() #begin
     <TR>
       <TH VALIGN="top">$ml.rendered($table.Name)</TH> 
+      <TD VALIGN="top">$table.count()</TD> 
       <TD>
         #foreach $obj in $table.CacheInfo.HeldElements #begin
           $obj.troid()

@@ -117,17 +117,14 @@
     </TD></TR>
   #end
 
-  ## you know what ... webmacro totally does not work
-  #if (! $Form.detailed) #begin
-    #if ($melati.Object.Table.DetailDisplayColumnsCount != $melati.Object.Table.RecordDisplayColumnsCount) #begin
-    <TR><TD>
+  #if (!$Form.detailed && ($melati.Object.Table.DetailDisplayColumnsCount != $melati.Object.Table.RecordDisplayColumnsCount)) #begin
+   <TR><TD>
       <FONT SIZE="-1" FACE="Arial, Helvetica">
         <BR>
         <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>
         <BR>
       </FONT>
     </TD></TR>
-    #end
   #end
 
 #if ($Form.returnURL) #begin

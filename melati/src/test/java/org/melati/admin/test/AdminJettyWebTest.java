@@ -296,6 +296,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     beginAt("/Admin/" + dbName + "/user/0/Edit");
     assertTextPresent("Full name");
     assertTextPresent("_guest_");
+    clickLinkWithText("More ...");
+    assertLinkNotPresentWithText("More ...");
   }
   
   /**

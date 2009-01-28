@@ -370,7 +370,7 @@ public final class Cache {
    * Add an Object to the cache. 
    * 
    * @param key the Object to use as a lookup
-   * @param value the Object to p[ut in the cache
+   * @param value the Object to put in the cache
    */
   public synchronized void put(Object key, Object value) {
     if (key == null || value == null)

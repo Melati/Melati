@@ -49,5 +49,18 @@ package org.melati.poem.util;
  * Thrown should a duplicate entry be put in the {@link Cache}.
  */
 public class CacheDuplicationException extends IllegalArgumentException {
-  private static final long serialVersionUID = 1L;
+
+  /**serialVersionUID */
+  private static final long serialVersionUID = -3862949920584948411L;
+  
+
+  public CacheDuplicationException() {
+    super();
+  }
+
+  public CacheDuplicationException(String message) {
+    super(message);
+  }
+
+  
 }

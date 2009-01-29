@@ -405,7 +405,7 @@ public final class Cache {
   /**
    * Return an object from the Cache, null if not found.
    * @param key the cache key
-   * @return the object of null if not in cache
+   * @return the object or null if not in cache
    */
   public synchronized Object get(Object key) {
 

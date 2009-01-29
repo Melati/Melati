@@ -1131,9 +1131,14 @@ public class JdbcTable implements Selectable, Table {
       if (persistent.statusExistent())
         synchronized (cache) {
           JdbcPersistent tryAgain = (JdbcPersistent)cache.get(troid);
-          if (tryAgain == null)
-            cache.put(troid, persistent);
-          else
+          if (tryAgain == null) {
+            try { 
+              cache.put(troid, persistent);
+            } catch (Cache.InconsistencyException e) { 
+              throw new PoemBugPoemException(
+                  "Problem putting persistent " + persistent + " into cache:", e);
+            }
+          } else
             persistent = tryAgain;
         }
     }

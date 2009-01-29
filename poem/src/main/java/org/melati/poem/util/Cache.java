@@ -81,7 +81,7 @@ public final class Cache {
       this.value = value;
     }
 
-    synchronized void putBefore(HeldNode nextMRUP) {
+    synchronized void putBefore(HeldNode nextMRU_P) {
 
       //
       // Before:
@@ -104,21 +104,21 @@ public final class Cache {
       //   F => L if 4 exists
       //
 
-      if (this.nextMRU != null)                 // 2 exists
-        this.nextMRU.prevMRU = prevMRU;         // D => H using C
+      if (this.nextMRU != null)                   // 2 exists
+        this.nextMRU.prevMRU = prevMRU;           // D => H using C
 
-      if (prevMRU != null)                      // 1 exists
-        prevMRU.nextMRU = this.nextMRU;         // A => G using B
+      if (prevMRU != null)                        // 1 exists
+        prevMRU.nextMRU = this.nextMRU;           // A => G using B
 
-      if (nextMRUP != null) {                    // 4 exists
-        if (nextMRUP.prevMRU != null)            // 3 exists
-          nextMRUP.prevMRU.nextMRU = this;       // E => I
-        prevMRU = nextMRUP.prevMRU;              // C => K using F
-        nextMRUP.prevMRU = this;                 // F => L
+      if (nextMRU_P != null) {                    // 4 exists
+        if (nextMRU_P.prevMRU != null)            // 3 exists
+          nextMRU_P.prevMRU.nextMRU = this;       // E => I
+        prevMRU = nextMRU_P.prevMRU;              // C => K using F
+        nextMRU_P.prevMRU = this;                 // F => L
       }
       else
-        prevMRU = null;                          // C => K
-      this.nextMRU = nextMRUP;                   // B => J
+        prevMRU = null;                           // C => K
+      this.nextMRU = nextMRU_P;                   // B => J
     }
 
     /**
@@ -191,8 +191,10 @@ public final class Cache {
    * Thrown if one or more problems are discovered with cache consistency.
    */
   public class InconsistencyException extends PoemException {
-    private static final long serialVersionUID = 1L;
 
+    /**serialVersionUID */
+    private static final long serialVersionUID = 1832694552964508864L;
+    
     /** A Vector of problems. */
     public Vector probs;
 

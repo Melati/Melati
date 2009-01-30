@@ -111,13 +111,22 @@ public class CacheTest extends TestCase {
     } catch (CacheDuplicationException e) { 
       e = null;
     }
+  }
+  public void testPutNullKey() {
+    try { 
+      c.put(null, "null");
+      fail("Should have bombed");
+    } catch (NullPointerException e) { 
+      e = null;
+    }
+  }
+  public void testPutNullValue() {
     try { 
       c.put("null", null);
       fail("Should have bombed");
     } catch (NullPointerException e) { 
       e = null;
     }
-
   }
 
   /**
@@ -212,11 +221,115 @@ public class CacheTest extends TestCase {
    
   }
 
+  
   /**
    * Test method for {@link org.melati.poem.util.Cache#dumpAnalysis()}.
    */
   public void testDumpAnalysis() {
-   
+    c.dumpAnalysis();
   }
 
+  public void testFillingToBeyondCapacity() { 
+    for (int i = 5; i < 12; i++) { 
+      c.setSize(i);    
+      c.delete("01"); 
+      c.put("01", "a"); 
+      c.dumpAnalysis();
+      c.delete("02"); 
+      c.put("02", "b"); 
+      c.dumpAnalysis();
+      c.delete("03"); 
+      c.put("03", "c"); 
+      c.dumpAnalysis();
+      c.delete("04"); 
+      c.put("04", "d"); 
+      c.dumpAnalysis();
+      c.delete("05"); 
+      c.put("05", "e"); 
+      c.dumpAnalysis();
+      c.delete("06"); 
+      c.put("06", "f"); 
+      c.dumpAnalysis();
+      c.delete("07"); 
+      c.put("07", "g"); 
+      c.dumpAnalysis();
+      c.delete("08"); 
+      c.put("08", "h"); 
+      c.dumpAnalysis();
+      c.delete("09"); 
+      c.put("09", "i"); 
+      c.dumpAnalysis();
+      c.delete("10"); 
+      c.put("10", "j"); 
+      c.dumpAnalysis();
+      c.delete("11"); 
+      c.put("11", "k"); 
+      c.dumpAnalysis();
+      c.delete("12"); 
+      c.put("12", "l"); 
+      c.dumpAnalysis();
+      c.delete("13"); 
+      c.put("13", "m"); 
+      c.dumpAnalysis();
+      c.delete("14"); 
+      c.put("14", "n"); 
+      c.dumpAnalysis();
+      c.delete("15"); 
+      c.put("15", "o"); 
+      c.dumpAnalysis();
+    } 
+    System.err.println("--");
+    for (int i = 12; i > 4; i--) { 
+      c.trim(i);
+      c.delete("01"); 
+      c.put("01", "a"); 
+      c.dumpAnalysis();
+      c.delete("02"); 
+      c.put("02", "b"); 
+      c.dumpAnalysis();
+      c.delete("03"); 
+      c.put("03", "c"); 
+      c.dumpAnalysis();
+      c.delete("04"); 
+      c.put("04", "d"); 
+      c.dumpAnalysis();
+      c.delete("05"); 
+      c.put("05", "e"); 
+      c.dumpAnalysis();
+      c.delete("06"); 
+      c.put("06", "f"); 
+      c.dumpAnalysis();
+      c.delete("07"); 
+      c.put("07", "g"); 
+      c.dumpAnalysis();
+      c.delete("08"); 
+      c.put("08", "h"); 
+      c.dumpAnalysis();
+      c.delete("09"); 
+      c.put("09", "i"); 
+      c.dumpAnalysis();
+      c.delete("10"); 
+      c.put("10", "j"); 
+      c.dumpAnalysis();
+      c.delete("11"); 
+      c.put("11", "k"); 
+      c.dumpAnalysis();
+      c.delete("12"); 
+      c.put("12", "l"); 
+      c.dumpAnalysis();
+      c.delete("13"); 
+      c.put("13", "m"); 
+      c.dumpAnalysis();
+      c.delete("14"); 
+      c.put("14", "n"); 
+      c.dumpAnalysis();
+      c.delete("15"); 
+      c.put("15", "o"); 
+      c.dumpAnalysis();
+    } 
+    System.err.println("--");
+    c.dump();
+  }
+  
+  
 }

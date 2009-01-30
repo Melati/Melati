@@ -56,8 +56,17 @@ import org.melati.poem.PoemException;
 /**
  * A store of known objects.
  * 
+ * The cache size can be adjusted. Elements added to the cache once 
+ * it is full force a the least recently used item off the held list.
+ * Items which are removed from the held list are not deleted but 
+ * converted to soft references: available to be retrieved if they 
+ * are not garbage collected first.  
+ * 
  * The cache cannot contain nulls, as there would be no mechanism to 
  * distinguish between a held null value and an unheld value.
+ * 
+ * There is no mechanism for invalidating the cache, reducing its size 
+ * to zero mearly allows all its members to be garbage collected.  
  */
 public final class Cache {
 
@@ -136,6 +145,26 @@ public final class Cache {
     public Object value() {
       return value;
     }
+
+    /**
+     * {@inheritDoc}
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+      StringBuffer ret = new StringBuffer();
+      if(prevMRU == null) 
+        ret.append("null");
+      else 
+        ret.append(prevMRU.key());
+      ret.append(">>"+ key + "=" + value + ">>");
+      if(nextMRU == null) 
+        ret.append("null");
+      else 
+        ret.append(nextMRU.key());
+      return  ret.toString();
+    }
+    
+    
   }
 
  /** A node that has been dropped. */
@@ -228,7 +257,7 @@ public final class Cache {
     int countML = 0;
     for (HeldNode n = theMRU; n != null; n = n.nextMRU, ++countML) {
       if (table.get(n.key()) != n)
-        probs.addElement("table.get(" + n + ".key()) == " + table.get(n.key()));
+        probs.addElement("MRU list check: table.get(" + n + ".key()) == " + table.get(n.key()));
       if (countML < heldNodes)
         held[countML] = n;
       heldHash.put(n, Boolean.TRUE);
@@ -247,7 +276,7 @@ public final class Cache {
       keys.put(n.key(), n);
 
       if (table.get(n.key()) != n)
-        probs.addElement("table.get(" + n + ".key()) == " + table.get(n.key()));
+        probs.addElement("LRU list check: table.get(" + n + ".key()) == " + table.get(n.key()));
       if (countLM < heldNodes) {
         int o = heldNodes - (1 + countLM);
         if (n != held[o])
@@ -269,9 +298,13 @@ public final class Cache {
   }
 
   private void assertInvariant() {
-     Vector probs = invariantBreaches();
-     if (probs.size() != 0)
+    boolean debug = true;
+    if (debug) { 
+      Vector probs = invariantBreaches();
+      if (probs.size() != 0) {
        throw new InconsistencyException(probs);
+      }
+    }
   }
 
   /**
@@ -299,6 +332,9 @@ public final class Cache {
     return maxSize;
   }
 
+  /**
+   * Actually remove unheld entries from the table. 
+   */
   private synchronized void gc() {
     DroppedNode dropped;
     while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null) {
@@ -313,15 +349,15 @@ public final class Cache {
    * 
    * This is intended for cache maintenance, enabling only the 
    * most frequently used items to remain in the cache, whilst 
-   * the others are dropped. 
+   * the others are dropped; where dropped means converted to a soft reference. 
    * 
-   * @param maxSizeP maximum number of units to hold 
+   * @param maxSize_P maximum number of units to hold 
    */
-  public synchronized void trim(int maxSizeP) {
-    gc();
+  public synchronized void trim(int maxSize_P) {
+    gc();  // Remove anything that has exceeded bounds previously 
 
     HeldNode n = theLRU;
-    while (n != null && heldNodes > maxSizeP) {
+    while (n != null && heldNodes > maxSize_P) {
       HeldNode nn = n.prevMRU;
       n.putBefore(null);
       table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
@@ -341,7 +377,7 @@ public final class Cache {
   /**
    * Remove from cache.
    * 
-   * If key is not in the cache then does nothing. 
+   * If key is not in the cache as a HeldNode then does nothing.
    * 
    * @param key cache key field
    */
@@ -380,16 +416,16 @@ public final class Cache {
 
     trim(maxSize);
 
-    if (maxSize == 0)
+    if (maxSize == 0)  {
       table.put(key, new DroppedNode(key, value, collectedValuesQueue));
-    else {
+    } else {
       HeldNode node = new HeldNode(key, value);
 
       Object previous = table.put(key, node);
       if (previous != null) {
         // Return cache to previous state
         table.put(key, previous);
-        throw new CacheDuplicationException();
+        throw new CacheDuplicationException("Key already in cache for key=" + key + ", value="+value);
       }
 
       node.putBefore(theMRU);
@@ -424,7 +460,11 @@ public final class Cache {
           held.putBefore(theMRU);
           theMRU = held;
         }
-      } else {
+      } else {  // It is a DroppedNode ie SoftReference - which may be mangled
+        if (node.value() == null)   
+          // This seems actually to happen
+          // which means, I think, that the value has been collected 
+          return null;
         held = new HeldNode(key, node.value());
         table.put(key, held);
         ++heldNodes;
@@ -441,26 +481,33 @@ public final class Cache {
   }
 
   /**
-   * Apply function to all items in cache.
+   * Apply function to all items in cache, only ignoring items 
+   * where the value has been garbage collected.
+   * 
    * @param f Procedure to apply to all members of cache
    */
   public synchronized void iterate(Procedure f) {
     gc();
     for (Enumeration n = table.elements(); n.hasMoreElements();) {
       Object value = ((Node)n.nextElement()).value();
-      if (value != null)
+      if (value != null) // Value may be nulled by real garbage collector
         f.apply(value);
     }
   }
 
   /**
-   * Retieve an Enumeration of items held.
+   * Retrieve an Enumeration of items held.
    * @return  an Enumeration of items held
    */
   public Enumeration getReport() {
-    return new ConsEnumeration(
+    return new ConsEnumeration("" + 
+        maxSize + " maxSize, " + 
+        theMRU + " theMRU, " +
+        theLRU + " theLRU, " + 
+        droppedEver + " droppedEver",
+        new ConsEnumeration(
                heldNodes + " held, " + table.size() + " total ",
-               invariantBreaches().elements());
+               invariantBreaches().elements()));
   }
 
   /**
@@ -510,6 +557,8 @@ public final class Cache {
     public Enumeration getReport() {
       return Cache.this.getReport();
     }
+    
+    
   }
 
   /**
@@ -520,11 +569,27 @@ public final class Cache {
   }
 
   /**
-   * Dump to syserr.
+   * Dump to Syserr.
    */
   public void dumpAnalysis() {
     for (Enumeration l = getReport(); l.hasMoreElements();)
       System.err.println(l.nextElement());
+  }
+  
+  public void dump() { 
+    System.err.println("Keys: " + table.size());
+    System.err.println("maxSize: " + maxSize);
+    System.err.println("theMRU: " + theMRU);
+    System.err.println("theLRU: " + theLRU);
+    System.err.println("heldNodes: " + heldNodes);
+    System.err.println("droppedEver: " + droppedEver);
+    Enumeration e = table.keys();
+    while(e.hasMoreElements()) { 
+      Object k = e.nextElement();
+      System.err.print(k );
+      System.err.print(" : ");
+      System.err.println(table.get(k) );
+    }
   }
 }
 

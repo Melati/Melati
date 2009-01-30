@@ -1044,6 +1044,8 @@ public class JdbcTable implements Selectable, Table {
   }
 
   /**
+   * Enable reporting of the status of the cache.
+   * 
    * @return the Cache Info object
    */ 
   public Cache.Info getCacheInfo() {

@@ -46,8 +46,7 @@
 package org.melati.poem;
 
 /**
- * An object which notices and records when a {@link Table} is 
- * accessed.
+ * An object which can be notified when a {@link Table} is accessed.
  *
  * @author WilliamC At paneris.org
  */

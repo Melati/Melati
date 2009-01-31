@@ -54,10 +54,12 @@ import java.util.Vector;
 import org.melati.poem.PoemException;
 
 /**
- * A store of known objects.
+ * A store whose capacity has a guaranteed lower limit but whose upper limit 
+ * is bounded by the amount of memory available to the JVM. 
+ * The lower limit can be adjusted after cache creation.  
  * 
- * The cache size can be adjusted. Elements added to the cache once 
- * it is full force a the least recently used item off the held list.
+ * Elements added to the cache once the cache size exceeds the lower limit 
+ * (the cache is full) force the least recently used (LRU) item off the held list.
  * Items which are removed from the held list are not deleted but 
  * converted to soft references: available to be retrieved if they 
  * are not garbage collected first.  
@@ -66,7 +68,18 @@ import org.melati.poem.PoemException;
  * distinguish between a held null value and an unheld value.
  * 
  * There is no mechanism for invalidating the cache, reducing its size 
- * to zero mearly allows all its members to be garbage collected.  
+ * to zero mearly allows all its members to be garbage collected.
+ * 
+ * Ideally, having been created, objects remain in the cache; however this  
+ * is impracticable when the possible size of the sum of cached objects 
+ * exceeds available memory. 
+ * 
+ * The performance of the cache depends upon the pattern of accesses to it. 
+ * An LRU cache such as this assumes a normal distribution of accesses.
+ *  
+ * The state of the cache can be monitored by using the reporting 
+ * objects, see for example org.melati.admin.Status.
+ * 
  */
 public final class Cache {
 
@@ -78,7 +91,7 @@ public final class Cache {
     Object value();
   }
 
- /** A <code>node</code> in a linked list. */
+ /** A <code>node</code> in the cache, which is guaranteed to be there. */
   private static class HeldNode implements Node {
     Object key;
     Object value;
@@ -120,7 +133,9 @@ public final class Cache {
         prevMRU.nextMRU = this.nextMRU;           // A => G using B
 
       if (nextMRU_P != null) {                    // 4 exists
-        if (nextMRU_P.prevMRU != null)            // 3 exists
+        if (nextMRU_P.prevMRU != null)            // 3 exists 
+          // this should never happen as nextMRU_P is always null or 
+          // theMRU which always has a null prevMRU  
           nextMRU_P.prevMRU.nextMRU = this;       // E => I
         prevMRU = nextMRU_P.prevMRU;              // C => K using F
         nextMRU_P.prevMRU = this;                 // F => L
@@ -167,7 +182,9 @@ public final class Cache {
     
   }
 
- /** A node that has been dropped. */
+ /** A {@link SoftReference} node; that is one which can be reclaimed
+  *  by the Garbage Collector before it throws an out of memory error. 
+  */
   private static class DroppedNode extends SoftReference implements Node {
 
     Object key;
@@ -204,7 +221,7 @@ public final class Cache {
   private HeldNode theMRU = null, theLRU = null;
   private int heldNodes = 0;
   private int maxSize;
-  private int droppedEver = 0;
+  private int collectedEver = 0;
 
   private ReferenceQueue collectedValuesQueue = new ReferenceQueue();
 
@@ -213,7 +230,7 @@ public final class Cache {
   //   if theLRU != null, theLRU.nextMRU == null
   //   following theMRU gives you the same elements as following theLRU
   //       in the opposite order
-  //   everything in the[ML]RU is in table as a HeldNode, and vv.
+  //   everything in the[ML]RU is in table as a HeldNode, and visa versa.
   //   heldNodes == length of the[ML]RU
 
   /**
@@ -298,7 +315,7 @@ public final class Cache {
   }
 
   private void assertInvariant() {
-    boolean debug = true;
+    boolean debug = false;
     if (debug) { 
       Vector probs = invariantBreaches();
       if (probs.size() != 0) {
@@ -333,13 +350,16 @@ public final class Cache {
   }
 
   /**
-   * Actually remove unheld entries from the table. 
+   * Check whether the garbage collector has actually reclaimed any of 
+   * our {@link SoftReference}s, should it have done so it will have 
+   * placed the reference on the collected queue, this entry is then 
+   * removed from the backing store.
    */
-  private synchronized void gc() {
-    DroppedNode dropped;
-    while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null) {
-      table.remove(dropped.key);
-      ++droppedEver;
+  private synchronized void checkForGarbageCollection() {
+    DroppedNode collected;
+    while ((collected = (DroppedNode)collectedValuesQueue.poll()) != null) {
+      table.remove(collected.key);
+      ++collectedEver;
     }
   }
 
@@ -354,7 +374,7 @@ public final class Cache {
    * @param maxSize_P maximum number of units to hold 
    */
   public synchronized void trim(int maxSize_P) {
-    gc();  // Remove anything that has exceeded bounds previously 
+    checkForGarbageCollection();  
 
     HeldNode n = theLRU;
     while (n != null && heldNodes > maxSize_P) {
@@ -445,7 +465,7 @@ public final class Cache {
    */
   public synchronized Object get(Object key) {
 
-    gc();
+    checkForGarbageCollection();
 
     Node node = (Node)table.get(key);
     if (node == null)
@@ -463,7 +483,8 @@ public final class Cache {
       } else {  // It is a DroppedNode ie SoftReference - which may be mangled
         if (node.value() == null)   
           // This seems actually to happen
-          // which means, I think, that the value has been collected 
+          // which means that the value has been collected since
+          // the call to checkForGarbageCollection() above
           return null;
         held = new HeldNode(key, node.value());
         table.put(key, held);
@@ -487,24 +508,25 @@ public final class Cache {
    * @param f Procedure to apply to all members of cache
    */
   public synchronized void iterate(Procedure f) {
-    gc();
+    checkForGarbageCollection();
     for (Enumeration n = table.elements(); n.hasMoreElements();) {
       Object value = ((Node)n.nextElement()).value();
-      if (value != null) // Value may be nulled by real garbage collector
+      if (value != null) 
+        // Value could conceivably have been nulled since call to checkForGarbageCollection above
         f.apply(value);
     }
   }
 
   /**
-   * Retrieve an Enumeration of items held.
-   * @return  an Enumeration of items held
+   * Report on the status of the cache.
+   * @return  an Enumeration of report lines
    */
   public Enumeration getReport() {
     return new ConsEnumeration("" + 
         maxSize + " maxSize, " + 
         theMRU + " theMRU, " +
         theLRU + " theLRU, " + 
-        droppedEver + " droppedEver",
+        collectedEver + " collectedEver",
         new ConsEnumeration(
                heldNodes + " held, " + table.size() + " total ",
                invariantBreaches().elements()));
@@ -521,7 +543,7 @@ public final class Cache {
      * @return an Enumeration of objects held
      */
     public Enumeration getHeldElements() {
-      gc();
+      checkForGarbageCollection();
       return new MappedEnumeration(
           new FilteredEnumeration(table.elements()) {
             public boolean isIncluded(Object o) {
@@ -538,7 +560,7 @@ public final class Cache {
      * @return an Enumeration of elements dropped from the cache
      */
     public Enumeration getDroppedElements() {
-      gc();
+      checkForGarbageCollection();
       return new MappedEnumeration(
           new FilteredEnumeration(table.elements()) {
             public boolean isIncluded(Object o) {
@@ -552,7 +574,7 @@ public final class Cache {
     }
 
     /**
-     * @return an enumeration of held objects
+     * @return the report 
      */
     public Enumeration getReport() {
       return Cache.this.getReport();
@@ -576,13 +598,16 @@ public final class Cache {
       System.err.println(l.nextElement());
   }
   
+  /**
+   * Output to syserr.
+   */
   public void dump() { 
     System.err.println("Keys: " + table.size());
     System.err.println("maxSize: " + maxSize);
     System.err.println("theMRU: " + theMRU);
     System.err.println("theLRU: " + theLRU);
     System.err.println("heldNodes: " + heldNodes);
-    System.err.println("droppedEver: " + droppedEver);
+    System.err.println("collectedEver: " + collectedEver);
     Enumeration e = table.keys();
     while(e.hasMoreElements()) { 
       Object k = e.nextElement();

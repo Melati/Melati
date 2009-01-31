@@ -335,5 +335,26 @@ public class CacheTest extends TestCase {
     c.dump();
   }
   
+  public void testZeroSizedCache() { 
+    Cache z = new Cache(0);
+    assertNull(z.get("a"));
+    z.put("a", "A");
+    assertEquals("A",z.get("a"));
+    assertFalse(c.getInfo().getDroppedElements().hasMoreElements());
+
+  }
   
+  public void testGCHandling() { 
+    char[] ballast = new char[4000000];
+    try {
+      for (int i=0; i<1000; i++) { 
+        c.put(new Integer(i), new StringBuffer(1000000));
+      }
+    } catch (OutOfMemoryError m) {
+      ballast = null;
+      Runtime r = Runtime.getRuntime();
+      r.gc();
+    }
+    c.dump();
+  }
 }

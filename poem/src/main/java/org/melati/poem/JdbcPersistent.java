@@ -185,7 +185,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   /**
    * Whether we are up to date with respect to current Transaction.
    * <p>
-   * Return the inheritted validity flag.
+   * Return the inherited validity flag.
    * 
    * {@inheritDoc}
    * @see org.melati.poem.transaction.Transactioned#
@@ -1065,9 +1065,9 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   }
 
   // 
-  // ================================
-  // Use to Represent Query Contructs
-  // ================================
+  // =================================
+  // Use to Represent Query Constructs
+  // =================================
   //
 
   /**

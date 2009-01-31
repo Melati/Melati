@@ -358,7 +358,7 @@ public final class Cache {
   private synchronized void checkForGarbageCollection() {
     DroppedNode collected;
     while ((collected = (DroppedNode)collectedValuesQueue.poll()) != null) {
-      table.remove(collected.key);
+      table.remove(collected.key());
       ++collectedEver;
     }
   }

@@ -314,6 +314,9 @@ public final class Cache {
     return probs;
   }
 
+  /**
+   * This is too costly to run in production.
+   */
   private void assertInvariant() {
     boolean debug = false;
     if (debug) { 

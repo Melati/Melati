@@ -41,6 +41,11 @@ This page last updated: $Date$ $Author$
        <A HREF="doc/FunctionalSpecification.html#access">authentication system</A>.
 
   </LI>
+  <LI>
+       A self-trimming, (LRU/1), cache of persistent objects such that available memory 
+       is efficiently used but reclaimed when needed by the JVM. Thsi ensures that databse accesses 
+       are reduced to a minimum.
+  </LI>
   <LI> Support for <A
        HREF="doc/FunctionalSpecification.html#transactions"><B>transactions</B></A>,
        either explicitly or transparently, with a simple default pattern

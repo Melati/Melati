@@ -79,14 +79,14 @@ public class MelatiFastWriter extends MelatiWriter
    */
   public MelatiFastWriter(Broker broker, OutputStream output, String encoding)
       throws IOException {
-    // need to make this accessable to subclasses
+    // need to make this accessible to subclasses
     outputStream = output;
     out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
   }
 /*  
   public MelatiFastWriter(OutputStream output, String encoding)
       throws IOException {
-    // need to make this accessable to subcalsses
+    // need to make this accessible to subclasses
     outputStream = output;
     out = FastWriter.getInstance(output, encoding);
   }

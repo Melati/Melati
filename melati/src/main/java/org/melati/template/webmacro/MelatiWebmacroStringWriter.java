@@ -71,7 +71,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * @see org.melati.template.webmacro.MelatiWebmacroWriter#getFastWriter
    *         (org.melati.template.TemplateEngine)
    */
-  public FastWriter getFastWriter(TemplateEngine engine) {
+  public org.webmacro.FastWriter getFastWriter(TemplateEngine engine) {
     WebmacroServletTemplateEngine wte = (WebmacroServletTemplateEngine)engine;
     WM wm = (WM)wte.getEngine();
     // All we want to do is efficiently convert to and from bytes
@@ -82,7 +82,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
     // So Jim used UTF-16BE
     // Changed to default in the desperate hope of getting something to work
     try {
-      return FastWriter.getInstance(wm.getBroker(), Melati.DEFAULT_ENCODING);
+      return org.webmacro.FastWriter.getInstance(wm.getBroker(), Melati.DEFAULT_ENCODING);
     }
     catch (UnsupportedEncodingException e) {
       throw new MelatiBugMelatiException(
@@ -94,7 +94,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    */
-  public void stopUsingFastWriter(FastWriter fw) throws IOException {
+  public void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException {
     write(fw.toString());
     fw.close();
   }

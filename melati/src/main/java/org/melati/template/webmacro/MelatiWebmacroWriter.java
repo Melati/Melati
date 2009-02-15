@@ -62,7 +62,7 @@ public interface MelatiWebmacroWriter {
    * @param engine the TemplateEngine
    * @return a FastWriter
    */
-  FastWriter getFastWriter(TemplateEngine engine);
+  org.webmacro.FastWriter getFastWriter(TemplateEngine engine);
 
   /**
    * Stop using the given <code>FastWriter</code> obtained from
@@ -72,6 +72,6 @@ public interface MelatiWebmacroWriter {
    * have been written to this object on return.
    *
    */
-  void stopUsingFastWriter(FastWriter fw) throws IOException;
+  void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException;
 
 }

@@ -81,7 +81,7 @@ public class MelatiFastWriter extends MelatiWriter
       throws IOException {
     // need to make this accessable to subclasses
     outputStream = output;
-    out = FastWriter.getInstance(broker, output, encoding);
+    out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
   }
 /*  
   public MelatiFastWriter(OutputStream output, String encoding)
@@ -94,11 +94,11 @@ public class MelatiFastWriter extends MelatiWriter
   /**
    * @return the peer
    */
-  public FastWriter getPeer() {
+  public org.webmacro.FastWriter getPeer() {
     // as we can write to the underlying peer, the Flusher may not get started
     // so we should start it here
     startFlushing();
-    return (FastWriter)out;
+    return (org.webmacro.FastWriter)out;
   }
 
   /**
@@ -106,7 +106,7 @@ public class MelatiFastWriter extends MelatiWriter
    *
    * @see #stopUsingFastWriter(FastWriter)
    */
-  public FastWriter getFastWriter(TemplateEngine engine) {
+  public org.webmacro.FastWriter getFastWriter(TemplateEngine engine) {
     return getPeer();
   }
 
@@ -125,7 +125,7 @@ public class MelatiFastWriter extends MelatiWriter
    *
    * @see #getFastWriter(TemplateEngine)
    */
-  public void stopUsingFastWriter(FastWriter fw) throws IOException {
+  public void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException {
     // Do nothing
   }
 

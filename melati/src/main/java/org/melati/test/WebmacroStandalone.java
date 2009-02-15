@@ -21,23 +21,23 @@
 
 package org.melati.test;
 
-import org.webmacro.ResourceException;
-import org.webmacro.WebMacro;
-import org.webmacro.WM;
-import org.melati.template.webmacro.FastWriter;
-import org.melati.util.MelatiBugMelatiException;
-import org.webmacro.Template;
-import org.webmacro.InitException;
-import org.webmacro.servlet.WebContext;
-
 import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.melati.util.MelatiBugMelatiException;
+import org.webmacro.FastWriter;
+import org.webmacro.InitException;
+import org.webmacro.ResourceException;
+import org.webmacro.Template;
+import org.webmacro.WM;
+import org.webmacro.WebMacro;
+import org.webmacro.servlet.WebContext;
 
 /**
  * This example demonstrates using WebMacro in "standalone" mode. Instead of

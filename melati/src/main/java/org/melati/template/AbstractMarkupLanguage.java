@@ -74,9 +74,9 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   protected Melati melati = null;
   protected PoemLocale locale = null;
 
-  /** The maximum number of field possibilites to render.  */
+  /** The maximum number of field possibilities to render.  */
   public static final int FIELD_POSSIBILITIES_LIMIT = 10000;
-  /** The maximum number of date field possibilites to render.  */
+  /** The maximum number of date field possibilities to render.  */
   public static final int DATE_FIELD_POSSIBILITIES_LIMIT = 50;
 
   private String name;
@@ -201,7 +201,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *
    * @param s - the string to be rendered
    * @param writer - the MelatiWriter to render this String to
-   * @param limit - the lenght to trim the string to
+   * @param limit - the length to trim the string to
    * @throws IOException - if there is a problem during rendering
    */
   protected void render(String s, int limit, MelatiWriter writer)

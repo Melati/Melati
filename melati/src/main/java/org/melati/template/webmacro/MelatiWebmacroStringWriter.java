@@ -72,7 +72,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    *         (org.melati.template.TemplateEngine)
    */
   public org.webmacro.FastWriter getFastWriter(TemplateEngine engine) {
-    WebmacroServletTemplateEngine wte = (WebmacroServletTemplateEngine)engine;
+    WebmacroTemplateEngine wte = (WebmacroTemplateEngine)engine;
     WM wm = (WM)wte.getEngine();
     // All we want to do is efficiently convert to and from bytes
     // in an encoding that works for all Java characters.

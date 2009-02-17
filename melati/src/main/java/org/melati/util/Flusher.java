@@ -48,13 +48,13 @@ package org.melati.util;
 
 /**
  * Flusher replaces need for <code>Thread.stop</code>.
-*/
+ */
 public final class Flusher extends Thread {
     private MelatiWriter out = null;
     private boolean stopTask = false;
 
     private int getPauseLength() {
-        return 2000;
+        return 800;
     }
 
     /**

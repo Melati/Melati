@@ -7,7 +7,7 @@
 <body>
 <h2>FlushingServlet Test</h2>
 <p>
-<font color="red>
+<font color="red">
 FIXME
 </font>
 This functionality was broken in webmacro 2.0.RC1 and now outputs to a
@@ -23,16 +23,18 @@ underlying http request going, without it timing out,
 you also want to be able to update the user as to progress.
 </p>
 #if ($melati.Method != "unflushed") #begin
-<p>To see what would happen if you did not flush, click <a href=unflushed>here</a> (remember to wait :)</p>
+<p>To see what would happen if you did not flush, click <a href="unflushed">here</a> (remember to wait :)</p>
 #end #else #begin
-<p>To see what would happen if you did flush, click <a href=flushed>here</a></p>
+<p>To see what would happen if you did flush, click <a href="flushed">here</a></p>
 #end
 <h3>Your Database has the following tables:</h3>
 #set $wait = 1500
 <p>There is a $(wait)ms delay between each table name being displayed</p>
 #foreach $tab in $melati.Database.DisplayTables #begin
-  $tab.DisplayName<br>
+  $tab.DisplayName
+  $ml.rendered($tab)<br>
   $waiter.wait($wait)
 #end
+<p>Done.</p>
 </body>
 </html>

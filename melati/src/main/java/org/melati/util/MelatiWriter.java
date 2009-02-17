@@ -63,6 +63,7 @@ public abstract class MelatiWriter extends Writer {
    */
   public void setFlushingOn() {
     flush = true;
+    startFlushing();
   }
   
   /**
@@ -71,7 +72,6 @@ public abstract class MelatiWriter extends Writer {
    */
   public void write(char cbuf[], int off, int len) throws IOException {
     out.write(cbuf, off, len);
-    startFlushing();
   }
   
   /**

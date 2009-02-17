@@ -68,12 +68,6 @@ public class MelatiFastWriter extends MelatiWriter
       throws IOException {
     this(broker, response.getOutputStream(), response.getCharacterEncoding());
   }
-/*  
-  public MelatiFastWriter(HttpServletResponse response) 
-      throws IOException {
-    this(response.getOutputStream(), response.getCharacterEncoding());
-  }
-*/  
   /**
    * Constructor.
    */
@@ -82,15 +76,8 @@ public class MelatiFastWriter extends MelatiWriter
     // need to make this accessible to subclasses
     outputStream = output;
     out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
-  }
-/*  
-  public MelatiFastWriter(OutputStream output, String encoding)
-      throws IOException {
-    // need to make this accessible to subclasses
-    outputStream = output;
-    out = FastWriter.getInstance(output, encoding);
-  }
-*/
+    }
+  
   /**
    * @return the peer
    */
@@ -110,14 +97,6 @@ public class MelatiFastWriter extends MelatiWriter
     return getPeer();
   }
 
-  /**
-   * Returns the underlying <code>OutputStream</code> that can be used.
-   *
-   * @see #stopUsingFastWriter(FastWriter)
-   */
-  public OutputStream getOutputStream() {
-    return outputStream;
-  }
 
   /**
    * Stop using the given <code>FastWriter</code> obtained from

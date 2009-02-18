@@ -7,13 +7,6 @@
 <body>
 <h2>FlushingServlet Test</h2>
 <p>
-<font color="red">
-FIXME
-</font>
-This functionality was broken in webmacro 2.0.RC1 and now outputs to a
-String before splurting the whole thing to the browser.
-</p>
-<p>
 This servlet uses org.melati.util.Flusher to ensure the output 
 is flushed to the client every 2 seconds.
 </p>

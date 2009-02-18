@@ -75,7 +75,14 @@ The following gives the items which would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.8.0</td>
-    <td>DSD rewritten in Melati.</td>
+    <td>
+    DSD rewritten in Melati<br />
+    Unify webmacro and velocity templet directories <br /> 
+    Flushing works with velocity <br />
+    Works with Derby <br />
+
+
+    </td>
     <td></td>
   </tr>
   <tr> 

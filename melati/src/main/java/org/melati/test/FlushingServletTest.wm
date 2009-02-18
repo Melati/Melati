@@ -8,7 +8,7 @@
 <h2>FlushingServlet Test</h2>
 <p>
 This servlet uses org.melati.util.Flusher to ensure the output 
-is flushed to the client every 2 seconds.
+is flushed to the client every 0.8 seconds.
 </p>
 <p>
 In some situations, such as a long running process, you want to keep the

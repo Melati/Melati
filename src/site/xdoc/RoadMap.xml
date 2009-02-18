@@ -79,6 +79,22 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td></td>
   </tr>
   <tr> 
+    <td>0.7.8</td>
+    <td>
+    Flushing fixed <br />
+    Caching fixed <br />
+    JDBC-ODBC working<br />
+    Improvements to CSV output<br />
+    Refactoring to more literate names and javadoc<br />
+    Improvements to DSD processor<br />
+    Distinguish between markup fragments and Strings in rendering<br />
+    Add copy from one database to another <br />
+    Fix file uploading <br />
+    
+    </td>
+    <td><b>done</b></td>
+  </tr>
+  <tr> 
     <td>0.7.7</td>
     <td>
     POJOs persisted.<br />

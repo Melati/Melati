@@ -77,11 +77,9 @@ public class FlushingServletTestTest extends JettyWebTestCase {
     super.tearDown();
   }
   /**
-   * Not only is the flushing broken, but so is this test.
-   * 
    * @throws Exception
    */
-  public void BorkedTestInvoke() throws Exception {
+  public void testInvoke() throws Exception {
     beginAt("/org.melati.test.FlushingServletTest");
     assertTextPresent("FlushingServlet Test");
   }

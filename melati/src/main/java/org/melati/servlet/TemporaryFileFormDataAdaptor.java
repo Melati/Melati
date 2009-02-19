@@ -57,14 +57,14 @@ public class TemporaryFileFormDataAdaptor extends BaseFileFormDataAdaptor {
   private String temporaryFileName;
   
   /**
-   * Constructor.
+   * Constructor using default file name.
    */
   public TemporaryFileFormDataAdaptor() {
-    temporaryFileName = "melati";
+    this("melati");
   }
   /**
    * Constructor specifying temporary file name.
-   * @param temporaryFileName the temporary fle name ot use
+   * @param temporaryFileName the temporary file name to use
    */
   public TemporaryFileFormDataAdaptor(String temporaryFileName) {
     this.temporaryFileName = temporaryFileName;

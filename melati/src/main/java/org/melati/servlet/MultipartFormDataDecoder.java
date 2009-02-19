@@ -60,7 +60,8 @@ import org.melati.util.DelimitedBufferedInputStream;
  */
 public class MultipartFormDataDecoder {
 
-  private int maxSize = 2048;
+  private static int MAX_SIZE = 2048;
+  private int maxSize;
   private Melati melati = null;
   DelimitedBufferedInputStream in;
   String contentType;
@@ -87,10 +88,7 @@ public class MultipartFormDataDecoder {
                               InputStream in,
                               String contentType,
                               FormDataAdaptorFactory factory) {
-    this.melati = melati;
-    this.in = new DelimitedBufferedInputStream(in, maxSize);
-    this.contentType = contentType;
-    this.factory = factory;
+    this(melati,in, contentType, factory, MAX_SIZE);
   }
 
   /**

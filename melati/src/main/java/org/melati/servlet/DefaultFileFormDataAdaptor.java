@@ -74,10 +74,7 @@ public class DefaultFileFormDataAdaptor extends BaseFileFormDataAdaptor {
    *                   isn't an appropriate URL)
    */
   public DefaultFileFormDataAdaptor(Melati melatiP, String uploadDirP, String uploadUrlP) {
-    this.melati = melatiP;
-    if (uploadDirP == null) throw new NullPointerException();
-    this.uploadDir = uploadDirP;
-    this.uploadURL = uploadUrlP;
+    this(melatiP, uploadDirP, uploadUrlP, true);
   }
 
   /**
@@ -92,12 +89,12 @@ public class DefaultFileFormDataAdaptor extends BaseFileFormDataAdaptor {
    */
 
   public DefaultFileFormDataAdaptor(Melati melatiP, String uploadDirP, String uploadURLP,
-                                boolean makeUnique) {
+                                boolean makeUniqueP) {
     this.melati = melatiP;
     this.uploadDir = uploadDirP;
     if (uploadDirP == null) throw new NullPointerException();
     this.uploadURL = uploadURLP;
-    this.makeUnique = makeUnique;
+    this.makeUnique = makeUniqueP;
   }
 
   protected File calculateLocalFile() {

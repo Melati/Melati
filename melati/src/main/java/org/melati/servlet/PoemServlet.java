@@ -225,7 +225,7 @@ public abstract class PoemServlet extends ConfigServlet {
     } catch (Exception e) {
         // we have to log this here, otherwise we lose the stacktrace
         error(melati, e);
-        throw new TrappedException(e.toString());
+        throw new TrappedException("Problem in prePoemSession", e);
     }
 
     final PoemServlet _this = this;
@@ -254,7 +254,7 @@ public abstract class PoemServlet extends ConfigServlet {
         } catch (Exception e) {
           // we have to log this here, otherwise we lose the stacktrace
           error(melati, e);
-          throw new TrappedException(e.toString());
+          throw new TrappedException(e);
         }
         
         
@@ -270,7 +270,7 @@ public abstract class PoemServlet extends ConfigServlet {
         } catch (Exception e) {
           // we have to log this here, otherwise we lose the stacktrace
           error(melati, e);
-          throw new TrappedException(e.toString());
+          throw new TrappedException(e);
         }
       }
 
@@ -317,9 +317,6 @@ public abstract class PoemServlet extends ConfigServlet {
     if (exception instanceof AccessPoemException) {
       melati.getConfig().getAccessHandler().handleAccessException(melati,
           (AccessPoemException) exception);
-    } else if (exception instanceof NoMoreTransactionsException) {
-      exception.printStackTrace(System.err);
-      dbBusyMessage(melati);
     } else
       throw exception;
   }
@@ -332,19 +329,6 @@ public abstract class PoemServlet extends ConfigServlet {
       PoemThread.rollback();
       throw e;
     }
-  }
-
-  protected void dbBusyMessage(Melati melati) throws IOException {
-    melati.getResponse().setContentType("text/html");
-    MelatiWriter mw = melati.getWriter();
-    // get rid of anything that has been written so far
-    mw.reset();
-    PrintWriter out = mw.getPrintWriter();
-    out.println("<html>\n<head><title>Server Busy</title></head>");
-    out.println("<body>\n<h4>Server Busy</h4>");
-    out.println("<p>Please try again in a short while</p>");
-    out.println("</body>\n</html>");
-    melati.write();
   }
 
   protected PoemContext poemContext(Melati melati) throws PathInfoException {

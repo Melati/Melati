@@ -159,7 +159,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
     String originalCacheKey = cacheKey(templateEngine, markupLanguage, purpose, lookupClass);
     String lookupCacheKey = originalCacheKey;
     String lookupPurpose = purpose;
-    while (lookupClass != null) {
+    while (true) {
       fromCache = (Template)templetForClassCache.get(lookupCacheKey);
       if (fromCache != null) {
         templet = fromCache;
@@ -189,9 +189,9 @@ public final class ClassNameTempletLoader implements TempletLoader {
       }
       lookupCacheKey = cacheKey(templateEngine, markupLanguage, lookupPurpose, lookupClass);
     }
-    
-    if (templet == null)
-      throw new MelatiBugMelatiException("Cannot even find template for Object");
+    // We should have at last found Object template    
+    //if (templet == null)
+    //  throw new MelatiBugMelatiException("Cannot even find template for Object");
     if (fromCache == null)
       templetForClassCache.put(originalCacheKey, templet);
     if (!lookupCacheKey.equals(originalCacheKey)) { 

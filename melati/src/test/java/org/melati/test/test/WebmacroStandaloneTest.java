@@ -110,6 +110,7 @@ public class WebmacroStandaloneTest extends JettyWebTestCase {
    */
   public void testUnknownVariableReferenced() throws Exception { 
     beginAt("/org.melati.test.WebmacroStandalone?die=true");
+    beginAt("/org.melati.test.WebmacroStandalone?die=true");
     assertTrue(getPageSource().indexOf("Attempted to write an undefined variable") != -1);
   }
 

@@ -87,9 +87,9 @@ public class WebmacroStandalone extends HttpServlet {
    * of resources.
    */
   public void destroy() {
-    if (_wm != null) {
-      _wm = null;
-    }
+    // It could of course be null already, but cheaper to re-null;
+    // and you get better test coverage.
+   _wm = null;
   }
 
   /**
@@ -119,32 +119,31 @@ public class WebmacroStandalone extends HttpServlet {
       throws IOException {
     String templateName = "org/melati/test/WebmacroStandalone.wm";
 
-    WebContext c = new WebContext(_wm.getBroker(), req, resp);
+    WebContext context = new WebContext(_wm.getBroker(), req, resp);
 
     // fill up the context with our data
-    c.put("Today", new Date());
-    c.put("Number", new Long(23));
+    context.put("Today", new Date());
+    context.put("Number", new Long(23));
 
     // WebContext provides some utilities as well
-    String other = c.getForm("other");
+    String other = context.getForm("other");
     if (other == null) {
-      c.put("hello", "Hello again!"); // put this into the hash
+      context.put("hello", "Hello again!"); // put this into the hash
     } else {
-      c.put("hello", other); // else put this in
+      context.put("hello", other); // else put this in
     }
-    String templateNameFromForm = c.getForm("templateName");
+    String templateNameFromForm = context.getForm("templateName");
     if (templateNameFromForm != null )
       templateName = templateNameFromForm;
     FastWriter fw = new FastWriter(_wm.getBroker(), resp.getOutputStream(),
         resp.getCharacterEncoding());
     // get the template we intend to execute
-    Template t = null;
+    Template template = null;
     try {
-      t = _wm.getTemplate(templateName);
+      template = _wm.getTemplate(templateName);
     } catch (ResourceException e) {
 
-      fw
-          .write("ERROR!  Could not locate template "
+      fw.write("ERROR!  Could not locate template "
               + templateName
               + ", if you are not using a modified WebMacro.properties then it should be on the CLASSPATH.");
       e.printStackTrace();
@@ -153,9 +152,9 @@ public class WebmacroStandalone extends HttpServlet {
     }
     try {
       // write the template to the output, using our context
-      t.write(fw.getOutputStream(), c);
+      template.write(fw.getOutputStream(), context);
     } catch (org.webmacro.ContextException e) {
-       throw new MelatiBugMelatiException("You have misconfigured WebMacro.");
+       throw new MelatiBugMelatiException("You have misconfigured WebMacro.", e);
     } finally { 
       fw.close();
     }

@@ -52,7 +52,7 @@ package org.melati.poem;
  */
 public interface TableListener {
   /**
-   * Notify a Table that on of its records is about to be modified.
+   * Notify a Table that one of its records is about to be modified.
    * @param transaction the PoemTransaction about to modify
    * @param table the Table to notify
    * @param persistent the record that is being modified

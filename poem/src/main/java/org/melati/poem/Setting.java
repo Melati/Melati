@@ -279,6 +279,10 @@ public class Setting extends SettingBase {
                                              getTypefactory(), "Boolean");
   }
 
+  /**
+   * @return the attributes set in this Setting as the attributes for the 
+   * value field
+   */
   private FieldAttributes valueFieldAttributes() {
     if (valueAttributes == null)
       valueAttributes =

@@ -183,7 +183,6 @@ public final class Form {
     return getField(context, field, null);
   }
   
-    
   /**
   * A utility method that gets a value from the Form.  It will return
   * the default if the value is "" or not present.
@@ -201,6 +200,7 @@ public final class Form {
     return val.trim().equals("") ? defaultValue : val;
   }
 
+  
   /**
   * A utility method that gets a value from the Form as an Integer.  
   * It will return null if the value is "" or not present.
@@ -312,36 +312,6 @@ public final class Form {
     return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
   }
   
-
-  /**
-  * A utility method that gets a value from the Form.  It will return
-  * null if the value is "" or not present.
-  *
-  * @param context - a template context
-  * @param field - the name of the field to get
-  *
-  * @return - the value of the field requested
-  */
-  public static String getFormNulled(ServletTemplateContext context, String field) {
-    return getForm(context, field, null);
-  }
-
- /**
-  * A utility method that gets a value from the Form.  It will return
-  * the default if the value is "" or not present.
-  *
-  * @param context - a template context
-  * @param field - the name of the field to get
-  * @param def - the default value if the field is "" or not present
-  *
-  * @return - the value of the field requested
-  */
-  public static String getForm(ServletTemplateContext context, String field, 
-                               String def) {
-    String val = context.getForm(field);
-    if (val == null) return def;
-    return val.trim().equals("") ? def : val;
-  }
 
 }
 

@@ -46,12 +46,15 @@
 package org.melati.template;
 
 /**
- * Object to read fields from a context modified in a templet.
+ * Object to reading fields from a context,  modified by a user.
+ * The typical case is the conversion of values from human settable 
+ * date widgets to a machine readable form, which are converted to the 
+ * appropriate Object type.  
  */
 public interface TempletAdaptor {
   
   /**
-   * Retrieve a raw object, ie an SQL value, from a ServletTemplateContext. 
+   * Retrieve a raw value, ie an SQL value, from a ServletTemplateContext. 
    * 
    * @param context the ServletTemplateContext the value is stored in
    * @param fieldName the name of the field in the context

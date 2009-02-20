@@ -87,7 +87,7 @@ public class FormTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.servlet.Form#extractField(org.melati.template.ServletTemplateContext, java.lang.String)}.
+   * Test method for {@link org.melati.servlet.Form#extractField(org.melati.template.ServletTemplateContext, java.lang.String, boolean)}.
    */
   public void testExtractField() {
     

@@ -279,7 +279,7 @@ public class Setting extends SettingBase {
                                              getTypefactory(), "Boolean");
   }
 
-  private FieldAttributes valueAttributes() {
+  private FieldAttributes valueFieldAttributes() {
     if (valueAttributes == null)
       valueAttributes =
           fieldAttributesRenamedAs(getSettingTable().getValueColumn());
@@ -288,14 +288,28 @@ public class Setting extends SettingBase {
   }
 
   /**
-   * {@inheritDoc}
+   * Override the normal field attributes for the Value field, 
+   * use the attribute values set in this setting.
    * @see org.melati.poem.generated.SettingBase#getValueField()
    */
   public Field getValueField() {
     try {
-      return new Field(getRaw(), valueAttributes());
+      return new Field(getRaw(), valueFieldAttributes());
     } catch (AccessPoemException accessException) {
-      return new Field(accessException, valueAttributes());
+      return new Field(accessException, valueFieldAttributes());
     }
   }
+
+  /**
+   * Slight overkill, force recreation of value field attributes even 
+   * if it is the value that has been changed.
+   *   
+   * {@inheritDoc}
+   * @see org.melati.poem.ValueInfo#postEdit(boolean)
+   */
+  public void postEdit(boolean creating) {
+    super.postEdit(creating);
+    valueAttributes  = null;
+  }
+  
 }

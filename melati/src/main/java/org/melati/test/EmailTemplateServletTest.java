@@ -162,7 +162,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
    * Set up the melati context so we don't have to specify the logicaldatabase
    * on the pathinfo.
    * 
-   * Useful when writing appications where you are typically only accessing a
+   * Useful when writing applications where you are typically only accessing a
    * single database.
    */
   protected PoemContext poemContext(Melati melati) throws PathInfoException {

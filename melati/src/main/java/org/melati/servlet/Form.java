@@ -91,7 +91,10 @@ public final class Form {
       String formFieldName = "field_" + column.getName();
       Object value = extractField(context, formFieldName, column.getType().getNullable());
       if (value != Boolean.FALSE) // The field is present
-        column.setRaw(persistent, value);    
+        if (value == null)
+          column.setRaw(persistent, value);
+        else 
+          column.setRawString(persistent, (String)value);
     }
   }
 

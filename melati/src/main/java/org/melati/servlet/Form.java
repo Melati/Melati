@@ -82,57 +82,16 @@ public final class Form {
    * This is currently used for dates.
    *
    * @param context the current {@link ServletTemplateContext} to get values from
-   * @param object  the {@link Persistent} to update
+   * @param persistent  the {@link Persistent} to update
    */
   public static void extractFields(ServletTemplateContext context, 
-                                   Persistent object) {
-    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
+                                   Persistent persistent) {
+    for (Enumeration c = persistent.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String formFieldName = "field_" + column.getName();
-      String rawString = context.getForm(formFieldName);
-
-      String adaptorFieldName = formFieldName + "-adaptor";
-      String adaptorName = context.getForm(adaptorFieldName);
-      if (adaptorName != null) {
-        TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
-        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
-      } else {
-        if (rawString != null) {
-          rawString = rawString.trim();
-          if (rawString.equals("")) {
-            if (column.getType().getNullable())
-              column.setRaw(object, null);
-            else
-              column.setRawString(object, "");
-          } else {
-            String branch;
-            String utf8StringISO = null;
-            String utf8StringUTF8 = null;
-            byte[] stringBytesISO;
-            byte[] stringBytesUTF8;
-            try {
-              stringBytesISO = rawString.getBytes("ISO-8859-1");
-              utf8StringISO = new String(stringBytesISO, "ISO-8859-1");
-              stringBytesUTF8 = rawString.getBytes("UTF-8");
-              utf8StringUTF8 = new String(stringBytesUTF8, "UTF-8");
-            
-              if (utf8StringISO.equals(rawString)) {
-                column.setRawString(object, utf8StringISO);
-                branch = "1";
-              } else if (utf8StringUTF8.equals(rawString)) {
-                column.setRawString(object, utf8StringUTF8);
-                branch = "2";
-              } else {
-                column.setRawString(object, rawString);              
-                branch = "3";
-              }
-            } catch (UnsupportedEncodingException e) {
-              throw new MelatiBugMelatiException("UTF-8 or ISO-8859-1 not supported", e);
-            }
-            System.err.println("Branch:"+branch+":"+rawString +":"+utf8StringUTF8+":"+utf8StringISO);
-          }
-        }
-      }
+      Object value = extractField(context, formFieldName, column.getType().getNullable());
+      if (value != Boolean.FALSE) // The field is present
+        column.setRaw(persistent, value);    
     }
   }
 
@@ -141,23 +100,55 @@ public final class Form {
    *
    * @param context    the current {@link ServletTemplateContext} to get values from
    * @param fieldName  the name of the field to extract
-   * @return the value of the field 
+   * @param nullable   whether to return null or empty string
+   * @return the value of the field or FALSE if not found
    * @throws TempletAdaptorConstructionMelatiException 
    *             if there is a problem, for example with the class name
    */
-  public static Object extractField(ServletTemplateContext context, String fieldName)
+  public static Object extractField(ServletTemplateContext context, String fieldName, boolean nullable)
       throws TempletAdaptorConstructionMelatiException {
 
     String rawString = context.getForm(fieldName);
 
     String adaptorFieldName = fieldName + "-adaptor";
     String adaptorName = context.getForm(adaptorFieldName);
-
     if (adaptorName != null) {
       TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
       return adaptor.rawFrom(context, fieldName);
+    } else {
+      if (rawString != null) {
+        rawString = rawString.trim();
+        if (rawString.equals("")) {
+          if (nullable)
+            return null;
+          else
+            return "";
+        } else {
+          String utf8StringISO = null;
+          String utf8StringUTF8 = null;
+          byte[] stringBytesISO;
+          byte[] stringBytesUTF8;
+          try {
+            stringBytesISO = rawString.getBytes("ISO-8859-1");
+            utf8StringISO = new String(stringBytesISO, "ISO-8859-1");
+            stringBytesUTF8 = rawString.getBytes("UTF-8");
+            utf8StringUTF8 = new String(stringBytesUTF8, "UTF-8");
+          
+            if (utf8StringISO.equals(rawString)) {
+              return utf8StringISO;
+            } else if (utf8StringUTF8.equals(rawString)) {
+              return utf8StringUTF8;
+            } else {
+              return rawString;              
+            }
+          } catch (UnsupportedEncodingException e) {
+            throw new MelatiBugMelatiException("UTF-8 or ISO-8859-1 not supported", e);
+          }
+        }
+      } else { 
+        return Boolean.FALSE; // Not found in form        
+      }
     }
-    return rawString;
   }
 
 

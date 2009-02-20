@@ -209,7 +209,7 @@ public abstract class ConfigServlet extends HttpServlet {
         melati.write();
       } catch (IOException f) {
         e.printStackTrace(System.err);
-        throw new TrappedException(f.toString());
+        throw new TrappedException("Problem logging error", f);
       }
     }
   }

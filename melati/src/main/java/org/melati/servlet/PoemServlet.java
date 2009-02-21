@@ -46,7 +46,6 @@
 package org.melati.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -59,8 +58,6 @@ import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
-import org.melati.poem.NoMoreTransactionsException;
-import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
 
 /**

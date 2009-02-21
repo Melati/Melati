@@ -92,15 +92,32 @@ public class VelocityServletTemplateContext
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
    */
   public String getForm(String s) {    
+    return getFormField(s);    
+  }    
+    
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getFormField(java.lang.String)
+   */
+  public String getFormField(String s) {    
     return form.get(s);    
   }    
     
   /**
-   * FIXME Return null, bad smell.
-   * {@inheritDoc}
+   * Returns null as this is not a multi part form.
+   * Should perhaps throw an exception.
    * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
    */
   public MultipartFormField getMultipartForm(String s) {    
+    return null;    
+  }    
+    
+  /**
+   * Returns null as this is not a multi part form.
+   * Should perhaps throw an exception.
+   * @see org.melati.template.ServletTemplateContext#getMultipartFormField(java.lang.String)
+   */
+  public MultipartFormField getMultipartFormField(String s) {    
     return null;    
   }    
     

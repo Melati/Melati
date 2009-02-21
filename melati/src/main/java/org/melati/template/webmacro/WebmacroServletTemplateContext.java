@@ -77,14 +77,31 @@ public class WebmacroServletTemplateContext
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
    */
   public String getForm(String k) {
-    return webContext.getForm(k);
+    return getFormField(k);
   }
 
   /**
    * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
+   */
+  public String getFormField(String k) {
+    return webContext.getForm(k);
+  }
+
+  /**
+   * Returns null as this is not a multi part form.
+   * Should perhaps throw an exception.
    * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
    */
   public MultipartFormField getMultipartForm(String s) {
+    return null;
+  }
+  /**
+   * Returns null as this is not a multi part form.
+   * Should perhaps throw an exception.
+   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
+   */
+  public MultipartFormField getMultipartFormField(String s) {
     return null;
   }
 

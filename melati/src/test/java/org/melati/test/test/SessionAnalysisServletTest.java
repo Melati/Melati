@@ -77,11 +77,13 @@ public class SessionAnalysisServletTest extends JettyWebTestCase {
     super.tearDown();
   }
   /**
-   * Not much of a test, as it behaves differently defending upon previous tests. 
+   * Not much of a test, as it behaves differently depending upon previous tests. 
    * 
    * @throws Exception
    */
   public void testInvoke() throws Exception {
+    // Touch the db to get some sessions going
+    beginAt("/org.melati.test.PoemServletTest/melatitest");
     beginAt("/org.melati.test.SessionAnalysisServlet");
     assertTextPresent("Transactions Analysis");
     assertTextPresent("Initialised databases in use: ");

@@ -54,7 +54,6 @@ import javax.servlet.ServletException;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.servlet.FormDataAdaptorFactory;
-import org.melati.servlet.Form;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
@@ -83,28 +82,22 @@ public class EmailTemplateServletTest extends TemplateServlet {
     context.put("servlet", this);
     melati.setResponseContentType("text/html");
 
-    String smtpServer = Form.getFieldNulled(melati.getServletTemplateContext(),
-    "SMTPServer");
+    String smtpServer = context.getFormField("SMTPServer");
     
     if (smtpServer != null) {
-      String from = Form.getFieldNulled(melati.getServletTemplateContext(),
-      "from");
-      String to = Form.getFieldNulled(melati.getServletTemplateContext(),
-      "to");
+      String from = context.getFormField("from");
+      String to = context.getFormField("to");
       to += ", timp@paneris.org";
-      String replyTo = Form.getFieldNulled(melati.getServletTemplateContext(),
-      "replyTo");
-      String subject = Form.getFieldNulled(melati.getServletTemplateContext(),
-      "subject");
-      String message = Form.getFieldNulled(melati.getServletTemplateContext(),
-      "message");
-      MultipartFormField referencedField = context.getMultipartForm("referencedFile");
+      String replyTo = context.getFormField("replyTo");
+      String subject = context.getFormField("subject");
+      String message = context.getFormField("message");
+      MultipartFormField referencedField = context.getMultipartFormField("referencedFile");
       File referencedFile = null;
       if (referencedField != null){
         referencedFile = referencedField.getDataFile();
       }
       
-      MultipartFormField attachedField = context.getMultipartForm("attachedFile");
+      MultipartFormField attachedField = context.getMultipartFormField("attachedFile");
       File attachedFile = attachedField.getDataFile();
       Email.send(smtpServer,
                    from, 
@@ -152,6 +145,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
           context.put("error",
                       "Unexpected error: " + e);
         }
+        System.err.println("here");
         context.put("done", Boolean.TRUE);
     }
 

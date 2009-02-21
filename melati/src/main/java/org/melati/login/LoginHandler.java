@@ -121,8 +121,8 @@ public class LoginHandler {
     if (triggeringException != null)
       context.put("triggeringException", triggeringException);
 
-    String username = context.getForm("field_login");
-    String password = context.getForm("field_password");
+    String username = context.getFormField("field_login");
+    String password = context.getFormField("field_password");
     UserTable users = PoemThread.database().getUserTable();
 
     context.put("login", new Field(username, users.getLoginColumn()));
@@ -175,7 +175,7 @@ public class LoginHandler {
       if (Form.getFieldNulled(templateContext,"continuationURL") 
           != null) {
         templateContext.put("continuationURL",
-                            templateContext.getForm("continuationURL"));
+                            templateContext.getFormField("continuationURL"));
       }
     }
 
@@ -212,8 +212,8 @@ public class LoginHandler {
 
     setupContext(templateContext);
 
-    String username = templateContext.getForm("field_login");
-    String password = templateContext.getForm("field_password");
+    String username = templateContext.getFormField("field_login");
+    String password = templateContext.getFormField("field_password");
 
     if (username == null)
       return loginPageTemplate();

@@ -173,7 +173,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
   protected String getFormOrDie(ServletTemplateContext context,
                               String fieldName, String suffix) {
     String fullName = fieldName + suffix;
-    String value = context.getForm(fullName);
+    String value = context.getFormField(fullName);
     if (value == null)
       throw new MissingFieldException(this, fieldName, fullName);
     return value;

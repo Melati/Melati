@@ -79,7 +79,7 @@ public class TemplateServletTest extends TemplateServlet {
     if (method != null) {
 
       if (method.equals("Upload")) {
-        MultipartFormField field = templateContext.getMultipartForm("file");
+        MultipartFormField field = templateContext.getMultipartFormField("file");
         byte[] data = field.getData();
         melati.getResponse().setContentType(field.getContentType());
         OutputStream output = melati.getResponse().getOutputStream();

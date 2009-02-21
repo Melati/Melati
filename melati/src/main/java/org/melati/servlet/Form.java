@@ -45,7 +45,6 @@
 
 package org.melati.servlet;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -57,7 +56,6 @@ import org.melati.poem.Column;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TempletAdaptor;
 import org.melati.template.TempletAdaptorConstructionMelatiException;
-import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.UTF8URLEncoder;
 
 /**
@@ -85,71 +83,29 @@ public final class Form {
    * @param persistent  the {@link Persistent} to update
    */
   public static void extractFields(ServletTemplateContext context, 
-                                   Persistent persistent) {
-    for (Enumeration c = persistent.getTable().columns(); c.hasMoreElements();) {
+                                   Persistent object) {
+    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String formFieldName = "field_" + column.getName();
-      Object value = extractField(context, formFieldName, column.getType().getNullable());
-      if (value != Boolean.FALSE) // The field is present
-        if (value == null)
-          column.setRaw(persistent, value);
-        else 
-          column.setRawString(persistent, (String)value);
-    }
-  }
+      String rawString = context.getFormField(formFieldName);
 
-  /**
-   * Fill in value of a Field from a ServletTemplateContext.
-   *
-   * @param context    the current {@link ServletTemplateContext} to get values from
-   * @param fieldName  the name of the field to extract
-   * @param nullable   whether to return null or empty string
-   * @return the value of the field or FALSE if not found
-   * @throws TempletAdaptorConstructionMelatiException 
-   *             if there is a problem, for example with the class name
-   */
-  public static Object extractField(ServletTemplateContext context, String fieldName, boolean nullable)
-      throws TempletAdaptorConstructionMelatiException {
-
-    String rawString = context.getForm(fieldName);
-
-    String adaptorFieldName = fieldName + "-adaptor";
-    String adaptorName = context.getForm(adaptorFieldName);
-    if (adaptorName != null) {
-      TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
-      return adaptor.rawFrom(context, fieldName);
-    } else {
-      if (rawString != null) {
-        rawString = rawString.trim();
-        if (rawString.equals("")) {
-          if (nullable)
-            return null;
-          else
-            return "";
-        } else {
-          String utf8StringISO = null;
-          String utf8StringUTF8 = null;
-          byte[] stringBytesISO;
-          byte[] stringBytesUTF8;
-          try {
-            stringBytesISO = rawString.getBytes("ISO-8859-1");
-            utf8StringISO = new String(stringBytesISO, "ISO-8859-1");
-            stringBytesUTF8 = rawString.getBytes("UTF-8");
-            utf8StringUTF8 = new String(stringBytesUTF8, "UTF-8");
-          
-            if (utf8StringISO.equals(rawString)) {
-              return utf8StringISO;
-            } else if (utf8StringUTF8.equals(rawString)) {
-              return utf8StringUTF8;
-            } else {
-              return rawString;              
-            }
-          } catch (UnsupportedEncodingException e) {
-            throw new MelatiBugMelatiException("UTF-8 or ISO-8859-1 not supported", e);
+      String adaptorFieldName = formFieldName + "-adaptor";
+      String adaptorName = context.getFormField(adaptorFieldName);
+      if (adaptorName != null) {
+        TempletAdaptor adaptor = getAdaptor(adaptorFieldName, adaptorName);
+        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
+      } else {
+        if (rawString != null) {
+          rawString = rawString.trim();
+          if (rawString.equals("")) {
+            if (column.getType().getNullable())
+              column.setRaw(object, null);
+            else 
+              column.setRawString(object, "");
+          } else {
+            column.setRawString(object, rawString);
           }
-        }
-      } else { 
-        return Boolean.FALSE; // Not found in form        
+        } // else it is not present in form 
       }
     }
   }
@@ -195,7 +151,8 @@ public final class Form {
   */
   public static String getField(ServletTemplateContext context, String field, 
                                String defaultValue) {
-    String val = context.getForm(field);
+    String val = context.getFormField(field);
+    System.err.println("Form field " + field + " is " + val);
     if (val == null) return defaultValue;
     return val.trim().equals("") ? defaultValue : val;
   }

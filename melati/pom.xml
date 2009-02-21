@@ -214,7 +214,6 @@
       <excludes>
         <!-- Old example test -->
        <exclude>**/UserTableTest.java</exclude>
-       <exclude>**/EmailTemplateServletTestTest.java</exclude>
        <!--exclude>**/HTMLMarkupLanguage*Test.java</exclude-->
        <!-- exclude>**/HsqldbTest.java</exclude-->
        <!-- exclude>**/MultiThreadedCachedSelectionTest.java</exclude-->

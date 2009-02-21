@@ -51,7 +51,7 @@
 #set $monthField = $melati.Config.YMDDateAdaptor.monthField($field)
 #set $dayField = $melati.Config.YMDDateAdaptor.dayField($field)
 
-<input type="hidden" name="field_$ml.rendered($dayField.Name)" value="1" />
+<input type="hidden" name="field_$ml.rendered($dayField.Name)" value="" />
 
 <select name="field_$ml.rendered($monthField.Name)"
   #if ($field.Type.Nullable) #begin

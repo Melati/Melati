@@ -63,10 +63,10 @@ import org.melati.servlet.MultipartFormDataDecoder;
  * (by setting its ENCTYPE to ``multipart/form-data'' and 
  * setting the field's type to * ``file'').
  * <p>
- * You can retrive the value of any field variable as usual by
+ * You can retrieve the value of any field variable as usual by
  * using getForm(s).
  * <p>
- * Note that you need to pass in a {@link ServletTemplateContext} to the contructor.
+ * Note that you need to pass in a {@link ServletTemplateContext} to the constructor.
  */
 public class MultipartTemplateContext implements ServletTemplateContext {
   ServletTemplateContext peer;

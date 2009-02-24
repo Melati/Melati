@@ -224,8 +224,8 @@ public class AdminUtils {
   /**
    * @return The Left URL.
    */
-  public String TableURL(Melati melati) {
-    return getURL(melati, "Table");
+  public String TableURL(Table table) {
+    return getURL(table, "Table");
   }
   
   /**

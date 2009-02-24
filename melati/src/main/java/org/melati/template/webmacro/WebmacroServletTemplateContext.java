@@ -81,6 +81,7 @@ public class WebmacroServletTemplateContext
   }
 
   /**
+   * Returns null if not present, empty string if empty.
    * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
    */

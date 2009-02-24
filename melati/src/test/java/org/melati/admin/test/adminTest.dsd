@@ -21,6 +21,84 @@ table UploadedFile
         (renderinfo="UploadURL")
         ;
 
+    // Date and time fields added to excercise adaptors
+    Date datefield
+      (displayname = "Date Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 5)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefielddropdown
+      (displayname = "Date Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (renderinfo = "dropdown")
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 5)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefieldmydropdown
+      (displayname = "Date Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (renderinfo = "monthyeardropdown")
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 5)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Timestamp timestampfield
+      (displayname = "Timestamp Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (renderinfo = "dropdown")
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 10)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    
 }
 
 table UploadedImage

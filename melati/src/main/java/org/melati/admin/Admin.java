@@ -120,6 +120,9 @@ import org.melati.util.MelatiRuntimeException;
  * @todo Make Chooser JS agnostic
  * @todo Make Navigation JS agnostic
  * @todo Rename Left template to Table
+ * @todo Logout fails to work if remember me is ticked
+ * @todo Left hand not working selection ???
+ * @todo Order by field f orders on fields troid, not field ordering 
  * @FIXME primaryDisplayTable should not be static as this messes with DB switching
  */
 
@@ -180,7 +183,7 @@ public class Admin extends TemplateServlet {
 
     Column column = table.primaryCriterionColumn();
     if (column != null) {
-      String sea = context.getForm("field_" + column.getName());
+      String sea = context.getFormField("field_" + column.getName());
       primaryCriterion = new Field(
           sea == null ? 
            (
@@ -201,7 +204,7 @@ public class Admin extends TemplateServlet {
    */
   protected static String selectionTemplate(ServletTemplateContext context,
       Melati melati) {
-    String templateName = context.getForm("template");
+    String templateName = context.getFormField("template");
     if (templateName == null) {
       selection(context, melati, true);
       return adminTemplate("Selection");
@@ -436,7 +439,7 @@ public class Admin extends TemplateServlet {
     Vector fields = new Vector();
     while (columns.hasMoreElements()) {
       Column column = (Column) columns.nextElement();
-      String stringValue = context.getForm("field_" + column.getName());
+      String stringValue = context.getFormField("field_" + column.getName());
       Object value = null;
       if (stringValue != null)
         value = column.getType().rawOfString(stringValue);
@@ -477,7 +480,7 @@ public class Admin extends TemplateServlet {
 
     if (melati.getTable() instanceof TableInfoTable)
       melati.getDatabase().addTableAndCommit((TableInfo) newPersistent,
-          context.getForm("field_troidName"));
+          context.getFormField("field_troidName"));
     if (melati.getTable() instanceof ColumnInfoTable)
       ((ColumnInfo) newPersistent).getTableinfo().actualTable()
           .addColumnAndCommit((ColumnInfo) newPersistent);
@@ -563,7 +566,7 @@ public class Admin extends TemplateServlet {
 
   protected static String uploadTemplate(ServletTemplateContext context)
       throws PoemException {
-    context.put("field", context.getForm("field"));
+    context.put("field", context.getFormField("field"));
     return adminTemplate("Upload");
   }
 
@@ -582,12 +585,12 @@ public class Admin extends TemplateServlet {
 
   protected static String uploadDoneTemplate(ServletTemplateContext context)
       throws PoemException {
-    String field = context.getForm("field");
+    String field = context.getFormField("field");
     context.put("field", field);
     String url = "";
-    url = context.getMultipartForm("file").getDataURL();
+    url = context.getMultipartFormField("file").getDataURL();
     if (url == null)
-      throw new NullUrlDataAdaptorException(context.getMultipartForm("file").getFormDataAdaptor());
+      throw new NullUrlDataAdaptorException(context.getMultipartFormField("file").getFormDataAdaptor());
     context.put("url", url);
     return adminTemplate("UploadDone");
   }
@@ -627,7 +630,15 @@ public class Admin extends TemplateServlet {
   protected String doTemplateRequest(Melati melati,
       ServletTemplateContext context) throws Exception {
 
-    if (Form.getField(context, "goto", null) != null)
+    String table = Form.getFieldNulled(context, "table");
+    if (table != null) {
+      if (table != melati.getTable().getName()) {
+        melati.getPoemContext().setTable(table);
+        melati.getPoemContext().setTroid(null);
+        melati.loadTableAndObject();
+      }
+    }
+    if (Form.getFieldNulled(context, "goto") != null)
       melati.getResponse().sendRedirect(Form.getField(context, "goto", null));
 
     melati.setPassbackExceptionHandling();

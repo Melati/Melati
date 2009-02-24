@@ -152,8 +152,8 @@ public final class Form {
   public static String getField(ServletTemplateContext context, String field, 
                                String defaultValue) {
     String val = context.getFormField(field);
-    System.err.println("Form field " + field + " is " + val);
-    if (val == null) return defaultValue;
+    if (val == null) // field not present in form 
+      return defaultValue;
     return val.trim().equals("") ? defaultValue : val;
   }
 

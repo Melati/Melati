@@ -75,14 +75,12 @@ public class CharsetTemplateServletTestTest extends JettyWebTestCase {
     super.tearDown();
   }
   /**
-   * Click Exception link.
+   * Click link.
    */
   public void testException() throws Exception {
     beginAt("/org.melati.test.CharsetTemplateServletTest");
     assertTextNotPresent("Wrong");
     assertTextNotPresent("Exception");
-    //FIXME Broken in Eclipse on Windows and Linux but works under Maven
-    //assertTextNotPresent("Cannot");
   }
 
 }

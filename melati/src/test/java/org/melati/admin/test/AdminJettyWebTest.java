@@ -15,6 +15,8 @@ import org.melati.JettyWebTestCase;
 import org.melati.util.HTMLUtils;
 
 /**
+ * 
+ *  
  * FIXME bug when id specified in url db/table/Main?id=0
  * @author timp
  * @since 2008/01/01
@@ -42,46 +44,54 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public static void main(String[] args) throws Exception {
     startServer(8080);
   }
+  /**
+   * There appears to be a problem with gargoyle javascript such that 
+   * we cannot begin at the Main page as this throws NullPointerException, 
+   * The work around is to begin at the server top and then got the Main page.
+   * 
+   * {@inheritDoc}
+   * @see org.melati.JettyWebTestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+    beginAt("/");
+    
+  }
 
   // Test Page calls
   /**
    * 
    */
   public void testBadUrl() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/Unknown");
+    gotoPage("/Admin/" + dbName + "/Unknown");
     assertTextPresent("Melati Error Template");
   }
   /**
    * 
    */
   public void testAdminMain() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/Main");
+    gotoPage("/Admin/" + dbName + "/Main");
     assertTextPresent("You need a frames enabled browser to use the Admin Suite");
   }
   /**
    * 
    */
   public void testAdminTop() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/Top");
+    gotoPage("/Admin/" + dbName + "/Top");
     assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   /**
    * 
    */
   public void testAdminTopWithTable() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/Top");
+    gotoPage("/Admin/" + dbName +  "/user/Top");
     assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   /**
    * 
    */
   public void testAdminTopWithTableAndTroid() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/0/Top");
+    gotoPage("/Admin/" + dbName +  "/user/0/Top");
     assertTextPresent("Melati Database Admin Suite - Options for Admintest database");
   }
   
@@ -89,8 +99,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testUpload() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/Upload?field=tim");
+    gotoPage("/Admin/" + dbName + "/user/Upload?field=tim");
     assertTextPresent("File to upload:");
   }
   
@@ -98,16 +107,14 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Test that an AdminSpecialised object has its special templet included in edit.
    */
   public void testAdminSpecialised() { 
-    setScriptingEnabled(false);
     loginAsAdministrator();
     gotoPage("/Admin/admintest/uploadedfile/Main");
     gotoRootWindow();
     gotoFrame("admin_top");
-    setWorkingForm("goto");
-    selectOption("goto","Uploaded File");
-    assertFormPresent("goto");
+    setWorkingForm("gotoform");
+    selectOption("table","Uploaded File");
+    assertFormPresent("gotoform");
     submit();
-    setScriptingEnabled(true);
     gotoRootWindow();
     gotoFrame("admin_bottom");
     gotoFrame("admin_left");
@@ -134,16 +141,15 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Test that an AdminSpecialised object invokes its own handler.
    */
   public void testAdminSpecialisedHandler() { 
-    setScriptingEnabled(false);
-    beginAt("/Admin/admintest/specialised/Main");
+    gotoPage("/Admin/admintest/specialised/Main");
     gotoAddRecord("Specialised");
     setTextField("field_name", "test");
     submit();
     assertTextPresent("Done");
-    beginAt("/Admin/admintest/specialised/0/NotAnAdminMethod");
+    gotoPage("/Admin/admintest/specialised/0/NotAnAdminMethod");
     assertTextPresent("Hi, I'm Special."); 
     // Hmm, is this intended behaviour?
-    beginAt("/Admin/admintest/specialised/0/Edit");
+    gotoPage("/Admin/admintest/specialised/0/Edit");
     assertTextPresent("Hi, I'm Special.");        
   }
   
@@ -152,16 +158,15 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * no primary criteria are displayed. 
    */
   public void testNoPrimarySelect() { 
-    setScriptingEnabled(false);
-    beginAt("/Admin/admintest/user/PrimarySelect");
+    gotoPage("/Admin/admintest/user/PrimarySelect");
     assertTablePresent("primarySelectTable");
-    beginAt("/Admin/admintest/uploadedfile/PrimarySelect");
+    gotoPage("/Admin/admintest/uploadedfile/PrimarySelect");
     assertTableNotPresent("primarySelectTable");
-    beginAt("/Admin/admintest/user/PrimarySelect?field_name=");
+    gotoPage("/Admin/admintest/user/PrimarySelect?field_name=");
     assertTablePresent("primarySelectTable");
 
     // Relies upon an object already being created in previous test
-    beginAt("/Admin/admintest/specialised/0/PrimarySelect");
+    gotoPage("/Admin/admintest/specialised/0/PrimarySelect");
     assertTableNotPresent("primarySelectTable");
     
   }
@@ -171,42 +176,37 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    *  Getting the coverage is proof enough.
    */
   public void testDescendingOrder() { 
-    setScriptingEnabled(false);
-    beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
-    beginAt("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
-    beginAt("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
-    beginAt("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
+    gotoPage("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
+    gotoPage("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
+    gotoPage("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
+    gotoPage("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
   }
   /**
    * 
    */
   public void testAdminBottom() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/Bottom");
+    gotoPage("/Admin/" + dbName + "/user/Bottom");
     // Hmmm Should assert something, coverage is the thing
   }
   /**
    * 
    */
   public void testAdminRight() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/0/Right");
+    gotoPage("/Admin/" + dbName + "/user/0/Right");
     // Hmmm Should assert something, coverage is the thing
   }
   /**
    * 
    */
   public void testAdminPrimarySelect() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/PrimarySelect");
+    gotoPage("/Admin/" + dbName + "/user/PrimarySelect");
     assertTextPresent("Full name");
   }
   /**
    * 
    */
   public void testAdminSelection() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/Selection?target=&returnTarget=");
+    gotoPage("/Admin/" + dbName + "/user/Selection?target=&returnTarget=");
     assertTextPresent("Full name");
     assertTextPresent("Melati guest user");
     clickLinkWithText("Full name");
@@ -266,23 +266,21 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Can we get to page three and back.
    */
   public void testSelectionPaging() { 
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/columninfo/Selection?target=&returnTarget=");
+    gotoPage("/Admin/" + dbName + "/columninfo/Selection?target=&returnTarget=");
     clickLinkWithText(">");
     clickLinkWithText(">");
     clickLinkWithText(">");
-    assertTextPresent("Records 61 to 80 of 86");
+    assertTextPresent("Records 61 to 80 of 90");
     clickLinkWithText("<");
     clickLinkWithText("<");
     clickLinkWithText("<");
-    assertTextPresent("Records 1 to 20 of 86");
+    assertTextPresent("Records 1 to 20 of 90");
   }
   /**
    * 
    */
   public void testAdminEditHeader() {
-    //setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/parent/0/EditHeader");
+    gotoPage("/Admin/" + dbName + "/parent/0/EditHeader");
     clickLinkWithText("Child");
     gotoWindow("admin_edit_parent_0");
     assertElementPresent("selection");
@@ -292,8 +290,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminEdit() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/0/Edit");
+    gotoPage("/Admin/" + dbName + "/user/0/Edit");
     assertTextPresent("Full name");
     assertTextPresent("_guest_");
     clickLinkWithText("More ...");
@@ -304,8 +301,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminEditField() { 
-    setScriptingEnabled(false);
-    beginAt("/Admin/admintest/markup/Main");
+    gotoPage("/Admin/admintest/markup/Main");
     gotoAddRecord("Markup");
     assertEquals("&Aacute;",HTMLUtils.entityFor("\u00C1".charAt(0),false, null, false));
     //char it = 193;
@@ -318,7 +314,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setTextField("field_text", "\u00C1");
     submit();
     assertTextPresent("Done");
-    beginAt("/Admin/admintest/markup/0/Edit");
+    gotoPage("/Admin/admintest/markup/0/Edit");
     assertEquals("\u00C1",getFormFieldValue("field_text"));
     assertTextPresent("\u00C1");
   }
@@ -351,8 +347,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Test that login is required.
    */
   public void testAdminEditAdministrator() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/1/Edit");
+    gotoPage("/Admin/" + dbName + "/user/1/Edit");
     assertTextPresent("You need to log in.");
     setTextField("field_login", "_administrator55_");
     setTextField("field_password", "FIXME");
@@ -374,6 +369,11 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoPage("/Admin/" + dbName + "/user/1/Edit");
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
+    assertTextFieldEquals("field_email", "");
+    setTextField("field_email", "test@test.com");
+    submit("action");
+    assertTextFieldEquals("field_email", "test@test.com");
+    setScriptingEnabled(false);
     submit("action");
     assertTextPresent("Updated a User Record");
     assertTextPresent("Done");
@@ -382,8 +382,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Test that we are challenged to get into the everything db.
    */
   public void testEverythingIsProtected() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/everything/Main");
+    gotoPage("/Admin/everything/Main");
     assertTextPresent("You need to log in");
     
   }
@@ -391,8 +390,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminTree() {
-    setScriptingEnabled(true);
-    beginAt("/Admin/" + dbName + "/user/0/Record");
+    gotoPage("/Admin/" + dbName + "/user/0/Record");
     gotoFrame("admin_edit_header");
     assertTextPresent("_guest_");
     assertTextPresent("[ Group membership ]");
@@ -406,16 +404,14 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminTreeNoScript() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/0/Tree");
+    gotoPage("/Admin/" + dbName + "/user/0/Tree");
     assertTextPresent("Melati guest user tree");
   }
   /**
    * 
    */
   public void testAdminTableTree() {
-    setScriptingEnabled(true);
-    beginAt("/Admin/" + dbName + "/user/Table");
+    gotoPage("/Admin/" + dbName + "/user/Table");
     gotoFrame("admin_navigation");
     clickLink("tableTree");
     gotoRootWindow();
@@ -428,40 +424,35 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testAdminSelectionWindow() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/SelectionWindow?returnfield=field_user");
+    gotoPage("/Admin/" + dbName + "/user/SelectionWindow?returnfield=field_user");
     assertTextPresent("Select a User");
   }
   /**
    * 
    */
   public void testAdminSelectionWindowPrimarySelect() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/SelectionWindowPrimarySelect?returnfield=field_user");
+    gotoPage("/Admin/" + dbName + "/user/SelectionWindowPrimarySelect?returnfield=field_user");
     assertTextPresent("Full name");
   }
   /**
    * 
    */
   public void testAdminSelectionWindowSelection() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/SelectionWindowSelection?returnfield=field_user");
+    gotoPage("/Admin/" + dbName + "/user/SelectionWindowSelection?returnfield=field_user");
     assertTextPresent("Records 1 to 2 of 2");
   }
   /**
    * 
    */
   public void testAdminPopup() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/user/PopUp");
+    gotoPage("/Admin/" + dbName + "/user/PopUp");
     assertTextPresent("Search User Table");
   }
   /**
    * 
    */
   public void testAdminDSD() {
-    setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/DSD");
+    gotoPage("/Admin/" + dbName + "/DSD");
     assertTextPresent("Generated for _guest_");
     assertTextPresent("package org.melati.admin.test;");
   }
@@ -469,8 +460,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Move to login
    */
   public void testLoginWithContinuation() {
-    setScriptingEnabled(false);
-    beginAt("/Login/" + dbName + "?continuationURL=" + contextUrl("/index.html"));
+    gotoPage("/Login/" + dbName + "?continuationURL=" + contextUrl("/index.html"));
     setTextField("field_login", "_administrator_");
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
@@ -482,9 +472,9 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Test setting the defaults.
    */
   public void testSetupStory() { 
-    setScriptingEnabled(false);
     loginAsAdministrator();
     gotoFrame("admin_top");
+    setScriptingEnabled(false);
     clickLinkWithText("Setup");
     gotoRootWindow();
     gotoFrame("admin_bottom");
@@ -505,12 +495,12 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public void testSearchAndGoto() {
     setScriptingEnabled(false);
-    beginAt("/Admin/" + dbName + "/Main");
+    gotoPage("/Admin/" + dbName + "/Main");
     gotoRootWindow();
     gotoFrame("admin_top");
-    setWorkingForm("goto");
-    selectOption("goto","Column");
-    assertFormPresent("goto");
+    setWorkingForm("gotoform");
+    selectOption("table","Column");
+    assertFormPresent("gotoform");
     submit();
     gotoRootWindow();
     gotoFrame("admin_bottom");
@@ -547,6 +537,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     String tableTroid = getElementAttributByXPath(
         "//input[@name='" + "troid" + "']", "value");
     gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
+    System.err.println("Found created table troid " + tableTroid);
     gotoFrame("admin_bottom");
     gotoFrame("admin_record");
     gotoFrame("admin_edit_header");
@@ -574,8 +565,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("Done");
     String columnTroid = getElementAttributByXPath(
         "//input[@name='" + "troid" + "']", "value");
-    
-
+    System.err.println("Found created troid " + columnTroid);
     gotoAddRecord("Test");
     setTextField("field_test", "test");
     submit();
@@ -622,12 +612,14 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   private void gotoAddRecord(String table) {
     gotoRootWindow();
     gotoFrame("admin_top");
-    selectOption("goto",table);
-    assertFormPresent("goto");
-    setWorkingForm("goto");
+    selectOption("table",table);
+    assertFormPresent("gotoform");
+    setWorkingForm("gotoform");
     submit();
     gotoRootWindow();
     gotoFrame("admin_bottom");
+    //System.err.println(getTester().getDialog().getPageURL());
+    
     gotoFrame("admin_left");
     gotoFrame("admin_navigation");
     clickLink("add");
@@ -657,7 +649,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * Returns us to top frame.
    */
   private void loginAsAdministrator() {
-    beginAt("/Admin/" + dbName + "/Main");
+    gotoPage("/Admin/" + dbName + "/Main");
     gotoFrame("admin_top");
     clickButton("login");
     setTextField("field_login", "_administrator_");

@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,9 +38,8 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc At paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Joyce  <timj At paneris.org>
+ *     http://paneris.org/~timj
  */
 
 package org.melati.template;
@@ -62,7 +61,7 @@ import org.melati.poem.SQLPoemType;
 class YearPoemType extends IntegerPoemType {
   /** First year for a dropdown. */
   static final int firstYear = 2000; 
-  /** Limt  (excluded)  year for a dropdown. */
+  /** Limit  (excluded)  year for a dropdown. */
   static final int limitYear = 2023;
   
   /**
@@ -191,7 +190,9 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
     if (year.equals("") && month.equals("") && day.equals(""))
       return null;
-    else if (!year.equals("") && !month.equals("") && !day.equals("")) {
+    else if (!year.equals("") && !month.equals("") ) {
+      if (day.equals("")) // MYDate template need default day
+        day = "1";
       Calendar cal = Calendar.getInstance();
       cal.set(Integer.parseInt(year),
               Integer.parseInt(month) - 1,
@@ -210,7 +211,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
     Calendar when = when(dateField);
 
-    // This isn't meant to be used, so we don't try to localize it
+    // This isn't meant to be used, so we don't try to localise it
     String displayName = dateField.getDisplayName() + " (year)";
 
     return new Field(
@@ -232,7 +233,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
   public Field monthField(Field dateField) {
 
     Calendar when = when(dateField);
-    // This isn't meant to be used, so we don't try to localize it
+    // This isn't meant to be used, so we don't try to localise it
 
     String displayName = dateField.getDisplayName() + " (month)";
 
@@ -253,7 +254,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
   public Field dayField(Field dateField) {
 
     Calendar when = when(dateField);
-    // This isn't meant to be used, so we don't try to localize it
+    // This isn't meant to be used, so we don't try to localise it
 
     String displayName = dateField.getDisplayName() + " (day)";
 

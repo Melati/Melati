@@ -78,23 +78,28 @@ public class SessionAnalysisServletTest extends JettyWebTestCase {
   }
   /**
    * Not much of a test, as it behaves differently depending upon previous tests. 
+   * Cannot get the coverage much bigger, easily, as 
+   * there are no other current sessions during test.
    * 
    * @throws Exception
    */
   public void testInvoke() throws Exception {
-    // Touch the db to get some sessions going
-    beginAt("/org.melati.test.PoemServletTest/melatitest");
-    beginAt("/org.melati.test.SessionAnalysisServlet");
+    beginAt("/");
+    gotoPage("/Admin/melatitest/Main");
+    gotoFrame("admin_top");
+    clickButton("login");
+    setTextField("field_login", "_administrator_");
+    setTextField("field_password", "FIXME");
+    checkCheckbox("rememberme");
+    submit("action");
+    gotoRootWindow();
+    gotoFrame("admin_top");
+    clickLinkWithText("Sessions");
+    gotoRootWindow();
+    gotoFrame("admin_bottom");
     assertTextPresent("Transactions Analysis");
     assertTextPresent("Initialised databases in use: ");
     assertTextPresent("Poem sessions in use: 0");
-    setScriptingEnabled(false);
-    gotoPage("/Admin/melatitest/Main");
-    gotoPage("/org.melati.test.SessionAnalysisServlet");
-    assertTextPresent("Initialised databases in use: ");
-    assertTextPresent("Poem sessions in use: 0");
-    gotoPage("/Admin/admintest/Main");
-    gotoPage("/org.melati.test.SessionAnalysisServlet");
     assertTextPresent("Initialised databases in use: ");
     assertTextPresent("Poem sessions in use: 0");
   }

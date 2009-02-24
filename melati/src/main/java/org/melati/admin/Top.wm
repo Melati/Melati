@@ -48,19 +48,9 @@
  <meta name="version" content="CVS \$Id$">
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen">
-<script Language="JavaScript" type="text/javascript">
-  function goto_page() {
-   var selector;
-   selector = document.forms[0].goto;
-   var option = selector.options[selector.selectedIndex].value;
-   if (option != "null") parent.admin_bottom.location = option;
-   return false;
-  }
-</script>
-
 </head>
 
-<body bgcolor="#dddddd" onLoad="goto_page()" id="top">
+<body bgcolor="#dddddd" id="top">
 <table cellpadding="2" cellspacing="2" border="0" width="100%">
 <tr>
 <td align="left" valign="middle">
@@ -71,37 +61,37 @@
   </font>
 </td>
 <td align="left" valign="middle">
-<form method="GET" id="goto" target="admin_bottom" action="$admin.BottomURL($melati)">
+<form method="GET" id="gotoform" target="admin_bottom" action="$admin.BottomURL($melati)">
 <font size="-1" face="Arial, Helvetica">
-<select name="goto" OnChange="goto_page();" title="Select table to edit">
+<select name="table" OnChange="submit();" title="Select table to edit">
 #set $lasttype = ""
 #set $selected = false
-#foreach $tab in $melati.Database.DisplayTables #begin
-  #if (!$tab.TableInfo.Category.equals($lasttype)) #begin
-    <option value="null">&nbsp;</option>
-    <option value="null">$tab.TableInfo.Category.Name</option>
-    <option value="null">============</option>
+#foreach $table in $melati.Database.DisplayTables #begin
+  #if (!$table.TableInfo.Category.equals($lasttype)) #begin
+    <option value="">&nbsp;</option>
+    <option value="">$table.TableInfo.Category.Name</option>
+    <option value="">============</option>
   #end
-  #set $lasttype = $tab.TableInfo.Category
-<option value="$admin.BottomURL($tab, $melati)"
+  #set $lasttype = $table.TableInfo.Category
+<option value="$table.Name"
 #if (!$selected) #begin
   #if ($melati.Table != null) #begin 
-   #if ($melati.Table.equals($tab)) #begin  
+   #if ($melati.Table.equals($table)) #begin  
     selected="selected"
      #set $selected = true
    #end
   #end #else #begin  
-    #if ($tab.getName().equals($admin.getPrimaryDisplayTable($melati))) #begin
+    #if ($table.getName().equals($admin.getPrimaryDisplayTable($melati))) #begin
     selected="selected"
       #set $selected = true
     #end
   #end
 #end
-> $ml.rendered($tab.DisplayName)</option>
+> $ml.rendered($table.DisplayName)</option>
 #end
 </select>
 </font><font size="-2" face="Arial, Helvetica">
-<input type="submit" id="go" name="go" value=" Go " onclick="goto_page()">
+<input type="submit" id="go" name="go" value=" Go ">
 </font>
 </form>
 </td>
@@ -177,7 +167,7 @@
    var dbSelector;
    dbSelector = document.forms["ldb"].ldb;
    var option = dbSelector.options[dbSelector.selectedIndex].value;
-   if (option != "null") parent.location = option;
+   if (option != null) parent.location = option;
    return false;
   }
 </script>
@@ -212,4 +202,4 @@
 </form>
  #end
 </div>
-</td></tr></table></body></html>
+</td></tr></table></body>ARSE</html>

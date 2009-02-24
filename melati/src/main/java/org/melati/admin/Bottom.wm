@@ -51,7 +51,7 @@
 </head>
 
 <frameset frameborder="no" cols="40%,60%">
-  <frame name="admin_left"   src="$admin.TableURL($melati)"  marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
+  <frame name="admin_left"   src="$admin.TableURL($melati.Table)"  marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
   <frame name="admin_record" src="$admin.RecordURL($melati)" marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
 </frameset>
 

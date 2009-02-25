@@ -72,7 +72,7 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
     this.pageSize = pageSize;
     int offset = EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
-    // This is the bit that makes it dumb!
+    // NOTE This is the bit that makes it dumb!
     totalCount = offset + page.size() +
                      EnumUtils.skip(base, countHorizon - (offset + page.size()));
     totalCountIsMinimum = base.hasMoreElements();

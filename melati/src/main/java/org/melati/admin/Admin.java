@@ -116,12 +116,9 @@ import org.melati.util.MelatiRuntimeException;
  * 
  * @todo Review working of where clause for dates
  * @todo Move Nav icons into PrimarySelect
- * @todo Make Top.login JS agnostic
  * @todo Make Chooser JS agnostic
  * @todo Make Navigation JS agnostic
- * @todo Rename Left template to Table
  * @todo Logout fails to work if remember me is ticked
- * @todo Left hand not working selection ???
  * @todo Order by field f orders on fields troid, not field ordering 
  * @FIXME primaryDisplayTable should not be static as this messes with DB switching
  */
@@ -622,7 +619,7 @@ public class Admin extends TemplateServlet {
         Admin.class.getName() + ".HomepageURL", "http://www.melati.org/",
         "HomepageURL", "The home page for this database");
     homepageURL = homepageURLSetting.getValue();
-    // HACK Not very satisfactory, but only to get tests working elsewhere
+    // HACK Not very satisfactory, but only to enable testing
     context.put("object", homepageURLSetting);
     return adminTemplate("Updated");
   }

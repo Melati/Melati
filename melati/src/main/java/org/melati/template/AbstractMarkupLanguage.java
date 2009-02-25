@@ -308,8 +308,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
         Template templet =
           templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
         vars.put("object", o);
-        // Not happy but 
-        if (o instanceof Field) vars.put("field", o);
         vars.put("melati", melati);
         vars.put("ml", melati.getMarkupLanguage());
         expandTemplet(templet, vars, writer);

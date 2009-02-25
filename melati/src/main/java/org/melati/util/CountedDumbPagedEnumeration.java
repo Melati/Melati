@@ -66,7 +66,7 @@ public class CountedDumbPagedEnumeration extends PagedEnumerationBase {
     this.pageStart = pageStart;
     this.pageSize = pageSize;
     this.totalCount = totalCount;
-    // FIXME This is the bit that makes it dumb!
+    //NOTE This is the bit that makes it dumb!
     EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
     us = page.elements();

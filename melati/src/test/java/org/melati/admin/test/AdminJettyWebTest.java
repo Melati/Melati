@@ -17,7 +17,6 @@ import org.melati.util.HTMLUtils;
 /**
  * 
  *  
- * FIXME bug when id specified in url db/table/Main?id=0
  * @author timp
  * @since 2008/01/01
  */

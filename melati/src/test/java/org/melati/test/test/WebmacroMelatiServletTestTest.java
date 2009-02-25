@@ -77,7 +77,6 @@ public class WebmacroMelatiServletTestTest extends JettyWebTestCase {
     super.tearDown();
   }
   /**
-   * FIXME WebMacro only test
    * @throws Exception
    */
   public void testInvoke() throws Exception {

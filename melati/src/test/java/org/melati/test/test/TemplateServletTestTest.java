@@ -143,9 +143,8 @@ public class TemplateServletTestTest extends JettyWebTestCase {
   public void testRedirect() {
     setScriptingEnabled(false);
     beginAt(servletName);
-    // FIXME Does not work when melati is stopped
-    //clickLinkWithText("Redirect");
-    //assertTextPresent("Melati is a tool");
+    clickLinkWithText("Redirect");
+    assertTextPresent("Melati is a tool");
   }
 
   /**

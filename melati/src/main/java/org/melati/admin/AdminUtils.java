@@ -494,8 +494,6 @@ public class AdminUtils {
   /**
    * Render the specials directly to the output.
    *  
-   * FIXME No longer rendering directly
-   * 
    * @param melati the Melati
    * @param ml The MarkupLanguage we are using
    * @param object a Persistent to render the specials of 

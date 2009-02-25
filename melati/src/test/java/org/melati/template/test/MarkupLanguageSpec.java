@@ -211,6 +211,13 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertEquals("Mum", renderedPersistent);
 
   }
+  /**
+   * @see org.melati.template.MarkupLanguage#renderedMarkup
+   */
+  public void testRenderedMarkupString() throws Exception { 
+    assertEquals("</a>",ml.renderedMarkup("</a>"));
+    assertEquals("&lt;/a&gt;",ml.rendered("</a>"));
+  }
   
   /**
    * Test that a syntax error in a templet is handled.
@@ -388,7 +395,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   /**
    * Test access to password field.
-   * FIXME Does not hit the spot.
    */
   public void testInputFieldForRestrictedField() throws Exception { 
     PoemThread.setAccessToken(getDb().getUserTable().guestUser());
@@ -396,6 +402,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertTrue(ml.input(password).toLowerCase().indexOf("name=\"field_password\"") != -1);
     //System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
   }
+  
   /**
    * Test method for inputAs(Field, String).
    * 

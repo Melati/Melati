@@ -183,6 +183,7 @@ public final class HTMLUtils {
       case '&' : return markup ? null : "&amp;" ;
       // Unicode and ISO 8859-1
 
+      case 163 : return "&pound;" ;
       case 192 : return "&Agrave;" ;
       case 193 : return "&Aacute;" ;
       case 194 : return "&Acirc;" ;

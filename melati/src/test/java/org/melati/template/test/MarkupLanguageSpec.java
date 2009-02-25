@@ -148,13 +148,11 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   
   /**
    * Test entity substitution.
-   * FIXME how to write this so it works on Windows and Linux??
    */
   public void testEntitySubstitution() throws Exception { 
-    /*
-    assertEquals("&amp;%&pound;", ml.rendered("&%�"));
-    assertEquals("&amp;%&pound;", aml.rendered("&%�"));
-    */
+    char pound[] = {163};
+    assertEquals("&pound;", ml.rendered(new String(pound)));
+    assertEquals("&pound;", aml.rendered(new String(pound)));
   }
 
   /**

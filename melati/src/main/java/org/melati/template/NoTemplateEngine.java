@@ -201,16 +201,6 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
   }
 
   /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return <code>null</code>
-   */
-  public Object getPassbackVariableExceptionHandler() {
-    return null;
-  }
-
-  /** 
    * @param response the <code>HttpServletResponse</code> that this 
    *                 writer will be part of
    * @param buffered whether the writer should be buffered

@@ -140,7 +140,7 @@ public interface TemplateEngine {
       TemplateContext templateContext) throws IOException, NotFoundException;
 
   /** 
-   * Expand the Template against the context.
+   * Expand the Template against the context, unwrapping any Access Exceptions.
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param template        the {@link Template} to expand

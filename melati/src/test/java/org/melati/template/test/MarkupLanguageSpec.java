@@ -231,6 +231,18 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
       e = null;
     }
   }
+  /**
+   * Test that an evaluation error in a templet is handled.
+   */
+  public void testEvaluationErrorInTemplet() throws Exception { 
+    Object templated = new TemplatedWithBombingToString();
+    try { 
+      ml.rendered(templated);
+      fail("Should have bombed");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    }
+  }
   
   /**
    * Test that a syntax error in a WM templet is handled by Velocity.
@@ -238,7 +250,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testSyntaxErrorInWMTemplet() throws Exception { 
     Object templated = new TemplatedWithWMSyntaxError();
     try { 
-      System.err.println(ml.rendered(templated));
+      ml.rendered(templated);
       fail("Should have bombed");
     } catch (TemplateEngineException e) { 
       e = null;

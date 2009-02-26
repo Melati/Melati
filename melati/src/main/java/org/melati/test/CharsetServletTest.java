@@ -67,7 +67,7 @@ public class CharsetServletTest extends ConfigServlet {
       throws ServletException, IOException {
 
     melati.setResponseContentType("text/html");
-    PrintWriter w = melati.getWriter().getPrintWriter();
+    PrintWriter w = new PrintWriter(melati.getWriter());
     String charset = melati.getResponse().getCharacterEncoding();
 
     w.println("<?xml version=\"1.0\" encoding=\"" + charset + "\"?>");

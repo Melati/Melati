@@ -200,7 +200,7 @@ public abstract class ConfigServlet extends HttpServlet {
         MelatiWriter mw =  melati.getWriter();
         // get rid of anything that has been written so far
         mw.reset();
-        PrintWriter out = mw.getPrintWriter();
+        PrintWriter out = new PrintWriter(mw.getWriter());
         if (e instanceof ConnectionPendingException) {
           writeConnectionPendingException(out,e);
         } else {

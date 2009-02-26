@@ -138,6 +138,8 @@ public class PropagateEvaluationExceptionHandler
 
    /**
    * {@inheritDoc}
+   * 
+   * I do not believe that this can be exercised, without a bug in webmacro.
    * @see org.webmacro.engine.EvaluationExceptionHandler#errorString(java.lang.String)
    */
   public String errorString(String errorText) throws PropertyException {

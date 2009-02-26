@@ -100,9 +100,7 @@ public class MockHttpSession implements HttpSession {
    * @see javax.servlet.http.HttpSession#getId()
    */
   public String getId() {
-    throw new RuntimeException("TODO No one else has ever called this method."
-        + " Do you really want to start now?");
-
+    return "1";
   }
 
   /**
@@ -219,9 +217,7 @@ public class MockHttpSession implements HttpSession {
    * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
    */
   public void setAttribute(String name, Object value) {
-    throw new RuntimeException("TODO No one else has ever called this method."
-        + " Do you really want to start now?");
-
+    values.put(name, value);
   }
 
   /**

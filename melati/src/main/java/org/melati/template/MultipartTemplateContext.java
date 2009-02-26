@@ -135,13 +135,6 @@ public class MultipartTemplateContext implements ServletTemplateContext {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
-   */
-  public String getForm(String s) {
-    return getFormField(s);
-  }
-  /**
-   * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getFormField(java.lang.String)
    */
   public String getFormField(String s) {
@@ -151,13 +144,6 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     return field.getDataString(melati.getResponse().getCharacterEncoding());
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
-   */
-  public MultipartFormField getMultipartForm(String s) {
-    return getMultipartFormField(s);
-  }
   /**
    * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getMultipartFormField(java.lang.String)

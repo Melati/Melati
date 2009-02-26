@@ -178,12 +178,11 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
     try {
       template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
-      Exception underlying = problem.subException;
-      if (underlying instanceof PropertyException) {
-        Throwable caught = ((PropertyException)underlying).getCause();
-        if (caught instanceof AccessPoemException) {
-          throw (AccessPoemException)caught;
-        }
+      // underlying will always be a PropertyException
+      PropertyException underlying = (PropertyException)problem.subException;
+      Throwable caught = underlying.getCause();
+      if (caught instanceof AccessPoemException) {
+        throw (AccessPoemException)caught;
       }
       throw problem;
     }

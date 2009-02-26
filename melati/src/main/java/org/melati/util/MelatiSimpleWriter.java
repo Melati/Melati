@@ -47,12 +47,13 @@ import java.io.Writer;
 
 /**
  * An output object for Melati.
+ * The most simple extension of a MelatiWriter.
  */
 public class MelatiSimpleWriter extends MelatiWriter {
 
   /**
    * Constructor.
-   * @param writer the Write to write to
+   * @param writer the Writer to write to
    */
   public MelatiSimpleWriter(Writer writer) {
     out = writer;

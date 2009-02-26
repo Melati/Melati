@@ -59,26 +59,9 @@ public interface ServletTemplateContext extends TemplateContext {
    * 
    * @param s the field's name
    * @return the field value, null if not set
-   * @deprecated use sanely named getFormField
-   */
-  String getForm(String s);
-  
-  /**
-   * Get a field from an HTML Form.
-   * 
-   * @param s the field's name
-   * @return the field value, null if not set
    */
   String getFormField(String s);
 
-  /**
-   * Get a multi-part field from an HTML form.
-   * 
-   * @param s the field's name
-   * @return the field's value
-   * @deprecated use sanely named getMultipartFormField
-   */
-  MultipartFormField getMultipartForm(String s);
   /**
    * Get a multi-part field from an HTML form.
    * 

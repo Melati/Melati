@@ -45,7 +45,6 @@ package org.melati.util;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.io.PrintWriter;
 
 /**
  * An abstract <code>Writer</code> for objects that output from Melati.

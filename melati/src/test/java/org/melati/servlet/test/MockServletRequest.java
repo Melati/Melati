@@ -143,8 +143,11 @@ public class MockServletRequest implements HttpServletRequest {
     public void setSession(Object s){
       session = s;
     }
-    public HttpSession getSession(boolean arg0) {
-      return (HttpSession)session;
+    public HttpSession getSession(boolean create) {
+      if (create)
+        return new MockHttpSession();
+      else
+        return (HttpSession)session;
     }
 
     public HttpSession getSession() {

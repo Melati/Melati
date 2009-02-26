@@ -63,20 +63,20 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
   /**
    * Constructor.
    */
+  public MelatiBufferedFastWriter(Broker broker, HttpServletResponse response) 
+      throws IOException {
+    this(broker, response.getOutputStream(), response.getCharacterEncoding());
+  }
+
+  /**
+   * Constructor.
+   */
   public MelatiBufferedFastWriter(Broker broker, OutputStream output, 
                                   String encoding)
       throws IOException {
     super(broker, new ByteArrayOutputStream(), encoding);
     buffer = (ByteArrayOutputStream)outputStream;
     underlying = output;
-  }
-
-  /**
-   * Constructor.
-   */
-  public MelatiBufferedFastWriter(Broker broker, HttpServletResponse response) 
-      throws IOException {
-    this(broker, response.getOutputStream(), response.getCharacterEncoding());
   }
 
 

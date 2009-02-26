@@ -71,15 +71,9 @@ public class PropagateEvaluationExceptionHandler
   public PropagateEvaluationExceptionHandler() {
    }
 
-   /**
-   * Constructor.
-   * @param b the WebMacro broker
-   */
-  public PropagateEvaluationExceptionHandler(Broker b) {
-      init(b, b.getSettings());
-   }
-
-   /**
+  /**
+   * Forced upon us by the interface, but unused.
+   * 
    * {@inheritDoc}
    * @see org.webmacro.engine.EvaluationExceptionHandler#
    *        init(org.webmacro.Broker, org.webmacro.util.Settings)

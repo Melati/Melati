@@ -6,13 +6,6 @@ package org.melati.servlet.test;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.melati.util.HttpServletRequestParameters;
-
-import com.mockobjects.constraint.Constraint;
-import com.mockobjects.constraint.IsEqual;
-import com.mockobjects.dynamic.Mock;
 
 /**
  * @author timp
@@ -81,14 +74,8 @@ public class TemplateServletTest extends PoemServletTest {
   public void doGetPost() throws Exception {
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
-    Mock mockSession = new Mock(HttpSession.class);
     MockServletConfig mockServletConfig = new MockServletConfig();
-    MockServletContext mockServletContext = new MockServletContext();
 
-    setupMocks(mockHttpServletRequest, mockSession,  
-            mockServletContext);
-    
-    
     org.melati.test.TemplateServletTest aServlet = 
           new org.melati.test.TemplateServletTest();
     aServlet.init(mockServletConfig);
@@ -102,35 +89,6 @@ public class TemplateServletTest extends PoemServletTest {
   }
 
 
-  private void setupMocks(MockServletRequest mockHttpServletRequest, 
-          Mock mockSession,
-          MockServletContext mockServletContext) {
-
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters", 
-       null); 
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null);
-    mockHttpServletRequest.setSession(mockSession.proxy());
-
-    mockServletContext.expectAndReturn("getMajorVersion", "2"); 
-    mockServletContext.expectAndReturn("getMinorVersion", "3"); 
-    mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("toString", "mockServletContext"); 
-    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init");
-    mockServletContext.expectAndReturn("getResource", "/WEB-INF/WebMacro.properties"); 
-    mockServletContext.expectAndReturn("getResource", "/WebMacro.properties"); 
-    mockServletContext.expectAndReturn("getInitParameterNames", ""); 
-    mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("toString", "mockServletContext"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:LogFile\tNOTICE\t--- Log Started ---"); 
-    mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)");
-    mockServletContext.expectAndReturn("hashCode", "17"); 
-    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1");
-    mockServletContext.expectAndReturn("getResource", "/org/melati/test/TemplateServletTest.wm"); 
-    mockServletContext.expectAndReturn("log", "MelatiConfigTest: destroy");
-  }
-
   /**
    * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
    */
@@ -139,39 +97,13 @@ public class TemplateServletTest extends PoemServletTest {
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
     
-    Mock mockSession = new Mock(HttpSession.class);
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-
-
-    mockSession.expect("removeAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters"); 
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null); 
-    mockSession.expectAndReturn("getId", "1");
-    
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
-        new IsInstanceOf(HttpServletRequestParameters.class)});
-
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
-        new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
-    
-
-    
-    mockSession.expectAndReturn("getId", "1");
-    
+    MockHttpSession mockSession = new MockHttpSession();
            
     MockServletConfig mockServletConfig = new MockServletConfig();
     mockServletConfig.setInitParameter("pathInfo", "melatitest/user/1");
     mockServletConfig.setServletName("MelatiConfigTest");
 
-    mockHttpServletRequest.setSession(mockSession.proxy());
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters",
-        new HttpServletRequestParameters(mockHttpServletRequest));
-        
+    mockHttpServletRequest.setSession(mockSession);
     
     ExceptionTemplateServlet aServlet = 
           new ExceptionTemplateServlet();
@@ -193,40 +125,13 @@ public class TemplateServletTest extends PoemServletTest {
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
     
-    Mock mockSession = new Mock(HttpSession.class);
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-
-
-    mockSession.expect("removeAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters"); 
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null); 
-    mockSession.expectAndReturn("getId", "1");
-    
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
-        new IsInstanceOf(HttpServletRequestParameters.class)});
-
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
-        new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
-    
-
-    
-    mockSession.expectAndReturn("getId", "1");
-    
+    MockHttpSession mockSession = new MockHttpSession();
            
     MockServletConfig mockServletConfig = new MockServletConfig();
     mockServletConfig.setInitParameter("pathInfo", "melatitest/user/1");
     mockServletConfig.setServletName("MelatiConfigTest");
 
-    mockHttpServletRequest.setSession(mockSession.proxy());
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters",
-        new HttpServletRequestParameters(mockHttpServletRequest));
-        
-
+    mockHttpServletRequest.setSession(mockSession);
     ClasspathRenderedExceptionTemplateServlet aServlet = 
           new ClasspathRenderedExceptionTemplateServlet();
     aServlet.init(mockServletConfig);
@@ -251,12 +156,8 @@ public class TemplateServletTest extends PoemServletTest {
   public void testPassbackAccessPoemExceptionHandling() throws Exception {
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
-    Mock mockSession = new Mock(HttpSession.class);
     MockServletConfig mockServletConfig = new MockServletConfig();
     MockServletContext mockServletContext = new MockServletContext();
-
-    setupMocks(mockHttpServletRequest, mockSession,  
-            mockServletContext);
 
     
     mockServletContext.expectAndReturn("getResource", 
@@ -282,12 +183,8 @@ public class TemplateServletTest extends PoemServletTest {
   public void testPropagateAccessPoemExceptionHandling() throws Exception {
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
-    Mock mockSession = new Mock(HttpSession.class);
     MockServletConfig mockServletConfig = new MockServletConfig();
     MockServletContext mockServletContext = new MockServletContext();
-
-    setupMocks(mockHttpServletRequest, mockSession,  
-            mockServletContext);
 
     
     mockServletContext.expectAndReturn("getResource", 
@@ -295,13 +192,6 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletContext.expectAndReturn("log","WebMacro:resource WARNING BrokerTemplateProvider: Template not found: " + 
             "org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm");
     
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
-            new IsInstanceOf(HttpServletRequestParameters.class)});
-
-     mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
-            new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
-        
-
     
     mockHttpServletRequest.setParameter("propagate", "true");
     org.melati.test.TemplateServletTest aServlet = 

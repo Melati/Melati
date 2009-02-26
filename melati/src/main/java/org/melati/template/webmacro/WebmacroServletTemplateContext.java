@@ -47,6 +47,7 @@ package org.melati.template.webmacro;
 import javax.servlet.http.HttpSession;
 
 import org.melati.template.ServletTemplateContext;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.servlet.MultipartFormField;
 import org.webmacro.Context;
 import org.webmacro.servlet.WebContext;
@@ -73,14 +74,6 @@ public class WebmacroServletTemplateContext
   }
 
   /**
-   * {@inheritDoc}
-   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
-   */
-  public String getForm(String k) {
-    return getFormField(k);
-  }
-
-  /**
    * Returns null if not present, empty string if empty.
    * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
@@ -90,20 +83,12 @@ public class WebmacroServletTemplateContext
   }
 
   /**
-   * Returns null as this is not a multi part form.
-   * Should perhaps throw an exception.
-   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
-   */
-  public MultipartFormField getMultipartForm(String s) {
-    return null;
-  }
-  /**
-   * Returns null as this is not a multi part form.
+   * Throws an exception as this is not a multi part form.
    * Should perhaps throw an exception.
    * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
    */
   public MultipartFormField getMultipartFormField(String s) {
-    return null;
+    throw new MelatiBugMelatiException("Cannot return a multi-part field from a non-multi-part form");
   }
 
   /**

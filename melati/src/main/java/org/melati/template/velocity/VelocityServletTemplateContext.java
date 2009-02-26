@@ -47,6 +47,7 @@ package org.melati.template.velocity;
 import javax.servlet.http.HttpSession;    
     
 import org.melati.template.ServletTemplateContext;    
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.servlet.MultipartFormField;    
 import org.apache.velocity.VelocityContext;    
     
@@ -89,14 +90,6 @@ public class VelocityServletTemplateContext
     
   /**
    * {@inheritDoc}
-   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
-   */
-  public String getForm(String s) {    
-    return getFormField(s);    
-  }    
-    
-  /**
-   * {@inheritDoc}
    * @see org.melati.template.ServletTemplateContext#getFormField(java.lang.String)
    */
   public String getFormField(String s) {    
@@ -106,19 +99,10 @@ public class VelocityServletTemplateContext
   /**
    * Returns null as this is not a multi part form.
    * Should perhaps throw an exception.
-   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
-   */
-  public MultipartFormField getMultipartForm(String s) {    
-    return null;    
-  }    
-    
-  /**
-   * Returns null as this is not a multi part form.
-   * Should perhaps throw an exception.
    * @see org.melati.template.ServletTemplateContext#getMultipartFormField(java.lang.String)
    */
   public MultipartFormField getMultipartFormField(String s) {    
-    return null;    
+    throw new MelatiBugMelatiException("Cannot return a multi-part field from a non-multi-part form");
   }    
     
   /**

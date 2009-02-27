@@ -9,8 +9,8 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.admin.AdminUtils;
 import org.melati.poem.test.PoemTestCase;
-import org.melati.servlet.test.MockServletRequest;
-import org.melati.servlet.test.MockServletResponse;
+import org.melati.servlet.test.MockHttpServletRequest;
+import org.melati.servlet.test.MockHttpServletResponse;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 
@@ -43,11 +43,11 @@ public class AdminUtilsTest extends PoemTestCase {
     if (templateEngine != null)
       templateEngine.init(mc);
     else fail();
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
     mockHttpServletRequest.setPathInfo("melatitest/user/Selection");
     mockHttpServletRequest.setRequestURI("melatitest/user/Selection");
     System.err.println(mockHttpServletRequest.getRequestURI());
-    MockServletResponse mockServletResponse = new MockServletResponse();
+    MockHttpServletResponse mockServletResponse = new MockHttpServletResponse();
     m = new Melati(mc, mockHttpServletRequest, mockServletResponse);
     m.setTemplateEngine(templateEngine);
     assertNotNull(m.getTemplateEngine());

@@ -99,6 +99,10 @@ public class TemplateServletTest extends TemplateServlet {
     }
     if (Form.getFieldNulled(melati.getServletTemplateContext(), "passback") != null)
       melati.setPassbackExceptionHandling();
+    else
+      // No need to explicitly do this as it is the default, other than test coverage
+      melati.setPropagateExceptionHandling(); 
+
     return("org/melati/test/TemplateServletTest");
   }
 

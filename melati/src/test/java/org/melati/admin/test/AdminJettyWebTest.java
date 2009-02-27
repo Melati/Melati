@@ -443,6 +443,16 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   /**
    * 
    */
+  public void testAdminSelectionCSV() {
+    gotoPage("/Admin/" + dbName + "/columninfo/Selection");
+    assertTextPresent("Records 1 to 20 of 90");
+    clickLink("csv");
+    gotoWindow("_columninfocsv");
+    assertTextPresent("\"0\",\"0\",\"id\",\"10\",\"false\",");
+  }
+  /**
+   * 
+   */
   public void testAdminPopup() {
     gotoPage("/Admin/" + dbName + "/user/PopUp");
     assertTextPresent("Search User Table");

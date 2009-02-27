@@ -15,8 +15,8 @@ import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.servlet.test.MockServletRequest;
-import org.melati.servlet.test.MockServletResponse;
+import org.melati.servlet.test.MockHttpServletRequest;
+import org.melati.servlet.test.MockHttpServletResponse;
 
 import junit.framework.TestCase;
 
@@ -270,7 +270,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest req = new MockServletRequest();
+    MockHttpServletRequest req = new MockHttpServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
     assertEquals("/servletContext/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
@@ -284,7 +284,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest req = new MockServletRequest();
+    MockHttpServletRequest req = new MockHttpServletRequest();
     req.setRequestURI("");
     m.setRequest(req);
     assertEquals("/servletContext/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
@@ -307,7 +307,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest req = new MockServletRequest();
+    MockHttpServletRequest req = new MockHttpServletRequest();
     req.setRequestURI("/");
     m.setRequest(req);
     assertEquals("http://localhost/servletContext/mockServletPath/",m.getServletURL());
@@ -331,9 +331,9 @@ public class MelatiTest extends TestCase {
     m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
     assertEquals("en_GB", m.getPoemLocale().toString());
-    m.setRequest(new MockServletRequest());
+    m.setRequest(new MockHttpServletRequest());
     assertEquals("en_GB", m.getPoemLocale().toString());
-    MockServletRequest msr = new MockServletRequest();
+    MockHttpServletRequest msr = new MockHttpServletRequest();
     msr.setHeader("Accept-Language","en-gb");
     m.setRequest(msr);
     assertEquals("en_GB", m.getPoemLocale().toString());
@@ -371,7 +371,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
+    MockHttpServletRequest mock = new MockHttpServletRequest();
     mock.setHeader("Accept-Charset", "");
     m.setRequest(mock);
     m.establishCharsets();
@@ -440,7 +440,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
+    MockHttpServletRequest mock = new MockHttpServletRequest();
     mock.setRequestURI("page");
     m.setRequest(mock);
 
@@ -467,8 +467,8 @@ public class MelatiTest extends TestCase {
    */
   public void testSetBufferingOff() throws Exception {
     MelatiConfig mc = new MelatiConfig();
-    HttpServletRequest mockRequest = new MockServletRequest();
-    HttpServletResponse mockResponse = new MockServletResponse();
+    HttpServletRequest mockRequest = new MockHttpServletRequest();
+    HttpServletResponse mockResponse = new MockHttpServletResponse();
     Melati m = new Melati(mc, mockRequest, mockResponse);
     m.setPoemContext(poemContext());
     m.setBufferingOff();
@@ -506,7 +506,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
+    MockHttpServletRequest mock = new MockHttpServletRequest();
     m.setRequest(mock);
     assertEquals("ISO-8859-1", m.getURLQueryEncoding());
   }
@@ -518,7 +518,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
+    MockHttpServletRequest mock = new MockHttpServletRequest();
     m.setRequest(mock);
     assertEquals("", m.urlEncode(""));
     assertEquals("A+space+seperated+string", m.urlEncode("A space seperated string"));
@@ -548,7 +548,7 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
-    MockServletRequest mock = new MockServletRequest();
+    MockHttpServletRequest mock = new MockHttpServletRequest();
     m.setRequest(mock);
     assertNull(m.getTemplateEngine());
     assertTrue(m.getStringWriter() instanceof MelatiStringWriter);

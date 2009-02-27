@@ -75,10 +75,10 @@
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if ($results) #begin
+#set $colSpan = $melati.Table.SummaryDisplayColumnsCount -1
   <tr>
-    <td>&nbsp;</td>
-    <td align="center" colspan="$melati.Table.SummaryDisplayColumnsCount">
-     <font face="Arial, Helvetica" size="-1"><b>
+    <th>&nbsp;</th>
+    <th align="center" colspan="$colSpan">
   #if ($results.PrevPageStart) #begin
       <a title="Previous page" 
          href="$melati.sameURLWith("start","$results.PrevPageStart")">
@@ -91,20 +91,29 @@
           href="$melati.sameURLWith("start","$results.NextPageStart")">
        &gt;</a>
   #end
-     </b></font>
-    </td>
+    </th>
 #if ($inRight || $inPopup) #begin
-    <td align=right>
+    <th>
       <a href='$admin.AddURL($melati.Table)?$whereClause' 
          title="New $melati.Table.DisplayName"
          id="create_$melati.Table.Name"
        ><IMG
          src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a>
-    </td>    
+#else
+    <th align="right">
+    <a href='$melati.sameURLWith("template","CSV")' 
+       title="Selection as CSV" 
+       id="csv"
+       target="_${melati.Table.Name}csv"><IMG 
+           src="$admin.StaticURL/csv.png" 
+           border="0" 
+           alt="$melati.Table.DisplayName selecton as CSV" /></a>
+     &nbsp;
 #end
+    </th>    
   </tr>
   <tr>
-   <th><FONT SIZE="-1">&nbsp;</FONT></th>
+   <th><font size="-1">&nbsp;</FONT></th>
   #foreach $column in $melati.Table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
@@ -156,6 +165,8 @@
     </font>
    </TD>
     #end
+   <TD>&nbsp;
+   </TD>
   </TR>
     #if ($color == $color1) #begin
       #set $color = $color2

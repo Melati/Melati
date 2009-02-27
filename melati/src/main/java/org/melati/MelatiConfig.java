@@ -501,7 +501,6 @@ public class MelatiConfig {
    * @return the real path, if set null otherwise
    */
   public String getRealPath() {
-    if (realPath == null) throw new NullPointerException();
     return realPath;
   }
 

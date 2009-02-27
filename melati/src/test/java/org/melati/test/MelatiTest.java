@@ -312,7 +312,18 @@ public class MelatiTest extends TestCase {
     m.setRequest(req);
     assertEquals("http://localhost/servletContext/mockServletPath/",m.getServletURL());
   }
-
+  /**
+   * 
+   */
+  public void testGetRelativeZoneURL() { 
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext());
+    MockHttpServletRequest req = new MockHttpServletRequest();
+    req.setRequestURI("/");
+    m.setRequest(req);
+    assertEquals("/servletContext/mockServletPath/",m.getRelativeZoneURL());    
+  }
   /**
    * @see org.melati.Melati#getJavascriptLibraryURL()
    */

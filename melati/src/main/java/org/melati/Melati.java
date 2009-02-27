@@ -240,10 +240,12 @@ public class Melati {
    * @see org.melati.servlet.PoemServlet
    */
   public void loadTableAndObject() {
-    if (poemContext.getTable() != null && database != null)
-      table = database.getTable(poemContext.getTable());
-    if (poemContext.getTroid() != null && table != null)
-      object = table.getObject(poemContext.getTroid().intValue());
+    if (database != null)
+      if (poemContext.getTable() != null ) {
+        table = database.getTable(poemContext.getTable());
+        if (poemContext.getTroid() != null)
+          object = table.getObject(poemContext.getTroid().intValue());
+      }
   }
 
 

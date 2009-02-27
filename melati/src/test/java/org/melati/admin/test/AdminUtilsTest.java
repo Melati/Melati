@@ -110,8 +110,6 @@ public class AdminUtilsTest extends PoemTestCase {
    * @see org.melati.admin.AdminUtils#createTree(Treeable)
    */
   public void testCreateTree() {
-   // Not easy to do, as poem objects are not Treeable
-    // TODO they are treeable now
   }
 
   /**
@@ -122,6 +120,11 @@ public class AdminUtilsTest extends PoemTestCase {
     assertEquals("admin", AdminUtils.simpleName(".admin"));    
     assertEquals("", AdminUtils.simpleName("admin."));    
     assertEquals("admin", AdminUtils.simpleName("admin"));    
+  }
+  
+  public void testCsvEscaped() { 
+    assertEquals("Double quotes (\"\") are used to escape double quotes in CSV format", 
+        AdminUtils.csvEscaped("Double quotes (\") are used to escape double quotes in CSV format"));
   }
   
 }

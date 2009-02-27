@@ -261,6 +261,7 @@ public class MelatiTest extends TestCase {
       e = null;
     }
   }
+  
 
   /**
    * @see org.melati.Melati#getLogoutURL()
@@ -411,6 +412,12 @@ public class MelatiTest extends TestCase {
   }
 
   /**
+   * @see org.melati.Melati#getContentType()
+   */
+  public void testGetConentType() { 
+    
+  }
+  /**
    * @see org.melati.Melati#setMarkupLanguage(MarkupLanguage)
    */
   public void testSetMarkupLanguage() {
@@ -421,10 +428,8 @@ public class MelatiTest extends TestCase {
    * @see org.melati.Melati#getMarkupLanguage()
    */
   public void testGetMarkupLanguage() throws Exception {
-    MelatiConfig mc = null;
-    Melati m = null;
-    mc = new MelatiConfig();
-    m = new Melati(mc, new MelatiStringWriter());
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
     assertEquals("html/en_GB", m.getMarkupLanguage().toString());
     assertEquals("html_attr/en_GB", m.getMarkupLanguage().getAttr().toString());
@@ -434,10 +439,8 @@ public class MelatiTest extends TestCase {
    * @see org.melati.Melati#getHTMLMarkupLanguage()
    */
   public void testGetHTMLMarkupLanguage() throws Exception {
-    MelatiConfig mc = null;
-    Melati m = null;
-    mc = new MelatiConfig();
-    m = new Melati(mc, new MelatiStringWriter());
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext());
     assertEquals("html/en_GB", m.getHTMLMarkupLanguage().toString());
     assertEquals("html_attr/en_GB", m.getHTMLMarkupLanguage().getAttr().toString());

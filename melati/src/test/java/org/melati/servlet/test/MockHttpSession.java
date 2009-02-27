@@ -197,9 +197,7 @@ public class MockHttpSession implements HttpSession {
    * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
    */
   public void removeAttribute(String name) {
-    throw new RuntimeException("TODO No one else has ever called this method."
-        + " Do you really want to start now?");
-
+    values.remove(name);
   }
 
   /**

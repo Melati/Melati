@@ -72,8 +72,8 @@ public class TemplateServletTest extends PoemServletTest {
    * 
    */
   public void doGetPost() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
     MockServletConfig mockServletConfig = new MockServletConfig();
 
     org.melati.test.TemplateServletTest aServlet = 
@@ -93,8 +93,8 @@ public class TemplateServletTest extends PoemServletTest {
    * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
    */
   public void testError() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     
     MockHttpSession mockSession = new MockHttpSession();
@@ -121,8 +121,8 @@ public class TemplateServletTest extends PoemServletTest {
    * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
    */
   public void testErrorUsesClasspathTemplet() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     
     MockHttpSession mockSession = new MockHttpSession();
@@ -154,8 +154,8 @@ public class TemplateServletTest extends PoemServletTest {
    * Test passback AccessPoemException handling.
    */
   public void testPassbackAccessPoemExceptionHandling() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
     MockServletConfig mockServletConfig = new MockServletConfig();
     MockServletContext mockServletContext = new MockServletContext();
 
@@ -181,8 +181,8 @@ public class TemplateServletTest extends PoemServletTest {
    * Test propagation of AccessPoemException handling.
    */
   public void testPropagateAccessPoemExceptionHandling() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
     MockServletConfig mockServletConfig = new MockServletConfig();
     MockServletContext mockServletContext = new MockServletContext();
 

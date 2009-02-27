@@ -50,8 +50,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
 
@@ -77,8 +77,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
@@ -105,8 +105,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#error(Melati, Exception)
    */
   public void testError() {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
@@ -134,8 +134,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#error(Melati, Exception)
    */
   public void testConnectionPendingError() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
     
@@ -156,8 +156,8 @@ public class ConfigServletTest extends TestCase {
    * Test expection thrown during initialisation.
    */
   public void testExceptionDuringInit() throws Exception {
-    MockServletResponse response = new MockServletResponse();
-    MockServletRequest request = new MockServletRequest();
+    MockHttpServletResponse response = new MockHttpServletResponse();
+    MockHttpServletRequest request = new MockHttpServletRequest();
     MockServletConfig mockServletConfig = new MockServletConfig();
     MelatiConfigExceptionConfigServlet aServlet = 
       new MelatiConfigExceptionConfigServlet();
@@ -191,8 +191,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#getSysAdminName()
    */
   public void testGetSysAdminName() {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
            
@@ -216,8 +216,8 @@ public class ConfigServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
 
     mockHttpServletRequest.setPathInfo("melatitest/user/1"); 
 

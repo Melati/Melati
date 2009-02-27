@@ -6,16 +6,11 @@ package org.melati.servlet.test;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.melati.Melati;
-import org.melati.util.HttpServletRequestParameters;
 
 import junit.framework.TestCase;
 
-import com.mockobjects.constraint.Constraint;
-import com.mockobjects.constraint.IsEqual;
-import com.mockobjects.dynamic.Mock;
 
 /**
  * @author timp
@@ -91,8 +86,8 @@ public class PoemServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setPathInfo("/melatitest/user/1");
     
@@ -117,8 +112,8 @@ public class PoemServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
     mockHttpServletRequest.setCharacterEncoding("ISO-8859-1"); 
     mockHttpServletRequest.setPathInfo("/melatitest/user/1"); 
@@ -144,38 +139,16 @@ public class PoemServletTest extends TestCase {
    * @see org.melati.servlet.PoemServlet#error(Melati, Exception)
    */
   public void testError() throws Exception {
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
                    
-    Mock mockSession = new Mock(HttpSession.class);
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
+    MockHttpSession mockSession = new MockHttpSession();
 
-    mockSession.expect("removeAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters"); 
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null); 
-    mockSession.expectAndReturn("getId", "1");
-    
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
-        new IsInstanceOf(HttpServletRequestParameters.class)});
-
-    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
-        new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
-    
-    mockSession.expectAndReturn("getId", "1");
-    
     MockServletConfig mockServletConfig = new MockServletConfig();
     mockServletConfig.setInitParameter("pathInfo", "melatitest/user/1");
 
-    mockSession.expectAndReturn("getId", "1");
-    mockSession.expectAndReturn("getId", "1");
-
-    mockHttpServletRequest.setSession(mockSession.proxy());
+    mockHttpServletRequest.setSession(mockSession);
     
-    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters",
-        new HttpServletRequestParameters(mockHttpServletRequest));
-        
 
     ExceptionPoemServlet aServlet = 
           new ExceptionPoemServlet();
@@ -195,8 +168,8 @@ public class PoemServletTest extends TestCase {
    * 
    */
   public void testLDB() throws Exception {
-    MockServletResponse response = new MockServletResponse();
-    MockServletRequest request = new MockServletRequest();
+    MockHttpServletResponse response = new MockHttpServletResponse();
+    MockHttpServletRequest request = new MockHttpServletRequest();
     MockServletConfig mockServletConfig = new MockServletConfig();
     LDBPoemServlet aServlet = 
       new LDBPoemServlet();
@@ -205,32 +178,6 @@ public class PoemServletTest extends TestCase {
     System.out.println(response.getWritten().toString());
     aServlet.destroy();
     assertTrue(response.getWritten().toString().indexOf("logicalDatabase = melatijunit") != -1);
-  }
-
-  /** Tests whether the value is an instance of a class.
-   */
-  public class IsInstanceOf implements Constraint
-  {
-      private Class _class;
-      
-      /** Creates a new instance of IsInstanceOf
-       *  
-       *  @param theclass
-       *      The predicate evaluates to true for instances of this class
-       *      or one of its subclasses.
-       */
-      public IsInstanceOf( Class theclass ) {
-          _class = theclass;
-      }
-      
-      public boolean eval( Object arg ) {
-          //System.err.println("Argument to Mock:" + arg);
-          return _class.isInstance( arg );
-      }
-      
-      public String toString() {
-          return "an instance of <" + _class.getName() + ">";
-      }
   }
 
 }

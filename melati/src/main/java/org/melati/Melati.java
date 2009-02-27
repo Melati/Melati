@@ -647,10 +647,10 @@ public class Melati {
    */
   public void setResponseContentType(String type) {
     contentType = type;
-    if (responseCharset != null && type.startsWith("text/")
-        && type.indexOf(";") == -1) {
-      contentType += "; charset=" + responseCharset;
-    }
+    if (responseCharset != null) 
+      if (type.startsWith("text/")) 
+        if (type.indexOf(";") == -1)
+          contentType += "; charset=" + responseCharset;
     if (response != null) {
       response.setContentType(contentType);
     }
@@ -948,7 +948,7 @@ public class Melati {
   }
   
   /**
-   * The normal state of afairs: an exception is thrown and 
+   * The normal state of affairs: an exception is thrown and 
    * it is handled by the servlet.
    */
   public void setPropagateExceptionHandling() { 

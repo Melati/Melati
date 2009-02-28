@@ -140,8 +140,8 @@ public class MelatiConfig {
   }
 
   /**
-   * Comnstructor from a given Properties object.
-   * @param properties the properies object to look in 
+   * Constructor from a given Properties object.
+   * @param properties the properties object to look in 
    */
   public MelatiConfig(Properties properties) {
     configuration = properties;

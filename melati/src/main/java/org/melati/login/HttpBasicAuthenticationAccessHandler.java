@@ -51,27 +51,9 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.Melati;
-import org.melati.util.MelatiRuntimeException;
 import org.melati.util.StringUtils;
 import org.melati.util.UnexpectedExceptionException;
 
-/**
- * Flags up when something was illegal or not supported about an incoming HTTP
- * authorization.
- */
-class HttpAuthorizationMelatiException extends MelatiRuntimeException {
-
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * Constructor.
-   *
-   * @param message the message to pass up to super constructor
-   */
-  public HttpAuthorizationMelatiException(String message) {
-    super(message, null);
-  }
-}
 
 
 /**

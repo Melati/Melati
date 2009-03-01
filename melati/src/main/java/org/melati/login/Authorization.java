@@ -74,7 +74,7 @@ final class Authorization {
   }
 
   /**
-   * Interrogate the user for thier details.
+   * Interrogate the user for their details.
    *
    * @param input an open reader
    * @param output normally System.out
@@ -135,7 +135,7 @@ final class Authorization {
 
     if (username != null && password != null) {
       return new Authorization(username, password);
-    }else
+    } else
       return null;
   }
 

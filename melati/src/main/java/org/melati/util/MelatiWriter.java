@@ -97,11 +97,9 @@ public abstract class MelatiWriter extends Writer {
   }
 
   /**
-   * Hook for extension.
+   * Do nothing in the unbuffered case.
    */
   public void reset() throws IOException {
-    if (false) // Flaming clever IDEs 
-      throw new IOException();
   }
 
   /**

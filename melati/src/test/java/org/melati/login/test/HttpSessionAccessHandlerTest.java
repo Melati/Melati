@@ -6,8 +6,8 @@ package org.melati.login.test;
 
 
 import org.melati.login.HttpSessionAccessHandler;
-import org.melati.servlet.test.MockServletRequest;
-import org.melati.servlet.test.MockServletResponse;
+import org.melati.servlet.test.MockHttpServletRequest;
+import org.melati.servlet.test.MockHttpServletResponse;
 
 
 /**
@@ -25,9 +25,9 @@ public class HttpSessionAccessHandlerTest extends AccessHandlerTestAbstract {
 
   public void setUp() throws Exception {
     super.setUp();
-    MockServletRequest mockHttpServletRequest = new MockServletRequest(); 
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
     
-    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }

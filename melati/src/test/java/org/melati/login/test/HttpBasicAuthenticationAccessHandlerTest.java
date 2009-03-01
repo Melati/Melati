@@ -5,8 +5,8 @@ package org.melati.login.test;
 
 
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
-import org.melati.servlet.test.MockServletRequest;
-import org.melati.servlet.test.MockServletResponse;
+import org.melati.servlet.test.MockHttpServletRequest;
+import org.melati.servlet.test.MockHttpServletResponse;
 
 
 /**
@@ -24,8 +24,8 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
 
   public void setUp() throws Exception {
     super.setUp();
-    MockServletRequest mockHttpServletRequest = new MockServletRequest();
-    MockServletResponse mockHttpServletResponse = new MockServletResponse();
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }

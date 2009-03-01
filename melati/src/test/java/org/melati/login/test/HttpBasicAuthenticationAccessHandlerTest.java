@@ -4,9 +4,13 @@
 package org.melati.login.test;
 
 
+import org.melati.Melati;
+import org.melati.login.HttpAuthorizationMelatiException;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.servlet.test.MockHttpServletRequest;
 import org.melati.servlet.test.MockHttpServletResponse;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 
 /**
@@ -40,4 +44,42 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
     it = ah;
   }
 
+  /**
+   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
+   */
+  public void testEstablishUserFromRequest() {
+    ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
+        "Basic " + Base64.encode("_administrator_:FIXME".getBytes()));
+    it.establishUser(m);
+    assertEquals("Melati database administrator",m.getUser().displayString());
+  }
+  /**
+   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
+   */
+  public void testEstablishUserFromRequestWrongMethod() {
+    ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
+        "basic " + Base64.encode("_administrator_:FIXME".getBytes()));
+    try { 
+      it.establishUser(m);
+      fail("Should have bombed");
+    } catch (HttpAuthorizationMelatiException e) { 
+      e = null;
+    }
+    ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
+        "Basic " + Base64.encode("_administrator_/FIXME".getBytes()));
+    try { 
+      it.establishUser(m);
+      fail("Should have bombed");
+    } catch (HttpAuthorizationMelatiException e) { 
+      e = null;
+    }
+    ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
+        "Basic" + Base64.encode("_administrator_:FIXME".getBytes()));
+    try { 
+      it.establishUser(m);
+      fail("Should have bombed");
+    } catch (HttpAuthorizationMelatiException e) { 
+      e = null;
+    }
+  }
 }

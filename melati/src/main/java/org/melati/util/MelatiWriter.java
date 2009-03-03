@@ -98,6 +98,7 @@ public abstract class MelatiWriter extends Writer {
 
   /**
    * Do nothing in the unbuffered case.
+   * @throws IOException in some implementations
    */
   public void reset() throws IOException {
   }

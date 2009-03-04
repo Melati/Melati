@@ -134,7 +134,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
   /**
    * Set the Access token to be used for this request.  
    *
-   * The Access Token is eithier picked up from the session, or from a cookie. 
+   * The Access Token is either picked up from the session, or from a cookie. 
    * The cookie is keyed on the logical database and is used to 
    * retrieve the user's login. 
    * The login is used (with the logical database name) to retrieve an encoded

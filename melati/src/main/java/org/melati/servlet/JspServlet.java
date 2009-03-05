@@ -206,13 +206,14 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
   }
 
   protected PoemContext getPoemContext(String logicalDatabase) {
-    PoemContext it = new PoemContext();
+    PoemContext it = getPoemContext();
     it.setLogicalDatabase(logicalDatabase);
     return it;
   }
   
   protected PoemContext getPoemContext(String logicalDatabase,
-      String pathInfo) throws PathInfoException {
+                                       String pathInfo) 
+      throws PathInfoException {
     PoemContext it = getPoemContext(logicalDatabase);
     String[] pathInfoParts = StringUtils.split(pathInfo, '/');
     if (pathInfoParts.length > 0) {

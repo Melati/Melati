@@ -32,5 +32,13 @@ public class OpenAccessHandlerTest extends AccessHandlerTestAbstract {
     OpenAccessHandler ah = new OpenAccessHandler();
     it = ah;
   }
+  
+  /**
+   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
+   */
+  public void testEstablishUser() {
+    it.establishUser(m);
+    assertEquals("Melati guest user",m.getUser().displayString());
+  }
 
 }

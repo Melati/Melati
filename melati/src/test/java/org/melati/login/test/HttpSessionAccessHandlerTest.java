@@ -6,8 +6,11 @@ package org.melati.login.test;
 
 
 import org.melati.login.HttpSessionAccessHandler;
+import org.melati.poem.AccessPoemException;
 import org.melati.servlet.test.MockHttpServletRequest;
 import org.melati.servlet.test.MockHttpServletResponse;
+import org.melati.servlet.test.MockHttpSession;
+import org.melati.util.HttpServletRequestParameters;
 
 
 /**
@@ -28,6 +31,13 @@ public class HttpSessionAccessHandlerTest extends AccessHandlerTestAbstract {
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest(); 
     
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse(); 
+    MockHttpSession mockSession = new MockHttpSession();
+    mockSession.setAttribute("org.melati.login.Login.triggeringRequestParameters", 
+        new HttpServletRequestParameters(mockHttpServletRequest));
+    mockSession.setAttribute("org.melati.login.Login.triggeringException", new AccessPoemException());
+    //mockSession.setAttribute("org.melati.login.Login.HttpSessionAccessHandler.overlayParameters", null);
+    mockSession.setAttribute("org.melati.login.HttpSessionAccessHandler.user", m.getDatabase().guestAccessToken());
+    mockHttpServletRequest.setSession(mockSession);
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }
@@ -41,5 +51,13 @@ public class HttpSessionAccessHandlerTest extends AccessHandlerTestAbstract {
     HttpSessionAccessHandler ah = new HttpSessionAccessHandler();
     it = ah;
   }
+  /**
+   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
+   */
+  public void testEstablishUser() {
+    it.establishUser(m);
+    assertEquals("Melati guest user",m.getUser().displayString());
+  }
+
 
 }

@@ -43,7 +43,6 @@
 
 package org.melati.template.webmacro;
 
-import org.melati.template.TemplateEngine;
 import java.io.IOException;
 
 /**
@@ -59,10 +58,9 @@ public interface MelatiWebmacroWriter {
    * Return a <code>FastWriter</code> that can be used for a while.
    *
    * @see #stopUsingFastWriter(FastWriter)
-   * @param engine the TemplateEngine
    * @return a FastWriter
    */
-  org.webmacro.FastWriter getFastWriter(TemplateEngine engine);
+  org.webmacro.FastWriter getFastWriter();
 
   /**
    * Stop using the given <code>FastWriter</code> obtained from

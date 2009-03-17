@@ -82,7 +82,7 @@ public class WebmacroTemplate implements Template {
     try {
       if (out instanceof MelatiWebmacroWriter) {
         MelatiWebmacroWriter mww = (MelatiWebmacroWriter)out;
-        FastWriter fw = mww.getFastWriter(engine);
+        FastWriter fw = mww.getFastWriter();
         webmacroTemplate.write(fw, (Context) templateContext.getContext());
         mww.stopUsingFastWriter(fw);
       } else {

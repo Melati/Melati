@@ -58,6 +58,7 @@ import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.TemporaryFileFormDataAdaptorFactory;
+import org.melati.template.MultipartTemplateContext;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
 import org.melati.util.Email;
@@ -82,9 +83,9 @@ public class EmailTemplateServletTest extends TemplateServlet {
     context.put("servlet", this);
     melati.setResponseContentType("text/html");
 
-    String smtpServer = context.getFormField("SMTPServer");
+    if (context instanceof MultipartTemplateContext) {
+      String smtpServer = context.getFormField("SMTPServer");
     
-    if (smtpServer != null) {
       String from = context.getFormField("from");
       String to = context.getFormField("to");
       to += ", timp@paneris.org";
@@ -92,61 +93,56 @@ public class EmailTemplateServletTest extends TemplateServlet {
       String subject = context.getFormField("subject");
       String message = context.getFormField("message");
       MultipartFormField referencedField = context.getMultipartFormField("referencedFile");
-      File referencedFile = null;
-      if (referencedField != null){
-        referencedFile = referencedField.getDataFile();
-      }
-      
+      File referencedFile = referencedField.getDataFile();
       MultipartFormField attachedField = context.getMultipartFormField("attachedFile");
       File attachedFile = attachedField.getDataFile();
-      Email.send(smtpServer,
-                   from, 
-                   to, 
-                   replyTo, 
-                   subject,
-                   message);
-        try {
-          TemplateContext templateContext = melati.getTemplateContext();
-          templateContext.put("servlet",this);
-          templateContext.put("from",from);
-          templateContext.put("to",to);
-          templateContext.put("replyTo",replyTo);
-          templateContext.put("subject",subject);
-          templateContext.put("message",message);
-          String templateName = "org/melati/test/Email.wm";
-          MelatiStringWriter sw = 
+      try {
+        Email.send(smtpServer,
+                 from, 
+                 to, 
+                 replyTo, 
+                 subject,
+                 message);
+        TemplateContext templateContext = melati.getTemplateContext();
+        templateContext.put("servlet",this);
+        templateContext.put("from",from);
+        templateContext.put("to",to);
+        templateContext.put("replyTo",replyTo);
+        templateContext.put("subject",subject);
+        templateContext.put("message",message);
+        String templateName = "org/melati/test/Email.wm";
+        MelatiStringWriter sw = 
               templateEngine.getStringWriter();
-          templateEngine.expandTemplate(sw, 
-                                        templateName,
-                                        templateContext);
-          String htmlString = sw.toString();
-          File f = new File("tmp.html");
-          FileOutputStream fos = new FileOutputStream(f);
-          PrintWriter pw = new PrintWriter(fos);
-          pw.print(htmlString);
-          pw.close();
-          fos.close();
+        templateEngine.expandTemplate(sw, 
+                                      templateName,
+                                      templateContext);
+        String htmlString = sw.toString();
+        File f = new File("tmp.html");
+        FileOutputStream fos = new FileOutputStream(f);
+        PrintWriter pw = new PrintWriter(fos);
+        pw.print(htmlString);
+        pw.close();
+        fos.close();
           
        
-          File[] both = {f, referencedFile, attachedFile};
-          Email.sendWithAttachments(smtpServer, from, 
+        File[] both = {f, referencedFile, attachedFile};
+        Email.sendWithAttachments(smtpServer, from, 
                   to, replyTo, 
                   subject + ".sendWithAttachments", 
                   message, both);
 
-          File[] referenced = {referencedFile};
-          File[] attached = {f, attachedFile};
-          Email.sendAsHtmlWithAttachments(smtpServer, from, 
+        File[] referenced = {referencedFile};
+        File[] attached = {f, attachedFile};
+        Email.sendAsHtmlWithAttachments(smtpServer, from, 
                   to, replyTo, 
                   subject + ".sendAsHtmlWithAttachments", 
                   message, htmlString, referenced, attached);
-        } catch (Exception e) {
-          e.printStackTrace(System.err);
-          context.put("error",
-                      "Unexpected error: " + e);
-        }
-        System.err.println("here");
-        context.put("done", Boolean.TRUE);
+      } catch (Exception e) {
+        e.printStackTrace(System.err);
+        context.put("error",
+                    "Unexpected error: " + e);
+      }
+      context.put("done", Boolean.TRUE);
     }
 
     return "org/melati/test/EmailTemplateServletTest";

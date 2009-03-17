@@ -4,6 +4,7 @@
   <groupId>${groupId}</groupId>
   <artifactId>${artifactId}</artifactId>
   <name>${artifactId}</name>
+  <!-- HACK the version is set to the Melati version to use :( -->
   <version>${version}</version>
   <url>http://www.paneris.net/${artifactId}</url>
 
@@ -103,7 +104,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>${project.version}</version>
+      <version>${version}</version>
       <scope>compile</scope>
     </dependency>
 
@@ -111,7 +112,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>poem</artifactId>
-      <version>${project.version}</version>
+      <version>${version}</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.melati</groupId>
+      <artifactId>melati</artifactId>
+      <version>${version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
@@ -120,6 +128,30 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+     <groupId>net.sourceforge.jwebunit</groupId>
+     <artifactId>jwebunit-core</artifactId>
+     <version>1.4.1</version>
+     <scope>test</scope>
+    </dependency>
+    <dependency>
+     <groupId>net.sourceforge.jwebunit</groupId>
+     <artifactId>jwebunit-htmlunit-plugin</artifactId>
+     <version>1.4.1</version>
+     <scope>test</scope>
+    </dependency>
+    <dependency>
+     <groupId>org.mortbay.jetty</groupId>
+     <artifactId>jetty</artifactId>
+     <version>6.1.5</version>
+     <scope>test</scope>
+    </dependency>
+    <dependency>
+     <groupId>org.mortbay.jetty</groupId>
+     <artifactId>jsp-2.1</artifactId>
+     <version>6.1.5</version>
+     <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
@@ -164,6 +196,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
    <plugins>
     <plugin>
      <artifactId>maven-antrun-plugin</artifactId>
+     <!-- Delete this once it has run once -->
+     <!-- It is called twice as the pom is validated twice :( -->
      <executions>
       <execution>
        <id>moveGeneratedFiles</id>
@@ -176,11 +210,24 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
   #set ($rest = $stringIn.substring(1))
 ${firstChar}${rest}#end
 
-    <move failonerror="false" file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/AppServlet.java" tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/#capitalise(${artifactId})Servlet.java" />
-    <move failonerror="false" file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem/App.dsd" tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd" />
-    <move failonerror="false" file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem/test/PoemTest.java" tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/test/PoemTest.java" />
-    <delete failonerror="false" dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem" />
-    <delete failonerror="false" dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem" />
+    <move failonerror="false" 
+      file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/AppServlet.java" 
+      tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/#capitalise(${artifactId})Servlet.java" />
+    <move failonerror="false" 
+      file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem/App.dsd" 
+      tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd" />
+    <move failonerror="false" 
+      file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem/test/PoemTest.java" 
+      tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/test/PoemTest.java" />
+    <move failonerror="false" 
+      file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati/test/JettyWebTestCase.java" 
+      tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/melati/test/#capitalise(${artifactId})JettyWebTestCase.java" />
+    <delete failonerror="false" 
+      dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem" />
+    <delete failonerror="false" 
+      dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem" />
+    <delete failonerror="false" 
+      dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati" />
 
          </tasks>
        </configuration>
@@ -209,7 +256,7 @@ ${firstChar}${rest}#end
       <dependency>
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
-       <version>${project.version}</version>
+       <version>${version}</version>
       </dependency>
      </dependencies>
     </plugin>
@@ -229,7 +276,7 @@ ${firstChar}${rest}#end
                <artifactItem>
                  <groupId>org.melati</groupId>
                  <artifactId>melati</artifactId>
-                 <version>${project.version}</version>
+                 <version>${version}</version>
                </artifactItem>
              </artifactItems>
              <outputDirectory>src/main/webapp</outputDirectory>

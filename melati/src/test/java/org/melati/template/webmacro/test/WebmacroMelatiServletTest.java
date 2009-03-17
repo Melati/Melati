@@ -45,8 +45,8 @@
 package org.melati.template.webmacro.test;
 
 import org.melati.servlet.test.MockServletConfig;
-import org.melati.servlet.test.MockServletRequest;
-import org.melati.servlet.test.MockServletResponse;
+import org.melati.servlet.test.MockHttpServletRequest;
+import org.melati.servlet.test.MockHttpServletResponse;
 
 import junit.framework.TestCase;
 
@@ -82,8 +82,8 @@ public class WebmacroMelatiServletTest extends TestCase {
   }
 
   public void testMisConfiguration() throws Exception { 
-    MockServletRequest mockServletRequest = new MockServletRequest(); 
-    MockServletResponse mockServletResponse = new MockServletResponse();
+    MockHttpServletRequest mockServletRequest = new MockHttpServletRequest(); 
+    MockHttpServletResponse mockServletResponse = new MockHttpServletResponse();
 
     MisconfiguredWebmacroMelatiServlet servlet = new MisconfiguredWebmacroMelatiServlet();
     MockServletConfig mockServletConfig = new MockServletConfig();

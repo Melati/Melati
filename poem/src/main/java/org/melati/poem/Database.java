@@ -326,7 +326,7 @@ public abstract class Database implements TransactionPool {
    */
   protected synchronized void defineTable(Table table)
       throws DuplicateTableNamePoemException {
-    if (tablesByName.get(table.getName().toLowerCase()) != null)
+    if (getTableIgnoringCase(table.getName()) != null)
       throw new DuplicateTableNamePoemException(this, table.getName());
     redefineTable(table);
   }
@@ -335,7 +335,7 @@ public abstract class Database implements TransactionPool {
     if (table.getDatabase() != this)
       throw new TableInUsePoemException(this, table);
 
-    if (tablesByName.get(table.getName().toLowerCase()) == null) {
+    if (getTableIgnoringCase(table.getName()) == null) {
       tablesByName.put(table.getName().toLowerCase(), table);
       tables.addElement(table);
     }
@@ -410,7 +410,7 @@ public abstract class Database implements TransactionPool {
     for (Enumeration ti = getTableInfoTable().selection();
          ti.hasMoreElements();) {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
-      Table table = (Table)tablesByName.get(tableInfo.getName().toLowerCase());
+      Table table = getTableIgnoringCase(tableInfo.getName());
       if (table == null) {
         if (debug) log("Defining table:" + tableInfo.getName());
         table = new JdbcTable(this, tableInfo.getName(),
@@ -443,7 +443,7 @@ public abstract class Database implements TransactionPool {
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       Table table = null;
       if (tableName != null) { //dbms returning grotty table name (MSAccess)
-        table = (Table)tablesByName.get(tableName.toLowerCase());
+        table = getTableIgnoringCase(tableName);
         if (table == null) {  // We do not know about this table
           if (debug) log("Unknown to POEM, with JDBC name " + tableName);
 
@@ -868,11 +868,15 @@ public abstract class Database implements TransactionPool {
    *             if no table with the given name exists in the RDBMS
    */
   public final Table getTable(String name) throws NoSuchTablePoemException {
-    Table table = (Table)tablesByName.get(name.toLowerCase());
+    Table table = getTableIgnoringCase(name);
     if (table == null) throw new NoSuchTablePoemException(this, name);
     return table;
   }
-
+  private Table getTableIgnoringCase(String name) { 
+    Table table = (Table)tablesByName.get(name.toLowerCase());
+    return table;
+  }
+  
   /**
    * All the tables in the database.
    * NOTE This will include any deleted tables

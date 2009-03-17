@@ -85,6 +85,17 @@ public class EmailTemplateServletTestTest extends JettyWebTestCase {
     assertTextPresent("Smtp Server");
     submit();
     assertTextPresent("Check your email");
+    
   }
 
+  public void testError() throws Exception { 
+    // Do it with a db this time for coverage
+    beginAt("/org.melati.test.EmailTemplateServletTest/melatitest");
+    assertTextPresent("Smtp Server");
+    setTextField("to", "timp");
+    submit();
+    assertTextPresent("Check your email");
+    
+  }
+  
 }

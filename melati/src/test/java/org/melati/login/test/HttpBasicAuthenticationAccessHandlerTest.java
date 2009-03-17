@@ -31,7 +31,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
     mockHttpServletRequest.setHeader("Authorization", 
-        "Basic " + Base64.encodeBase64("_administrator_:FIXME".getBytes()));
+        "Basic " + new String(Base64.encodeBase64("_administrator_:FIXME".getBytes())));
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }

@@ -41,7 +41,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>UserTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the UserTable from this database
   */
   UserTable getUserTable();
@@ -49,7 +49,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>GroupTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the GroupTable from this database
   */
   GroupTable getGroupTable();
@@ -57,7 +57,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>CapabilityTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the CapabilityTable from this database
   */
   CapabilityTable getCapabilityTable();
@@ -65,7 +65,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>GroupMembershipTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the GroupMembershipTable from this database
   */
   GroupMembershipTable getGroupMembershipTable();
@@ -73,7 +73,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>GroupCapabilityTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the GroupCapabilityTable from this database
   */
   GroupCapabilityTable getGroupCapabilityTable();
@@ -81,7 +81,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>TableCategoryTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the TableCategoryTable from this database
   */
   TableCategoryTable getTableCategoryTable();
@@ -89,7 +89,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>TableInfoTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the TableInfoTable from this database
   */
   TableInfoTable getTableInfoTable();
@@ -97,7 +97,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>ColumnInfoTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the ColumnInfoTable from this database
   */
   ColumnInfoTable getColumnInfoTable();
@@ -105,7 +105,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>SettingTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the SettingTable from this database
   */
   SettingTable getSettingTable();
@@ -113,7 +113,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>EverythingNormalTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the EverythingNormalTable from this database
   */
   EverythingNormalTable getEverythingNormalTable();
@@ -121,7 +121,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>ENExtendedTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the ENExtendedTable from this database
   */
   ENExtendedTable getENExtendedTable();
@@ -129,7 +129,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>EAExtendedTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the EAExtendedTable from this database
   */
   EAExtendedTable getEAExtendedTable();
@@ -137,7 +137,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>BinaryFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the BinaryFieldTable from this database
   */
   BinaryFieldTable getBinaryFieldTable();
@@ -145,7 +145,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>StringFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the StringFieldTable from this database
   */
   StringFieldTable getStringFieldTable();
@@ -153,7 +153,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>PasswordFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the PasswordFieldTable from this database
   */
   PasswordFieldTable getPasswordFieldTable();
@@ -161,7 +161,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>BooleanFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the BooleanFieldTable from this database
   */
   BooleanFieldTable getBooleanFieldTable();
@@ -169,7 +169,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>DateFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the DateFieldTable from this database
   */
   DateFieldTable getDateFieldTable();
@@ -177,7 +177,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>DoubleFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the DoubleFieldTable from this database
   */
   DoubleFieldTable getDoubleFieldTable();
@@ -185,7 +185,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>IntegerFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the IntegerFieldTable from this database
   */
   IntegerFieldTable getIntegerFieldTable();
@@ -193,7 +193,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>LongFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the LongFieldTable from this database
   */
   LongFieldTable getLongFieldTable();
@@ -201,7 +201,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>BigdecimalFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the BigdecimalFieldTable from this database
   */
   BigdecimalFieldTable getBigdecimalFieldTable();
@@ -209,7 +209,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>TimestampFieldTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the TimestampFieldTable from this database
   */
   TimestampFieldTable getTimestampFieldTable();
@@ -217,7 +217,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>ProtectedTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the ProtectedTable from this database
   */
   ProtectedTable getProtectedTable();
@@ -225,7 +225,7 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the <code>DynamicTable</code> table.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
   * @return the DynamicTable from this database
   */
   DynamicTable getDynamicTable();

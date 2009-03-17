@@ -16,7 +16,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>BinaryField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class BinaryFieldBase extends JdbcPersistent {
 
@@ -24,7 +24,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -36,7 +36,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the  <code>BinaryFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BinaryFieldTable
   */
   public BinaryFieldTable getBinaryFieldTable() {
@@ -66,7 +66,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>BinaryField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -78,7 +78,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this BinaryField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -147,7 +147,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>BinaryField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -163,7 +163,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Binaryfield</code> value, without locking, 
   * for this <code>BinaryField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] binaryfield
   */
   public byte[] getBinaryfield_unsafe() {
@@ -175,7 +175,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Sets the <code>Binaryfield</code> value directly, without checking, 
   * for this BinaryField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBinaryfield_unsafe(byte[] cooked) {
@@ -226,7 +226,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Binaryfield</code> value as a <code>Field</code>
   * from this <code>BinaryField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -242,7 +242,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Unlimited</code> value, without locking, 
   * for this <code>BinaryField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] unlimited
   */
   public byte[] getUnlimited_unsafe() {
@@ -254,7 +254,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Sets the <code>Unlimited</code> value directly, without checking, 
   * for this BinaryField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setUnlimited_unsafe(byte[] cooked) {
@@ -305,7 +305,7 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * Retrieves the <code>Unlimited</code> value as a <code>Field</code>
   * from this <code>BinaryField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

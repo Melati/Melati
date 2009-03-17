@@ -19,7 +19,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>EAExtended</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class EAExtendedBase extends EverythingAbstract {
 
@@ -27,7 +27,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -39,7 +39,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the  <code>EAExtendedTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EAExtendedTable
   */
   public EAExtendedTable getEAExtendedTable() {
@@ -101,7 +101,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -113,7 +113,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -182,7 +182,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -198,7 +198,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Binaryfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] binaryfield2
   */
   public byte[] getBinaryfield2_unsafe() {
@@ -210,7 +210,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Binaryfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBinaryfield2_unsafe(byte[] cooked) {
@@ -265,7 +265,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Binaryfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -281,7 +281,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Stringfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String stringfield2
   */
   public String getStringfield2_unsafe() {
@@ -293,7 +293,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Stringfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setStringfield2_unsafe(String cooked) {
@@ -348,7 +348,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Stringfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -364,7 +364,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Passwordfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String passwordfield2
   */
   public String getPasswordfield2_unsafe() {
@@ -376,7 +376,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Passwordfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setPasswordfield2_unsafe(String cooked) {
@@ -431,7 +431,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Passwordfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -447,7 +447,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Booleanfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean booleanfield2
   */
   public Boolean getBooleanfield2_unsafe() {
@@ -459,7 +459,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Booleanfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBooleanfield2_unsafe(Boolean cooked) {
@@ -536,7 +536,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Booleanfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -552,7 +552,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Datefield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Date datefield2
   */
   public Date getDatefield2_unsafe() {
@@ -564,7 +564,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Datefield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDatefield2_unsafe(Date cooked) {
@@ -619,7 +619,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Datefield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -635,7 +635,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Doublefield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Double doublefield2
   */
   public Double getDoublefield2_unsafe() {
@@ -647,7 +647,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Doublefield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDoublefield2_unsafe(Double cooked) {
@@ -722,7 +722,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Doublefield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -738,7 +738,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Integerfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer integerfield2
   */
   public Integer getIntegerfield2_unsafe() {
@@ -750,7 +750,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Integerfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setIntegerfield2_unsafe(Integer cooked) {
@@ -826,7 +826,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Integerfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -842,7 +842,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Longfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Long longfield2
   */
   public Long getLongfield2_unsafe() {
@@ -854,7 +854,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Longfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setLongfield2_unsafe(Long cooked) {
@@ -930,7 +930,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Longfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -946,7 +946,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Bigdecimalfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the BigDecimal bigdecimalfield2
   */
   public BigDecimal getBigdecimalfield2_unsafe() {
@@ -958,7 +958,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Bigdecimalfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBigdecimalfield2_unsafe(BigDecimal cooked) {
@@ -1013,7 +1013,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Bigdecimalfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -1029,7 +1029,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Timestampfield2</code> value, without locking, 
   * for this <code>EAExtended</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Timestamp timestampfield2
   */
   public Timestamp getTimestampfield2_unsafe() {
@@ -1041,7 +1041,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Sets the <code>Timestampfield2</code> value directly, without checking, 
   * for this EAExtended <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setTimestampfield2_unsafe(Timestamp cooked) {
@@ -1096,7 +1096,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the <code>Timestampfield2</code> value as a <code>Field</code>
   * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

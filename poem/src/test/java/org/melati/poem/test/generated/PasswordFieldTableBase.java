@@ -13,6 +13,7 @@ import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
+import org.melati.poem.StringPoemType;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
@@ -24,7 +25,7 @@ import org.melati.poem.test.PasswordField;
  * Melati POEM generated base class for 
 <code>Table</code> <code>PasswordField</code>.
  *
- * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class PasswordFieldTableBase extends EverythingTable {
@@ -35,7 +36,7 @@ public class PasswordFieldTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -52,7 +53,7 @@ public class PasswordFieldTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -209,7 +210,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>PasswordField</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column getIdColumn() {
@@ -221,7 +222,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   * Retrieves the <code>Passwordfield</code> <code>Column</code> for this 
   * <code>PasswordField</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>
   */
   public final Column getPasswordfieldColumn() {
@@ -232,7 +233,7 @@ public class PasswordFieldTableBase extends EverythingTable {
  /**
   * Retrieve the <code>PasswordField</code> as a <code>PasswordField</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -245,7 +246,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   * Retrieve the <code>PasswordField</code> 
   * as a <code>PasswordField</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public PasswordField getPasswordFieldObject(int troid) {

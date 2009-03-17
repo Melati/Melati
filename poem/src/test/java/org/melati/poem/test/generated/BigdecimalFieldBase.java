@@ -17,7 +17,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>BigdecimalField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class BigdecimalFieldBase extends JdbcPersistent {
 
@@ -25,7 +25,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -37,7 +37,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Retrieves the  <code>BigdecimalFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BigdecimalFieldTable
   */
   public BigdecimalFieldTable getBigdecimalFieldTable() {
@@ -63,7 +63,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>BigdecimalField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -75,7 +75,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this BigdecimalField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -144,7 +144,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>BigdecimalField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -160,7 +160,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Retrieves the <code>Bigdecimalfield</code> value, without locking, 
   * for this <code>BigdecimalField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the BigDecimal bigdecimalfield
   */
   public BigDecimal getBigdecimalfield_unsafe() {
@@ -172,7 +172,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Sets the <code>Bigdecimalfield</code> value directly, without checking, 
   * for this BigdecimalField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBigdecimalfield_unsafe(BigDecimal cooked) {
@@ -223,7 +223,7 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * Retrieves the <code>Bigdecimalfield</code> value as a <code>Field</code>
   * from this <code>BigdecimalField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

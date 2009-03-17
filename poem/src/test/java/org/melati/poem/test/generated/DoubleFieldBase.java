@@ -16,7 +16,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>DoubleField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class DoubleFieldBase extends JdbcPersistent {
 
@@ -24,7 +24,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -36,7 +36,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Retrieves the  <code>DoubleFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DoubleFieldTable
   */
   public DoubleFieldTable getDoubleFieldTable() {
@@ -62,7 +62,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>DoubleField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -74,7 +74,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this DoubleField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -143,7 +143,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>DoubleField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -159,7 +159,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Retrieves the <code>Doublefield</code> value, without locking, 
   * for this <code>DoubleField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Double doublefield
   */
   public Double getDoublefield_unsafe() {
@@ -171,7 +171,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Sets the <code>Doublefield</code> value directly, without checking, 
   * for this DoubleField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDoublefield_unsafe(Double cooked) {
@@ -239,7 +239,7 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * Retrieves the <code>Doublefield</code> value as a <code>Field</code>
   * from this <code>DoubleField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

@@ -24,7 +24,7 @@ import org.melati.poem.test.IntegerField;
  * Melati POEM generated base class for 
 <code>Table</code> <code>IntegerField</code>.
  *
- * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class IntegerFieldTableBase extends EverythingTable {
@@ -35,7 +35,7 @@ public class IntegerFieldTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -52,7 +52,7 @@ public class IntegerFieldTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -209,7 +209,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>IntegerField</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column getIdColumn() {
@@ -221,7 +221,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   * Retrieves the <code>Integerfield</code> <code>Column</code> for this 
   * <code>IntegerField</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>
   */
   public final Column getIntegerfieldColumn() {
@@ -232,7 +232,7 @@ public class IntegerFieldTableBase extends EverythingTable {
  /**
   * Retrieve the <code>IntegerField</code> as a <code>IntegerField</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -245,7 +245,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   * Retrieve the <code>IntegerField</code> 
   * as a <code>IntegerField</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public IntegerField getIntegerFieldObject(int troid) {

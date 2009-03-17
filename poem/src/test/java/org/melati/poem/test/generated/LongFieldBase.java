@@ -16,7 +16,7 @@ import org.melati.poem.test.LongFieldTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>LongField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class LongFieldBase extends JdbcPersistent {
 
@@ -24,7 +24,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -36,7 +36,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Retrieves the  <code>LongFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the LongFieldTable
   */
   public LongFieldTable getLongFieldTable() {
@@ -62,7 +62,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>LongField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -74,7 +74,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this LongField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -143,7 +143,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>LongField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -159,7 +159,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Retrieves the <code>Longfield</code> value, without locking, 
   * for this <code>LongField</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Long longfield
   */
   public Long getLongfield_unsafe() {
@@ -171,7 +171,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Sets the <code>Longfield</code> value directly, without checking, 
   * for this LongField <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setLongfield_unsafe(Long cooked) {
@@ -240,7 +240,7 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * Retrieves the <code>Longfield</code> value as a <code>Field</code>
   * from this <code>LongField</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

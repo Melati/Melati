@@ -37,7 +37,7 @@ import org.melati.poem.test.EverythingTable;
  * Melati POEM generated base class for 
 <code>Table</code> <code>EverythingNormal</code>.
  *
- * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class EverythingNormalTableBase extends EverythingTable {
@@ -58,7 +58,7 @@ public class EverythingNormalTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -75,7 +75,7 @@ public class EverythingNormalTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -862,7 +862,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column getIdColumn() {
@@ -874,7 +874,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
   */
   public final Column getBinaryfieldColumn() {
@@ -886,7 +886,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Stringfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield <code>Column</code>
   */
   public final Column getStringfieldColumn() {
@@ -898,7 +898,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Passwordfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>
   */
   public final Column getPasswordfieldColumn() {
@@ -910,7 +910,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Booleanfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>
   */
   public final Column getBooleanfieldColumn() {
@@ -922,7 +922,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Datefield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield <code>Column</code>
   */
   public final Column getDatefieldColumn() {
@@ -934,7 +934,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Doublefield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield <code>Column</code>
   */
   public final Column getDoublefieldColumn() {
@@ -946,7 +946,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Integerfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>
   */
   public final Column getIntegerfieldColumn() {
@@ -958,7 +958,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Longfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield <code>Column</code>
   */
   public final Column getLongfieldColumn() {
@@ -970,7 +970,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Bigdecimalfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield <code>Column</code>
   */
   public final Column getBigdecimalfieldColumn() {
@@ -982,7 +982,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Timestampfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield <code>Column</code>
   */
   public final Column getTimestampfieldColumn() {
@@ -994,7 +994,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieves the <code>Deletedfield</code> <code>Column</code> for this 
   * <code>EverythingNormal</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the deletedfield <code>Column</code>
   */
   public final Column getDeletedfieldColumn() {
@@ -1005,7 +1005,7 @@ public class EverythingNormalTableBase extends EverythingTable {
  /**
   * Retrieve the <code>EverythingNormal</code> as a <code>EverythingNormal</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -1018,7 +1018,7 @@ public class EverythingNormalTableBase extends EverythingTable {
   * Retrieve the <code>EverythingNormal</code> 
   * as a <code>EverythingNormal</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public EverythingNormal getEverythingNormalObject(int troid) {

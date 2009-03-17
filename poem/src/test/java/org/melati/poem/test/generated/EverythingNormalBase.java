@@ -19,7 +19,7 @@ import org.melati.poem.test.EverythingNormalTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>EverythingNormal</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class EverythingNormalBase extends JdbcPersistent {
 
@@ -27,7 +27,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -39,7 +39,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the  <code>EverythingNormalTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EverythingNormalTable
   */
   public EverythingNormalTable getEverythingNormalTable() {
@@ -105,7 +105,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -117,7 +117,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -186,7 +186,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -202,7 +202,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Binaryfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] binaryfield
   */
   public byte[] getBinaryfield_unsafe() {
@@ -214,7 +214,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Binaryfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBinaryfield_unsafe(byte[] cooked) {
@@ -265,7 +265,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Binaryfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -281,7 +281,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Stringfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String stringfield
   */
   public String getStringfield_unsafe() {
@@ -293,7 +293,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Stringfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setStringfield_unsafe(String cooked) {
@@ -344,7 +344,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Stringfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -360,7 +360,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Passwordfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String passwordfield
   */
   public String getPasswordfield_unsafe() {
@@ -372,7 +372,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Passwordfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setPasswordfield_unsafe(String cooked) {
@@ -423,7 +423,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Passwordfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -439,7 +439,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Booleanfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean booleanfield
   */
   public Boolean getBooleanfield_unsafe() {
@@ -451,7 +451,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Booleanfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBooleanfield_unsafe(Boolean cooked) {
@@ -521,7 +521,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Booleanfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -537,7 +537,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Datefield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Date datefield
   */
   public Date getDatefield_unsafe() {
@@ -549,7 +549,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Datefield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDatefield_unsafe(Date cooked) {
@@ -600,7 +600,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Datefield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -616,7 +616,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Doublefield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Double doublefield
   */
   public Double getDoublefield_unsafe() {
@@ -628,7 +628,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Doublefield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDoublefield_unsafe(Double cooked) {
@@ -696,7 +696,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Doublefield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -712,7 +712,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Integerfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer integerfield
   */
   public Integer getIntegerfield_unsafe() {
@@ -724,7 +724,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Integerfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setIntegerfield_unsafe(Integer cooked) {
@@ -793,7 +793,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Integerfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -809,7 +809,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Longfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Long longfield
   */
   public Long getLongfield_unsafe() {
@@ -821,7 +821,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Longfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setLongfield_unsafe(Long cooked) {
@@ -890,7 +890,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Longfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -906,7 +906,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Bigdecimalfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the BigDecimal bigdecimalfield
   */
   public BigDecimal getBigdecimalfield_unsafe() {
@@ -918,7 +918,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Bigdecimalfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setBigdecimalfield_unsafe(BigDecimal cooked) {
@@ -969,7 +969,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Bigdecimalfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -985,7 +985,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Timestampfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Timestamp timestampfield
   */
   public Timestamp getTimestampfield_unsafe() {
@@ -997,7 +997,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Timestampfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setTimestampfield_unsafe(Timestamp cooked) {
@@ -1048,7 +1048,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Timestampfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -1064,7 +1064,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Deletedfield</code> value, without locking, 
   * for this <code>EverythingNormal</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean deletedfield
   */
   public Boolean getDeletedfield_unsafe() {
@@ -1076,7 +1076,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Sets the <code>Deletedfield</code> value directly, without checking, 
   * for this EverythingNormal <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDeletedfield_unsafe(Boolean cooked) {
@@ -1146,7 +1146,7 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * Retrieves the <code>Deletedfield</code> value as a <code>Field</code>
   * from this <code>EverythingNormal</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

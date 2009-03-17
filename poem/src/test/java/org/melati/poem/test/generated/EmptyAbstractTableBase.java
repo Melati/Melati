@@ -12,7 +12,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>EmptyAbstractTable</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class EmptyAbstractTableBase extends JdbcPersistent {
 
@@ -20,7 +20,7 @@ public abstract class EmptyAbstractTableBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -32,7 +32,7 @@ public abstract class EmptyAbstractTableBase extends JdbcPersistent {
   * Retrieves the  <code>EmptyAbstractTableTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EmptyAbstractTableTable
   */
   public EmptyAbstractTableTable getEmptyAbstractTableTable() {

@@ -76,25 +76,18 @@ public class MelatiFastWriter extends MelatiWriter
     // need to make this accessible to subclasses
     outputStream = output;
     out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
-    }
-  
-  /**
-   * @return the peer
-   */
-  public org.webmacro.FastWriter getPeer() {
-    // as we can write to the underlying peer, the Flusher may not get started
-    // so we should start it here
-    startFlushing();
-    return (org.webmacro.FastWriter)out;
   }
-
+  
   /**
    * Return a <code>FastWriter</code> that can be used for a while instead.
    *
    * @see #stopUsingFastWriter(FastWriter)
    */
-  public org.webmacro.FastWriter getFastWriter(TemplateEngine engine) {
-    return getPeer();
+  public org.webmacro.FastWriter getFastWriter() {
+    // as we can write to the underlying peer, the Flusher may not get started
+    // so we should start it here
+    startFlushing();
+    return (org.webmacro.FastWriter)out;
   }
 
 

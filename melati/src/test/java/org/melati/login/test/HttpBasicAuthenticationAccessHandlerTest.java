@@ -10,7 +10,7 @@ import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.servlet.test.MockHttpServletRequest;
 import org.melati.servlet.test.MockHttpServletResponse;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 
 /**
@@ -31,7 +31,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
     mockHttpServletRequest.setHeader("Authorization", 
-        "Basic " + Base64.encode("_administrator_:FIXME".getBytes()));
+        "Basic " + Base64.encodeBase64("_administrator_:FIXME".getBytes()));
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }
@@ -51,7 +51,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
    */
   public void testEstablishUserFromRequestWrongMethod() {
     ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
-        "basic " + Base64.encode("_administrator_:FIXME".getBytes()));
+        "basic " + Base64.encodeBase64("_administrator_:FIXME".getBytes()));
     try { 
       it.establishUser(m);
       fail("Should have bombed");
@@ -59,7 +59,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
       e = null;
     }
     ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
-        "Basic " + Base64.encode("_administrator_/FIXME".getBytes()));
+        "Basic " + Base64.encodeBase64("_administrator_/FIXME".getBytes()));
     try { 
       it.establishUser(m);
       fail("Should have bombed");
@@ -67,7 +67,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
       e = null;
     }
     ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
-        "Basic" + Base64.encode("_administrator_:FIXME".getBytes()));
+        "Basic" + Base64.encodeBase64("_administrator_:FIXME".getBytes()));
     try { 
       it.establishUser(m);
       fail("Should have bombed");

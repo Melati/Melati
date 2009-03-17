@@ -9,6 +9,9 @@
   <testSources>
     <source>src/test/java/poem/test/PoemTest.java</source>
   </testSources>
+  <testSources>
+    <source>src/test/java/melati/test/JettyWebTestCase.java</source>
+  </testSources>
   <resources>
     <resource>src/main/conf/org/melati/org.melati.LogicalDatabase.properties</resource>
     <resource>src/main/conf/org/melati/org.melati.MelatiConfig.properties</resource>

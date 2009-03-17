@@ -30,6 +30,8 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
     super.setUp();
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
+    mockHttpServletRequest.setHeader("Authorization", 
+        "Basic " + Base64.encode("_administrator_:FIXME".getBytes()));
     m.setRequest(mockHttpServletRequest);
     m.setResponse(mockHttpServletResponse);
   }
@@ -44,15 +46,6 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
     it = ah;
   }
 
-  /**
-   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
-   */
-  public void testEstablishUserFromRequest() {
-    ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
-        "Basic " + Base64.encode("_administrator_:FIXME".getBytes()));
-    it.establishUser(m);
-    assertEquals("Melati database administrator",m.getUser().displayString());
-  }
   /**
    * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
    */

@@ -44,7 +44,7 @@
 
 package org.melati.util.test;
 
-import org.melati.servlet.test.MockServletRequest;
+import org.melati.servlet.test.MockHttpServletRequest;
 import org.melati.util.HttpUtil;
 
 import junit.framework.TestCase;
@@ -85,7 +85,7 @@ public class HttpUtilTest extends TestCase {
    */
   public void testAppendZoneURL() {
     StringBuffer it = new StringBuffer();
-    HttpUtil.appendZoneURL(it, new MockServletRequest());
+    HttpUtil.appendZoneURL(it, new MockHttpServletRequest());
     assertEquals("http://localhost/servletContext/mockServletPath",it.toString());
   }
 
@@ -93,7 +93,7 @@ public class HttpUtilTest extends TestCase {
    * Test method for {@link org.melati.util.HttpUtil#getServerURL(javax.servlet.http.HttpServletRequest)}.
    */
   public void testGetServerURL() {
-    assertEquals("http://localhost",HttpUtil.getServerURL( new MockServletRequest()));
+    assertEquals("http://localhost",HttpUtil.getServerURL( new MockHttpServletRequest()));
   }
 
   /**
@@ -101,7 +101,7 @@ public class HttpUtilTest extends TestCase {
    */
   public void testAppendRelativeZoneURL() {
     StringBuffer it = new StringBuffer();
-    HttpUtil.appendRelativeZoneURL(it, new MockServletRequest());
+    HttpUtil.appendRelativeZoneURL(it, new MockHttpServletRequest());
     assertEquals("/servletContext/mockServletPath",it.toString());
   }
 
@@ -109,21 +109,21 @@ public class HttpUtilTest extends TestCase {
    * Test method for {@link org.melati.util.HttpUtil#zoneURL(javax.servlet.http.HttpServletRequest)}.
    */
   public void testZoneURL() {
-    assertEquals("http://localhost/servletContext/mockServletPath",HttpUtil.zoneURL(new MockServletRequest()));
+    assertEquals("http://localhost/servletContext/mockServletPath",HttpUtil.zoneURL(new MockHttpServletRequest()));
   }
 
   /**
    * Test method for {@link org.melati.util.HttpUtil#servletURL(javax.servlet.http.HttpServletRequest)}.
    */
   public void testServletURL() {
-    assertEquals("http://localhost/servletContext/mockServletPath/",HttpUtil.servletURL(new MockServletRequest()));
+    assertEquals("http://localhost/servletContext/mockServletPath/",HttpUtil.servletURL(new MockHttpServletRequest()));
   }
 
   /**
    * Test method for {@link org.melati.util.HttpUtil#getRelativeRequestURL(javax.servlet.http.HttpServletRequest)}.
    */
   public void testGetRelativeRequestURL() {
-    assertEquals("/servletContext/mockServletPath/",HttpUtil.getRelativeRequestURL(new MockServletRequest()));
+    assertEquals("/servletContext/mockServletPath/",HttpUtil.getRelativeRequestURL(new MockHttpServletRequest()));
   }
 
   /**

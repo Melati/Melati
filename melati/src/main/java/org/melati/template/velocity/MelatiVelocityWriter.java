@@ -96,7 +96,7 @@ public class MelatiVelocityWriter extends MelatiWriter {
    * get started so we should start it here.
    * @return the underlying output
    */
-  public VelocityWriter getPeer() {
+  public VelocityWriter getVelocityWriter() {
     startFlushing();
     return (VelocityWriter)out;
   }
@@ -108,7 +108,7 @@ public class MelatiVelocityWriter extends MelatiWriter {
   public void close()
       throws IOException {
     super.close();
-    writerPool.put(getPeer());
+    writerPool.put(getVelocityWriter());
   }
 
 }

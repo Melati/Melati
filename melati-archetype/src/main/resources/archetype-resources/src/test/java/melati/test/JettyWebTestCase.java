@@ -63,6 +63,7 @@ public class #capitalise(${artifactId})JettyWebTestCase extends JettyWebTestCase
   public #capitalise(${artifactId})JettyWebTestCase(String name) {
     super(name);
     webAppDirName = "src/main/webapp";
+    contextName = "";
   }
 
   /**

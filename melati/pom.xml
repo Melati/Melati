@@ -241,10 +241,12 @@
           <exclude>**/*ExitServlet.class</exclude>
           <exclude>**/*CharData*</exclude>
           <exclude reason="Just a toy">**/*JspServlet*</exclude>
+          <!--exclude reason="Not used">**/*PoemServletContextListener*</exclude-->
           <exclude reason="Not committed yet">**/*CachingTemplateServlet*</exclude>
           <exclude reason="Not used anywhere">**/AccessForbiddenToken.class</exclude>
           <exclude reason="Not used anywhere">**/UnindexableLogEvent.class</exclude>
           <exclude reason="Not used yet">**/XMLMarkupLanguage.class</exclude>
+          <exclude reason="Not completely tested unless set in config">**/velocity/*</exclude>
           <exclude reason="Not used yet">**/XMLAttributeMarkupLanguage.class</exclude>
         </excludes>
        </instrumentation>

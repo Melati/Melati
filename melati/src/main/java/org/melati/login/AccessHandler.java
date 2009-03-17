@@ -62,7 +62,7 @@ public interface AccessHandler {
   /**
    * Deal with an AccessPoemException, often by allowing login.
    * @param melati current Melati
-   * @param accessException teh AccessException
+   * @param accessException the AccessException
    */
   void handleAccessException(Melati melati, 
                              AccessPoemException accessException)

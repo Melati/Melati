@@ -44,11 +44,11 @@
 package org.melati.template.webmacro;
 
 import org.melati.Melati;
-import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 
-import org.webmacro.WM;
+import org.webmacro.Broker;
+import org.webmacro.InitException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -71,9 +71,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * @see org.melati.template.webmacro.MelatiWebmacroWriter#getFastWriter
    *         (org.melati.template.TemplateEngine)
    */
-  public org.webmacro.FastWriter getFastWriter(TemplateEngine engine) {
-    WebmacroTemplateEngine wte = (WebmacroTemplateEngine)engine;
-    WM wm = (WM)wte.getEngine();
+  public org.webmacro.FastWriter getFastWriter() {
     // All we want to do is efficiently convert to and from bytes
     // in an encoding that works for all Java characters.
     // Sun's Javadocs java.nio.charset.Charset explains this well
@@ -82,11 +80,14 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
     // So Jim used UTF-16BE
     // Changed to default in the desperate hope of getting something to work
     try {
-      return org.webmacro.FastWriter.getInstance(wm.getBroker(), Melati.DEFAULT_ENCODING);
+      return org.webmacro.FastWriter.getInstance(Broker.getBroker(), Melati.DEFAULT_ENCODING);
     }
     catch (UnsupportedEncodingException e) {
       throw new MelatiBugMelatiException(
-              "Assumption that all JVMs and WebMacro support " + Melati.DEFAULT_ENCODING + " has not held", e);
+          "Assumption that all JVMs and WebMacro support " + Melati.DEFAULT_ENCODING + " has not held", e);
+    } catch (InitException e) {
+      throw new MelatiBugMelatiException(
+          "Problem initialising WebMacro", e);
     }
   }
 

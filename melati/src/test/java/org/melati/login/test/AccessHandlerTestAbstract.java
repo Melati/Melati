@@ -100,8 +100,8 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
    */
   public void testEstablishUser() {
-    System.err.println("MA:"+ m.getArguments());
     it.establishUser(m);
+    assertEquals("Melati database administrator",m.getUser().displayString());
   }
 
   

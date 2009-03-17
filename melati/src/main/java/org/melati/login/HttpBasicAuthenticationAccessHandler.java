@@ -91,12 +91,10 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     String desc = realm == null ? "<unknown>"
                                 : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
-    // I don't believe there is a lot we can do about an IO exception here,
-    // so i am simply going to log it
+    // I don't believe there is a lot we can do about an IO exception here
     try {
       resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
     } catch (IOException e) {
-      e.printStackTrace(System.err);
       throw new UnexpectedExceptionException(e);
     }
   }

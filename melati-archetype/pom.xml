@@ -10,7 +10,7 @@
     <relativePath>../</relativePath>
   </parent>
   <packaging>maven-plugin</packaging>
-  <version>1.0-SNAPSHOT</version>
   <name>Melati Archetype</name>
   <url>http://melati.org/melati-archetype/</url>
+  <version>0.7.8-RC2-SNAPSHOT</version>
 </project>

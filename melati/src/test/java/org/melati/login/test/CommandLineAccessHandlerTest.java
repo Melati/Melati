@@ -36,4 +36,20 @@ public class CommandLineAccessHandlerTest extends AccessHandlerTestAbstract {
     it = clah;
   }
 
+  /**
+   * Test missing argument handling.
+   */
+  public void testEstablishUserMissingUsername() { 
+    m.setArguments(new String[] {"melatijunit", "-p", "FIXME"});    
+    it.establishUser(m);
+    assertEquals("Melati guest user", m.getUser().displayString());
+  }
+  /**
+   * Test missing argument handling.
+   */
+  public void testEstablishUserMissingPassword() { 
+    m.setArguments(new String[] {"melatijunit", "-u", "_administrator_"});    
+    it.establishUser(m);
+    assertEquals("Melati guest user", m.getUser().displayString());
+  }
 }

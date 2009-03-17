@@ -88,7 +88,7 @@ public class WebmacroMelatiServletTest extends TemplateServlet {
       context2.put("melati", m);
       context2.put("ml", m.getMarkupLanguage());
       Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
-      template.write(fmw.getPeer().getOutputStream(), context2);
+      template.write(fmw.getFastWriter().getOutputStream(), context2);
       fmw.flush();
       // write to the StringWriter
       String out = sw.toString();

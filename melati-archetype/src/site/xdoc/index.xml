@@ -28,18 +28,26 @@ This page last updated: $Date$ $Author$
 <subsection name=" Generate a prototypical Melati project ">
 <pre>
 <input type='text' size='180' 
-value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.melati -DartifactId=melati-example-contacts' />
+value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=0.7.8-RC2-SNAPSHOT -DgroupId=com.ical -Dversion=0.7.8-RC2-SNAPSHOT -DartifactId=art' />
 </pre>
 <p>
-This will create a project. 
+This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the curren one called <tt>art</tt>.
 </p>
+<p>
+Note that we are hacking the version to be the melati version. Also th epom will contain a one-off ant-run task which can be deleted.
+</p>
+<pre>
+cd art
+mvn install
+mvn eclipse:eclipse
+</pre>
 </subsection>
 <subsection name=" Iterative modelling ">
 <p>
 You can then run:
 </p>
 <pre>
-mvn test jetty:run
+mvn jetty:run
 </pre>
 <p>
 This will create an empty database and allow you to edit it at <a href="http://localhost:8080/">http://localhost:8080/</a>.
@@ -50,7 +58,7 @@ column definitions.
 When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
 </p>
 <p>
-New java files will be generated next time you run <tt>mvn test</tt>.
+New java files will be generated the next time you run <tt>mvn test</tt>.
 </p>
 </subsection>
 </section>

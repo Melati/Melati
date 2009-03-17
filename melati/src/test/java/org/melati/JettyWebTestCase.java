@@ -78,7 +78,7 @@ public class JettyWebTestCase extends WebTestCase {
    */
   public void testIndex() {
     beginAt("/index.jsp");
-    assertTextPresent("Administer Database");
+    assertTextPresent("Administer");
   }
   
    /**

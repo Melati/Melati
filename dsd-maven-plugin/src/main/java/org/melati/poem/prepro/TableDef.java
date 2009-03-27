@@ -55,6 +55,28 @@ import java.io.IOException;
 
 /**
  * A Table Definition holding information from a DSD.
+ * 
+ * 
+ * The SQL table naming convention is enforced here:
+ * the name given in the DSD is forced to lowercase. 
+ * 
+ *  This could be changed to enable mixed case names in 
+ *  jdbc names by simply not forcing to lowercase, 
+ *  but the JavaName has first letter capitalised. 
+ *  
+ *  The way around this is to have a separate jdbc name, 
+ *  but this would be a lot of redundancy for a small use case.
+ *  
+ *   
+ *  The use case is actually broken: MySQL allows significant 
+ *  table name case, but only on operating systems where 
+ *  file name case is significant, and the manual advises against.
+ *  
+ *  The solution is to add the following to /etc/mysqld/my.cnf
+ *  
+ *  [mysqld]
+ *  lower_case_table_names=1  
+ * 
  */
 public class TableDef {
 

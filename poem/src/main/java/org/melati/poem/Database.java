@@ -439,8 +439,9 @@ public abstract class Database implements TransactionPool {
                                        normalTables);
     while (tableDescs.next()) {
       if (debug) log("Table:" + tableDescs.getString("TABLE_NAME") +
-                        " Type:" + tableDescs.getString("TABLE_TYPE"));
+          " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
+      if (debug) log("Melati Table name :" + tableName);
       Table table = null;
       if (tableName != null) { //dbms returning grotty table name (MSAccess)
         table = getTableIgnoringCase(tableName);
@@ -492,7 +493,7 @@ public abstract class Database implements TransactionPool {
               }
             }
           } */
-        } else if (debug) log("table not null:" + tableName);
+        } else if (debug) log("table not null:" + tableName + "Table has name " + table.getName());
       }
 
       if (table != null) {

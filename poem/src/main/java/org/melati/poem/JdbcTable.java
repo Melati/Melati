@@ -2763,7 +2763,7 @@ public class JdbcTable implements Selectable, Table {
       Hashtable dbHasIndexForColumn = new Hashtable();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
-      if (debug) System.err.println("Getting indexes for " + unreservedName);
+      if (debug) System.err.println("Getting indexes for " + unreservedName + "(was " + getName() + ")");
       ResultSet index;
       try {
         index = getDatabase().getCommittedConnection().getMetaData().

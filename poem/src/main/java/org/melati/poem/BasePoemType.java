@@ -339,11 +339,15 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   protected abstract String _sqlDefinition(Dbms dbms);
 
   /**
+   * See http://dev.mysql.com/doc/refman/5.0/en/timestamp.html
+   * The MySQL default for nullability of timestamps is not null, so need to 
+   * make all fields explicitly nullable.
+   * 
    * {@inheritDoc}
    * @see org.melati.poem.SQLType#sqlDefinition(org.melati.poem.dbms.Dbms)
    */
   public String sqlDefinition(Dbms dbms) {
-    return sqlTypeDefinition(dbms) + (nullable ? "" : " NOT NULL");
+    return sqlTypeDefinition(dbms) + (nullable ? " NULL" : " NOT NULL");
   }
   /**
    * {@inheritDoc}

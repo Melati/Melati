@@ -72,5 +72,13 @@ public class PostgresqlTest extends DbmsSpec {
     assertEquals("BYTEA", it.getBinarySqlDefinition(0));        
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   */
+  public void testCreateTableSql() {
+    if (getDb().getDbms() == it)
+      assertEquals("CREATE TABLE \"user\" (\"id\" INT NOT NULL, \"name\" VARCHAR(60) NOT NULL, \"login\" VARCHAR(255) NOT NULL, \"password\" VARCHAR(20) NOT NULL)", it.createTableSql(getDb().getUserTable()));
+  }
+  
   
 }

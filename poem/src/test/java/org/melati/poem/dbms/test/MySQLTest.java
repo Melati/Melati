@@ -211,10 +211,10 @@ public class MySQLTest extends DbmsSpec {
    */
   public void testCreateTableSql() {
     if (getDb().getDbms() == it)
-      assertEquals("CREATE TABLE \"USER\" (\"ID\" INT NOT NULL, " + 
-              "\"NAME\" VARCHAR(60) NOT NULL, " + 
-              "\"LOGIN\" VARCHAR(255) NOT NULL, " + 
-              "\"PASSWORD\" VARCHAR(20) NOT NULL) TYPE='InnoDB' ", 
+      assertEquals("CREATE TABLE user (id INT NOT NULL, " + 
+              "name VARCHAR(60) NOT NULL, " + 
+              "login VARCHAR(255) NOT NULL, " + 
+              "password VARCHAR(20) NOT NULL) TYPE='InnoDB' ", 
               it.createTableSql(getDb().getUserTable()));
   }
   

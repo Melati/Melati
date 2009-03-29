@@ -41,7 +41,6 @@ public class PersistentFactoryTest extends PoemTestCase {
    * @see junit.framework.TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    super.tearDown();
     getDb().disconnect();
     PoemDatabaseFactory.removeDatabase(getDatabaseName());
   }
@@ -87,7 +86,7 @@ public class PersistentFactoryTest extends PoemTestCase {
   }
 
   /**
-   * 
+   * Not idempotent.
    */
   public void testFromUnknownInstance() { 
     if (!getDb().getDbms().canDropColumns()) {
@@ -96,8 +95,6 @@ public class PersistentFactoryTest extends PoemTestCase {
     // Create one before we start so that it can be compared and rejected
     ClassWithNoIdAndPublicMembers d1 = new ClassWithNoIdAndPublicMembers("Pepper");
     d1.setThoughts("Squirrels");
-    Persistent persistedDog = PersistentFactory.fromInstance(getDb(), d1);
-    assertEquals(new Integer(0), persistedDog.getTroid());
     
     ClassWithNoIdAndPublicMembers d2 = new ClassWithNoIdAndPublicMembers("Fido");
     d2.setThoughts("Food");
@@ -105,13 +102,11 @@ public class PersistentFactoryTest extends PoemTestCase {
     Persistent persistedDog2 = PersistentFactory.fromInstance(getDb(), d2);
     assertEquals("Food", persistedDog2.getRaw("thoughts"));
     assertEquals("Tiddles", ((Persistent)persistedDog2.getCooked("classWithNoIdAndPrivateMembers")).getRaw("name"));
-    assertEquals(new Integer(1), persistedDog2.getTroid());
     
     // Do it again to exercise selection
     Persistent persistedDog3 = PersistentFactory.fromInstance(getDb(), d2);
     assertEquals("Food", persistedDog3.getRaw("thoughts"));
     assertEquals("Tiddles", ((Persistent)persistedDog3.getCooked("classWithNoIdAndPrivateMembers")).getRaw("name"));
-    assertEquals(new Integer(1), persistedDog3.getTroid());
     assertTrue(persistedDog2.equals(persistedDog3));
   }
   

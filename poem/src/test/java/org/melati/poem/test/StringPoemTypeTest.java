@@ -64,7 +64,7 @@ public class StringPoemTypeTest extends TestCase {
    * Test method for {@link org.melati.poem.BasePoemType#sqlDefinition(org.melati.poem.dbms.Dbms)}.
    */
   public void testSqlDefinition() {
-    assertEquals("VARCHAR(1)", new StringPoemType(true,1).
+    assertEquals("VARCHAR(1) NULL", new StringPoemType(true,1).
             sqlDefinition(DbmsFactory.getDbms("org.melati.poem.dbms.AnsiStandard")));
     try { 
       new StringPoemType(true,-1).

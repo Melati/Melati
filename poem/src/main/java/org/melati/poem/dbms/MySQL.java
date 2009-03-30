@@ -48,6 +48,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.melati.poem.SizedAtomPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
 import org.melati.poem.PoemType;
@@ -210,11 +211,22 @@ public class MySQL extends AnsiStandard {
      * {@inheritDoc}
      * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
      */
+    /*
     public PoemType canRepresent(PoemType other) {
       return other instanceof StringPoemType &&
              _canRepresent((StringPoemType)other) &&
              !(!getNullable() && ((StringPoemType)other).getNullable()) ?
                other : null;
+    }
+     */
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.SizedAtomPoemType#withSize(int)
+     */
+    public SizedAtomPoemType withSize(int newSize) {
+      if (newSize==mysqlTextSize)
+        return super.withSize(-1);
+      return super.withSize(newSize);
     }
   }
 
@@ -329,24 +341,19 @@ public class MySQL extends AnsiStandard {
   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
-  //ResultSetMetaData rsmd= md.getMetaData();
-    if(md.getString("TYPE_NAME").equals("blob"))
-      return new BlobPoemType(
-                  md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
-                  md.getInt("COLUMN_SIZE"));
-    else if(md.getString("TYPE_NAME").equals("text"))
-      return new MySQLStringPoemType(md.getInt("NULLABLE")==
-          DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE"));
-    else if(md.getString("TYPE_NAME").equals("smallint"))
-      return new IntegerPoemType(md.getInt("NULLABLE") ==
-            DatabaseMetaData.columnNullable);
-    else if(md.getString("TYPE_NAME").equals("char"))
-      return new StringPoemType(md.getInt("NULLABLE") ==
-          DatabaseMetaData.columnNullable, 1);
+    boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+    String typeName = md.getString("TYPE_NAME");
+    if(typeName.equals("blob"))
+      return new BlobPoemType(nullable, md.getInt("COLUMN_SIZE"));
+    else if(typeName.equals("text"))
+      return new MySQLStringPoemType(nullable, md.getInt("COLUMN_SIZE"));
+    else if(typeName.equals("smallint"))
+      return new IntegerPoemType(nullable);
+    else if(typeName.equals("char"))
+      return new StringPoemType(nullable, 1);
     // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
-    else if(md.getString("TYPE_NAME").equals("tinyint"))
-      return new MySQLBooleanPoemType(md.getInt("NULLABLE")==
-              DatabaseMetaData.columnNullable);
+    else if(typeName.equals("tinyint"))
+      return new MySQLBooleanPoemType(nullable);
     else
       return super.defaultPoemTypeOfColumnMetaData(md);
   }

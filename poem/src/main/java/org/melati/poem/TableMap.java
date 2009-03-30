@@ -98,7 +98,16 @@ public class TableMap implements Map {
    * @see java.util.Map#containsKey(java.lang.Object)
    */
   public boolean containsKey(Object key) {
-    return table.getObject((Integer)key) != null;
+    if (key == null)
+      return false;
+    else {
+      try { 
+        table.getObject((Integer)key); 
+        return true;
+      } catch (NoSuchRowPoemException e) { 
+        return false;
+      }
+    }
   }
 
   /** 
@@ -106,7 +115,8 @@ public class TableMap implements Map {
    * @see java.util.Map#containsValue(java.lang.Object)
    */
   public boolean containsValue(Object value) {
-    return table.selection((Persistent)value).hasMoreElements();
+    Integer troid  = ((Persistent)value).troid();
+    return containsKey(troid);
   }
 
   /** 

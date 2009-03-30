@@ -47,7 +47,7 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 
-import org.melati.poem.util.EnumUtils;
+//import org.melati.poem.util.EnumUtils;
 
  /**
   * Thrown when an attempt is made to delete a {@link Persistent} which is 
@@ -74,7 +74,7 @@ public class DeletionIntegrityPoemException extends PoemException {
 
   /** @return A description. */
   public String toString() {
-    return "You can't delete " + object + " since there are references to it"
-    + references == null ? "" : EnumUtils.concatenated(",",references);
+    return "You can't delete " + object + " since there are references to it";
+    //+ references == null ? "" : EnumUtils.concatenated(",",references);
   }
 }

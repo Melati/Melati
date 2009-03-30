@@ -87,8 +87,8 @@ public class PoemTestCase extends TestCase implements Test {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    checkDbUnchanged();
     if (!problem) {
+      checkDbUnchanged();
       assertEquals("Not all transactions free", maxTrans, getDb().getFreeTransactionsCount());
     }
   }
@@ -171,12 +171,15 @@ public class PoemTestCase extends TestCase implements Test {
       newOne = (ColumnInfo)getDb().getColumnInfoTable().getObject(69);
     } catch (Exception e) {}
     if (newOne != null) { 
-      System.err.println(getDb() + " " + newOne.getName() + " " + newOne.getTableinfo().getName());
-    }
-    if (getDb().getDbms().canDropColumns()) {
-      assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
-      assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
-      checkTablesAndColumns(9,69);
+      String errStr = "Extra column in " + getDb() + " " + newOne.getName() + " " + newOne.getTableinfo().getName();
+      newOne.delete();
+      fail(errStr);
+    } else {
+      if (getDb().getDbms().canDropColumns()) {
+        assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
+        assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
+        checkTablesAndColumns(9,69);
+      }
     }
   }
   

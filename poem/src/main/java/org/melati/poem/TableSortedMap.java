@@ -44,6 +44,7 @@
 package org.melati.poem;
 
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.SortedMap;
 
@@ -95,12 +96,16 @@ public class TableSortedMap extends TableMap implements SortedMap {
 
   /** 
    * {@inheritDoc}
+   * 
+   * NOTE first attempt using table.getMostRecentTroid() does not take 
+   * account of deletion as mostRecentTroid is never decremented 
    * @see java.util.SortedMap#lastKey()
    */
   public Object lastKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
-    return new Integer(table.getMostRecentTroid());
+    Enumeration them  = table.selection(null, table.getDatabase().getDbms().getQuotedName("id") + " DESC", false);
+    return  ((Persistent)them.nextElement()).troid();
   }
 
   /** 

@@ -78,9 +78,6 @@ public class TableSortedMapTest extends TableMapTest {
    * Test method for {@link org.melati.poem.TableSortedMap#firstKey()}.
    */
   public void testFirstKey() {
-    if (!getDb().getDbms().canDropColumns()) {
-      return; //FIXME This should work - looks like ensure is the issue
-    }
     assertEquals(new Integer(0), it.firstKey());
     it.setTable(getDb().getSettingTable());
     try { 
@@ -106,7 +103,7 @@ public class TableSortedMapTest extends TableMapTest {
    * Test method for {@link org.melati.poem.TableSortedMap#lastKey()}.
    */
   public void testLastKey() {
-    assertEquals(new Integer(2), it.lastKey());
+    assertEquals(new Integer(1), it.lastKey());
     it.setTable(getDb().getSettingTable());
     try { 
       it.lastKey();

@@ -33,6 +33,12 @@ This page last updated: $Date$ $Author$
     <td align="center"><b>Template Engine</b></td>
   </tr>
   <tr>
+    <td>Melati Beta 0.7.8 RC2 - 11/02/2008</td>
+    <td>Use <a href="/maven2/org/melati/">Maven Repository</a></td>
+    <td>Use <a href="/maven2/org/melati/">Maven Repository</a></td>
+    <td>WebMacro 2.1, Velocity 1.5 bundled</td>
+  </tr>
+  <tr>
     <td>Melati Beta 0.7.7 RC1 - 18/06/2007</td>
     <td>Use <a href="/maven2/org/melati/">Maven Repository</a></td>
     <td>Use <a href="/maven2/org/melati/">Maven Repository</a></td>

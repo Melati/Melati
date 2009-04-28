@@ -1,5 +1,9 @@
 package org.melati;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.resource.FileResource;
@@ -21,6 +25,7 @@ public class JettyWebTestCase extends WebTestCase {
   private static boolean started = false;
   protected static String contextName = "melatitest";
   protected static String webAppDirName = "src/test/webapp";
+  protected static String referenceOutputDir = "src/test/resources";
 
   /**
    * Default constructor.
@@ -125,6 +130,27 @@ public class JettyWebTestCase extends WebTestCase {
    */
   protected static void setWebAppDirName(String webAppDirName) {
     JettyWebTestCase.webAppDirName = webAppDirName;
+  }
+
+  private boolean generateCached() { 
+    return false;
+  }
+  protected void assertPageEqual(String url, String fileName) throws Exception { 
+    beginAt(url);
+    String generated = getTester().getPageSource();
+    File referenceFile = new File(referenceOutputDir, fileName);
+    if (referenceFile.exists() && ! generateCached()) {
+      FileInputStream file = new FileInputStream (referenceFile);
+      byte[] b = new byte[file.available()];
+      file.read(b);
+      file.close ();
+      String cached = new String(b);
+      assertEquals(cached, generated);
+    } else { 
+      FileOutputStream file = new FileOutputStream(referenceFile);
+      file.write(generated.getBytes());
+      fail("Reference output file generated: " + referenceFile.getCanonicalPath() + " modify generateCached and rerun");
+    }
   }
   
 }

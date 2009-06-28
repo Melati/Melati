@@ -233,7 +233,7 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("that runs this website, please contact <a href='mailto:");
     out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
     out.println(", with the information given below.</p>");
-    out.println("<h4><font color=red><pre>");
+    out.println("<h4><font color='red'><pre>");
     e.printStackTrace(out);
     out.println("</pre></font></h4></body></html>");
   }    

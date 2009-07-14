@@ -27,7 +27,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated base class for 
 <code>Table</code> <code>GroupMembership</code>.
  *
- * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class GroupMembershipTableBase extends PoemTable {
@@ -39,7 +39,7 @@ public class GroupMembershipTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -56,7 +56,7 @@ public class GroupMembershipTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -262,7 +262,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>GroupMembership</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column getIdColumn() {
@@ -274,7 +274,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * Retrieves the <code>User</code> <code>Column</code> for this 
   * <code>GroupMembership</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the user <code>Column</code>
   */
   public final Column getUserColumn() {
@@ -286,7 +286,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * Retrieves the <code>Group</code> <code>Column</code> for this 
   * <code>GroupMembership</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>
   */
   public final Column getGroupColumn() {
@@ -297,7 +297,7 @@ public class GroupMembershipTableBase extends PoemTable {
  /**
   * Retrieve the <code>GroupMembership</code> as a <code>GroupMembership</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -310,7 +310,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * Retrieve the <code>GroupMembership</code> 
   * as a <code>GroupMembership</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public GroupMembership getGroupMembershipObject(int troid) {

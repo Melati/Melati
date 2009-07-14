@@ -19,7 +19,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>GroupCapability</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class GroupCapabilityBase extends JdbcPersistent {
 
@@ -27,7 +27,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -39,7 +39,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the  <code>GroupCapabilityTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupCapabilityTable
   */
   public GroupCapabilityTable getGroupCapabilityTable() {
@@ -69,7 +69,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>GroupCapability</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -81,7 +81,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this GroupCapability <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -157,7 +157,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>GroupCapability</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -173,7 +173,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Group</code> value, without locking, 
   * for this <code>GroupCapability</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer group
   */
   public Integer getGroup_unsafe() {
@@ -185,7 +185,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Sets the <code>Group</code> value directly, without checking, 
   * for this GroupCapability <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setGroup_unsafe(Integer cooked) {
@@ -272,7 +272,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Group</code> value as a <code>Field</code>
   * from this <code>GroupCapability</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -288,7 +288,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Capability</code> value, without locking, 
   * for this <code>GroupCapability</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer capability
   */
   public Integer getCapability_unsafe() {
@@ -300,7 +300,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Sets the <code>Capability</code> value directly, without checking, 
   * for this GroupCapability <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setCapability_unsafe(Integer cooked) {
@@ -387,7 +387,7 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * Retrieves the <code>Capability</code> value as a <code>Field</code>
   * from this <code>GroupCapability</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

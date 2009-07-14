@@ -302,7 +302,7 @@ abstract table ValueInfo {
 
   ColumnType typefactory
     (displayname = "Type")
-    (description = "The field's Melati type")
+    (description = "The field's POEM type")
     (displaylevel = detail)
     (searchability = no)
     (uneditable);

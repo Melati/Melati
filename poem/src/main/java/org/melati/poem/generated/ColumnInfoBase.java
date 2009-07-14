@@ -21,7 +21,7 @@ import org.melati.poem.ValueInfo;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>ColumnInfo</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class ColumnInfoBase extends ValueInfo {
 
@@ -29,7 +29,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -41,7 +41,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the  <code>ColumnInfoTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ColumnInfoTable
   */
   public ColumnInfoTable getColumnInfoTable() {
@@ -114,7 +114,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -126,7 +126,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -195,7 +195,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -211,7 +211,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Tableinfo</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer tableinfo
   */
   public Integer getTableinfo_unsafe() {
@@ -223,7 +223,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Tableinfo</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setTableinfo_unsafe(Integer cooked) {
@@ -310,7 +310,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Tableinfo</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -326,7 +326,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Name</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String name
   */
   public String getName_unsafe() {
@@ -338,7 +338,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Name</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setName_unsafe(String cooked) {
@@ -393,7 +393,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Name</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -409,7 +409,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displayorder</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer displayorder
   */
   public Integer getDisplayorder_unsafe() {
@@ -421,7 +421,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Displayorder</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDisplayorder_unsafe(Integer cooked) {
@@ -497,7 +497,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displayorder</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -513,7 +513,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Usercreateable</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean usercreateable
   */
   public Boolean getUsercreateable_unsafe() {
@@ -525,7 +525,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Usercreateable</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setUsercreateable_unsafe(Boolean cooked) {
@@ -602,7 +602,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Usercreateable</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -618,7 +618,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displaylevel</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer displaylevel
   */
   public Integer getDisplaylevel_unsafe() {
@@ -630,7 +630,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Displaylevel</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDisplaylevel_unsafe(Integer cooked) {
@@ -722,7 +722,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displaylevel</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -738,7 +738,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Searchability</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer searchability
   */
   public Integer getSearchability_unsafe() {
@@ -750,7 +750,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Searchability</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setSearchability_unsafe(Integer cooked) {
@@ -841,7 +841,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Searchability</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -857,7 +857,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displayorderpriority</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer displayorderpriority
   */
   public Integer getDisplayorderpriority_unsafe() {
@@ -869,7 +869,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Displayorderpriority</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setDisplayorderpriority_unsafe(Integer cooked) {
@@ -945,7 +945,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Displayorderpriority</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -961,7 +961,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Sortdescending</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean sortdescending
   */
   public Boolean getSortdescending_unsafe() {
@@ -973,7 +973,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Sortdescending</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setSortdescending_unsafe(Boolean cooked) {
@@ -1050,7 +1050,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Sortdescending</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -1066,7 +1066,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Indexed</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean indexed
   */
   public Boolean getIndexed_unsafe() {
@@ -1078,7 +1078,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Indexed</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setIndexed_unsafe(Boolean cooked) {
@@ -1155,7 +1155,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Indexed</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -1171,7 +1171,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Unique</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean unique
   */
   public Boolean getUnique_unsafe() {
@@ -1183,7 +1183,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Unique</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setUnique_unsafe(Boolean cooked) {
@@ -1260,7 +1260,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Unique</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -1276,7 +1276,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the <code>Integrityfix</code> value, without locking, 
   * for this <code>ColumnInfo</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer integrityfix
   */
   public Integer getIntegrityfix_unsafe() {
@@ -1288,7 +1288,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Sets the <code>Integrityfix</code> value directly, without checking, 
   * for this ColumnInfo <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setIntegrityfix_unsafe(Integer cooked) {
@@ -1384,7 +1384,7 @@ for this <code>Persistent</code>.
   * Retrieves the <code>Integrityfix</code> value as a <code>Field</code>
   * from this <code>ColumnInfo</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

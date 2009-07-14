@@ -19,7 +19,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>GroupMembership</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class GroupMembershipBase extends JdbcPersistent {
 
@@ -27,7 +27,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -39,7 +39,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the  <code>GroupMembershipTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupMembershipTable
   */
   public GroupMembershipTable getGroupMembershipTable() {
@@ -69,7 +69,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value, without locking, 
   * for this <code>GroupMembership</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
   */
   public Integer getId_unsafe() {
@@ -81,7 +81,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Sets the <code>Id</code> value directly, without checking, 
   * for this GroupMembership <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setId_unsafe(Integer cooked) {
@@ -157,7 +157,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>Id</code> value as a <code>Field</code>
   * from this <code>GroupMembership</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -173,7 +173,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>User</code> value, without locking, 
   * for this <code>GroupMembership</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer user
   */
   public Integer getUser_unsafe() {
@@ -185,7 +185,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Sets the <code>User</code> value directly, without checking, 
   * for this GroupMembership <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setUser_unsafe(Integer cooked) {
@@ -272,7 +272,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>User</code> value as a <code>Field</code>
   * from this <code>GroupMembership</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
@@ -288,7 +288,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>Group</code> value, without locking, 
   * for this <code>GroupMembership</code> <code>Persistent</code>.
   *
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer group
   */
   public Integer getGroup_unsafe() {
@@ -300,7 +300,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Sets the <code>Group</code> value directly, without checking, 
   * for this GroupMembership <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @see org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
   */
   public void setGroup_unsafe(Integer cooked) {
@@ -387,7 +387,7 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * Retrieves the <code>Group</code> value as a <code>Field</code>
   * from this <code>GroupMembership</code> <code>Persistent</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @see org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights

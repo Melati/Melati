@@ -86,7 +86,7 @@ public class TemplateServletTestOverrideTest extends TemplateServletTestTest {
     try { 
       clickLinkWithText("?propagate=true");
       fail("Should have bombed");
-    } catch (com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException e) { 
+    } catch (Exception e) { 
       assertTrue(e.getMessage().indexOf("401 You need the capability _administer_ but your access token _guest_ doesnt confer it") != -1);
     }
   }

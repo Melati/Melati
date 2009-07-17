@@ -44,7 +44,6 @@
 
 package org.melati.test.test;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 /**
  * @author timp
@@ -87,7 +86,7 @@ public class HttpAuthenticationPoemServletTestTest extends PoemServletTestTest {
     try { 
       clickLinkWithText("Access Poem Exception");
       fail("Should have bombed.");
-    } catch (FailingHttpStatusCodeException e) { 
+    } catch (Exception e) { 
       System.err.println(e.getMessage());
       assertEquals(e.getMessage().indexOf("401"), 0);
     }

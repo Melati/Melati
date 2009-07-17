@@ -29,7 +29,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated base class for 
 <code>Table</code> <code>Contact</code>.
  *
- * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ContactTableBase extends ContactsTable {
@@ -45,7 +45,7 @@ public class ContactTableBase extends ContactsTable {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -62,7 +62,7 @@ public class ContactTableBase extends ContactsTable {
  /**
   * Get the database tables.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {
@@ -520,7 +520,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column getIdColumn() {
@@ -532,7 +532,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Name</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
   public final Column getNameColumn() {
@@ -544,7 +544,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Owner</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the owner <code>Column</code>
   */
   public final Column getOwnerColumn() {
@@ -556,7 +556,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Address</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the address <code>Column</code>
   */
   public final Column getAddressColumn() {
@@ -568,7 +568,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Updates</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the updates <code>Column</code>
   */
   public final Column getUpdatesColumn() {
@@ -580,7 +580,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Lastupdated</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdated <code>Column</code>
   */
   public final Column getLastupdatedColumn() {
@@ -592,7 +592,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieves the <code>Lastupdateuser</code> <code>Column</code> for this 
   * <code>Contact</code> <code>Table</code>.
   * 
-  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdateuser <code>Column</code>
   */
   public final Column getLastupdateuserColumn() {
@@ -603,7 +603,7 @@ public class ContactTableBase extends ContactsTable {
  /**
   * Retrieve the <code>Contact</code> as a <code>Contact</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -616,7 +616,7 @@ public class ContactTableBase extends ContactsTable {
   * Retrieve the <code>Contact</code> 
   * as a <code>Contact</code>.
   *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Contact getContactObject(int troid) {

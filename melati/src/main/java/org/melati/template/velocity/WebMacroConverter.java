@@ -53,7 +53,7 @@ import org.melati.util.MelatiBugMelatiException;
  * Converter from WebMacro templates to Velocity templates.
  * 
  * Note that this does not succeed for modern WebMacro syntax 
- * which uses optionional #begin in #foreach.
+ * which uses optional #begin in #foreach.
  * 
  * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
  *

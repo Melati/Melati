@@ -34,12 +34,12 @@ value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactI
 This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the curren one called <tt>art</tt>.
 </p>
 <p>
-Note that we are hacking the version to be the melati version. Also th epom will contain a one-off ant-run task which can be deleted.
+Note that we are hacking the version to be the melati version. Also the pom will contain a one-off ant-run task which can be deleted.
 </p>
 <pre>
 cd art
 mvn install
-mvn eclipse:eclipse
+mvn -DdownloadSources=true -DdownloadJavadoc=true eclipse:eclipse
 </pre>
 </subsection>
 <subsection name=" Iterative modelling ">

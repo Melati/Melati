@@ -88,7 +88,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @return the results (a TailoredResultSetEnumeration) as an Enumeration.
    * @see org.melati.poem.TailoredQuery#selection()
    */
-  public Enumeration selection() {
+  public Enumeration<Object> selection() {
     return new TailoredResultSetEnumeration(this, statements.resultSet());
   }
 
@@ -97,7 +97,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * {@inheritDoc}
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
-  public Enumeration selection_firstRaw() {
+  public Enumeration<Object> selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
                                                     statements.resultSet());
   }

@@ -71,7 +71,8 @@ public class TableMismatchPoemException extends PoemException {
   public String getMessage() {
     return
         "Validation failed for " + value +
-        " as it has Table set to " + table;
+        " as it has Table set to " + value.getTable() + 
+        " when " + table + " is required";
   }
 
 }

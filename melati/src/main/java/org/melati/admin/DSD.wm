@@ -74,13 +74,13 @@
 #if ($all) #begin
  *    
  * NOTE
- * This template includes all System, dynamically created and 
- * inherited tables, so should NOT be used to replace an existing DSD.
+ * This template includes all System and inherited tables, 
+ * so should NOT be used to replace an existing DSD.
 #end #else #begin 
  *    
  * NOTE
- * This template can include all system, dynamically created and 
- * inherited tables but then should NOT be used to replace an existing DSD.
+ * This template can include all system and inherited tables but then 
+ * should NOT be used to replace an existing DSD.
  * (add all=true to URL)
 #end
  *    

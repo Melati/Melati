@@ -124,7 +124,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
-                          String name) throws IOException, NotFoundException {
+                          String name) throws NotFoundException {
     return templateEngine.template(templetsTempletPath(templateEngine, markupLanguage,
         purpose, name));
   }
@@ -137,7 +137,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String name) 
-      throws IOException, NotFoundException {
+      throws NotFoundException {
     return templet(templateEngine, markupLanguage, null, name);
   }
 
@@ -152,7 +152,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
                           Class clazz)
-      throws TemplateEngineException, IOException {
+      throws TemplateEngineException {
     Class lookupClass = clazz;
     Template templet = null;
     Template fromCache = null;
@@ -220,8 +220,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
            "/" + templateEngine.getName();
   }
 
-  private Template getTemplate(TemplateEngine templateEngine, String templetPath) 
-      throws IOException { 
+  private Template getTemplate(TemplateEngine templateEngine, String templetPath)  { 
     Template templet = null;
     try {
       Object triedAlready = lookedupTemplateNames.get(templetPath);
@@ -242,8 +241,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)
    */
   public Template templet(TemplateEngine templateEngine,
-                          MarkupLanguage markupLanguage, Class clazz)
-      throws IOException {
+                          MarkupLanguage markupLanguage, Class clazz) {
     return templet(templateEngine, markupLanguage, null, clazz);
   }
 
@@ -256,8 +254,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage,
-                          FieldAttributes attributes)
-      throws IOException {
+                          FieldAttributes attributes) {
     if (attributes.getRenderInfo() != null) {
       String templetName = attributes.getType().getClass().getName() 
           + "-"

@@ -53,6 +53,7 @@ import org.melati.MelatiConfig;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiWriter;
 import org.webmacro.InitException;
 import org.webmacro.WM;
@@ -112,14 +113,19 @@ public class WebmacroServletTemplateEngine
    *         appropriate for this engine.
    */
   public MelatiWriter getServletWriter(HttpServletResponse response, 
-                                       boolean buffered) 
-      throws IOException {
+                                       boolean buffered)  {
     if (buffered) {
-//      return new MelatiBufferedFastWriter(response);
-      return new MelatiBufferedFastWriter(wm.getBroker(),response);
+      try {
+        return new MelatiBufferedFastWriter(wm.getBroker(),response);
+      } catch (IOException e) {
+        throw new TemplateIOException(e);
+      }
     } else {
-//      return new MelatiFastWriter(response);
-      return new MelatiFastWriter(wm.getBroker(),response);
+      try {
+        return new MelatiFastWriter(wm.getBroker(),response);
+      } catch (IOException e) {
+        throw new TemplateIOException(e);
+      }
     }
   }
 

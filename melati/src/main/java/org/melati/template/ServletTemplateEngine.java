@@ -81,8 +81,7 @@ public interface ServletTemplateEngine extends TemplateEngine {
    *         appropriate for this engine.
    */
   MelatiWriter getServletWriter(HttpServletResponse response, 
-                                boolean buffered)
-      throws IOException;
+                                boolean buffered);
 
   /**
    * Get the generic parameters for this engine.

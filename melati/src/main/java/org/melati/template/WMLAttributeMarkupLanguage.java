@@ -90,7 +90,7 @@ public class WMLAttributeMarkupLanguage extends WMLMarkupLanguage
    * {@inheritDoc}
    * @see org.melati.template.AbstractMarkupLanguage#render(java.lang.Object, org.melati.util.MelatiWriter)
    */
-  protected void render(Object o, MelatiWriter writer) throws IOException {
+  protected void render(Object o, MelatiWriter writer) {
     render(o.toString(), writer);
   }
 }

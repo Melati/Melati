@@ -72,8 +72,7 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
    * Constructor.
    */
   public MelatiBufferedFastWriter(Broker broker, OutputStream output, 
-                                  String encoding)
-      throws IOException {
+                                  String encoding) {
     super(broker, new ByteArrayOutputStream(), encoding);
     buffer = (ByteArrayOutputStream)outputStream;
     underlying = output;

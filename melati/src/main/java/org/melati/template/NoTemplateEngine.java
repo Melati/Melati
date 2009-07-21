@@ -46,12 +46,14 @@
 package org.melati.template;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.util.MelatiIOException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
@@ -102,7 +104,7 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
   }
 
   /**
-   * Throw excption.
+   * Throw exception.
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
@@ -114,7 +116,7 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
   }
 
   /**
-   * Throw excption.
+   * Throw exception.
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException always
@@ -209,12 +211,17 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
    *         appropriate for this engine.
    */
   public MelatiWriter getServletWriter(HttpServletResponse response, 
-                                       boolean buffered) 
-      throws IOException {
+                                       boolean buffered) {
+    PrintWriter printWriter = null;
+    try { 
+      printWriter = response.getWriter(); 
+    } catch (IOException e) { 
+      throw new MelatiIOException(e);
+    }
     if (buffered)
-      return new MelatiBufferedWriter(response.getWriter());
+      return new MelatiBufferedWriter(printWriter);
     else
-      return new MelatiSimpleWriter(response.getWriter());
+      return new MelatiSimpleWriter(printWriter);
   }
 
   /** 

@@ -89,14 +89,14 @@ public interface MarkupLanguage {
    * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
    */
-  String rendered(Object o) throws IOException;
+  String rendered(Object o);
   
   /**
    * @param s markup fragment to render
    * @return fragment rendered with markup unchanged
    * @throws IOException  if there is a problem during rendering
    */
-  String renderedMarkup(String s) throws IOException;
+  String renderedMarkup(String s);
 
 
   /**
@@ -107,7 +107,7 @@ public interface MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    * @return - the String having been rendered in a MarkupLanguage specific way.
    */
-  String rendered(String s, int limit) throws IOException;
+  String rendered(String s, int limit);
 
   /**
    * Render a Field Object in a MarkupLanguage specific way, 
@@ -125,7 +125,7 @@ public interface MarkupLanguage {
    *                                   ServletTemplateEngine
    */
   String rendered(Field field, int style)
-          throws TemplateEngineException, IOException;
+          throws TemplateEngineException;
 
   /**
    * Render a Field Object in a MarkupLanguage specific way, 
@@ -143,7 +143,7 @@ public interface MarkupLanguage {
    *                                   ServletTemplateEngine
    */
   String rendered(Field field, int style, int limit)
-          throws TemplateEngineException, IOException;
+          throws TemplateEngineException;
 
   /**
    * Render a Date Field Object in a MarkupLanguage specific way, 
@@ -156,8 +156,7 @@ public interface MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    */
-  String renderedStart(Field field)
-          throws IOException;
+  String renderedStart(Field field);
 
   
   
@@ -173,8 +172,7 @@ public interface MarkupLanguage {
    * @return The default input widget for the Field type
    * @throws NotFoundException if template not found
    */
-  String input(Field field) throws TemplateEngineException,
-          IOException, NotFoundException;
+  String input(Field field) throws TemplateEngineException, NotFoundException;
 
   /**
    * Get an input widget for this Field defined by name.
@@ -185,7 +183,7 @@ public interface MarkupLanguage {
    * @throws NotFoundException if template not found
    */
   String inputAs(Field field, String templetName)
-          throws TemplateEngineException, IOException, NotFoundException;
+          throws TemplateEngineException, NotFoundException;
 
   /**
    * Get an input widget for this Field specifying the null value.
@@ -196,7 +194,7 @@ public interface MarkupLanguage {
    * @throws NotFoundException if template not found
    */
   String searchInput(Field field, String nullValue)
-          throws TemplateEngineException, IOException, NotFoundException;
+          throws TemplateEngineException, NotFoundException;
 
 
   /**

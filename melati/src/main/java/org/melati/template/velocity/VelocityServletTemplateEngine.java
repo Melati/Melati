@@ -53,6 +53,7 @@ import org.melati.MelatiConfig;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -98,11 +99,19 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    * @return a {@link MelatiWriter} appropriate for this engine.
    */
   public MelatiWriter getServletWriter(HttpServletResponse response,
-          boolean buffered) throws IOException {
+          boolean buffered) {
     if (buffered) {
-      return new MelatiBufferedVelocityWriter(response);
+      try {
+        return new MelatiBufferedVelocityWriter(response);
+      } catch (IOException e) {
+        throw new TemplateIOException(e);
+      }
     } else {
-      return new MelatiVelocityWriter(response);
+      try {
+        return new MelatiVelocityWriter(response);
+      } catch (IOException e) {
+        throw new TemplateIOException(e);
+      }
     }
   }
 

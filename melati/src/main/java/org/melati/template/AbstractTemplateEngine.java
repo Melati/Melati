@@ -52,7 +52,7 @@ import java.util.Vector;
  */
 public abstract class AbstractTemplateEngine implements TemplateEngine {
 
-  protected Vector roots = new Vector();
+  protected Vector<String> roots = new Vector<String>();
   
   /**
    * Constructor.
@@ -68,7 +68,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    */
   public String getTemplateName(String key, String classifier) {
     String templateResourceName = null;
-    Enumeration theRoots = getRoots();    
+    Enumeration<String> theRoots = getRoots();    
     while(theRoots.hasMoreElements()) { 
       String root = (String)theRoots.nextElement();
       templateResourceName = "/" + emptyOrSlashEnded(root) + 
@@ -108,7 +108,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    * {@inheritDoc}
    * @see org.melati.template.TemplateEngine#getRoots()
    */
-  public Enumeration getRoots() {
+  public Enumeration<String> getRoots() {
     return roots.elements();
   }
   

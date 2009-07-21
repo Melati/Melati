@@ -44,12 +44,10 @@
 
 package org.melati.template.velocity;
 
-import java.io.IOException;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.event.MethodExceptionEventHandler;
 import org.melati.template.MarkupLanguage;
-import org.melati.template.TemplateEngineException;
 import org.webmacro.PropertyException;
 
 /**
@@ -72,6 +70,8 @@ public class PassbackEvaluationExceptionHandler
     velContext = vc;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Object methodException(Class claz, String method, Exception problem) throws Exception {
     System.err.println(method + " " + problem);
     MarkupLanguage ml = (MarkupLanguage)velContext.get("ml");
@@ -80,14 +80,8 @@ public class PassbackEvaluationExceptionHandler
       "place your MarkupLanguage in the context as $ml - " + 
       method + ": " + problem, problem);
     Throwable underlying = problem;
-    try {
-      return ml.rendered(underlying);
-    } catch (IOException e) {
-      throw new TemplateEngineException(
-        "The exception failed to render " + 
-        method + ": " + e, e);
-    }
-    
+    return ml.rendered(underlying);    
   }
+
 
 }

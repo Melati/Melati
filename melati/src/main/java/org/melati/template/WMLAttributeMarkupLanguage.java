@@ -72,14 +72,18 @@ public class WMLAttributeMarkupLanguage extends WMLMarkupLanguage
    * @see org.melati.template.AttributeMarkupLanguage#rendered
    *          (org.melati.poem.AccessPoemException)
    */
-  public String rendered(AccessPoemException e) throws IOException {
+  public String rendered(AccessPoemException e) {
     try {
       melati.getWriter().write("[Access denied to ");
       render(e.token);
       melati.getWriter().write("]");
     }
     catch (Exception g) {
-      melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+      try {
+        melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+      } catch (IOException ioe) {
+        throw new TemplateIOException(ioe);
+      }
     }
 
     return "";

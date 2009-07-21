@@ -44,8 +44,6 @@
 
 package org.melati.template;
 
-import java.io.IOException;
-
 import org.melati.poem.AccessPoemException;
 import org.melati.util.MelatiWriter;
 
@@ -61,7 +59,7 @@ public interface AttributeMarkupLanguage extends MarkupLanguage {
    * @param e an Exception to render
    * @return a String representation of the Exception
    */
-  String rendered(AccessPoemException e) throws IOException;
+  String rendered(AccessPoemException e);
 
   /**
    * Render, not translating line ends to BR tags.
@@ -70,7 +68,7 @@ public interface AttributeMarkupLanguage extends MarkupLanguage {
    * @param writer writer to render to 
    * @see org.melati.template.AbstractMarkupLanguage#render(String, MelatiWriter)
    */
-  void render(String s, MelatiWriter writer) throws IOException;
+  void render(String s, MelatiWriter writer);
 
 }
 

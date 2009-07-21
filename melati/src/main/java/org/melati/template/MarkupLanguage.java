@@ -43,8 +43,6 @@
  */
 package org.melati.template;
 
-import java.io.IOException;
-
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 
@@ -87,14 +85,12 @@ public interface MarkupLanguage {
    *
    * @return - the object rendered as a String in a MarkupLanguage specific way.
    * @param o - the Object to be rendered
-   * @throws IOException - if there is a problem during rendering
    */
   String rendered(Object o);
   
   /**
    * @param s markup fragment to render
    * @return fragment rendered with markup unchanged
-   * @throws IOException  if there is a problem during rendering
    */
   String renderedMarkup(String s);
 
@@ -104,7 +100,6 @@ public interface MarkupLanguage {
    *
    * @param s - the string to be rendered
    * @param limit - the lenght to trim the string to
-   * @throws IOException - if there is a problem during rendering
    * @return - the String having been rendered in a MarkupLanguage specific way.
    */
   String rendered(String s, int limit);
@@ -120,7 +115,6 @@ public interface MarkupLanguage {
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
@@ -138,7 +132,6 @@ public interface MarkupLanguage {
    * @param style - a DateFormat style to format this Field.
    * @param limit - the length to trim the rendered string to
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
@@ -154,7 +147,6 @@ public interface MarkupLanguage {
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
-   * @throws IOException - if there is a problem during rendering
    */
   String renderedStart(Field field);
 

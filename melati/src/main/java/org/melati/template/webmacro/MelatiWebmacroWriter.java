@@ -43,8 +43,6 @@
 
 package org.melati.template.webmacro;
 
-import java.io.IOException;
-
 /**
  * MelatiWriter that can be used with WebMacro.
  *
@@ -70,6 +68,6 @@ public interface MelatiWebmacroWriter {
    * have been written to this object on return.
    *
    */
-  void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException;
+  void stopUsingFastWriter(org.webmacro.FastWriter fw);
 
 }

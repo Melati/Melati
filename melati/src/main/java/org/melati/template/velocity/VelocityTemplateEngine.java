@@ -55,6 +55,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -182,12 +183,11 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the name of the template to expand
    * @param templateContext
    *        the {@link TemplateContext} to expand the template against
-   * @throws IOException if TemplateEngine does
    * @throws NotFoundException if template not found
    */
   public void expandTemplate(MelatiWriter out, String templateName,
       TemplateContext templateContext)
-      throws IOException, NotFoundException {
+      throws NotFoundException {
     expandTemplate(out, template(templateName), templateContext);
   }
 
@@ -202,8 +202,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the {@link TemplateContext} to expand the template against
    */
   public void expandTemplate(MelatiWriter out,
-      org.melati.template.Template template, TemplateContext templateContext)
-      throws IOException {
+      org.melati.template.Template template, TemplateContext templateContext) {
     try {
       template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
@@ -219,6 +218,8 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
         }
       }
       throw problem;
+    } catch (IOException e) {
+      throw new TemplateIOException("Problem rendering template " + template.toString(), e);
     }
   }
 
@@ -229,14 +230,12 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
    *        the {@link TemplateContext} to expand the template against
-   * @throws IOException if TemplateEngine does
    * @return the interpolated template as a String
    * {@inheritDoc}
    * @see org.melati.template.TemplateEngine#expandedTemplate
    */
   public String expandedTemplate(org.melati.template.Template template,
-      TemplateContext templateContext)
-      throws IOException {
+      TemplateContext templateContext) {
     MelatiStringWriter s = new MelatiStringWriter();
     expandTemplate(s, template, templateContext);
     return s.toString();

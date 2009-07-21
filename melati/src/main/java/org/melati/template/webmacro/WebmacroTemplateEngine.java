@@ -55,6 +55,7 @@ import org.melati.template.NotFoundException;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.webmacro.InitException;
@@ -130,11 +131,10 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * 
    * @param templateName the name of the template to find
    * @return a template
-   * @throws IOException if the engine does
    * @throws NotFoundException if template not found
    */
   public org.melati.template.Template template(String templateName)
-      throws IOException, NotFoundException {
+      throws NotFoundException {
     try {                                  
       org.webmacro.Template template = wm.getTemplate(templateName);
       return new WebmacroTemplate(template);
@@ -152,13 +152,12 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * @param templateName    the name of the template to expand
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
-   * @throws IOException if the engine does
    * @throws NotFoundException if template not found
    */
   public void expandTemplate(MelatiWriter out, 
                              String templateName, 
                              TemplateContext templateContext)
-      throws IOException, NotFoundException {
+      throws NotFoundException {
     expandTemplate (out, template(templateName), templateContext);
   }
 
@@ -173,8 +172,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    */
   public void expandTemplate(MelatiWriter out,
                              org.melati.template.Template template, 
-                             TemplateContext templateContext)
-              throws IOException {
+                             TemplateContext templateContext) {
     try {
       template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
@@ -185,6 +183,8 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
         throw (AccessPoemException)caught;
       }
       throw problem;
+    } catch (IOException e) {
+      throw new TemplateIOException("Problem rendering template " + template.toString(), e);
     }
   }
 
@@ -193,8 +193,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
    */
   public String expandedTemplate(org.melati.template.Template template,  
-                                 TemplateContext templateContext)
-      throws IOException {
+                                 TemplateContext templateContext) {
       MelatiStringWriter s = new MelatiWebmacroStringWriter();
       expandTemplate(s, template, templateContext);
       return s.toString();

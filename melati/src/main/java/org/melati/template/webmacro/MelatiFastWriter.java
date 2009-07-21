@@ -45,10 +45,12 @@ package org.melati.template.webmacro;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.template.TemplateEngine;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiWriter;
 import org.webmacro.Broker;
 
@@ -71,11 +73,14 @@ public class MelatiFastWriter extends MelatiWriter
   /**
    * Constructor.
    */
-  public MelatiFastWriter(Broker broker, OutputStream output, String encoding)
-      throws IOException {
+  public MelatiFastWriter(Broker broker, OutputStream output, String encoding) {
     // need to make this accessible to subclasses
     outputStream = output;
-    out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
+    try {
+      out = org.webmacro.FastWriter.getInstance(broker, output, encoding);
+    } catch (UnsupportedEncodingException e) {
+      throw new TemplateIOException(e);
+    }
   }
   
   /**

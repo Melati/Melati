@@ -55,6 +55,10 @@ public class MelatiIOException extends MelatiRuntimeException {
 
   private static final long serialVersionUID = 277771398127050791L;
 
+  public MelatiIOException(Exception subException) {
+    super(subException);
+  }
+
   public MelatiIOException(String message, Exception subException) {
     super(message, subException);
   }

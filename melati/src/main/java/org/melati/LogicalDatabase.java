@@ -86,7 +86,7 @@ public final class LogicalDatabase {
    *
    * @return a <code>Vector</code> of the initialised databases
    */
-  public static Vector initialisedDatabases() {
+  public static Vector<Database> initialisedDatabases() {
     return PoemDatabaseFactory.initialisedDatabases();
   }
 
@@ -99,7 +99,7 @@ public final class LogicalDatabase {
    *
    * @return a <code>Vector</code> of the initialised database names
    */
-  public static Vector getInitialisedDatabaseNames() {
+  public static Vector<String> getInitialisedDatabaseNames() {
     return PoemDatabaseFactory.getInitialisedDatabaseNames();
   }
   

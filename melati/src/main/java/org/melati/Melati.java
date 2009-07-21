@@ -142,7 +142,7 @@ public class Melati {
   private MelatiWriter writer;
 
   private static final int maxLocales = 10;
-  private static Hashtable localeHash = new Hashtable(maxLocales);
+  private static Hashtable<String, PoemLocale> localeHash = new Hashtable<String, PoemLocale>(maxLocales);
 
   private String encoding;
 
@@ -281,7 +281,7 @@ public class Melati {
    *  
    * @return a Vector of database names
    */
-  public Vector getKnownDatabaseNames() {
+  public Vector<String> getKnownDatabaseNames() {
     return LogicalDatabase.
                getInitialisedDatabaseNames();
   }
@@ -422,7 +422,7 @@ public class Melati {
   public Object getContextUtil(String className) {
     Object util;
     try {
-      Constructor c  = Class.forName(className).getConstructor(new Class[] {this.getClass()});
+      Constructor<?> c  = Class.forName(className).getConstructor(new Class[] {this.getClass()});
       util = c.newInstance(new Object[] {this});
     } catch (Exception e) {
       throw new MelatiBugMelatiException("Class " + className + 
@@ -549,7 +549,7 @@ public class Melati {
       String lowerTag = tag.trim().toLowerCase();
 
       // try our cache
-      ml = (PoemLocale)localeHash.get(lowerTag);
+      ml = localeHash.get(lowerTag);
       if (ml != null)
         return ml;
 

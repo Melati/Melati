@@ -54,7 +54,7 @@ import java.util.Vector;
  */
 public final class PoemDatabaseFactory {
 
-  private static final Hashtable databases = new Hashtable();
+  private static final Hashtable<String,Database> databases = new Hashtable<String,Database>();
 
   private static PoemShutdownThread poemShutdownThread = new PoemShutdownThread();
 
@@ -69,13 +69,13 @@ public final class PoemDatabaseFactory {
    * 
    * @return a <code>Vector</code> of the initialised databases
    */
-  public static Vector initialisedDatabases() {
-    Vector dbs = new Vector();
-    Enumeration e = null;
+  public static Vector<Database> initialisedDatabases() {
+    Vector<Database> dbs = new Vector<Database>();
+    Enumeration<String> e = null;
     synchronized (databases) {
       e = databases.keys();
       while (e.hasMoreElements()) {
-        Object dbOrPending = databases.get(e.nextElement());
+        Database dbOrPending = databases.get(e.nextElement());
         if (dbOrPending != pending)
           dbs.addElement(dbOrPending);
       }
@@ -89,9 +89,9 @@ public final class PoemDatabaseFactory {
    * 
    * @return a <code>Vector</code> of the initialised database names
    */
-  public static Vector getInitialisedDatabaseNames() {
-    Vector dbs = new Vector();
-    Enumeration e = null;
+  public static Vector<String> getInitialisedDatabaseNames() {
+    Vector<String> dbs = new Vector<String>();
+    Enumeration<String> e = null;
     synchronized (databases) {
       e = databases.keys();
       while (e.hasMoreElements()) {
@@ -104,7 +104,7 @@ public final class PoemDatabaseFactory {
     return dbs;
   }
 
-  private static final Object pending = new Object();
+  private static final Database pending = new PoemDatabase();
 
   /**
    * Retrieve a database by name.
@@ -162,7 +162,7 @@ public final class PoemDatabaseFactory {
           boolean addConstraints, boolean logSQL, boolean logCommits,
           int maxTransactions) {
 
-    Object dbOrPending;
+    Database dbOrPending;
 
     synchronized (databases) {
       dbOrPending = databases.get(name);
@@ -246,8 +246,8 @@ public final class PoemDatabaseFactory {
    * Disconnect from all initialised databases.
    */
   public static void disconnectFromDatabases() { 
-    Vector dbs = PoemDatabaseFactory.getInitialisedDatabaseNames();
-    Enumeration them = dbs.elements();
+    Vector<String> dbs = PoemDatabaseFactory.getInitialisedDatabaseNames();
+    Enumeration<String> them = dbs.elements();
     while (them.hasMoreElements()) {
       disconnectDatabase((String)them.nextElement());
     }

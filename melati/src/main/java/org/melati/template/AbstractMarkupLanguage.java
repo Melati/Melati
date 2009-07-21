@@ -44,7 +44,6 @@
 
 package org.melati.template;
 
-import java.io.IOException;
 import java.text.DateFormat;
 
 import org.melati.Melati;
@@ -200,7 +199,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @param s - the string to be rendered
    * @param writer - the MelatiWriter to render this String to
    * @param limit - the length to trim the string to
-   * @throws IOException - if there is a problem during rendering
    */
   protected void render(String s, int limit, MelatiWriter writer) {
     render(s.length() < limit + 3 ? s : s.substring(0, limit) + "...", writer);
@@ -212,7 +210,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *
    * @param s - the string to be rendered
    * @param writer - the MelatiWriter to render this String to
-   * @throws IOException - if there is a problem during rendering
    */
   protected abstract void render(String s, MelatiWriter writer);
   
@@ -222,7 +219,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *
    * @param s - the fragment to be rendered
    * @param writer - the MelatiWriter to render this String to
-   * @throws IOException - if there is a problem during rendering
    */
   protected abstract void renderMarkup(String s, MelatiWriter writer);
 
@@ -232,7 +228,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *
    * @param field - the Field to be rendered
    * @param writer - the MelatiWriter to render this Object to
-   * @throws IOException - if there is a problem during rendering
    */
   protected void render(Field field, MelatiWriter writer) {
     render(field, DateFormat.MEDIUM, FIELD_POSSIBILITIES_LIMIT, writer);
@@ -248,7 +243,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * @param limit - the length to trim the rendered string to
    * @param writer - the MelatiWriter to render this Object to
-   * @throws IOException - if there is a problem during rendering
    */
   protected void render(Field field, int style, int limit, MelatiWriter writer) {
     render(field.getCookedString(locale, style), limit, writer);
@@ -275,7 +269,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * the <code>MelatiWriter</code> supplied by <code>melati.getWriter()</code>.
    *
    * @param o - the Object to be rendered
-   * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */

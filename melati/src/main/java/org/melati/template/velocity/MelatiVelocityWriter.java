@@ -46,9 +46,11 @@ package org.melati.template.velocity;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiWriter;
 
 import org.apache.velocity.io.VelocityWriter;
@@ -78,16 +80,23 @@ public class MelatiVelocityWriter extends MelatiWriter {
    * @param encoding character encoding to use
    * @throws IOException if getOutputStream throws one
    */
-  public MelatiVelocityWriter(OutputStream output, String encoding)
-      throws IOException {
-    // need to make this accessable to subcalsses
+  public MelatiVelocityWriter(OutputStream output, String encoding) {
+    // need to make this accessible to subclasses
     outputStream = output;
     out = (VelocityWriter)writerPool.get();
     if (out == null) {
-      out = new VelocityWriter(new OutputStreamWriter(output, encoding),
-                               4 * 1024, true);
+      try {
+        out = new VelocityWriter(new OutputStreamWriter(output, encoding),
+                                 4 * 1024, true);
+      } catch (UnsupportedEncodingException e) {
+        throw new TemplateIOException(e);
+      }
     } else {
-      ((VelocityWriter)out).recycle(new OutputStreamWriter(output, encoding));
+      try {
+        ((VelocityWriter)out).recycle(new OutputStreamWriter(output, encoding));
+      } catch (UnsupportedEncodingException e) {
+        throw new TemplateIOException(e);
+      }
     }
   }
 

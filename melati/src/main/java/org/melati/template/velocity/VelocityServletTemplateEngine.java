@@ -57,7 +57,6 @@ import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiWriter;
 
 /**
- * @author timp
  * @since 22 Aug 2007
  * 
  */
@@ -94,8 +93,6 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    *          part of
    * @param buffered
    *          whether the writer should be buffered
-   * @throws IOException
-   *           if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} appropriate for this engine.
    */
   public MelatiWriter getServletWriter(HttpServletResponse response,

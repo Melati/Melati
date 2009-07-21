@@ -44,6 +44,7 @@
 package org.melati.template.webmacro;
 
 import org.melati.Melati;
+import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -95,9 +96,17 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    */
-  public void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException {
-    write(fw.toString());
-    fw.close();
+  public void stopUsingFastWriter(org.webmacro.FastWriter fw) {
+    try {
+      write(fw.toString());
+    } catch (IOException e) {
+      throw new TemplateIOException(e);
+    }
+    try {
+      fw.close();
+    } catch (IOException e) {
+      throw new TemplateIOException(e);
+    }
   }
 
 }

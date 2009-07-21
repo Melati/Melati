@@ -206,7 +206,6 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
    * @param response the <code>HttpServletResponse</code> that this 
    *                 writer will be part of
    * @param buffered whether the writer should be buffered
-   * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         appropriate for this engine.
    */

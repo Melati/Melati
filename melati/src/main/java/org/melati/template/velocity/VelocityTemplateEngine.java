@@ -43,8 +43,6 @@
 
 package org.melati.template.velocity;
 
-import java.io.IOException;
-
 import java.util.Properties;
 
 import org.melati.Melati;
@@ -55,7 +53,6 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
-import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -218,9 +215,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
         }
       }
       throw problem;
-    } catch (IOException e) {
-      throw new TemplateIOException("Problem rendering template " + template.toString(), e);
-    }
+    } 
   }
 
   /**

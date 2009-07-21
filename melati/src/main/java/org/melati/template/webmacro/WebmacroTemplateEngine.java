@@ -45,8 +45,6 @@
 package org.melati.template.webmacro;
 
 
-import java.io.IOException;
-
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
@@ -55,7 +53,6 @@ import org.melati.template.NotFoundException;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
-import org.melati.template.TemplateIOException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.webmacro.InitException;
@@ -168,7 +165,6 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * @param template        the {@link org.melati.template.Template} to expand
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
-   * @throws IOException if the engine does
    */
   public void expandTemplate(MelatiWriter out,
                              org.melati.template.Template template, 
@@ -183,8 +179,6 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
         throw (AccessPoemException)caught;
       }
       throw problem;
-    } catch (IOException e) {
-      throw new TemplateIOException("Problem rendering template " + template.toString(), e);
     }
   }
 

@@ -102,7 +102,7 @@ public class MelatiFastWriter extends MelatiWriter
    *
    * @see #getFastWriter(TemplateEngine)
    */
-  public void stopUsingFastWriter(org.webmacro.FastWriter fw) throws IOException {
+  public void stopUsingFastWriter(org.webmacro.FastWriter fw) {
     // Do nothing
   }
 

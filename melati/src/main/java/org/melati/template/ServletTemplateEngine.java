@@ -45,8 +45,6 @@
 
 package org.melati.template;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
 
@@ -76,7 +74,6 @@ public interface ServletTemplateEngine extends TemplateEngine {
    * @param response the <code>HttpServletResponse</code> that this 
    *                 writer will be part of
    * @param buffered whether the writer should be buffered
-   * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         appropriate for this engine.
    */

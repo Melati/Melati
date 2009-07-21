@@ -81,7 +81,6 @@ import org.melati.util.HttpUtil;
 import org.melati.util.MelatiBufferedWriter;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiIOException;
-import org.melati.util.MelatiRuntimeException;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -872,7 +871,6 @@ public class Melati {
    * - the Writer associated with the Servlet Response
    * - a buffered Writer
    * - a ThrowingPrintWriter
-   * @throws IOException if there is a problem with the writer
    */
   public MelatiWriter getWriter() {
     if (writer == null) writer = createWriter();
@@ -905,7 +903,6 @@ public class Melati {
    * Used in a servlet setting, where the class was not constructed with 
    * output set.
    * @return a response writer 
-   * @throws IOException
    */
   private MelatiWriter createWriter() {
     // first effort is to use the writer supplied by the template engine
@@ -936,12 +933,15 @@ public class Melati {
   /**
    * Write the buffered output to the Writer
    * we also need to stop the flusher if it has started.
-   *
-   * @throws IOException if there is a problem with the writer
    */
-  public void write() throws IOException {
+  public void write() {
     // only write stuff if we have previously got a writer
-    if (writer != null) writer.close();
+    if (writer != null)
+      try {
+        writer.close();
+      } catch (IOException e) {
+        throw new MelatiIOException(e);
+      }
   }
 
   /**

@@ -46,6 +46,7 @@
 package org.melati;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.util.Hashtable;
@@ -79,6 +80,8 @@ import org.melati.util.HttpHeader;
 import org.melati.util.HttpUtil;
 import org.melati.util.MelatiBufferedWriter;
 import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.MelatiIOException;
+import org.melati.util.MelatiRuntimeException;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -871,7 +874,7 @@ public class Melati {
    * - a ThrowingPrintWriter
    * @throws IOException if there is a problem with the writer
    */
-  public MelatiWriter getWriter() throws IOException {
+  public MelatiWriter getWriter() {
     if (writer == null) writer = createWriter();
     return writer;
   }
@@ -904,7 +907,7 @@ public class Melati {
    * @return a response writer 
    * @throws IOException
    */
-  private MelatiWriter createWriter() throws IOException {
+  private MelatiWriter createWriter() {
     // first effort is to use the writer supplied by the template engine
     MelatiWriter writerL = null;
     if (response != null) {
@@ -912,10 +915,16 @@ public class Melati {
               templateEngine instanceof ServletTemplateEngine) {
         writerL = ((ServletTemplateEngine)templateEngine).getServletWriter(response, buffered);
       } else {
+        PrintWriter printWriter = null;
+        try { 
+          printWriter = response.getWriter(); 
+        } catch (IOException e) { 
+          throw new MelatiIOException(e);
+        }
         if (buffered) {
-          writerL = new MelatiBufferedWriter(response.getWriter());
+          writerL = new MelatiBufferedWriter(printWriter);
         } else {
-          writerL = new MelatiSimpleWriter(response.getWriter());
+          writerL = new MelatiSimpleWriter(printWriter);
         }
       }
       if (flushing) writerL.setFlushingOn();

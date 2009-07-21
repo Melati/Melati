@@ -45,7 +45,6 @@
 
 package org.melati.template;
 
-import java.io.IOException;
 
 import org.melati.poem.FieldAttributes;
 
@@ -61,13 +60,12 @@ public interface TempletLoader {
    * @param markupLanguage the markuplanguage the templet is in
    * @param templetName the name of the templet
    * @return the templet
-   * @throws IOException if TemplateEngine does
    * @throws NotFoundException if template not found
    */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    String templetName)
-      throws IOException, NotFoundException;
+      throws NotFoundException;
 
   /**
    * Return a templet by name and purpose.
@@ -77,13 +75,12 @@ public interface TempletLoader {
    * @param purpose what the templet is for eg error
    * @param templetName the name of the templet
    * @return the templet
-   * @throws IOException if TemplateEngine does
    * @throws NotFoundException if template not found
    */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    String purpose, String templetName)
-      throws IOException, NotFoundException;
+      throws NotFoundException;
   
   /** 
    * Return a templet for a given class, looking for a template 
@@ -99,13 +96,11 @@ public interface TempletLoader {
    * @param markupLanguage the markuplanguage the templet is in
    * @param clazz the class name to translate into a template name 
    * @return the templet
-   * @throws IOException if TemplateEngine does
    */
 
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
-                   Class clazz)
-      throws IOException;
+                   Class<?> clazz);
 
   /**
    * Return a templet by Class and Purpose.
@@ -124,12 +119,10 @@ public interface TempletLoader {
    * @param purpose what the templet is for eg error
    * @param clazz Class that templet renders 
    * @return the templet
-   * @throws IOException if TemplateEngine does
    */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
-                   String purpose, Class clazz)
-      throws IOException;
+                   String purpose, Class<?> clazz);
 
   /**
    * Return a templet to render a Field.
@@ -138,10 +131,8 @@ public interface TempletLoader {
    * @param markupLanguage the markuplanguage the templet is in
    * @param attributes a FieldAttributes the templet is for eg a Field
    * @return the templet
-   * @throws IOException if TemplateEngine does
    */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
-                   FieldAttributes attributes)
-      throws IOException;
+                   FieldAttributes attributes);
 }

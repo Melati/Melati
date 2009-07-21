@@ -43,7 +43,6 @@
  */
 package org.melati.template;
 
-import java.io.IOException;
 import java.util.Enumeration;
 
 import org.melati.Melati;
@@ -96,7 +95,7 @@ public interface TemplateEngine {
    * 
    * @return an Enumeration of string roots, always at least the empty string
    */
-  Enumeration getRoots();
+  Enumeration<String> getRoots();
   
   /**
    * Add a template root directory.
@@ -110,12 +109,11 @@ public interface TemplateEngine {
    * Get a template given it's full name.
    * 
    * @param templateName the name of the template to find
-   * @throws IOException if TemplateEngine does
    * @throws NotFoundException if template not found
    * @return a template
    */
   Template template(String templateName) 
-    throws IOException, NotFoundException;
+    throws NotFoundException;
 
   /**
    * The name of a template which exists.
@@ -133,11 +131,10 @@ public interface TemplateEngine {
    * @param templateName    the name of the template to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
-   * @throws IOException if TemplateEngine does
    * @throws NotFoundException if template not found
    */
   void expandTemplate(MelatiWriter out, String templateName,
-      TemplateContext templateContext) throws IOException, NotFoundException;
+      TemplateContext templateContext) throws NotFoundException;
 
   /** 
    * Expand the Template against the context, unwrapping any Access Exceptions.
@@ -146,10 +143,9 @@ public interface TemplateEngine {
    * @param template        the {@link Template} to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
-   * @throws IOException if TemplateEngine does
    */
   void expandTemplate(MelatiWriter out, Template template,
-      TemplateContext templateContext) throws IOException;
+      TemplateContext templateContext);
 
   /** 
    * Expand the Template against the context and return the expansion as a string.
@@ -158,10 +154,8 @@ public interface TemplateEngine {
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @return the interpolated template as a String
-   * @throws IOException if TemplateEngine does
    */
-  String expandedTemplate(Template template, TemplateContext templateContext)
-      throws IOException;
+  String expandedTemplate(Template template, TemplateContext templateContext);
 
   /** 
    * @return a {@link MelatiStringWriter}.

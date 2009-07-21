@@ -93,8 +93,12 @@ public class HTMLAttributeMarkupLanguage extends HTMLMarkupLanguage
    * @see org.melati.template.AttributeMarkupLanguage#render(java.lang.String, 
    *          org.melati.util.MelatiWriter)
    */
-  public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), false));
+  public void render(String s, MelatiWriter writer) {
+    try {
+      writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), false));
+    } catch (IOException e) {
+      throw new TemplateIOException("Problem writing " + s, e);
+    }
   }
 
   /** 
@@ -102,7 +106,7 @@ public class HTMLAttributeMarkupLanguage extends HTMLMarkupLanguage
    * {@inheritDoc}
    * @see org.melati.template.AbstractMarkupLanguage#render(java.lang.Object, org.melati.util.MelatiWriter)
    */
-  protected void render(Object o, MelatiWriter writer) throws IOException {
+  protected void render(Object o, MelatiWriter writer) {
     render(o.toString(), writer);
   }
 }

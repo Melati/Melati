@@ -43,8 +43,6 @@
 
 package org.melati.template.webmacro;
 
-import java.io.IOException;
-
 import org.melati.template.MarkupLanguage;
 
 import org.webmacro.PropertyException;
@@ -109,13 +107,7 @@ public class PassbackEvaluationExceptionHandler
          underlying = prob.getCause();
        }
      }
-     try {
-       return ml.rendered(underlying);
-     } catch (IOException e) {
-       throw new PropertyException(
-         "The exception failed to render " + 
-         variable.getVariableName() + ": " + e, e);
-     }
+     return ml.rendered(underlying);
    }
 
    /**

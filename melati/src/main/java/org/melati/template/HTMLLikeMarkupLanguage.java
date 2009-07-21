@@ -80,16 +80,25 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
   * To avoid the unnecessary overhead of writing to a string and then writing
   * that string to the output stream we render directly to the output stream.
   */
-  public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding(), false));
+  public void render(String s, MelatiWriter writer) {
+    try {
+      writer.write(HTMLUtils.entitied(s, true, melati.getEncoding(), false));
+    } catch (IOException e) {
+      throw new TemplateIOException("Problem writing " + s, e);
+    }
+      
   }
   
   /**
    * {@inheritDoc}
    * @see org.melati.template.AbstractMarkupLanguage#renderMarkup(java.lang.String, org.melati.util.MelatiWriter)
    */
-  public void renderMarkup(String s, MelatiWriter writer) throws IOException { 
-    writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), true));    
+  public void renderMarkup(String s, MelatiWriter writer) { 
+    try {
+      writer.write(HTMLUtils.entitied(s, false, melati.getEncoding(), true));
+    } catch (IOException e) {
+      throw new TemplateIOException("Problem writing " + s, e);
+    }    
   }
 
   /**

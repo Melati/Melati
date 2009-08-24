@@ -390,8 +390,10 @@ public class TableDef {
             + "  * @see " + "org.melati.poem.prepro.TableDef"
             + "#generatePersistentJava \n" + "  */\n");
 
-    w.write("  public " + naming.mainClassShortName() + "() { }\n" + "\n"
-        + "  // programmer's domain-specific code here\n" + "}\n");
+    w.write("  public " + naming.mainClassShortName() + "() { \n"
+            + "    super();\n"
+            + "}\n" + "\n"
+            + "  // programmer's domain-specific code here\n" + "}\n");
   }
 
   /**

@@ -86,17 +86,15 @@ public class Postgresql extends AnsiStandard {
   /**
    * Whether this DBMS can drop columns. 
    * 
+   * Postgresql has been able to since 7.4
+   * 
    * @param con the current connection
    * @return true if we can
    * @throws SQLException
    * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
    */
   public boolean canDropColumns(Connection con) throws SQLException {
-    if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
-      return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).
-                   haveMinimumServerVersion("7.3");
-    }
-    return false;
+    return true;
   }
 
 

@@ -44,6 +44,7 @@
 
 package org.melati;
 
+import org.melati.poem.Persistent;
 import org.melati.util.StringUtils;
 
 
@@ -86,6 +87,15 @@ public class PoemContext implements Cloneable {
     this.method = method;
   }
 
+  public PoemContext(Persistent p) { 
+    this(p, null);
+  }
+  public PoemContext(Persistent p, String method) { 
+    this.logicalDatabase = p.getDatabase().getName();
+    this.table = p.getTable().getName();
+    this.troid = p.getTroid();
+    this.method = method;
+  }
   
  /**
   * @return a string representation of the state of this class

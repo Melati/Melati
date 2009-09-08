@@ -248,6 +248,8 @@ public class Melati {
         table = database.getTable(poemContext.getTable());
         if (poemContext.getTroid() != null)
           object = table.getObject(poemContext.getTroid().intValue());
+        else
+          object = null;
       }
   }
 

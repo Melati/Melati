@@ -51,7 +51,7 @@ import java.util.NoSuchElementException;
 /**
  * An <code>Enumeration</code> with no elements in it.
  */
-public class EmptyEnumeration implements Enumeration {
+public class EmptyEnumeration implements Enumeration<Object> {
 
   /** The instance. */
   public static final EmptyEnumeration it = new EmptyEnumeration();

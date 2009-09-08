@@ -90,6 +90,7 @@ import org.melati.util.UnexpectedExceptionException;
 /**
  * This is the main entry point for using the Melati framework.
  * A Melati exists once per request, or command from an application.
+ * <p>
  * It provides a central container for all the relevant objects that 
  * a Servlet or command line application needs to create textual 
  * output, optionally using a Template Engine or a Database.
@@ -162,7 +163,7 @@ public class Melati {
   }
 
   /**
-   * Construct a melati for use in 'stand alone' mode.
+   * Construct a Melati for use in 'stand alone' mode.
    * NB: you will not have access to servlet related stuff (eg sessions)
    *
    * @param config - the MelatiConfig

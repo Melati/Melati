@@ -582,9 +582,9 @@ public abstract class Column implements FieldAttributes {
    * Get rows where column equal to value.
    * 
    * @param raw a raw value such as a String
-   * @return an enumeration of persistents
+   * @return an enumeration of Persistents
    */
-  public Enumeration selectionWhereEq(Object raw) {
+  public Enumeration<Object> selectionWhereEq(Object raw) {
     return new ResultSetEnumeration(resultSetWhereEq(raw)) {
       public Object mapped(ResultSet rs) throws SQLException {
         return getTable().getObject(rs.getInt(1));
@@ -599,7 +599,7 @@ public abstract class Column implements FieldAttributes {
    * @return the first one found based upon default ordering
    */
   public Persistent firstWhereEq(Object raw) {
-    Enumeration them = selectionWhereEq(raw);
+    Enumeration<Object> them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
@@ -852,7 +852,7 @@ public abstract class Column implements FieldAttributes {
    * @param object A persistent of the type referred to by this column
    * @return an Enumeration {@link Persistent}s referencing this Column of the Persistent
    */
-  public Enumeration referencesTo(Persistent object) {
+  public Enumeration<Object> referencesTo(Persistent object) {
     return getType() instanceof ReferencePoemType
       && ((ReferencePoemType) getType()).targetTable() == object.getTable()
         ? selectionWhereEq(object.troid())

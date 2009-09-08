@@ -49,6 +49,7 @@ import java.util.Vector;
 import java.util.Enumeration;
 
 import org.melati.Melati;
+import org.melati.PoemContext;
 import org.melati.servlet.FormDataAdaptor;
 import org.melati.servlet.InvalidUsageException;
 import org.melati.servlet.Form;
@@ -481,8 +482,9 @@ public class Admin extends TemplateServlet {
     if (melati.getTable() instanceof ColumnInfoTable)
       ((ColumnInfo) newPersistent).getTableinfo().actualTable()
           .addColumnAndCommit((ColumnInfo) newPersistent);
-
-    context.put("object", newPersistent);
+    melati.setPoemContext(new PoemContext(newPersistent));
+    melati.loadTableAndObject();
+    //context.put("object", newPersistent);
     return adminTemplate("Updated");
   }
 
@@ -517,7 +519,6 @@ public class Admin extends TemplateServlet {
 
       return adminTemplate("Updated");
     } catch (DeletionIntegrityPoemException e) {
-      context.put("object", e.object);
       context.put("references", e.references);
       context.put("returnURL", melati.getSameURL() + "?action=Delete");
       return adminTemplate("DeleteFailure");
@@ -533,7 +534,9 @@ public class Admin extends TemplateServlet {
     } catch (ExecutingSQLPoemException e) {
       throw new NonUniqueKeyValueAnticipatedException(e);
     }
-    context.put("object", dup);
+    melati.setPoemContext(new PoemContext(dup));
+    melati.loadTableAndObject();
+    //context.put("object", dup);
     return adminTemplate("Updated");
   }
 
@@ -620,7 +623,7 @@ public class Admin extends TemplateServlet {
         "HomepageURL", "The home page for this database");
     homepageURL = homepageURLSetting.getValue();
     // HACK Not very satisfactory, but only to enable testing
-    context.put("object", homepageURLSetting);
+    //context.put("object", homepageURLSetting);
     return adminTemplate("Updated");
   }
 

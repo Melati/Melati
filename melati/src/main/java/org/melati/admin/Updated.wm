@@ -125,7 +125,11 @@ $Form.returnURL
   #if ($Form.returnURL) #begin
         href="$Form.returnURL"
    #end #else #begin
+    #if ($melati.Method == "Created") #begin
+        href="$melati.Object.troid()/Edit"  
+    #end #else #begin 
         href="Edit"  
+    #end
   #end
   #if ($Form.returnTarget) #begin
         target="$admin.simpleName($Form.returnTarget)"

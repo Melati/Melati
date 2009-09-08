@@ -182,7 +182,7 @@ public class AdminUtils {
   public String MainURL(Table table) {
     return getURL(table, "Main");
   }
-  /** @return The Main URL after creatioin of a tableinfo */
+  /** @return The Main URL after creation of a tableinfo */
   public String MainURL(Table table,Persistent p) {
     String url = servletURL + "/" + logicalDatabase;
     url += "/" + table.getName();
@@ -198,6 +198,8 @@ public class AdminUtils {
   /**
    * @return The Bottom URL.
    */
+  /*
+   * Do not think this is used
   public String BottomURL(Table table, Melati melati) {
     return  servletURL + "/" + logicalDatabase + 
         "/" + table.getName() +
@@ -207,6 +209,7 @@ public class AdminUtils {
                         : "") + 
         "/Bottom";
   }
+  */
   /**
    * @return The Bottom URL.
    */
@@ -274,14 +277,14 @@ public class AdminUtils {
   }
   /**
    * @param table
-   * @param target
+   * @param targetPane
    * @param returnTarget
    * @return the url
    */
-  public String SelectionURL(Table table, String target, String returnTarget) {
+  public String SelectionURL(Table table, String targetPane, String returnTarget) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection?" +
-            "target=" + target +  
+            "target=" + targetPane +  
             "&returnTarget=" + returnTarget;
   }
   
@@ -541,7 +544,7 @@ public class AdminUtils {
    */
   public JSStaticTree createForest(Table table) {
     Object[] all = ArrayUtils.arrayOf(table.selection());
-    Hashtable hasParent = new Hashtable();
+    Hashtable<Treeable, Boolean> hasParent = new Hashtable<Treeable, Boolean>();
     for (int i = 0; i < all.length; i++) {
       if (hasParent.get(all[i]) == null) { 
         Treeable[] kids = ((Treeable)all[i]).getChildren();
@@ -568,7 +571,7 @@ public class AdminUtils {
 
   /**
    * @param qualifiedName
-   * @return text followuing the last dot
+   * @return text following the last dot
    */
   public static String simpleName(String qualifiedName) { 
     return qualifiedName.substring(

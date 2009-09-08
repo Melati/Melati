@@ -63,7 +63,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   */
   protected Boolean usereditable;
  /**
-  * Type - The field's Melati type 
+  * Type - The field's POEM type 
   */
   protected Integer typefactory;
  /**
@@ -407,7 +407,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
  /**
   * Retrieves the <code>Typefactory</code> value as an <code>Integer</code> for this <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
   * Field description: 
-  *   The field's Melati type 
+  *   The field's POEM type 
   * 
   * 
   * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
@@ -426,7 +426,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
  /**
   * Sets the <code>Integer</code> <code>Typefactory</code> value  for this <code>ValueInfo</code> <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
   * Field description: 
-  *   The field's Melati type 
+  *   The field's POEM type 
   * 
   * 
   * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
@@ -447,7 +447,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
  /**
   * Retrieves the <code>Typefactory</code> value as an <code>PoemTypeFactory</code> for this <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
   * Field description: 
-  *   The field's Melati type 
+  *   The field's POEM type 
   * 
   * 
   * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
@@ -467,7 +467,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
  /**
   * Sets the <code>PoemTypeFactory</code> <code>Typefactory</code> value  for this <code>ValueInfo</code> <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
   * Field description: 
-  *   The field's Melati type 
+  *   The field's POEM type 
   * 
   * 
   * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 

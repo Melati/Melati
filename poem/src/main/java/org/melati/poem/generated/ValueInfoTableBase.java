@@ -286,7 +286,7 @@ public class ValueInfoTableBase extends PoemTable {
           }
 
           protected String defaultDescription() {
-            return "The field's Melati type";
+            return "The field's POEM type";
           }
 
           public Object getRaw_unsafe(Persistent g)

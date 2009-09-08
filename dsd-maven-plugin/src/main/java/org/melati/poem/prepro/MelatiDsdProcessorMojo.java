@@ -48,10 +48,13 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 /**
  * Process a DSD file.
  * 
+ * @requiresDependencyResolution compile
  * @goal generate
  * @description Process a DSD file to generate java sources.
  * @phase process-sources
@@ -80,6 +83,14 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
   private File sourceDirectory;
 
   /**
+   * Location of the test source.
+   * 
+   * @parameter expression="${project.build.testSourceDirectory}"
+   * @required
+   */
+  private File testSourceDirectory;
+
+  /**
    * @parameter expression="${project.groupId}"
    * @required
    */
@@ -96,20 +107,40 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
    */
   private boolean checkUptodate;
   
+  /**
+   * @parameter expression="${isMain}" default-value=true
+   */
+  private boolean isMain = true;
+  
 
   private String searchedLocations = "";
 
   public void execute()
       throws MojoExecutionException {
+    
+    //Get the System Classloader
+    ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
 
-    File f = sourceDirectory;
+    //Get the URLs
+    URL[] urls = ((URLClassLoader)sysClassLoader).getURLs();
+
+    for(int i=0; i< urls.length; i++)
+    {
+        System.out.println(urls[i].getFile());
+    }       
+    
+    File f = null;
+    if(isMain) 
+      f = sourceDirectory;
+    else
+      f = testSourceDirectory;
     if (f == null || !f.exists()) {
-      throw new MojoExecutionException("Source directory could not be found");
+      throw new MojoExecutionException("Source directory (" + f + ")could not be found");
     }
 
     String dsdPath = null;
     if (dsdPackage != null) {
-      String lookupDir = sourceDirectory.getPath() + "/"
+      String lookupDir = f.getPath() + "/"
           + dsdPackage.replace('.', '/') + "/";
       dsdPath = dsdFileName(lookupDir, dsdFile);
       if (dsdPath == null) {
@@ -128,10 +159,10 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       }
     } else {
       String groupDir = groupId.replace('.', '/');
-      String sourceDir = sourceDirectory.getPath() + "/" + groupDir + "/";
+      String sourceDir = f.getPath() + "/" + groupDir + "/";
       String foundDsdName = existingDsdFileName(sourceDir, dsdFile);
       if (foundDsdName == null)
-        foundDsdName = existingDsdFileName(sourceDir + artifactId + "/",
+        foundDsdName = existingDsdFileName(f + artifactId + "/",
             dsdFile);
       if (foundDsdName == null)
         throw new MojoExecutionException(

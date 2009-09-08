@@ -178,7 +178,7 @@ public class SettingTable extends SettingTableBase {
 
   /**
    * Make sure that a setting with this name exists, if not then create it.
-   * Note that only the name is checked for existance, the other paramters 
+   * Note that only the name is checked for existence, the other parameters 
    * are only used for creation, so enabling the setting to be manually changed. 
    * 
    * @param name the name of the Setting to ensure

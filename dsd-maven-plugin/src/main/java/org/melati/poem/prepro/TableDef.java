@@ -91,7 +91,7 @@ public class TableDef {
   int displayOrder;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
-  private Vector fields = new Vector();
+  private Vector<FieldDef> fields = new Vector<FieldDef>();
   boolean isAbstract;
   boolean definesColumns;
   TableNamingInfo naming = null;
@@ -99,9 +99,9 @@ public class TableDef {
   int nextFieldDisplayOrder = 0;
   // Note we have to store the imports and process them at
   // the end to avoid referring to a table that has yet to be processed.
-  private final Hashtable imports = new Hashtable();
-  private final Vector tableBaseImports = new Vector();
-  private final Vector persistentBaseImports = new Vector();
+  private final Hashtable<String, String> imports = new Hashtable<String, String>();
+  private final Vector<String> tableBaseImports = new Vector<String>();
+  private final Vector<String> persistentBaseImports = new Vector<String>();
 
   /**
    * Constructor.
@@ -180,7 +180,7 @@ public class TableDef {
                                      + destination);
 
     String existing = null;
-    existing = (String) imports.put(importName, destination);
+    existing = imports.put(importName, destination);
     if (existing != null && existing != destination)
       imports.put(importName, "both");
   }
@@ -278,7 +278,7 @@ public class TableDef {
       throws IOException {
 
     w.write("\n");
-    for (Enumeration e = persistentBaseImports.elements(); e.hasMoreElements();) {
+    for (Enumeration<String> e = persistentBaseImports.elements(); e.hasMoreElements();) {
       w.write("import " + e.nextElement() + ";\n");
     }
     w.write("\n");
@@ -324,8 +324,8 @@ public class TableDef {
           + naming.tableMainClassUnambiguous() + ")getTable();\n" + "  }\n\n");
 
       w.write("  // Fields in this table \n");
-      for (Enumeration f = fields.elements(); f.hasMoreElements();) {
-        FieldDef fd = (FieldDef) f.nextElement();
+      for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
+        FieldDef fd = f.nextElement();
         w.write(" /**\n");
         w.write(DSD.javadocFormat(2, 1,
             ((fd.displayName != null) ? fd.displayName : fd.name)
@@ -337,8 +337,8 @@ public class TableDef {
         w.write(";\n");
       }
 
-      for (Enumeration f = fields.elements(); f.hasMoreElements();) {
-        FieldDef field = (FieldDef) f.nextElement();
+      for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
+        FieldDef field = f.nextElement();
         w.write('\n');
         field.generateBaseMethods(w);
         w.write('\n');
@@ -405,7 +405,7 @@ public class TableDef {
   public void generateTableBaseJava(Writer w)
       throws IOException {
 
-    for (Enumeration e = tableBaseImports.elements(); e.hasMoreElements();)
+    for (Enumeration<String> e = tableBaseImports.elements(); e.hasMoreElements();)
       w.write("import " + e.nextElement() + ";\n");
 
     w.write("\n");
@@ -417,9 +417,9 @@ public class TableDef {
     w.write("\npublic class " + naming.tableBaseClassShortName() + " extends "
         + naming.superclassTableShortName() + " {\n" + "\n");
 
-    for (Enumeration f = fields.elements(); f.hasMoreElements();) {
+    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
       w.write("  private ");
-      ((FieldDef) f.nextElement()).generateColDecl(w);
+      (f.nextElement()).generateColDecl(w);
       w.write(" = null;\n");
     }
 
@@ -462,16 +462,16 @@ public class TableDef {
         "  public void init() throws PoemException {\n" + 
         "    super.init();\n");
 
-    for (Enumeration f = fields.elements(); f.hasMoreElements();) {
-      ((FieldDef) f.nextElement()).generateColDefinition(w);
+    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
+      (f.nextElement()).generateColDefinition(w);
       if (f.hasMoreElements())
         w.write('\n');
     }
 
     w.write("  }\n" + "\n");
 
-    for (Enumeration f = fields.elements(); f.hasMoreElements();) {
-      ((FieldDef) f.nextElement()).generateColAccessor(w);
+    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
+      (f.nextElement()).generateColAccessor(w);
       w.write('\n');
     }
 
@@ -604,9 +604,9 @@ public class TableDef {
     boolean hasDisplayLevel = false;
     boolean hasSearchability = false;
     int fieldCount = 0;
-    for (Enumeration e = fields.elements(); e.hasMoreElements();) {
+    for (Enumeration<FieldDef> e = fields.elements(); e.hasMoreElements();) {
       fieldCount++;
-      FieldDef f = (FieldDef) e.nextElement();
+      FieldDef f = e.nextElement();
       if (f.displayLevel != null)
         hasDisplayLevel = true;
       if (f.searchability != null)
@@ -652,9 +652,9 @@ public class TableDef {
     addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "table");
 
     // Sort out the imports
-    for (Enumeration i = imports.keys(); i.hasMoreElements();) {
+    for (Enumeration<String> i = imports.keys(); i.hasMoreElements();) {
       String fqKey;
-      String key = (String) i.nextElement();
+      String key = i.nextElement();
       if (key.indexOf(".") == -1) {
         TableNamingInfo targetTable = (TableNamingInfo) dsd.nameStore.tablesByShortName
             .get(key);
@@ -662,14 +662,14 @@ public class TableDef {
           throw new RuntimeException("No TableNamingInfo for " + key + 
                   ". This is probably a typo either in the table definition name or in a reference field.");
         fqKey = targetTable.tableFQName;
-        String destination = (String) imports.get(key);
+        String destination = imports.get(key);
         imports.remove(key);
         addImport(fqKey, destination);
       }
     }
-    for (Enumeration i = imports.keys(); i.hasMoreElements();) {
+    for (Enumeration<String> i = imports.keys(); i.hasMoreElements();) {
       String fqKey;
-      String key = (String) i.nextElement();
+      String key = i.nextElement();
 
       if (key.indexOf(".") == -1) {
         TableNamingInfo targetTable = 
@@ -678,7 +678,7 @@ public class TableDef {
       } else {
         fqKey = key;
       }
-      String destination = (String) imports.get(key);
+      String destination = imports.get(key);
       if (destination == "table") {
         tableBaseImports.addElement(fqKey);
       } else if (destination == "persistent") {
@@ -695,9 +695,9 @@ public class TableDef {
     tableBaseImports.removeAllElements();
     persistentBaseImports.removeAllElements();
     for (int i = 0; i < t.length; i++)
-      tableBaseImports.addElement(t[i]);
+      tableBaseImports.addElement((String)t[i]);
     for (int i = 0; i < p.length; i++)
-      persistentBaseImports.addElement(p[i]);
+      persistentBaseImports.addElement((String)p[i]);
 
     dsd.createJava(naming.baseClassShortName(), new Generator() {
       public void process(Writer w)
@@ -734,8 +734,8 @@ public class TableDef {
         + " * Field summary for SQL table <code>" + suffix + "</code>\n"
         + " * </th></tr>\n"
         + " * <tr><th>Name</th><th>Type</th><th>Description</th></tr>\n");
-    for (Enumeration f = fields.elements(); f.hasMoreElements();) {
-      FieldDef fd = (FieldDef) f.nextElement();
+    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
+      FieldDef fd = f.nextElement();
       table.append(DSD.javadocFormat(1, 1, "<tr><td> " + fd.name
           + " </td><td> " + fd.type + " </td><td> "
           + ((fd.description != null) ? fd.description : "&nbsp;")

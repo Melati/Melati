@@ -640,7 +640,7 @@ public class DSD {
       throw new ResourceNotFoundException(resource,
                   "I can't find the database class associated with this "+
                   "resource (" + packageNameLocal + "." + databaseName + "). " +
-                  "Is it in your classpath?");
+                  "Is it in your classpath?", e);
     }
     java.net.URL url = database.getResource(fileToLookFor);
     if (url == null || url.getFile() == null || url.getFile().equals(""))

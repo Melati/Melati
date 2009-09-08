@@ -53,6 +53,12 @@ class ResourceNotFoundException extends Exception {
 
   String resource, message;
 
+  ResourceNotFoundException(String resource, String message, Exception e) {
+    super(e);
+    this.resource = resource;
+    this.message = message;
+  }
+
   ResourceNotFoundException(String resource, String message) {
     this.resource = resource;
     this.message = message;

@@ -2,27 +2,9 @@
 
 <document>
 
-  <properties>
-    <title>${artifactId} - Melati Maven derived site</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-${artifactId} Maven Melati
-    </keywords>
-  </properties>
-
   <body>
 
 #set ($dollar = "$")
-
-<!--
-<p align="center">
- <font size="-1"><i>
-This page last updated: ${dollar}Date: 2006/05/26 17:53:22 $ ${dollar}Author: timp $
- </i></font>
-</p>
--->
-  
-<!-- menu -->
 
 <section name=" Melati ">
 <P>

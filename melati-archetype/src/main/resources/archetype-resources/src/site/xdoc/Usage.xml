@@ -2,16 +2,6 @@
 
 <document>
 
-  <properties>
-    <title>
-${artifactId}
-    </title>
-    <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-${artifactId}
-    </keywords>
-  </properties>
-
   <body>
 
 

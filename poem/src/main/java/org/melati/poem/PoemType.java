@@ -73,7 +73,7 @@ public interface PoemType {
    * NOTE Null is a possible value for nullable types 
    * @return an Enumeration of possibilities or null
    */
-  Enumeration possibleRaws();
+  Enumeration<Object> possibleRaws();
 
   /**
    * The String representation of the Field.

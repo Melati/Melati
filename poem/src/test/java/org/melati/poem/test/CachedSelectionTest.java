@@ -139,9 +139,7 @@ public class CachedSelectionTest extends PoemTestCase {
     // group.id
     " = 0";
    
-   // System.err.println("IN test:" + query);
     int count = getDb().getQueryCount();
-    // FIXME counts differ between Maven and Eclipse, as cache is persistent 
     
     
     CachedSelection cachedSelection = new CachedSelection(

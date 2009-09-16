@@ -662,7 +662,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * Aquire a lock on the database.
+   * Acquire a lock on the database.
    */
   public void beginExclusiveLock() {
     // FIXME yuk

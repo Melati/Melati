@@ -51,15 +51,15 @@ import java.util.NoSuchElementException;
 /**
  * An <code>Enumeration</code> created from an <code>Array</code>.
  */
-public class ArrayEnumeration implements Enumeration {
-  private Object[] a;
+public class ArrayEnumeration<T> implements Enumeration<T> {
+  private T[] a;
   private int i;
 
   /**
    * Constructor.
    * @param a the Array to enumerate
    */
-  public ArrayEnumeration(Object[] a) {
+  public ArrayEnumeration(T[] a) {
     this.a = a;
     i = 0;
   }
@@ -76,9 +76,9 @@ public class ArrayEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public Object nextElement() {
+  public T nextElement() {
     if (i < a.length)
-      return a[i++];
+      return (T)a[i++];
     else
       throw new NoSuchElementException();
   }

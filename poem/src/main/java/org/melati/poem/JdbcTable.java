@@ -275,8 +275,8 @@ public class JdbcTable implements Selectable, Table {
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
-  public final Enumeration columns() {
-    return new ArrayEnumeration(columns);
+  public final Enumeration<Column> columns() {
+    return new ArrayEnumeration<Column>(columns);
   }
 
  /**
@@ -291,8 +291,8 @@ public class JdbcTable implements Selectable, Table {
    * @return the Column with a TROID equal to columnInfoID
    */
   public Column columnWithColumnInfoID(int columnInfoID) {
-    for (Enumeration c = columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement();
+    for (Enumeration<Column> c = columns(); c.hasMoreElements();) {
+      Column column = c.nextElement();
       Integer id = column.columnInfoID();
       if (id != null && id.intValue() == columnInfoID)
         return column;

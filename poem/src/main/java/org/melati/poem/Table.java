@@ -161,7 +161,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
      * @see org.melati.poem.Column
      */
-    Enumeration columns();
+    Enumeration<Column> columns();
 
     /**
      * @return the number of columns in this table.
@@ -254,7 +254,7 @@ public interface Table {
      * @param level the {@link org.melati.poem.DisplayLevel} to select
      * @return an Enumeration of columns at the given level
      */
-    Enumeration displayColumns(DisplayLevel level);
+    Enumeration<Column> displayColumns(DisplayLevel level);
 
     /**
      * @param level the {@link org.melati.poem.DisplayLevel} to select
@@ -270,7 +270,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#detail
      */
-    Enumeration getDetailDisplayColumns();
+    Enumeration<Column> getDetailDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Detail</tt>
@@ -285,7 +285,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#record
      */
-    Enumeration getRecordDisplayColumns();
+    Enumeration<Column> getRecordDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Record</tt>
@@ -301,7 +301,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#summary
      */
-    Enumeration getSummaryDisplayColumns();
+    Enumeration<Column> getSummaryDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Summary</tt>
@@ -315,7 +315,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
      * @see org.melati.poem.Column
      */
-    Enumeration getSearchCriterionColumns();
+    Enumeration<Column> getSearchCriterionColumns();
 
     /**
      * @return the number of columns which are searchable

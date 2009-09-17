@@ -54,10 +54,10 @@ import java.util.NoSuchElementException;
  * <p>
  * Implementations must provide {@link #isIncluded(Object)}.
  */
-public abstract class FilteredEnumeration <T extends Object> implements SkipEnumeration {
+public abstract class FilteredEnumeration <T> implements SkipEnumeration<T> {
   private Enumeration<T> base;
   private int finished = -1;
-  private Object next;
+  private T next;
 
   /**
    * Constructor.
@@ -100,7 +100,7 @@ public abstract class FilteredEnumeration <T extends Object> implements SkipEnum
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() {
+  public synchronized T nextElement() {
     if (!hasMoreElements())
       throw new NoSuchElementException();
 

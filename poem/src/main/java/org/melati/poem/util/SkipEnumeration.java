@@ -51,7 +51,7 @@ import java.util.NoSuchElementException;
 /**
  * An <code>Enumeration</code> with a {link #skip} method.
  */
-public interface SkipEnumeration extends Enumeration<Object> {
+public interface SkipEnumeration<T> extends Enumeration<T> {
   /**
    * Skip an Element.
    * @throws NoSuchElementException if there are no more Elements

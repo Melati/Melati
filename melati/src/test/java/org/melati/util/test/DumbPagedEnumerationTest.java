@@ -39,7 +39,7 @@ public class DumbPagedEnumerationTest extends PagedEnumerationSpec {
   }
 
   protected PagedEnumeration getObjectUnderTest() {
-    Vector them = new Vector();
+    Vector<Integer> them = new Vector<Integer>();
     for (int i = 0; i < 30; i++)
       them.add(new Integer(i));
     return new DumbPagedEnumeration(them.elements(), 3, 10, 25);

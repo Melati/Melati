@@ -56,15 +56,16 @@ import javax.servlet.http.HttpSessionContext;
  * @since  26 Feb 2009
  *
  */
+@SuppressWarnings("deprecation")
 public class MockHttpSession implements HttpSession {
   
-  private Hashtable values;
+  private Hashtable<String,Object> values;
 
   /**
    * Constructor.
    */
   public MockHttpSession() {
-    values = new Hashtable();
+    values = new Hashtable<String,Object>();
   }
 
   /**
@@ -79,7 +80,7 @@ public class MockHttpSession implements HttpSession {
    * {@inheritDoc}
    * @see javax.servlet.http.HttpSession#getAttributeNames()
    */
-  public Enumeration getAttributeNames() {
+  public Enumeration<String> getAttributeNames() {
     throw new RuntimeException("TODO No one else has ever called this method."
         + " Do you really want to start now?");
 

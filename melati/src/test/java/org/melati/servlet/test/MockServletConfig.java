@@ -47,7 +47,7 @@ public class MockServletConfig implements ServletConfig {
    * {@inheritDoc}
    * @see javax.servlet.ServletConfig#getInitParameterNames()
    */
-  public Enumeration getInitParameterNames() {
+  public Enumeration<String> getInitParameterNames() {
     throw new RuntimeException("TODO No one else has ever called this method."
         + " Do you really want to start now?");
 
@@ -69,7 +69,7 @@ public class MockServletConfig implements ServletConfig {
     return name;
   }
 
-  Hashtable initParameters = new Hashtable(); 
+  Hashtable<String, Object> initParameters = new Hashtable<String, Object>(); 
   /**
    * @param name of parameter
    * @param value of parameter

@@ -60,7 +60,7 @@ public final class EnumUtils {
    * @param n the number of Elements to skip
    * @return the number of Elements actually skipped, may be less than asked 
    */
-  public static int skip(Enumeration e, int n) {
+  public static int skip(Enumeration<?> e, int n) {
     int c = 0;
     if (e instanceof SkipEnumeration) {
       SkipEnumeration s = (SkipEnumeration)e;
@@ -86,8 +86,8 @@ public final class EnumUtils {
    * @param n the number of Elements to include
    * @return a new Vector of the initial Elements
    */
-  public static Vector initial(Enumeration e, int n) {
-    Vector v = new Vector(n);
+  public static Vector<?> initial(Enumeration<?> e, int n) {
+    Vector<Object> v = new Vector<Object>(n);
 
     while (n > 0 && e.hasMoreElements()) {
       v.addElement(e.nextElement());
@@ -137,9 +137,9 @@ public final class EnumUtils {
 
   /**
    * Concatenate an Enumeration, specifying the separator.
-   * @param sep Seperator string 
+   * @param sep Separator string 
    * @param e Enumeration to be concatenated
-   * @return A String represenation of the Enumeration
+   * @return A String representation of the Enumeration
    */
   public static String concatenated(String sep, Enumeration e) {
     StringBuffer b = new StringBuffer();
@@ -161,7 +161,7 @@ public final class EnumUtils {
    * @param o the Object to look for
    * @return true if the Object occurs in the Enumeration
    */
-  public static boolean contains(Enumeration e, Object o) {
+  public static boolean contains(Enumeration<Object> e, Object o) {
     while (e.hasMoreElements())
       if (e.nextElement().equals(o))
         return true;

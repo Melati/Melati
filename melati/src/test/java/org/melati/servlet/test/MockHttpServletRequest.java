@@ -30,12 +30,12 @@ import javax.servlet.http.HttpSession;
  */
 public class MockHttpServletRequest implements HttpServletRequest {
 
-    Map parameters = new HashMap();
+    Map<String,String> parameters = new HashMap<String,String>();
     
     /**
      * @param map the parameters
      */
-    public void setParameters(Map map) {
+    public void setParameters(Map<String,String> map) {
         parameters = map;
     }
     
@@ -52,7 +52,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     }
 
     // Note this is not correct, should be a MultiMap
-    Hashtable headers = new Hashtable();
+    Hashtable<String,String> headers = new Hashtable<String,String>();
     public String getHeader(String arg0) {
         return (String)headers.get(arg0);
     }
@@ -63,11 +63,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
     public void setHeader(String key, String value) {
       headers.put(key, value);
     }
-    public Enumeration getHeaders(String arg0) {
+    public Enumeration<String> getHeaders(String arg0) {
         return headers.elements();
     }
 
-    public Enumeration getHeaderNames() {
+    public Enumeration<String> getHeaderNames() {
         return headers.keys();
     }
 
@@ -174,7 +174,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getAttributeNames() {
+    public Enumeration<String> getAttributeNames() {
         return null;
     }
 
@@ -213,7 +213,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
       return (String)parameters.get(arg0);
     }
 
-    public Enumeration getParameterNames() {
+    public Enumeration<String> getParameterNames() {
         return Collections.enumeration(parameters.keySet());
     }
 
@@ -221,7 +221,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
       return new String[] {(String)parameters.get(key)} ;
     }
 
-    public Map getParameterMap() {
+    public Map<String,String> getParameterMap() {
         return parameters;
     }
 
@@ -270,7 +270,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getLocales() {
+    public Enumeration<Locale> getLocales() {
         return null;
     }
 
@@ -281,11 +281,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
     public RequestDispatcher getRequestDispatcher(String arg0) {
         return new RequestDispatcher() {
         
-            public void include(ServletRequest arg0, ServletResponse arg1)
+            public void include(ServletRequest arg00, ServletResponse arg1)
                     throws ServletException, IOException {
             }
         
-            public void forward(ServletRequest arg0, ServletResponse arg1)
+            public void forward(ServletRequest arg00, ServletResponse arg1)
                     throws ServletException, IOException {
             }
         };

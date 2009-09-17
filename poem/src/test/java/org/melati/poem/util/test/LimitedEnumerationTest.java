@@ -31,7 +31,7 @@ public class LimitedEnumerationTest extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    Vector them = new Vector();
+    Vector<String> them = new Vector<String>();
     them.add("a");
     them.add("b");
     them.add("c");

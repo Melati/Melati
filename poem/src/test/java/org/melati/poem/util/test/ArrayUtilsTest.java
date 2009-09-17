@@ -27,7 +27,7 @@ public class ArrayUtilsTest extends TestCase {
    * @see org.melati.poem.util.ArrayUtils#arrayOf(Vector)
    */
   public void testArrayOfVector() {
-    assertEquals(new Object[]{}.length, ArrayUtils.arrayOf(new Vector()).length);
+    assertEquals(new Object[]{}.length, ArrayUtils.arrayOf(new Vector<Object>()).length);
     
   }
 
@@ -36,7 +36,7 @@ public class ArrayUtilsTest extends TestCase {
    */
   public void testArrayOfEnumeration() {
     assertEquals(new String[]{}.length, 
-                 ArrayUtils.arrayOf(new Vector().elements()).length);
+                 ArrayUtils.arrayOf(new Vector<Object>().elements()).length);
     
   }
 

@@ -33,7 +33,7 @@ public class FilteredEnumerationTest extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    Vector v = new Vector();
+    Vector<String> v = new Vector<String>();
     v.add("a");
     v.add("b");
     v.add("c");

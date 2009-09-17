@@ -458,7 +458,7 @@ public interface Table {
      * @param orderByClause Comma separated list
      * @param includeDeleted Flag as to whether to include soft deleted records
      * @param excludeUnselectable Whether to append unselectable exclusion SQL
-     * @todo Should work within some kind of limit
+     * TODO Should work within some kind of limit
      * @return an SQL SELECT statement put together from the arguments and
      * default order by clause.
      */
@@ -472,7 +472,7 @@ public interface Table {
      *
      * @return an {@link java.util.Enumeration} of Troids satisfying the criteria.
      */
-    Enumeration troidSelection(String whereClause, String orderByClause,
+    Enumeration<Integer> troidSelection(String whereClause, String orderByClause,
                                       boolean includeDeleted,
                                       PoemTransaction transaction);
 
@@ -484,7 +484,7 @@ public interface Table {
      *                    {@link org.melati.poem.PoemThread#transaction()}
      * @return a selection of troids given arguments specifying a query
      */
-    Enumeration troidSelection(Persistent criteria, String orderByClause,
+    Enumeration<Integer> troidSelection(Persistent criteria, String orderByClause,
                                       boolean includeDeleted,
                                       boolean excludeUnselectable,
                                       PoemTransaction transaction);
@@ -521,7 +521,7 @@ public interface Table {
      * @see #getObject(Integer)
      * @see #selection(String, String, boolean)
      */
-    Enumeration troidSelection(String whereClause, String orderByClause,
+    Enumeration<Integer> troidSelection(String whereClause, String orderByClause,
                                       boolean includeDeleted)
         throws SQLPoemException;
 
@@ -538,7 +538,7 @@ public interface Table {
      *         be passed over.
      * @see Selectable#selection()
      */
-    Enumeration selection() throws SQLPoemException;
+    Enumeration<Persistent> selection() throws SQLPoemException;
 
     /**
      * A <TT>SELECT</TT>ion of objects from the table meeting given criteria.
@@ -563,7 +563,7 @@ public interface Table {
      *
      * @see org.melati.poem.Column#selectionWhereEq(Object)
      */
-    Enumeration selection(String whereClause)
+    Enumeration<Persistent> selection(String whereClause)
         throws SQLPoemException;
 
     /**
@@ -599,7 +599,7 @@ public interface Table {
      * @return a ResultSet as an Enumeration
      * @see #selection(String)
      */
-    Enumeration selection(String whereClause, String orderByClause,
+    Enumeration<Persistent> selection(String whereClause, String orderByClause,
                                   boolean includeDeleted)
         throws SQLPoemException;
 
@@ -610,7 +610,7 @@ public interface Table {
      * @return an enumeration of like objects
      * @see #selection(String, String, boolean)
      */
-    Enumeration selection(Persistent criteria)
+    Enumeration<Persistent> selection(Persistent criteria)
         throws SQLPoemException;
 
     /**
@@ -621,7 +621,7 @@ public interface Table {
      * @param orderByClause Comma separated list
      * @return an enumeration of like objects with the specified ordering
      */
-    Enumeration selection(Persistent criteria, String orderByClause)
+    Enumeration<Persistent> selection(Persistent criteria, String orderByClause)
         throws SQLPoemException;
 
     /**
@@ -633,7 +633,7 @@ public interface Table {
      * @param excludeUnselectable Whether to append unselectable exclusion SQL
      * @return an enumeration of like Persistents
      */
-    Enumeration selection(Persistent criteria, String orderByClause,
+    Enumeration<Persistent> selection(Persistent criteria, String orderByClause,
                                   boolean includeDeleted, boolean excludeUnselectable)
         throws SQLPoemException;
 
@@ -753,7 +753,7 @@ public interface Table {
      * @see #cnfWhereClause(java.util.Enumeration, boolean, boolean)
      * @see #whereClause(org.melati.poem.Persistent)
      */
-    String cnfWhereClause(Enumeration persistents);
+    String cnfWhereClause(Enumeration<Persistent> persistents);
 
     /**
      * Return a Conjunctive Normal Form (CNF) where clause.
@@ -761,7 +761,7 @@ public interface Table {
      *
      * @return an SQL fragment
      */
-    String cnfWhereClause(Enumeration persistents,
+    String cnfWhereClause(Enumeration<Persistent> persistents,
                                  boolean includeDeleted, boolean excludeUnselectable);
 
     /**
@@ -774,7 +774,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Persistent</TT>s
      */
 
-    Enumeration referencesTo(Persistent object);
+    Enumeration<Persistent> referencesTo(Persistent object);
 
     /**
      * All the columns in the table which refer to the given table.
@@ -782,7 +782,7 @@ public interface Table {
      * @param table
      * @return an Enumeration of Columns referring to the specified Table
      */
-    Enumeration referencesTo(Table table);
+    Enumeration<Column> referencesTo(Table table);
 
     /**
      * @return the current highest troid

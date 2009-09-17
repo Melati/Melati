@@ -51,7 +51,7 @@ import java.util.NoSuchElementException;
 /**
  * An <code>Enumeration</code> of Longs.
  */
-public class LongEnumeration implements Enumeration {
+public class LongEnumeration implements Enumeration<Long> {
   // No real need for start
   private long start, limit, i;
 
@@ -78,7 +78,7 @@ public class LongEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() throws NoSuchElementException {
+  public synchronized Long nextElement() throws NoSuchElementException {
     if (i >= limit)
       throw new NoSuchElementException();
     return new Long(i++);

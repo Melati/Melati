@@ -17,6 +17,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.poem.transaction.WriteCommittedException;
+import org.melati.poem.util.EnumUtils;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -77,16 +78,16 @@ public class DatabasePerformInCommittedTransactionTest
 
   protected void checkDbUnchanged() {
     getDb().inSession(AccessToken.root,
-        new PoemTask() {
-          public void run() {
-            if (dbName.equals("poemtest")) {
-              poemtestUnchanged();
-            } 
-            if (dbName.equals("melatijunit")) {
-              melatijunitUnchanged();
-            }
-          }
-        });
+            new PoemTask() {
+              public void run() {
+                if (dbName.equals("poemtest")) {
+                  poemtestUnchanged();
+                } 
+                if (dbName.equals("melatijunit")) {
+                  melatijunitUnchanged();
+                }
+              }
+            });
 
   }
   protected void melatijunitUnchanged() { 
@@ -118,7 +119,7 @@ public class DatabasePerformInCommittedTransactionTest
 
   }
   protected void dumpTable(Table t) {
-    Enumeration them = t.selection();
+    Enumeration<Persistent> them = t.selection();
     while (them.hasMoreElements()) {
       Persistent it = (Persistent)them.nextElement();
       System.err.println(it.getTroid() + " " + it.getCooked("name") + " " +
@@ -342,12 +343,15 @@ public class DatabasePerformInCommittedTransactionTest
   
   /**
    * Test troidSelection uses committed transaction.
-   * FIXME Relies upon session
    */
   public void testTableTroidSelection() {
-    //Enumeration en = getDb().getUserTable().troidSelection(
-    //        getDb().getUserTable().troidColumn().fullQuotedName() + "=0",null, false);
-    //assertEquals(2, EnumUtils.vectorOf(en).size());
+    getDb().inSession(AccessToken.root,
+            new PoemTask() {
+              public void run() {
+                Enumeration<Integer> en = getDb().getUserTable().troidSelection("id=0",null, false);
+                assertEquals(1, EnumUtils.vectorOf(en).size());
+              }
+            });
   }
   
   /**

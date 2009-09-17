@@ -55,7 +55,7 @@ import java.util.Hashtable;
  */
 public abstract class Thrower {
   
-  static Hashtable throwers = new Hashtable();
+  static Hashtable<String,Integer> throwers = new Hashtable<String, Integer>();
 
   protected Thrower() {}
   
@@ -64,7 +64,7 @@ public abstract class Thrower {
    * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void startThrowing(Class i, String methodName) {
+  public static void startThrowing(Class<?> i, String methodName) {
     String fullName = i.getName() + "." + methodName;
     throwers.put(fullName, new Integer(1));
   }
@@ -73,7 +73,7 @@ public abstract class Thrower {
    * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void startThrowingAfter(Class i, String methodName, int goes) {
+  public static void startThrowingAfter(Class<?> i, String methodName, int goes) {
     String fullName = i.getName() + "." + methodName;
     throwers.put(fullName, new Integer(1 + goes));
   }
@@ -82,7 +82,7 @@ public abstract class Thrower {
    * @param i Interface class object
    * @param methodName name in class.methodName format
    */
-  public static void stopThrowing(Class i, String methodName) {
+  public static void stopThrowing(Class<?> i, String methodName) {
     String fullName = i.getName() + "." + methodName;
     throwers.put(fullName, new Integer(0));
   }
@@ -92,7 +92,7 @@ public abstract class Thrower {
    * @param methodName name in class.methodName format
    * @return whether method named should throw exception
    */
-  public static boolean shouldThrow(Class i, String methodName) {
+  public static boolean shouldThrow(Class<?> i, String methodName) {
     String fullName = i.getName() + "." + methodName;
     if (throwers.get(fullName) == null) 
       throwers.put(fullName, new Integer(0));

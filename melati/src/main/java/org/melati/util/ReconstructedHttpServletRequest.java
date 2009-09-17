@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServletRequest;
  * 
  * Used during login to be able to return to the point where an 
  * <code>AccessPoemException</code> was thrown once the user has 
- * sucessfully logged in. 
+ * successfully logged in. 
  */
 public class ReconstructedHttpServletRequest
     extends DelegatedHttpServletRequest {
@@ -126,7 +126,8 @@ public class ReconstructedHttpServletRequest
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterNames()
    */
-  public Enumeration getParameterNames() {
+  @SuppressWarnings("unchecked")
+  public Enumeration<String> getParameterNames() {
     return oldParams.parameters.keys();
   }
 

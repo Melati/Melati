@@ -52,9 +52,9 @@ import java.util.NoSuchElementException;
  * An <code>Enumeration</code> representing the first <code>n</code> 
  * elements of another <code>Enumeration</code>.
  */
-public class LimitedEnumeration implements SkipEnumeration {
+public class LimitedEnumeration<T> implements SkipEnumeration {
 
-  private Enumeration base;
+  private Enumeration<T> base;
   private int limit;
   private int seen = 0;
 
@@ -63,7 +63,7 @@ public class LimitedEnumeration implements SkipEnumeration {
    * @param base the underlying Enumeration
    * @param limit the excluded limit
    */
-  public LimitedEnumeration(Enumeration base, int limit) {
+  public LimitedEnumeration(Enumeration<T> base, int limit) {
     this.base = base;
     this.limit = limit;
   }

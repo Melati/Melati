@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
-import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.Thrower;
 
 
 /**
@@ -66,17 +66,17 @@ public class CachedSelectionTest extends
    */
   public void testFirstObject() {
     // Hit next in compute()
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "next");
     // Hit finally in compute()
-    ThrowingResultSet.startThrowing(ResultSet.class, "close");
+    Thrower.startThrowing(ResultSet.class, "close");
     try { 
       super.testFirstObject();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());      
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
-    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
+    Thrower.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "close");
   }
 
   /** 

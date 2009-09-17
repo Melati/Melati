@@ -69,7 +69,7 @@ public class MockServletConfig implements ServletConfig {
     return name;
   }
 
-  Hashtable<String, Object> initParameters = new Hashtable<String, Object>(); 
+  Hashtable<String, Object> initParameters = new Hashtable(); 
   /**
    * @param name of parameter
    * @param value of parameter

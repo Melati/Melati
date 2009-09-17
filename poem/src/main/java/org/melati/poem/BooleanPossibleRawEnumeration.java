@@ -50,11 +50,11 @@ import java.util.NoSuchElementException;
 /**
  * The possible raw values of a {@link BooleanPoemType}.
  * @author timp
- * @since 18 Apr 2008
+ * @since 18 April 2008
  *
  */
 public 
-class BooleanPossibleRawEnumeration implements Enumeration {
+class BooleanPossibleRawEnumeration implements Enumeration<Boolean> {
   private int state = 0;
 
   /**
@@ -69,7 +69,7 @@ class BooleanPossibleRawEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() {
+  public synchronized Boolean nextElement() {
     if (state == 2)
       throw new NoSuchElementException();
     else 

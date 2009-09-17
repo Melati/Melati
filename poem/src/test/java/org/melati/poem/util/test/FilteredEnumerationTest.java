@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 
 /**
  * @author timp
- * @since 7 Jun 2007
+ * @since 7 June 2007
  *
  */
 public class FilteredEnumerationTest extends TestCase {

@@ -103,8 +103,8 @@ public final class EnumUtils {
    * @param b tail Enumeration 
    * @return a new enumeration which is a concatenation of A and B
    */
-  public static Enumeration join(Enumeration a, Enumeration b) {
-    Vector aVector =  vectorOf(a);
+  public static <T extends Object> Enumeration<T> join(Enumeration<T> a, Enumeration<T> b) {
+    Vector<T> aVector =  vectorOf(a);
     while (b.hasMoreElements())
       aVector.addElement(b.nextElement());
     return aVector.elements();
@@ -116,8 +116,8 @@ public final class EnumUtils {
    * @param roughSize starting size of the Vector
    * @return a Vector of the Elements of the input Enumeration
    */
-  public static Vector vectorOf(Enumeration e, int roughSize) {
-    Vector v = new Vector(roughSize);
+  public static <T extends Object> Vector<T> vectorOf(Enumeration<T> e, int roughSize) {
+    Vector<T> v = new Vector<T>(roughSize);
 
     while (e.hasMoreElements())
       v.addElement(e.nextElement());
@@ -131,7 +131,7 @@ public final class EnumUtils {
    * @param e the source Enumeration
    * @return a Vector with size at least 20 of the Elements of the input Enumeration
    */
-  public static Vector vectorOf(Enumeration e) {
+  public static <T extends Object> Vector<T> vectorOf(Enumeration<T> e) {
     return vectorOf(e, 20);
   }
 
@@ -141,7 +141,7 @@ public final class EnumUtils {
    * @param e Enumeration to be concatenated
    * @return A String representation of the Enumeration
    */
-  public static String concatenated(String sep, Enumeration e) {
+  public static String concatenated(String sep, Enumeration<Object> e) {
     StringBuffer b = new StringBuffer();
 
     if (e.hasMoreElements())

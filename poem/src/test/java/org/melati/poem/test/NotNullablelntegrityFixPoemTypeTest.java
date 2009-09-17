@@ -42,7 +42,7 @@ public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec {
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = it.possibleRaws();
+    Enumeration<Object> them = it.possibleRaws();
     int count = 0;
     while(them.hasMoreElements()) {
       them.nextElement();

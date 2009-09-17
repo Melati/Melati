@@ -52,19 +52,19 @@ import java.util.Enumeration;
  * enumerations ie it allows you to add an object to the front 
  * of an <code>Enumeration</code>.
  */
-public class ConsEnumeration implements SkipEnumeration {
+public class ConsEnumeration<T> implements SkipEnumeration<T> {
   private boolean hadHd = false;
-  private Object hd;
-  private Enumeration tl;
+  private T hd;
+  private Enumeration<T> tl;
 
   /**
    * Constructor with head and tail.
    * @param head
    * @param tail
    */
-  public ConsEnumeration(Object head, Enumeration tail) {
+  public ConsEnumeration(T head, Enumeration<T> tail) {
     this.hd = head;
-    this.tl = tail == null ? EmptyEnumeration.it : tail;
+    this.tl = tail == null ? new EmptyEnumeration<T>() : tail;
   }
 
   /**
@@ -79,7 +79,7 @@ public class ConsEnumeration implements SkipEnumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() {
+  public synchronized T nextElement() {
     if (!hadHd) 
       try {
         return hd;
@@ -99,7 +99,7 @@ public class ConsEnumeration implements SkipEnumeration {
     if (!hadHd)
       hadHd = true;
     else if (tl instanceof SkipEnumeration)
-      ((SkipEnumeration)tl).skip();
+      ((SkipEnumeration<T>)tl).skip();
     else
       tl.nextElement();
   }

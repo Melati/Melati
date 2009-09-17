@@ -51,7 +51,7 @@ import java.util.NoSuchElementException;
 /**
  * An <code>Enumeration</code> of sequential Integers.
  */
-public class IntegerEnumeration implements Enumeration {
+public class IntegerEnumeration implements Enumeration<Integer> {
   private int limit, index;
 
   /**
@@ -76,7 +76,7 @@ public class IntegerEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() throws NoSuchElementException {
+  public synchronized Integer nextElement() throws NoSuchElementException {
     if (index >= limit)
       throw new NoSuchElementException();
     Integer value = new Integer(index);

@@ -57,7 +57,7 @@ import org.melati.poem.util.SkipEnumeration;
  * <p>
  * Implementations must provide {@link #mapped(ResultSet)}.
  */
-public abstract class ResultSetEnumeration implements SkipEnumeration {
+public abstract class ResultSetEnumeration<T> implements SkipEnumeration<T> {
   private final ResultSet resultSet;
   private int more = -1;
 
@@ -96,7 +96,7 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
     }
   }
 
-  protected abstract Object mapped(ResultSet resultSetP)
+  protected abstract T mapped(ResultSet resultSetP)
       throws SQLException, NoSuchRowPoemException;
 
   /**
@@ -106,7 +106,7 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
    * but does not prevent subsequent use of the object.
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() throws NoSuchElementException {
+  public synchronized T nextElement() throws NoSuchElementException {
     try {
       if (more == -1)
         more = resultSetNext();

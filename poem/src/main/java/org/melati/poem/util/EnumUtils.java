@@ -60,10 +60,10 @@ public final class EnumUtils {
    * @param n the number of Elements to skip
    * @return the number of Elements actually skipped, may be less than asked 
    */
-  public static int skip(Enumeration<?> e, int n) {
+  public static <T extends Object> int skip(Enumeration<T> e, int n) {
     int c = 0;
     if (e instanceof SkipEnumeration) {
-      SkipEnumeration s = (SkipEnumeration)e;
+      SkipEnumeration<T> s = (SkipEnumeration<T>)e;
       while (c < n && s.hasMoreElements()) {
         s.skip();
         ++c;

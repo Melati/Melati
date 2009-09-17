@@ -51,7 +51,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
-    Vector them = LogicalDatabase.initialisedDatabases();
+    Vector<Database> them = LogicalDatabase.initialisedDatabases();
     assertTrue(them.size()> 0);
   }
 
@@ -61,7 +61,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    * Test method for {@link org.melati.LogicalDatabase#getInitialisedDatabaseNames()}.
    */
   public void testGetInitialisedDatabaseNames() {
-    Vector them = LogicalDatabase.getInitialisedDatabaseNames();
+    Vector<String> them = LogicalDatabase.getInitialisedDatabaseNames();
     assertTrue(them.size() > 0);
     boolean found = false;
     for (int i = 0; i < them.size(); i++)

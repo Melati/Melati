@@ -161,7 +161,7 @@ public final class EnumUtils {
    * @param o the Object to look for
    * @return true if the Object occurs in the Enumeration
    */
-  public static boolean contains(Enumeration<Object> e, Object o) {
+  public static boolean contains(Enumeration<?> e, Object o) {
     while (e.hasMoreElements())
       if (e.nextElement().equals(o))
         return true;

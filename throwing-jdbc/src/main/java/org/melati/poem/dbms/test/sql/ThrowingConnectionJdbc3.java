@@ -184,7 +184,7 @@ public abstract class ThrowingConnectionJdbc3
    * {@inheritDoc}
    * @see java.sql.Connection#getTypeMap()
    */
-  public Map getTypeMap() throws SQLException {
+  public Map<String,Class<?>> getTypeMap() throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getTypeMap()"))
       throw new SQLException("Connection bombed");
     return it.getTypeMap();
@@ -431,7 +431,7 @@ public abstract class ThrowingConnectionJdbc3
    * {@inheritDoc}
    * @see java.sql.Connection#setTypeMap(java.util.Map)
    */
-  public void setTypeMap(Map map) throws SQLException {
+  public void setTypeMap(Map<String,Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "setTypeMap"))
       throw new SQLException("Connection bombed");
     it.setTypeMap(map);

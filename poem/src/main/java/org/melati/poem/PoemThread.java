@@ -60,9 +60,9 @@ public final class PoemThread {
   private PoemThread() {
   }
 
-  private static Vector sessionTokens = new Vector();
+  private static Vector<SessionToken> sessionTokens = new Vector<SessionToken>();
 
-  private static Vector freeSessionTokenIndices = new Vector();
+  private static Vector<Integer> freeSessionTokenIndices = new Vector<Integer>();
 
   /**
    * The maximum number of Threads. Must be < Char.MAX_VALUE = 64k
@@ -92,8 +92,8 @@ public final class PoemThread {
     }
   }
 
-  /** keep track of the old thread names. */
-  private static Map threadOldNames = new HashMap();
+  /** Keep track of the old thread names. */
+  private static Map<Integer, String> threadOldNames = new HashMap<Integer, String>();
 
   /**
    * Do the processing to start a db session.
@@ -167,14 +167,14 @@ public final class PoemThread {
    * 
    * @return a Vector of open {@link SessionToken}s
    */
-  public static Vector openSessions() {
-    Vector open = new Vector();
-    Enumeration e = null;
+  public static Vector<SessionToken> openSessions() {
+    Vector<SessionToken> open = new Vector<SessionToken>();
+    Enumeration<SessionToken> e = null;
     // synchronized(sessionTokens) {
     e = sessionTokens.elements();
     // }
     while (e.hasMoreElements()) {
-      SessionToken token = (SessionToken)e.nextElement();
+      SessionToken token = e.nextElement();
       if (token != null)
         open.addElement(token);
     }

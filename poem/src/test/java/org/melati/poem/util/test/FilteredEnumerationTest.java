@@ -18,7 +18,7 @@ import junit.framework.TestCase;
  */
 public class FilteredEnumerationTest extends TestCase {
 
-  FilteredEnumeration it;
+  FilteredEnumeration<String> it;
   
   /**
    * @param name
@@ -39,7 +39,7 @@ public class FilteredEnumerationTest extends TestCase {
     v.add("c");
     v.add("d");
     v.add("e");
-    it = new FilteredEnumeration(v.elements()) {
+    it = new FilteredEnumeration<String>(v.elements()) {
       public boolean isIncluded(Object o) {
         return ((String)o).compareTo("c") <= 0;
       }

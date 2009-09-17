@@ -54,8 +54,8 @@ import java.util.NoSuchElementException;
  * <p>
  * Implementations must provide {@link #isIncluded(Object)}.
  */
-public abstract class FilteredEnumeration implements SkipEnumeration {
-  private Enumeration base;
+public abstract class FilteredEnumeration <T extends Object> implements SkipEnumeration {
+  private Enumeration<T> base;
   private int finished = -1;
   private Object next;
 
@@ -63,7 +63,7 @@ public abstract class FilteredEnumeration implements SkipEnumeration {
    * Constructor.
    * @param base the Enumeration we are based upon
    */
-  public FilteredEnumeration(Enumeration base) {
+  public FilteredEnumeration(Enumeration<T> base) {
     this.base = base;
   }
 

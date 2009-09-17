@@ -56,7 +56,6 @@ import org.melati.poem.Treeable;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.StringUtils;
 import org.melati.template.MarkupLanguage;
-import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.JSStaticTree;
 import org.melati.util.Tree;
 
@@ -75,7 +74,7 @@ public class AdminUtils {
    *  Constructor. 
    */
   public AdminUtils(Melati melati) {
-    this(melati.getRequest() == null ? null : HttpServletRequestCompat.getContextPath(melati.getRequest()),
+    this(melati.getRequest() == null ? null : melati.getRequest().getContextPath(),
          melati.getRequest() == null ? null : melati.getRequest().getServletPath(),
          melati.getConfig().getStaticURL() ,
          melati.getPoemContext().getLogicalDatabase());    

@@ -57,7 +57,6 @@ import javax.servlet.http.HttpServletRequest;
   * 
   * However the database listener and admin tests rely upon 2.4 features.
   *
-  * @see   org.melati.util.HttpServletRequestCompat
   */
 
 public class DelegatedHttpServletRequest implements HttpServletRequest {

@@ -105,7 +105,7 @@ public final class HttpUtil {
    * Note that this function should return 
    * /zone/servlet from a request of form 
    * http://host/zone/servlet/pathinfo?querystring
-   * on all servlet API versions 2.0 through 2.3
+   * on all servlet API versions greater than 2.0.
    * In 2.0 the zone was returned in the ServletPath 
    * it is now in the ContextPath.
    * @param url StringBuffer to append to 
@@ -113,7 +113,7 @@ public final class HttpUtil {
    */
   public static void appendRelativeZoneURL (
       StringBuffer url, HttpServletRequest request) {
-    url.append(HttpServletRequestCompat.getContextPath(request));
+    url.append(request.getContextPath());
     String servletPath = request.getServletPath();
     if (servletPath != null && !servletPath.equals("")) {
       url.append(servletPath.substring(0, servletPath.lastIndexOf('/')));
@@ -156,7 +156,7 @@ public final class HttpUtil {
    */
   public static String getRelativeRequestURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
-    url.append(HttpServletRequestCompat.getContextPath(request));
+    url.append(request.getContextPath());
     if (request.getServletPath() != null) url.append(request.getServletPath());
     if (request.getPathInfo() != null) url.append(request.getPathInfo());
     return url.toString();

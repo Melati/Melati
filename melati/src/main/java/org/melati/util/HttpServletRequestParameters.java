@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpServletRequestParameters {
 
-  final Hashtable parameters;
+  final Hashtable<String,Object> parameters;
   final String requestURL;
   final String queryString;
   final String method;
@@ -65,8 +65,9 @@ public class HttpServletRequestParameters {
    * Constructor.
    * @param request to extract parameters from
    */
+  @SuppressWarnings("unchecked")
   public HttpServletRequestParameters(HttpServletRequest request) {
-    parameters = new Hashtable();
+    parameters = new Hashtable<String,Object> ();
     for (Enumeration p = request.getParameterNames();
          p.hasMoreElements();) {
       String name = (String)p.nextElement();
@@ -83,7 +84,7 @@ public class HttpServletRequestParameters {
   /**
    * @return the extracted parameters
    */
-  public Hashtable getParameters() {
+  public Hashtable<String, Object> getParameters() {
     return parameters;
   }
 

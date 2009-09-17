@@ -59,7 +59,7 @@ public final class ClassUtils {
    * @param methodName The name of one argument methods to find
    * @return An array of methods with the given name and one argument
    */
-  public static Method[] getOneArgumentMethods(Class clazz, String methodName) {
+  public static Method[] getOneArgumentMethods(Class<?> clazz, String methodName) {
     Method[] methods = clazz.getMethods();
     Method[] possibleMethods = new Method[methods.length];
     int possibleIndex = 0;
@@ -77,7 +77,7 @@ public final class ClassUtils {
    * @param methodName The name of the no argument public method to return
    * @return An accessible Method with the given name and no arguments or null
    */
-  public static Method getNoArgMethod(Class clazz, String methodName) {
+  public static Method getNoArgMethod(Class<?> clazz, String methodName) {
     Method method;
     try {
       method = clazz.getMethod(methodName, new Class[] {});

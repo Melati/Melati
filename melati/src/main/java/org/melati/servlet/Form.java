@@ -65,7 +65,7 @@ import org.melati.util.UTF8URLEncoder;
 
 public final class Form {
   
-  static Hashtable adaptorCache = new Hashtable();
+  static Hashtable<String, TempletAdaptor> adaptorCache = new Hashtable<String, TempletAdaptor>();
 
   private Form() {}
   
@@ -75,8 +75,7 @@ public final class Form {
    * The context can specify an adaptor for each field using another HTML
    * field with name suffix &quot;-adaptor&quot; and value the classname of
    * a <code>TempletAdaptor</code>.
-   * Hence the templet that renders the field can specify how
-   * the result is parsed. 
+   * Hence the templet that renders the field can specify how the result is parsed. 
    * This is currently used for dates.
    *
    * @param context the current {@link ServletTemplateContext} to get values from
@@ -84,8 +83,8 @@ public final class Form {
    */
   public static void extractFields(ServletTemplateContext context, 
                                    Persistent object) {
-    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement();
+    for (Enumeration<Column> c = object.getTable().columns(); c.hasMoreElements();) {
+      Column column = c.nextElement();
       String formFieldName = "field_" + column.getName();
       String rawString = context.getFormField(formFieldName);
 
@@ -112,7 +111,7 @@ public final class Form {
 
 
   private static TempletAdaptor getAdaptor(String adaptorFieldName, String adaptorName) {
-    TempletAdaptor adaptor = (TempletAdaptor)adaptorCache.get(adaptorName);
+    TempletAdaptor adaptor = adaptorCache.get(adaptorName);
     if(adaptor == null)
       try {
         adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();

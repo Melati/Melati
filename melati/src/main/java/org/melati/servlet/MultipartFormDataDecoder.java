@@ -66,7 +66,7 @@ public class MultipartFormDataDecoder {
   DelimitedBufferedInputStream in;
   String contentType;
   FormDataAdaptorFactory factory;
-  Hashtable fields = new Hashtable();
+  Hashtable<String,MultipartFormField> fields = new Hashtable<String,MultipartFormField>();
 
   private static final int FIELD_START = 0;
   private static final int IN_FIELD_HEADER = 1;
@@ -120,7 +120,7 @@ public class MultipartFormDataDecoder {
   * @throws IOException
   *         if an error occurs reading the input stream
   */
-  public Hashtable parseData() throws IOException {
+  public Hashtable<String,MultipartFormField> parseData() throws IOException {
     try {
       return parseData(in, contentType, maxSize);
     }
@@ -133,7 +133,7 @@ public class MultipartFormDataDecoder {
     }
   }
 
-  private Hashtable parseData(DelimitedBufferedInputStream inP,
+  private Hashtable<String,MultipartFormField> parseData(DelimitedBufferedInputStream inP,
                               String contentTypeP,
                               int maxSizeP)
       throws IOException {

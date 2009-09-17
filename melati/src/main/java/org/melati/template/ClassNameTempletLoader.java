@@ -45,7 +45,6 @@
 
 package org.melati.template;
 
-import java.io.IOException;
 import java.util.Hashtable;
 
 import org.melati.poem.FieldAttributes;
@@ -60,11 +59,11 @@ public final class ClassNameTempletLoader implements TempletLoader {
   private static ClassNameTempletLoader it = null;
 
   // NOTE It is not expected that templates will be added at runtime.
-  private static Hashtable templetForClassCache = new Hashtable();
+  private static Hashtable<String,Template> templetForClassCache = new Hashtable<String,Template>();
   
   private static final Integer FOUND = new Integer(1);
   private static final Integer NOT_FOUND = new Integer(0);
-  private static Hashtable lookedupTemplateNames = new Hashtable();
+  private static Hashtable<String,Integer> lookedupTemplateNames = new Hashtable<String,Integer>();
 
   /** Disable instantiation. */
   private ClassNameTempletLoader() {}
@@ -113,7 +112,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
                templateEngine.templateExtension();
   }
 
-  protected static String classpathTempletPath(Class clazz, TemplateEngine templateEngine) { 
+  protected static String classpathTempletPath(Class<?> clazz, TemplateEngine templateEngine) { 
     return clazz.getName().replace('.', '/') + templateEngine.templateExtension();
   }
   /**
@@ -151,9 +150,9 @@ public final class ClassNameTempletLoader implements TempletLoader {
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
-                          Class clazz)
+                          Class<?> clazz)
       throws TemplateEngineException {
-    Class lookupClass = clazz;
+    Class<?> lookupClass = clazz;
     Template templet = null;
     Template fromCache = null;
     String originalCacheKey = cacheKey(templateEngine, markupLanguage, purpose, lookupClass);
@@ -204,7 +203,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
   private String cacheKey(TemplateEngine templateEngine, 
       MarkupLanguage markupLanguage, 
       String purpose, 
-      Class lookupClass) {
+      Class<?> lookupClass) {
     return  purpose == null ? cacheKey(templateEngine, markupLanguage, lookupClass) 
                             : lookupClass + "/" + 
                                purpose + "/" + 
@@ -214,7 +213,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
   
   private String cacheKey(TemplateEngine templateEngine, 
       MarkupLanguage markupLanguage, 
-      Class lookupClass) {
+      Class<?> lookupClass) {
     return lookupClass + 
            "/" + markupLanguage + 
            "/" + templateEngine.getName();
@@ -241,7 +240,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)
    */
   public Template templet(TemplateEngine templateEngine,
-                          MarkupLanguage markupLanguage, Class clazz) {
+                          MarkupLanguage markupLanguage, Class<?> clazz) {
     return templet(templateEngine, markupLanguage, null, clazz);
   }
 

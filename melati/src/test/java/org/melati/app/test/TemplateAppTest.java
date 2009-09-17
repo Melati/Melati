@@ -46,13 +46,14 @@ public class TemplateAppTest extends TestCase {
   /**
    * @see org.melati.app.TemplateApp#init(String[])
    */
+  @SuppressWarnings("unchecked")
   public void testInit() throws Exception {
     TemplateApp ta = new TemplateApp();
     String[] args = { "appjunit", "user", "0", "method", "field", "value" };
     Melati m = ta.init(args);
 
     assertEquals("appjunit", m.getDatabase().getName());
-    Hashtable f = (Hashtable)m.getTemplateContext().get("Form");
+    Hashtable<String,String> f = (Hashtable<String,String>)m.getTemplateContext().get("Form");
     assertEquals("value", f.get("field"));
   }
 

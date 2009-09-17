@@ -56,6 +56,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+ * NOTE This is no longer used, but it is so cool it is still around to marvel at
+ * 
  * The <code>HttpServletRequestCompat</code> class enables Melati to compile,
  * without warnings, with the Servlet API versions 2.0 to 2.5.
  * 

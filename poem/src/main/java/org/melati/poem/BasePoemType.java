@@ -56,11 +56,11 @@ import org.melati.poem.util.ConsEnumeration;
 /**
  * Base class of all fundamental types.
  */
-public abstract class BasePoemType implements SQLPoemType, Cloneable {
+public abstract class BasePoemType<T extends Comparable<T>> implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
   protected boolean nullable;
 
-  private Comparable low = null, limit = null;
+  private Comparable<T> low = null, limit = null;
 
   BasePoemType(int sqlTypeCode, boolean nullable) {
     this.sqlTypeCode = sqlTypeCode;
@@ -72,29 +72,30 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * @param low included lower limit
    * @param limit excluded upper limit
    */
-  public void setRawRange(Comparable low, Comparable limit) {
+  public void setRawRange(Comparable<T> low, Comparable<T> limit) {
     this.low = low;
     this.limit = limit;
   }
 
-  protected Comparable getLowRaw() {
+  protected Comparable<T> getLowRaw() {
     return low;
   }
 
-  protected Comparable getLimitRaw() {
+  protected Comparable<T> getLimitRaw() {
     return limit;
   }
 
   protected abstract void _assertValidRaw(Object raw)
       throws ValidationPoemException;
 
+  @SuppressWarnings("unchecked")
   private void assertRawInRange(Object raw) {
     // Range check.  Since we can't do this with multiple inheritance, we
     // provide it as a facility even in types for which it is meaningless.
 
-    Comparable asComparable;
+    T asComparable;
     try {
-      asComparable = (Comparable)raw;
+      asComparable = (T)raw;
     }
     catch (ClassCastException e) {
       throw new NotComparablePoemException(raw, this);
@@ -178,7 +179,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Object> _possibleRaws() {
     return null;
   }
   
@@ -186,8 +187,8 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#possibleRaws()
    */
-  public Enumeration possibleRaws() {
-    Enumeration them = _possibleRaws();
+  public Enumeration<Object> possibleRaws() {
+    Enumeration<Object> them = _possibleRaws();
     return them == null ? null :
                    getNullable() ? new ConsEnumeration(null, them) :
                    them;
@@ -381,11 +382,12 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#withNullable(boolean)
    */
+  @SuppressWarnings("unchecked")
   public final PoemType withNullable(boolean nullableP) {
     if (this.nullable == nullableP)
       return this;
     else {
-      BasePoemType it = (BasePoemType)clone();
+      BasePoemType<T> it = (BasePoemType<T>)clone();
       it.nullable = nullableP;
       return it;
     }

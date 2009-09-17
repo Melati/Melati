@@ -50,9 +50,10 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec {
 
   }
 
+  @SuppressWarnings("unchecked")
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = it.possibleRaws();
+    Enumeration<Object> them = it.possibleRaws();
     assertNull(them);
     ((LongPoemType)it).setRawRange(new Long(Long.MAX_VALUE -5), (Long)null);
     them = it.possibleRaws();

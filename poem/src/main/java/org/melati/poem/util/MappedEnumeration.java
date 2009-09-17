@@ -53,15 +53,15 @@ import java.util.Enumeration;
  * <p>
  * Implementations must provide {@link #mapped(Object)}.
  */
-public abstract class MappedEnumeration implements Enumeration {
+public abstract class  MappedEnumeration<T> implements Enumeration<T> {
 
-  private Enumeration enumeration;
+  private Enumeration<?> enumeration;
 
   /**
    * Wrapper Constructor given Enumeration to wrap.
    * @param enumeration Enumeration to wrap
    */
-  public MappedEnumeration(Enumeration enumeration) {
+  public MappedEnumeration(Enumeration<?> enumeration) {
     if (enumeration == null) throw new NullPointerException();
     this.enumeration = enumeration;
   }
@@ -78,13 +78,13 @@ public abstract class MappedEnumeration implements Enumeration {
    * @param element the element of the Enumeration to act on
    * @return the element after transformation
    */
-  protected abstract Object mapped(Object element);
+  protected abstract T mapped(Object element);
 
   /**
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public Object nextElement() {
+  public T nextElement() {
     return mapped(enumeration.nextElement());
   }
 }

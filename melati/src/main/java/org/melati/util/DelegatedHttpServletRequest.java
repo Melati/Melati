@@ -52,6 +52,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
  /**
+  * 
+  * 
   * Enables Melati to compile, without warnings, with the Servlet API 
   * versions 2.0 to 2.5.
   * 
@@ -106,7 +108,8 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
    */
-  public java.util.Enumeration getHeaderNames() {
+  @SuppressWarnings("unchecked")
+  public java.util.Enumeration<String> getHeaderNames() {
     return peer.getHeaderNames();
   }
   /**
@@ -234,7 +237,8 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterNames()
    */
-  public java.util.Enumeration getParameterNames() {
+  @SuppressWarnings("unchecked")
+  public java.util.Enumeration<String> getParameterNames() {
     return peer.getParameterNames();
   }
   /**
@@ -314,7 +318,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
    */
   public boolean isRequestedSessionIdFromUrl() {
-    return HttpServletRequestCompat.isRequestedSessionIdFromUrl(peer);
+    return peer.isRequestedSessionIdFromUrl();
   }
   /**
    * @deprecated Servlet API 2.1
@@ -323,7 +327,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
    */
   public java.lang.String getRealPath(java.lang.String a) {
-    return HttpServletRequestCompat.getRealPath(peer, a);
+    return peer.getRealPath(a);
   }
 
   //
@@ -335,35 +339,36 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
    */
   public java.security.Principal getUserPrincipal() {
-    return HttpServletRequestCompat.getUserPrincipal(peer);
+    return peer.getUserPrincipal();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getContextPath()
    */
   public java.lang.String getContextPath() {
-    return HttpServletRequestCompat.getContextPath(peer);
+    return peer.getContextPath();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
    */
-  public java.util.Enumeration getHeaders(java.lang.String a) {
-    return HttpServletRequestCompat.getHeaders(peer, a);
+  @SuppressWarnings("unchecked")
+  public java.util.Enumeration<String> getHeaders(java.lang.String name) {
+    return peer.getHeaders(name);
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#getSession()
    */
   public javax.servlet.http.HttpSession getSession() {
-    return HttpServletRequestCompat.getSession(peer);
+    return peer.getSession();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
    */
   public boolean isRequestedSessionIdFromURL() {
-    return HttpServletRequestCompat.isRequestedSessionIdFromURL(peer);
+    return peer.isRequestedSessionIdFromURL();
   }
   
   //
@@ -375,28 +380,30 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
    */
   public boolean isUserInRole(java.lang.String a) {
-    return HttpServletRequestCompat.isUserInRole(peer, a);
+    return peer.isUserInRole(a);
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getAttributeNames()
    */
-  public Enumeration getAttributeNames() {
-    return HttpServletRequestCompat.getAttributeNames(peer);
+  @SuppressWarnings("unchecked")
+  public Enumeration<String> getAttributeNames() {
+    return peer.getAttributeNames();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocale()
    */
   public Locale getLocale()  {
-    return HttpServletRequestCompat.getLocale(peer);
+    return peer.getLocale();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getLocales()
    */
-  public Enumeration getLocales() {
-    return HttpServletRequestCompat.getLocales(peer);
+  @SuppressWarnings("unchecked")
+  public Enumeration<Locale> getLocales() {
+    return peer.getLocales();
   }
 
   /**
@@ -404,28 +411,28 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
    */
   public RequestDispatcher getRequestDispatcher(String arg) {
-    return HttpServletRequestCompat.getRequestDispatcher(peer, arg);
+    return peer.getRequestDispatcher(arg);
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#isSecure()
    */
   public boolean isSecure() {
-    return HttpServletRequestCompat.isSecure(peer);
+    return peer.isSecure();
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#removeAttribute(java.lang.String)
    */
   public void removeAttribute(String arg) {
-    HttpServletRequestCompat.removeAttribute(peer, arg);
+    peer.removeAttribute(arg);
   }
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setAttribute(java.lang.String, java.lang.Object)
    */
   public void setAttribute(String arg1, Object arg2) {
-    HttpServletRequestCompat.setAttribute(peer, arg1, arg2);
+    peer.setAttribute(arg1, arg2);
   }
   
   //
@@ -437,23 +444,24 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.http.HttpServletRequest#getRequestURL()
    */
   public StringBuffer getRequestURL() {
-    return HttpServletRequestCompat.getRequestURL(peer);
+    return peer.getRequestURL();
   }
 
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
    */
-  public void setCharacterEncoding (String s) {
-    HttpServletRequestCompat.setCharacterEncoding(peer,s);
+  public void setCharacterEncoding (String s) throws java.io.UnsupportedEncodingException {
+    peer.setCharacterEncoding(s);
   }
 
   /**
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterMap()
    */
-  public Map getParameterMap () {
-    return HttpServletRequestCompat.getParameterMap(peer);
+  @SuppressWarnings("unchecked")
+  public Map<String, String[]> getParameterMap () {
+    return peer.getParameterMap();
   }
 
   //
@@ -465,7 +473,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getLocalAddr()
    */
   public String getLocalAddr() {
-    return HttpServletRequestCompat.getLocalAddr(peer);
+    return peer.getLocalAddr();
   }
 
   /**
@@ -473,7 +481,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getLocalName()
    */
   public String getLocalName() {
-    return HttpServletRequestCompat.getLocalName(peer);    
+    return peer.getLocalName();    
   }
 
   /**
@@ -481,7 +489,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getLocalPort()
    */
   public int getLocalPort() {
-    return HttpServletRequestCompat.getLocalPort(peer);    
+    return peer.getLocalPort();    
   }
 
   /**
@@ -489,7 +497,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
    * @see javax.servlet.ServletRequest#getRemotePort()
    */
   public int getRemotePort() {
-    return HttpServletRequestCompat.getRemotePort(peer);        
+    return peer.getRemotePort();        
   }
 
   //

@@ -89,9 +89,9 @@ public final class HttpServletRequestCompat {
   /** New in Servlet 2.4 API. */
   private static Method getLocalAddr, getLocalName, getLocalPort, getRemotePort;
   
-  private static Method methodOrNull(Class c, String n, String[] pn) {
+  private static Method methodOrNull(Class<?> c, String n, String[] pn) {
     try {
-      Class[] p = new Class[pn.length];
+      Class<?>[] p = new Class[pn.length];
       for (int i = 0; i < pn.length; ++i)
         p[i] = Class.forName(pn[i]);
       return c.getMethod(n, p);
@@ -106,7 +106,7 @@ public final class HttpServletRequestCompat {
     try {
       String[] noparams = {};
 
-      Class hsr = Class.forName("javax.servlet.http.HttpServletRequest");
+      Class<?> hsr = Class.forName("javax.servlet.http.HttpServletRequest");
       getUserPrincipal = methodOrNull(hsr, "getUserPrincipal", noparams);
       getContextPath = methodOrNull(hsr, "getContextPath", noparams);
       getHeaders = methodOrNull(hsr, "getHeaders",
@@ -191,7 +191,7 @@ public final class HttpServletRequestCompat {
    * @return a <code>long</code> value representing the date specified in the
    *         header expressed as the number of milliseconds since January 1,
    *         1970 GMT, or -1 if the named header was not included with the
-   *         reqest
+   *         request
    * @see javax.servlet.http.HttpServletRequest#getDateHeader(String)
    * @since 2.0
    */
@@ -232,7 +232,8 @@ public final class HttpServletRequestCompat {
    * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
    * @since 2.0
    */
-  public static Enumeration getHeaderNames(HttpServletRequest it) {
+  @SuppressWarnings("unchecked")
+  public static Enumeration<String> getHeaderNames(HttpServletRequest it) {
     return it.getHeaderNames();
   }
 

@@ -102,6 +102,7 @@ public abstract class ThrowingCallableStatementJdbc3
     return it.getBigDecimal(parameterName);
   }
 
+  @SuppressWarnings("deprecation")
   public BigDecimal getBigDecimal(int parameterIndex, int scale)
           throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
@@ -711,6 +712,7 @@ public abstract class ThrowingCallableStatementJdbc3
       throw new SQLException("CallableStatement bombed");
     it.setTimestamp(parameterIndex, x);
   }
+  @SuppressWarnings("deprecation")
   public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "setUnicodeStream"))
       throw new SQLException("CallableStatement bombed");

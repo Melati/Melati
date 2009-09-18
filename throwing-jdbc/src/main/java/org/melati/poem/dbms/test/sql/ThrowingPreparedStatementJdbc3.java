@@ -499,6 +499,7 @@ public abstract class ThrowingPreparedStatementJdbc3
    * @see java.sql.PreparedStatement#setUnicodeStream(int, java.io.InputStream,
    *      int)
    */
+  @SuppressWarnings("deprecation")
   public void setUnicodeStream(int parameterIndex, InputStream x, int length)
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "setUnicodeStream"))

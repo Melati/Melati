@@ -231,6 +231,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getBigDecimal(int, int)
    */
+  @SuppressWarnings("deprecation")
   public BigDecimal getBigDecimal(int columnIndex, int scale)
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
@@ -242,6 +243,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getBigDecimal(java.lang.String, int)
    */
+  @SuppressWarnings("deprecation")
   public BigDecimal getBigDecimal(String columnName, int scale)
       throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getBigDecimal"))
@@ -797,6 +799,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getUnicodeStream(int)
    */
+  @SuppressWarnings("deprecation")
   public InputStream getUnicodeStream(int columnIndex) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");
@@ -807,6 +810,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getUnicodeStream(java.lang.String)
    */
+  @SuppressWarnings("deprecation")
   public InputStream getUnicodeStream(String columnName) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getUnicodeStream"))
       throw new SQLException("ResultSet bombed");

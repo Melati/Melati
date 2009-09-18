@@ -55,7 +55,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
    */
   public void testUnifyWithDB() throws Exception {
     Driver driver = null;
-    Class driverClass;
+    Class<?> driverClass;
     String url = "jdbc:hsqldb:mem:unifiable";
     driverClass = Class.forName("org.hsqldb.jdbcDriver");
     driver = (Driver)driverClass.newInstance();

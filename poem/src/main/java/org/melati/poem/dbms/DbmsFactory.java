@@ -59,7 +59,7 @@ import org.melati.poem.AppBugPoemException;
  */
 public final class DbmsFactory {
 
-  private static final Hashtable dbmsObjects = new Hashtable();
+  private static final Hashtable<String, Dbms> dbmsObjects = new Hashtable<String, Dbms>();
 
   private DbmsFactory() {
   }

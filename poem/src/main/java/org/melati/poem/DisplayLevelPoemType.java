@@ -60,7 +60,7 @@ public class DisplayLevelPoemType extends IndexPoemType {
     super(false);
   }
 
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     return new IntegerEnumeration(0, DisplayLevel.count());
   }
 

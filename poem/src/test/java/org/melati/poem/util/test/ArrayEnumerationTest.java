@@ -58,7 +58,7 @@ public class ArrayEnumerationTest extends TestCase {
    */
   public void testNextElement() {
     String[] them = new String[] {"one", "two", "three"};
-    ArrayEnumeration it = new ArrayEnumeration(them);
+    ArrayEnumeration<String> it = new ArrayEnumeration<String>(them);
     while (it.hasMoreElements()) 
       it.nextElement();
     try { 

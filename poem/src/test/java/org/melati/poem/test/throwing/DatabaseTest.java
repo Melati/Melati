@@ -19,8 +19,6 @@ import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
 import org.melati.poem.dbms.test.sql.Thrower;
-import org.melati.poem.dbms.test.sql.ThrowingConnection;
-import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
 /**
  * @author timp
@@ -131,22 +129,22 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (ReconnectionPoemException e) {
       e = null;
     }
-    ThrowingResultSet.startThrowing(ResultSet.class, "close");     
+    Thrower.startThrowing(ResultSet.class, "close");     
     try { 
       getDb();
       fail("Should have blown up");
     } catch (SQLSeriousPoemException e) {
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
+    Thrower.stopThrowing(ResultSet.class, "close");
   }
 
   /**
    * Provoke an SQLException within unifyWithDB().
    */
   public void testConnect2() {
-    Database db = new PoemDatabase();
-    ThrowingConnection.startThrowingAfter(Connection.class,"getMetaData", 1);     
+    db = new PoemDatabase();
+    Thrower.startThrowingAfter(Connection.class,"getMetaData", 1);     
     try { 
       db.connect("m2", "org.melati.poem.dbms.test.HsqldbThrower", 
               "jdbc:hsqldb:mem:m2", 
@@ -159,16 +157,16 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     }
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    ThrowingConnection.stopThrowing(Connection.class, "getMetaData");
+    Thrower.stopThrowing(Connection.class, "getMetaData");
   }
 
   /**
    * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
    */
   public void testConnectThrowing3() {
-    Database db = getDb();
+    db = getDb();
     db.disconnect();
-    ThrowingConnection.startThrowing(Connection.class, "getMetaData");     
+    Thrower.startThrowing(Connection.class, "getMetaData");     
     try { 
       db.connect("m2","org.melati.poem.dbms.test.HsqldbThrower", 
               "jdbc:hsqldb:mem:m2", 
@@ -181,7 +179,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     }
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    ThrowingConnection.stopThrowing(Connection.class, "getMetaData");
+    Thrower.stopThrowing(Connection.class, "getMetaData");
   }
 
   public void testDatabase() {
@@ -189,15 +187,15 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
   }
 
   public void testDisconnect() {
-    Database db = getDb();
-    ThrowingConnection.startThrowing(Connection.class, "close");     
+    db = getDb();
+    Thrower.startThrowing(Connection.class, "close");     
     try { 
       db.disconnect();
       fail("Should have blown up");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    ThrowingConnection.stopThrowing(Connection.class, "close");     
+    Thrower.stopThrowing(Connection.class, "close");     
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
@@ -308,9 +306,9 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
    * @see org.melati.poem.Database#hasCapability(User, Capability)
    */
   public void testHasCapabilityThrowing() {
-    Database db = getDb();
+    db = getDb();
     db.beginSession(AccessToken.root);
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "next");
     try { 
       assertFalse(db.hasCapability(
           db.guestUser(), db.administerCapability()));
@@ -318,9 +316,9 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "next");
 
-    ThrowingConnection.startThrowing(Connection.class, "createStatement");
+    Thrower.startThrowing(Connection.class, "createStatement");
     try { 
       assertFalse(db.hasCapability(db.guestUser(), 
           db.administerCapability()));
@@ -328,7 +326,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (UnexpectedExceptionPoemException e) { 
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    ThrowingConnection.stopThrowing(Connection.class, "createStatement");
+    Thrower.stopThrowing(Connection.class, "createStatement");
     db.endSession();
   }
 

@@ -3,6 +3,7 @@
  */
 package org.melati.poem.util.test;
 
+import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import org.melati.poem.util.EmptyEnumeration;
@@ -65,7 +66,7 @@ public class FlattenedEnumerationTest extends TestCase {
    * Test method for {@link org.melati.poem.util.FlattenedEnumeration#nextElement()}.
    */
   public void testNextElement() {
-    FlattenedEnumeration fen = new FlattenedEnumeration(EmptyEnumeration.it);
+    FlattenedEnumeration<Object> fen = new FlattenedEnumeration<Object>(new EmptyEnumeration<Enumeration<Object>>());
     try { 
       fen.nextElement();
       fail("should have bombed");

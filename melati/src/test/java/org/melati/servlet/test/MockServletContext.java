@@ -50,7 +50,7 @@ public class MockServletContext implements ServletContext {
    * {@inheritDoc}
    * @see javax.servlet.ServletContext#getAttributeNames()
    */
-  public Enumeration getAttributeNames() {
+  public Enumeration<String> getAttributeNames() {
     return null;
   }
 
@@ -74,7 +74,7 @@ public class MockServletContext implements ServletContext {
    * {@inheritDoc}
    * @see javax.servlet.ServletContext#getInitParameterNames()
    */
-  public Enumeration getInitParameterNames() {
+  public Enumeration<String> getInitParameterNames() {
     return null;
   }
 
@@ -146,7 +146,7 @@ public class MockServletContext implements ServletContext {
    * {@inheritDoc}
    * @see javax.servlet.ServletContext#getResourcePaths(java.lang.String)
    */
-  public Set getResourcePaths(String arg0) {
+  public Set<String> getResourcePaths(String arg0) {
     return null;
   }
 
@@ -178,7 +178,7 @@ public class MockServletContext implements ServletContext {
    * {@inheritDoc}
    * @see javax.servlet.ServletContext#getServletNames()
    */
-  public Enumeration getServletNames() {
+  public Enumeration<String> getServletNames() {
     return null;
   }
 
@@ -186,7 +186,7 @@ public class MockServletContext implements ServletContext {
    * {@inheritDoc}
    * @see javax.servlet.ServletContext#getServlets()
    */
-  public Enumeration getServlets() {
+  public Enumeration<?> getServlets() {
     return null;
   }
 
@@ -225,7 +225,7 @@ public class MockServletContext implements ServletContext {
   public void setAttribute(String name, Object object) {
   }
 
-  Hashtable expectations = new Hashtable();
+  Hashtable<String,String> expectations = new Hashtable<String,String>();
   
   /**
    * @param key

@@ -96,9 +96,9 @@ public class PoemTestCase extends TestCase implements Test {
   /**
    * Runs the test case and collects the results in TestResult.
    */
-  public void run(TestResult result) {
-    PoemTestCase.result = result;
-    super.run(result);
+  public void run(TestResult resultIn) {
+    PoemTestCase.result = resultIn;
+    super.run(resultIn);
   }
   
   static public void assertEquals(String message, int expected, int actual) {

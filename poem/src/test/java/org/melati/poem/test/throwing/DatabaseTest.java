@@ -18,6 +18,7 @@ import org.melati.poem.TableInfo;
 import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
+import org.melati.poem.dbms.test.sql.Thrower;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
@@ -75,7 +76,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
    * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
    */
   public void testAddTableAndCommitThrowing() {
-    Database db = getDb();
+    db = getDb();
     db.beginSession(AccessToken.root);
     TableInfo info = (TableInfo)db.getTableInfoTable().newPersistent();
     info.setName("addedtable");
@@ -86,14 +87,14 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     info.setCachelimit(0);
     info.makePersistent();
     PoemThread.commit();
-    ThrowingConnection.startThrowing(Connection.class, "getMetaData");
+    Thrower.startThrowing(Connection.class, "getMetaData");
     try { 
       db.addTableAndCommit(info, "id");
       fail("Should have blown up");
     } catch (SQLSeriousPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());      
     }
-    ThrowingConnection.stopThrowing(Connection.class, "getMetaData");
+    Thrower.stopThrowing(Connection.class, "getMetaData");
     db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("addedtable"));
     db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("columninfo"));
     db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("tableinfo"));

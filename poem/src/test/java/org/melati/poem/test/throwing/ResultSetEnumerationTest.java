@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
-import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.Thrower;
 
 /**
  * @author timp
@@ -54,53 +54,53 @@ public class ResultSetEnumerationTest extends
   }
 
   public void testHasMoreElements() {
-    ThrowingResultSet.startThrowing(ResultSet.class, "close");
+    Thrower.startThrowing(ResultSet.class, "close");
     try { 
       super.testHasMoreElements();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "close");
+    Thrower.startThrowing(ResultSet.class, "next");
     try { 
       super.testHasMoreElements();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "next");
   }
   public void testNextElement() {
-    ThrowingResultSet.startThrowing(ResultSet.class, "close");
+    Thrower.startThrowing(ResultSet.class, "close");
     try { 
       super.testNextElement();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "close");
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "close");
+    Thrower.startThrowing(ResultSet.class, "next");
     try { 
       super.testNextElement();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "next");
   }
   public void testResultSetEnumeration() {
     super.testResultSetEnumeration();
   }
   public void testSkip() {
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "next");
     try { 
       super.testSkip();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "next");
   }
 
 }

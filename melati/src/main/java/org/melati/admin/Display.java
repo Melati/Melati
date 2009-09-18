@@ -48,7 +48,7 @@ import java.util.Enumeration;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 import org.melati.Melati;
 
 /**

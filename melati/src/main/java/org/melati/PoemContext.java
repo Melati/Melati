@@ -45,7 +45,7 @@
 package org.melati;
 
 import org.melati.poem.Persistent;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 
 /**

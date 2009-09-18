@@ -58,7 +58,7 @@ import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * Base class to use Poem with Servlets.

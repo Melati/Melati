@@ -67,13 +67,13 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "setting (from the data structure definition)";
 
     Enumeration en = getDb().getDisplayTables();
-    String result = "";
+    String outcome = "";
     while (en.hasMoreElements()) {
-      result += en.nextElement().toString();
+      outcome += en.nextElement().toString();
     }
     //System.err.println(expected);
     //System.err.println(result);
-    assertEquals(expected, result);
+    assertEquals(expected, outcome);
   }
 
 

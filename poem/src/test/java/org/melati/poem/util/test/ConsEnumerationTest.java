@@ -65,23 +65,23 @@ public class ConsEnumerationTest extends TestCase {
    * Test method for {@link org.melati.poem.util.ConsEnumeration#skip()}.
    */
   public void testSkip() {
-    ConsEnumeration c = new ConsEnumeration("head", new Vector(1).elements());
+    ConsEnumeration<String> c = new ConsEnumeration<String>("head", new Vector<String>(1).elements());
     assertTrue(c.hasMoreElements());
     c.skip();
     assertFalse(c.hasMoreElements());
     
-    Vector them = new Vector();
+    Vector<String> them = new Vector<String>();
     them.add("a");
     them.add("b");
     them.add("c");
     them.add("d");
-    LimitedEnumeration le = new LimitedEnumeration(them.elements(),2);
-    c = new ConsEnumeration("head", le);
+    LimitedEnumeration<String> le = new LimitedEnumeration<String>(them.elements(),2);
+    c = new ConsEnumeration<String>("head", le);
     c.nextElement();
     c.skip();
     assertEquals("b", c.nextElement());
     
-    c = new ConsEnumeration("head", them.elements());
+    c = new ConsEnumeration<String>("head", them.elements());
     c.nextElement();
     c.skip();
     assertEquals("b", c.nextElement());

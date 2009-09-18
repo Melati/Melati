@@ -42,7 +42,7 @@ public class CountedDumbPagedEnumerationTest extends PagedEnumerationSpec {
     Vector<Integer> them = new Vector<Integer>();
     for (int i = 0; i < 30; i++)
       them.add(new Integer(i));
-    return new CountedDumbPagedEnumeration(them.elements(), 3, 10, 25);
+    return new CountedDumbPagedEnumeration<Integer>(them.elements(), 3, 10, 25);
   }
 
   /**

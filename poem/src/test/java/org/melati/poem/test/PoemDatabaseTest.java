@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
+import org.melati.poem.Column;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemTask;
@@ -78,13 +79,13 @@ public class PoemDatabaseTest extends PoemTestCase {
             + "tablecategory (from the data structure definition)"
             + "setting (from the data structure definition)";
 
-    Enumeration en = getDb().getDisplayTables();
-    String result = "";
+    Enumeration<Table> en = getDb().getDisplayTables();
+    String outcome = "";
     while (en.hasMoreElements()) {
-      result += en.nextElement().toString();
+      outcome += en.nextElement().toString();
     }
     if (getDb().getDbms().canDropColumns()) {
-      assertEquals(expected, result);
+      assertEquals(expected, outcome);
     }
   }
 
@@ -180,11 +181,11 @@ public class PoemDatabaseTest extends PoemTestCase {
     String expected = "groupmembership.user: reference to user "
             + "(INT (org.melati.poem.ReferencePoemType)) "
             + "(from the data structure definition)";
-    String result = "";
-    Enumeration en = getDb().referencesTo(getDb().getUserTable());
+    String outcome = "";
+    Enumeration<Column> en = getDb().referencesTo(getDb().getUserTable());
     while (en.hasMoreElements())
-      result += en.nextElement();
-    assertEquals(expected, result);
+      outcome += en.nextElement();
+    assertEquals(expected, outcome);
   }
 
   /**
@@ -523,7 +524,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#referencesTo(Persistent)
    */
   public void testReferencesToPersistent() {
-    Enumeration en = getDb().referencesTo(
+    Enumeration<Persistent> en = getDb().referencesTo(
             getDb().getUserTable().administratorUser());
     int count = 0;
     while (en.hasMoreElements()) {

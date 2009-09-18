@@ -51,12 +51,12 @@ import java.util.Enumeration;
  * All the code common to {@link CountedDumbPagedEnumeration}
  * and {@link DumbPagedEnumeration}.
  */
-public abstract class PagedEnumerationBase implements PagedEnumeration {
+public abstract class PagedEnumerationBase<T> implements PagedEnumeration {
   
   int pageStart, pageSize;
-  Vector page;
+  Vector<T> page;
   int totalCount;
-  Enumeration us;
+  Enumeration<T> us;
   int currentPosition;
 
 
@@ -158,8 +158,8 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
   /**
    * @return All Pages
    */
-  public Vector getPages() {
-    Vector ret = new Vector(totalCount / pageSize);
+  public Vector<Page> getPages() {
+    Vector<Page> ret = new Vector<Page>(totalCount / pageSize);
     int i = 1;
     while(((i - 1) * pageSize) < totalCount) {
       ret.addElement(new Page(i, ((i - 1) * pageSize) + 1));

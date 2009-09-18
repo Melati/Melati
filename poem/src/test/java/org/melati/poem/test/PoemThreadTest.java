@@ -67,7 +67,7 @@ public class PoemThreadTest extends PoemTestCase {
    */
   public void testToTidy() {
     ToTidyList list = PoemThread.toTidy();
-    Enumeration en = list.elements();
+    Enumeration<Object> en = list.elements();
     int count = 0;
     while (en.hasMoreElements()) { 
       count++;

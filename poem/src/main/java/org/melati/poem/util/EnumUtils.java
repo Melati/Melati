@@ -86,8 +86,8 @@ public final class EnumUtils {
    * @param n the number of Elements to include
    * @return a new Vector of the initial Elements
    */
-  public static Vector<?> initial(Enumeration<?> e, int n) {
-    Vector<Object> v = new Vector<Object>(n);
+  public static <T extends Object> Vector<T> initial(Enumeration<T> e, int n) {
+    Vector<T> v = new Vector<T>(n);
 
     while (n > 0 && e.hasMoreElements()) {
       v.addElement(e.nextElement());

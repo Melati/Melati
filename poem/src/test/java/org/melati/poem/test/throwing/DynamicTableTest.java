@@ -8,7 +8,7 @@ import java.sql.DatabaseMetaData;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
-import org.melati.poem.dbms.test.sql.ThrowingDatabaseMetaData;
+import org.melati.poem.dbms.test.sql.Thrower;
 
 /**
  * @author timp
@@ -189,12 +189,12 @@ public class DynamicTableTest extends org.melati.poem.test.DynamicTableTest {
    * @see org.melati.poem.test.DynamicTableTest#testAddTableAndCommit()
    */
   public void testAddTableAndCommit() throws Exception {
-    ThrowingDatabaseMetaData.startThrowing(DatabaseMetaData.class, "getIndexInfo");
+    Thrower.startThrowing(DatabaseMetaData.class, "getIndexInfo");
     try { 
       super.testAddTableAndCommit();
     } catch (SQLSeriousPoemException e) {
       assertEquals("DatabaseMetaData bombed", e.innermostException().getMessage());      
-      ThrowingDatabaseMetaData.stopThrowing(DatabaseMetaData.class, "getIndexInfo");
+      Thrower.stopThrowing(DatabaseMetaData.class, "getIndexInfo");
     }
   }
 

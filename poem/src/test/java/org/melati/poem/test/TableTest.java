@@ -558,37 +558,37 @@ public class TableTest extends PoemTestCase {
     User exemplar = (User)getDb().getUserTable().newPersistent();
     Enumeration found  = getDb().getUserTable().selection(exemplar);
     int count = 0;
-    User result = null;
+    User outcome = null;
     while (found.hasMoreElements()) {
       count++;
-      result = (User)found.nextElement();
+      outcome = (User)found.nextElement();
       //System.err.println(result);
     }
-    assertNotNull(result);
+    assertNotNull(outcome);
     assertEquals(2, count);
     exemplar.setLogin("_administrator_");
-    result = null;
+    outcome = null;
     count = 0;
     found  = getDb().getUserTable().selection(exemplar, 
         getDb().getUserTable().getNameColumn().fullQuotedName());
     while (found.hasMoreElements()) {
       count++;
-      result = (User)found.nextElement();
+      outcome = (User)found.nextElement();
       //System.err.println(result);
     }
-    assertNotNull(result);
+    assertNotNull(outcome);
     assertEquals(1, count);
 
     exemplar.setLogin("notSet");
-    result = null;
+    outcome = null;
     count = 0;
     found  = getDb().getUserTable().selection(exemplar);
     while (found.hasMoreElements()) {
       count++;
-      result = (User)found.nextElement();
+      outcome = (User)found.nextElement();
      //System.err.println(result);
     }
-    assertNull(result);
+    assertNull(outcome);
     assertEquals(0, count);
   }
 

@@ -61,7 +61,7 @@ public abstract class CachedQuery {
 
   protected PreparedStatementFactory statements = null;
 
-  protected Vector rows = null;
+  protected Vector<Integer> rows = null;
 
   private long tableSerial;
 

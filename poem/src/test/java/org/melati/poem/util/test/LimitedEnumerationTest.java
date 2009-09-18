@@ -23,8 +23,8 @@ public class LimitedEnumerationTest extends TestCase {
   public LimitedEnumerationTest(String name) {
     super(name);
   }
-  LimitedEnumeration it;
-  LimitedEnumeration it2;
+  LimitedEnumeration<String> it;
+  LimitedEnumeration<String> it2;
   /** 
    * {@inheritDoc}
    * @see junit.framework.TestCase#setUp()
@@ -36,8 +36,8 @@ public class LimitedEnumerationTest extends TestCase {
     them.add("b");
     them.add("c");
     them.add("d");
-    it = new LimitedEnumeration(them.elements(),2);
-    it2 = new LimitedEnumeration(new LimitedEnumeration(them.elements(),2),2);
+    it = new LimitedEnumeration<String>(them.elements(),2);
+    it2 = new LimitedEnumeration<String>(new LimitedEnumeration<String>(them.elements(),2),2);
   }
 
   /** 

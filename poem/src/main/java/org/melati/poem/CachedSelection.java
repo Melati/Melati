@@ -92,7 +92,7 @@ public class CachedSelection extends CachedQuery {
   /**
    * @return an Enumeration of Table Row Object Ids
    */
-  public Enumeration troids() {
+  public Enumeration<Integer> troids() {
     compute();
     return rows.elements();
   }

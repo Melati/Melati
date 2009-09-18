@@ -53,7 +53,7 @@ import java.util.Enumeration;
  * <p>
  * Implementations must provide {@link #mapped(Object)}.
  */
-public abstract class  MappedEnumeration<T> implements Enumeration<T> {
+public abstract class MappedEnumeration<T> implements Enumeration<T> {
 
   private Enumeration<?> enumeration;
 

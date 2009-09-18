@@ -556,7 +556,7 @@ public interface Persistent extends Persistable, Treeable {
    * @param columns an Enumeration of Columns
    * @return an Enumeration of Fields 
    */
-  Enumeration fieldsOfColumns(Enumeration columns);
+  Enumeration<Field> fieldsOfColumns(Enumeration<Column> columns);
 
   /**
    * The values of all the object's fields, wrapped up with type information

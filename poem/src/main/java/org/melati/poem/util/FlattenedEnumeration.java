@@ -53,15 +53,15 @@ import java.util.NoSuchElementException;
  * an <code>Enumeration</code> of <code>Enumeration</code>s 
  * or flattening two <code>Enumeration</code>s .
  */
-public class FlattenedEnumeration implements Enumeration {
-  private Enumeration enumerations;
-  private Enumeration enumeration = null;
+public class FlattenedEnumeration<T> implements Enumeration<T> {
+  private Enumeration<Enumeration<T>> enumerations;
+  private Enumeration<T> enumeration = null;
 
   /**
    * Constructor.
    * @param enumerations an Enumeration of Enumerations
    */
-  public FlattenedEnumeration(Enumeration enumerations) {
+  public FlattenedEnumeration(Enumeration<Enumeration<T>> enumerations) {
     this.enumerations = enumerations;
   }
 
@@ -70,15 +70,15 @@ public class FlattenedEnumeration implements Enumeration {
    * @param a head Enumeration
    * @param b tail Enumeration
    */
-  public FlattenedEnumeration(Enumeration a, Enumeration b) {
+  public FlattenedEnumeration(Enumeration<T> a, Enumeration<T> b) {
     this.enumerations =
-        new ConsEnumeration(a, new ConsEnumeration(b, EmptyEnumeration.it));
+        new ConsEnumeration<Enumeration<T>>(a, new ConsEnumeration<Enumeration<T>>(b, new EmptyEnumeration<Enumeration<T>>()));
   }
 
   private void probe() {
     while ((enumeration == null || !enumeration.hasMoreElements()) &&
            enumerations.hasMoreElements())
-      enumeration = (Enumeration)enumerations.nextElement();
+      enumeration = (Enumeration<T>)enumerations.nextElement();
   }
 
   /**
@@ -94,7 +94,7 @@ public class FlattenedEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public synchronized Object nextElement() {
+  public synchronized T nextElement() {
     probe();
     if (enumeration == null)
       throw new NoSuchElementException();

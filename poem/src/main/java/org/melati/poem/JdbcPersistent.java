@@ -709,11 +709,11 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#fieldsOfColumns(java.util.Enumeration)
    */
-  public Enumeration fieldsOfColumns(Enumeration columns) {
+  public Enumeration<Field> fieldsOfColumns(Enumeration<Column> columns) {
     final JdbcPersistent _this = this;
     return
-        new MappedEnumeration(columns) {
-          public Object mapped(Object column) {
+        new MappedEnumeration<Field>(columns) {
+          public Field mapped(Object column) {
             return ((Column)column).asField(_this);
           }
         };
@@ -724,7 +724,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @see org.melati.poem.Persistent#getFields()
    */
 
-  public Enumeration getFields() {
+  public Enumeration<Field> getFields() {
     return fieldsOfColumns(getTable().columns());
   }
 
@@ -733,7 +733,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @see org.melati.poem.Persistent#getRecordDisplayFields()
    */
 
-  public Enumeration getRecordDisplayFields() {
+  public Enumeration<Field> getRecordDisplayFields() {
     return fieldsOfColumns(getTable().getRecordDisplayColumns());
   }
 
@@ -741,7 +741,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getDetailDisplayFields()
    */
-  public Enumeration getDetailDisplayFields() {
+  public Enumeration<Field> getDetailDisplayFields() {
     return fieldsOfColumns(getTable().getDetailDisplayColumns());
   }
 
@@ -749,7 +749,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getSummaryDisplayFields()
    */
-  public Enumeration getSummaryDisplayFields() {
+  public Enumeration<Field> getSummaryDisplayFields() {
     return fieldsOfColumns(getTable().getSummaryDisplayColumns());
   }
 
@@ -757,7 +757,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getSearchCriterionFields()
    */
-  public Enumeration getSearchCriterionFields() {
+  public Enumeration<Field> getSearchCriterionFields() {
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
@@ -785,7 +785,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
 
     deleteLock(PoemThread.sessionToken());
 
-    Enumeration columns = getDatabase().referencesTo(getTable());
+    Enumeration<Column> columns = getDatabase().referencesTo(getTable());
     Vector refEnumerations = new Vector();
 
     while (columns.hasMoreElements()) {

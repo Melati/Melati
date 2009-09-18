@@ -92,7 +92,7 @@ public class JdbcTable implements Selectable, Table {
   private TableListener[] listeners = {};
 
   private Column[] columns = {};
-  private Hashtable columnsByName = new Hashtable();
+  private Hashtable<String, Column> columnsByName = new Hashtable<String, Column>();
 
   private Column troidColumn = null;
   private Column deletedColumn = null;
@@ -111,9 +111,9 @@ public class JdbcTable implements Selectable, Table {
   private TransactionedSerial serial;
 
   private CachedSelection allTroids = null;
-  private Hashtable cachedSelections = new Hashtable();
-  private Hashtable cachedCounts = new Hashtable();
-  private Hashtable cachedExists = new Hashtable();
+  private Hashtable<String, CachedSelection> cachedSelections = new Hashtable<String, CachedSelection>();
+  private Hashtable<String, CachedCount> cachedCounts = new Hashtable<String, CachedCount>();
+  private Hashtable<String, CachedExists> cachedExists = new Hashtable<String, CachedExists>();
 
   private int mostRecentTroid = -1;
   private int extrasIndex = 0;
@@ -1255,7 +1255,7 @@ public class JdbcTable implements Selectable, Table {
    * 
    * @return an {@link Enumeration} of Troids satisfying the criteria.
    */ 
-  public Enumeration troidSelection(String whereClause, String orderByClause,
+  public Enumeration<Integer> troidSelection(String whereClause, String orderByClause,
                                     boolean includeDeleted, 
                                     PoemTransaction transaction) {
     return troidsFrom(selectionResultSet(null, whereClause, orderByClause,
@@ -1286,9 +1286,9 @@ public class JdbcTable implements Selectable, Table {
    * Return an enumeration of troids given 
    * a result set where the first column is an int. 
    */
-  private Enumeration troidsFrom(ResultSet them) {
-    return new ResultSetEnumeration(them) {
-        public Object mapped(ResultSet rs) throws SQLException {
+  private Enumeration<Integer> troidsFrom(ResultSet them) {
+    return new ResultSetEnumeration<Integer>(them) {
+        public Integer mapped(ResultSet rs) throws SQLException {
           return new Integer(rs.getInt(1));
         }
       };
@@ -1337,7 +1337,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #getObject(java.lang.Integer)
    * @see #selection(java.lang.String, java.lang.String, boolean)
    */
-  public Enumeration troidSelection(String whereClause, String orderByClause,
+  public Enumeration<Integer> troidSelection(String whereClause, String orderByClause,
                                     boolean includeDeleted)
       throws SQLPoemException {
     if (allTroids != null &&
@@ -1365,7 +1365,7 @@ public class JdbcTable implements Selectable, Table {
    * {@inheritDoc}
    * @see org.melati.poem.Selectable#selection()
    */
-  public Enumeration selection() throws SQLPoemException {
+  public Enumeration<Persistent> selection() throws SQLPoemException {
     return selection((String)null, (String)null, false);
   }
 
@@ -1434,7 +1434,7 @@ public class JdbcTable implements Selectable, Table {
    * @return a ResultSet as an Enumeration 
    * @see #selection(java.lang.String)
    */   
-  public Enumeration selection(String whereClause, String orderByClause,
+  public Enumeration<Persistent> selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
      return objectsFromTroids(troidSelection(whereClause, orderByClause,
@@ -1487,9 +1487,9 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @return an enumeration of objects given an enumeration of troids.
    */
-  private Enumeration objectsFromTroids(Enumeration troids) {
-    return new MappedEnumeration(troids) {
-        public Object mapped(Object troid) {
+  private Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids) {
+    return new MappedEnumeration<Persistent>(troids) {
+        public Persistent mapped(Object troid) {
           return getObject((Integer)troid);
         }
       };

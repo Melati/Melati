@@ -62,9 +62,10 @@ public class ConsEnumeration<T> implements SkipEnumeration<T> {
    * @param head
    * @param tail
    */
+  @SuppressWarnings("unchecked")
   public ConsEnumeration(T head, Enumeration<T> tail) {
     this.hd = head;
-    this.tl = tail == null ? new EmptyEnumeration<T>() : tail;
+    this.tl = tail == null ?(Enumeration<T>) EmptyEnumeration.it : tail;
   }
 
   /**

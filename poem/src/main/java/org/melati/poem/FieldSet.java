@@ -55,7 +55,7 @@ import org.melati.poem.util.ArrayEnumeration;
  */
 public class FieldSet {
 
-  private Hashtable table_columnMap;
+  private Hashtable<String, Integer> table_columnMap;
   private Field[] fields;
 
   /**
@@ -63,7 +63,7 @@ public class FieldSet {
    * @param table_columnMap a Hashtable keyed on tablename underscore fieldname containing indices to fields
    * @param fields an array of fields
    */
-  public FieldSet(Hashtable table_columnMap, Field[] fields) {
+  public FieldSet(Hashtable<String, Integer> table_columnMap, Field[] fields) {
     this.table_columnMap = table_columnMap;
     this.fields = fields;
   }
@@ -71,8 +71,8 @@ public class FieldSet {
   /**
    * @return an Enumeration of the fields
    */
-  public Enumeration elements() {
-    return new ArrayEnumeration(fields);
+  public Enumeration<Field> elements() {
+    return new ArrayEnumeration<Field>(fields);
   }
 
   /**

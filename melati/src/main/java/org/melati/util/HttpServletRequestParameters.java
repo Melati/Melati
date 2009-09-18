@@ -65,7 +65,6 @@ public class HttpServletRequestParameters {
    * Constructor.
    * @param request to extract parameters from
    */
-  @SuppressWarnings("unchecked")
   public HttpServletRequestParameters(HttpServletRequest request) {
     parameters = new Hashtable<String,Object> ();
     for (Enumeration p = request.getParameterNames();

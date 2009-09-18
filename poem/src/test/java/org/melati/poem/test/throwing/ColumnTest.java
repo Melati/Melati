@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.dbms.test.sql.Thrower;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
 /**
@@ -75,14 +76,14 @@ public class ColumnTest extends org.melati.poem.test.ColumnTest {
   }
 
   public void testFirstFree() {
-    ThrowingResultSet.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "next");
     try { 
       super.testFirstFree();
       fail("Should have blown up");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     } finally { 
-      ThrowingResultSet.stopThrowing(ResultSet.class, "next");
+      Thrower.stopThrowing(ResultSet.class, "next");
     }
   }
 

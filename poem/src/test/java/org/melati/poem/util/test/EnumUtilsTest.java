@@ -55,7 +55,7 @@ public class EnumUtilsTest extends TestCase {
     EnumUtils.skip(e, 2);
     assertEquals("c",(String)e.nextElement());
     
-    SkipEnumeration se = new LimitedEnumeration(v.elements(), 2); 
+    SkipEnumeration<String> se = new LimitedEnumeration<String>(v.elements(), 2); 
     EnumUtils.skip(se, 1);
     assertEquals("b",(String)se.nextElement());
     

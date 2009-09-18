@@ -91,7 +91,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
                     + "=" + moneyPenny.getTroid(), null);
     assertEquals(new Integer(1), new Integer(EnumUtils
             .vectorOf(ptq.selection()).size()));
-    Enumeration en = ptq.selection();
+    Enumeration<Object> en = ptq.selection();
     while (en.hasMoreElements()) {
       Object ne = en.nextElement();
       System.err.println("FieldSet:" + ne);
@@ -100,12 +100,12 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     PoemTask readAsGuest = new PoemTask() {
       public void run() {
         try {
-          Enumeration en = ptq.selection();
-          assertEquals(new Integer(1), new Integer(EnumUtils.vectorOf(en)
+          Enumeration<Object> en2 = ptq.selection();
+          assertEquals(new Integer(1), new Integer(EnumUtils.vectorOf(en2)
                   .size()));
-          en = ptq.selection();
-          while (en.hasMoreElements()) {
-            System.err.println(en.nextElement());
+          en2 = ptq.selection();
+          while (en2.hasMoreElements()) {
+            System.err.println(en2.nextElement());
           }
           fail("Should have blown up");
         } catch (AccessPoemException e) {
@@ -128,12 +128,12 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
             null);
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
-        Enumeration en = ptq2.selection();
+        Enumeration<Object> en2 = ptq2.selection();
         try {
-        assertEquals(2, EnumUtils.vectorOf(en).size());
-          en = ptq2.selection();
-          while (en.hasMoreElements()) {
-            FieldSet tuple = (FieldSet)en.nextElement();
+        assertEquals(2, EnumUtils.vectorOf(en2).size());
+          en2 = ptq2.selection();
+          while (en2.hasMoreElements()) {
+            FieldSet tuple = (FieldSet)en2.nextElement();
             System.err.println(tuple);
           }
           fail("Should have blown up");

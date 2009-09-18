@@ -54,6 +54,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+import org.melati.poem.PoemBugPoemException;
+
 /**
  * List of objects which need closing when a <code>Transaction</code> is
  * terminated.
@@ -68,7 +70,7 @@ public class ToTidyList {
     void close();
   }
 
-  private Vector objects = new Vector();
+  private Vector<Object> objects = new Vector<Object>();
 
   private static void tidy(Object o) {
     try {
@@ -94,7 +96,7 @@ public class ToTidyList {
       else if (o instanceof Closeable)
         ((Closeable)o).close();
     } catch (Exception e) {
-      e.printStackTrace(System.err);
+      throw new PoemBugPoemException("Unexpected object type in ToTidy: " + o.getClass(), e);
     }
   }
 
@@ -171,7 +173,7 @@ public class ToTidyList {
   /**
    * @return an Enumeration of the items on the list
    */
-  public Enumeration elements() {
+  public Enumeration<Object> elements() {
     return objects.elements();
   }
 }

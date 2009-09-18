@@ -53,7 +53,7 @@ import java.util.Set;
  * @since 8 Jun 2007
  *
  */
-public class TableMap implements Map {
+public class TableMap implements Map<Integer, Persistent> {
 
   protected Table table;
   /**
@@ -123,7 +123,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#entrySet()
    */
-  public Set entrySet() {
+  public Set<Map.Entry<Integer, Persistent>> entrySet() {
     throw new UnsupportedOperationException();
   }
 
@@ -131,7 +131,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#get(java.lang.Object)
    */
-  public Object get(Object key) {
+  public Persistent get(Object key) {
     return table.getObject((Integer)key);
   }
 
@@ -147,7 +147,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#keySet()
    */
-  public Set keySet() {
+  public Set<Integer> keySet() {
     throw new UnsupportedOperationException();
   }
 
@@ -155,7 +155,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#put(K, V)
    */
-  public Object put(Object arg0, Object arg1) {
+  public Persistent put(Integer arg0, Persistent arg1) {
     throw new UnsupportedOperationException();
   }
 
@@ -163,7 +163,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#putAll(java.util.Map)
    */
-  public void putAll(Map arg0) {
+  public void putAll(Map<? extends Integer, ? extends Persistent> arg0) {
     throw new UnsupportedOperationException();
   }
 
@@ -171,7 +171,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#remove(java.lang.Object)
    */
-  public Object remove(Object key) {
+  public Persistent remove(Object key) {
     Persistent p = table.getObject((Integer)key);
     if (p != null)
       p.delete();
@@ -190,7 +190,7 @@ public class TableMap implements Map {
    * {@inheritDoc}
    * @see java.util.Map#values()
    */
-  public Collection values() {
+  public Collection<Persistent> values() {
     return Collections.list(table.selection());
   }
 

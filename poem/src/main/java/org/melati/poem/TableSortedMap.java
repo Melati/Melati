@@ -53,7 +53,7 @@ import java.util.SortedMap;
  * @since 8 Jun 2007
  *
  */
-public class TableSortedMap extends TableMap implements SortedMap {
+public class TableSortedMap extends TableMap implements SortedMap<Integer, Persistent> {
 
   /**
    * Constructor for setter injection.
@@ -74,7 +74,7 @@ public class TableSortedMap extends TableMap implements SortedMap {
    * {@inheritDoc}
    * @see java.util.SortedMap#comparator()
    */
-  public Comparator comparator() {
+  public Comparator<Integer> comparator() {
     return null;
   }
 
@@ -82,7 +82,7 @@ public class TableSortedMap extends TableMap implements SortedMap {
    * {@inheritDoc}
    * @see java.util.SortedMap#firstKey()
    */
-  public Object firstKey() {
+  public Integer firstKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
     try { 
@@ -101,10 +101,10 @@ public class TableSortedMap extends TableMap implements SortedMap {
    * account of deletion as mostRecentTroid is never decremented 
    * @see java.util.SortedMap#lastKey()
    */
-  public Object lastKey() {
+  public Integer lastKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
-    Enumeration them  = table.selection(null, table.getDatabase().getDbms().getQuotedName("id") + " DESC", false);
+    Enumeration<Persistent> them  = table.selection(null, table.getDatabase().getDbms().getQuotedName("id") + " DESC", false);
     return  ((Persistent)them.nextElement()).troid();
   }
 
@@ -112,7 +112,7 @@ public class TableSortedMap extends TableMap implements SortedMap {
    * {@inheritDoc}
    * @see java.util.SortedMap#subMap(K fromKey, K toKey)
    */
-  public SortedMap subMap(Object fromKey, Object toKey) {
+  public SortedMap<Integer, Persistent> subMap(Integer fromKey, Integer toKey) {
     throw new UnsupportedOperationException();
   }
 
@@ -120,14 +120,14 @@ public class TableSortedMap extends TableMap implements SortedMap {
    * {@inheritDoc}
    * @see java.util.SortedMap#headMap(K)
    */
-  public SortedMap headMap(Object toKey) {
+  public SortedMap<Integer, Persistent> headMap(Integer toKey) {
     throw new UnsupportedOperationException();
   }
   /** 
    * {@inheritDoc}
    * @see java.util.SortedMap#tailMap(K)
    */
-  public SortedMap tailMap(Object arg0) {
+  public SortedMap<Integer, Persistent> tailMap(Integer arg0) {
     throw new UnsupportedOperationException();
   }
 

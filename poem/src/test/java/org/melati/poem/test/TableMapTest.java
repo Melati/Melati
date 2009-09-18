@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.melati.poem.Persistent;
 import org.melati.poem.TableMap;
 import org.melati.poem.User;
 
@@ -178,12 +179,15 @@ public class TableMapTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableMap#put(java.lang.Object, java.lang.Object)}.
    */
   public void testPut() {
+    /*
+     * So generics are good for something 
     try { 
       getObjectUnderTest().put("1","1");
       fail("Should have bombed");
     } catch (UnsupportedOperationException e) { 
       e = null;
-    }            
+    }  
+    */          
   }
 
   /**
@@ -231,8 +235,8 @@ public class TableMapTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableMap#values()}.
    */
   public void testValues() {
-    Collection c = getObjectUnderTest().values();
-    Iterator i = c.iterator(); 
+    Collection<Persistent> c = getObjectUnderTest().values();
+    Iterator<Persistent> i = c.iterator(); 
     assertEquals("_guest_",i.next().toString());
     assertEquals("_administrator_",i.next().toString());
     try { 

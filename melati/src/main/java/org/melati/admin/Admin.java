@@ -485,6 +485,7 @@ public class Admin extends TemplateServlet {
     melati.setPoemContext(new PoemContext(newPersistent));
     melati.loadTableAndObject();
     //context.put("object", newPersistent);
+    melati.getResponse().setStatus(201);
     return adminTemplate("Updated");
   }
 

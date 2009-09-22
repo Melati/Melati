@@ -252,10 +252,10 @@ public class Admin extends TemplateServlet {
 
     final Persistent criteria = table.newPersistent();
 
-    Vector whereClause = new Vector();
+    Vector<Object> whereClause = new Vector<Object>();
 
-    for (Enumeration c = table.columns(); c.hasMoreElements();) {
-      Column column = (Column) c.nextElement();
+    for (Enumeration<Column> c = table.columns(); c.hasMoreElements();) {
+      Column column = c.nextElement();
       String name = "field_" + column.getName();
       String fieldValue = Form.getFieldNulled(context, name);
       if (fieldValue != null) {
@@ -274,8 +274,8 @@ public class Admin extends TemplateServlet {
 
     PoemType searchColumnsType = getSearchColumnsType(database, table);
 
-    Vector orderings = new Vector();
-    Vector orderClause = new Vector();
+    Vector<Object> orderings = new Vector<Object>();
+    Vector<Object> orderClause = new Vector<Object>();
 
     
     for (int o = 1; o <= table.displayColumnsCount(DisplayLevel.summary); ++o) {
@@ -319,7 +319,7 @@ public class Admin extends TemplateServlet {
     if (paged) { 
       final int resultsPerPage = 20;
       context.put("results", 
-                  new CountedDumbPagedEnumeration(
+                  new CountedDumbPagedEnumeration<Persistent>(
                           table.selection(criteria, orderBySQL, false, false),
                           start, resultsPerPage,
                           table.cachedCount(criteria, false, false).count())
@@ -349,9 +349,9 @@ public class Admin extends TemplateServlet {
 
     final Persistent criteria = table.newPersistent();
 
-    MappedEnumeration criterias = new MappedEnumeration(table
+    MappedEnumeration<Field> criterias = new MappedEnumeration<Field>(table
         .getSearchCriterionColumns()) {
-      public Object mapped(Object c) {
+      public Field mapped(Object c) {
         return ((Column) c).asField(criteria).withNullable(true);
       }
     };
@@ -359,9 +359,9 @@ public class Admin extends TemplateServlet {
     context.put("criteria", EnumUtils.vectorOf(criterias));
     PoemType searchColumnsType = getSearchColumnsType(database, table);
 
-    Vector orderings = new Vector();
+    Vector<Field> orderings = new Vector<Field>();
     // NOTE Order by searchable columns, this could be summary columns
-    Enumeration searchColumns = searchColumnsType.possibleRaws();
+    Enumeration<Object> searchColumns = searchColumnsType.possibleRaws();
     int o = 0;
     while (searchColumns.hasMoreElements()) {
       String name = "order-" + o++;
@@ -380,9 +380,9 @@ public class Admin extends TemplateServlet {
   private static PoemType getSearchColumnsType(final Database database, final Table table) {
     PoemType searchColumnsType = new ReferencePoemType(database
         .getColumnInfoTable(), false) {
-      protected Enumeration _possibleRaws() {
-        return new MappedEnumeration(table.getSearchCriterionColumns()) {
-          public Object mapped(Object column) {
+      protected Enumeration<Integer> _possibleRaws() {
+        return new MappedEnumeration<Integer>(table.getSearchCriterionColumns()) {
+          public Integer mapped(Object column) {
             return ((Column) column).getColumnInfo().getTroid();
           }
         };
@@ -433,10 +433,10 @@ public class Admin extends TemplateServlet {
      */
 
     // getDetailDisplayColumns() == columns() but could exclude some in theory
-    Enumeration columns = melati.getTable().getDetailDisplayColumns();
-    Vector fields = new Vector();
+    Enumeration<Column> columns = melati.getTable().getDetailDisplayColumns();
+    Vector<Field> fields = new Vector<Field>();
     while (columns.hasMoreElements()) {
-      Column column = (Column) columns.nextElement();
+      Column column = columns.nextElement();
       String stringValue = context.getFormField("field_" + column.getName());
       Object value = null;
       if (stringValue != null)

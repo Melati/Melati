@@ -80,7 +80,7 @@ public class ReferencePoemType extends IndexPoemType {
    * <p>
    * In this case the troids of rows in the referenced table.
    */
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     return targetTable.troidSelection(null, null, false);
   }
 

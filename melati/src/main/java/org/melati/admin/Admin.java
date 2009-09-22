@@ -624,6 +624,9 @@ public class Admin extends TemplateServlet {
     homepageURL = homepageURLSetting.getValue();
     // HACK Not very satisfactory, but only to enable testing
     //context.put("object", homepageURLSetting);
+    // If we wanted to get RESTful at this point, but it is a bit nasty as a UI
+    // melati.getResponse().setHeader("Location",melati.sameURLWith("action", ""));
+    
     return adminTemplate("Updated");
   }
 

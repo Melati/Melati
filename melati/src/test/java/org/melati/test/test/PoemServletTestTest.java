@@ -43,8 +43,6 @@
  */
 package org.melati.test.test;
 
-import net.sourceforge.jwebunit.exception.TestingEngineResponseException;
-
 import org.melati.JettyWebTestCase;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;

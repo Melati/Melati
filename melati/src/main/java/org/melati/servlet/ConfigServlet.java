@@ -58,6 +58,7 @@ import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.NoSuchRowPoemException;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiWriter;
 
@@ -222,6 +223,8 @@ public abstract class ConfigServlet extends HttpServlet {
       return 401;
     if (e instanceof InvalidUsageException)
       return 400;
+    if (e instanceof NoSuchRowPoemException)
+      return 404;
     return 500;
   }
 

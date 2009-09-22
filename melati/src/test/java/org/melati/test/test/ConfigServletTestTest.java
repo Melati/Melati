@@ -46,6 +46,8 @@ package org.melati.test.test;
 
 import org.melati.JettyWebTestCase;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+
 /**
  * @author timp
  * @since  28 Feb 2008
@@ -83,7 +85,11 @@ public class ConfigServletTestTest extends JettyWebTestCase {
   public void testException() {
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTest");
-    clickLinkWithText("Exception");
+    try { 
+      clickLinkWithText("Exception");
+    } catch (FailingHttpStatusCodeException e) { 
+      assertEquals(500, e.getStatusCode());
+    }
     assertTextPresent("MelatiBugMelatiException");
   }
   /**

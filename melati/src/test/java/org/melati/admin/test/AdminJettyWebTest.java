@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import junit.framework.AssertionFailedError;
 
+import net.sourceforge.jwebunit.exception.TestingEngineResponseException;
 import net.sourceforge.jwebunit.html.Cell;
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
@@ -62,7 +63,11 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    * 
    */
   public void testBadUrl() {
-    gotoPage("/Admin/" + dbName + "/Unknown");
+    try { 
+      gotoPage("/Admin/" + dbName + "/Unknown");
+    } catch (TestingEngineResponseException e) { 
+      assertEquals(400, e.getHttpStatusCode());
+    }
     assertTextPresent("Melati Error Template");
   }
   /**
@@ -190,8 +195,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   /**
    * 
    */
-  public void testAdminRight() {
-    gotoPage("/Admin/" + dbName + "/user/0/Right");
+  public void testAdminRecord() {
+    gotoPage("/Admin/" + dbName + "/user/0/Record");
     // Hmmm Should assert something, coverage is the thing
   }
   /**

@@ -175,6 +175,7 @@ public abstract class TemplateServlet extends PoemServlet {
    * @param e      the {@link Exception} to report
    */
   public void error(Melati melati, Exception e) {
+    melati.getResponse().setStatus(httpStatusCode(e));
     ServletTemplateContext templateContext = melati.getServletTemplateContext();
     // If this a DB error which has occurred prior to 
     // the establishment of a template context

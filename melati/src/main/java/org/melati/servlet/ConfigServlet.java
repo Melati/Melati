@@ -57,6 +57,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.MelatiConfig;
+import org.melati.poem.AccessPoemException;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiWriter;
 
@@ -190,6 +191,8 @@ public abstract class ConfigServlet extends HttpServlet {
    * @param e      the {@link Exception} to report
    */
   public void error(Melati melati, Exception e) {
+    melati.getResponse().setStatus(httpStatusCode(e));
+    
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
       try { 
@@ -214,6 +217,14 @@ public abstract class ConfigServlet extends HttpServlet {
     }
   }
   
+  protected int httpStatusCode(Exception e) {
+    if (e instanceof AccessPoemException)
+      return 401;
+    if (e instanceof InvalidUsageException)
+      return 400;
+    return 500;
+  }
+
   /**
    * Print an error directly to the client.
    *

@@ -43,7 +43,11 @@
  */
 package org.melati.test.test;
 
+import net.sourceforge.jwebunit.exception.TestingEngineResponseException;
+
 import org.melati.JettyWebTestCase;
+
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 
 /**
@@ -85,7 +89,12 @@ public class PoemServletTestTest extends JettyWebTestCase {
   public void testException() {
     setScriptingEnabled(false);
     beginAt("/" + servletName + "/melatitest");
-    clickLinkWithText("Exception");
+    try { 
+      clickLinkWithText("Exception");
+    } catch (FailingHttpStatusCodeException e) { 
+      assertEquals(500, e.getStatusCode());
+    }
+    
     assertTextPresent("MelatiBugMelatiException");
   }
   /**

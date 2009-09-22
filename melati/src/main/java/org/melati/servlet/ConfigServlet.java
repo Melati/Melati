@@ -220,12 +220,12 @@ public abstract class ConfigServlet extends HttpServlet {
   
   protected int httpStatusCode(Exception e) {
     if (e instanceof AccessPoemException)
-      return 401;
+      return 401; // Not Authorized
     if (e instanceof InvalidUsageException)
-      return 400;
+      return 400; // Client error
     if (e instanceof NoSuchRowPoemException)
-      return 404;
-    return 500;
+      return 404; // Not found
+    return 500; // Server error
   }
 
   /**

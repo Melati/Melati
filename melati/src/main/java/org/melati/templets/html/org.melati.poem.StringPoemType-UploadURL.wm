@@ -42,25 +42,12 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-## Upload an ordinary file.
+## Upload a file to a URI.
+
+$ml.inputAs($object, "org.melati.poem.StringPoemType")
 
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 
-#if ($field.Height != 1) #begin
-  <textarea name="field_$ml.rendered($field.Name)"
- #if ($field.Description) #begin
-         title="$field.Description"
- #end
-         cols="$field.Width"
-         rows="$field.Height">$ml.rendered($field.RawString)</textarea>
-#end #else #begin
-  <input name="field_$ml.rendered($field.Name)" 
- #if ($field.Description) #begin
-         title="$field.Description"
- #end
-       size="$field.Width"
-       value="$ml.Attr.rendered($field.RawString)" />
-#end
 <br />
 #if ($field.RawString.equals("")) #begin
 (No URL set)
@@ -68,15 +55,8 @@
 (<a href="$ml.Attr.rendered($field.RawString)">File contents</a>)
 #end
 
-<script language="JavaScript1.2" type="text/javascript">
-add_rule("field_$ml.escaped($field.Name)", 
-         "$ml.escaped($field.DisplayName)", 
-         !$field.Type.Nullable);
-</script>
-
-<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)" 
+<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)"
    onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
-
 
 <script language="JavaScript1.2" type="text/javascript">
 var uploadwin_$ml.escaped($field.Name);
@@ -86,11 +66,10 @@ function upload_$ml.escaped($field.Name) () {
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }
+
 function update_$ml.escaped($field.Name) (url) {
   document.forms[0].field_$(ml.rendered($field.Name)).value = url;
   uploadwin_$(ml.escaped($field.Name)).close();
 }
-
 </script>
-
 

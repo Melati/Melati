@@ -44,32 +44,13 @@
 ##
 ## Upload an image file and display it in a thumbnail with a popup.
 ##
+
+$ml.inputAs($object, "org.melati.poem.StringPoemType")
+
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 
-<a name="anchor_$ml.escaped($field.Name)"></a>
-#if ($field.Height != 1) #begin
-  <textarea name="field_$ml.rendered($field.Name)"
- #if ($field.Description) #begin
-         title="$field.Description"
- #end
-         cols="$field.Width"
-         rows="$field.Height">$ml.rendered($field.RawString)</textarea>
-#end #else #begin
-  <input name="field_$ml.rendered($field.Name)" 
- #if ($field.Description) #begin
-         title="$field.Description"
- #end
-         size="$field.Width"
-         value="$ml.Attr.rendered($field.RawString)" />
-#end
 <br />
 
-<script language="JavaScript1.2" type="text/javascript">
-  var imagename_$ml.escaped($field.Name) = '$field.RawString';
-  add_rule("field_$ml.escaped($field.Name)",
-           "$ml.escaped($field.DisplayName)",
-           !$field.Type.Nullable);
-</script>
 
 <a id="zoomOut_$ml.escaped($field.Name)"
    target="ZoomOut_$ml.escaped($field.Name)" 
@@ -89,7 +70,6 @@
 
 <script language="JavaScript1.2" type="text/javascript">
 var uploadwin_$ml.escaped($field.Name);
-var imageURL = '$field.RawString';
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
     = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',

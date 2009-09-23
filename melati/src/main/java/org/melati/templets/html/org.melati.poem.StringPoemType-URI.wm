@@ -1,0 +1,83 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2009 Tim Pizey
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Pizey <timp At paneris.org>
+##     http://paneris.org/~williamc
+##
+## Render a URI either with a link or a thumbnail with a popup if an image.
+##
+$ml.inputAs($object, "org.melati.poem.StringPoemType")
+
+#if ($field.RawString.equals("")) #begin
+(No URL set)
+#end #else #begin
+ #if ($field.RawString.toLowerCase().endsWith(".jpg") || $field.RawString.toLowerCase().endsWith(".gif") ) #begin 
+
+<a id="zoomOut_$ml.escaped($field.Name)"
+   target="ZoomOut_$ml.escaped($field.Name)" 
+   title="Click to view full size image"
+   onClick="popupImage_$ml.escaped($field.Name)(); return false;"
+   href="$field.RawString"
+><img src="$field.RawString" 
+   width="60" 
+   name="$ml.escaped($field.Name)" 
+   align="top" 
+   alt="Uploaded image thumbnail"
+   title="Uploaded image thumbnail"
+   border="0" /></a>
+
+
+<script language="JavaScript1.2" type="text/javascript">
+function popupImage_$ml.escaped($field.Name)() { 
+  popup = window.open(imageURL,'ZoomOut_$ml.escaped($field.Name)','scrollbars=yes,width=650,height=450');
+  popup.focus();
+  return false;
+}
+</script>
+ #end #else #begin
+(<a id="zoomOut_$ml.escaped($field.Name)"
+   target="ZoomOut_$ml.escaped($field.Name)" 
+   title="Click to view page in new window"
+   href="$ml.Attr.rendered($field.RawString)">File contents</a>)
+ #end
+#end
+
+
+

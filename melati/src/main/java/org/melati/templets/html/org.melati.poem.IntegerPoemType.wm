@@ -42,7 +42,7 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-
+<!--  $Source$ -->
 <input name="field_$ml.rendered($field.Name)" 
        size="$field.Width"
 #if ($field.Description) #begin

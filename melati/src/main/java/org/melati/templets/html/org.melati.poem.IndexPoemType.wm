@@ -43,6 +43,7 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 ## Expecting $object to be a Field
+<!--  $Source$ -->
 <select name="field_$ml.rendered($object.Name)" 
 #if ($object.Description) #begin
         title="$object.Description"

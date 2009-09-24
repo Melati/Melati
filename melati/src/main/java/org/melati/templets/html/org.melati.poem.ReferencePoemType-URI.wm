@@ -23,14 +23,16 @@ select_field_$(ml.rendered($object.Name)).addEventListener("change",function(){ 
 function display(e){
   var url = e.options[e.selectedIndex].text.trim();
   var displayDiv = document.getElementById("selected_field_$ml.rendered($object.Name)_display");
-  
+  var linkText = "<a id='zoomOut_$ml.rendered($object.Name)' " + 
+                           "target='ZoomOut_$ml.rendered($object.Name)' " + 
+                           "title='Click to view in a new window' " + 
+                           "href='" + url +"'>";
   if(url.toLowerCase().lastIndexOf(".jpg") > 1) {
-    displayDiv.innerHTML = "<a id='zoomOut_$ml.rendered($object.Name)' " + 
-                           "target='ZoomOut_$ml.rendered($object.Name)' title='Click to view in a new window' " + 
-                           "href='" + url +"'>" +
-                           "<img width='60' src='" + url + "'></a>"; 
+    displayDiv.innerHTML = linkText + 
+                           "<img width='60' src='" + url + "' ></a>"; 
   } else { 
-    displayDiv.innerHTML = "<a href='" + url + "'>Follow</a>"; 
+    displayDiv.innerHTML = linkText +  
+                           "Follow</a>"; 
   }
 }
 

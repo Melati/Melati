@@ -68,8 +68,8 @@ public final class CharData {
   /**
    * @return an Iterator of Items
    */
-  public static Iterator getItems() {
-    return new Iterator() {
+  public static Iterator<Item> getItems() {
+    return new Iterator<Item>() {
 
         int i = 0;
 
@@ -77,7 +77,7 @@ public final class CharData {
           return i < charData.length;
         }
 
-        public Object next() {
+        public Item next() {
           return new Item(i++);
         }
 

@@ -245,8 +245,8 @@ public final class ClassNameTempletLoader implements TempletLoader {
   }
 
   /**
-   * Get a templet either from the FieldAttributes or 
-   * the class name.
+   * Get a templet either from the classname concatenated with 
+   * FieldAttributes.RenederInfo or the class name.
    * 
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine,MarkupLanguage,FieldAttributes)

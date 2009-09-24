@@ -45,6 +45,8 @@
 ## Expecting $object to be a Field
 <!--  \$Source$ -->
 $ml.inputAs($object, "org.melati.poem.IndexPoemType")
+
+<div id="field_$ml.rendered($object.Name)_selected">
 #if (!$field.RawString.equals("")) #begin
  #if ($field.RawString.toLowerCase().endsWith(".jpg") || $field.RawString.toLowerCase().endsWith(".gif") ) #begin 
 
@@ -78,4 +80,7 @@ function popupImage_$ml.escaped($field.Name)() {
 #end
 
 
+</div>
 
+<script>
+</script>

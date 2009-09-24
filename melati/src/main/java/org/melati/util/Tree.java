@@ -125,10 +125,10 @@ public class Tree {
    *        breadth-first
    * @return all the nodes down to the given depth
    */
-  public Vector flattened(int depthP, boolean depthFirst) {
+  public Vector<TreeNode> flattened(int depthP, boolean depthFirst) {
 
-    Vector results = new Vector();
-    Vector agenda = new Vector();
+    Vector<TreeNode> results = new Vector<TreeNode>();
+    Vector<TreeNode> agenda = new Vector<TreeNode>();
     for (int i = 0; i < roots.length; i++) {
       agenda.addElement(roots[i]);
     }
@@ -162,14 +162,14 @@ public class Tree {
    *        depth means apply this to all nodes in the tree
    * @return all the nodes down to the given depth
    */
-  public Vector flattened(int depthP) {
+  public Vector<TreeNode> flattened(int depthP) {
     return flattened(depthP, true);
   }
 
   /**
    * @return all the nodes, depth-first
    */
-  public Vector flattened() {
+  public Vector<TreeNode> flattened() {
     return flattened(-1);
   }
 
@@ -186,9 +186,9 @@ public class Tree {
    * @return a Vector nodes that have had func applied to them
    */
   public Vector apply(Function func, int depthP, boolean depthFirst) {
-    Vector flattened = flattened(depthP, depthFirst);
+    Vector<TreeNode> flattened = flattened(depthP, depthFirst);
     for (int i = 0; i < flattened.size(); i++) {
-      flattened.setElementAt(func.apply(flattened.elementAt(i)), i);
+      flattened.setElementAt((TreeNode)func.apply(flattened.elementAt(i)), i);
     }
     return flattened;
   }
@@ -243,8 +243,8 @@ public class Tree {
    *        depth means return all nodes in the tree
    * @return a sorted Vector of the tree's contents, down to the given depth
    */
-  public Vector sorted(Order cmp, int depthP) {
-    Vector flattened = flattened(depthP);
+  public Vector<TreeNode> sorted(Order cmp, int depthP) {
+    Vector<TreeNode> flattened = flattened(depthP);
     Object[] sorted = SortUtils.sorted(cmp, flattened);
     System.arraycopy(sorted, 0, flattened, 0, sorted.length);
     return flattened;

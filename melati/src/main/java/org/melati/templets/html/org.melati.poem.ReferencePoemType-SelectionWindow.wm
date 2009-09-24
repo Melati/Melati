@@ -43,6 +43,10 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 ## Expecting $object to be a Field
+##
+## Note that the template inheritance tree is not  backed up for templates specialised with renderinfo. 
+##
+
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 <input type="hidden"
     name="field_$ml.rendered($object.Name)" 

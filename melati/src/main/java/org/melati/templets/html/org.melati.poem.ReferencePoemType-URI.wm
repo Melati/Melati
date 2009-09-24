@@ -13,71 +13,26 @@
 <!--  \$Source$ -->
 $ml.inputAs($object, "org.melati.poem.IndexPoemType")
 
-<div id="field_$ml.rendered($object.Name)_selected">
-#if (!$field.RawString.equals("")) #begin
- #if ($field.RawString.toLowerCase().endsWith(".jpg") || $field.RawString.toLowerCase().endsWith(".gif") ) #begin 
-
-<a id="zoomOut_$ml.escaped($field.Name)"
-   target="ZoomOut_$ml.escaped($field.Name)" 
-   title="Click to view full size image"
-   onClick="popupImage_$ml.escaped($field.Name)(); return false;"
-   href="$ml.Attr.rendered($field.RawString)"
-><img src="$field.RawString" 
-   width="60" 
-   name="$ml.escaped($field.Name)" 
-   align="top" 
-   alt="Uploaded image thumbnail"
-   title="Uploaded image thumbnail"
-   border="0" /></a>
-
+<div id="selected_field_$ml.rendered($object.Name)_display"></div>
 
 <script language="JavaScript1.2" type="text/javascript">
+var select_field_$ml.rendered($object.Name) = document.getElementById("field_$ml.rendered($object.Name)");
+display(select_field_$ml.rendered($object.Name));
+select_field_$(ml.rendered($object.Name)).addEventListener("change",function(){ display(this);},false);
 
-// Add function as onLoad and onChange to select element. 
-var 
-
-function popupImage_$ml.escaped($field.Name)() { 
-  popup = window.open(imageURL,'ZoomOut_$ml.escaped($field.Name)','scrollbars=yes,width=650,height=450');
-  popup.focus();
-  return false;
-}
-function doit(Element select) { 
-  var xmlhttp=false;
-  if (typeof XMLHttpRequest!='undefined') {
-    try {
-      xmlhttp = new XMLHttpRequest();
-    } catch (e) {
-      xmlhttp=false;
-    }
-  }
-  if (!xmlhttp && window.createRequest) {
-    try {
-      xmlhttp = window.createRequest();
-    } catch (e) {
-      xmlhttp=false;
-    }
-  }
-  if (xmlhttp) {
-    xmlhttp.open("HEAD", "me.jpg",true);
-    xmlhttp.onreadystatechange=function() {
-       if (xmlhttp.readyState==4) {
-         alert(xmlhttp.getAllResponseHeaders())
-       }
-     }
-     xmlhttp.send(null);
+function display(e){
+  var url = e.options[e.selectedIndex].text.trim();
+  var displayDiv = document.getElementById("selected_field_$ml.rendered($object.Name)_display");
+  
+  if(url.toLowerCase().lastIndexOf(".jpg") > 1) {
+    displayDiv.innerHTML = "<a id='zoomOut_$ml.rendered($object.Name)' " + 
+                           "target='ZoomOut_$ml.rendered($object.Name)' title='Click to view in a new window' " + 
+                           "href='" + url +"'>" +
+                           "<img width='60' src='" + url + "'></a>"; 
+  } else { 
+    displayDiv.innerHTML = "<a href='" + url + "'>Follow</a>"; 
   }
 }
+
 </script>
- #end #else #begin
-(<a id="zoomOut_$ml.escaped($field.Name)"
-   target="ZoomOut_$ml.escaped($field.Name)" 
-   title="Click to view page in new window"
-   href="$ml.Attr.rendered($field.RawString)">File contents</a>)
- #end
-#end
 
-
-</div>
-
-<script>
-</script>

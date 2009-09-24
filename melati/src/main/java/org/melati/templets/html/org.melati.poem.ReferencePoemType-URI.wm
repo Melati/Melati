@@ -17,22 +17,24 @@ $ml.inputAs($object, "org.melati.poem.IndexPoemType")
 
 <script language="JavaScript1.2" type="text/javascript">
 var select_field_$ml.rendered($object.Name) = document.getElementById("field_$ml.rendered($object.Name)");
-display(select_field_$ml.rendered($object.Name));
-select_field_$(ml.rendered($object.Name)).addEventListener("change",function(){ display(this);},false);
+display_$ml.rendered($object.Name)(select_field_$ml.rendered($object.Name));
+select_field_$(ml.rendered($object.Name)).addEventListener("change",function(){ display_$ml.rendered($object.Name)(this);},false);
 
-function display(e){
+function display_$ml.rendered($object.Name)(e){
   var url = e.options[e.selectedIndex].text.trim();
   var displayDiv = document.getElementById("selected_field_$ml.rendered($object.Name)_display");
   var linkText = "<a id='zoomOut_$ml.rendered($object.Name)' " + 
                            "target='ZoomOut_$ml.rendered($object.Name)' " + 
                            "title='Click to view in a new window' " + 
                            "href='" + url +"'>";
-  if(url.toLowerCase().lastIndexOf(".jpg") > 1) {
-    displayDiv.innerHTML = linkText + 
-                           "<img width='60' src='" + url + "' ></a>"; 
-  } else { 
-    displayDiv.innerHTML = linkText +  
-                           "Follow</a>"; 
+  if (url != "") {
+    if(url.toLowerCase().lastIndexOf(".jpg") > 1) {
+      displayDiv.innerHTML = linkText + 
+                             "<img width='60' src='" + url + "' ></a>"; 
+    } else { 
+      displayDiv.innerHTML = linkText +  
+                             "Follow</a>"; 
+    }
   }
 }
 

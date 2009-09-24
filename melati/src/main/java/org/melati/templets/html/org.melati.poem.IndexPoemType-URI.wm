@@ -43,7 +43,7 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 ## Expecting $object to be a Field
-<!--  $Source$ -->
+<!--  \$Source$ -->
 $ml.inputAs($object, "org.melati.poem.IndexPoemType")
 #if (!$field.RawString.equals("")) #begin
  #if ($field.RawString.toLowerCase().endsWith(".jpg") || $field.RawString.toLowerCase().endsWith(".gif") ) #begin 

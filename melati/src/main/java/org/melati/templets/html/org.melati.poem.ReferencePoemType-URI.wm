@@ -13,7 +13,7 @@
 <!--  \$Source$ -->
 $ml.inputAs($object, "org.melati.poem.IndexPoemType")
 
-<div id="selected_field_$ml.rendered($object.Name)_display"></div>
+<span id="selected_field_$ml.rendered($object.Name)_display"></span>
 
 <script language="JavaScript1.2" type="text/javascript">
 var select_field_$ml.rendered($object.Name) = document.getElementById("field_$ml.rendered($object.Name)");

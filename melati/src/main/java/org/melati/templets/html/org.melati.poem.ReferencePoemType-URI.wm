@@ -32,10 +32,40 @@ $ml.inputAs($object, "org.melati.poem.IndexPoemType")
 
 
 <script language="JavaScript1.2" type="text/javascript">
+
+// Add function as onLoad and onChange to select element. 
+var 
+
 function popupImage_$ml.escaped($field.Name)() { 
   popup = window.open(imageURL,'ZoomOut_$ml.escaped($field.Name)','scrollbars=yes,width=650,height=450');
   popup.focus();
   return false;
+}
+function doit(Element select) { 
+  var xmlhttp=false;
+  if (typeof XMLHttpRequest!='undefined') {
+    try {
+      xmlhttp = new XMLHttpRequest();
+    } catch (e) {
+      xmlhttp=false;
+    }
+  }
+  if (!xmlhttp && window.createRequest) {
+    try {
+      xmlhttp = window.createRequest();
+    } catch (e) {
+      xmlhttp=false;
+    }
+  }
+  if (xmlhttp) {
+    xmlhttp.open("HEAD", "me.jpg",true);
+    xmlhttp.onreadystatechange=function() {
+       if (xmlhttp.readyState==4) {
+         alert(xmlhttp.getAllResponseHeaders())
+       }
+     }
+     xmlhttp.send(null);
+  }
 }
 </script>
  #end #else #begin

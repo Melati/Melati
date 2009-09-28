@@ -165,6 +165,7 @@ public abstract class ConfigServlet extends HttpServlet {
   private void doGetPostRequest(final HttpServletRequest request, 
                                 final HttpServletResponse response) {
     Melati melati = new Melati(melatiConfig, request, response);
+    melati.getSession().setAttribute("generatedBy","Melati");
     try {
       melati.establishCharsets();
       PoemContext poemContext = poemContext(melati);

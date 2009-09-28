@@ -129,14 +129,7 @@ public abstract class ConfigServlet extends HttpServlet {
    */
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
-    try {
-      melatiConfig = melatiConfig();
-    } catch (Exception e) {
-      // log it to system.err as ServletExceptions go to the
-      // servlet runner log (eg jserv.log), and don't have a stack trace!
-      e.printStackTrace(System.err);
-      throw new ServletException(e.toString ());
-    }
+    melatiConfig = melatiConfig();
   }
 
   /**

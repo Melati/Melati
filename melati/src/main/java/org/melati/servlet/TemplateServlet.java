@@ -56,7 +56,6 @@ import org.melati.util.MelatiWriter;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.MultipartTemplateContext;
-import org.melati.template.TemplateEngineException;
 import org.melati.template.Template;
 
 /**
@@ -85,15 +84,8 @@ public abstract class TemplateServlet extends PoemServlet {
    */
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
-    try {
-      templateEngine = melatiConfig.getServletTemplateEngine();
-      templateEngine.init(melatiConfig, this);
-    } catch (TemplateEngineException e) {
-      // log it to system.err as ServletExceptions go to the
-      // servlet runner log (eg jserv.log), and don't have a stack trace!
-      e.printStackTrace(System.err);
-      throw new ServletException(e.toString());
-    }
+    templateEngine = melatiConfig.getServletTemplateEngine();
+    templateEngine.init(melatiConfig, this);
   }
 
   /**

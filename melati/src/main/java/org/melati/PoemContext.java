@@ -160,7 +160,7 @@ public class PoemContext implements Cloneable {
    * @param table The table to set.
    */
   public void setTable(String table) {
-    this.table = table;
+    this.table = StringUtils.nulled(table); // Can be empty string, but bad practice 
   }
   /**
    * @param troid The troid to set.

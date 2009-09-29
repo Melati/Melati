@@ -48,6 +48,15 @@ package org.melati.admin;
 import java.util.Vector;
 import java.util.Enumeration;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.HeadMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.servlet.FormDataAdaptor;
@@ -87,6 +96,7 @@ import org.melati.util.CountedDumbPagedEnumeration;
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.MelatiIOException;
 import org.melati.util.MelatiRuntimeException;
 
 /**
@@ -633,7 +643,12 @@ public class Admin extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
       ServletTemplateContext context) throws Exception {
+    if (melati.getMethod().equals("Proxy"))
+      return proxy(melati, context);
+    melati.getSession().setAttribute("generatedByMelatiClass",this.getClass().getName());
 
+    context.put("admin", new AdminUtils(melati));
+    
     String table = Form.getFieldNulled(context, "table");
     if (table != null) {
       if (table != melati.getTable().getName()) {
@@ -653,7 +668,6 @@ public class Admin extends TemplateServlet {
     if (!token.givesCapability(admin))
       throw new AccessPoemException(token, admin);
 
-    context.put("admin", new AdminUtils(melati));
 
     if (melati.getMethod() == null)
       return adminTemplate("Main");
@@ -720,6 +734,49 @@ public class Admin extends TemplateServlet {
       return dsdTemplate(context);
 
     throw new InvalidUsageException(this, melati.getPoemContext());
+  }
+
+  private String proxy(Melati melati, ServletTemplateContext context) {
+    if (melati.getSession().getAttribute("generatedByMelatiClass") == null)
+      throw new AnticipatedException("Only available from within an Admin generated page");
+    String method = melati.getRequest().getMethod();
+    String url =  melati.getRequest().getQueryString();
+    HttpServletResponse response = melati.getResponse();
+    HttpMethod httpMethod = null; 
+    try { 
+
+      HttpClient client = new HttpClient();
+      if (method.equals("GET"))
+        httpMethod = new GetMethod(url);
+      else if (method.equals("POST"))
+        httpMethod = new PostMethod(url);
+      else if (method.equals("PUT"))
+        httpMethod = new PutMethod(url);
+      else if (method.equals("HEAD"))
+        httpMethod = new HeadMethod(url);
+      else
+        throw new RuntimeException("Unexpected method '" + method + "'");
+      try {
+        httpMethod.setFollowRedirects(true);
+        client.executeMethod(httpMethod);
+        for (Header h : httpMethod.getResponseHeaders()) { 
+          response.setHeader(h.getName(), h.getValue());
+        }
+        response.setStatus(httpMethod.getStatusCode());
+        response.setHeader("Cache-Control", "no-cache");
+        byte[] outputBytes = httpMethod.getResponseBody();
+        if (outputBytes != null) { 
+          response.setBufferSize(outputBytes.length);
+          response.getWriter().write(new String(outputBytes));
+          response.getWriter().flush();
+        }
+      } catch (Exception e) {
+        throw new MelatiIOException(e);
+      }
+    } finally { 
+      httpMethod.releaseConnection();
+    }
+    return null;
   }
 
   /**

@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.melati.util.ConfigException;
+
 import junit.framework.TestCase;
 
 /**
@@ -166,8 +168,8 @@ public class ConfigServletTest extends TestCase {
       aServlet.doPost(request,  
                      response);
       fail("Should have blown up");
-    } catch (ServletException e) {
-      assertEquals("org.melati.util.ConfigException: Pretend bug", e.getMessage());
+    } catch (ConfigException e) {
+      assertEquals("Pretend bug", e.getMessage());
     }
     aServlet.destroy();
   }

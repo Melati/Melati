@@ -67,6 +67,7 @@ public class Display extends TemplateServlet {
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
     context.put("admin", new AdminUtils(melati));
+    melati.getSession().setAttribute("generatedByMelatiClass",this.getClass().getName());
 
     java.util.Date now = new java.util.Date();
     context.put("now", now);

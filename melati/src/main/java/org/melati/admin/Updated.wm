@@ -107,5 +107,20 @@ $Form.returnURL
     >Done</a>
   </font>
 </h3>
+
+## Used in testCreateTableStory 
+<form method="GET" action="?">
+<input type="hidden" name="troid"
+#if ($melati.Object) #begin
+  value="$melati.Object.troid()"
+  source="melati"
+#end #else  #begin
+  #if ($object) #begin
+    value="$object.troid()"
+    source="object"
+  #end
+#end
+>
+</form>
 </BODY>
 </HTML>

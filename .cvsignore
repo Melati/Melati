@@ -2,3 +2,4 @@ target
 maven.log
 velocity.log
 *.ser
+maven_eclipse.xml

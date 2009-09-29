@@ -3,4 +3,4 @@ maven.log
 velocity.log
 velocity.log.1
 *.ser
-maven_eclipse.xml
+maven-eclipse.xml

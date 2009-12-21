@@ -312,7 +312,7 @@ public class MySQL extends AnsiStandard {
     * {@inheritDoc}
     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
     */
-    public PoemType canRepresent(PoemType other) {
+    public PoemType<?> canRepresent(PoemType other) {
       return other instanceof BinaryPoemType &&
           !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
                        other : null;
@@ -323,7 +323,7 @@ public class MySQL extends AnsiStandard {
   * {@inheritDoc}
   * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
   */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public PoemType<?> canRepresent(PoemType<?> storage, PoemType<?> type) {
     if (storage instanceof IntegerPoemType &&
         type instanceof BooleanPoemType
         && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
@@ -404,7 +404,7 @@ public class MySQL extends AnsiStandard {
          //At the end, it will (should) be our column anyway.
       
         for(Enumeration<Column> columns = table.columns(); columns.hasMoreElements();) {
-          column= (Column)columns.nextElement();
+          column= columns.nextElement();
           if(column.getUnique() && (--indexNum == 0))
             break; //We found it!
         }
@@ -450,7 +450,7 @@ public class MySQL extends AnsiStandard {
   * @return a snippet of sql to insert into an SQL statement.
   */
   public String getIndexLength(Column column) {
-    PoemType t = column.getType();
+    PoemType<?> t = column.getType();
     if (t instanceof StringPoemType && 
         ((StringPoemType)t).getSize() < 0) return "(" + indexSize + ")";
     if (t instanceof BinaryPoemType) return "(" + indexSize + ")";

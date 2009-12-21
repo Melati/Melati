@@ -86,7 +86,7 @@ public final class PersistentFactory {
     } else
       table = TableFactory.fromInstance(db, pojo);
     p = populatedPersistent(table, pojo);
-    Enumeration candidates = table.selection(p);
+    Enumeration<Persistent> candidates = table.selection(p);
     while (candidates.hasMoreElements()) {
       Persistent candidate = (Persistent)candidates.nextElement();
       if (commonFieldsEqual(p, candidate)) { 
@@ -106,7 +106,7 @@ public final class PersistentFactory {
   }
 
   private static boolean commonFieldsEqual(Persistent criterion, Persistent candidate) {
-    Enumeration cols = criterion.getTable().columns();
+    Enumeration<Column> cols = criterion.getTable().columns();
     while (cols.hasMoreElements()) { 
       Column col = (Column)cols.nextElement();
       if (col.isTroidColumn()) 
@@ -135,7 +135,7 @@ public final class PersistentFactory {
         return ((Persistent)pojo);
     Persistent p = table.newPersistent();
     Class c = pojo.getClass();
-    Enumeration columns = table.columns();
+    Enumeration<Column> columns = table.columns();
     while (columns.hasMoreElements()) {
       Column col = (Column)columns.nextElement();
       if(col.isTroidColumn()) continue;

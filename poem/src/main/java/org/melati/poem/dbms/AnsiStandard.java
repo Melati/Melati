@@ -234,7 +234,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
-  public String preparedStatementPlaceholder(PoemType type) {
+  public String preparedStatementPlaceholder(PoemType<?> type) {
     return "?";
   }
   
@@ -356,7 +356,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public PoemType<?> canRepresent(PoemType<?> storage, PoemType<?> type) {
     return storage.canRepresent(type);
   }
 

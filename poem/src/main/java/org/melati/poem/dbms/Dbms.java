@@ -128,7 +128,7 @@ public interface Dbms {
    * @return the place holder
    * @see Postgresql
    */
-  String preparedStatementPlaceholder(PoemType type);
+  String preparedStatementPlaceholder(PoemType<?> type);
 
   /**
    * 
@@ -215,7 +215,7 @@ public interface Dbms {
    * @param type the current type
    * @return the PoemType to use
    */
-  PoemType canRepresent(PoemType storage, PoemType type);
+  PoemType<?> canRepresent(PoemType<?> storage, PoemType<?> type);
 
   /**
    * The simplest POEM type corresponding to a JDBC description from the

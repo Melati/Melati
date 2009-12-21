@@ -134,7 +134,7 @@ public final class PersistentFactory {
       else 
         return ((Persistent)pojo);
     Persistent p = table.newPersistent();
-    Class c = pojo.getClass();
+    Class<?> c = pojo.getClass();
     Enumeration<Column> columns = table.columns();
     while (columns.hasMoreElements()) {
       Column col = (Column)columns.nextElement();
@@ -187,7 +187,7 @@ public final class PersistentFactory {
    * @return an instance of the given Class, populated from the given Persistent
    * @throws NoSuchMethodException
    */
-  public static Object from(Persistent persistent, Class clazz)
+  public static Object from(Persistent persistent, Class<?> clazz)
           throws NoSuchMethodException {
     Object it;
     try {
@@ -201,7 +201,7 @@ public final class PersistentFactory {
 
   private static Object populatedPojo(Object pojo, Persistent persistent) 
       throws NoSuchMethodException {
-    Enumeration columns = persistent.getTable().columns();
+    Enumeration<Column> columns = persistent.getTable().columns();
     while (columns.hasMoreElements()) {
       Column col = (Column)columns.nextElement();
       if(col.isTroidColumn() && !(pojo instanceof Persistent)) continue;

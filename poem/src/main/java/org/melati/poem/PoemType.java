@@ -54,7 +54,7 @@ import java.util.Enumeration;
  * defined by the application programmer; the former have a negative type code, 
  * the latter a positive one.
  */
-public interface PoemType {
+public interface PoemType<T> {
   
   /**
    * Check if value is of the right type and an allowed value,
@@ -73,7 +73,7 @@ public interface PoemType {
    * NOTE Null is a possible value for nullable types 
    * @return an Enumeration of possibilities or null
    */
-  Enumeration<Object> possibleRaws();
+  Enumeration<T> possibleRaws();
 
   /**
    * The String representation of the Field.
@@ -83,7 +83,7 @@ public interface PoemType {
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    * @throws ValidationPoemException if the raw has an illegal value
    */
-  String stringOfRaw(Object raw)
+  String stringOfRaw(T raw)
       throws TypeMismatchPoemException, ValidationPoemException;
   
   /**
@@ -94,7 +94,7 @@ public interface PoemType {
    * @throws ParsingPoemException if the String representation is not well formed
    * @throws ValidationPoemException if the raw has an illegal value
    */
-  Object rawOfString(String rawString)
+  T rawOfString(String rawString)
       throws ParsingPoemException, ValidationPoemException;
 
   /**
@@ -114,7 +114,7 @@ public interface PoemType {
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    * @throws PoemException if there is another problem, such as no object with that troid
    */
-  Object cookedOfRaw(Object raw)
+  Object cookedOfRaw(T raw)
       throws TypeMismatchPoemException, PoemException;
   
   /**
@@ -125,7 +125,7 @@ public interface PoemType {
    * @return a Persistent's troid or the raw unchanged
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    */
-  Object rawOfCooked(Object cooked) throws TypeMismatchPoemException;
+  T rawOfCooked(Object cooked) throws TypeMismatchPoemException;
 
   /**
    * A localised String representation of the oject.
@@ -152,7 +152,7 @@ public interface PoemType {
    * @param other the other type to check
    * @return the other or null 
    */
-  PoemType canRepresent(PoemType other);
+  PoemType<T> canRepresent(PoemType<T> other);
 
   /**
    * Get a new type with a nullablity, presumably different.
@@ -160,7 +160,7 @@ public interface PoemType {
    * @param nullable the nullability we want
    * @return this or a clone with the desired nullability
    */
-  PoemType withNullable(boolean nullable);
+  PoemType<T> withNullable(boolean nullable);
 
   /**
    * Set the type of the ColumnInfo.

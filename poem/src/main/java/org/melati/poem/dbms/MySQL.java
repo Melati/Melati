@@ -403,7 +403,7 @@ public class MySQL extends AnsiStandard {
         Column column= table.troidColumn(); //Just to satisfy compiler.
          //At the end, it will (should) be our column anyway.
       
-        for(Enumeration columns=table.columns(); columns.hasMoreElements();) {
+        for(Enumeration<Column> columns = table.columns(); columns.hasMoreElements();) {
           column= (Column)columns.nextElement();
           if(column.getUnique() && (--indexNum == 0))
             break; //We found it!

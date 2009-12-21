@@ -162,7 +162,7 @@ public class AnsiStandard implements Dbms {
   }
 
   protected synchronized void loadDriver() {
-    Class driverClass;
+    Class<?> driverClass;
     try {
       driverClass = Class.forName(getDriverClassName());
     } catch (ClassNotFoundException e) {
@@ -246,7 +246,7 @@ public class AnsiStandard implements Dbms {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE " + createTableTypeQualifierSql(table) + 
                "TABLE " + table.quotedName() + " (");
-    Enumeration columns = table.columns();
+    Enumeration<Column> columns = table.columns();
     int colCount = 0;
     while (columns.hasMoreElements()) { 
       Column col = (Column)columns.nextElement();

@@ -185,7 +185,7 @@ public final class Cache {
  /** A {@link SoftReference} node; that is one which can be reclaimed
   *  by the Garbage Collector before it throws an out of memory error. 
   */
-  private static class DroppedNode extends SoftReference implements Node {
+  private static class DroppedNode extends SoftReference<Object> implements Node {
 
     Object key;
 
@@ -195,7 +195,7 @@ public final class Cache {
      * @param value Cache object
      * @param queue reference queue
      */
-    DroppedNode(Object key, Object value, ReferenceQueue queue) {
+    DroppedNode(Object key, Object value, ReferenceQueue<Object> queue) {
       super(value, queue);
       this.key = key;
     }
@@ -217,13 +217,13 @@ public final class Cache {
     }
   }
 
-  private Hashtable table = new Hashtable();
+  private Hashtable<Object, Object> table = new Hashtable<Object, Object>();
   private HeldNode theMRU = null, theLRU = null;
   private int heldNodes = 0;
   private int maxSize;
   private int collectedEver = 0;
 
-  private ReferenceQueue collectedValuesQueue = new ReferenceQueue();
+  private ReferenceQueue<Object> collectedValuesQueue = new ReferenceQueue<Object>();
 
   // invariants:
   //   if theMRU != null, theMRU.prevMRU == null
@@ -241,27 +241,26 @@ public final class Cache {
     /**serialVersionUID */
     private static final long serialVersionUID = 1832694552964508864L;
     
-    /** A Vector of problems. */
-    public Vector probs;
+    public Vector<Object> problems;
 
     /** Constructor. */
-    public InconsistencyException(Vector probs) {
-      this.probs = probs;
+    public InconsistencyException(Vector<Object> probs) {
+      this.problems = probs;
     }
 
     /**
      * {@inheritDoc}
      */
     public String getMessage() {
-      return EnumUtils.concatenated("\n", probs.elements());
+      return EnumUtils.concatenated("\n", problems.elements());
     }
   }
 
   /**
    * @return a Vector of problematic nodes 
    */
-  private Vector invariantBreaches() {
-    Vector probs = new Vector();
+  private Vector<Object> invariantBreaches() {
+    Vector<Object> probs = new Vector<Object>();
 
     if (theMRU != null && theMRU.prevMRU != null)
       probs.addElement("theMRU.prevMRU == " + theMRU.prevMRU);
@@ -269,7 +268,7 @@ public final class Cache {
       probs.addElement("theLRU.nextMRU == " + theLRU.nextMRU);
 
     Object[] held = new Object[heldNodes];
-    Hashtable heldHash = new Hashtable();
+    Hashtable<HeldNode, Boolean> heldHash = new Hashtable<HeldNode, Boolean>();
 
     int countML = 0;
     for (HeldNode n = theMRU; n != null; n = n.nextMRU, ++countML) {
@@ -283,7 +282,7 @@ public final class Cache {
     if (countML != heldNodes)
       probs.addElement(countML + " nodes in MRU->LRU not " + heldNodes);
 
-    Hashtable keys = new Hashtable();
+    Hashtable<Object,HeldNode> keys = new Hashtable<Object,HeldNode>();
     int countLM = 0;
     for (HeldNode n = theLRU; n != null; n = n.prevMRU, ++countLM) {
       HeldNode oldn = (HeldNode)keys.get(n.key());
@@ -302,7 +301,7 @@ public final class Cache {
       }
     }
 
-    for (Enumeration nodes = table.elements(); nodes.hasMoreElements();) {
+    for (Enumeration<Object> nodes = table.elements(); nodes.hasMoreElements();) {
       Node n = (Node)nodes.nextElement();
       if (n instanceof HeldNode && !heldHash.containsKey(n))
         probs.addElement(n + " in table but not MRU->LRU");
@@ -320,7 +319,7 @@ public final class Cache {
   private void assertInvariant() {
     boolean debug = false;
     if (debug) { 
-      Vector probs = invariantBreaches();
+      Vector<Object> probs = invariantBreaches();
       if (probs.size() != 0) {
        throw new InconsistencyException(probs);
       }
@@ -512,7 +511,7 @@ public final class Cache {
    */
   public synchronized void iterate(Procedure f) {
     checkForGarbageCollection();
-    for (Enumeration n = table.elements(); n.hasMoreElements();) {
+    for (Enumeration<Object> n = table.elements(); n.hasMoreElements();) {
       Object value = ((Node)n.nextElement()).value();
       if (value != null) 
         // Value could conceivably have been nulled since call to checkForGarbageCollection above
@@ -524,13 +523,13 @@ public final class Cache {
    * Report on the status of the cache.
    * @return  an Enumeration of report lines
    */
-  public Enumeration getReport() {
-    return new ConsEnumeration("" + 
+  public Enumeration<Object> getReport() {
+    return new ConsEnumeration<Object>("" + 
         maxSize + " maxSize, " + 
         theMRU + " theMRU, " +
         theLRU + " theLRU, " + 
         collectedEver + " collectedEver",
-        new ConsEnumeration(
+        new ConsEnumeration<Object>(
                heldNodes + " held, " + table.size() + " total ",
                invariantBreaches().elements()));
   }
@@ -545,10 +544,10 @@ public final class Cache {
     /**
      * @return an Enumeration of objects held
      */
-    public Enumeration getHeldElements() {
+    public Enumeration<Object> getHeldElements() {
       checkForGarbageCollection();
-      return new MappedEnumeration(
-          new FilteredEnumeration(table.elements()) {
+      return new MappedEnumeration<Object>(
+          new FilteredEnumeration<Object>(table.elements()) {
             public boolean isIncluded(Object o) {
               return o instanceof HeldNode;
             }
@@ -562,10 +561,10 @@ public final class Cache {
     /**
      * @return an Enumeration of elements dropped from the cache
      */
-    public Enumeration getDroppedElements() {
+    public Enumeration<Object> getDroppedElements() {
       checkForGarbageCollection();
-      return new MappedEnumeration(
-          new FilteredEnumeration(table.elements()) {
+      return new MappedEnumeration<Object>(
+          new FilteredEnumeration<Object>(table.elements()) {
             public boolean isIncluded(Object o) {
               return o instanceof DroppedNode;
             }
@@ -579,7 +578,7 @@ public final class Cache {
     /**
      * @return the report 
      */
-    public Enumeration getReport() {
+    public Enumeration<Object> getReport() {
       return Cache.this.getReport();
     }
     
@@ -597,7 +596,7 @@ public final class Cache {
    * Dump to Syserr.
    */
   public void dumpAnalysis() {
-    for (Enumeration l = getReport(); l.hasMoreElements();)
+    for (Enumeration<Object> l = getReport(); l.hasMoreElements();)
       System.err.println(l.nextElement());
   }
   
@@ -611,7 +610,7 @@ public final class Cache {
     System.err.println("theLRU: " + theLRU);
     System.err.println("heldNodes: " + heldNodes);
     System.err.println("collectedEver: " + collectedEver);
-    Enumeration e = table.keys();
+    Enumeration<Object> e = table.keys();
     while(e.hasMoreElements()) { 
       Object k = e.nextElement();
       System.err.print(k );

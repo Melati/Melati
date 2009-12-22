@@ -380,7 +380,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public String getFormFieldValue(String fieldName) { 
     try { 
-      return getTester().getElementAttributByXPath(
+      return getTester().getElementAttributeByXPath(
             "//input[@name='" + fieldName + "']", "value");
     } catch (AssertionFailedError e) { 
       System.out.println("Form element not present:" + fieldName);

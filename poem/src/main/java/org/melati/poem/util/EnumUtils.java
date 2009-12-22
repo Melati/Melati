@@ -141,7 +141,7 @@ public final class EnumUtils {
    * @param e Enumeration to be concatenated
    * @return A String representation of the Enumeration
    */
-  public static String concatenated(String sep, Enumeration<Object> e) {
+  public static String concatenated(String sep, Enumeration<?> e) {
     StringBuffer b = new StringBuffer();
 
     if (e.hasMoreElements())

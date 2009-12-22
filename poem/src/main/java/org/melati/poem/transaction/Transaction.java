@@ -46,7 +46,6 @@
 package org.melati.poem.transaction;
 
 import java.util.Vector;
-import java.util.Enumeration;
 
 import org.melati.poem.UnexpectedExceptionPoemException;
 
@@ -66,18 +65,18 @@ public abstract class Transaction {
   private Transaction blockedOn = null;
 
   /** The transactions that are directly waiting on us. */
-  private Vector blockees = new Vector();
+  private Vector<Transaction> blockees = new Vector<Transaction>();
 
   /** The transitive closure of the transactions we are waiting on. */
   private int blockedOnMask;
 
   private int seenCapacityMin = 50;
   private int seenCapacityMax = 1000;
-  private Vector seen = new Vector(seenCapacityMin);
+  private Vector<Transactioned> seen = new Vector<Transactioned>(seenCapacityMin);
 
   private int touchedCapacityMin = 50;
   private int touchedCapacityMax = 1000;
-  private Vector touched = new Vector();
+  private Vector<Transactioned> touched = new Vector<Transactioned>();
 
   private TransactionPool transactionPool;
 
@@ -147,18 +146,18 @@ public abstract class Transaction {
    */
   public void writeDown() {
     synchronized (touched) {
-      for (Enumeration p = touched.elements(); p.hasMoreElements();)
-        ((Transactioned)p.nextElement()).writeDown(this);
+      for (Transactioned persistent : touched) 
+        persistent.writeDown(this);
     }
   }
 
   private void unSee() {
     synchronized (seen) {
-      for (Enumeration p = seen.elements(); p.hasMoreElements();)
-        ((Transactioned)p.nextElement()).unSee(this);
+      for (Transactioned persistent : seen)
+        persistent.unSee(this);
 
       if (seen.size() > seenCapacityMax)
-        seen = new Vector(seenCapacityMin);
+        seen = new Vector<Transactioned>(seenCapacityMin);
       else
         seen.setSize(0);
     }
@@ -174,18 +173,16 @@ public abstract class Transaction {
       else
         backingRollback();
 
-      for (Enumeration p = touched.elements(); p.hasMoreElements();) {
-        Transactioned persistent = (Transactioned)p.nextElement();
-        if (commit)
-          persistent.commit(this);
-        else
-          persistent.rollback(this);
+      for (Transactioned persistent : touched) { 
+          if (commit)
+              persistent.commit(this);
+            else
+              persistent.rollback(this);
       }
-
     }
     finally {
       if (touched.size() > touchedCapacityMax)
-        touched = new Vector(touchedCapacityMin);
+        touched = new Vector<Transactioned>(touchedCapacityMin);
       else
         touched.setSize(0);
 

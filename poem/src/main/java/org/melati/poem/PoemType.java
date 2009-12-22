@@ -78,12 +78,12 @@ public interface PoemType<T> {
   /**
    * The String representation of the Field.
    * 
-   * @param raw the value
+   * @param object the value
    * @return a String representation
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    * @throws ValidationPoemException if the raw has an illegal value
    */
-  String stringOfRaw(T raw)
+  String stringOfRaw(Object object)
       throws TypeMismatchPoemException, ValidationPoemException;
   
   /**
@@ -114,7 +114,7 @@ public interface PoemType<T> {
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    * @throws PoemException if there is another problem, such as no object with that troid
    */
-  Object cookedOfRaw(T raw)
+  Object cookedOfRaw(Object raw)
       throws TypeMismatchPoemException, PoemException;
   
   /**

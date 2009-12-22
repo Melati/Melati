@@ -603,7 +603,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     selectOptionByValue("field_category","3"); //Normal
     submit();
     assertTextPresent("Done");
-    String tableTroid = getElementAttributByXPath(
+    String tableTroid = getElementAttributeByXPath(
         "//input[@name='" + "troid" + "']", "value");
     gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
     System.err.println("Found created table troid " + tableTroid);
@@ -632,14 +632,14 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setTextField("field_scale", "1");
     submit();
     assertTextPresent("Done");
-    String columnTroid = getElementAttributByXPath(
+    String columnTroid = getElementAttributeByXPath(
         "//input[@name='" + "troid" + "']", "value");
     System.err.println("Found created troid " + columnTroid);
     gotoAddRecord("Test");
     setTextField("field_test", "test");
     submit();
     assertTextPresent("Done");
-    String recordTroid = getElementAttributByXPath(
+    String recordTroid = getElementAttributeByXPath(
         "//input[@name='" + "troid" + "']", "value");
     
     clickLink("continue");

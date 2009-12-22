@@ -190,7 +190,7 @@ public abstract class BasePoemType<T extends Comparable<T>> implements SQLPoemTy
   public Enumeration<Object> possibleRaws() {
     Enumeration<Object> them = _possibleRaws();
     return them == null ? null :
-                   getNullable() ? new ConsEnumeration(null, them) :
+                   getNullable() ? new ConsEnumeration<Object>(null, them) :
                    them;
   }
 

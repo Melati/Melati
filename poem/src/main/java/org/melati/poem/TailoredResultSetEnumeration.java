@@ -52,7 +52,7 @@ import java.sql.ResultSet;
  * A {@link ResultSetEnumeration} relying on a {@link TailoredQuery}
  * for column and access information.
  */
-public class TailoredResultSetEnumeration extends ResultSetEnumeration {
+public class TailoredResultSetEnumeration<T> extends ResultSetEnumeration<T> {
 
   protected TailoredQuery query;
 

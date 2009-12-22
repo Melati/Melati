@@ -89,8 +89,8 @@ public interface IntegrityFix {
    *         all <TT>refs</TT> have been cleared or deleted.
    */
 
-  Enumeration referencesTo(Persistent referee, Column column,
-                           Enumeration refs, Map referenceFixOfColumn);
+  Enumeration<Persistent> referencesTo(Persistent referee, Column column,
+                           Enumeration<Persistent> refs, Map<Column, IntegrityFix> referenceFixOfColumn);
   
   /**
    * Integrity fixes are set in the DSD by name. 

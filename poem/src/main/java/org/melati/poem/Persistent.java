@@ -565,7 +565,7 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    */
 
-  Enumeration getFields();
+  Enumeration<Field> getFields();
 
   /**
    * The values of all the object's fields designated for inclusion in full
@@ -576,7 +576,7 @@ public interface Persistent extends Persistable, Treeable {
    * @see DisplayLevel#record
    */
 
-  Enumeration getRecordDisplayFields();
+  Enumeration<Field> getRecordDisplayFields();
 
   /**
    * All fields at the detailed display level in display order.
@@ -584,7 +584,7 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#detail
    */
-  Enumeration getDetailDisplayFields();
+  Enumeration<Field> getDetailDisplayFields();
 
   /**
    * All fields at the summary display level in display order.
@@ -592,12 +592,12 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#summary
    */
-  Enumeration getSummaryDisplayFields();
+  Enumeration<Field> getSummaryDisplayFields();
 
   /**
    * @return an <TT>Enumeration</TT> of searchable <TT>Field</TT>s
    */
-  Enumeration getSearchCriterionFields();
+  Enumeration<Field> getSearchCriterionFields();
 
   /**
    * @return the Primary Display Column as a Field
@@ -624,7 +624,7 @@ public interface Persistent extends Persistable, Treeable {
    *            the default behaviour for the column is used.  (The default 
    *            is {@link StandardIntegrityFix#prevent}.)
    */
-  void delete(Map integrityFixOfColumn);
+  void delete(Map<Column, IntegrityFix> integrityFixOfColumn);
 
   /**
    * Delete without access checks.
@@ -650,7 +650,7 @@ public interface Persistent extends Persistable, Treeable {
    * unless you really want this functionality.
    *
    */
-  void deleteAndCommit(Map integrityFixOfColumn)
+  void deleteAndCommit(Map<Column, IntegrityFix> integrityFixOfColumn)
           throws AccessPoemException, DeletionIntegrityPoemException;
 
   /**

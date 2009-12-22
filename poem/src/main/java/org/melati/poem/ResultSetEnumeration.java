@@ -96,7 +96,7 @@ public abstract class ResultSetEnumeration<T> implements SkipEnumeration<T> {
     }
   }
 
-  protected abstract T mapped(ResultSet resultSetP)
+  protected abstract Object mapped(ResultSet resultSetP)
       throws SQLException, NoSuchRowPoemException;
 
   /**
@@ -106,6 +106,7 @@ public abstract class ResultSetEnumeration<T> implements SkipEnumeration<T> {
    * but does not prevent subsequent use of the object.
    * @see java.util.Enumeration#nextElement()
    */
+  @SuppressWarnings("unchecked")
   public synchronized T nextElement() throws NoSuchElementException {
     try {
       if (more == -1)
@@ -115,7 +116,7 @@ public abstract class ResultSetEnumeration<T> implements SkipEnumeration<T> {
         throw new NoSuchElementException();
 
       try {
-        return mapped(resultSet);
+        return (T) mapped(resultSet);
       }
       finally {
         more = resultSetNext();

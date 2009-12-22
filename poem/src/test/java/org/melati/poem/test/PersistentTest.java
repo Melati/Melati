@@ -485,7 +485,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testFieldsOfColumns() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.fieldsOfColumns(p.getTable().columns());
+    Enumeration<Field> fields = p.fieldsOfColumns(p.getTable().columns());
     Field f = (Field)fields.nextElement();
     assertEquals("id: 0", f.toString());
     f = (Field)fields.nextElement();
@@ -499,7 +499,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.getFields();
+    Enumeration<Field> fields = p.getFields();
     Field f = (Field)fields.nextElement();
     assertEquals("id: 0", f.toString());
     f = (Field)fields.nextElement();
@@ -513,7 +513,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetRecordDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.getRecordDisplayFields();
+    Enumeration<Field> fields = p.getRecordDisplayFields();
     Field f = (Field)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
     f = (Field)fields.nextElement();
@@ -525,7 +525,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetDetailDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.getDetailDisplayFields();
+    Enumeration<Field> fields = p.getDetailDisplayFields();
     Field f = (Field)fields.nextElement();
     assertEquals("id: 0", f.toString());
     f = (Field)fields.nextElement();
@@ -539,7 +539,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetSummaryDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.getSummaryDisplayFields();
+    Enumeration<Field> fields = p.getSummaryDisplayFields();
     Field f = (Field)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
     f = (Field)fields.nextElement();
@@ -551,7 +551,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetSearchCriterionFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration fields = p.getSearchCriterionFields();
+    Enumeration<Field> fields = p.getSearchCriterionFields();
     Field f = (Field)fields.nextElement();
     assertEquals("id: 0", f.toString());
     f = (Field)fields.nextElement();

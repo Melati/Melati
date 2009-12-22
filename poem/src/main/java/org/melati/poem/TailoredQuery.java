@@ -94,7 +94,7 @@ public class TailoredQuery {
   Table[] tables;
   Table[] tablesWithoutCanReadColumn;
 
-  Hashtable table_columnMap = new Hashtable();
+  Hashtable<String, Integer> table_columnMap = new Hashtable<String,Integer>();
 
   /**
    * Construct a low-level SQL query, possibly including joins, from which
@@ -374,8 +374,8 @@ public class TailoredQuery {
    * Return an Enumeration of the columns in the first row of 
    * a ResultSet.
    */
-  public class FirstRawTailoredResultSetEnumeration
-      extends TailoredResultSetEnumeration {
+  public class FirstRawTailoredResultSetEnumeration<T>
+      extends TailoredResultSetEnumeration<T> {
 
    /**
     * Retrieve the first row of a {@link TailoredQuery}.

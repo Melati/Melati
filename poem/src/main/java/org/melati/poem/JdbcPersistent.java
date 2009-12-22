@@ -779,22 +779,22 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#delete(java.util.Map)
    */
-  public void delete(Map integrityFixOfColumn) {
+  public void delete(Map<Column, IntegrityFix> integrityFixOfColumn) {
     
     assertNotFloating();
 
     deleteLock(PoemThread.sessionToken());
 
     Enumeration<Column> columns = getDatabase().referencesTo(getTable());
-    Vector refEnumerations = new Vector();
+    Vector<Enumeration<Persistent>> refEnumerations = new Vector<Enumeration<Persistent>>();
 
     while (columns.hasMoreElements()) {
-      Column column = (Column)columns.nextElement();
+      Column column = columns.nextElement();
 
       IntegrityFix fix;
       try {
         fix = integrityFixOfColumn == null ?
-                null : (IntegrityFix)integrityFixOfColumn.get(column);
+                null : integrityFixOfColumn.get(column);
       }
       catch (ClassCastException e) {
         throw new AppBugPoemException(
@@ -812,7 +812,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
 
     }
 
-    Enumeration refs = new FlattenedEnumeration(refEnumerations.elements());
+    Enumeration<Persistent> refs = new FlattenedEnumeration<Persistent>(refEnumerations.elements());
 
     if (refs.hasMoreElements())
       throw new DeletionIntegrityPoemException(this, refs);
@@ -850,7 +850,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#deleteAndCommit(java.util.Map)
    */
-  public void deleteAndCommit(Map integrityFixOfColumn)
+  public void deleteAndCommit(Map<Column, IntegrityFix> integrityFixOfColumn)
       throws AccessPoemException, DeletionIntegrityPoemException {
 
     getDatabase().beginExclusiveLock();
@@ -1022,7 +1022,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    */
   public void dump(PrintStream p) {
     p.println(getTable().getName() + "/" + troid());
-    for (Enumeration f = getRecordDisplayFields(); f.hasMoreElements();) {
+    for (Enumeration<Field> f = getRecordDisplayFields(); f.hasMoreElements();) {
       p.print("  ");
       ((Field)f.nextElement()).dump(p);
       p.println();
@@ -1103,8 +1103,8 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   }
 
   public Treeable[] getChildren() {
-    Enumeration refs = getDatabase().referencesTo(this);
-    Vector v = new Vector();
+    Enumeration<Persistent> refs = getDatabase().referencesTo(this);
+    Vector<Persistent> v = new Vector<Persistent>();
     while (refs.hasMoreElements())
       v.addElement(refs.nextElement());
     Treeable[] kids;

@@ -102,7 +102,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   void unifyType(SQLPoemType storeType, DefinitionSource source) {
-    PoemType unified = dbms().canRepresent(storeType, type);
+    PoemType<?> unified = dbms().canRepresent(storeType, type);
     if (unified == null || !(unified instanceof SQLPoemType))
       throw new TypeDefinitionMismatchException(this, storeType, source);
 
@@ -111,7 +111,7 @@ public abstract class Column implements FieldAttributes {
 
   void assertMatches(ResultSet colDesc)
       throws SQLException, TypeDefinitionMismatchException {
-    PoemType dbType = getDatabase().defaultPoemTypeOfColumnMetaData(colDesc);
+    PoemType<?> dbType = getDatabase().defaultPoemTypeOfColumnMetaData(colDesc);
 
     if (dbms().canRepresent(dbType, type) == null)
       throw new TypeDefinitionMismatchException(
@@ -396,7 +396,7 @@ public abstract class Column implements FieldAttributes {
    * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getType()
    */
-  public final PoemType getType() {
+  public final PoemType<?> getType() {
     return type;
   }
 
@@ -584,8 +584,8 @@ public abstract class Column implements FieldAttributes {
    * @param raw a raw value such as a String
    * @return an enumeration of Persistents
    */
-  public Enumeration<Object> selectionWhereEq(Object raw) {
-    return new ResultSetEnumeration(resultSetWhereEq(raw)) {
+  public Enumeration<Persistent> selectionWhereEq(Object raw) {
+    return new ResultSetEnumeration<Persistent>(resultSetWhereEq(raw)) {
       public Object mapped(ResultSet rs) throws SQLException {
         return getTable().getObject(rs.getInt(1));
       }
@@ -599,7 +599,7 @@ public abstract class Column implements FieldAttributes {
    * @return the first one found based upon default ordering
    */
   public Persistent firstWhereEq(Object raw) {
-    Enumeration<Object> them = selectionWhereEq(raw);
+    Enumeration<Persistent> them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
@@ -852,11 +852,12 @@ public abstract class Column implements FieldAttributes {
    * @param object A persistent of the type referred to by this column
    * @return an Enumeration {@link Persistent}s referencing this Column of the Persistent
    */
-  public Enumeration<Object> referencesTo(Persistent object) {
-    return getType() instanceof ReferencePoemType
+  @SuppressWarnings("unchecked")  // QUE cast will not work within if 
+  public Enumeration<Persistent> referencesTo(Persistent object) {
+    return (Enumeration<Persistent>) (getType() instanceof ReferencePoemType
       && ((ReferencePoemType) getType()).targetTable() == object.getTable()
         ? selectionWhereEq(object.troid())
-        : EmptyEnumeration.it;
+        : EmptyEnumeration.it);
   }
 
   /**

@@ -1,0 +1,45 @@
+diff -up melati-0.7.8/melati/src/main/java/org/melati/template/velocity/WebMacroClasspathResourceLoader.java~ melati-0.7.8/melati/src/main/java/org/melati/template/velocity/WebMacroClasspathResourceLoader.java
+--- melati-0.7.8/melati/src/main/java/org/melati/template/velocity/WebMacroClasspathResourceLoader.java~	2008-01-23 15:22:06.000000000 +0100
++++ melati-0.7.8/melati/src/main/java/org/melati/template/velocity/WebMacroClasspathResourceLoader.java	2009-12-15 23:49:48.000000000 +0100
+@@ -77,29 +77,26 @@ public class WebMacroClasspathResourceLo
+    */
+   public InputStream getResourceStream(String templateName)
+       throws ResourceNotFoundException {
++    new Throwable("templateName=" + templateName).printStackTrace();
+     if (templateName.endsWith(".wm")) {
+-      InputStream converted = WebMacroConverter.convert(super.getResourceStream(templateName));
++	  InputStream in = super.getResourceStream(templateName);
++	  if (in == null) {
++		  return null;
++	  }
++      InputStream converted = WebMacroConverter.convert(in);
+       
+       try {
+-        String wmName = "/dist/melati/melati/src/main/java/" + templateName;
++        String wmName = System.getProperty("user.dir") + "/melati/src/main/java/" + templateName;
+         File wmFile = new File(wmName);
+         String vmName;
+-        if (wmFile.exists()) {
+-          vmName = "/dist/melati/melati/src/main/java/" + 
+-           (templateName.endsWith(".wm")?
+-                templateName.substring(0,templateName.length() -3) + ".vm" :
+-                  templateName);
+-        } else { 
+-          wmName = "/dist/melati/melati/src/test/java/" + templateName;
++        if (! wmFile.exists()) {
++          wmName = System.getProperty("user.dir") + "/melati/src/test/java/" + templateName;
+           wmFile = new File(wmName);
+-          if (wmFile.exists()) {
+-            vmName = "/dist/melati/melati/src/test/java/" + 
+-             (templateName.endsWith(".wm")?
+-                  templateName.substring(0,templateName.length() -3) + ".vm" :
+-                    templateName);
+-          } else 
++          if (! wmFile.exists())
+             throw new RuntimeException("Cannot find file " + wmName);
+         }
++        vmName = wmName.substring(0, wmName.length() - 3) + ".vm";
++
+         File convertedFile = new File(vmName).getCanonicalFile();
+         System.err.println(vmName);
+         convertedFile.createNewFile();

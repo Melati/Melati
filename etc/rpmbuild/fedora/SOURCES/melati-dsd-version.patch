@@ -1,0 +1,33 @@
+diff -up melati-0.7.8/melati/pom.xml~ melati-0.7.8/melati/pom.xml
+--- melati-0.7.8/melati/pom.xml~	2008-03-26 19:15:59.000000000 +0100
++++ melati-0.7.8/melati/pom.xml	2009-11-12 23:56:24.000000000 +0100
+@@ -154,6 +148,7 @@
+     <plugin>
+      <groupId>org.melati</groupId>
+      <artifactId>maven-dsd-plugin</artifactId>
++     <version>1.1-SNAPSHOT</version>
+      <executions>
+        <execution>
+          <id>tree</id>
+diff -up melati-0.7.8/poem/pom.xml~ melati-0.7.8/poem/pom.xml
+--- melati-0.7.8/poem/pom.xml~	2009-11-12 23:31:02.000000000 +0100
++++ melati-0.7.8/poem/pom.xml	2009-11-12 23:56:25.000000000 +0100
+@@ -141,6 +141,7 @@
+     <plugin>
+      <groupId>org.melati</groupId>
+      <artifactId>maven-dsd-plugin</artifactId>
++     <version>1.1-SNAPSHOT</version>
+      <executions>
+        <execution>
+          <id>genMain</id>
+diff -up melati-0.7.8/melati-example-contacts/pom.xml~ melati-0.7.8/melati-example-contacts/pom.xml
+--- melati-0.7.8/melati-example-contacts/pom.xml~	2009-12-30 22:59:13.000000000 +0100
++++ melati-0.7.8/melati-example-contacts/pom.xml	2009-12-30 23:08:02.000000000 +0100
+@@ -49,6 +49,7 @@
+       <plugin>
+         <groupId>org.melati</groupId>
+         <artifactId>maven-dsd-plugin</artifactId>
++        <version>1.1-SNAPSHOT</version>
+         <executions>
+           <execution>
+             <phase>generate-sources</phase>

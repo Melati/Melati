@@ -1,0 +1,263 @@
+diff -up melati-0.7.8/melati/src/test/java/org/melati/app/test/ConfigAppTest.java~ melati-0.7.8/melati/src/test/java/org/melati/app/test/ConfigAppTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/app/test/ConfigAppTest.java~	2007-12-06 21:46:30.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/app/test/ConfigAppTest.java	2009-12-15 22:33:24.000000000 +0100
+@@ -50,7 +50,7 @@ public class ConfigAppTest extends TestC
+     ConfigApp it = new ConfigApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -73,7 +73,7 @@ public class ConfigAppTest extends TestC
+     String[] args = { "fred", "-o", fileName };
+     ConfigApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+diff -up melati-0.7.8/melati/src/test/java/org/melati/app/test/TemplateAppTest.java~ melati-0.7.8/melati/src/test/java/org/melati/app/test/TemplateAppTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/app/test/TemplateAppTest.java~	2008-03-16 20:35:45.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/app/test/TemplateAppTest.java	2009-12-15 22:14:59.000000000 +0100
+@@ -80,7 +80,7 @@ public class TemplateAppTest extends Tes
+         "org/melati/app/TemplateApp", "field", "value", "-o", fileName };
+     TemplateApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+     while (in.ready()) {
+       output += in.readLine();
+@@ -113,7 +113,7 @@ public class TemplateAppTest extends Tes
+     TemplateApp it = new TemplateApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -153,14 +153,14 @@ public class TemplateAppTest extends Tes
+           e.subException.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     assertTrue(fileIn.delete());
+     
+     fileName = "t2a.tmp";
+     args = new String[] { "appjunit", "org/melati/app/TemplateApp", "-o", fileName };
+     TemplateApp.main(args);
+     String output = "";
+-    fileIn = new File(fileName);
++    fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+     while (in.ready()) {
+       output += in.readLine();
+@@ -191,7 +191,7 @@ public class TemplateAppTest extends Tes
+     TemplateApp it = new TemplateApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+     while (in.ready()) {
+       output += in.readLine();
+@@ -224,7 +224,7 @@ public class TemplateAppTest extends Tes
+     TemplateApp it = new TemplateApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+     while (in.ready()) {
+       output += in.readLine();
+@@ -259,7 +259,7 @@ public class TemplateAppTest extends Tes
+     } catch (ConfigException e) {
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     assertTrue(fileIn.delete());      
+   }
+ 
+@@ -273,7 +273,7 @@ public class TemplateAppTest extends Tes
+     TemplateApp it = new ConfiguredTemplateApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( new InputStreamReader(new FileInputStream(fileIn)));
+     while (in.ready()) {
+       output += in.readLine();
+@@ -315,7 +315,7 @@ public class TemplateAppTest extends Tes
+                    e.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"),  fileName);
+     assertTrue(fileIn.delete());      
+   }
+ }
+diff -up melati-0.7.8/melati/src/test/java/org/melati/app/test/DSDAppTest.java~ melati-0.7.8/melati/src/test/java/org/melati/app/test/DSDAppTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/app/test/DSDAppTest.java~	2008-03-16 20:29:44.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/app/test/DSDAppTest.java	2009-12-26 22:30:36.000000000 +0100
+@@ -49,7 +49,7 @@ public class DSDAppTest extends TestCase
+     String[] args = { "appjunit", "-o", fileName };
+     DSDApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+diff -up melati-0.7.8/melati/src/test/java/org/melati/app/test/PoemAppTest.java~ melati-0.7.8/melati/src/test/java/org/melati/app/test/PoemAppTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/app/test/PoemAppTest.java~	2008-01-09 23:58:44.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/app/test/PoemAppTest.java	2009-12-26 22:30:37.000000000 +0100
+@@ -52,7 +52,7 @@ public class PoemAppTest extends TestCas
+     String[] args = { "appjunit", "user", "1", "display", "-o", fileName };
+     PoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -81,7 +81,7 @@ public class PoemAppTest extends TestCas
+     String[] args = { "appjunit", "user", "1", "-o", fileName };
+     PoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -109,7 +109,7 @@ public class PoemAppTest extends TestCas
+     String[] args = { "appjunit", "user", "method", "-o", fileName };
+     PoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -138,7 +138,7 @@ public class PoemAppTest extends TestCas
+     String[] args = { "appjunit", "user", "-o", fileName };
+     PoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -166,7 +166,7 @@ public class PoemAppTest extends TestCas
+     String[] args = { "appjunit", "-o", fileName };
+     PoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -204,7 +204,7 @@ public class PoemAppTest extends TestCas
+           "java.lang.NumberFormatException: For input string: \"one\"",e.getMessage());
+       e = null;      
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     fileIn.delete();      
+   }
+ 
+@@ -223,7 +223,7 @@ public class PoemAppTest extends TestCas
+           "Bang!",e.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     fileIn.delete();      
+   }
+ 
+@@ -237,7 +237,7 @@ public class PoemAppTest extends TestCas
+     it.setInput(new StringInputStream("_administrator_\nFIXME\n"));
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -268,7 +268,7 @@ public class PoemAppTest extends TestCas
+     it.setInput(new StringInputStream("bad\nwrong\nbad\nwrong\n_administrator_\nFIXME\n"));
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -304,7 +304,7 @@ public class PoemAppTest extends TestCas
+           , e.subException.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     fileIn.delete();      
+   }
+   /**
+@@ -323,7 +323,7 @@ public class PoemAppTest extends TestCas
+           , e.subException.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     fileIn.delete();      
+   }
+ 
+@@ -343,7 +343,7 @@ public class PoemAppTest extends TestCas
+           , e.subException.getMessage());
+       e = null;
+     }
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     fileIn.delete();      
+   }
+ 
+@@ -357,7 +357,7 @@ public class PoemAppTest extends TestCas
+     ProtectedPoemApp it = new ProtectedPoemApp();
+     it.run(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -387,7 +387,7 @@ public class PoemAppTest extends TestCas
+         "-o", fileName, "-user", "_administrator_", "-pass", "FIXME", };
+     ProtectedPoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -416,7 +416,7 @@ public class PoemAppTest extends TestCas
+         "-o", fileName, "-username", "_administrator_", "-password", "FIXME", };
+     ProtectedPoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));
+@@ -446,7 +446,7 @@ public class PoemAppTest extends TestCas
+         "-o", fileName, "--username", "_administrator_", "--password", "FIXME", };
+     ProtectedPoemApp.main(args);
+     String output = "";
+-    File fileIn = new File(fileName);
++    File fileIn = new File(System.getProperty("user.dir"), fileName);
+     BufferedReader in = new BufferedReader( 
+         new InputStreamReader(
+             new FileInputStream(fileIn)));

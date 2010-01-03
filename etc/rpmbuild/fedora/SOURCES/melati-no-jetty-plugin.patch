@@ -1,0 +1,66 @@
+diff -up melati-0.7.8/melati/pom.xml~ melati-0.7.8/melati/pom.xml
+--- melati-0.7.8/melati/pom.xml~	2009-12-07 21:38:22.000000000 +0100
++++ melati-0.7.8/melati/pom.xml	2009-12-07 22:10:54.000000000 +0100
+@@ -262,13 +262,6 @@
+         </execution>
+       </executions>
+     </plugin>
+-   <plugin>
+-    <groupId>org.mortbay.jetty</groupId>
+-    <artifactId>maven-jetty-plugin</artifactId>
+-    <configuration>
+-     <scanIntervalSeconds>2</scanIntervalSeconds>
+-    </configuration>
+-    </plugin>
+    </plugins>
+    
+    <testResources>
+diff -up melati-0.7.8/melati-example-contacts/pom.xml~ melati-0.7.8/melati-example-contacts/pom.xml
+--- melati-0.7.8/melati-example-contacts/pom.xml~	2008-02-11 13:42:18.000000000 +0100
++++ melati-0.7.8/melati-example-contacts/pom.xml	2009-12-30 22:30:38.000000000 +0100
+@@ -70,13 +70,6 @@
+         </dependencies>
+       </plugin>
+       <plugin>
+-       <groupId>org.mortbay.jetty</groupId>
+-       <artifactId>maven-jetty-plugin</artifactId>
+-       <configuration>
+-        <contextPath>/</contextPath>
+-       </configuration>
+-      </plugin>
+-      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+diff -up melati-0.7.8/melati-webapp/pom.xml~ melati-0.7.8/melati-webapp/pom.xml
+--- melati-0.7.8/melati-webapp/pom.xml~	2007-08-13 17:15:02.000000000 +0200
++++ melati-0.7.8/melati-webapp/pom.xml	2010-01-03 18:33:35.000000000 +0100
+@@ -17,28 +17,6 @@
+   </distributionManagement>  
+   <build>
+     <finalName>melati-webapp</finalName>
+-     <plugins>
+-      <!--plugin>
+-        <groupId>org.codehaus.mojo</groupId>
+-        <artifactId>tomcat-maven-plugin</artifactId>
+-        <configuration>
+-          <server>melati-tomcat</server>
+-        </configuration>
+-      </plugin-->
+-      <plugin>
+-        <groupId>org.mortbay.jetty</groupId>
+-        <artifactId>maven-jetty-plugin</artifactId>
+-        <configuration>
+-          <contextPath>/</contextPath>
+-          <scanIntervalSeconds>2</scanIntervalSeconds>
+-          <scanTargets>
+-            <scanTarget>
+-             ${basedir}/src/main/java
+-	    </scanTarget>
+-          </scanTargets>
+-        </configuration>
+-      </plugin>
+-     </plugins>
+   </build>
+   <dependencies>
+     <dependency>

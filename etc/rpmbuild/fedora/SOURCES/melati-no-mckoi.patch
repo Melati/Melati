@@ -1,0 +1,16 @@
+diff -up melati-0.7.8/poem/pom.xml~ melati-0.7.8/poem/pom.xml
+--- melati-0.7.8/poem/pom.xml~	2008-02-11 12:09:29.000000000 +0100
++++ melati-0.7.8/poem/pom.xml	2009-11-12 19:08:46.000000000 +0100
+@@ -80,12 +80,6 @@
+       <version>1.8.0.7</version>
+       <scope>compile</scope>
+     </dependency>
+-    <dependency>
+-      <groupId>mckoi</groupId>
+-      <artifactId>mckoi</artifactId>
+-      <version>1.0.2</version>
+-      <scope>compile</scope>
+-    </dependency>
+     <!--
+     <dependency>
+       <groupId>easysoft</groupId>

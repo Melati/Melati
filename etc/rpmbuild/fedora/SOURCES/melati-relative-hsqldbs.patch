@@ -1,0 +1,114 @@
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties~	2008-03-06 08:56:06.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties	2009-12-13 00:27:50.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+@@ -80,7 +80,7 @@ org.melati.LogicalDatabase.melatitest.db
+ #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Mckoi
+ #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.SQLServer
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:easysoft:melatitest
+-org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:/dist/melati/db/melatitest
++org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:mysql://localhost/melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:mckoi://localhost/melatitest
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.hsqldb~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.hsqldb
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.hsqldb~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.hsqldb	2009-12-13 00:27:46.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+@@ -74,7 +74,7 @@
+ 
+ org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
+ org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Hsqldb
+-org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:/dist/melati/db/melatitest
++org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:melatitest
+ org.melati.LogicalDatabase.melatitest.user=sa
+ org.melati.LogicalDatabase.melatitest.pass=
+ org.melati.LogicalDatabase.melatitest.maxtransactions=4
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mckoi~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mckoi
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mckoi~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mckoi	2009-12-13 00:27:49.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.msaccess~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.msaccess
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.msaccess~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.msaccess	2009-12-13 00:27:49.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mssql~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mssql
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mssql~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mssql	2009-12-13 00:27:48.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mysql~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mysql
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mysql~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.mysql	2009-12-13 00:27:48.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.oracle~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.oracle
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.oracle~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.oracle	2009-12-13 00:27:47.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.postgresql~ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.postgresql
+--- melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.postgresql~	2007-02-15 09:38:27.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/org.melati.LogicalDatabase.properties.postgresql	2009-12-13 00:27:47.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user

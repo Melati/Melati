@@ -1,0 +1,11 @@
+diff -up melati-0.7.8/pom.xml~ melati-0.7.8/pom.xml
+--- melati-0.7.8/pom.xml~	2009-11-11 21:26:23.000000000 +0100
++++ melati-0.7.8/pom.xml	2009-11-12 23:27:50.000000000 +0100
+@@ -8,7 +8,6 @@
+   <modules>
+     <module>poem</module>
+     <module>melati</module>
+-    <module>melati-example-contacts</module>
+     <module>maven-dsd-plugin</module>
+     <module>melati-webapp</module>
+     <module>melati-archetype</module>

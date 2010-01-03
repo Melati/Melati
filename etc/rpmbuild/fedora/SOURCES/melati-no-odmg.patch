@@ -1,0 +1,27 @@
+diff -up melati-0.7.8/pom.xml~ melati-0.7.8/pom.xml
+--- melati-0.7.8/pom.xml~	2009-11-11 21:26:23.000000000 +0100
++++ melati-0.7.8/pom.xml	2009-11-12 23:27:50.000000000 +0100
+@@ -9,7 +9,6 @@
+     <module>poem</module>
+     <module>melati</module>
+     <module>melati-example-contacts</module>
+-    <module>melati-example-odmg</module>
+     <module>maven-dsd-plugin</module>
+     <module>melati-webapp</module>
+     <module>melati-archetype</module>
+diff -up melati-0.7.8/melati-webapp/pom.xml~ melati-0.7.8/melati-webapp/pom.xml
+--- melati-0.7.8/melati-webapp/pom.xml~	2010-01-03 18:35:55.000000000 +0100
++++ melati-0.7.8/melati-webapp/pom.xml	2010-01-03 18:43:13.000000000 +0100
+@@ -27,12 +27,6 @@
+     </dependency>
+     <dependency>
+       <groupId>org.melati</groupId>
+-      <artifactId>melati-example-odmg</artifactId>
+-      <version>${project.version}</version>
+-      <scope>compile</scope>
+-    </dependency>
+-    <dependency>
+-      <groupId>org.melati</groupId>
+       <artifactId>melati-example-contacts</artifactId>
+       <version>${project.version}</version>
+       <scope>compile</scope>

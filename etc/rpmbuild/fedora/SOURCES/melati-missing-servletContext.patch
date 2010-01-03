@@ -1,0 +1,30 @@
+diff -up melati-0.7.8/melati/src/test/java/org/melati/test/MelatiTest.java~ melati-0.7.8/melati/src/test/java/org/melati/test/MelatiTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/test/MelatiTest.java~	2009-12-27 01:07:46.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/test/MelatiTest.java	2009-12-26 22:43:41.000000000 +0100
+@@ -274,7 +273,7 @@
+     MockServletRequest req = new MockServletRequest();
+     req.setRequestURI("");
+     m.setRequest(req);
+-    assertEquals("/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
++    assertEquals("/servletContext/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
+   }
+ 
+   /**
+@@ -288,7 +287,7 @@
+     MockServletRequest req = new MockServletRequest();
+     req.setRequestURI("");
+     m.setRequest(req);
+-    assertEquals("/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
++    assertEquals("/servletContext/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
+ 
+   }
+ 
+@@ -311,7 +310,7 @@
+     MockServletRequest req = new MockServletRequest();
+     req.setRequestURI("/");
+     m.setRequest(req);
+-    assertEquals("http://localhost/mockServletPath/",m.getServletURL());
++    assertEquals("http://localhost/servletContext/mockServletPath/",m.getServletURL());
+   }
+ 
+   /**

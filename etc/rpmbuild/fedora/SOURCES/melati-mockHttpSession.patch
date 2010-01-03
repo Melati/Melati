@@ -1,0 +1,367 @@
+diff -up melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockServletRequest.java~ melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockServletRequest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockServletRequest.java~	2009-12-19 23:56:22.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockServletRequest.java	2009-12-20 00:00:06.000000000 +0100
+@@ -30,12 +30,12 @@ import javax.servlet.http.HttpSession;
+  */
+ public class MockServletRequest implements HttpServletRequest {
+ 
+-    Map parameters = new HashMap();
++    Map<String,String> parameters = new HashMap<String,String>();
+     
+     /**
+      * @param map the parameters
+      */
+-    public void setParameters(Map map) {
++    public void setParameters(Map<String,String> map) {
+         parameters = map;
+     }
+     
+@@ -52,7 +52,7 @@ public class MockServletRequest implemen
+     }
+ 
+     // Note this is not correct, should be a MultiMap
+-    Hashtable headers = new Hashtable();
++    Hashtable<String,String> headers = new Hashtable<String,String>();
+     public String getHeader(String arg0) {
+         return (String)headers.get(arg0);
+     }
+@@ -63,11 +63,11 @@ public class MockServletRequest implemen
+     public void setHeader(String key, String value) {
+       headers.put(key, value);
+     }
+-    public Enumeration getHeaders(String arg0) {
++    public Enumeration<String> getHeaders(String arg0) {
+         return headers.elements();
+     }
+ 
+-    public Enumeration getHeaderNames() {
++    public Enumeration<String> getHeaderNames() {
+         return headers.keys();
+     }
+ 
+@@ -95,7 +95,7 @@ public class MockServletRequest implemen
+     }
+ 
+     public String getContextPath() {
+-        return ""; // root context
++        return "/servletContext"; 
+     }
+ 
+     public String getQueryString() {
+@@ -143,8 +143,11 @@ public class MockServletRequest implemen
+     public void setSession(Object s){
+       session = s;
+     }
+-    public HttpSession getSession(boolean arg0) {
+-      return (HttpSession)session;
++    public HttpSession getSession(boolean create) {
++      if (create)
++        return new MockHttpSession();
++      else
++        return (HttpSession)session;
+     }
+ 
+     public HttpSession getSession() {
+@@ -171,7 +174,7 @@ public class MockServletRequest implemen
+         return null;
+     }
+ 
+-    public Enumeration getAttributeNames() {
++    public Enumeration<String> getAttributeNames() {
+         return null;
+     }
+ 
+@@ -210,7 +213,7 @@ public class MockServletRequest implemen
+       return (String)parameters.get(arg0);
+     }
+ 
+-    public Enumeration getParameterNames() {
++    public Enumeration<String> getParameterNames() {
+         return Collections.enumeration(parameters.keySet());
+     }
+ 
+@@ -218,7 +221,7 @@ public class MockServletRequest implemen
+       return new String[] {(String)parameters.get(key)} ;
+     }
+ 
+-    public Map getParameterMap() {
++    public Map<String,String> getParameterMap() {
+         return parameters;
+     }
+ 
+@@ -267,7 +270,7 @@ public class MockServletRequest implemen
+         return null;
+     }
+ 
+-    public Enumeration getLocales() {
++    public Enumeration<Locale> getLocales() {
+         return null;
+     }
+ 
+@@ -278,11 +281,11 @@ public class MockServletRequest implemen
+     public RequestDispatcher getRequestDispatcher(String arg0) {
+         return new RequestDispatcher() {
+         
+-            public void include(ServletRequest arg0, ServletResponse arg1)
++            public void include(ServletRequest arg00, ServletResponse arg1)
+                     throws ServletException, IOException {
+             }
+         
+-            public void forward(ServletRequest arg0, ServletResponse arg1)
++            public void forward(ServletRequest arg00, ServletResponse arg1)
+                     throws ServletException, IOException {
+             }
+         };
+diff -up melati-0.7.8/melati/src/test/java/org/melati/servlet/test/TemplateServletTest.java~ melati-0.7.8/melati/src/test/java/org/melati/servlet/test/TemplateServletTest.java
+--- melati-0.7.8/melati/src/test/java/org/melati/servlet/test/TemplateServletTest.java~	2008-01-06 21:00:49.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/servlet/test/TemplateServletTest.java	2009-12-19 23:28:12.000000000 +0100
+@@ -251,13 +251,8 @@ public class TemplateServletTest extends
+   public void testPassbackAccessPoemExceptionHandling() throws Exception {
+     MockServletRequest mockHttpServletRequest = new MockServletRequest();
+     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+-    Mock mockSession = new Mock(HttpSession.class);
+     MockServletConfig mockServletConfig = new MockServletConfig();
+     MockServletContext mockServletContext = new MockServletContext();
+-
+-    setupMocks(mockHttpServletRequest, mockSession,  
+-            mockServletContext);
+-
+     
+     mockServletContext.expectAndReturn("getResource", 
+             "/org/melati/template/webmacro/templets/html/error/org.melati.template.TemplateEngineException.wm"); 
+diff -ruN Melati-0.7.8-RC2/melati/src/test/java/org/melati/servlet/test/MockHttpSession.java rpmbuild/BUILD/melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockHttpSession.java
+--- melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockHttpSession.java	1970-01-01 01:00:00.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/servlet/test/MockHttpSession.java	2009-09-17 12:40:58.000000000 +0200
+@@ -0,0 +1,232 @@
++/*
++ * $Source$
++ * $Revision$
++ *
++ * Copyright (C) 2009 Tim Pizey
++ *
++ * Part of Melati (http://melati.org), a framework for the rapid
++ * development of clean, maintainable web applications.
++ *
++ * Melati is free software; Permission is granted to copy, distribute
++ * and/or modify this software under the terms either:
++ *
++ * a) the GNU General Public License as published by the Free Software
++ *    Foundation; either version 2 of the License, or (at your option)
++ *    any later version,
++ *
++ *    or
++ *
++ * b) any version of the Melati Software License, as published
++ *    at http://melati.org
++ *
++ * You should have received a copy of the GNU General Public License and
++ * the Melati Software License along with this program;
++ * if not, write to the Free Software Foundation, Inc.,
++ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
++ * GNU General Public License and visit http://melati.org to obtain the
++ * Melati Software License.
++ *
++ * Feel free to contact the Developers of Melati (http://melati.org),
++ * if you would like to work out a different arrangement than the options
++ * outlined here.  It is our intention to allow Melati to be used by as
++ * wide an audience as possible.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * Contact details for copyright holder:
++ *
++ *     Tim Pizey <timp At paneris.org>
++ *     http://paneris.org/~timp
++ */
++
++package org.melati.servlet.test;
++
++import java.util.Enumeration;
++import java.util.Hashtable;
++
++import javax.servlet.ServletContext;
++import javax.servlet.http.HttpSession;
++import javax.servlet.http.HttpSessionContext;
++
++/**
++ * @author timp
++ * @since  26 Feb 2009
++ *
++ */
++@SuppressWarnings("deprecation")
++public class MockHttpSession implements HttpSession {
++  
++  private Hashtable<String,Object> values;
++
++  /**
++   * Constructor.
++   */
++  public MockHttpSession() {
++    values = new Hashtable<String,Object>();
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
++   */
++  public Object getAttribute(String name) {
++    return values.get(name);
++    }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getAttributeNames()
++   */
++  public Enumeration<String> getAttributeNames() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getCreationTime()
++   */
++  public long getCreationTime() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getId()
++   */
++  public String getId() {
++    return "1";
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getLastAccessedTime()
++   */
++  public long getLastAccessedTime() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getMaxInactiveInterval()
++   */
++  public int getMaxInactiveInterval() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getServletContext()
++   */
++  public ServletContext getServletContext() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getSessionContext()
++   */
++  public HttpSessionContext getSessionContext() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
++   */
++  public Object getValue(String name) {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#getValueNames()
++   */
++  public String[] getValueNames() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#invalidate()
++   */
++  public void invalidate() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#isNew()
++   */
++  public boolean isNew() {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)
++   */
++  public void putValue(String name, Object value) {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
++   */
++  public void removeAttribute(String name) {
++    values.remove(name);
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#removeValue(java.lang.String)
++   */
++  public void removeValue(String name) {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
++   */
++  public void setAttribute(String name, Object value) {
++    values.put(name, value);
++  }
++
++  /**
++   * {@inheritDoc}
++   * @see javax.servlet.http.HttpSession#setMaxInactiveInterval(int)
++   */
++  public void setMaxInactiveInterval(int interval) {
++    throw new RuntimeException("TODO No one else has ever called this method."
++        + " Do you really want to start now?");
++
++  }
++
++}

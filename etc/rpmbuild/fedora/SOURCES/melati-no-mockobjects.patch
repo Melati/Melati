@@ -1,0 +1,36 @@
+diff -up melati-0.7.8/melati/pom.xml~ melati-0.7.8/melati/pom.xml
+--- melati-0.7.8/melati/pom.xml~	2009-12-30 21:05:07.000000000 +0100
++++ melati-0.7.8/melati/pom.xml	2009-12-30 22:23:22.000000000 +0100
+@@ -82,12 +82,8 @@
+       <version>3.8.1</version>
+       <scope>test</scope>
+     </dependency>
+-    <dependency>
+-      <groupId>mockobjects</groupId>
+-      <artifactId>mockobjects-core</artifactId>
+-      <version>0.09</version>
+-      <scope>test</scope>
+-    </dependency>
++	<!-- Under Fedora 11 installing mockobjects from jpackage-generic-5.0 is not too problematic
++		 and enables a lot more testing during rpmbuild but we removed it here instead -->
+     <dependency>
+       <groupId>log4j</groupId>
+       <artifactId>log4j</artifactId>
+diff -up melati-0.7.8/poem/pom.xml~ melati-0.7.8/poem/pom.xml
+--- melati-0.7.8/poem/pom.xml~	2009-12-30 21:05:07.000000000 +0100
++++ melati-0.7.8/poem/pom.xml	2009-12-30 22:23:23.000000000 +0100
+@@ -122,12 +122,8 @@
+       <version>3.8.1</version>
+       <scope>test</scope>
+     </dependency>
+-    <dependency>
+-      <groupId>mockobjects</groupId>
+-      <artifactId>mockobjects-core</artifactId>
+-      <version>0.09</version>
+-      <scope>test</scope>
+-    </dependency>
++	<!-- Under Fedora 11 installing mockobjects from jpackage-generic-5.0 is not too problematic
++		 and enables a lot more testing during rpmbuild but we removed it here instead -->
+ 
+   </dependencies>
+ 

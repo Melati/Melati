@@ -1,0 +1,30 @@
+diff -up melati-0.7.8/pom.xml~ melati-0.7.8/pom.xml
+--- melati-0.7.8/pom.xml~	2009-12-20 00:02:07.000000000 +0100
++++ melati-0.7.8/pom.xml	2009-12-20 00:09:22.000000000 +0100
+@@ -502,8 +502,8 @@ http://sourceforge.net/mailarchive/forum
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <configuration>
+-      <source>1.4</source>
+-      <target>1.4</target>
++      <source>1.6</source>
++      <target>1.6</target>
+      </configuration>
+     </plugin>
+    </plugins>
+diff -up melati-0.7.8/melati/src/test/java/org/melati/template/test/MarkupLanguageSpec.java~ melati-0.7.8/melati/src/test/java/org/melati/template/test/MarkupLanguageSpec.java
+--- melati-0.7.8/melati/src/test/java/org/melati/template/test/MarkupLanguageSpec.java~	2008-03-17 10:06:43.000000000 +0100
++++ melati-0.7.8/melati/src/test/java/org/melati/template/test/MarkupLanguageSpec.java	2009-12-20 00:28:54.000000000 +0100
+@@ -151,10 +151,8 @@ abstract public class MarkupLanguageSpec
+    * FIXME how to write this so it works on Windows and Linux??
+    */
+   public void testEntitySubstitution() throws Exception { 
+-    /*
+-    assertEquals("&amp;%&pound;", ml.rendered("&%�"));
+-    assertEquals("&amp;%&pound;", aml.rendered("&%�"));
+-    */
++    assertEquals("&amp;%&pound;", ml.rendered("&%\u00A3"));
++    assertEquals("&amp;%&pound;", aml.rendered("&%\u00A3"));
+   }
+ 
+   /**

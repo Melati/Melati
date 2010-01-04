@@ -299,8 +299,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
      * Throw exception.
      */
     public String toString() {
-      if (true == true) throw new RuntimeException("Bomber bombed.");
-      return "Did not bomb";
+      throw new RuntimeException("Bomber bombed.");
     }
   }
   /**

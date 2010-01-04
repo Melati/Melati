@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -89,7 +89,7 @@ public final class PropertiesUtils {
    * @return a {@link Properties} object
    * @throws IOException if the file cannot load or is not found
    */
-  public static Properties fromResource(Class clazz, String name)
+  public static Properties fromResource(Class<?> clazz, String name)
       throws IOException {
     InputStream is = clazz.getResourceAsStream(name);
 
@@ -181,7 +181,7 @@ public final class PropertiesUtils {
     }
   }
 
-  private static Hashtable instantiatedClassesCache = new Hashtable();
+  private static Hashtable<String, Object> instantiatedClassesCache = new Hashtable<String, Object>();
   /**
    * Instantiate an interface.
    * 
@@ -197,8 +197,8 @@ public final class PropertiesUtils {
     if (cached != null)
       return cached;
     try {
-      Class interfaceClass = Class.forName(interfaceClassName);
-      Class clazz = Class.forName(className);
+      Class<?> interfaceClass = Class.forName(interfaceClassName);
+      Class<?> clazz = Class.forName(className);
       if (!interfaceClass.isAssignableFrom(clazz))
         throw new ClassCastException(
                 clazz + " is not descended from " + interfaceClass);
@@ -228,7 +228,7 @@ public final class PropertiesUtils {
     String className =  (String)properties.get(propertyName);
     if (className == null)
       try {
-        Class defaultClass = Class.forName(defaultName);
+        Class<?> defaultClass = Class.forName(defaultName);
         return defaultClass.newInstance();
       } catch (Exception e) {
         throw new RuntimeException("Problem creating new instance of " + 

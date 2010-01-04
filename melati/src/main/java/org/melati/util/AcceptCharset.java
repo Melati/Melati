@@ -70,7 +70,7 @@ public class AcceptCharset extends HttpHeader {
    * Charsets supported by the jvm and accepted by the client 
    * or preferred by the server.
    */
-  protected HashMap supportedAcceptedOrPreferred = new HashMap();
+  protected HashMap<String, CharsetAndQValue> supportedAcceptedOrPreferred = new HashMap<String, CharsetAndQValue>();
 
   /**
    * Client wildcard * specification if any.
@@ -114,7 +114,7 @@ public class AcceptCharset extends HttpHeader {
    * to avoid 406 errors to reasonable clients, enough reasonable charsets
    * must be listed in serverPreferences.
    */
-  public AcceptCharset(String values, List serverPreference) throws HttpHeaderException {
+  public AcceptCharset(String values, List<String> serverPreference) throws HttpHeaderException {
     super(values);
     if (debug) System.err.println("values:" + values);
     if (debug) System.err.println("serverPreference:" + serverPreference);
@@ -150,7 +150,7 @@ public class AcceptCharset extends HttpHeader {
     }
     for (int i = 0; i < serverPreference.size(); i++) {
       try {
-        Charset charset = Charset.forName((String)serverPreference.get(i));
+        Charset charset = Charset.forName(serverPreference.get(i));
         CharsetAndQValue acceptable =
             (CharsetAndQValue)supportedAcceptedOrPreferred.get(charset.name());
         if (acceptable == null) {
@@ -214,7 +214,7 @@ public class AcceptCharset extends HttpHeader {
     return new CharsetAndQValueIterator();
   }
 
-  private final Comparator clientComparator = new Comparator();
+  private final Comparator<CharsetAndQValue> clientComparator = new Comparator<CharsetAndQValue>();
 
   /**
    * @return the first supported charset that is also acceptable to the
@@ -226,7 +226,7 @@ public class AcceptCharset extends HttpHeader {
     return choice(clientComparator);
   }
 
-  private final Comparator serverComparator = new Comparator() {
+  private final Comparator<CharsetAndQValue> serverComparator = new Comparator<CharsetAndQValue>() {
       protected int compareCharsetAndQValue(CharsetAndQValue one,
                                    CharsetAndQValue two) {
         int result;
@@ -256,9 +256,9 @@ public class AcceptCharset extends HttpHeader {
    * @return the first supported charset also acceptable to the client
    * in order defined by the given {@link Comparator}
    */
-  public String choice(Comparator comparator) {
+  public String choice(Comparator<CharsetAndQValue> comparator) {
     CharsetAndQValue best = null;
-    for (Iterator i = supportedAcceptedOrPreferred.values().iterator(); i.hasNext();) {
+    for (Iterator<CharsetAndQValue> i = supportedAcceptedOrPreferred.values().iterator(); i.hasNext();) {
       CharsetAndQValue c = (CharsetAndQValue)i.next();
       if (best == null || comparator.compare(c, best) > 0) {
         best = c;
@@ -277,7 +277,7 @@ public class AcceptCharset extends HttpHeader {
   /**
    * Comparator for comparing {@link AcceptCharset.CharsetAndQValue} objects.
    */
-  protected static class Comparator implements java.util.Comparator {
+  protected static class Comparator<T> implements java.util.Comparator<T> {
     
     /**
      * {@inheritDoc}

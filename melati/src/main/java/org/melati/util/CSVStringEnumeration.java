@@ -55,10 +55,10 @@ import java.util.NoSuchElementException;
  *     "foo", " bar om", "", "baz, , oof", "xyz", ""
  * </PRE>
  *
- * @author      williamc@paneris.org
+ * @author      williamc AT paneris.org
  */
 
-public class CSVStringEnumeration implements Enumeration {
+public class CSVStringEnumeration implements Enumeration<String> {
 
   private String line = "";
   private boolean emptyLastField = false;
@@ -86,7 +86,7 @@ public class CSVStringEnumeration implements Enumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public final Object nextElement() {
+  public final String nextElement() {
     return nextToken();
   }
 

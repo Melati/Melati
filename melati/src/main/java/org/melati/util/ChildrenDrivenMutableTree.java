@@ -72,6 +72,7 @@ public class ChildrenDrivenMutableTree {
      * An enumeration that is always empty. This is used when an enumeration
      * of a leaf node's children is requested.
      */
+    @SuppressWarnings("unchecked") // FIXME we need our own empty enumeration
     public static final Enumeration EMPTY_ENUMERATION = 
       DefaultMutableTreeNode.EMPTY_ENUMERATION; 
 
@@ -105,12 +106,13 @@ public class ChildrenDrivenMutableTree {
      * Compute the children given the nodes.
      * @param nodes an Enumeration of nodes
      */
-    public void buildTree(Enumeration nodes) {
+    public void buildTree(Enumeration<DefaultMutableTreeNode> nodes) {
       while (nodes.hasMoreElements())
-        buildTree(computeChildren((DefaultMutableTreeNode)nodes.nextElement()));
+        buildTree(computeChildren(nodes.nextElement()));
     }
 
-    private static Enumeration computeChildren(DefaultMutableTreeNode node) {
+    @SuppressWarnings("unchecked")
+    private static Enumeration<DefaultMutableTreeNode> computeChildren(DefaultMutableTreeNode node) {
       if (node == null)
         return EMPTY_ENUMERATION;
       Treeable[] kids = ((Treeable)node.getUserObject()).getChildren();
@@ -126,21 +128,22 @@ public class ChildrenDrivenMutableTree {
      * @param search the node object
      * @return a tree node
      */
+    @SuppressWarnings("unchecked")
     public DefaultMutableTreeNode getTreeNodeFor(Treeable search) {
 
-        Vector agenda = new Vector();
+        Vector<DefaultMutableTreeNode> agenda = new Vector<DefaultMutableTreeNode>();
         agenda.addElement(root);
 
         while (!agenda.isEmpty()) {
             DefaultMutableTreeNode current =
-                (DefaultMutableTreeNode)agenda.firstElement();
+                agenda.firstElement();
             if (current == null)
               return null;
             if (current.getUserObject() == search)
               return current;
 
             agenda.removeElementAt(0);
-            Enumeration kids = current.children();
+            Enumeration<DefaultMutableTreeNode> kids = current.children();
             while(kids.hasMoreElements()) {
               agenda.addElement(kids.nextElement());
             }
@@ -163,6 +166,7 @@ public class ChildrenDrivenMutableTree {
      * from breadth first?
      * @return the nodes
      */
+    @SuppressWarnings("unchecked")
     public Enumeration preorderEnumeration() {
       return root.preorderEnumeration();
     }
@@ -175,6 +179,7 @@ public class ChildrenDrivenMutableTree {
      * from depth first?
      * @return the nodes
      */
+    @SuppressWarnings("unchecked")
     public Enumeration postorderEnumeration() {
       return root.postorderEnumeration();
     }
@@ -182,6 +187,7 @@ public class ChildrenDrivenMutableTree {
     /**
      * @return an enumeration of nodes in breadth first order.
      */
+    @SuppressWarnings("unchecked")
     public Enumeration breadthFirstEnumeration() {
       return root.breadthFirstEnumeration();
     }
@@ -189,6 +195,7 @@ public class ChildrenDrivenMutableTree {
     /**
      * @return an enumeration of nodes in depth first order.
      */
+    @SuppressWarnings("unchecked")
     public Enumeration depthFirstEnumeration() {
       return root.depthFirstEnumeration();
     }

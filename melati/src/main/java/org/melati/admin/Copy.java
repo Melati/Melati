@@ -144,7 +144,7 @@ public class Copy extends TemplateServlet {
               public void run() {
                 System.err.println("PoemThread " + PoemThread.database().getDisplayName());
                 try {
-                  Enumeration en = fromDb.getDisplayTables(null);
+                  Enumeration<Table> en = fromDb.getDisplayTables(null);
                   while(en.hasMoreElements()) { 
                     Table fromTable = (Table)en.nextElement();
                     String fromTableName = fromTable.getName();
@@ -155,16 +155,16 @@ public class Copy extends TemplateServlet {
                       System.err.println("Skipping " + toTable.getName() + " as it contains " + count + " records." );
                     } else { 
                       System.err.println(toTable.getName() + " in both and empty in destination.");
-                      Enumeration recs = objectsFromTroids(
+                      Enumeration<Persistent> recs = objectsFromTroids(
                               fromTable.troidSelection((String)null, 
                                                        (String)null, false, null), 
                                                        fromTable);
                       while (recs.hasMoreElements()) {
                         Persistent p = (Persistent)recs.nextElement();
                         Persistent p2 = toTable.newPersistent();
-                        Enumeration fields = p.getFields();
+                        Enumeration<Field> fields = p.getFields();
                         while (fields.hasMoreElements()) { 
-                          Field f = (Field)fields.nextElement();
+                          Field f = fields.nextElement();
                           p2.setRaw(f.getName(), f.getRaw());
                         }
                         p2.makePersistent();
@@ -185,9 +185,9 @@ public class Copy extends TemplateServlet {
     return toDb;
 
   }
-  static Enumeration objectsFromTroids(Enumeration troids, final Table t) {
-    return new MappedEnumeration(troids) {
-        public Object mapped(Object troid) {
+  static Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids, final Table t) {
+    return new MappedEnumeration<Persistent>(troids) {
+        public Persistent mapped(Object troid) {
           return t.getObject((Integer)troid);
         }
       };

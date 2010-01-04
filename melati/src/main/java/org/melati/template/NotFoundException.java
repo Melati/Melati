@@ -59,7 +59,7 @@ public class NotFoundException extends MelatiException {
   /** The TempletLoader we are using. */
   public TempletLoader loader;
   /** The Class of the object which we are trying to geta template for. */
-  public Class clazz;
+  public Class<?> clazz;
 
   /**
   * Construct this decorator.
@@ -78,7 +78,7 @@ public class NotFoundException extends MelatiException {
   }
 
   /** Constructor. */
-  public NotFoundException(TempletLoader loader, Class clazz) {
+  public NotFoundException(TempletLoader loader, Class<?> clazz) {
     super("Templet loader `" + loader + "' failed to find a templet for " +
     " `" + clazz + "'");
     this.loader = loader;

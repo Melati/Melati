@@ -59,7 +59,8 @@ public class PassbackMethodExceptionEventHandler implements
    * {@inheritDoc}
    * @see org.apache.velocity.app.event.MethodExceptionEventHandler#methodException
    */
-  public Object methodException(Class claz, String method, Exception e)
+  @SuppressWarnings("unchecked")
+public Object methodException(Class claz, String method, Exception e)
       throws Exception {
     return e;
   }

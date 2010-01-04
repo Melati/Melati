@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc AT paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -70,14 +70,14 @@ public abstract class FormDataAdaptorFactory {
   public FormDataAdaptor get(final Melati melati, 
                              final MultipartFormField field) {
 
-    final Hashtable holder = new Hashtable();
+    final Hashtable<String, FormDataAdaptor> holder = new Hashtable<String, FormDataAdaptor>();
     if (melati.getDatabase() == null) {
       holder.put("hereiam",getIt(melati,field));
     } else {
       melati.loadTableAndObject();
       holder.put("hereiam",getIt(melati,field));
     }
-    return (FormDataAdaptor)holder.get("hereiam");
+    return holder.get("hereiam");
   }
   
   /**

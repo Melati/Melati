@@ -32,6 +32,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    * {@inheritDoc}
    * @see junit.framework.TestCase#setUp()
    */
+  @Override
   protected void setUp() throws Exception {
     super.setUp();
   }
@@ -40,6 +41,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    * {@inheritDoc}
    * @see junit.framework.TestCase#tearDown()
    */
+  @Override
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -65,7 +67,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
     assertTrue(them.size() > 0);
     boolean found = false;
     for (int i = 0; i < them.size(); i++)
-      if (((String)them.get(i)).equals("melatijunit"))
+      if ((them.get(i)).equals("melatijunit"))
               found = true;
     assertTrue(found);
     

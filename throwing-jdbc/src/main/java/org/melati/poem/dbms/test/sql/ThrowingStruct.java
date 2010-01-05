@@ -85,7 +85,7 @@ public class ThrowingStruct
    * @see java.sql.Struct#getAttributes(java.util.Map)
    */
 
-  public Object[] getAttributes(Map map) throws SQLException {
+  public Object[] getAttributes(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getAttributes"))
       throw new SQLException("Struct bombed");
     return it.getAttributes();

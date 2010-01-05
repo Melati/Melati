@@ -77,7 +77,7 @@ public abstract class ThrowingArrayJdbc3
    * {@inheritDoc}
    * @see java.sql.Array#getArray(java.util.Map)
    */
-  public Object getArray(Map map) throws SQLException {
+  public Object getArray(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
     return it.getArray();
@@ -97,7 +97,7 @@ public abstract class ThrowingArrayJdbc3
    * {@inheritDoc}
    * @see java.sql.Array#getArray(long, int, java.util.Map)
    */
-  public Object getArray(long index, int count, Map map)
+  public Object getArray(long index, int count, Map<String, Class<?>> map)
           throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getArray"))
       throw new SQLException("Array bombed");
@@ -138,7 +138,7 @@ public abstract class ThrowingArrayJdbc3
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(java.util.Map)
    */
-  public ResultSet getResultSet(Map map) throws SQLException {
+  public ResultSet getResultSet(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");
     return  new ThrowingResultSet(it.getResultSet());
@@ -158,7 +158,7 @@ public abstract class ThrowingArrayJdbc3
    * {@inheritDoc}
    * @see java.sql.Array#getResultSet(long, int, java.util.Map)
    */
-  public ResultSet getResultSet(long index, int count, Map map)
+  public ResultSet getResultSet(long index, int count, Map<String, Class<?>> map)
           throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getResultSet"))
       throw new SQLException("Array bombed");

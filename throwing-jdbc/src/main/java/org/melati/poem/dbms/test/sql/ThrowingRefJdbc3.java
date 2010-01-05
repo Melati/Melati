@@ -88,7 +88,7 @@ public class ThrowingRefJdbc3
    * @see java.sql.Ref#getObject(java.util.Map)
    */
 
-  public Object getObject(Map map) throws SQLException {
+  public Object getObject(Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("Ref bombed");
     return it.getObject();

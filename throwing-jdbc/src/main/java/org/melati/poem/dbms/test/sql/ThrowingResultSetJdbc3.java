@@ -585,7 +585,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getObject(int, java.util.Map)
    */
-  public Object getObject(int i, Map map) throws SQLException {
+  public Object getObject(int i, Map<String, Class<?>>map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
 
@@ -596,7 +596,7 @@ public abstract class ThrowingResultSetJdbc3
    * {@inheritDoc}
    * @see java.sql.ResultSet#getObject(java.lang.String, java.util.Map)
    */
-  public Object getObject(String colName, Map map) throws SQLException {
+  public Object getObject(String colName, Map<String, Class<?>> map) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("ResultSet bombed");
     return it.getObject(colName, map);

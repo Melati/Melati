@@ -254,13 +254,13 @@ public abstract class ThrowingCallableStatementJdbc3
     return it.getObject(parameterName);
   }
 
-  public Object getObject(int arg0, Map arg1) throws SQLException {
+  public Object getObject(int arg0, Map<String, Class<?>> arg1) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("CallableStatement bombed");
     return it.getObject(arg0, arg1);
   }
 
-  public Object getObject(String arg0, Map arg1) throws SQLException {
+  public Object getObject(String arg0, Map<String, Class<?>> arg1) throws SQLException {
     if (shouldThrow(this.getClass().getInterfaces()[0], "getObject"))
       throw new SQLException("CallableStatement bombed");
     return it.getObject(arg0, arg1);

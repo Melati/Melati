@@ -79,7 +79,7 @@ final class Database implements org.odmg.Database {
     _logicalDB = openParameters;
     try {
       _poemDB = LogicalDatabase.getDatabase(_logicalDB);
-      _cachedTables = new HashMap();
+      _cachedTables = new HashMap<String,PoemTableAsDCollection>();
     } catch (DatabaseInitException err) {
       err.printStackTrace();
       throw new org.odmg.ODMGException(err.getMessage());
@@ -93,7 +93,7 @@ final class Database implements org.odmg.Database {
     ODMGFactory.resetDb();
   }
 
-  private Map _cachedTables = null;
+  private Map<String,PoemTableAsDCollection> _cachedTables = null;
 
  /** 
   * Retrieves a collection wrapper for the selected table.
@@ -104,7 +104,7 @@ final class Database implements org.odmg.Database {
   public Object lookup(String objectIdentifier) 
     throws org.odmg.ObjectNameNotFoundException { 
     if (_poemDB == null) throw new org.odmg.DatabaseClosedException();
-    Object theObject = _cachedTables.get(objectIdentifier);
+    PoemTableAsDCollection theObject = _cachedTables.get(objectIdentifier);
     if (theObject == null) {
       theObject = new PoemTableAsDCollection(_poemDB.
                                                getTable(objectIdentifier));

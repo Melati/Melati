@@ -17,7 +17,8 @@ public final class OdmgTest {
   /**
    * Test runner.
    */
-  public static void main(String[] argsIn)
+  @SuppressWarnings("unchecked")
+public static void main(String[] argsIn)
     throws Exception {
 
     System.out.println("OdmgTest started:");

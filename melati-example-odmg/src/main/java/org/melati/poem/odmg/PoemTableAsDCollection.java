@@ -70,7 +70,8 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
     return true;
   }
 
-  public boolean removeAll(Collection coll) {  
+  @SuppressWarnings("unchecked")
+public boolean removeAll(Collection coll) {  
     Iterator iter = coll.iterator();
     while (iter.hasNext()) {
        if (!remove(iter.next()))
@@ -89,7 +90,7 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
   public boolean remove(Object obj) {  
     Persistent p = (Persistent)obj;
     // delete all references first
-     Enumeration refs = _wrappedTable.getDatabase().referencesTo(p);
+     Enumeration<Persistent> refs = _wrappedTable.getDatabase().referencesTo(p);
       while (refs.hasMoreElements()) {
         Persistent q = (Persistent)refs.nextElement();
         q.deleteAndCommit();
@@ -99,8 +100,8 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
     return true;
   }
 
-  public Iterator iterator() { 
-    return new EnumerationIterator(_wrappedTable.selection());
+  public Iterator<Persistent> iterator() { 
+    return new EnumerationIterator<Persistent>(_wrappedTable.selection());
   }
 
  /** 
@@ -108,7 +109,7 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
   * NOTE: The query string is split into the where-clause and 
   * the order-by-clause and passed to poem.
   */
-  public Iterator select(String queryString) {
+  public Iterator<Persistent> select(String queryString) {
     String lowerCaseQueryString = queryString.toLowerCase();
     int whereStart = lowerCaseQueryString.indexOf("where ");
     if (whereStart<0) 
@@ -144,12 +145,12 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
     System.err.println("[poem-odmg]where clause="+whereClause);
     System.err.println("[poem-odmg]order by clause="+orderByClause);
 */
-    return new EnumerationIterator(
+    return new EnumerationIterator<Persistent>(
         _wrappedTable.selection(whereClause,orderByClause,true));
   }
 
   public Object selectElement(String queryString) {
-    Iterator iter = select(queryString);
+    Iterator<Persistent> iter = select(queryString);
     if (iter.hasNext())
       return iter.next();
     return null;
@@ -171,12 +172,15 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
   public boolean contains(Object obj) { 
     throw new org.odmg.NotImplementedException(); 
   }
+  @SuppressWarnings("unchecked")
   public boolean addAll(Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
+  @SuppressWarnings("unchecked")
   public boolean containsAll(Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
+  @SuppressWarnings("unchecked")
   public boolean retainAll(Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
@@ -184,15 +188,16 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
     throw new org.odmg.NotImplementedException(); 
   }
 
-/** utility class for converting enumerations into iterators */
-private class EnumerationIterator implements Iterator {
-  private Enumeration _enum = null;
-  EnumerationIterator(Enumeration en) {
+/** utility class for converting enumerations into iterators 
+ * @param <T>*/
+private class EnumerationIterator<T> implements Iterator<T> {
+  private Enumeration<T> _enum = null;
+  EnumerationIterator(Enumeration<T> en) {
     _enum = en;
   }
 
   public boolean hasNext() { return _enum.hasMoreElements(); }
-  public Object next() { return _enum.nextElement(); }
+  public T next() { return _enum.nextElement(); }
   public void remove() { throw new org.odmg.NotImplementedException(); }
 }
 

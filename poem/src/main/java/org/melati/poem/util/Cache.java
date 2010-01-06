@@ -546,7 +546,7 @@ public final class Cache {
      */
     public Enumeration<Object> getHeldElements() {
       checkForGarbageCollection();
-      return new MappedEnumeration<Object>(
+      return new MappedEnumeration<Object, Object>(
           new FilteredEnumeration<Object>(table.elements()) {
             public boolean isIncluded(Object o) {
               return o instanceof HeldNode;
@@ -563,7 +563,7 @@ public final class Cache {
      */
     public Enumeration<Object> getDroppedElements() {
       checkForGarbageCollection();
-      return new MappedEnumeration<Object>(
+      return new MappedEnumeration<Object, Object>(
           new FilteredEnumeration<Object>(table.elements()) {
             public boolean isIncluded(Object o) {
               return o instanceof DroppedNode;

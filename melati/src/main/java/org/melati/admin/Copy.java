@@ -186,9 +186,9 @@ public class Copy extends TemplateServlet {
 
   }
   static Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids, final Table t) {
-    return new MappedEnumeration<Persistent>(troids) {
-        public Persistent mapped(Object troid) {
-          return t.getObject((Integer)troid);
+    return new MappedEnumeration<Persistent, Integer>(troids) {
+        public Persistent mapped(Integer troid) {
+          return t.getObject(troid);
         }
       };
   }

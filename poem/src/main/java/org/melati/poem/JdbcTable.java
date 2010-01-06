@@ -1488,9 +1488,9 @@ public class JdbcTable implements Selectable, Table {
    * @return an enumeration of objects given an enumeration of troids.
    */
   private Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids) {
-    return new MappedEnumeration<Persistent>(troids) {
-        public Persistent mapped(Object troid) {
-          return getObject((Integer)troid);
+    return new MappedEnumeration<Persistent, Integer>(troids) {
+        public Persistent mapped(Integer troid) {
+          return getObject(troid);
         }
       };
   }

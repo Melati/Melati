@@ -712,9 +712,9 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   public Enumeration<Field> fieldsOfColumns(Enumeration<Column> columns) {
     final JdbcPersistent _this = this;
     return
-        new MappedEnumeration<Field>(columns) {
-          public Field mapped(Object column) {
-            return ((Column)column).asField(_this);
+        new MappedEnumeration<Field, Column>(columns) {
+          public Field mapped(Column column) {
+            return column.asField(_this);
           }
         };
   }

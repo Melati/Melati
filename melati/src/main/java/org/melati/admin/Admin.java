@@ -359,10 +359,10 @@ public class Admin extends TemplateServlet {
 
     final Persistent criteria = table.newPersistent();
 
-    MappedEnumeration<Field> criterias = new MappedEnumeration<Field>(table
+    MappedEnumeration<Field, Column> criterias = new MappedEnumeration<Field, Column>(table
         .getSearchCriterionColumns()) {
-      public Field mapped(Object c) {
-        return ((Column) c).asField(criteria).withNullable(true);
+      public Field mapped(Column c) {
+        return c.asField(criteria).withNullable(true);
       }
     };
 
@@ -391,9 +391,9 @@ public class Admin extends TemplateServlet {
     PoemType searchColumnsType = new ReferencePoemType(database
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
-        return new MappedEnumeration<Integer>(table.getSearchCriterionColumns()) {
-          public Integer mapped(Object column) {
-            return ((Column) column).getColumnInfo().getTroid();
+        return new MappedEnumeration<Integer, Column>(table.getSearchCriterionColumns()) {
+          public Integer mapped(Column column) {
+            return column.getColumnInfo().getTroid();
           }
         };
       }

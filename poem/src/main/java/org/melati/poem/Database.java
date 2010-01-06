@@ -953,9 +953,9 @@ public abstract class Database implements TransactionPool {
   */
   public Enumeration<Column> columns() {
     return new FlattenedEnumeration<Column>(
-        new MappedEnumeration<Enumeration<Column>>(tables()) {
-          public Enumeration<Column> mapped(Object table) {
-            return ((Table)table).columns();
+        new MappedEnumeration<Enumeration<Column>, Table>(tables()) {
+          public Enumeration<Column> mapped(Table table) {
+            return table.columns();
           }
         });
   }
@@ -1307,9 +1307,9 @@ public abstract class Database implements TransactionPool {
    */
   public Enumeration<Persistent> referencesTo(final Persistent object) {
     return new FlattenedEnumeration<Persistent>(
-        new MappedEnumeration<Enumeration<Persistent>>(tables()) {
-          public Enumeration<Persistent> mapped(Object table) {
-            return ((Table)table).referencesTo(object);
+        new MappedEnumeration<Enumeration<Persistent>, Table>(tables()) {
+          public Enumeration<Persistent> mapped(Table table) {
+            return table.referencesTo(object);
           }
         });
   }
@@ -1319,9 +1319,9 @@ public abstract class Database implements TransactionPool {
    */
   public Enumeration<Column> referencesTo(final Table tableIn) {
     return new FlattenedEnumeration<Column>(
-        new MappedEnumeration<Enumeration<Column>>(tables()) {
-          public Enumeration<Column> mapped(Object table) {
-            return ((Table)table).referencesTo(tableIn);
+        new MappedEnumeration<Enumeration<Column>, Table>(tables()) {
+          public Enumeration<Column> mapped(Table table) {
+            return table.referencesTo(tableIn);
           }
         });
   }

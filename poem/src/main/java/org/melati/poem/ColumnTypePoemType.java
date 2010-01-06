@@ -78,13 +78,13 @@ public class ColumnTypePoemType extends IndexPoemType {
    * {@inheritDoc}
    * @see org.melati.poem.BasePoemType#possibleRaws()
    */
-  public Enumeration possibleRaws() {
+  public Enumeration<Integer> possibleRaws() {
     return
-        new FlattenedEnumeration(
-            new MappedEnumeration(
-                new ArrayEnumeration(PoemTypeFactory.atomTypeFactories)) {
-              public Object mapped(Object factory) {
-                return ((PoemTypeFactory)factory).code;
+        new FlattenedEnumeration<Integer>(
+            new MappedEnumeration<Integer,PoemTypeFactory>(
+                new ArrayEnumeration<PoemTypeFactory>(PoemTypeFactory.atomTypeFactories)) {
+              public Integer mapped(PoemTypeFactory factory) {
+                return factory.code;
               }
             },
             database.getTableInfoTable().troidSelection(null, null, false));

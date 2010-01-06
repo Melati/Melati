@@ -76,7 +76,7 @@ public class IntegerPoemType extends AtomPoemType {
   /**
    * @todo Do down-counting?
    */
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     Integer low = (Integer)getLowRaw();
     Integer limit = (Integer)getLimitRaw();
     return low == null ?

@@ -1,0 +1,120 @@
+diff -up melati-0.7.8/maven-dsd-plugin/pom.xml~ melati-0.7.8/maven-dsd-plugin/pom.xml
+--- melati-0.7.8/maven-dsd-plugin/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/maven-dsd-plugin/pom.xml	2010-01-09 19:50:52.000000000 +0100
+@@ -5,7 +5,7 @@
+   <parent>
+     <groupId>org.melati</groupId>
+     <artifactId>melati-parent</artifactId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <artifactId>maven-dsd-plugin</artifactId>
+   <packaging>maven-plugin</packaging>
+diff -up melati-0.7.8/melati-archetype/pom.xml~ melati-0.7.8/melati-archetype/pom.xml
+--- melati-0.7.8/melati-archetype/pom.xml~	2007-08-13 17:15:01.000000000 +0200
++++ melati-0.7.8/melati-archetype/pom.xml	2010-01-09 19:50:54.000000000 +0100
+@@ -6,7 +6,7 @@
+   <parent>
+     <groupId>org.melati</groupId>
+     <artifactId>melati-parent</artifactId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+     <relativePath>../</relativePath>
+   </parent>
+   <packaging>maven-plugin</packaging>
+diff -up melati-0.7.8/melati-example-contacts/pom.xml~ melati-0.7.8/melati-example-contacts/pom.xml
+--- melati-0.7.8/melati-example-contacts/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/melati-example-contacts/pom.xml	2010-01-09 19:50:52.000000000 +0100
+@@ -2,7 +2,7 @@
+   <parent>
+     <artifactId>melati-parent</artifactId>
+     <groupId>org.melati</groupId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>melati-example-contacts</artifactId>
+diff -up melati-0.7.8/melati-example-odmg/pom.xml~ melati-0.7.8/melati-example-odmg/pom.xml
+--- melati-0.7.8/melati-example-odmg/pom.xml~	2007-08-13 17:15:01.000000000 +0200
++++ melati-0.7.8/melati-example-odmg/pom.xml	2010-01-09 19:50:51.000000000 +0100
+@@ -2,7 +2,7 @@
+   <parent>
+     <artifactId>melati-parent</artifactId>
+     <groupId>org.melati</groupId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.melati</groupId>
+diff -up melati-0.7.8/melati/pom.xml~ melati-0.7.8/melati/pom.xml
+--- melati-0.7.8/melati/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/melati/pom.xml	2010-01-09 19:50:53.000000000 +0100
+@@ -2,7 +2,7 @@
+   <parent>
+     <groupId>org.melati</groupId>
+     <artifactId>melati-parent</artifactId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>melati</artifactId>
+diff -up melati-0.7.8/melati-skin/pom.xml~ melati-0.7.8/melati-skin/pom.xml
+--- melati-0.7.8/melati-skin/pom.xml~	2007-08-13 17:15:02.000000000 +0200
++++ melati-0.7.8/melati-skin/pom.xml	2010-01-09 19:50:49.000000000 +0100
+@@ -4,7 +4,7 @@
+   <parent>
+     <artifactId>melati-parent</artifactId>
+     <groupId>org.melati</groupId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>melati-skin</artifactId>
+diff -up melati-0.7.8/melati-webapp/pom.xml~ melati-0.7.8/melati-webapp/pom.xml
+--- melati-0.7.8/melati-webapp/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/melati-webapp/pom.xml	2010-01-09 19:50:53.000000000 +0100
+@@ -2,7 +2,7 @@
+   <parent>
+     <artifactId>melati-parent</artifactId>
+     <groupId>org.melati</groupId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>melati-webapp</artifactId>
+diff -up melati-0.7.8/poem/pom.xml~ melati-0.7.8/poem/pom.xml
+--- melati-0.7.8/poem/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/poem/pom.xml	2010-01-09 19:50:50.000000000 +0100
+@@ -2,7 +2,7 @@
+   <parent>
+     <groupId>org.melati</groupId>
+     <artifactId>melati-parent</artifactId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>poem</artifactId>
+diff -up melati-0.7.8/pom.xml~ melati-0.7.8/pom.xml
+--- melati-0.7.8/pom.xml~	2010-01-09 18:56:56.000000000 +0100
++++ melati-0.7.8/pom.xml	2010-01-09 19:50:51.000000000 +0100
+@@ -15,7 +15,7 @@
+     <module>melati-skin</module>
+     <module>throwing-jdbc</module>
+   </modules>  
+-  <version>0.7.8-RC1-SNAPSHOT</version>
++  <version>0.7.8-RC2-SNAPSHOT</version>
+   <description>
+ Melati Java Web Development Suite
+   </description>
+diff -up melati-0.7.8/throwing-jdbc/pom.xml~ melati-0.7.8/throwing-jdbc/pom.xml
+--- melati-0.7.8/throwing-jdbc/pom.xml~	2009-11-11 21:36:02.000000000 +0100
++++ melati-0.7.8/throwing-jdbc/pom.xml	2010-01-09 19:50:54.000000000 +0100
+@@ -27,7 +27,7 @@
+   <parent>
+     <groupId>org.melati</groupId>
+     <artifactId>melati-parent</artifactId>
+-    <version>0.7.8-RC1-SNAPSHOT</version>
++    <version>0.7.8-RC2-SNAPSHOT</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>throwing-jdbc</artifactId>

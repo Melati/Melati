@@ -31,6 +31,7 @@ Patch18:		melati-missing-servletContext.patch
 #Patch19:		melati-no-mockobjects.patch
 Patch20:		melati-no-exec-plugin.patch
 #Patch21:		melati-skip-example-contacts.patch
+Patch22:		melati-RC1-to-RC2.patch
 
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -61,24 +62,83 @@ Requires(postun):     jpackage-utils
 Requires:       java
 
 %description
+TODO
 
 %package javadoc
 Summary:        Javadocs for %{name}
 Group:          Development/Documentation
-Requires:       %{name}-%{version}-%{release}
 Requires:       jpackage-utils
 
 %description javadoc
 This package contains the API documentation for %{name}.
 
-%package manual
-Summary:        Manual for %{name}
+%package throwing-jdbc
+Summary:        TODO
+Group:          Development/Build Tools
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+Provides:       throwing-jdbc = %{epoch}:%{version}-%{release}
+
+%description throwing-jdbc
+TODO
+
+%package throwing-jdbc-javadoc
+Summary:        Javadocs for %{name}-throwing-jdbc
 Group:          Development/Documentation
 Requires:       jpackage-utils
-Requires:       %{name}-%{version}-%{release}
 
-%description manual
-The manual for %{name}.
+%description throwing-jdbc-javadoc
+This package contains the API documentation for %{name}-throwing-jdbc.
+
+%package poem
+Summary:        TODO
+Group:          Development/Build Tools
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+Provides:       poem = %{epoch}:%{version}-%{release}
+
+%description poem
+TODO
+
+%package poem-javadoc
+Summary:        Javadocs for %{name}-poem
+Group:          Development/Documentation
+Requires:       jpackage-utils
+
+%description poem-javadoc
+This package contains the API documentation for %{name}-poem.
+
+%package maven-dsd-plugin
+Summary:        TODO
+Group:          Development/Build Tools
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+Provides:       maven-dsd-plugin = %{epoch}:%{version}-%{release}
+
+%description maven-dsd-plugin
+TODO
+
+%package maven-dsd-plugin-javadoc
+Summary:        Javadocs for %{name}-maven-dsd-plugin
+Group:          Development/Documentation
+Requires:       jpackage-utils
+
+%description maven-dsd-plugin-javadoc
+This package contains the API documentation for %{name}-maven-dsd-plugin.
+
+%package example-contacts
+Summary:        TODO
+Group:          Development/Build Tools
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+Provides:       example-contacts = %{epoch}:%{version}-%{release}
+
+%description example-contacts
+TODO
+
+%package example-contacts-javadoc
+Summary:        Javadocs for %{name}-example-contacts
+Group:          Development/Documentation
+Requires:       jpackage-utils
+
+%description example-contacts-javadoc
+This package contains the API documentation for %{name}-example-contacts.
 
 %prep
 %setup -q -c
@@ -141,20 +201,20 @@ sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{n
 %patch18 -p1
 %patch20 -p1
 #%patch21 -p1
+%patch22 -p1
 
 %build
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
 mkdir -p $MAVEN_REPO_LOCAL
-#mvn-jpp -ff -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
-mvn-jpp -ff -P nojetty -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install
+mvn-jpp -ff -P nojetty -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
 
 %install
 export RELEASE_TIMESTAMP=20090930.091550
 export RELEASE_BUILD=RC2-${RELEASE_TIMESTAMP}
 
-install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
+install -dm 755 $RPM_BUILD_ROOT%{_javadir}
+install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+install -dm 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
 
 install -pm 644 .m2/repository/org/melati/melati-parent/0.7.8-RC2-SNAPSHOT/melati-parent-0.7.8-RC2-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-parent.pom
@@ -164,32 +224,36 @@ install -pm 644 .m2/repository/org/melati/melati-skin/1.0-SNAPSHOT/melati-skin-1
 install -pm 644 melati/target/melati-0.7.8-RC2-SNAPSHOT.jar \
 	$RPM_BUILD_ROOT%{_javadir}/melati-0.7.8.jar
 ln -s melati-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/melati.jar
-%add_to_maven_depmap %{name} melati 0.7.8 JPP melati
+%add_to_maven_depmap org.melati %{name} %{version}-RC2-SNAPSHOT JPP %{name}
 install -pm 644 .m2/repository/org/melati/melati/0.7.8-RC2-SNAPSHOT/melati-0.7.8-RC2-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati.pom
+cp -pr melati/target/site/apidocs \
+	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/melati
 
 install -pm 644 melati/target/melati-0.7.8-RC2-SNAPSHOT-tests.jar \
 	$RPM_BUILD_ROOT%{_javadir}/melati-0.7.8-tests.jar
 ln -s melati-0.7.8-tests.jar $RPM_BUILD_ROOT%{_javadir}/melati-tests.jar
 
-install -pm 644 melati-archetype/target/melati-archetype-0.7.8-RC2-SNAPSHOT.jar \
-	$RPM_BUILD_ROOT%{_javadir}/melati-archetype-0.7.2.jar
-ln -s melati-archetype-0.7.2.jar $RPM_BUILD_ROOT%{_javadir}/melati-archetype.jar
-%add_to_maven_depmap %{name} melati-archetype 0.7.8 JPP melati-archetype
-install -pm 644 .m2/repository/org/melati/melati-archetype/0.7.8-RC2-SNAPSHOT/melati-archetype-0.7.8-RC2-SNAPSHOT.pom \
+install -pm 644 .m2/repository/org/melati/melati-archetype/1.0-SNAPSHOT/melati-archetype-1.0-SNAPSHOT.jar \
+	$RPM_BUILD_ROOT%{_javadir}/melati-archetype-0.7.8.jar
+ln -s melati-archetype-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/melati-archetype.jar
+%add_to_maven_depmap org.melati %{name}-archetype %{version}-RC2-SNAPSHOT JPP %{name}-archetype
+install -pm 644 .m2/repository/org/melati/melati-archetype/1.0-SNAPSHOT/melati-archetype-1.0-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-archetype.pom
 
 install -pm 644 throwing-jdbc/target/throwing-jdbc-0.7.8-RC2-SNAPSHOT-jdbc4.jar \
-	$RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-0.7.2-jdbc4.jar
-ln -s throwing-jdbc-0.7.2-jdbc4.jar $RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-jdbc4.jar
-%add_to_maven_depmap %{name} throwing-jdbc-jdbc4 0.7.8 JPP throwing-jdbc-jdbc4
+	$RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-0.7.8-jdbc4.jar
+ln -s throwing-jdbc-0.7.8-jdbc4.jar $RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-jdbc4.jar
+%add_to_maven_depmap org.melati throwing-jdbc-jdbc4 %{version}-RC2-SNAPSHOT JPP throwing-jdbc-jdbc4
 
 install -pm 644 throwing-jdbc/target/throwing-jdbc-0.7.8-RC2-SNAPSHOT.jar \
 	$RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-0.7.8.jar
 ln -s throwing-jdbc-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/throwing-jdbc.jar
-%add_to_maven_depmap %{name} throwing-jdbc 0.7.8 JPP throwing-jdbc
+%add_to_maven_depmap org.melati throwing-jdbc %{version}-RC2-SNAPSHOT JPP throwing-jdbc
 install -pm 644 .m2/repository/org/melati/throwing-jdbc/0.7.8-RC2-SNAPSHOT/throwing-jdbc-0.7.8-RC2-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-throwing-jdbc.pom
+cp -pr throwing-jdbc/target/site/apidocs \
+	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/throwing-jdbc
 
 install -pm 644 poem/target/poem-0.7.8-RC2-SNAPSHOT-tests.jar \
 	$RPM_BUILD_ROOT%{_javadir}/poem-0.7.8-tests.jar
@@ -198,40 +262,102 @@ ln -s poem-0.7.8-tests.jar $RPM_BUILD_ROOT%{_javadir}/poem-tests.jar
 install -pm 644 poem/target/poem-0.7.8-RC2-SNAPSHOT.jar \
 	$RPM_BUILD_ROOT%{_javadir}/poem-0.7.8.jar
 ln -s poem-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/poem.jar
-%add_to_maven_depmap %{name} poem 0.7.8 JPP poem
+%add_to_maven_depmap org.melati poem %{version}-RC2-SNAPSHOT JPP poem
 install -pm 644 .m2/repository/org/melati/poem/0.7.8-RC2-SNAPSHOT/poem-0.7.8-RC2-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-poem.pom
+cp -pr poem/target/site/apidocs \
+	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/poem
 
 install -pm 644 maven-dsd-plugin/target/maven-dsd-plugin-1.1-SNAPSHOT.jar \
 	$RPM_BUILD_ROOT%{_javadir}/maven-dsd-plugin-1.1.jar
 ln -s maven-dsd-plugin-1.1.jar $RPM_BUILD_ROOT%{_javadir}/maven-dsd-plugin.jar
-%add_to_maven_depmap %{name} maven-dsd-plugin 1.1 JPP maven-dsd-plugin
+%add_to_maven_depmap org.melati maven-dsd-plugin %{version}-RC2-SNAPSHOT JPP maven-dsd-plugin
 install -pm 644 .m2/repository/org/melati/maven-dsd-plugin/1.1-SNAPSHOT/maven-dsd-plugin-1.1-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-maven-dsd-plugin.pom
+cp -pr maven-dsd-plugin/target/site/apidocs \
+	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/maven-dsd-plugin
 
 install -pm 644 melati-example-contacts/target/melati-example-contacts-0.7.8-RC2-SNAPSHOT.jar \
-	$RPM_BUILD_ROOT%{_javadir}/melati-example-contacts-0.7.2.jar
-ln -s melati-example-contacts-0.7.2.jar $RPM_BUILD_ROOT%{_javadir}/melati-example-contacts.jar
-%add_to_maven_depmap %{name} melati-example-contacts 0.7.8 JPP melati-example-contacts
+	$RPM_BUILD_ROOT%{_javadir}/melati-example-contacts-0.7.8.jar
+ln -s melati-example-contacts-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/melati-example-contacts.jar
+%add_to_maven_depmap org.melati %{name}-example-contacts %{version}-RC2-SNAPSHOT JPP %{name}-example-contacts
 install -pm 644 .m2/repository/org/melati/melati-example-contacts/0.7.8-RC2-SNAPSHOT/melati-example-contacts-0.7.8-RC2-SNAPSHOT.pom \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-example-contacts.pom
+cp -pr melati-example-contacts/target/site/apidocs \
+	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/melati-example-contacts
 
-# This is just a test
-install -pm 644 melati/target/melati-0.7.8-RC2-SNAPSHOT.jar \
-$RPM_BUILD_ROOT%{_javadocdir}/%{name}
-
-%add_to_maven_depmap org.apache.maven %{name} %{version} JPP %{name}
-
-
+# manual
+install -dm 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p COPYING $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p CREDITS.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p LICENSE-GPL.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p LICENSE-MSL.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p LICENSE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p NOTICE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%update_maven_depmap
+
+%postun
+%update_maven_depmap
 
 %files
 %defattr(-,root,root,-)
-%doc
+%{_datadir}/maven2/poms
+%{_mavendepmapfragdir}
+%{_javadir}/melati-0.7.8.jar
+%{_javadir}/melati.jar
+%{_javadir}/melati-0.7.8-tests.jar
+%{_javadir}/melati-tests.jar
+%{_javadir}/melati-archetype-0.7.8.jar
+%{_javadir}/melati-archetype.jar
+%doc %{_docdir}/%{name}-%{version}/*
 
+%files javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}-%{version}/melati
 
+%files throwing-jdbc
+%defattr(-,root,root,-)
+%{_javadir}/throwing-jdbc-0.7.8-jdbc4.jar
+%{_javadir}/throwing-jdbc-jdbc4.jar
+%{_javadir}/throwing-jdbc-0.7.8.jar
+%{_javadir}/throwing-jdbc.jar
+
+%files throwing-jdbc-javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}-%{version}/throwing-jdbc
+
+%files poem
+%defattr(-,root,root,-)
+%{_javadir}/poem-0.7.8.jar
+%{_javadir}/poem.jar
+%{_javadir}/poem-0.7.8-tests.jar
+%{_javadir}/poem-tests.jar
+
+%files poem-javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}-%{version}/poem
+
+%files maven-dsd-plugin
+%defattr(-,root,root,-)
+%{_javadir}/maven-dsd-plugin-1.1.jar
+%{_javadir}/maven-dsd-plugin.jar
+
+%files maven-dsd-plugin-javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}-%{version}/maven-dsd-plugin
+
+%files example-contacts
+%defattr(-,root,root,-)
+%{_javadir}/melati-example-contacts-0.7.8.jar
+%{_javadir}/melati-example-contacts.jar
+
+%files example-contacts-javadoc
+%defattr(-,root,root,-)
+%{_javadocdir}/%{name}-%{version}/melati-example-contacts
 
 %changelog

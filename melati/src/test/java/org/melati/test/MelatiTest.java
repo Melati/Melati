@@ -132,7 +132,7 @@ public class MelatiTest extends TestCase {
     m = new Melati(mc, new MelatiStringWriter());
     pc = poemContext();
     m.setPoemContext(pc);
-    Vector known = m.getKnownDatabaseNames();
+    Vector<String> known = m.getKnownDatabaseNames();
     // Fails when run in single thread 
     //assertEquals(0, known.size());
     pc.setLogicalDatabase("melatijunit");

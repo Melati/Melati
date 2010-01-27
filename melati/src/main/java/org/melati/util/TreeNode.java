@@ -146,7 +146,7 @@ public class TreeNode {
      * @return an Array of TreeNodes
      */
     public TreeNode[] getNodeToRootPath(boolean includeNode, boolean reverse) {
-        Vector path = new Vector();
+        Vector<TreeNode> path = new Vector<TreeNode>();
         if (includeNode)
             path.addElement(this);
 

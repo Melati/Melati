@@ -185,7 +185,7 @@ public class Tree {
    *        breadth-first
    * @return a Vector nodes that have had func applied to them
    */
-  public Vector apply(Function func, int depthP, boolean depthFirst) {
+  public Vector<TreeNode> apply(Function func, int depthP, boolean depthFirst) {
     Vector<TreeNode> flattened = flattened(depthP, depthFirst);
     for (int i = 0; i < flattened.size(); i++) {
       flattened.setElementAt((TreeNode)func.apply(flattened.elementAt(i)), i);
@@ -198,7 +198,7 @@ public class Tree {
    * @param func the function to apply
    * @return a vector of nodes to which the function has been applied
    */
-  public Vector applyDepthFirst(Function func) {
+  public Vector<TreeNode> applyDepthFirst(Function func) {
     return apply(func, -1, true);
   }
 
@@ -210,7 +210,7 @@ public class Tree {
    *        depth means apply this to all nodes in the tree
    * @return a vector of nodes to which the function has been applied
    */
-  public Vector applyDepthFirst(Function func, int depthP) {
+  public Vector<TreeNode> applyDepthFirst(Function func, int depthP) {
     return apply(func, depthP, true);
   }
 
@@ -219,7 +219,7 @@ public class Tree {
    * @param func the function to apply
    * @return a vector of nodes to which the function has been applied
    */
-  public Vector applyBreadthFirst(Function func) {
+  public Vector<TreeNode> applyBreadthFirst(Function func) {
     return apply(func, -1, false);
   }
 
@@ -231,7 +231,7 @@ public class Tree {
    *        depth means apply this to all nodes in the tree
    * @return a vector of nodes to which the function has been applied
    */
-  public Vector applyBreadthFirst(Function func, int depthP) {
+  public Vector<TreeNode> applyBreadthFirst(Function func, int depthP) {
     return apply(func, depthP, false);
   }
 

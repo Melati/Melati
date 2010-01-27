@@ -148,6 +148,7 @@ public class MelatiConfig {
     init(propertiesName);
   }
 
+  @SuppressWarnings("unchecked")
   void init(String propertiesNameIn) {
     this.propertiesName = propertiesNameIn;
     String pref = propertiesName + ".";

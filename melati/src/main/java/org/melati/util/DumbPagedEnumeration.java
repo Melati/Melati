@@ -54,7 +54,7 @@ import org.melati.poem.util.EnumUtils;
  * A {@link PagedEnumeration} which doesn't know how big it is.
  * Ideally SQL would allow you to start at an offset.
  */
-public class DumbPagedEnumeration extends PagedEnumerationBase {
+public class DumbPagedEnumeration<T> extends PagedEnumerationBase<T> {
   
   private boolean totalCountIsMinimum;
 
@@ -65,7 +65,7 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
    * @param pageSize  how many Elements to include upon a page 
    * @param countHorizon where to count to, may be less than total size of underlying Enumeration
    */
-  public DumbPagedEnumeration(Enumeration base,
+  public DumbPagedEnumeration(Enumeration<T> base,
                              int pageStart, int pageSize, int countHorizon) {
     pageStart = Math.max(pageStart, 1);
     this.pageStart = pageStart;
@@ -96,8 +96,8 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
     return totalCountIsMinimum;
   }
 
-  public Vector getPageStartList() {
-    Vector ret = new Vector(totalCount / pageSize);
+  public Vector<Page> getPageStartList() {
+    Vector<Page> ret = new Vector<Page>(totalCount / pageSize);
     int i=1;
     while((i-1)*pageSize < totalCount) {
       ret.addElement(new Page(i,(i-1)*pageSize+1));

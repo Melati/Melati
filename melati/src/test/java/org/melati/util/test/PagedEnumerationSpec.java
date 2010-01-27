@@ -3,8 +3,8 @@
  */
 package org.melati.util.test;
 
+import org.melati.util.Page;
 import org.melati.util.PagedEnumeration;
-import org.melati.util.PagedEnumerationBase.Page;
 
 import junit.framework.TestCase;
 

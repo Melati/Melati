@@ -1,8 +1,9 @@
+package org.melati.util;
 /*
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2003, 2010 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,65 +39,36 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp At paneris.org>
  */
-
-package org.melati.util;
-
-import java.util.Enumeration;
-import java.util.Vector;
 
 
 /**
- * A paged enumeration.
+ * A 'screen full' of results.
  */
-public interface PagedEnumeration<T> extends Enumeration<T> {
-
-  /**
-   * @return the start record of the page, indexed from 1.
-   */
-  int getPageStart();
-
-  /**
-   * @return the end record of the page, indexed from 1.
-   */
-  int getPageEnd();
-  /**
-   * 
-   * @return the total number of items
-   */
-  int getTotalCount();
-
-  /**
-   * @return the start record of the previous page, indexed from 1.
-   */
-  Integer getPrevPageStart();
-
-  /**
-   * @return the start record of the next page, indexed from 1.
-   */
-  Integer getNextPageStart();
-  /**
-   * @return where we are in the sequence
-   */
-  int getCurrentPosition();
-  /**
-   * @return the position of the next element in the sequence
-   */
-  int getNextPosition();
-  /**
-   * @return whether there are more elements on this page
-   */
-  boolean nextElementOnThisPage();
-  /**
-   * @return the number of elements on a page
-   */
-  int getPageSize();  
-  /**
-   * @return a Vector of Pages
-   */
-  Vector<Page> getPages();
-  
-}
+  public class Page {
+    int number;
+    int start;
+    
+    /**
+     * Constructor.
+     * @param number page number in collection 
+     * @param start position in collection of first item on page
+     */
+    public Page(int number, int start) {
+      this.number = number;
+      this.start = start;
+    }
+    /**
+     * @return the page number 
+     */
+    public int getNumber() {
+      return number;
+    }
+    /**
+     * @return the starting position of the page
+     */
+    public int getStart() {
+      return start; 
+    }
+  }

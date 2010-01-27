@@ -51,7 +51,7 @@ import java.util.Enumeration;
  * All the code common to {@link CountedDumbPagedEnumeration}
  * and {@link DumbPagedEnumeration}.
  */
-public abstract class PagedEnumerationBase<T> implements PagedEnumeration {
+public abstract class PagedEnumerationBase<T> implements PagedEnumeration<T> {
   
   int pageStart, pageSize;
   Vector<T> page;
@@ -78,7 +78,7 @@ public abstract class PagedEnumerationBase<T> implements PagedEnumeration {
    * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
-  public Object nextElement() {
+  public T nextElement() {
     currentPosition++;
     return us.nextElement();
   }
@@ -166,36 +166,6 @@ public abstract class PagedEnumerationBase<T> implements PagedEnumeration {
       i++;
     }
     return ret;
-  }
-
-/**
- * A 'screen full' of results.
- */
-  public class Page {
-    int number;
-    int start;
-    
-    /**
-     * Constructor.
-     * @param number page number in collection 
-     * @param start position in collection of first item on page
-     */
-    public Page(int number, int start) {
-      this.number = number;
-      this.start = start;
-    }
-    /**
-     * @return the page number 
-     */
-    public int getNumber() {
-      return number;
-    }
-    /**
-     * @return the starting position of the page
-     */
-    public int getStart() {
-      return start; 
-    }
   }
 
 }

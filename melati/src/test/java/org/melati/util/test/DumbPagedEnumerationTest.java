@@ -38,11 +38,11 @@ public class DumbPagedEnumerationTest extends PagedEnumerationSpec {
     super.tearDown();
   }
 
-  protected PagedEnumeration getObjectUnderTest() {
+  protected PagedEnumeration<Integer> getObjectUnderTest() {
     Vector<Integer> them = new Vector<Integer>();
     for (int i = 0; i < 30; i++)
       them.add(new Integer(i));
-    return new DumbPagedEnumeration(them.elements(), 3, 10, 25);
+    return new DumbPagedEnumeration<Integer>(them.elements(), 3, 10, 25);
   }
   
   /**
@@ -60,8 +60,9 @@ public class DumbPagedEnumerationTest extends PagedEnumerationSpec {
   /**
    * Test method for {@link org.melati.poem.util.DumbPagedEnumeration#getTotalCountIsMinimum()}.
    */
+  @SuppressWarnings("unchecked")
   public void testGetTotalCountIsMinimum() {
-    assertTrue(((DumbPagedEnumeration)it).getTotalCountIsMinimum());
+    assertTrue(((DumbPagedEnumeration<Integer>)it).getTotalCountIsMinimum());
   }
 
 }

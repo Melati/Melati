@@ -387,8 +387,8 @@ public class Admin extends TemplateServlet {
   /**
    * @return a type whose whose possible members are the search columns of the table
    */
-  private static PoemType getSearchColumnsType(final Database database, final Table table) {
-    PoemType searchColumnsType = new ReferencePoemType(database
+  private static PoemType<Object> getSearchColumnsType(final Database database, final Table table) {
+    PoemType<Object> searchColumnsType = new ReferencePoemType(database
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
         return new MappedEnumeration<Integer, Column>(table.getSearchCriterionColumns()) {

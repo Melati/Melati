@@ -104,7 +104,7 @@ public final class HTMLUtils {
    */
   public static void addToContentModels(DTD dtd,
                                         Element existing, Element alt) {
-    for (Enumeration els = dtd.elementHash.elements();
+    for (Enumeration<Element> els = dtd.elementHash.elements();
          els.hasMoreElements();) {
       ContentModel c = ((Element)els.nextElement()).content;
       if (c != null)
@@ -348,7 +348,7 @@ public final class HTMLUtils {
       throws IOException {
     w.write('<');
     w.write(tag.toString());
-    for (Enumeration a = attributes.getAttributeNames();
+    for (Enumeration<?> a = attributes.getAttributeNames();
          a.hasMoreElements();) {
       Object n = a.nextElement();
       if (attributes.isDefined(n)) {

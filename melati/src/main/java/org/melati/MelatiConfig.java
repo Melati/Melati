@@ -81,7 +81,7 @@ public class MelatiConfig {
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
   private static PoemLocale poemLocale = null;
-  private Vector preferredCharsets = null;
+  private Vector<String> preferredCharsets = null;
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;
@@ -426,7 +426,7 @@ public class MelatiConfig {
    * 
    * @return List of encoding names or aliases.
    */
-  public List getPreferredCharsets() {
+  public List<String> getPreferredCharsets() {
     return preferredCharsets;
   }
 
@@ -434,7 +434,7 @@ public class MelatiConfig {
    * @param preferredCharsets
    *        The preferredCharsets to set.
    */
-  public void setPreferredCharsets(Vector preferredCharsets) {
+  public void setPreferredCharsets(Vector<String> preferredCharsets) {
     this.preferredCharsets = preferredCharsets;
   }
 

@@ -544,6 +544,7 @@ public final class HttpServletRequestCompat {
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
    * @since 2.1
    */
+  @SuppressWarnings("unchecked")
   public static Enumeration getHeaders(HttpServletRequest it, String arg) {
     return (Enumeration)invoke(getHeaders, it, new Object[] { arg });
   }
@@ -617,6 +618,7 @@ public final class HttpServletRequestCompat {
    * @see javax.servlet.http.HttpServletRequest#getAttributeNames()
    * @since 2.2
    */
+  @SuppressWarnings("unchecked")
   public static Enumeration getAttributeNames(HttpServletRequest it) {
     return (Enumeration)invoke(getAttributeNames, it, noargs);
   }
@@ -654,6 +656,7 @@ public final class HttpServletRequestCompat {
    * @see javax.servlet.http.HttpServletRequest#getLocales()
    * @since 2.2
    */
+  @SuppressWarnings("unchecked")
   public static Enumeration getLocales(HttpServletRequest it) {
     return (Enumeration)invoke(getLocales, it, noargs);
   }
@@ -791,6 +794,7 @@ public final class HttpServletRequestCompat {
    * @see javax.servlet.http.HttpServletRequest#getParameterMap()
    * @since 2.3
    */
+  @SuppressWarnings("unchecked")
   public static Map getParameterMap(HttpServletRequest it) {
     return (Map)invoke(getParameterMap, it, noargs);
   }

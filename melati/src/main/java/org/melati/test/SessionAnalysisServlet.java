@@ -109,12 +109,12 @@ public class SessionAnalysisServlet extends ConfigServlet {
     
     println("<h2>Poem sessions</h2>\n");
 
-    Enumeration e = PoemThread.openSessions().elements();
+    Enumeration<SessionToken> e = PoemThread.openSessions().elements();
 
     int totalSessions = 0;
     while(e.hasMoreElements()) {
       totalSessions++;
-      SessionToken token = (SessionToken) e.nextElement();
+      SessionToken token = e.nextElement();
       println("<table border='1' cellspacing='0' cellpadding='1'>");
       println(" <tr><th colspan='2'>Session: " + token + "</td></tr>");
       println(" <tr><th>Running for</th><td>" + (now.getTime() - token.getStarted()) + " ms</td></tr>");
@@ -123,7 +123,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
                  + token.getTransaction() + "<br>(Database:"
                  + token.getTransaction().getDatabase() + ")</td></tr>");
       println(" <tr><th>PoemTask</th><td>" + token.getTask() + "</td></tr>\n");
-      Enumeration o = token.toTidy().elements();
+      Enumeration<Object> o = token.toTidy().elements();
       if(o.hasMoreElements()) {
         println("<tr><th>Open: </th><td>");
         while (o.hasMoreElements()) {
@@ -141,11 +141,11 @@ public class SessionAnalysisServlet extends ConfigServlet {
     println("<th>Free</th><th>Blocked</th></tr>\n");
     
     int totalDbs = 0;
-    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
+    Enumeration<Database> dbs = org.melati.LogicalDatabase.initialisedDatabases().
                                                    elements();
     while(dbs.hasMoreElements()) {
       totalDbs++;
-      Database db = (Database)dbs.nextElement();
+      Database db = dbs.nextElement();
       println("<tr>");
       println(" <td>" + db.getDisplayName() + "</td>");
       println(" <td>" + db + "</td>");

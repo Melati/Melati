@@ -83,7 +83,6 @@ import org.melati.poem.Initialiser;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.PoemThread;
-import org.melati.poem.PoemType;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Setting;
@@ -282,7 +281,7 @@ public class Admin extends TemplateServlet {
 
     // sort out ordering 
 
-    PoemType searchColumnsType = getSearchColumnsType(database, table);
+    ReferencePoemType searchColumnsType = getSearchColumnsType(database, table);
 
     Vector<Object> orderings = new Vector<Object>();
     Vector<Object> orderClause = new Vector<Object>();
@@ -367,7 +366,7 @@ public class Admin extends TemplateServlet {
     };
 
     context.put("criteria", EnumUtils.vectorOf(criterias));
-    PoemType searchColumnsType = getSearchColumnsType(database, table);
+    ReferencePoemType searchColumnsType = getSearchColumnsType(database, table);
 
     Vector<Field> orderings = new Vector<Field>();
     // NOTE Order by searchable columns, this could be summary columns
@@ -387,8 +386,8 @@ public class Admin extends TemplateServlet {
   /**
    * @return a type whose whose possible members are the search columns of the table
    */
-  private static PoemType<Object> getSearchColumnsType(final Database database, final Table table) {
-    PoemType<Object> searchColumnsType = new ReferencePoemType(database
+  private static ReferencePoemType getSearchColumnsType(final Database database, final Table table) {
+    return new ReferencePoemType(database
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
         return new MappedEnumeration<Integer, Column>(table.getSearchCriterionColumns()) {
@@ -398,7 +397,6 @@ public class Admin extends TemplateServlet {
         };
       }
     };
-    return searchColumnsType;
   }
 
   /**

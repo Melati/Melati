@@ -126,7 +126,6 @@ public class ReconstructedHttpServletRequest
    * {@inheritDoc}
    * @see javax.servlet.ServletRequest#getParameterNames()
    */
-  @SuppressWarnings("unchecked")
   public Enumeration<String> getParameterNames() {
     return oldParams.parameters.keys();
   }

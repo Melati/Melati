@@ -449,3 +449,16 @@ diff -up melati-0.7.8/melati/src/test/java/org/melati/template/test/melatijunit/
 @@ -1 +0,0 @@
 -## A db specific template
 \ No newline at end of file
+diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties
+--- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~	2010-01-30 22:07:56.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties	2010-01-30 23:47:39.000000000 +0100
+@@ -29,7 +29,8 @@ org.melati.MelatiConfig.accessHandler=or
+ #
+ 
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
+-org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
++#org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
++org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityServletTemplateEngine
+ # For use in apps
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine

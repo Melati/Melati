@@ -86,16 +86,6 @@ diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-
 diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties
 --- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~	2010-01-30 22:07:56.000000000 +0100
 +++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties	2010-01-30 23:47:39.000000000 +0100
-@@ -29,7 +29,8 @@ org.melati.MelatiConfig.accessHandler=or
- #
- 
- #org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
--org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
-+#org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
-+org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityServletTemplateEngine
- # For use in apps
- #org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
- #org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
 @@ -118,3 +119,5 @@ org.melati.MelatiConfig.preferredCharset
  
  # This is more global and requires at most twice the packets

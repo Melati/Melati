@@ -55,14 +55,14 @@ import org.melati.util.MelatiBugMelatiException;
  * Note that this does not succeed for modern WebMacro syntax 
  * which uses optional #begin in #foreach.
  * 
- * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
+ * @author Tim Pizey based on work by Jason vanZyl and Tim Joyce.
  *
  */
 public final class WebMacroConverter {
 
   private WebMacroConverter() {}
   /**
-   * The regexes to use for substition. The regexes come
+   * The regexes to use for substitution. The regexes come
    * in pairs. The first is the string to match, the
    * second is the substitution to make.
    */
@@ -158,7 +158,7 @@ public final class WebMacroConverter {
               "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
         }
       }
-      // System.err.println(contents);
+      //System.err.println(contents);
       return new ByteArrayInputStream(contents.getBytes());
     } catch (IOException e) {
       throw new MelatiBugMelatiException(

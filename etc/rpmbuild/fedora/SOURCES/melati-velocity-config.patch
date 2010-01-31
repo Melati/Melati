@@ -1,14 +1,4 @@
 diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/melati/src/main/java/org/melati/MelatiConfig.java rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/MelatiConfig.java
---- Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 21:55:44.000000000 +0100
-+++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 22:06:09.000000000 +0100
-@@ -58,6 +58,7 @@ import org.melati.template.NotFoundExcep
- import org.melati.util.MelatiBugMelatiException;
- import org.melati.util.MelatiStringWriter;
- import org.melati.util.MelatiWriter;
-+import org.melati.util.PropertiesUtils;
- 
- import org.apache.velocity.VelocityContext;
- import org.apache.velocity.app.Velocity;
 --- Melati-0-7-8-RC2/melati/src/main/java/org/melati/MelatiConfig.java	2008-03-05 20:55:04.000000000 +0100
 +++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/MelatiConfig.java	2010-01-31 21:51:45.000000000 +0100
 @@ -80,6 +80,7 @@
@@ -55,6 +45,16 @@ diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-
 +
  }
 diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java
+--- Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 21:55:44.000000000 +0100
++++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 22:06:09.000000000 +0100
+@@ -58,6 +58,7 @@ import org.melati.template.NotFoundExcep
+ import org.melati.util.MelatiBugMelatiException;
+ import org.melati.util.MelatiStringWriter;
+ import org.melati.util.MelatiWriter;
++import org.melati.util.PropertiesUtils;
+ 
+ import org.apache.velocity.VelocityContext;
+ import org.apache.velocity.app.Velocity;
 --- Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2008-03-16 19:40:51.000000000 +0100
 +++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 21:51:41.000000000 +0100
 @@ -96,7 +96,7 @@

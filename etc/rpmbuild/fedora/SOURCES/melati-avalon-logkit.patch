@@ -1,0 +1,16 @@
+diff -up melati-0.7.8.RC2/melati-webapp/pom.xml~ melati-0.7.8.RC2/melati-webapp/pom.xml
+--- melati-0.7.8.RC2/melati-webapp/pom.xml~	2010-01-30 21:58:34.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/pom.xml	2010-01-31 00:52:51.000000000 +0100
+@@ -26,6 +26,12 @@
+       <scope>compile</scope>
+     </dependency>
+     <dependency>
++      <groupId>avalon-framework</groupId>
++      <artifactId>avalon-logkit</artifactId>
++      <version>1.2</version>
++      <scope>runtime</scope>
++    </dependency>
++    <dependency>
+       <groupId>org.melati</groupId>
+       <artifactId>melati-example-contacts</artifactId>
+       <version>${project.version}</version>

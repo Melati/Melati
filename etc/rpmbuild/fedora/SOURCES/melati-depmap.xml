@@ -59,4 +59,16 @@
             <version>2.0.4</version>
         </jpp>
     </dependency>
+    <dependency>
+        <maven>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>1.2</version>
+        </maven>
+        <jpp>
+            <groupId>JPP</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>2.0.4</version>
+        </jpp>
+    </dependency>
 </dependencies>

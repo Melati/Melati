@@ -1,41 +1,43 @@
-Name:			melati
-Version:		0.7.8.RC2
-Release:		1%{?dist}
-Epoch:          0
-Summary:		Java Website Development Suite
-Group:			Development/Libraries/Java
-License:		GPLv2 or Melati Software License
-URL:			http://melati.org
+Name:		melati
+Version:	0.7.8.RC2
+Release:	1%{?dist}
+Epoch:		0
+Summary:	Java Website Development Suite
+Group:		Development/Libraries/Java
+License:	GPLv2 or Melati Software License
+URL:		http://melati.org
 
-Source0:		Melati-0-7-8-RC2.tgz
-Patch1:         melati-no-mckoi.patch
-Patch2:         melati-no-odmg.patch
-Patch3:         melati-no-webmacro.patch
-Patch4:         melati-dsd-version.patch
-Patch5:			melati-no-cyclic-poem-dependency.patch
-Patch6:			melati-no-postgres-jdbc1.patch
-Patch7:			melati-TableSortedMapTest.patch
-Patch8:			melati-no-jetty-plugin.patch
-Patch9:			melati-no-tango.patch
-Patch10:		melati-no-jwebunit.patch
-Patch11:		melati-no-jsp.patch
-Patch12:		melati-relative-hsqldbs.patch
-Patch13:		melati-openjdk-relative-file-bug.patch
-Patch14:		melati-automateCreationOfVmfromWmDuringRpmDevelopment.patch
-#Patch14:		melati-noCreationOfVmFromWm.patch
-Patch15:		melati-mockHttpSession.patch
-Patch16:		melati-java-1.4-1.6.patch
-Patch17:		melati-no-PassbackAccessPoemExceptionHandling.patch
-Patch18:		melati-missing-servletContext.patch
+Source0:	Melati-0-7-8-RC2.tgz
+Patch1:		melati-no-mckoi.patch
+Patch2:		melati-no-odmg.patch
+Patch3:		melati-no-webmacro.patch
+Patch4:		melati-dsd-version.patch
+Patch5:		melati-no-cyclic-poem-dependency.patch
+Patch6:		melati-no-postgres-jdbc1.patch
+Patch7:		melati-TableSortedMapTest.patch
+Patch8:		melati-no-jetty-plugin.patch
+Patch9:		melati-no-tango.patch
+Patch10:	melati-no-jwebunit.patch
+Patch11:	melati-no-jsp.patch
+Patch12:	melati-relative-hsqldbs.patch
+Patch13:	melati-openjdk-relative-file-bug.patch
+Patch14:	melati-automateCreationOfVmfromWmDuringRpmDevelopment.patch
+#Patch14:	melati-noCreationOfVmFromWm.patch
+Patch15:	melati-mockHttpSession.patch
+Patch16:	melati-java-1.4-1.6.patch
+Patch17:	melati-no-PassbackAccessPoemExceptionHandling.patch
+Patch18:	melati-missing-servletContext.patch
 # This would be a lot more work now, so BuildRequires mockobjects, currently from jpackage-generic-5.0 repository
-#Patch19:		melati-no-mockobjects.patch
-Patch20:		melati-no-exec-plugin.patch
-#Patch21:		melati-skip-example-contacts.patch
-Patch22:		melati-RC1-to-RC2.patch
+#Patch19:	melati-no-mockobjects.patch
+Patch20:	melati-no-exec-plugin.patch
+#Patch21:	melati-skip-example-contacts.patch
+Patch22:	melati-RC1-to-RC2.patch
+Patch23:	melati-velocity-config.patch
+Patch24:	melati-avalon-logkit.patch
 
-BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildArch:      noarch
+BuildArch:	noarch
 
 BuildRequires:	jpackage-utils >= 1.7.5
 BuildRequires:	java-devel >= 1:1.6.0
@@ -69,19 +71,19 @@ BuildRequires:	postgresql >= 7.4
 BuildRequires:	postgresql-jdbc >= 7.4
 BuildRequires:	mysql-connector-java >= 5.0.4
 
-Requires:       jpackage-utils >= 1.7.5
-Requires:       java >= 1:1.6.0
-Requires:		jakarta-oro >= 2.0.8
-Requires:		jakarta-commons-collections >= 3.0
-Requires:		velocity = 1.4
-Requires:		log4j >= 1.2.9
-Requires:		jetty >= 5.1.15
-Requires:		servlet_2_4_api
-Requires:		hsqldb >= 1.8.0.7
-Requires:		%{name}-maven-dsd-plugin = %{epoch}:%{version}-%{release}
+Requires:	jpackage-utils >= 1.7.5
+Requires:	java >= 1:1.6.0
+Requires:	jakarta-oro >= 2.0.8
+Requires:	jakarta-commons-collections >= 3.0
+Requires:	velocity = 1.4
+Requires:	log4j >= 1.2.9
+Requires:	jetty >= 5.1.15
+Requires:	servlet_2_4_api
+Requires:	hsqldb >= 1.8.0.7
+Requires:	%{name}-poem = %{epoch}:%{version}-%{release}
 
-Requires(post):       jpackage-utils >= 1.7.5
-Requires(postun):     jpackage-utils >= 1.7.5
+Requires(post):		jpackage-utils >= 1.7.5
+Requires(postun):	jpackage-utils >= 1.7.5
 
 %description
 Melati is a tool for producing documents from databases and is particularly
@@ -97,23 +99,22 @@ dropdowns).
 - full integration with POEM (Persistent Object Engine for Melati). 
 
 %package poem
-Summary:        Persistent Object Engine for Melati
-Group:          Development/Build Tools
-Requires:       jpackage-utils >= 1.7.5
-Requires:       java >= 1:1.6.0
-Requires:		jakarta-oro >= 2.0.8
-Requires:		jakarta-commons-collections >= 3.0
-Requires:		log4j >= 1.2.9
-Requires:		concurrent >= 1.3.4 
-Requires:		jakarta-commons-codec >= 1.3
-Requires:		hsqldb >= 1.8.0.7
+Summary:	Persistent Object Engine for Melati
+Group:	 	Development/Build Tools
+Requires:	jpackage-utils >= 1.7.5
+Requires:	java >= 1:1.6.0
+Requires:	jakarta-oro >= 2.0.8
+Requires:	jakarta-commons-collections >= 3.0
+Requires:	log4j >= 1.2.9
+Requires:	concurrent >= 1.3.4 
+Requires:	jakarta-commons-codec >= 1.3
+Requires:	hsqldb >= 1.8.0.7
 # We should probably provide RPMs containing configuration for connecting melati or the contacts
 # example to each of the supported DBs. TODO Get the contacts example RPM working, then decide.
-#Requires:		postgresql-jdbc >= 7.4
-#Requires:		mysql-connector-java >= 5.0.4
-Requires(post):       jpackage-utils >= 1.7.5
-Requires(postun):     jpackage-utils >= 1.7.5
-Provides:       poem = %{epoch}:%{version}-%{release}
+#Requires:	postgresql-jdbc >= 7.4
+#Requires:	mysql-connector-java >= 5.0.4
+Requires(post):		jpackage-utils >= 1.7.5
+Requires(postun):	jpackage-utils >= 1.7.5
 
 %description poem
 POEM provides:
@@ -125,13 +126,13 @@ and fields.
 - a three way unification of jdbc, sql and java metadata.
 
 %package devel
-Summary:        DSD Processor and Maven archetype for development
-Group:          Development/Build Tools
-Requires:       %{name}-poem = %{epoch}:%{version}-%{release}
-Requires:		maven2 >= 2.0.4
-Provides:       maven-dsd-plugin = %{epoch}:%{version}-%{release}
-Provides:       maven-archetype = %{epoch}:%{version}-%{release}
-Provides:       throwing-jdbc = %{epoch}:%{version}-%{release}
+Summary:	DSD Processor and Maven archetype for development
+Group:		Development/Build Tools
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	maven2 >= 2.0.4
+Provides:	maven-dsd-plugin = %{epoch}:%{version}-%{release}
+Provides:	maven-archetype = %{epoch}:%{version}-%{release}
+Provides:	throwing-jdbc = %{epoch}:%{version}-%{release}
 
 %description devel
 Tools for software development using Melati:
@@ -147,10 +148,9 @@ Melati. It can be used by unit tests during JDBC-based software development.
 For example, it is used for unit tests during development of POEM. 
 
 %package javadoc
-Summary:        Javadocs for %{name}, POEM and development tools
-Group:          Development/Documentation
-Requires:       jpackage-utils
-Requires:       %{name}-poem = %{epoch}:%{version}-%{release}
+Summary:	Javadocs for %{name}, POEM and development tools
+Group:		Development/Documentation
+Requires:	jpackage-utils
 
 %description javadoc
 This package contains the API documentation for:
@@ -161,9 +161,10 @@ This package contains the API documentation for:
 - %{name}-example-contacts
 
 %package webapp
-Summary:        Web application
-Group:          Development/Documentation
-Requires:       jpackage-utils
+Summary:	Web application
+Group:		Development/Documentation
+Requires:	jpackage-utils
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description webapp
 This package contains examples and the administration functionality.
@@ -193,16 +194,16 @@ cp ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/test/java/org/melati/test/Mela
 # and these are used in poem
 mkdir -p ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/CountedDumbPagedEnumeration.java \
-    ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
+	${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/PagedEnumeration.java \
-    ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
+	${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/PagedEnumerationBase.java \
-    ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
+	${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/main/java/org/melati/util
 mkdir -p ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/test/java/org/melati/util/test/
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/test/java/org/melati/util/test/CountedDumbPagedEnumerationTest.java \
-    ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/test/java/org/melati/util/test
+	${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/test/java/org/melati/util/test
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/test/java/org/melati/util/test/PagedEnumerationSpec.java \
-    ${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/test/java/org/melati/util/test
+	${RPM_BUILD_DIR}/%{name}-%{version}/poem/src/test/java/org/melati/util/test
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
@@ -230,6 +231,8 @@ sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{n
 %patch20 -p1
 #%patch21 -p1
 %patch22 -p1
+%patch23 -p1
+%patch24 -p1
 
 %build
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
@@ -300,6 +303,7 @@ ln -s maven-dsd-plugin-1.1.jar $RPM_BUILD_ROOT%{_javadir}/maven-dsd-plugin.jar
 %add_to_maven_depmap org.melati maven-dsd-plugin 0.7.8-RC2-SNAPSHOT JPP maven-dsd-plugin
 install -pm 644 maven-dsd-plugin/pom.xml \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-maven-dsd-plugin.pom
+
 cp -pr maven-dsd-plugin/target/site/apidocs \
 	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/maven-dsd-plugin
 
@@ -333,6 +337,25 @@ rm -rf $RPM_BUILD_ROOT
 %update_maven_depmap
 
 %postun
+%update_maven_depmap
+
+%post poem
+%update_maven_depmap
+
+%postun poem
+%update_maven_depmap
+
+%post devel
+%update_maven_depmap
+
+%postun devel
+%update_maven_depmap
+
+%post webapp
+%update_maven_depmap
+
+
+%postun webapp
 %update_maven_depmap
 
 %files

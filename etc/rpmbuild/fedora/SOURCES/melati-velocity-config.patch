@@ -1,0 +1,109 @@
+diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/melati/src/main/java/org/melati/MelatiConfig.java rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/MelatiConfig.java
+--- Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 21:55:44.000000000 +0100
++++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 22:06:09.000000000 +0100
+@@ -58,6 +58,7 @@ import org.melati.template.NotFoundExcep
+ import org.melati.util.MelatiBugMelatiException;
+ import org.melati.util.MelatiStringWriter;
+ import org.melati.util.MelatiWriter;
++import org.melati.util.PropertiesUtils;
+ 
+ import org.apache.velocity.VelocityContext;
+ import org.apache.velocity.app.Velocity;
+--- Melati-0-7-8-RC2/melati/src/main/java/org/melati/MelatiConfig.java	2008-03-05 20:55:04.000000000 +0100
++++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/MelatiConfig.java	2010-01-31 21:51:45.000000000 +0100
+@@ -80,6 +80,7 @@
+   private FormDataAdaptorFactory fdaFactory = null;
+   private TempletLoader templetLoader = null;
+   private TemplateEngine templateEngine = null;
++  private String templateEngineConfig = null;
+   private static PoemLocale poemLocale = null;
+   private Vector preferredCharsets = null;
+   private String javascriptLibraryURL = null;
+@@ -156,6 +157,7 @@
+     String fdaFactoryProp                 = pref + "formDataAdaptorFactory";
+     String templetLoaderProp              = pref + "templetLoader";
+     String templateEngineProp             = pref + "templateEngine";
++    String templateEngineConfigProp       = pref + "templateEngineConfig";
+     String templatePathProp               = pref + "templatePath";
+     String javascriptLibraryURLProp       = pref + "javascriptLibraryURL";
+     String staticURLProp                  = pref + "staticURL";
+@@ -198,6 +200,8 @@
+                            "org.melati.template.TemplateEngine",
+                            "org.melati.template.NoTemplateEngine"));
+ 
++      setTemplateEngineConfig(configuration.getProperty(templateEngineConfigProp));
++
+       String languageTag = PropertiesUtils.getOrDefault(configuration,
+                                                         melatiLocaleProp,
+                                                         "en-gb");
+@@ -504,4 +508,17 @@
+     return realPath;
+   }
+ 
++  /**
++   * @param templateConfig Template-engine-specific config resource or null.
++   */
++  public void setTemplateEngineConfig(String templateEngineConfigP) {
++    templateEngineConfig = templateEngineConfigP;
++  }
++  /**
++   * @return Template-engine-specific config resource or null.
++   */
++  public String getTemplateEngineConfig() {
++    return templateEngineConfig;
++  }
++
+ }
+diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java
+--- Melati-0-7-8-RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2008-03-16 19:40:51.000000000 +0100
++++ rpmbuild/BUILD/melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/VelocityTemplateEngine.java	2010-01-31 21:51:41.000000000 +0100
+@@ -96,7 +96,7 @@
+   public void init(MelatiConfig melatiConfig)
+       throws TemplateEngineException {
+     try {
+-      Properties props = loadConfiguration();
++      Properties props = loadConfiguration(melatiConfig);
+       Velocity.init(props);
+     } catch (Exception e) {
+       throw new TemplateEngineException(e);
+@@ -104,8 +104,14 @@
+   }
+ 
+ 
+-  protected Properties loadConfiguration() {
+-    Properties p = new Properties();
++  protected Properties loadConfiguration(MelatiConfig melatiConfig) throws IOException {
++    Properties p;
++    String vp = melatiConfig.getTemplateEngineConfig();
++    if (vp == null) {
++      p = new Properties();
++    } else {
++      p = PropertiesUtils.fromResource(getClass(), vp);
++    }
+     p.setProperty("resource.loader", "class");
+     p.setProperty("class.resource.loader.class",
+         WebMacroClasspathResourceLoader.class.getName());
+diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties
+--- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~	2010-01-30 22:07:56.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties	2010-01-30 23:47:39.000000000 +0100
+@@ -29,7 +29,8 @@ org.melati.MelatiConfig.accessHandler=or
+ #
+ 
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
+-org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
++#org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
++org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityServletTemplateEngine
+ # For use in apps
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
+ #org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
+@@ -118,3 +119,5 @@ org.melati.MelatiConfig.preferredCharset
+ 
+ # This is more global and requires at most twice the packets
+ org.melati.MelatiConfig.preferredCharsets= UTF-16, UTF-8, ISO-8859-1
++
++org.melati.MelatiConfig.templateEngineConfig=/velocity.properties
+diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/melati-webapp/src/main/webapp/WEB-INF/classes/velocity.properties rpmbuild/BUILD/melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/velocity.properties
+--- Melati-0-7-8-RC2/melati-webapp/src/main/webapp/WEB-INF/classes/velocity.properties	1970-01-01 01:00:00.000000000 +0100
+++ rpmbuild/BUILD/melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/velocity.properties	2010-01-30 23:35:03.000000000 +0100
+@@ -0,0 +1 @@
++runtime.log = logs/melati-webapp/velocity.log

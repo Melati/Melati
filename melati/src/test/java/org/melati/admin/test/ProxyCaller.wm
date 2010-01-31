@@ -15,54 +15,7 @@ Test XMLHtpRequest
 
 <div id="scribble" style="border:1px solid red; width:auto;"></div>
 
-<script>
-function checkUrl(method,url) { 
-  var xmlHttpClient=false;
-  if (typeof XMLHttpRequest!='undefined') {
-    try {
-        xmlHttpClient = new XMLHttpRequest();
-    } catch (e) {
-        xmlHttpClient=false;
-    }
-  }
-  if (!xmlHttpClient && window.createRequest) {
-    try {
-        xmlHttpClient = window.createRequest();
-    } catch (e) {
-        xmlHttpClient=false;
-    }
-  }
-
-  if (xmlHttpClient) { 
-    try{ 
-      xmlHttpClient.open(method, "../Admin/melatijunit/Proxy?"+url,true);
-      xmlHttpClient.onreadystatechange =  function() {
-        if(xmlHttpClient.readyState == 4) {
-          alert("ALL:" + this.getAllResponseHeaders());
-          alert("ct:" + this.getResponseHeader("Content-Type"));
-          alert("st:" + this.status);
-          if (method == "GET") {
-            var scribble = document.getElementById("scribble");
-            scribble.innerHTML = ":" + xmlHttpClient.responseText + ":";
-          }
-        }
-       };
-       xmlHttpClient.send(null);
-       
-       
-     } catch (e) {
-       alert(e);
-     }
-  } else {
-    alert("XMLHttpRequest not available");  
-  }
-  return xmlHttpClient;
-}
-
-
-
-
-</script>
+<script type="text/javascript" src="$melati.JavascriptLibraryURL/CheckURL.js" />
 
 </body>
 </html>

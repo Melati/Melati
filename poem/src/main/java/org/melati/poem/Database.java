@@ -64,8 +64,8 @@ import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.poem.util.StringUtils;
 
-import EDU.oswego.cs.dl.util.concurrent.ReadWriteLock;
-import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * An RDBMS database.  Don't instantiate (or subclass) this class, but rather
@@ -88,7 +88,7 @@ public abstract class Database implements TransactionPool {
   private Vector<Transaction> freeTransactions = null;
 
   private Connection committedConnection;
-  private final ReadWriteLock lock = new WriterPreferenceReadWriteLock();
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
   private long structureSerial = 0L;
 
   private Vector<Table> tables = new Vector<Table>();
@@ -667,33 +667,22 @@ public abstract class Database implements TransactionPool {
    */
   public void beginExclusiveLock() {
     // FIXME Yuk
-
     if (PoemThread.inSession())
-      lock.readLock().release();
+      lock.readLock().unlock();
 
-    try {
-      lock.writeLock().acquire();
-    }
-    catch (InterruptedException e) {
-      throw new InterruptedPoemException(e);
-    }
+    lock.writeLock().lock();
   }
 
   /**
    * Release lock.
    */
   public void endExclusiveLock() {
-    lock.writeLock().release();
+    lock.writeLock().unlock();
 
     // FIXME Yuk, see above
 
     if (PoemThread.inSession())
-      try {
-        lock.readLock().acquire();
-      }
-      catch (InterruptedException e) {
-        throw new InterruptedPoemException(e);
-      }
+      lock.readLock().lock();
   }
 
   //
@@ -710,12 +699,8 @@ public abstract class Database implements TransactionPool {
    */
   private void perform(AccessToken accessToken, final PoemTask task,
                        boolean useCommittedTransaction) throws PoemException {
-    try {
-      lock.readLock().acquire();
-    }
-    catch (InterruptedException e) {
-      throw new InterruptedPoemException(e);
-    }
+
+    lock.readLock().lock();
 
     final PoemTransaction transaction =
         useCommittedTransaction ? null : openTransaction();
@@ -741,7 +726,7 @@ public abstract class Database implements TransactionPool {
         }
       } finally {
 
-        lock.readLock().release();
+        lock.readLock().unlock();
       }
     }
   }
@@ -800,18 +785,13 @@ public abstract class Database implements TransactionPool {
    * use inSession.
    */
   public void beginSession(AccessToken accessToken) {
-    try {
-      lock.readLock().acquire();
-    }
-    catch (InterruptedException e) {
-      throw new InterruptedPoemException(e);
-    }
+    lock.readLock().lock();
     PoemTransaction transaction = openTransaction();
     try { 
       PoemThread.beginSession(accessToken,transaction);
     } catch (AlreadyInSessionPoemException e) { 
       notifyClosed(transaction);
-      lock.readLock().release();
+      lock.readLock().unlock();
       throw e;
     }
   }
@@ -826,8 +806,7 @@ public abstract class Database implements TransactionPool {
     PoemTransaction tx = PoemThread.sessionToken().transaction;
     PoemThread.endSession();
     tx.close(true);
-    lock.readLock().release();
-
+    lock.readLock().unlock();
   }
 
   /**

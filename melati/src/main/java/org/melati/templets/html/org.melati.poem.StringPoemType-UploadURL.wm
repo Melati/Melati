@@ -59,17 +59,17 @@ $ml.inputAs($object, "org.melati.poem.StringPoemType")
    onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
 
 <script language="JavaScript1.2" type="text/javascript">
-var uploadwin_$ml.escaped($field.Name);
-function upload_$ml.escaped($field.Name) () {
-  uploadwin_$ml.escaped($field.Name)
-    = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
-                  '$ml.escaped($field.Name)',
-                  'width=400,height=100,resizable=yes,scrollbars=yes');
-}
+  var uploadwin_$ml.escaped($field.Name);
+  function upload_$ml.escaped($field.Name) () {
+    uploadwin_$ml.escaped($field.Name)
+      = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
+                    '$ml.escaped($field.Name)',
+                    'width=400,height=100,resizable=yes,scrollbars=yes');
+  }
 
-function update_$ml.escaped($field.Name) (url) {
-  document.forms[0].field_$(ml.rendered($field.Name)).value = url;
-  uploadwin_$(ml.escaped($field.Name)).close();
-}
+  function update_$ml.escaped($field.Name) (url) {
+    document.forms[0].field_$(ml.rendered($field.Name)).value = url;
+    uploadwin_$(ml.escaped($field.Name)).close();
+  }
 </script>
 

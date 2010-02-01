@@ -55,7 +55,7 @@ import org.melati.poem.util.IntegerEnumeration;
 /**
  * Plain old integers, the range being contingent on the underlying SQL type. 
  */
-public class IntegerPoemType extends AtomPoemType {
+public class IntegerPoemType<T> extends AtomPoemType<T> {
 
   /** Instance of a nullable IntegerPoemType. */
   public static final IntegerPoemType nullableInstance = new IntegerPoemType(true);
@@ -76,7 +76,7 @@ public class IntegerPoemType extends AtomPoemType {
   /**
    * @todo Do down-counting?
    */
-  protected Enumeration<Integer> _possibleRaws() {
+  protected Enumeration _possibleRaws() {
     Integer low = (Integer)getLowRaw();
     Integer limit = (Integer)getLimitRaw();
     return low == null ?

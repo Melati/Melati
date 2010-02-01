@@ -56,7 +56,7 @@ import org.melati.poem.util.ConsEnumeration;
 /**
  * Base class of all fundamental types.
  */
-public abstract class BasePoemType<T extends Comparable<T>> implements SQLPoemType, Cloneable {
+public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
   protected boolean nullable;
 

@@ -52,7 +52,7 @@ import org.melati.poem.dbms.Dbms;
  * <p>
  * Currently all types, as generated classes are instances of IntegerPoemType.
  */
-public abstract class AtomPoemType extends BasePoemType {
+public abstract class AtomPoemType<T> extends BasePoemType<T> {
 
   protected String sqlTypeName;
 

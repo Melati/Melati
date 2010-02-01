@@ -1,0 +1,60 @@
+diff -up melati-0.7.8.RC2/melati-archetype/src/main/resources/archetype-resources/src/main/conf/org/melati/org.melati.LogicalDatabase.properties~ melati-0.7.8.RC2/melati-archetype/src/main/resources/archetype-resources/src/main/conf/org/melati/org.melati.LogicalDatabase.properties
+--- melati-0.7.8.RC2/melati-archetype/src/main/resources/archetype-resources/src/main/conf/org/melati/org.melati.LogicalDatabase.properties~	2007-09-24 22:46:13.000000000 +0200
++++ melati-0.7.8.RC2/melati-archetype/src/main/resources/archetype-resources/src/main/conf/org/melati/org.melati.LogicalDatabase.properties	2010-02-01 20:48:51.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:hsql://var/lib/hsqldb/data/melati-webapp/melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties
+--- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties~	2008-02-01 12:13:30.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties	2010-02-01 20:48:51.000000000 +0100
+@@ -24,7 +24,7 @@
+ #     The JDBC URL for the actual DBMS database
+ #     A minimal, localhost URL might be: 
+ #     jdbc:postgresql:melatitest
+-#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
++#     jdbc:hsqldb:hsql://var/lib/hsqldb/data/melati-webapp/melatitest
+ #     jdbc:mysql:///melatitest
+ #
+ #  org.melati.LogicalDatabase.<logical db>.user
+@@ -79,7 +79,7 @@ org.melati.LogicalDatabase.melatitest.db
+ #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.MySQL
+ #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Mckoi
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:easysoft:melatitest
+-org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:/dist/melati/db/melatitest
++org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:/var/lib/hsqldb/data/melati-webapp/melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:mysql://localhost/melatitest
+ #org.melati.LogicalDatabase.melatitest.url=jdbc:mckoi://localhost/melatitest
+@@ -104,7 +104,7 @@ org.melati.LogicalDatabase.contacts.dbms
+ #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.MySQL
+ #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Mckoi
+ #org.melati.LogicalDatabase.contacts.url=jdbc:easysoft:contacts
+-org.melati.LogicalDatabase.contacts.url=jdbc:hsqldb:/dist/melati/db/contacts
++org.melati.LogicalDatabase.contacts.url=jdbc:hsqldb:/var/lib/hsqldb/data/melati-webapp/contacts
+ #org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
+ #org.melati.LogicalDatabase.contacts.url=jdbc:mysql://localhost/contacts
+ #org.melati.LogicalDatabase.contacts.url=jdbc:mckoi://localhost/contacts
+@@ -127,7 +127,7 @@ org.melati.LogicalDatabase.poemtest.dbms
+ #org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.MySQL
+ #org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.Mckoi
+ #org.melati.LogicalDatabase.poemtest.url=jdbc:easysoft:poemtest
+-#org.melati.LogicalDatabase.poemtest.url=jdbc:hsqldb:/dist/melati/db/poemtest
++#org.melati.LogicalDatabase.poemtest.url=jdbc:hsqldb:/var/lib/hsqldb/data/melati-webapp/poemtest
+ org.melati.LogicalDatabase.poemtest.url=jdbc:postgresql:poemtest
+ #org.melati.LogicalDatabase.poemtest.url=jdbc:mysql://localhost/poemtest
+ #org.melati.LogicalDatabase.poemtest.url=jdbc:mckoi://localhost/poemtest
+@@ -150,7 +150,7 @@ org.melati.LogicalDatabase.melatijunit.d
+ #org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.MySQL
+ #org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.Mckoi
+ #org.melati.LogicalDatabase.melatijunit.url=jdbc:easysoft:melatijunit
+-#org.melati.LogicalDatabase.melatijunit.url=jdbc:hsqldb:/dist/melati/db/melatijunit
++#org.melati.LogicalDatabase.melatijunit.url=jdbc:hsqldb:/var/lib/hsqldb/data/melati-webapp/melatijunit
+ org.melati.LogicalDatabase.melatijunit.url=jdbc:postgresql:melatijunit
+ #org.melati.LogicalDatabase.melatijunit.url=jdbc:mysql://localhost/melatijunit
+ #org.melati.LogicalDatabase.melatijunit.url=jdbc:mckoi://localhost/melatijunit

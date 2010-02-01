@@ -22,6 +22,7 @@ Patch11:	melati-no-jsp.patch
 Patch12:	melati-relative-hsqldbs.patch
 Patch13:	melati-openjdk-relative-file-bug.patch
 Patch14:	melati-automateCreationOfVmfromWmDuringRpmDevelopment.patch
+# This was a planned change but is not essential now
 #Patch14:	melati-noCreationOfVmFromWm.patch
 Patch15:	melati-mockHttpSession.patch
 Patch16:	melati-java-1.4-1.6.patch
@@ -34,6 +35,7 @@ Patch20:	melati-no-exec-plugin.patch
 Patch22:	melati-RC1-to-RC2.patch
 Patch23:	melati-velocity-config.patch
 Patch24:	melati-avalon-logkit.patch
+Patch25:	melati-hsql-webapp-data-dir.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -164,6 +166,7 @@ This package contains the API documentation for:
 Summary:	Web application
 Group:		Development/Documentation
 Requires:	jpackage-utils
+Requires:	hsqldb >= 1.8.0.7
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description webapp
@@ -233,6 +236,7 @@ sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{n
 %patch22 -p1
 %patch23 -p1
 %patch24 -p1
+%patch25 -p1
 
 %build
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
@@ -244,6 +248,7 @@ install -dm 755 $RPM_BUILD_ROOT%{_javadir}
 install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 install -dm 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
 install -dm 755 $RPM_BUILD_ROOT%{_var}/lib/tomcat5/webapps
+install -dm 755 $RPM_BUILD_ROOT%{_var}/lib/hsqldb/data/melati-webapp
 
 install -pm 644 pom.xml \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-parent.pom
@@ -407,6 +412,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/maven2/poms/JPP-melati-example-contacts.pom
 %{_javadir}/melati-example-contacts-0.7.8.jar
 %{_javadir}/melati-example-contacts.jar
+%defattr(-,tomcat,tomcat,-)
+%{_var}/lib/hsqldb/data/melati-webapp
 
 %changelog
 * Sat Jan 23 2010 James Michael Wright <jim@wright.cz> - 0:0.7.8.RC2-1

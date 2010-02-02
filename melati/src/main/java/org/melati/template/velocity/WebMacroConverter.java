@@ -132,9 +132,9 @@ public final class WebMacroConverter {
 
         // Velocity currently does not permit leading underscore.
         "\\$_",
-        "$l_",
+        "\\$l_",
         "\\${(_[^}]+)}", // within a formal reference
-        "${l$1}",
+        "\\${l$1}",
 
   };
 

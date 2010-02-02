@@ -1,0 +1,188 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 Tim Joyce
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Joyce <timj At paneris.org>
+##     http://paneris.org/~timj
+##
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>$ml.rendered($melati.Table.DisplayName) Table Record Selection</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+#if( $inPopup )
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<!--
+  function updateCaller(returnfield,id,value) {
+    parent.opener.updateFromPopup(parent,returnfield,id,value)
+  }
+//-->
+</SCRIPT>
+#end
+#if( $inPopup )
+ #set( $target = "" )
+ <!-- inPopup -->
+#else
+  #if( $inRight )
+ <!-- inRight -->
+   #set( $target = "" )
+ #else
+ <!-- inLeft -->
+   #set( $target = "admin_record" )
+  #end
+#end
+</HEAD>
+
+<BODY BGCOLOR="#eeeeee" id="selection">
+<form action="">
+<table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
+#if( $results )
+#set ($colSpan = $melati.Table.SummaryDisplayColumnsCount - 1)
+  <tr>
+    <th>&nbsp;</th>
+    <th align="center" colspan="$colSpan">
+  #if( $results.PrevPageStart )
+      <a title="Previous page" 
+         href="$melati.sameURLWith("start","$results.PrevPageStart")">
+     &lt;</a>
+  #end
+      Records $results.PageStart to $results.PageEnd of $results.TotalCount
+
+  #if( $results.NextPageStart )
+       <a title="Next page" 
+          href="$melati.sameURLWith("start","$results.NextPageStart")">
+       &gt;</a>
+  #end
+    </th>
+#if( $inRight || $inPopup )
+    <th>
+      <a href='$admin.AddURL($melati.Table)?$whereClause' 
+         title="New $melati.Table.DisplayName"
+         id="create_$melati.Table.Name"
+       ><IMG
+         src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a>
+#else
+    <th align="right">
+    <a href='$melati.sameURLWith("template","CSV")' 
+       title="Selection as CSV" 
+       id="csv"
+       target="_{melati.Table.Name}csv"><IMG 
+           src="$admin.StaticURL/csv.png" 
+           border="0" 
+           alt="$melati.Table.DisplayName selecton as CSV" /></a>
+     &nbsp;
+#end
+    </th>    
+  </tr>
+  <tr>
+   <th><font size="-1">&nbsp;</FONT></th>
+  #foreach( $column in $melati.Table.SummaryDisplayColumns )
+   <th align="left" valign="bottom">
+    <font face="Arial, Helvetica" size="-1">
+     <a href="$admin.ToggledOrderSelectionURL($melati,"field_order-1","$column.getColumnInfo().getTroid()")">$ml.rendered($column.DisplayName)</a>&nbsp;
+    </font>
+   </th>
+  #end
+  </tr>
+  #set( $color1 = "#E9EDFD" )
+  #set( $class1 = "row1" )
+  #set( $color2 = "#FFFFFF" )
+  #set( $class2 = "row2" )
+  #set( $color = $color1 )
+  #set( $class = $class2 )
+  #foreach( $result in $results )
+  <TR>
+    <TD bgcolor="$color" class="$class">
+      <a 
+#if( $inPopup )
+          onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+#else
+  #if( $inRight )
+          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$melati.SameURL"))' 
+  #else
+          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded($ml.encoded("$melati.SameURL")))' 
+   #end      
+          target="$target"
+#end
+          title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
+    </TD>
+    #foreach( $field in $result.SummaryDisplayFields )
+    <TD bgcolor="$color" class="$class">
+     <font face="Arial, Helvetica" size="-1">
+      <a 
+#if( $inPopup )
+          onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
+#else
+  #if( $inRight )
+          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+  #else
+          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded("$melati.SameURL"))' 
+   #end      
+          target="$target"
+#end
+          title="Choose">
+       $ml.renderedStart($field)
+     </a>
+     &nbsp;
+    </font>
+   </TD>
+    #end
+   <TD>&nbsp;
+   </TD>
+  </TR>
+    #if( $color == $color1 )
+      #set( $color = $color2 )
+      #set( $class = $class2 )
+   #else
+      #set( $color = $color1 )
+      #set( $class = $class1 )
+    #end
+  #end
+#else
+  <tr><td align="center">
+  No records found.
+  </td></tr>
+#end 
+
+</table>
+</form>
+</BODY>
+</HTML>

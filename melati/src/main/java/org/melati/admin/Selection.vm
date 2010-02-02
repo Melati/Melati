@@ -104,7 +104,7 @@
     <a href='$melati.sameURLWith("template","CSV")' 
        title="Selection as CSV" 
        id="csv"
-       target="_{melati.Table.Name}csv"><IMG 
+       target="_${melati.Table.Name}csv"><IMG 
            src="$admin.StaticURL/csv.png" 
            border="0" 
            alt="$melati.Table.DisplayName selecton as CSV" /></a>

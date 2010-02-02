@@ -41,8 +41,8 @@ $Form.returnURL
   #if( $Form.returnTarget )
  <script type="text/javascript">
   function reload() {
-    {Form.returnTarget}.location.href="$Form.returnURL";
-    {Form.returnTarget}.focus();
+    ${Form.returnTarget}.location.href="$Form.returnURL";
+    ${Form.returnTarget}.focus();
   }
  </script>
  #else

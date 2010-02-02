@@ -113,7 +113,7 @@ public final class WebMacroConverter {
         "#parse\\s+([^\\s#]+)[ \\t]?",
         "#parse( $1 )",
 
-        // parse is now depricated for web macro
+        // parse is now deprecated for web macro
         // include as template is recommended.
         // Velocity supports only parse
         // added for melati conversion
@@ -126,9 +126,9 @@ public final class WebMacroConverter {
 
         // Convert WM formal reference to VL syntax.
         "\\$\\(([^\\)]+)\\)",
-        "${$1}",
-        "\\${([^}\\(]+)\\(([^}]+)}\\)", // fix encapsulated brakets: {(})
-        "${$1($2)}",
+        "\\${$1}",
+        "\\${([^}\\(]+)\\(([^}]+)}\\)", // fix encapsulated brackets: {(})
+        "\\${$1($2)}",
 
         // Velocity currently does not permit leading underscore.
         "\\$_",

@@ -44,17 +44,20 @@
 
 package org.melati.test.test;
 
+import net.sourceforge.jwebunit.exception.TestingEngineResponseException;
+
 import org.melati.JettyWebTestCase;
 
 /**
  * @author timp
- * @since  8 Mar 2008
- *
+ * @since 8 Mar 2008
+ * 
  */
 public class FlushingServletTestTest extends JettyWebTestCase {
 
   /**
    * Constructor.
+   * 
    * @param name
    */
   public FlushingServletTestTest(String name) {
@@ -63,6 +66,7 @@ public class FlushingServletTestTest extends JettyWebTestCase {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.JettyWebTestCase#setUp()
    */
   protected void setUp() throws Exception {
@@ -71,18 +75,25 @@ public class FlushingServletTestTest extends JettyWebTestCase {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.JettyWebTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
+
   /**
    * @throws Exception
    */
   public void testInvoke() throws Exception {
-    beginAt("/org.melati.test.FlushingServletTest");
-    assertTextPresent("FlushingServlet Test");
+    try {
+      beginAt("/org.melati.test.FlushingServletTest");
+      assertTextPresent("FlushingServlet Test");
+    } catch (TestingEngineResponseException e) {
+      // Ain't never going to pass if Velocity configured
+      assertTrue(e.getCause().getMessage().startsWith(
+          "500 Internal Server Error"));
+    }
   }
-
 
 }

@@ -17,6 +17,7 @@ import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.webmacro.WebmacroServletTemplateEngine;
 import org.melati.util.MelatiStringWriter;
 
 
@@ -80,16 +81,20 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("object", new Integer("1"));
     m.setTemplateContext(tc);
     t.write(m.getWriter(), m.getTemplateContext(), templateEngine);
+    t = ClassNameTempletLoader.getInstance().templet(
+            templateEngine, ml, "error", new Exception().getClass());
+    tc = m.getTemplateContext();
+    tc.put("melati", m);
+    tc.put("ml", ml);
+    // Wrong object type, should be an Exception
+    tc.put("object", new Integer("1"));
     try {
-      t = ClassNameTempletLoader.getInstance().templet(
-              templateEngine, ml, "error", new Exception().getClass());
-      tc = m.getTemplateContext();
-      tc.put("melati", m);
-      tc.put("ml", ml);
-      tc.put("object", new Integer("1"));
       t.write(m.getWriter(),tc, m.getTemplateEngine());
       System.err.println(m.getWriter().toString());
-      fail("Should have bombed");
+      if(templateEngine instanceof WebmacroServletTemplateEngine)
+        fail("Should have bombed");
+      // Velocity just ignores the calling of a non-existant method 
+      // within an if
     } catch (TemplateEngineException e) {
       e = null;
       // Pass - we should have passed in an exception as the object

@@ -91,11 +91,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : user (from the data structure definition) "  +
-            "Object   : _guest_ " + 
-            "Troid    : 0 " + 
-            "Method   : org/melati/app/TemplateApp " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : user (from the data structure definition)"  +
+            "Object   : _guest_" + 
+            "Troid    : 0" + 
+            "Method   : org/melati/app/TemplateApp" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -127,11 +127,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : null "  +
-            "Object   : null " + 
-            "Troid    : null " + 
-            "Method   : null " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : null" +
+            "Object   : null" + 
+            "Troid    : null" + 
+            "Method   : null" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -172,11 +172,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : null "  +
-            "Object   : null " + 
-            "Troid    : null " + 
-            "Method   : org/melati/app/TemplateApp " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : null" +
+            "Object   : null" + 
+            "Troid    : null" + 
+            "Method   : org/melati/app/TemplateApp" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -203,11 +203,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : user (from the data structure definition) "  +
-            "Object   : _guest_ " + 
-            "Troid    : 0 " + 
-            "Method   : null " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : user (from the data structure definition)"  +
+            "Object   : _guest_" + 
+            "Troid    : 0" + 
+            "Method   : null" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -236,11 +236,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _guest_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : user (from the data structure definition) "  +
-            "Object   : _guest_ " + 
-            "Troid    : 0 " + 
-            "Method   : org/melati/app/TemplateApp " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : user (from the data structure definition)"  +
+            "Object   : _guest_" + 
+            "Troid    : 0" + 
+            "Method   : org/melati/app/TemplateApp" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 
@@ -285,11 +285,11 @@ public class TemplateAppTest extends TestCase {
     assertEquals("Hello _administrator_" + 
             "You have expanded template org/melati/app/TemplateApp" + 
             "Your melati contains:" + 
-            "Database : jdbc:hsqldb:mem:appjunit " + 
-            "Table    : user (from the data structure definition) "  +
-            "Object   : _guest_ " + 
-            "Troid    : 0 " + 
-            "Method   : org/melati/app/TemplateApp " + 
+            "Database : jdbc:hsqldb:mem:appjunit" + 
+            "Table    : user (from the data structure definition)"  +
+            "Object   : _guest_" + 
+            "Troid    : 0" + 
+            "Method   : org/melati/app/TemplateApp" + 
             "System Users" + 
             "============" +
             "  Melati guest user" + 

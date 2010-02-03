@@ -48,16 +48,20 @@ You have expanded template org/melati/app/TemplateApp
 
 Your melati contains:
 
-Database : $melati.getDatabase() 
+Database : $melati.getDatabase()
 
-Table    :#if( $melati.Table ) $melati.Table#else null#end 
- 
-Object   :#if( $melati.Object ) $melati.Object#else null#end 
- 
-Troid    :#if( $melati.Object ) $melati.Object.Troid#else null#end 
- 
-Method   :#if( $melati.Method ) $melati.Method#else null#end 
- 
+Table    : 
+#if( $melati.Table )$melati.Table#{else}null#end
+
+Object   : 
+#if( $melati.Object )$melati.Object#{else}null#end
+
+Troid    : 
+#if( $melati.Object )$melati.Object.Troid#{else}null#end
+
+Method   : 
+#if( $melati.Method )$melati.Method#{else}null#end
+
 
 System Users
 ============

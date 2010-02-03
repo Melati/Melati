@@ -101,9 +101,9 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
    */
   public void testRawOfString() {
     super.testRawOfString();
-    byte[] b = (byte[])it.rawOfString("AA");
-    assertEquals(2, b.length);
-    assertEquals(b[1],b[0]);
+    byte[] b = (byte[])it.rawOfString("TWFuIGlzIGRpc3R=" );
+    assertEquals(11, b.length);
+    assertEquals("Man is dist", new String(b));
   }
 
   /**

@@ -95,16 +95,17 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
 
     T asComparable;
     try {
+      // Note that in java5 this will not throw until 
+      // the cast object is accessed
       asComparable = (T)raw;
-    }
-    catch (ClassCastException e) {
+
+      if ((low != null && low.compareTo(asComparable) > 0) ||
+          (limit != null && limit.compareTo(asComparable) <= 0))
+      throw new ValidationPoemException(
+            this, raw, new OutsideRangePoemException(low, limit, raw));
+    } catch (ClassCastException e) {
       throw new NotComparablePoemException(raw, this);
     }
-
-    if ((low != null && low.compareTo(asComparable) > 0) ||
-        (limit != null && limit.compareTo(asComparable) <= 0))
-      throw new ValidationPoemException(
-          this, raw, new OutsideRangePoemException(low, limit, raw));
   }
 
   /**

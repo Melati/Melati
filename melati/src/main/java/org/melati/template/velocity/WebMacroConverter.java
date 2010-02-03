@@ -72,8 +72,9 @@ public final class WebMacroConverter {
         "#if( $1 )",
 
         // Remove the WM #end #else #begin usage.
-        "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?(\\w)",
-        "#else#**#$3", // avoid touching a followup word with embedded comment
+        "([ \\t])?(#end|})\\s*#else\\s*(#begin|{)([ \\t])?(\\w)",
+        "#{else}$5", // avoid touching a followup word with embedded comment
+        
         "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?",
         "#else",
 

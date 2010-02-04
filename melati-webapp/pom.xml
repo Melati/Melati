@@ -9,12 +9,6 @@
   <packaging>war</packaging>
   <name>Melati Webapp</name>
   <url>http://melati.org/webapp</url>
-  <distributionManagement>
-    <site>
-      <id>melati</id>
-      <url>scp://melati.org/data/www/melati/webapp</url>
-    </site>
-  </distributionManagement>  
   <build>
     <finalName>melati-webapp</finalName>
      <plugins>
@@ -34,10 +28,51 @@
           <scanTargets>
             <scanTarget>
              ${basedir}/src/main/java
-	    </scanTarget>
+            </scanTarget>
           </scanTargets>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <configuration>
+          <wait>true</wait>
+          <container>
+            <containerId>tomcat6x</containerId>
+            <type>remote</type>
+          </container>
+          <configuration>
+            <type>runtime</type> 
+            <properties>
+                <cargo.tomcat.manager.url>http://localhost:8080/manager</cargo.tomcat.manager.url>
+                <cargo.remote.username>admin</cargo.remote.username>
+                <cargo.remote.password />
+            </properties>
+          </configuration>
+          <deployer>
+            <type>remote</type>
+            <deployables>
+              <deployable>
+                 <groupId>${project.groupId}</groupId>
+                 <artifactId>${project.artifactId}</artifactId>
+                 <properties>
+                   <context>/</context>
+                 </properties>
+                 <type>war</type>
+               </deployable>
+             </deployables>
+           </deployer>
+         </configuration>
+         <executions>
+           <execution>
+             <id>do</id>
+             <phase>pre-integration-test</phase>
+             <goals>
+               <goal>deployer-redeploy</goal>
+             </goals>
+           </execution>
+         </executions>
+       </plugin>
      </plugins>
   </build>
   <dependencies>
@@ -66,15 +101,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <reporting>
-     <plugins>
-      <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-site-plugin</artifactId>
-       <configuration>
-        <outputEncoding>UTF-8</outputEncoding>
-       </configuration>
-      </plugin>
-     </plugins>
-    </reporting>
 </project>

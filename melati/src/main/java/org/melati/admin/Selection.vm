@@ -75,7 +75,7 @@
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if( $results )
-#set ($colSpan = $melati.Table.SummaryDisplayColumnsCount - 1)
+#set( $colSpan = $melati.Table.SummaryDisplayColumnsCount - 1 )
   <tr>
     <th>&nbsp;</th>
     <th align="center" colspan="$colSpan">

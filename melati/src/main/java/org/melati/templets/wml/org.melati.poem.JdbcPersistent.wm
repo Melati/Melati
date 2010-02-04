@@ -1,4 +1,4 @@
-#comment #begin
+##
 ## $Source$
 ## $Revision$
 ##
@@ -38,7 +38,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timp@paneris.org>
+##     Tim Pizey <timp AT paneris.org>
 ##     http://paneris.org/~timp
 ##-------------------------------------------------------------------
 ##
@@ -55,5 +55,5 @@
 ##
 ## Note that there should not be a new line at the end of this file.
 ##
-#end
+##
 $object.displayString($melati.PoemLocale)

@@ -42,7 +42,7 @@
 ##     http://paneris.org/~timj
 ##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- PrimarySelect.vm -->
+<!-- PrimarySelect.wm -->
 <HTML>
 <HEAD>
  <title>Primary Select</title>
@@ -144,16 +144,16 @@
 #end
        <input 
            type="text" 
-           name="field_{ml.rendered($primaryCriterion.Name})_dummy" 
+           name="field_${ml.rendered($primaryCriterion.Name)}_dummy" 
        #if( $primaryCriterion.Raw )
            value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
            size="30" 
-           onfocus="document.forms[0].{ml.rendered($primaryCriterion.Name})_button.focus()">
+           onfocus="document.forms[0].${ml.rendered($primaryCriterion.Name)}_button.focus()">
        <input 
            type="button" 
            value="Choose"
-           name="{ml.rendered($primaryCriterion.Name})_button" 
+           name="${ml.rendered($primaryCriterion.Name)}_button" 
            onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
            title="Select $primaryCriterion.DisplayName using a popup selector" 
               />

@@ -112,7 +112,7 @@ import org.melati.util.MelatiRuntimeException;
  * {@link #modifyTemplate(ServletTemplateContext, Melati)} and associated
  * methods are slight variations.
  * <p>
- * {@link #adminTemplate(ServletTemplateContext, String)} is called in all cases
+ * {@link #adminTemplate(String)} is called in all cases
  * to return the template path. The name of the template is usually the same as
  * the request method but not if the same template is used for more than one
  * method or the template served depends on how request processing proceeds.
@@ -120,17 +120,15 @@ import org.melati.util.MelatiRuntimeException;
  * These methods are called to modify the context:
  * <ul>
  * <li>{@link #popupSelect(ServletTemplateContext, Melati)}</li>
- * <li>{@link #primarySelect(ServletTemplateContext, Melati)}</li>
- * <li>{@link #selection(ServletTemplateContext, Melati)}</li>
  * </ul>
  * 
- * @todo Review working of where clause for dates
- * @todo Move Nav icons into PrimarySelect
- * @todo Make Chooser JS agnostic
- * @todo Make Navigation JS agnostic
- * @todo Logout fails to work if remember me is ticked
- * @todo Order by field f orders on fields troid, not field ordering 
- * @FIXME primaryDisplayTable should not be static as this messes with DB switching
+ * TODO Review working of where clause for dates
+ * TODO Move Nav icons into PrimarySelect
+ * TODO Make Chooser JS agnostic
+ * TODO Make Navigation JS agnostic
+ * TODO Logout fails to work if remember me is ticked
+ * TODO Order by field f orders on fields troid, not field ordering
+ * FIXME primaryDisplayTable should not be static as this messes with DB switching
  */
 
 public class Admin extends TemplateServlet {
@@ -158,7 +156,7 @@ public class Admin extends TemplateServlet {
   /**
    * Return the resource path for an admin template.
    */
-  protected static final String adminTemplate(String name) {
+  protected static String adminTemplate(String name) {
     return "org/melati/admin/" + name;
   }
 
@@ -249,7 +247,6 @@ public class Admin extends TemplateServlet {
    * and added as to the context as "results".
    * 
    * @return The modified context.
-   * @see #adminTemplate(ServletTemplateContext, String)
    */
   protected static ServletTemplateContext selection(
       ServletTemplateContext context, Melati melati, boolean paged) {
@@ -290,7 +287,7 @@ public class Admin extends TemplateServlet {
     for (int o = 1; o <= table.displayColumnsCount(DisplayLevel.summary); ++o) {
       String name = "field_order-" + o;
       String orderColumnIDString = Form.getFieldNulled(context, name);
-      Integer orderColumnID = null;
+      Integer orderColumnID;
 
       if (orderColumnIDString != null) {
         String toggleName = "field_order-" + o + "-toggle";
@@ -596,8 +593,7 @@ public class Admin extends TemplateServlet {
       throws PoemException {
     String field = context.getFormField("field");
     context.put("field", field);
-    String url = "";
-    url = context.getMultipartFormField("file").getDataURL();
+    String url = context.getMultipartFormField("file").getDataURL();
     if (url == null)
       throw new NullUrlDataAdaptorException(context.getMultipartFormField("file").getFormDataAdaptor());
     context.put("url", url);
@@ -649,7 +645,7 @@ public class Admin extends TemplateServlet {
     
     String table = Form.getFieldNulled(context, "table");
     if (table != null) {
-      if (table != melati.getTable().getName()) {
+      if (!table.equals(melati.getTable().getName())) {
         melati.getPoemContext().setTable(table);
         melati.getPoemContext().setTroid(null);
         melati.loadTableAndObject();
@@ -771,8 +767,9 @@ public class Admin extends TemplateServlet {
       } catch (Exception e) {
         throw new MelatiIOException(e);
       }
-    } finally { 
-      httpMethod.releaseConnection();
+    } finally {
+      if (httpMethod != null)
+        httpMethod.releaseConnection();
     }
     return null;
   }

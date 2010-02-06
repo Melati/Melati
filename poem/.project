@@ -1,0 +1,15 @@
+<projectDescription>
+  <name>poem</name>
+  <comment>Persistent Object Engine for Melati.</comment>
+  <projects>
+    <project>throwing-jdbc</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

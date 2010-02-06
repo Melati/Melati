@@ -136,8 +136,8 @@ diff -up melati-0.7.8/maven-dsd-plugin/src/main/java/org/melati/poem/prepro/DSD.
      Class database;
 +    ClassLoader cl = getClass().getClassLoader();
 +    if (dsdClassPathElements == null || dsdClassPathElements.size() == 0) {
-+      System.err.println("Nothing added to classpath");
-+      new Throwable().printStackTrace();
++      // System.err.println("Nothing added to classpath");
++      // new Throwable().printStackTrace();
 +    } else {
 +      ArrayList urls = new ArrayList();
 +      for (int i = 0; i < dsdClassPathElements.size(); i++) {

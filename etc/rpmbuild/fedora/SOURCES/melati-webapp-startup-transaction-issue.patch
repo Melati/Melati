@@ -1,0 +1,23 @@
+diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties
+--- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties~	2010-02-01 21:08:56.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.LogicalDatabase.properties	2010-02-02 21:34:16.000000000 +0100
+@@ -92,7 +92,8 @@ org.melati.LogicalDatabase.melatitest.pa
+ #org.melati.LogicalDatabase.melatitest.pass=
+ #org.melati.LogicalDatabase.melatitest.pass=melati
+ #org.melati.LogicalDatabase.melatitest.pass=test
+-org.melati.LogicalDatabase.melatitest.maxtransactions=4
++# Maybe 4 is enough, except on startup, which gives new users a bad impression
++org.melati.LogicalDatabase.melatitest.maxtransactions=6
+ org.melati.LogicalDatabase.melatitest.addconstraints=true
+ 
+ # Used by the website for the example
+@@ -115,7 +115,8 @@ org.melati.LogicalDatabase.contacts.user
+ org.melati.LogicalDatabase.contacts.pass=
+ #org.melati.LogicalDatabase.contacts.pass=
+ #org.melati.LogicalDatabase.contacts.pass=test
+-org.melati.LogicalDatabase.contacts.maxtransactions=4
++# Maybe 4 is enough, except on startup, which gives new users a bad impression
++org.melati.LogicalDatabase.contacts.maxtransactions=6
+ org.melati.LogicalDatabase.contacts.addconstraints=true
+ 
+ # Used by the unit tests 

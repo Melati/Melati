@@ -1,0 +1,19 @@
+diff -up melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties
+--- melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties~	2010-02-01 21:08:56.000000000 +0100
++++ melati-0.7.8.RC2/melati-webapp/src/main/webapp/WEB-INF/classes/org/melati/org.melati.MelatiConfig.properties	2010-02-02 21:34:15.000000000 +0100
+@@ -62,13 +62,13 @@ org.melati.MelatiConfig.templateEngine=o
+ # 
+ # e.g. ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
+ 
+-org.melati.MelatiConfig.staticURL=/melati-static/admin/static
++org.melati.MelatiConfig.staticURL=/melati-webapp/melati-static/admin/static
+ 
+ # This should point, relative to your server's http root, 
+ # to the admin directory
+ # (will be achieved by the ln -s suggested above)
+ 
+-org.melati.MelatiConfig.javascriptLibraryURL=/melati-static/admin/static
++org.melati.MelatiConfig.javascriptLibraryURL=/melati-webapp/melati-static/admin/static
+ 
+ #
+ # ------------------------------

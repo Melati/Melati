@@ -1,0 +1,13 @@
+diff -up melati-0.7.8.RC2/poem/src/main/java/org/melati/poem/StringPoemType.java~ melati-0.7.8.RC2/poem/src/main/java/org/melati/poem/StringPoemType.java
+--- melati-0.7.8.RC2/poem/src/main/java/org/melati/poem/StringPoemType.java~	2010-02-07 00:24:53.000000000 +0100
++++ melati-0.7.8.RC2/poem/src/main/java/org/melati/poem/StringPoemType.java	2010-02-07 00:25:42.000000000 +0100
+@@ -108,7 +108,8 @@ public class StringPoemType extends Size
+   protected boolean _canRepresent(SQLPoemType other) {
+     return
+         other instanceof StringPoemType &&
+-        sizeGreaterEqual(getSize(), ((StringPoemType)other).getSize());
++        (getSize() == Integer.MAX_VALUE || // Fedora 11 with postgresql-jdbc-8.3.603.jar
++         sizeGreaterEqual(getSize(), ((StringPoemType)other).getSize()));
+   }
+ 
+   /**

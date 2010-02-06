@@ -36,6 +36,9 @@ Patch22:	melati-RC1-to-RC2.patch
 Patch23:	melati-velocity-config.patch
 Patch24:	melati-avalon-logkit.patch
 Patch25:	melati-hsql-webapp-data-dir.patch
+Patch26:	melati-tomcat-static-path.patch
+Patch27:	melati-webapp-startup-transaction-issue.patch
+Patch28:	melati-text-length.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -237,6 +240,9 @@ sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{n
 %patch23 -p1
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
+%patch27 -p1
+%patch28 -p1
 
 %build
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository

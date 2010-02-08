@@ -32,47 +32,6 @@
           </scanTargets>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <configuration>
-          <wait>true</wait>
-          <container>
-            <containerId>tomcat6x</containerId>
-            <type>remote</type>
-          </container>
-          <configuration>
-            <type>runtime</type> 
-            <properties>
-                <cargo.tomcat.manager.url>http://localhost:8080/manager</cargo.tomcat.manager.url>
-                <cargo.remote.username>admin</cargo.remote.username>
-                <cargo.remote.password />
-            </properties>
-          </configuration>
-          <deployer>
-            <type>remote</type>
-            <deployables>
-              <deployable>
-                 <groupId>${project.groupId}</groupId>
-                 <artifactId>${project.artifactId}</artifactId>
-                 <properties>
-                   <context>/</context>
-                 </properties>
-                 <type>war</type>
-               </deployable>
-             </deployables>
-           </deployer>
-         </configuration>
-         <executions>
-           <execution>
-             <id>do</id>
-             <phase>pre-integration-test</phase>
-             <goals>
-               <goal>deployer-redeploy</goal>
-             </goals>
-           </execution>
-         </executions>
-       </plugin>
      </plugins>
   </build>
   <dependencies>
@@ -101,4 +60,84 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <profiles>
+    <profile>
+<!--
+Modify catalina.sh if running tomcat as local user :
+
+   export CATALINA_PID=/var/run/tomcat6.pid
+
+   shift
+  
+  "$_RUNJAVA" $JAVA_OPTS \
+    -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
+    -Dcatalina.base="$CATALINA_BASE" \
+    -Dcatalina.home="$CATALINA_HOME" \
+    -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+    org.apache.catalina.startup.Bootstrap "$@" stop
+
+  if [ ! -z "$CATALINA_PID" ]; then
+     echo "Killing: `cat $CATALINA_PID`"
+     kill -9 `cat $CATALINA_PID`
+     echo rm $CATALINA_PID
+     rm $CATALINA_PID
+  else
+     echo "Kill failed: \$CATALINA_PID not set"
+  fi
+
+-->
+    
+      <id>tomcatRunning</id>
+      <activation>
+        <file>
+          <exists>/var/run/tomcat6.pid</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven2-plugin</artifactId>
+            <configuration>
+              <wait>true</wait>
+              <container>
+                <containerId>tomcat6x</containerId>
+                <type>remote</type>
+              </container>
+              <configuration>
+                <type>runtime</type> 
+                <properties>
+                    <cargo.tomcat.manager.url>http://localhost:8080/manager</cargo.tomcat.manager.url>
+                    <cargo.remote.username>admin</cargo.remote.username>
+                    <cargo.remote.password />
+                </properties>
+              </configuration>
+              <deployer>
+               <type>remote</type>
+               <deployables>
+                 <deployable>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <properties>
+                      <context>/</context>
+                    </properties>
+                    <type>war</type>
+                  </deployable>
+                </deployables>
+              </deployer>
+            </configuration>
+            <executions>
+               <execution>
+                 <id>do</id>
+                 <phase>pre-integration-test</phase>
+                 <goals>
+                    <goal>deployer-redeploy</goal>
+                 </goals>
+               </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

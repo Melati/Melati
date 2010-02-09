@@ -37,15 +37,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </organization>
 
   <ciManagement>
-    <system>continuum</system>
-    <notifiers>
-     <notifier>
-      <type>mail</type>
-      <configuration>
-       <address>timp@paneris.org</address>
-      </configuration>
-     </notifier>
-    </notifiers>
+    <system>Hudson</system>
+    <url>http://hudson.paneris.net/</url>
   </ciManagement>
 
   <distributionManagement>

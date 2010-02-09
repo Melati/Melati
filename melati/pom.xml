@@ -167,11 +167,11 @@
          <goals>
            <goal>generate</goal>
          </goals>
-     <configuration>
-       <sourceDirectory>src/test/java</sourceDirectory>
-       <dsdPackage>org.melati.util.test</dsdPackage>
-       <dsdFile>Tree.dsd</dsdFile>
-     </configuration>
+         <configuration>
+           <sourceDirectory>src/test/java</sourceDirectory>
+           <dsdPackage>org.melati.util.test</dsdPackage>
+           <dsdFile>Tree.dsd</dsdFile>
+         </configuration>
        </execution>
        <execution>
          <id>admin</id>
@@ -179,11 +179,11 @@
          <goals>
            <goal>generate</goal>
          </goals>
-     <configuration>
-       <sourceDirectory>src/test/java</sourceDirectory>
-       <dsdPackage>org.melati.admin.test</dsdPackage>
-       <dsdFile>adminTest.dsd</dsdFile>
-     </configuration>
+         <configuration>
+           <sourceDirectory>src/test/java</sourceDirectory>
+           <dsdPackage>org.melati.admin.test</dsdPackage>
+           <dsdFile>adminTest.dsd</dsdFile>
+         </configuration>
        </execution>
      </executions>
      <dependencies>
@@ -322,6 +322,7 @@
      <directory>src/main/java/org/melati</directory>
      <targetPath>melati-static</targetPath>
      <includes>
+      <include>**/*.png</include>
       <include>**/*.gif</include>
       <include>**/*.html</include>
       <include>**/*.js</include>

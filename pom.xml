@@ -82,40 +82,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.melati.org/maven2/</url>
     </repository>
     <repository>
-      <id>org.codehaus</id>
-      <name>Codehaus snapshots</name>
-      <url>http://snapshots.repository.codehaus.org/</url>
-    </repository>
-    <repository>
      <id>org.webmacro</id>
      <name>Webmacro repo</name>
      <url>http://webmacro.sourceforge.net/maven2/</url>
     </repository>
-   <repository>
-     <id>apache.org</id>
-     <name>Maven Plugin Snapshots</name>
-     <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-   <!-- 
-   <repository>
-     <id>m1</id>
-     <name>Maven 1 Repository</name>
-     <layout>legacy</layout>
-     <url>http://www.ibiblio.org/maven/</url>
-   </repository>
-   <repository>
-     <id>melati1</id>
-     <name>Melati Maven 1 Repository</name>
-     <layout>legacy</layout>
-     <url>http://melati.org/maven/</url>
-   </repository>
-  -->
   </repositories>
 
   <scm>
@@ -432,7 +402,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>
-      <!--plugin>
+<!--
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
@@ -449,7 +420,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
         </configuration>
-      </plugin-->
+      </plugin>
+-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
@@ -475,7 +447,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-         <!-- excludePackageNames>org.melati.*</excludePackageNames -->
+         <excludePackageNames>org.melati.*</excludePackageNames>
          <minmemory>128m</minmemory>
          <maxmemory>512</maxmemory>
          <tags>
@@ -495,10 +467,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
          <debug>true</debug>
         </configuration>
       </plugin>
+      <!--
       <plugin>
        <groupId>net.sf</groupId>
        <artifactId>stat-scm</artifactId>
      </plugin>
+     -->
     </plugins>
   </reporting>
   <build>

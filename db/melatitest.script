@@ -41,7 +41,7 @@ INSERT INTO "TABLEINFO" VALUES(2,'capability','Capability','A capability which u
 INSERT INTO "TABLEINFO" VALUES(3,'groupmembership','Group membership','A record that a given user is a member of a given group',2040,NULL,0,0,0,100,FALSE,0)
 INSERT INTO "TABLEINFO" VALUES(4,'groupcapability','Group capability','A record that users belonging to a given group possess a given capability',2050,NULL,0,0,0,100,FALSE,0)
 INSERT INTO "TABLEINFO" VALUES(5,'tablecategory','Table type','A category under which a table can be classified',3030,NULL,0,0,0,999999999,TRUE,1)
-INSERT INTO "TABLEINFO" VALUES(6,'tableinfo','Table','Configuration information about a table in the database',3010,NULL,0,NULL,0,999999999,TRUE,1)
+INSERT INTO "TABLEINFO" VALUES(6,'tableinfo','Table','Configuration information about a table in the database',3010,NULL,0,0,0,999999999,TRUE,1)
 INSERT INTO "TABLEINFO" VALUES(7,'columninfo','Column','Configuration information about a column in the database',3020,NULL,0,0,0,999999999,TRUE,1)
 INSERT INTO "TABLEINFO" VALUES(8,'setting','Setting','A configurable setting for the application',3040,NULL,0,0,0,999999999,TRUE,1)
 INSERT INTO "COLUMNINFO" VALUES('Id','The Table Row Object ID',FALSE,-1,FALSE,0,20,1,22,2,NULL,NULL,NULL,0,0,'id',10,FALSE,3,1,NULL,FALSE,TRUE,TRUE,2)

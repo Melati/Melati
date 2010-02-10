@@ -58,22 +58,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <name>Melati M2 Repository</name>
       <url>http://www.melati.org/maven2/</url>
     </pluginRepository>
-    <pluginRepository>
-      <id>codehaus.org</id>
-      <name>Codehaus snapshots</name>
-      <url>http://snapshots.repository.codehaus.org/</url>
-    </pluginRepository>
-   <pluginRepository>
-     <id>apache.org</id>
-     <name>Maven Plugin Snapshots</name>
-     <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
   </pluginRepositories>
   <repositories>
     <repository>

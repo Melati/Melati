@@ -94,7 +94,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    assertTrue(ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
+    assertTrue(ml.rendered(ape),ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));
     //System.err.println(m.getWriter().toString());

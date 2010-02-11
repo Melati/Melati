@@ -87,9 +87,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
            "templets" + File.separatorChar +
             markupLanguage.getName() + File.separatorChar;
     */
-    return "org/melati/template/" +  
-           templateEngine.getName() +  
-           "/templets/" + 
+    return "org/melati/templets/" + 
            markupLanguage.getName() + "/";
     
     }
@@ -191,6 +189,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
     // We should have at last found Object template    
     //if (templet == null)
     //  throw new MelatiBugMelatiException("Cannot even find template for Object");
+    System.err.println(lookupCacheKey);
     if (fromCache == null)
       templetForClassCache.put(originalCacheKey, templet);
     if (!lookupCacheKey.equals(originalCacheKey)) { 

@@ -56,7 +56,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       fail("Should have bombed");
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.util.JSStaticTree.none" +  
+              "org/melati/templets/html/org.melati.util.JSStaticTree.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -127,7 +127,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testInputAs();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.StringPoemType.none" +  
+              "org/melati/templets/html/org.melati.poem.StringPoemType.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -141,7 +141,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testInputField();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.StringPoemType.none" +  
+              "org/melati/templets/html/org.melati.poem.StringPoemType.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -163,7 +163,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testRenderedAccessPoemException();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.AccessPoemException.none" +  
+              "org/melati/templets/html/org.melati.poem.AccessPoemException.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -201,7 +201,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testRenderedObject();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/java.lang.Integer.none" +  
+              "org/melati/templets/html/java.lang.Integer.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -239,7 +239,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testSearchInput();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.StringPoemType.none" +  
+              "org/melati/templets/html/org.melati.poem.StringPoemType.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -253,7 +253,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testSpecialTemplateFound();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.ReferencePoemType-SelectionWindow.none" +  
+              "org/melati/templets/html/org.melati.poem.ReferencePoemType-SelectionWindow.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -267,7 +267,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testTemplateFoundOnClasspath();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.template.test.Templated.none" +  
+              "org/melati/templets/html/org.melati.template.test.Templated.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -281,7 +281,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testUntemplatedObjectUsesToString();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/java.util.Properties.none" +  
+              "org/melati/templets/html/java.util.Properties.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
   }
@@ -293,7 +293,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testInputFieldForRestrictedField();
     } catch (TemplateEngineException e) { 
       assertEquals("The template " + 
-              "org/melati/template/none/templets/html/org.melati.poem.PasswordPoemType.none" +  
+              "org/melati/templets/html/org.melati.poem.PasswordPoemType.none" +  
               " could not be found because you have not configured a template engine.", e.getMessage());
     }
     

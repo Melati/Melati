@@ -39,7 +39,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc AT paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
@@ -48,7 +48,7 @@
   You can make Melati display different pages for different kinds of
   Exception by creating specialised templates named after Exception
   classes in this directory
-  (org/melati/template/webmacro/templets/html/error).  See 
+  (org/melati/templets/html/error).  See 
   org.melati.poem.DuplicateKeySQLPoemException.wm for an example.
  -->
 
@@ -74,7 +74,7 @@ $object.Message
 </pre>
 #end
 
-<hr>
+<hr/>
 #if ($error) #begin
 <pre>
 <font color="red">

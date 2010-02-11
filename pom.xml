@@ -16,7 +16,7 @@
     <module>melati-skin</module>
     <module>throwing-jdbc</module>
   </modules>  
-  <version>0.7.8-RC2-SNAPSHOT</version>
+  <version>0.7.8-RC2</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -82,6 +82,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <url>
       http://melati.org/cgi-bin/cvsweb.cgi/melati/
     </url>
+    <tag>melati-parent-0_7_8-RC2</tag>
   </scm>
   <mailingLists>
     <mailingList>

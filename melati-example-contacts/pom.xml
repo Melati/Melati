@@ -124,6 +124,8 @@
   </build>
   <reporting>
    <plugins>
+<!--
+   
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-checkstyle-plugin</artifactId>
@@ -132,6 +134,7 @@
       <xrefLocation>xref</xrefLocation>
      </configuration>
     </plugin>
+-->
    </plugins>
   </reporting>
 </project>

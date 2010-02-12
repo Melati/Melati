@@ -379,6 +379,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <artifactId>maven-changelog-plugin</artifactId>
       </plugin>
 -->
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -387,6 +388,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>
+-->
 <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

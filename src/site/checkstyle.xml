@@ -129,8 +129,6 @@
         <module name="TypecastParenPad"/>
         <!-- No padding -->
         <module name="ParenPad"/>
-        <!-- None allowed -->
-        <module name="TabCharacter"/>
         <module name="WhitespaceAfter">
          <property name="tokens" value="SEMI"/>
          <!-- Not TYPECAST or COMMA -->
@@ -215,6 +213,10 @@
     <module name="Header">
         <property name="headerFile" value="./LICENSE.txt"/>
         <property name="ignoreLines" value="1,2,3,4,5,6,7,8,9"/>
+    </module>
+    <module name="Checker">
+        <!-- None allowed -->
+        <module name="FileTabCharacter"/>
     </module>
 
 </module>

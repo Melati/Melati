@@ -53,7 +53,7 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td>
     Upgrade to JSDK 1.5
     </td>
-    <td></td>
+    <td>Ongoing</td>
   </tr>
 
 
@@ -61,8 +61,9 @@ The following gives the items which would be nice to have before a 1.0 release.
   <tr>
     <th>1.0</th>
     <td><b>MDK (Melati Developer's Kit)</b> <br />
-        Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2). <br />
+        Support and use of <a href="http://maven.apache.org/">Maven</a> . <br />
         Bundled with Jetty and HSQLDB. <br />
+        Hudson CI. <br />
         Support for <a href="http://www.eclipse.org/">Eclipse</a> (No warnings shown).<br />
         Archetype supports iterative modelling. <br />
     </td>
@@ -77,17 +78,16 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td>0.8.0</td>
     <td>
     DSD rewritten in Melati<br />
-    Unify webmacro and velocity templet directories <br /> 
     Flushing works with velocity <br />
+    Velocity translation as Maven plugin <br />
     Works with Derby <br />
-
-
     </td>
     <td></td>
   </tr>
   <tr> 
     <td>0.7.8</td>
     <td>
+    Unify webmacro and velocity templet directories <br /> 
     Flushing fixed <br />
     Caching fixed <br />
     JDBC-ODBC working<br />

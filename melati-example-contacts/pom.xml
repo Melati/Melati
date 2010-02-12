@@ -82,6 +82,7 @@
         <contextPath>/</contextPath>
        </configuration>
       </plugin>
+      <!--
       <plugin>
        <groupId>org.codehaus.mojo</groupId>
        <artifactId>exec-maven-plugin</artifactId>
@@ -120,6 +121,7 @@
         </dependency>
       </dependencies>
     </plugin>
+    -->
     </plugins>
   </build>
   <reporting>

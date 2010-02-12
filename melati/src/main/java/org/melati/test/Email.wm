@@ -1,18 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<!--
-******************************Change Log********************************
-  \$Log$
-  \Revision 1.2  2006/04/25 21:15:53  timp
-  \hack around velocity translator
-  \
-  \Revision 1.1  2006/01/19 19:49:47  timp
-  \Initial version
-  \
-
-************************************************************************
--->
 <style>
 body {
 BACKGROUND-COLOR: \#FFFFFF;

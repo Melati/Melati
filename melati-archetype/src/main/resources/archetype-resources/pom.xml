@@ -8,6 +8,11 @@
   <version>${version}</version>
   <url>http://www.paneris.net/${artifactId}</url>
 
+  <ciManagement>
+    <system>Hudson</system>
+    <url>http://hudson.paneris.net/</url>
+  </ciManagement>
+
   <scm>
     <connection>
       scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:${artifactId}

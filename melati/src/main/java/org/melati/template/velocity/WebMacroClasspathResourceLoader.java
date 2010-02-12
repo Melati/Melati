@@ -57,8 +57,10 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * templates.
  * 
  * 
- * Note that this does not allow modern WebMacro syntax with
- * optionional #begin in #foreach.
+ * NOTE This does not allow modern WebMacro syntax with
+ * optional #begin in #foreach.
+ * 
+ * NOTE Only if a curly bracket is at the start of a line will it not be turned into an #end
  *
  * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
  */

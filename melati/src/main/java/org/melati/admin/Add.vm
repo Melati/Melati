@@ -1,0 +1,87 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+##
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+ <title>Add a new $ml.rendered($melati.Table.DisplayName) record</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+
+<script TYPE="text/javascript" >
+<!--
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+  }
+//-->
+</script>
+</head>
+<body bgcolor="#cccccc" id="add">
+
+<form method="post" 
+  action="Created"
+>
+<h3>Create a new $ml.rendered($melati.Table.DisplayName) record</h3>
+<table cellspacing="0" cellpadding="0">
+  #foreach( $field in $fields )
+    #if( $field.UserCreateable )
+  <tr><td>&nbsp;</td></tr>
+  <tr>
+	<td><FONT SIZE="-1" FACE="Arial, Helvetica">
+	  #if( $field.Type.Nullable )
+	    <b>$ml.rendered($field.DisplayName)</b>
+	 #else
+	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
+	  #end
+           </font>
+      #if( $field.Description )
+            <FONT SIZE="-2" FACE="Arial, Helvetica">
+	  ($ml.rendered($field.Description))
+            </font>
+      #end
+    </td></tr><tr><td>
+	  <font SIZE="-1" FACE="Arial, Helvetica">
+      $ml.input($field)
+      </font>
+    </td>
+  </tr>
+    #end
+  #end
+  <tr><td><FONT SIZE="0">&nbsp;</FONT></td></tr>
+</table>
+
+#if( $Form.returnURL )
+  <input type="hidden" name="returnURL" value='$Form.returnURL'>
+#else
+  #if( $CGI.HTTP_REFERER )
+    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+  #end
+#end
+#if( $Form.returnTarget )
+  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
+#end
+#if( $Form.returnfield )
+  <input type="hidden" name="returnfield" value='$Form.returnfield'>
+#end
+ <input type="submit"
+     id="action" 
+     name="action" 
+     value="Create"
+     title="Create a new $ml.rendered($melati.Table.DisplayName)"
+     onclick="return validate(this.form);">
+</form>
+</body>
+</html>

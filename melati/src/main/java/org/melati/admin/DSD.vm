@@ -1,0 +1,204 @@
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2002 Tim Pizey
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Pizey <timp At paneris.org>
+##
+#set( $melati.ResponseContentType = "text/plain" )
+## Add comments if user requests them
+#if( $Form.comments )
+#set( $c = true )
+#end
+## Add comments if variable has been set in context
+#if( $comments )
+#set( $c = true )
+#end
+## Add system, dynamically created and inherited tables if user requests them
+#if( $Form.all )
+#set( $all = true )
+#end
+/*
+ * DSD for $melati.Database ($melati.Database.Class.Name)
+ * 
+ *  Generated for $melati.getUser()
+ * 
+ * WARNING
+ * This export is not necessarily information preserving.
+ * 1) if you have used a capitalisation regime other than first 
+ *    letter capital then the case  will not be preserved.
+ * 2) Abstract tables are not preserved; the tables are 'de-normalised'.
+ * 3) Importing another DSD, such as messageboards, is 
+ *    not preserved, all tables are in a single package namespace.
+
+#if( !$c )
+ *    
+ * NOTE
+ * This template can include comments for defaulted items
+ * (add comments=true to URL)
+#end
+#if( $all )
+ *    
+ * NOTE
+ * This template includes all System and inherited tables, 
+ * so should NOT be used to replace an existing DSD.
+#else
+ *    
+ * NOTE
+ * This template can include all system and inherited tables but then 
+ * should NOT be used to replace an existing DSD.
+ * (add all=true to URL)
+#end
+ *    
+ */
+
+package ${package};
+
+
+#foreach( $table in $melati.Database.getDisplayTables() )
+#if( $table.Class.Name.indexOf($package) == 0 || $table.Class.Name.equals("org.melati.poem.JdbcTable") || $all )
+#if( $c )
+//   $table
+//   $table.Class.Name
+#end
+table $table.DsdName
+
+
+#foreach( $field in $table.getInfo().getFields() )
+#set( $infoFieldClass = $field.getType().getClass().getName() )
+#if( !$field.getRaw() )
+#if( $c )
+  // ($field.getName() = null)
+#end
+#else
+#if( $field.getName() != "id" )
+#if( $field.getName() != "name" )
+#if( $infoFieldClass.equals("org.melati.poem.StringPoemType") )
+  ($field.getName() = "$field.getCooked()")
+#else
+#if( $field.getName().equals("category") )
+  ($field.getName() = "$ml.rendered($field)")
+#else
+#if( $infoFieldClass.equals("org.melati.poem.BooleanPoemType") )
+#if( $field.getRaw().toString().equals("true") )
+  ($field.getName())
+#else
+#if( $c )
+  // Not $field.getName()
+#end
+#end 
+#else
+  ($field.getName() = $ml.rendered($field))
+#end
+#end
+#end
+#end
+#end
+#end
+#end
+{
+
+#foreach( $column in $table.columns() )
+
+#if( $c )
+    //$column 
+#end
+    $column.getType().toDsdType() $column.getName()
+
+#if( $column.isTroidColumn() )
+      (primary)
+#end
+#foreach( $field in $column.getColumnInfo().getDsdQualifiers() )
+#set( $infoFieldClass = $field.getType().getClass().getName() )
+#if( !$field.getRaw() )
+#if( $c )
+      // ($field.getName() = null)
+#end
+#else
+#if( $field.getName() == "size" )
+#if( $field.getRaw() == -1 )
+      ($field.getName() = unlimited)
+#else
+      ($field.getName() = $ml.rendered($field))
+#end
+#else
+#if( $infoFieldClass.equals("org.melati.poem.StringPoemType") )
+      ($field.getName() = "$field.getCooked()")
+#else
+#if( $infoFieldClass.equals("org.melati.poem.BooleanPoemType") )
+#if( $field.getName().equals("usereditable") )
+#if( $field.getRaw().toString().equals("true") )
+#if( $c )
+      // $field.getName()
+#end
+#else
+      (uneditable)
+#end 
+#else
+#if( $field.getName().equals("usercreateable") )
+#if( $field.getRaw().toString().equals("true") )
+#if( $c )
+      // $field.getName()
+#end
+#else
+      (uncreateable)
+#end 
+#else
+#if( $field.getRaw().toString().equals("true") )
+      ($field.getName())
+#else
+#if( $c )
+      // Not $field.getName()
+#end
+#end 
+#end
+#end
+#else
+      ($field.getName() = $ml.rendered($field))
+#end
+#end
+#end
+#end
+#end
+      ;
+#end
+ }
+
+#end
+#end
+
+

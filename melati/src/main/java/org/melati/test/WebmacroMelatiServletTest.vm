@@ -1,0 +1,56 @@
+#set( $melati.ResponseContentType = "text/html" )
+<HTML>
+<HEAD>
+<TITLE>WebmacroMelatiServlet Test</TITLE>
+</head>
+<body>
+<h2>WebmacroMelatiServlet Test</h2>
+<p>This servlet tests your interface for writing Melati servlets using
+the Webmacro template engine.
+</p>
+<p>
+This is not the recommended way to use Melati, just extend Template servlet.
+</p>
+<p>
+If you can read this message, it means that you have successfully 
+created a POEM session 
+and loaded the WebMacro Template Engine.<p>
+
+#if( $melati.Method )
+<p>This servlet was called with the following Method: <b>$melati.Method</b></p>
+#end
+
+#if( $Form.test )
+<p><b>$Form.test</b> was passed in the parameter <b>test</b>.
+#end
+<p>To test Form parameter passing, 
+<a href="$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest/?test=HelloWorld">click here</a></p>
+
+
+<h3>Test inclusion of webmacro template outsite of Melati</h3>
+<p>
+Click <a href="StandAlone">here</a> to test invocation of WebMacro outside of the Melati framework.
+</p>
+#if( $melati.Method == "StandAlone" )
+<table border="1"><tr><td>
+$StandAlone
+</td></tr></table>
+#end
+
+<h3>Your Database has the following tables:</h3>
+#foreach( $tab in $melati.Database.DisplayTables )
+  $tab.DisplayName<br>
+#end
+
+
+<h2>Further Testing</h2>
+<p>
+You can test a flushing output by clicking 
+<a href=$melati.ZoneURL/org.melati.test.FlushingServletTest/>FlushingServletTest</a>
+</p>
+<p>
+You can test Melati in 'Stand Alone' mode by clicking 
+<a href="$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest/StandAlone">StandAlone</a>.
+</p>
+</body>
+</html>

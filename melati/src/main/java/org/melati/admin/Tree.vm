@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- start org/melati/admin/Tree.wm -->
+<HTML>
+<head>
+ <title>
+#if( $melati.Object )
+  $ml.rendered($melati.Object)
+#else
+  $ml.rendered($melati.Table.DisplayName) table 
+#end tree</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+#if( $melati.Object )
+  #set( $tree = $admin.createTree($melati.Object) )
+#else
+  #set( $tree = $admin.createForest($melati.Table) )
+#end
+#if( $tree )
+ #if( $tree.flattened().size() < 2000 )
+<!-- start -->
+$ml.rendered($tree)
+<!-- end -->
+</head>
+<body onload="init();" id="tree">
+<div id="content"></div>
+#else
+</head>
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
+ alert("Tree size is greater than limit of 2000: " + $tree.flattened().size());
+</SCRIPT>
+Tree size is greater than limit of 2000: " + $tree.flattened().size()
+ #end
+#else
+</head>
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
+ alert("Tree is null.");
+</SCRIPT>
+Tree is null.
+#end
+</body>
+</html>
+
+<!-- end org/melati/admin/Tree.wm -->
+

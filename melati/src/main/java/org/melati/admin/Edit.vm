@@ -1,0 +1,140 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+##
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>Edit a $ml.rendered($melati.Table.DisplayName) Record</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+
+<script TYPE="text/javascript">
+<!--
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close(); 
+  }
+//-->
+</script>
+</HEAD>
+
+<BODY bgcolor="#cccccc" id="edit">
+
+<FORM METHOD="post" ACTION="Update">
+<TABLE CELLPADDING="0" CELLSPACING="0" id="recordFieldsTable">
+  #if( $Form.detailed )
+    #set( $fields = $melati.Object.DetailDisplayFields )
+ #else
+    #set( $fields = $melati.Object.RecordDisplayFields )
+  #end
+  #foreach( $field in $fields )
+    <TR><TD>&nbsp;</TD></TR>
+    <TR>
+     <TD><FONT SIZE="-1" FACE="Arial, Helvetica">
+       <B>
+        #if( !$field.Type.Nullable )
+         <font color="red">
+         *
+         </font>
+        #end
+        #if( $melati.isReferencePoemType($field) )
+         <a
+          #if( $field.Raw )
+ href="$admin.RecordURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")"
+ title="Edit $ml.rendered($field.Type.targetTable().DisplayName) $ml.rendered($field.DisplayName)"
+         #else
+ href="$admin.SelectionURL($field.Type.targetTable())"
+ title="Select $ml.rendered($field.Type.targetTable().DisplayName)"
+          #end
+ >
+        #end
+ $ml.rendered($field.DisplayName)
+        #if( $melati.isReferencePoemType($field) )
+         </a>
+        #end
+       </B>
+      </FONT>
+      #if( $field.Description )
+      <FONT SIZE="-2" FACE="Arial, Helvetica">
+	($ml.rendered($field.Description))
+      </FONT>
+      #end
+     </TD>
+    </TR>
+    <TR><TD>
+      <FONT SIZE="-1" FACE="Arial, Helvetica">
+        #if( $field.UserEditable )
+          $ml.input($field)
+       #else
+	  $ml.rendered($field)
+        #end
+      </font>
+    </TD></TR>
+  #end
+
+  #if( !$Form.detailed && ($melati.Object.Table.DetailDisplayColumnsCount != $melati.Object.Table.RecordDisplayColumnsCount) )
+   <TR><TD>
+      <FONT SIZE="-1" FACE="Arial, Helvetica">
+        <BR>
+        <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>
+        <BR>
+      </FONT>
+    </TD></TR>
+  #end
+
+#if( $Form.returnURL )
+  <input type="hidden" name="returnURL" value='$ml.decoded($Form.returnURL)'>
+#end 
+###else #begin
+##  #if( $CGI.HTTP_REFERER )
+##    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
+##  #end
+###end
+#if( $Form.returnTarget )
+
+  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
+#end
+  <TR><TD>&nbsp;</TD></TR>
+  <tr>
+   <td align="center">
+    <FONT SIZE="-1" FACE="Arial, Helvetica">
+<input type="submit"
+    name="action"
+    value="Update"
+    id="update"
+    onclick="return validate(this.form);">
+&nbsp;&nbsp;
+<input type="submit"
+    name="action" 
+    value="Delete"
+    id="delete" 
+    onclick="return confirm(
+                 'Please confirm that you want to delete this record')">
+&nbsp;&nbsp;
+<input type="submit"
+    name="action"
+    value="Duplicate"
+    id="duplicate"
+    onclick="return validate(this.form);">
+    </font>
+   </td>
+  </tr>
+</TABLE>
+
+</FORM>
+
+$admin.specialFacilities($melati, $ml, $melati.Object)
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+##
+## Expecting $object to be a Field
+##
+## Note that the template inheritance tree is not  backed up for templates specialised with renderinfo. 
+##
+
+#set( $admin = $melati.getContextUtil("org.melati.admin.AdminUtils") )
+<input type="hidden"
+    name="field_$ml.rendered($object.Name)" 
+    value='$ml.rendered($object.RawString)' />
+<input type="text" name="field_$ml.rendered($object.Name)_dummy" 
+#if( $object.Raw )
+    value="$ml.rendered($object.Cooked)"
+#end
+    size="30" 
+#if( $object.Description )
+    title="$ml.rendered($object.Description)" 
+#end
+    onfocus="document.forms[0].$ml.rendered($object.Name)_button.focus()" 
+    />
+<input type="button" 
+    value="Choose" 
+    id="$ml.rendered($object.Name)_button" 
+    name="$ml.rendered($object.Name)_button" 
+    onClick ="choosewindow = window.open('$admin.SelectionWindowURL($object.getType().targetTable())&returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
+    />
+<input type="button" 
+    value="Create" 
+    id="$ml.rendered($object.Name)_button" 
+    name="$ml.rendered($object.Name)_button" 
+    onClick ="createwindow = window.open('$admin.AddURL($object.getType().targetTable())?returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
+    />
+#if( $object.Type.Nullable )
+  <input type="button" value="Clear" 
+  onClick="document.forms[0].field_${ml.rendered($object.Name)}.value = ''; document.forms[0].field_$ml.rendered($object.Name)_dummy.value = ''; return false;" 
+  />
+#end
+<script language="JavaScript1.2" type="text/javascript">
+  add_rule("field_$ml.escaped($object.Name)",
+           "$ml.escaped($object.DisplayName)",
+	   !$object.Type.Nullable)
+</script>

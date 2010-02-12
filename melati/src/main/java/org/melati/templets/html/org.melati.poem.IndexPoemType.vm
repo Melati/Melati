@@ -1,0 +1,34 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+##
+## Expecting $object to be a Field
+<!--  \$Source$ -->
+<select 
+  name="field_$ml.rendered($object.Name)" 
+  id="field_$ml.rendered($object.Name)"
+#if( $object.Description )
+  title="$object.Description"
+#end
+>
+
+  #foreach( $poss in $object.First1000Possibilities )
+    <option value="$ml.Attr.rendered($poss.RawString)"
+      #if( $poss.sameRawAs($object) )
+        selected="selected"
+      #end
+    >
+      #if( $poss.RawString.equals("") && $nullValue )
+        $ml.rendered($nullValue)
+     #else
+        $ml.rendered($poss)
+      #end
+    &nbsp;</option>
+  #end
+</select>

@@ -1,0 +1,126 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+##
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>Updated a $ml.rendered($melati.Table.DisplayName) Record</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+<!-- 
+return target = 
+#if( $Form.returnTarget )
+$Form.returnTarget
+#end 
+return url = 
+#if( $Form.returnURL )
+$Form.returnURL
+#end
+
+-->
+
+#if( $melati.getTable().getName().equals("tableinfo") )
+ <script type="text/javascript">
+  function reload() {
+   #if( $object )
+    top.location.href="$object.troid()/Main";
+  #else
+    top.location.href="Main";
+   #end
+  }
+ </script>
+#else
+  #if( $Form.returnTarget )
+ <script type="text/javascript">
+  function reload() {
+    ${Form.returnTarget}.location.href="$Form.returnURL";
+    ${Form.returnTarget}.focus();
+  }
+ </script>
+ #else
+    #if( $Form.returnURL )
+ <script type="text/javascript">
+  function reload() {
+    location.href="$Form.returnURL";
+  }
+ </script>
+   #else
+ <script type="text/javascript">
+  function reload() {
+    location.href="Edit";
+  }
+ </script>
+    #end
+  #end 
+#end
+#if( $Form.returnfield )
+ <script language="JavaScript" TYPE="text/javascript">
+  function updateCaller(returnfield, id, value) {
+    opener.updateFromPopup(parent, returnfield, id, value)
+  }
+ </script>
+</HEAD>
+<BODY bgcolor="#cccccc" 
+      onLoad="updateCaller('$Form.returnfield',$melati.Object.Troid,'$ml.escaped($melati.Object)')"
+      id="done">
+#else
+</HEAD>
+<BODY bgcolor="#cccccc" onLoad="reload()" id="done">
+#end
+<br/><br/><br/><br/>
+<h3 align="center">
+  <font face="Arial, Helvetica">
+    <a 
+#if( $melati.getTable().getName().equals("tableinfo") )
+   #if( $object )
+        href="$admin.MainURL($melati.Table,$object)"
+  #else
+        href="$admin.MainURL($melati.Table)"
+   #end
+        target="_top"
+#else
+  #if( $Form.returnURL )
+        href="$Form.returnURL"
+  #else
+    #if( $melati.Method == "Created" )
+        href="$melati.Object.troid()/Edit"  
+   #else
+        href="Edit"  
+    #end
+  #end
+  #if( $Form.returnTarget )
+        target="$admin.simpleName($Form.returnTarget)"
+ #else
+        target=""
+  #end
+#end
+
+        id="continue"
+    >Done</a>
+  </font>
+</h3>
+
+## Used in testCreateTableStory 
+<form method="GET" action="?">
+<input type="hidden" name="troid"
+#if( $melati.Object )
+  value="$melati.Object.troid()"
+  source="melati"
+#else
+  #if( $object )
+    value="$object.troid()"
+    source="object"
+  #end
+#end
+>
+</form>
+</BODY>
+</HTML>

@@ -1,0 +1,242 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 Tim Joyce
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Joyce <timj At paneris.org>
+##     http://paneris.org/~timj
+##
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- PrimarySelect.wm -->
+<HTML>
+<HEAD>
+ <title>Primary Select</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+<SCRIPT Language="JavaScript" type="text/javascript">
+<!--
+
+#if( $inPopup )
+    #set( $selectionWindowJsName = "parent.selectionwindow_selection" )
+    #set( $selectionWindowTargetName = "selectionwindow_selection" )
+#else
+    #set( $selectionWindowJsName = "parent.admin_selection" )
+    #set( $selectionWindowTargetName = "admin_selection" )
+#end
+
+
+#if( $primaryCriterion )
+  #if( $melati.isReferencePoemType($primaryCriterion) )
+    #if( $primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow") )
+  function goto_page() {
+#if( $inPopup )
+    var url = "$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
+#else
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
+      document.forms[0].elements[0].value;
+#end
+    ${selectionWindowJsName}.location.href = url;
+    return false;
+  }
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+    goto_page();
+  }
+   #else
+  function goto_page() {
+    var selector;
+    selector = document.forms[0].elements[0];
+    var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+    if (option != "null") ${selectionWindowJsName}.location.href = option;
+    return false;
+  }
+    #end 
+ #else
+  function goto_page() {
+    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
+      document.forms[0].elements[0].value;
+    ${selectionWindowJsName}.location.href = url;
+    return false;
+  }
+  #end 
+#else
+  function goto_page() {
+    ${selectionWindowJsName}.location.href = "$admin.SelectionURL($melati.Table)";
+    return false;
+  }
+#end
+// -->
+</script>
+</HEAD>
+<BODY BGCOLOR="#dddddd" id="primarySelect">
+
+#if( $primaryCriterion )
+<FORM METHOD="GET" 
+#if( $inPopup )
+    action="$admin.SelectionWindowSelectionURL($melati.Table)" 
+#else
+    action="$admin.SelectionURL($melati.Table)" 
+#end
+    target="${selectionWindowTargetName}">
+
+ <table cellspacing="2" cellpadding="2" border="0" width="100%" id="primarySelectTable">
+  <tr>
+   <td align="right" valign="middle">
+   <FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font>
+   </td>
+   <td align="left" valign="middle">
+  #if( $melati.isReferencePoemType($primaryCriterion) )
+    #if( $primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow") )
+     <font face="Arial, Helvetica" size="-1">
+       <input 
+           type="hidden" 
+           name="field_$ml.rendered($primaryCriterion.Name)" 
+           value='$ml.rendered($primaryCriterion.RawString)'>
+#if( !$inPopup )
+       <input 
+           type="hidden" 
+           name="target" 
+           value='admin_record' />
+       <input 
+           type="hidden"
+           name="returnTarget"
+           value="parent.parent.parent.admin_bottom.admin_left.admin_selection" />
+#end
+       <input 
+           type="text" 
+           name="field_${ml.rendered($primaryCriterion.Name)}_dummy" 
+       #if( $primaryCriterion.Raw )
+           value='$ml.rendered($primaryCriterion.Cooked)' 
+       #end
+           size="30" 
+           onfocus="document.forms[0].${ml.rendered($primaryCriterion.Name)}_button.focus()">
+       <input 
+           type="button" 
+           value="Choose"
+           name="${ml.rendered($primaryCriterion.Name)}_button" 
+           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           title="Select $primaryCriterion.DisplayName using a popup selector" 
+              />
+       <input 
+           type="image" 
+           src="$admin.StaticURL/display.gif"
+           value=" Go " 
+           onclick="goto_page();"
+           title="Display matching records using selected $primaryCriterion.DisplayName" 
+           style="vertical-align:top;" />
+     </font>
+   #else
+     <font face="Arial, Helvetica" size="-1">
+        <SELECT NAME="goto" 
+            OnChange="return(goto_page());">
+      #foreach( $poss in $primaryCriterion.First1000Possibilities )
+#if( $inPopup )
+          <OPTION VALUE="$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
+#else
+          <OPTION VALUE="$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+#end
+        #if( $poss.sameRawAs($primaryCriterion) )
+            SELECTED
+        #end
+          >
+        #if( $poss.RawString.equals("") )
+            All
+       #else
+            $ml.rendered($poss)
+        #end
+          </OPTION>
+      #end
+        </SELECT>
+    </font>
+    <font face="Arial, Helvetica" size="-1"><input 
+        type="image" 
+        src="$admin.StaticURL/display.gif"
+        value=" Go " 
+        onclick="goto_page();"
+        title="Display matching records by chosen $primaryCriterion.DisplayName" 
+        style="vertical-align:top;" /></font>
+    #end
+   </td>
+   <td>&nbsp;</td>
+   <td align="right" valign="middle">
+#if ($inPopup)
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
+        title="New $primaryCriterion.DisplayName" 
+        target=selectionwindow_selection><IMG 
+#else
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' 
+        title="New $primaryCriterion.DisplayName" 
+        target="admin_record"><IMG 
+#end
+            src="$admin.StaticURL/new_dir.gif" 
+            border="0" 
+            alt="New $primaryCriterion.DisplayName"></a>
+ #else
+     <font face="Arial, Helvetica" size="-1">
+      $ml.input($primaryCriterion)
+#if( $inPopup )
+      <input type="hidden" name="returnfield" value="$Form.returnfield">
+#else
+      <input type="hidden" name="target" value="admin_record">
+#end
+      <input 
+          type="image" 
+          src="$admin.StaticURL/display.gif"
+          name="action" 
+          value=" Go " 
+          title="Display matching records using input $primaryCriterion.DisplayName" 
+          style="vertical-align:top;" 
+      />
+     </font>
+   </td>
+   <td>&nbsp;
+  #end
+   </td>
+  </tr>
+ </table>
+</FORM>
+#end
+</BODY>
+</HTML>
+
+

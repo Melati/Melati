@@ -1,0 +1,71 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2006 Tim Pizey
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Pizey <timp At paneris.org>
+##     http://paneris.org/~timp
+##
+#set( $Response.ContentType = "text/html" )
+#set( $ml = $melati.HTMLMarkupLanguage )
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>
+#if( $object )
+ $object rendered using default template
+#else
+ null
+#end 
+ </title>
+ <meta name="version" content="CVS \$Id$" />
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen" />
+</head>
+<body>
+<h1>Default Display Template</h1>
+#if( $object )
+<h2>Object: </h2>
+$object
+<h2>Rendered:</h2>
+$ml.rendered($object)
+#else
+null
+#end
+</body>
+</html>

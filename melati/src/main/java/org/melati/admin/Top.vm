@@ -1,0 +1,205 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 Tim Joyce
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Joyce <TimJ At paneris.org>
+##     http://paneris.org/~timj
+##
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+ <title>Melati Database Admin Suite - Options for $melati.Database.DisplayName database</title>
+ <meta name="version" content="CVS \$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+      type="text/css" media="screen">
+</head>
+
+<body bgcolor="#dddddd" id="top">
+<table cellpadding="2" cellspacing="2" border="0" width="100%">
+<tr>
+<td align="left" valign="middle">
+  <b><font face="Arial, Helvetica" size="3">Melati Database Admin Suite</font></b>
+  <br>
+  <font face="Arial, Helvetica" size="-1" >
+    $melati.Database.DisplayName database
+  </font>
+</td>
+<td align="left" valign="middle">
+<form method="GET" id="gotoform" target="admin_bottom" action="$admin.BottomURL($melati)">
+<font size="-1" face="Arial, Helvetica">
+<select name="table" OnChange="submit();" title="Select table to edit">
+#set( $lasttype = "" )
+#set( $selected = false )
+#foreach( $table in $melati.Database.DisplayTables )
+  #if( !$table.TableInfo.Category.equals($lasttype) )
+    <option value="">&nbsp;</option>
+    <option value="">$table.TableInfo.Category.Name</option>
+    <option value="">============</option>
+  #end
+  #set( $lasttype = $table.TableInfo.Category )
+<option value="$table.Name"
+#if( !$selected )
+  #if( $melati.Table )
+   #if( $melati.Table.equals($table) ) 
+    selected="selected"
+     #set( $selected = true )
+   #end
+ #else 
+    #if( $table.getName().equals($admin.getPrimaryDisplayTable($melati)) )
+    selected="selected"
+      #set( $selected = true )
+    #end
+  #end
+#end
+> $ml.rendered($table.DisplayName)</option>
+#end
+</select>
+</font><font size="-2" face="Arial, Helvetica">
+<input type="submit" id="go" name="go" value=" Go ">
+</font>
+</form>
+</td>
+<td align="right" valign="middle" nowrap="nowrap">
+<noscript>
+<div id="message">
+  <font color="green">
+  Enable javascript for tree browsing.
+  </font>
+</div>
+</noscript>
+<div style="white-space:nowrap;">
+#if( $melati.User.isAdministrator() )
+<font size="-2" face="Arial, Helvetica">
+ <a href="$admin.getSetupURL()?returnTarget=top&returnURL=Main" target="admin_bottom" 
+    title="Database sessions available and in use">Setup</a>
+ <a href="$admin.SessionURL()" target="admin_bottom" 
+    title="Database sessions available and in use">Sessions</a>
+ <a href="$admin.StatusURL()" target="admin_bottom" 
+    title="Which records are currently stored in memory">Cache</a>
+ <a href="$admin.DsdURL()" target="admin_bottom" 
+    title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
+</font>
+#end
+&nbsp;
+ #if( $melati.User.isGuest() )
+<form method="GET" 
+    action="$melati.LoginURL"
+    target="_top"
+    style="display:inline;"
+    >
+ <input type="hidden"
+     name="continuationURL"
+     value="$admin.MainURL($melati)"
+ />
+ <input type="submit" 
+        value=" Login " 
+        id="login"
+        title="Login to the system"
+       />
+</form>
+#else
+<form method="GET" 
+      action="$melati.LogoutURL"
+      target="_top"
+      style="display:inline"
+      >
+ <input type="hidden"
+     name="continuationURL"
+     value="$admin.MainURL($melati)"
+ />
+ <input type="submit" 
+        value=" Logout "
+        id="logout"
+        title="Logout from the system"
+       />
+</form>
+ #end
+ <form method="GET" 
+      action="$admin.getHomepageURL($melati)" 
+      target="admin_bottom"
+      style="display:inline;"
+      >
+ <input type="submit" 
+     value=" Home " 
+     id="home"
+     title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
+     />
+ </form>
+ #if( $melati.KnownDatabaseNames.size() > 1 )
+<script Language="JavaScript" type="text/javascript">
+  function reload_page_with_different_db() {
+   var dbSelector;
+   dbSelector = document.forms["ldb"].ldb;
+   var option = dbSelector.options[dbSelector.selectedIndex].value;
+   if (option != null) parent.location = option;
+   return false;
+  }
+</script>
+ <form method="GET" 
+      action="$admin.getHomepageURL($melati)" 
+      style="display:inline;"
+      id="ldb"
+      target="admin_bottom">
+<font size="-1" face="Arial, Helvetica">
+<select name="ldb" 
+        OnChange="return(reload_page_with_different_db());" 
+        title="Select db to use">
+
+#set( $selected = false )
+#foreach( $dbName in $melati.KnownDatabaseNames )
+<option value="$admin.MainURL($dbName)"
+#if( !$selected )
+  #if( $melati.PoemContext.LogicalDatabase )
+   #if( $melati.PoemContext.LogicalDatabase.equals($dbName) ) 
+    selected = "selected"
+#set( $selected = true )
+   #end
+ #else
+    selected
+#set( $selected = true )
+  #end
+#end
+> $dbName </option>
+#end
+</select>
+</font>
+</form>
+ #end
+</div>
+</td></tr></table></body></html>

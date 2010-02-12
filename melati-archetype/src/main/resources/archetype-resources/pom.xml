@@ -327,17 +327,7 @@ ${firstChar}${rest}#end
      <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
-<!--
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-checkstyle-plugin</artifactId>
-     <configuration>
-      <configLocation>src/site/checkstyle.xml</configLocation>
-      <xrefLocation>xref</xrefLocation>
-     </configuration>
-    </plugin>
--->
-    <plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
         <configuration>

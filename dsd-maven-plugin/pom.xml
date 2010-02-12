@@ -34,18 +34,4 @@
     </resource>
    </resources>
   </build>
-  <reporting>
-   <plugins>
-<!--
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-checkstyle-plugin</artifactId>
-     <configuration>
-      <configLocation>${basedir}/checkstyle.xml</configLocation>
-      <xrefLocation>xref</xrefLocation>
-     </configuration>
-    </plugin>
--->    
-   </plugins>
-  </reporting>
 </project>

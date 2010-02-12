@@ -20,8 +20,6 @@
   </resources>
   <siteResources>
     <resource>src/site/site.xml</resource>
-    <resource>src/site/checkstyle.xml</resource>
-    <resource>src/site/checkstyleSuppressions.xml</resource>
     <resource>src/site/xdoc/LICENSE.txt</resource>
     <resource>src/site/xdoc/index.xml</resource>
     <resource>src/site/xdoc/Usage.xml</resource>

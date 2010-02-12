@@ -332,12 +332,11 @@ ${firstChar}${rest}#end
         <artifactId>taglist-maven-plugin</artifactId>
         <configuration>
          <tags>
-          <tag>@todo</tag>
+          <tag>TODO</tag>
           <tag>FIXME</tag>
           <tag>@deprecated</tag>
           <tag>HACK</tag>
           <tag>NOTE</tag>
-          <tag>HACK</tag>
          </tags>
         </configuration>
       </plugin>

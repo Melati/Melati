@@ -2,7 +2,7 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.8-RC2</version>
+    <version>0.7.8-RC2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>melati-webapp</artifactId>
@@ -12,13 +12,6 @@
   <build>
     <finalName>melati-webapp</finalName>
      <plugins>
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <configuration>
-          <server>melati-tomcat</server>
-        </configuration>
-      </plugin-->
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>

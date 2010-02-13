@@ -88,6 +88,7 @@
     <li>Dual ASF / GPL licensing.</li>
     <li>Poem no longer intertwined with Melati</li>
     <li>Poem Preprocessor now a Maven plugin</li>
+    <li>Templets loacated in the same direcory, regardless of template engine</li>
   </ul>
   <p>&nbsp; </p>
   <p> 
@@ -95,6 +96,15 @@
   <h2 id="Upgrading" name="Upgrading">Upgrading</h2>
   </a> 
 
+  <h3>To upgrade from Melati 0.7.4 to Melati 0.7.5</h3>
+  <ol>
+    <li> 
+  <p>
+  Move any templets from, for example,  <tt>org/melati/template/webmacro/template/html</tt> to 
+  <tt>org/melati/templets/html</tt>.
+  </p>
+  </li>
+  </ol>
   <h3>To upgrade from Melati 0.7.4 to Melati 0.7.5</h3>
   <ol>
     <li> 

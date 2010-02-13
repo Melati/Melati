@@ -14,31 +14,36 @@ MAKING A RELEASE
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1.  Change the version number and date in ../pom.xml
-1a. Remove SNAPSHOT from currentVersion in ../pom.xml 
+1.  If your change requires upgrade action by the user make a note
+    in the Upgrading section of src/site/resources/README.html
+2.  Change Last Updated and Updated By and add a new paragraph to 
+    src/site/resources/RELEASE-NOTES.html
+3.  Add a paragraph about this release to src/site/xdoc/Releases.xml
+    Update src/site/xdoc/Download.ahtml
+    Review src/site/xdoc/Roadmap.ahtml
+4.  CVS commit all of the above
+
+5a.  Change the version number and date in pom.xml
+5b. Remove SNAPSHOT from currentVersion in pom.xml 
     and increment it. 
-2.  If your change requires upgrade action by the user make a note
-    in the Upgrading section of ../src/site/resources/README.html
-3.  Change Last Updated and Updated By and add a new paragraph to 
-    ../src/site/resources/RELEASE-NOTES.html
-4.  Add a paragraph about this release to ../src/site/xdoc/Releases.xml
-    Update ../src/site/xdoc/Download.ahtml
-    Review ../src/site/xdoc/Roadmap.ahtml
-5.  CVS commit all of the above
-6.  CVS tag this release (cvs tag Melati-0-7-8)
-9.  Test everything
-10. 
-11. On rama:
+5c.  CVS tag this release (cvs tag Melati-0-7-8)
+5d.  Test everything
+
+or 
+
+6. Run mvn release:prepare mvn release:perform
+
+7. 
+8. On rama:
     cd /dist/melati
     cvs update
     mvn install
-12. 
-13. Update sourceforge
+9. Update sourceforge
 cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
 cvs -d:ext:developername@melati.org:/usr/cvsroot export melati
 cvs commit
 
-14. Email 
+10. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,
        melati-users@lists.sourceforge.net,
@@ -53,13 +58,13 @@ cvs commit
        wafer-developer@lists.sourceforge.net
        post to news://easysoft.public.da2k.jdbc-odbc-bridge
 
-15. Notify Melati project boards:
+11. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
        wvm@messageboards.paneris.org
-16. Add an item to the Sourceforge news
+12. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
-17. Add SNAPSHOT to currentVersion in ../pom.xml
+13. Add SNAPSHOT to currentVersion in ../pom.xml
 
 
 

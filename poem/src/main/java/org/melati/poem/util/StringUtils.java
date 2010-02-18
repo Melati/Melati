@@ -128,7 +128,7 @@ public final class StringUtils {
 
   /**
    * Append a String to a StringBuffer, first quoting it with a quote 
-   * character and escaping any occurances of the quote char in the String.
+   * character and escaping any occurrences of the quote char in the String.
    * 
    * @param b the buffer to append to 
    * @param s the String to append
@@ -155,7 +155,7 @@ public final class StringUtils {
 
 
   /**
-   * Captialise the first character of the input string.
+   * Capitalise the first character of the input string.
    * 
    * @param name String to capitalise
    * @return the capitalised string
@@ -179,7 +179,7 @@ public final class StringUtils {
   }
 
  /**
-  * As Perl <code>tr</code>; swap any occurances of any characters in the 
+  * As Perl <code>tr</code>; swap any occurrences of any characters in the 
   * <code>from</code> string in the input string with the 
   * corresponding character from the <code>to</code> string.
   * 
@@ -190,7 +190,6 @@ public final class StringUtils {
    * @param from String containing characters to swap from 
    * @param to String containing characters to swap to
    * @return the transformed input String
-   * @deprecated now use string.replace(old,new)
    */
   public static String tr(String s, String from, String to) {
     StringBuffer sNew = null;
@@ -219,6 +218,7 @@ public final class StringUtils {
   * @param from character to swap from 
   * @param to character to swap to
   * @return the transformed input String
+  * @deprecated now use string.replace(old,new)
   */
   public static String tr(String s, char from, char to) {
     StringBuffer sNew = null;

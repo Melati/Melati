@@ -47,11 +47,8 @@ package org.melati.poem.util;
 
 /**
  * An assortment of useful operations on <code>String</code>s.
- * <p>
- * Should be a final class, but it is extended in org.melati.util.
- * 
  */
-public class StringUtils {
+public final class StringUtils {
 
   protected StringUtils() {}
 
@@ -193,6 +190,7 @@ public class StringUtils {
    * @param from String containing characters to swap from 
    * @param to String containing characters to swap to
    * @return the transformed input String
+   * @deprecated now use string.replace(old,new)
    */
   public static String tr(String s, String from, String to) {
     StringBuffer sNew = null;

@@ -28,6 +28,7 @@ public class JettyWebTestCase extends WebTestCase {
   protected static String referenceOutputDir = "src/test/resources";
 
   /**
+   * 
    * Default constructor.
    */
   public JettyWebTestCase() {
@@ -44,7 +45,7 @@ public class JettyWebTestCase extends WebTestCase {
 
   protected void setUp() throws Exception {
     // Port 0 means "assign arbitrarily port number"
-    startServer(8083);
+    startServer(0);
   
     // getLocalPort returns the port that was actually assigned
     int actualPort = server.getConnectors()[0].getLocalPort();

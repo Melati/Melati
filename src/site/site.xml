@@ -3,7 +3,7 @@
   <skin>
     <groupId>org.melati</groupId>
     <artifactId>melati-skin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </skin>
   <bannerLeft>
     <name>Melati</name>

@@ -87,21 +87,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <distribution>repo</distribution>
    </license>
    <license>
-    <name>Lesser Gnu Public License</name>
-    <url>http://www.gnu.org/copyleft/lesser.html</url>
-    <distribution>repo</distribution>
-   </license>
-   <license>
     <name>The Apache Software License, Version 2.0</name>
     <url>
      http://www.apache.org/licenses/LICENSE-2.0.txt
     </url>
     <distribution>repo</distribution>
-   </license>
-   <license>
-    <name>Melati Software License</name>
-     <url>http://www.melati.org/Licence.html</url>
-     <distribution>repo</distribution>
    </license>
   </licenses>
 

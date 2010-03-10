@@ -7,7 +7,7 @@
     <author email="timp@paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
+      Objects, Object Oriented
     </keywords>
   </properties>
 
@@ -28,10 +28,10 @@ This page last updated: $Date$ $Author$
 <subsection name=" Generate a prototypical Melati project ">
 <pre>
 <input type='text' size='180' 
-value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=0.7.8-RC2-SNAPSHOT -DgroupId=com.ical -Dversion=0.7.8-RC2-SNAPSHOT -DartifactId=art' />
+value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=0.7.8-RC3-SNAPSHOT -DgroupId=com.ical -Dversion=0.7.8-RC3-SNAPSHOT -DartifactId=art' />
 </pre>
 <p>
-This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the curren one called <tt>art</tt>.
+This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the current working directory called <tt>art</tt>.
 </p>
 <p>
 Note that we are hacking the version to be the melati version. Also the pom will contain a one-off ant-run task which can be deleted.

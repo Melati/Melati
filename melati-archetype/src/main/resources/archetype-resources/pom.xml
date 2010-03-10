@@ -103,6 +103,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <scope>compile</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.5.8</version>
+      <scope>compile</scope>
+    </dependency>
+
+
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.melati</groupId>

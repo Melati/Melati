@@ -62,4 +62,13 @@ public class #capitalise(${artifactId})JettyWebTestCase extends JettyWebTestCase
     webAppDirName = "src/main/webapp";
     startServer(8080);
   }
+
+  /**
+   * Just to say hello.
+   */
+  public void testIndex() {
+    beginAt("/");
+    assertTextPresent("Admin");
+  }
+  
 }

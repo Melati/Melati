@@ -54,7 +54,7 @@ import org.melati.poem.User;
  * Invoke: 
  * <pre>
  * java -cp melati.jar;site\properties;lib\hsqldb.jar 
- *     org.melati.app.PoemAppExample poemtest
+ *     org.melati.app.PoemApp poemtest
  * </pre>
  * (Note: if you have configured a WebmacroServletTemplateEngine then you will 
  * need webmacro.jar and servlet.jar in your classpath).

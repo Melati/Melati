@@ -370,7 +370,7 @@ public class PoemTestCase extends TestCase implements Test {
   /**
    * @return the properties name
    */
-  public static String getPropertiesFileName() {
+  public String getPropertiesFileName() {
     return propertiesFileName;
   }
 

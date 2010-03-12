@@ -128,6 +128,7 @@ import org.melati.util.MelatiRuntimeException;
  * TODO Make Navigation JS agnostic
  * TODO Logout fails to work if remember me is ticked
  * TODO Order by field f orders on fields troid, not field ordering
+ * TODO Enable non-paged output of selection by adding paged parameter to selectionTemplate
  * FIXME primaryDisplayTable should not be static as this messes with DB switching
  */
 

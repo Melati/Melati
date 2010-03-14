@@ -50,7 +50,6 @@ package org.melati.poem.util;
  */
 public final class StringUtils {
 
-  protected StringUtils() {}
 
   /**
    * As Perl, create an Array from a String by using a 

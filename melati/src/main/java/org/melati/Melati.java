@@ -429,7 +429,7 @@ public class Melati {
       util = c.newInstance(new Object[] {this});
     } catch (Exception e) {
       throw new MelatiBugMelatiException("Class " + className + 
-          " cannot be instantiated; is PoemContext set?", e);
+          " cannot be instantiated", e);
     }  
     return util;
   }

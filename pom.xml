@@ -44,7 +44,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   <distributionManagement>
     <repository>
       <id>melati</id>
-      <name>Default Repository</name>
+      <name>Melati M2 Repository</name>
       <url>scp://melati.org/data/www/maven2/</url>
     </repository>
     <site>

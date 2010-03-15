@@ -198,6 +198,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
    </testResources>
    <plugins>
     <plugin>
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-compiler-plugin</artifactId>
+     <configuration>
+      <source>1.6</source>
+      <target>1.6</target>
+     </configuration>
+    </plugin>
+    <plugin>
      <artifactId>maven-antrun-plugin</artifactId>
      <!-- Delete this once it has run once -->
      <!-- It is called twice as the pom is validated twice :( -->

@@ -423,6 +423,41 @@ public class Melati {
    * @return the instantiated class
    */
   public Object getContextUtil(String className) {
+    Constructor<?> c;
+    try {
+        c  = Class.forName(className).getConstructor(new Class[] {this.getClass()});
+    } catch (NoSuchMethodException e) {
+      try { 
+        c  = Class.forName(className).getConstructor(new Class[] {});
+        try {
+          return c.newInstance(new Object[] {});
+        } catch (Exception e2) {
+            throw new MelatiBugMelatiException("Class " + className + 
+                    " cannot be instantiated ", e2);
+        }
+      } catch (Exception e2) {
+          throw new MelatiBugMelatiException("Class " + className + 
+                  " cannot be instantiated ", e2);
+      }
+    } catch (Exception e) {
+          throw new MelatiBugMelatiException("Class " + className + 
+                " cannot be instantiated ", e);
+    }  
+    try {
+      return c.newInstance(new Object[] {this});
+    } catch (Exception e) {
+        throw new MelatiBugMelatiException("Class " + className + 
+                " cannot be instantiated ", e);
+    }
+  }
+  
+  /**
+   * Get a named context utility eg org.melati.admin.AdminUtils.
+   *  
+   * @param className Name of a class with a single argument Melati constructor 
+   * @return the instantiated class
+   */
+  public Object getInstance(String className) {
     Object util;
     try {
       Constructor<?> c  = Class.forName(className).getConstructor(new Class[] {this.getClass()});

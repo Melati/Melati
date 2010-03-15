@@ -145,7 +145,7 @@ function StaticTree(contentDiv,
   // Subclassed TreeNode variables
   // -----------------------------
   TreeNode.prototype.index = 0; // index in the Tree's flattened array
-  TreeNode.prototype.isOpen = false;
+  TreeNode.prototype.isOpen = true; //Default to open; less clicking
   TreeNode.prototype.chosen = false;
   TreeNode.prototype.selected = false;
   TreeNode.prototype.spacerImage = spacerImage;

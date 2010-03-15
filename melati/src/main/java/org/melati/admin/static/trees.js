@@ -104,7 +104,7 @@ function DynamicTree(roots, xpos, ypos, width, height, colour, indent,
   // Subclassed TreeNode variables
   // -----------------------------
   TreeNode.prototype.index = 0; // index in theTree's flattened array
-  TreeNode.prototype.isOpen = false;
+  TreeNode.prototype.isOpen = true;
   TreeNode.prototype.layer = null;
   TreeNode.prototype.drawn = false;
   TreeNode.prototype.width = width || 400;

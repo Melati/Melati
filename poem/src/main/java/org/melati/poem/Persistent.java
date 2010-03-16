@@ -673,6 +673,7 @@ public interface Persistent extends Persistable, Treeable {
   /**
    * Create a new persistent like this one, regardless of 
    * whether this Persistent has been written to the dbms yet.
+   * 
    * @return A floating clone
    */
   Persistent duplicatedFloating() throws AccessPoemException;

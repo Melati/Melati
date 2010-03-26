@@ -8,15 +8,15 @@ License:	GPLv2 or Melati Software License
 URL:		http://melati.org
 
 Source0:	Melati-0-7-8-RC2.tgz
-Patch1:		melati-no-mckoi.patch
-Patch2:		melati-no-odmg.patch
-Patch3:		melati-no-webmacro.patch
-Patch4:		melati-dsd-version.patch
-Patch5:		melati-no-cyclic-poem-dependency.patch
-Patch6:		melati-no-postgres-jdbc1.patch
-Patch7:		melati-TableSortedMapTest.patch
-Patch8:		melati-no-jetty-plugin.patch
-Patch9:		melati-no-tango.patch
+Patch1:	melati-no-mckoi.patch
+Patch2:	melati-no-odmg.patch
+Patch3:	melati-no-webmacro.patch
+Patch4:	melati-dsd-version.patch
+Patch5:	melati-no-cyclic-poem-dependency.patch
+Patch6:	melati-no-postgres-jdbc1.patch
+Patch7:	melati-TableSortedMapTest.patch
+Patch8:	melati-no-jetty-plugin.patch
+Patch9:	melati-no-tango.patch
 Patch10:	melati-no-jwebunit.patch
 Patch11:	melati-no-jsp.patch
 Patch12:	melati-relative-hsqldbs.patch
@@ -39,6 +39,10 @@ Patch25:	melati-hsql-webapp-data-dir.patch
 Patch26:	melati-tomcat-static-path.patch
 Patch27:	melati-webapp-startup-transaction-issue.patch
 Patch28:	melati-text-length.patch
+Patch29:	melati-duplicate-nested-import.patch
+%if "%fc12" == "1"
+Patch30:	melati-no-archetype.patch
+%endif
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -52,7 +56,7 @@ BuildRequires:	maven2-plugin-compiler
 BuildRequires:	maven2-plugin-install
 BuildRequires:	maven2-plugin-jar
 BuildRequires:	maven2-plugin-javadoc
-BuildRequires:	maven2-plugin-release
+#BuildRequires:	maven2-plugin-release
 BuildRequires:	maven2-plugin-resources
 BuildRequires:	maven2-plugin-surefire
 BuildRequires:	maven2-plugin-war
@@ -60,6 +64,10 @@ BuildRequires:	maven2-plugin-source
 BuildRequires:	maven2-plugin-pmd
 BuildRequires:	maven2-plugin-assembly
 BuildRequires:	maven2-plugin-site
+BuildRequires:	maven2-plugin-plugin
+BuildRequires:	maven-plugin-build-helper
+BuildRequires:	maven-plugin-cobertura
+BuildRequires:	maven-surefire-provider-junit
 
 BuildRequires:	junit >= 3.8.1
 BuildRequires:	jakarta-oro >= 2.0.8
@@ -136,7 +144,9 @@ Group:		Development/Build Tools
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	maven2 >= 2.0.4
 Provides:	maven-dsd-plugin = %{epoch}:%{version}-%{release}
+%if "%fc11" == "1"
 Provides:	maven-archetype = %{epoch}:%{version}-%{release}
+%endif
 Provides:	throwing-jdbc = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -146,8 +156,10 @@ required by an application developed using POEM (Persistent Object Engine for
 Melati). This DSD processor is then used to generate Java from the DSD.
 - The maven-dsd-plugin enables the DSD processor to be used in a Maven build,
 instead of executing it directly from Java or from ant.
+%if "%fc11" == "1"
 - The Melati Archetype provides templates for creating Melati web development
 projects.
+%endif
 Also throwing-jdbc is bundled. It is not required to develop software using
 Melati. It can be used by unit tests during JDBC-based software development.
 For example, it is used for unit tests during development of POEM. 
@@ -177,6 +189,7 @@ This package contains examples and the administration functionality.
 
 %prep
 %setup -q -c
+cp ${RPM_SOURCE_DIR}/melati-maven-settings.xml ${RPM_BUILD_DIR}/%{name}-%{version}/melati-maven-settings.xml
 cp ${RPM_SOURCE_DIR}/melati-depmap.xml ${RPM_BUILD_DIR}/%{name}-%{version}/melati-depmap.xml
 %patch1 -p1
 %patch2 -p1
@@ -231,7 +244,10 @@ rm ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/test/java/org/melati/test/test
 %patch16 -p1
 # I think some encoding problem prevents patch from doing this, but sed works because it avoids the need to specify the exact char
 mv ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java{,.orig} 
-sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java.orig > ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java
+# Actually use of seds s command worked in fedora 11 but not 12...
+#sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java.orig > ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java
+# so use the c command instead...
+sed -e"/.*': return \"&pound;\";/c\\      case 163: return \"&pound;\";" < ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java.orig > ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/main/java/org/melati/util/HTMLUtils.java
 %patch17 -p1
 %patch18 -p1
 %patch20 -p1
@@ -243,13 +259,28 @@ sed -e"s/\(case \)'.*'\(: return \"&pound;\";\)/\1163\2/" < ${RPM_BUILD_DIR}/%{n
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
+%patch30 -p1
 
 %build
+%if "%{fc11}" == "1"
+echo if fc11
+%endif
+%if "%{fc11}" != "1"
+echo if not fc11
+%endif
+%if "%{fc12}" == "1"
+echo if fc12
+%endif
+%if "%{fc12}" != "1"
+echo if not fc12
+%endif
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
 mkdir -p $MAVEN_REPO_LOCAL
-mvn-jpp -ff -P nojetty -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
+mvn-jpp --fail-fast --activate-profiles nojetty --settings melati-maven-settings.xml -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
 
 %install
+rm -rf $RPM_BUILD_ROOT
 install -dm 755 $RPM_BUILD_ROOT%{_javadir}
 install -dm 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 install -dm 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
@@ -274,12 +305,14 @@ install -pm 644 melati/target/melati-0.7.8-RC2-SNAPSHOT-tests.jar \
 	$RPM_BUILD_ROOT%{_javadir}/melati-0.7.8-tests.jar
 ln -s melati-0.7.8-tests.jar $RPM_BUILD_ROOT%{_javadir}/melati-tests.jar
 
+%if "%fc11" == "1"
 install -pm 644 melati-archetype/target/melati-archetype-1.0-SNAPSHOT.jar \
 	$RPM_BUILD_ROOT%{_javadir}/melati-archetype-0.7.8.jar
 ln -s melati-archetype-0.7.8.jar $RPM_BUILD_ROOT%{_javadir}/melati-archetype.jar
 %add_to_maven_depmap org.melati %{name}-archetype 0.7.8-RC2-SNAPSHOT JPP %{name}-archetype
 install -pm 644 melati-archetype/pom.xml \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-archetype.pom
+%endif
 
 install -pm 644 throwing-jdbc/target/throwing-jdbc-0.7.8-RC2-SNAPSHOT-jdbc4.jar \
 	$RPM_BUILD_ROOT%{_javadir}/throwing-jdbc-0.7.8-jdbc4.jar
@@ -318,8 +351,10 @@ install -pm 644 maven-dsd-plugin/pom.xml \
 cp -pr maven-dsd-plugin/target/site/apidocs \
 	$RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/maven-dsd-plugin
 
-install -pm 644 melati-webapp/target/melati-webapp.war \
-	$RPM_BUILD_ROOT%{_var}/lib/tomcat5/webapps/melati-webapp.war
+#install -pm 644 melati-webapp/target/melati-webapp.war \
+#	$RPM_BUILD_ROOT%{_var}/lib/tomcat5/webapps/melati-webapp.war
+cp -pr melati-webapp/target/melati-webapp \
+	$RPM_BUILD_ROOT%{_var}/lib/tomcat5/webapps/melati-webapp
 install -pm 644 melati-webapp/pom.xml \
 	$RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-melati-webapp.pom
 
@@ -391,14 +426,18 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %{_datadir}/maven2/poms/JPP-throwing-jdbc.pom
+%if "%fc11" == "1"
 %{_datadir}/maven2/poms/JPP-melati-archetype.pom
+%endif
 %{_datadir}/maven2/poms/JPP-maven-dsd-plugin.pom
 %{_javadir}/throwing-jdbc-0.7.8-jdbc4.jar
 %{_javadir}/throwing-jdbc-jdbc4.jar
 %{_javadir}/throwing-jdbc-0.7.8.jar
 %{_javadir}/throwing-jdbc.jar
+%if "%fc11" == "1"
 %{_javadir}/melati-archetype-0.7.8.jar
 %{_javadir}/melati-archetype.jar
+%endif
 %{_javadir}/maven-dsd-plugin-1.1.jar
 %{_javadir}/maven-dsd-plugin.jar
 
@@ -413,7 +452,8 @@ rm -rf $RPM_BUILD_ROOT
 %files webapp
 %defattr(-,root,root,-)
 %{_datadir}/maven2/poms/JPP-melati-webapp.pom
-%{_var}/lib/tomcat5/webapps/melati-webapp.war
+%{_var}/lib/tomcat5/webapps/melati-webapp
+#%{_var}/lib/tomcat5/webapps/melati-webapp.war
 #%{_datadir}/maven2/poms/JPP-melati-skin.pom
 %{_datadir}/maven2/poms/JPP-melati-example-contacts.pom
 %{_javadir}/melati-example-contacts-0.7.8.jar

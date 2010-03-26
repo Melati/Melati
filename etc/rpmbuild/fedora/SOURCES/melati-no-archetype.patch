@@ -1,0 +1,11 @@
+diff -up melati-0.7.8.RC2/pom.xml~ melati-0.7.8.RC2/pom.xml
+--- melati-0.7.8.RC2/pom.xml~	2010-03-16 21:58:12.597624709 +0100
++++ melati-0.7.8.RC2/pom.xml	2010-03-16 22:07:58.532378038 +0100
+@@ -11,7 +11,6 @@
+     <module>melati-example-contacts</module>
+     <module>maven-dsd-plugin</module>
+     <module>melati-webapp</module>
+-    <module>melati-archetype</module>
+     <module>melati-skin</module>
+     <module>throwing-jdbc</module>
+   </modules>  

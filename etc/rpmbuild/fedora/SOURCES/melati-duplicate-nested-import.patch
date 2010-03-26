@@ -1,0 +1,78 @@
+diff -ruN --exclude=CVS --exclude='*~' --exclude=.m2 --exclude=classes Melati-0-7-8-RC2/maven-dsd-plugin/src/main/java/org/melati/poem/prepro/DSD.java rpmbuild/BUILD/melati-0.7.8.RC2/maven-dsd-plugin/src/main/java/org/melati/poem/prepro/DSD.java
+--- Melati-0-7-8-RC2/maven-dsd-plugin/src/main/java/org/melati/poem/prepro/DSD.java	2007-08-28 20:08:38.000000000 +0200
++++ rpmbuild/BUILD/melati-0.7.8.RC2/maven-dsd-plugin/src/main/java/org/melati/poem/prepro/DSD.java	2010-03-14 23:38:31.863733087 +0100
+@@ -49,6 +49,8 @@ import java.util.Enumeration;
+ import java.util.Vector;
+ import java.util.List;
+ import java.util.ArrayList;
++import java.util.Map;
++import java.util.HashMap;
+ import java.io.FileNotFoundException;
+ import java.io.InputStreamReader;
+ import java.io.Writer;
+@@ -95,6 +105,10 @@
+ 
+   /* A list of imported DSDs */
+   final Vector importedDSDs = new Vector();
++  /* A list of DSDs that have been parsed because they are imported
++   * here or by the importing DSD or by another DSD imported (recursively)
++   * by the importing DSD */
++  final Map<String,DSD> knownDSDs;
+ 
+   static void expect(StreamTokenizer tokens, String what)
+                                       throws ParsingDSDException, IOException {
+@@ -193,7 +197,7 @@
+   */
+   DSD(String file, boolean includePoem, List dsdClassPathElements) throws IOException, ParsingDSDException,
+                             IllegalityException, ResourceNotFoundException {
+-    this(file, new TableNamingStore(), true, dsdClassPathElements);
++    this(file, new TableNamingStore(), new HashMap<String,DSD>(), true, dsdClassPathElements);
+   }
+ 
+  /**
+@@ -141,11 +216,12 @@
+   * @throws IOException
+   *    if a problem with the file system is encountered
+   */
+-  public DSD(String file, TableNamingStore names, boolean includePoem, List dsdClassPathElements)
++  public DSD(String file, TableNamingStore names, Map<String,DSD> knownDSDs, boolean includePoem, List dsdClassPathElements)
+       throws ResourceNotFoundException, ParsingDSDException,
+              IllegalityException, IOException {
+     this.dsdClassPathElements = dsdClassPathElements;
+     nameStore = names;
++    this.knownDSDs = knownDSDs;
+     dsdFile = new File(file);
+     String dsdFileName = dsdFile.getName();
+     int dot = dsdFileName.lastIndexOf('.');
+@@ -162,7 +239,7 @@
+     /* Read in the default Poem tables, if appropriate */
+     if (includePoem && !"Poem".equals(projectName)) {
+       DSD poemDSD = new DSD(filePath("org.melati.poem.Poem.dsd"),
+-                            nameStore, false, dsdClassPathElements);
++                            nameStore, knownDSDs, false, dsdClassPathElements);
+       Vector poemTables = poemDSD.tablesInPackage;
+       for(int i = 0; i < poemTables.size(); i++)
+         tablesInDatabase.addElement(poemTables.elementAt(i));
+@@ -217,7 +294,12 @@
+         expect(tokens, ';');
+         tokens.nextToken();
+ 
+-        DSD dsd = new DSD(filePath(importDSD), nameStore, false, dsdClassPathElements);
++        String fp = filePath(importDSD);
++        DSD dsd = knownDSDs.get(fp);
++        if (dsd == null) {
++          dsd = new DSD(fp, nameStore, knownDSDs, false, dsdClassPathElements);
++          knownDSDs.put(fp, dsd);
++        }
+         importedDSDs.addElement(dsd);
+ 
+         Vector packageTables = dsd.tablesInPackage;
+@@ -707,7 +812,7 @@
+       DSD dsd = new DSD(args[0]);
+       dsd.generateJava();
+     } else if (args.length == 2) {
+-      DSD dsd = new DSD(args[0], new TableNamingStore(), false);
++      DSD dsd = new DSD(args[0], false);
+       dsd.generateJava();
+     } else {
+        System.err.println(

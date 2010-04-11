@@ -1,14 +1,6 @@
 diff -up melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java~ melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java
 --- melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java~	2007-06-26 10:50:42.000000000 +0200
 +++ melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java	2010-03-30 18:51:01.430321981 +0200
-@@ -1,6 +1,6 @@
- /*
-  * $Source$
-- * $Revision$
-+ * $Revision$
-  *
-  * Copyright (C) 2006 Tim Pizey
-  *
 @@ -53,16 +53,16 @@ import org.melati.util.MelatiBugMelatiEx
   * Converter from WebMacro templates to Velocity templates.
   * 

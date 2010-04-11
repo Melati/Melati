@@ -15,7 +15,7 @@
     <module>melati-archetype</module>
     <module>melati-skin</module>
     <module>throwing-jdbc</module>
-  </modules>  
+  </modules>
   <version>0.7.8-RC3-SNAPSHOT</version>
   <description>
 Melati Java Web Development Suite
@@ -24,7 +24,7 @@ Melati Java Web Development Suite
 
   <issueManagement>
    <system>SF List</system>
-    <url>       
+    <url>
 http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </url>
   </issueManagement>
@@ -51,7 +51,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>melati</id>
       <url>scp://melati.org/data/www/melati/</url>
     </site>
-  </distributionManagement>  
+  </distributionManagement>
   <pluginRepositories>
     <pluginRepository>
       <id>melati</id>
@@ -421,6 +421,23 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 	    </goals>
 	  </execution>
 	</executions>
+    </plugin>
+    <plugin>
+     <artifactId>maven-assembly-plugin</artifactId>
+     <configuration>
+      <descriptorRefs>
+       <descriptorRef>project</descriptorRef>
+      </descriptorRefs>
+     </configuration>
+     <executions>
+       <execution>
+         <id>default-cli</id>
+         <phase>package</phase>
+         <goals>
+           <goal>single</goal>
+         </goals>
+       </execution>
+     </executions>
     </plugin>
    </plugins>
   </build>

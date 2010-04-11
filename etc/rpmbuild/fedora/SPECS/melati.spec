@@ -7,7 +7,8 @@ Group:		Development/Libraries/Java
 License:	GPLv2 or Melati Software License
 URL:		http://melati.org
 
-Source0:	Melati-0-7-8-RC2.tgz
+Source0:	melati-parent-0.7.8-RC3-SNAPSHOT-project.tar.gz
+Source1:	Melati-0-7-8-RC2.tgz
 Patch1:	melati-no-mckoi.patch
 Patch2:	melati-no-odmg.patch
 Patch3:	melati-no-webmacro.patch
@@ -21,6 +22,9 @@ Patch10:	melati-no-jwebunit.patch
 Patch11:	melati-no-jsp.patch
 Patch12:	melati-relative-hsqldbs.patch
 Patch13:	melati-openjdk-relative-file-bug.patch
+# TODO I was begining to think this was really cool but are the vm's actually included
+# - how do they make it into the JAR? melati-convert-all-wm.patch is a dirty but more
+# reliable hack probably so we should review this to simplify or remove.
 Patch14:	melati-automateCreationOfVmfromWmDuringRpmDevelopment.patch
 # This was a planned change but is not essential now
 #Patch14:	melati-noCreationOfVmFromWm.patch
@@ -43,6 +47,9 @@ Patch29:	melati-duplicate-nested-import.patch
 %if "%fc12" == "1"
 Patch30:	melati-no-archetype.patch
 %endif
+# Miscellanious changes later on the trunk
+Patch31:	melati-upstream-commits.patch
+Patch32:	melati-convert-all-wm.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -75,6 +82,7 @@ BuildRequires:	jakarta-commons-collections >= 3.0
 BuildRequires:	velocity = 1.4
 BuildRequires:	mockobjects >= 0.09
 BuildRequires:	log4j >= 1.2.9
+BuildRequires:	tomcat5 >= 5.5.0
 BuildRequires:	jetty >= 5.1.15
 BuildRequires:	servlet_2_4_api
 BuildRequires:	concurrent >= 1.3.4 
@@ -95,7 +103,7 @@ Requires:	servlet_2_4_api
 Requires:	hsqldb >= 1.8.0.7
 Requires:	%{name}-poem = %{epoch}:%{version}-%{release}
 
-Requires(post):		jpackage-utils >= 1.7.5
+Requires(post):	jpackage-utils >= 1.7.5
 Requires(postun):	jpackage-utils >= 1.7.5
 
 %description
@@ -188,13 +196,13 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 This package contains examples and the administration functionality.
 
 %prep
-%setup -q -c
-cp ${RPM_SOURCE_DIR}/melati-maven-settings.xml ${RPM_BUILD_DIR}/%{name}-%{version}/melati-maven-settings.xml
-cp ${RPM_SOURCE_DIR}/melati-depmap.xml ${RPM_BUILD_DIR}/%{name}-%{version}/melati-depmap.xml
+%setup -q -n melati-parent-0.7.8-RC3-SNAPSHOT
+%setup -q -c -a1 -T -n melati-0.7.8.RC2
+cd ${RPM_BUILD_DIR}/%{name}-%{version}
+cp ${RPM_SOURCE_DIR}/melati-depmap.xml ${RPM_BUILD_DIR}/%{name}-%{version}/
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-cp ${RPM_BUILD_DIR}/%{name}-%{version}/melati/src/test/java/org/melati/test/MelatiTest.java /tmp
 %patch4 -p1
 %patch5 -p1
 # FIXME The following classes in org.melati.util use other melati packages and so must be packed accordingly
@@ -260,7 +268,11 @@ sed -e"/.*': return \"&pound;\";/c\\      case 163: return \"&pound;\";" < ${RPM
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%if "%fc12" == "1"
 %patch30 -p1
+%endif
+%patch31 -p1
+%patch32 -p1
 
 %build
 %if "%{fc11}" == "1"
@@ -277,7 +289,8 @@ echo if not fc12
 %endif
 export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
 mkdir -p $MAVEN_REPO_LOCAL
-mvn-jpp --fail-fast --activate-profiles nojetty --settings melati-maven-settings.xml -Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
+mvn-jpp --fail-fast --activate-profiles nojetty --settings ${RPM_BUILD_DIR}/%{name}-%{version}/settings.xml \
+	-Dmaven.repo.local=$MAVEN_REPO_LOCAL -Dmaven2.jpp.depmap.file=melati-depmap.xml install javadoc:javadoc
 
 %install
 rm -rf $RPM_BUILD_ROOT

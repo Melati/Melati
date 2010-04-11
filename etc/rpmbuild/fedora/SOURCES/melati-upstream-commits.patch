@@ -1,0 +1,82 @@
+diff -up melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java~ melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java
+--- melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java~	2007-06-26 10:50:42.000000000 +0200
++++ melati-0.7.8.RC2/melati/src/main/java/org/melati/template/velocity/WebMacroConverter.java	2010-03-30 18:51:01.430321981 +0200
+@@ -1,6 +1,6 @@
+ /*
+  * $Source$
+- * $Revision$
++ * $Revision$
+  *
+  * Copyright (C) 2006 Tim Pizey
+  *
+@@ -53,16 +53,16 @@ import org.melati.util.MelatiBugMelatiEx
+  * Converter from WebMacro templates to Velocity templates.
+  * 
+  * Note that this does not succeed for modern WebMacro syntax 
+- * which uses optionional #begin in #foreach.
++ * which uses optional #begin in #foreach.
+  * 
+- * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
++ * @author Tim Pizey based on work by Jason vanZyl and Tim Joyce.
+  *
+  */
+ public final class WebMacroConverter {
+ 
+   private WebMacroConverter() {}
+   /**
+-   * The regexes to use for substition. The regexes come
++   * The regexes to use for substitution. The regexes come
+    * in pairs. The first is the string to match, the
+    * second is the substitution to make.
+    */
+@@ -72,8 +72,9 @@ public final class WebMacroConverter {
+         "#if( $1 )",
+ 
+         // Remove the WM #end #else #begin usage.
+-        "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?(\\w)",
+-        "#else#**#$3", // avoid touching a followup word with embedded comment
++        "([ \\t])?(#end|})\\s*#else\\s*(#begin|{)([ \\t])?(\\w)",
++        "#{else}$5", // avoid touching a followup word with embedded comment
++        
+         "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?",
+         "#else",
+ 
+@@ -113,7 +114,7 @@ public final class WebMacroConverter {
+         "#parse\\s+([^\\s#]+)[ \\t]?",
+         "#parse( $1 )",
+ 
+-        // parse is now depricated for web macro
++        // parse is now deprecated for web macro
+         // include as template is recommended.
+         // Velocity supports only parse
+         // added for melati conversion
+@@ -126,15 +127,15 @@ public final class WebMacroConverter {
+ 
+         // Convert WM formal reference to VL syntax.
+         "\\$\\(([^\\)]+)\\)",
+-        "${$1}",
+-        "\\${([^}\\(]+)\\(([^}]+)}\\)", // fix encapsulated brakets: {(})
+-        "${$1($2)}",
++        "\\${$1}",
++        "\\${([^}\\(]+)\\(([^}]+)}\\)", // fix encapsulated brackets: {(})
++        "\\${$1($2)}",
+ 
+         // Velocity currently does not permit leading underscore.
+         "\\$_",
+-        "$l_",
++        "\\$l_",
+         "\\${(_[^}]+)}", // within a formal reference
+-        "${l$1}",
++        "\\${l$1}",
+ 
+   };
+ 
+@@ -158,7 +159,7 @@ public final class WebMacroConverter {
+               "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
+         }
+       }
+-      // System.err.println(contents);
++      //System.err.println(contents);
+       return new ByteArrayInputStream(contents.getBytes());
+     } catch (IOException e) {
+       throw new MelatiBugMelatiException(

@@ -143,7 +143,7 @@ public class Melati {
   private MelatiWriter writer;
 
   private static final int maxLocales = 10;
-  private static Hashtable<String, PoemLocale> localeHash = new Hashtable<String, PoemLocale>(maxLocales);
+  private static Hashtable<String, PoemLocale> localeCache = new Hashtable<String, PoemLocale>(maxLocales);
 
   private String encoding;
 
@@ -563,6 +563,9 @@ public class Melati {
    * Returns a PoemLocale based on a language tag. Locales are cached for
    * future use.
    * 
+   * eg:
+   * Accept-Language: da, en-gb;q=0.8, en;q=0.7
+   * 
    * @param languageHeader
    *        A language header from RFC 3282
    * @return a PoemLocale based on a language tag or null if not found
@@ -570,7 +573,7 @@ public class Melati {
    */
   public static PoemLocale getPoemLocale(String languageHeader) {
 
-    // language headers may have multiple language tags sperated by ,
+    // language headers may have multiple language tags separated by ,
     String tags[] = StringUtils.split(languageHeader, ',');
     PoemLocale ml = null;
 
@@ -587,14 +590,14 @@ public class Melati {
       String lowerTag = tag.trim().toLowerCase();
 
       // try our cache
-      ml = localeHash.get(lowerTag);
+      ml = localeCache.get(lowerTag);
       if (ml != null)
         return ml;
 
       // try creating a locale from this tag
       ml = PoemLocale.fromLanguageTag(lowerTag);
       if (ml != null) {
-        localeHash.put(lowerTag, ml);
+        localeCache.put(lowerTag, ml);
         return ml;
       }
     }

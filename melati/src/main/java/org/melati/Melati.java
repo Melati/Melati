@@ -142,8 +142,6 @@ public class Melati {
   // the output writer
   private MelatiWriter writer;
 
-  private static final int maxLocales = 10;
-
   private String encoding;
 
   /**

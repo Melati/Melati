@@ -59,6 +59,37 @@ import org.melati.template.TemplateContext;
  *
  * Where poemtest is your database, user is your table, 0 is the record id and 
  * org/melati/app/TemplateAppExample is the full name of a template.
+ * 
+ * From within Maven try: 
+ * 
+     <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>exec-maven-plugin</artifactId>
+       <executions>
+         <execution>
+          <id>generate</id>
+          <phase>test</phase>
+          <goals>
+           <goal>java</goal>
+          </goals>
+          <configuration>
+           <mainClass>org.melati.app.TemplateApp</mainClass>
+           <arguments>
+             <argument>mydb</argument>
+             <argument>mytable</argument>
+             <argument>mytroid</argument>
+             <argument>mytemplate</argument>
+             <argument>-output</argument>
+             <argument>${basedir}/src/main/webapp/WEB-INF/web.xml</argument>
+           </arguments>
+           <cleanupDaemonThreads>true</cleanupDaemonThreads>
+          </configuration>
+         </execution>
+       </executions>
+    </plugin>
+
+ * 
+ * 
  *
  */
 public class TemplateApp extends AbstractTemplateApp {

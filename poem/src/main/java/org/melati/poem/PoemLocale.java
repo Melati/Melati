@@ -45,6 +45,7 @@
 
 package org.melati.poem;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
@@ -56,11 +57,13 @@ import org.melati.poem.util.StringUtils;
  */
 public class PoemLocale {
 
+  private static final HashMap<Locale, PoemLocale> localeCache = new HashMap<Locale, PoemLocale>();
+
   /** Default Locale: GB. */
   public static final PoemLocale HERE = new PoemLocale(Locale.UK);
 
   private final Locale locale;
-
+  
   private final DateFormatSymbols dateFormatSymbols;
   private final String[] months, shortMonths;
   private final DateFormat[] dateFormats;
@@ -87,6 +90,13 @@ public class PoemLocale {
     }
     return null;
   } 
+  
+  public static PoemLocale from(Locale locale) {
+    PoemLocale it = localeCache.get(locale);
+    if(it == null)
+      localeCache.put(locale, new PoemLocale(locale));
+    return localeCache.get(locale);
+  }
 
   /**
    * Constructor given a non-null Locale. 

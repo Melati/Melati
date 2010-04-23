@@ -90,7 +90,7 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     }
     melati.setTemplateContext(templateContext);
     String[] argsWithoutOutput = melati.getArguments();
-    Hashtable form = new Hashtable();
+    Hashtable<String, String> form = new Hashtable<String, String>();
     if (argsWithoutOutput.length > 4) {
       loadForm(form,(String[])ArrayUtils
               .section(argsWithoutOutput, 4, argsWithoutOutput.length));
@@ -101,7 +101,7 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     return melati;
   }
 
-  private void loadForm(Hashtable form, String[] tuples) {
+  private void loadForm(Hashtable<String, String> form, String[] tuples) {
     if (tuples.length != ((tuples.length/2)*2))
       throw new InvalidArgumentsException (tuples, 
              new RuntimeException("Number of paired arguments is not even:" + tuples.length));

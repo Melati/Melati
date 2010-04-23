@@ -143,7 +143,6 @@ public class Melati {
   private MelatiWriter writer;
 
   private static final int maxLocales = 10;
-  private static Hashtable<String, PoemLocale> localeCache = new Hashtable<String, PoemLocale>(maxLocales);
 
   private String encoding;
 
@@ -543,67 +542,16 @@ public class Melati {
    * Returns a PoemLocale object based on the Accept-Language header
    * of this request.
    *
-   * If we are using Melati outside of a servlet context then the
-   * configured locale is returned.
+   * If no usable Accept-Language header is found or we are using 
+   * Melati outside of a servlet context then the configured 
+   * default locale is returned.
    *
    * @return a PoemLocale object
    */
   public PoemLocale getPoemLocale() {
-    HttpServletRequest r = getRequest();
-    PoemLocale ml = null;
-    if (r != null) {
-      String acceptLanguage = r.getHeader("Accept-Language");
-      if (acceptLanguage != null)
-        ml = getPoemLocale(acceptLanguage);
-    }
-   return ml != null ? ml : MelatiConfig.getPoemLocale();
+    return getRequest() == null ? MelatiConfig.getPoemLocale() : PoemLocale.from(getRequest().getLocale());
   }
 
-  /**
-   * Returns a PoemLocale based on a language tag. Locales are cached for
-   * future use.
-   * 
-   * eg:
-   * Accept-Language: da, en-gb;q=0.8, en;q=0.7
-   * 
-   * @param languageHeader
-   *        A language header from RFC 3282
-   * @return a PoemLocale based on a language tag or null if not found
-   * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
-   */
-  public static PoemLocale getPoemLocale(String languageHeader) {
-
-    // language headers may have multiple language tags separated by ,
-    String tags[] = StringUtils.split(languageHeader, ',');
-    PoemLocale ml = null;
-
-    // loop through until we find a tag we like
-    for (int i = 0; i < tags.length; i++) {
-      String tag = tags[i];
-
-      // remove quality value if it exists.
-      // we'll just try them in order
-      int indexSemicolon = tag.indexOf(';');
-      if (indexSemicolon != -1)
-        tag = tag.substring(0, indexSemicolon);
-
-      String lowerTag = tag.trim().toLowerCase();
-
-      // try our cache
-      ml = localeCache.get(lowerTag);
-      if (ml != null)
-        return ml;
-
-      // try creating a locale from this tag
-      ml = PoemLocale.fromLanguageTag(lowerTag);
-      if (ml != null) {
-        localeCache.put(lowerTag, ml);
-        return ml;
-      }
-    }
-
-    return null;
-  }
   
   /**
    * Suggest a response character encoding and if necessary choose a

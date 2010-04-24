@@ -1,6 +1,7 @@
 package org.melati.test;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -351,8 +352,8 @@ public class MelatiTest extends TestCase {
     assertEquals("en_GB", m.getPoemLocale().toString());
     msr.setHeader("Accept-Language","not");
     assertEquals("en_GB", m.getPoemLocale().toString());
-    msr.setHeader("Accept-Language","en-us");
-    assertEquals("en_US", m.getPoemLocale().toString());
+    msr.setLocale(new Locale("en-US"));
+    assertEquals("en-us", m.getPoemLocale().toString());
     
 
   }

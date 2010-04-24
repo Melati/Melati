@@ -266,10 +266,14 @@ public class MockHttpServletRequest implements HttpServletRequest {
     public void removeAttribute(String arg0) {
     }
 
+    Locale locale = null;
     public Locale getLocale() {
-        return null;
+        return locale;
     }
-
+    public void setLocale(Locale l) { 
+      locale = l;
+    }
+    
     public Enumeration<Locale> getLocales() {
         return null;
     }

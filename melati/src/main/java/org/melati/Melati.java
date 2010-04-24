@@ -546,7 +546,12 @@ public class Melati {
    * @return a PoemLocale object
    */
   public PoemLocale getPoemLocale() {
-    return getRequest() == null ? MelatiConfig.getPoemLocale() : PoemLocale.from(getRequest().getLocale());
+    if (getRequest() == null)
+       return MelatiConfig.getPoemLocale();
+    else if(getRequest().getLocale() == null) {
+      return MelatiConfig.getPoemLocale();
+    } else 
+      return PoemLocale.from(getRequest().getLocale());
   }
 
   

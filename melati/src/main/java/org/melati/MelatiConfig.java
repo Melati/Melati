@@ -409,6 +409,8 @@ public class MelatiConfig {
    * @return The configured locale, defaults to British English melati locale.
    */
   public static PoemLocale getPoemLocale() {
+    if (poemLocale == null)
+      poemLocale = PoemLocale.HERE;
     return poemLocale;
   }
 

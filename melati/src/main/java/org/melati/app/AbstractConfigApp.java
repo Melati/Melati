@@ -58,6 +58,7 @@ import org.melati.login.AccessHandler;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.login.HttpSessionAccessHandler;
 import org.melati.login.OpenAccessHandler;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.InstantiationPropertyException;
@@ -181,6 +182,7 @@ public abstract class AbstractConfigApp implements App {
       doConfiguredRequest(melati);
     } finally {  
       term(melati);
+      PoemDatabaseFactory.getPoemShutdownThread().run();
     }
   }
 

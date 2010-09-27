@@ -44,6 +44,8 @@
 
 package org.melati.template.webmacro.test;
 
+import java.util.Locale;
+
 import org.melati.servlet.test.MockServletConfig;
 import org.melati.servlet.test.MockHttpServletRequest;
 import org.melati.servlet.test.MockHttpServletResponse;
@@ -84,14 +86,15 @@ public class WebmacroMelatiServletTest extends TestCase {
   public void testMisConfiguration() throws Exception { 
     MockHttpServletRequest mockServletRequest = new MockHttpServletRequest(); 
     MockHttpServletResponse mockServletResponse = new MockHttpServletResponse();
-
+    mockServletResponse.setLocale(Locale.UK);
+    
     MisconfiguredWebmacroMelatiServlet servlet = new MisconfiguredWebmacroMelatiServlet();
     MockServletConfig mockServletConfig = new MockServletConfig();
     servlet.init(mockServletConfig);
     servlet.doGet(mockServletRequest,  
                   mockServletResponse);
     String output = mockServletResponse.getWritten();
-    assertTrue(output.toString().indexOf(
+    assertTrue(output.toString(), output.toString().indexOf(
         "org.melati.util.MelatiConfigurationException: " + 
         "Configured TemplateEngine (velocity) is not the required one (webmacro).") != -1); 
 

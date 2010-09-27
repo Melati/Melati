@@ -92,6 +92,8 @@ public class PoemLocale {
   } 
   
   public static PoemLocale from(Locale locale) {
+    if (locale == null)
+      throw new NullPointerException();
     PoemLocale it = localeCache.get(locale);
     if(it == null)
       localeCache.put(locale, new PoemLocale(locale));

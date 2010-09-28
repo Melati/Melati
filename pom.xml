@@ -331,6 +331,22 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <dependencies>
   </dependencies>
+  
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  
 
   <reporting>
      <plugins>
@@ -362,6 +378,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
        </configuration>
       </plugin>
+
+
+
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
@@ -387,17 +406,53 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
       </plugin>
+
+
       <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-javadoc-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
         <configuration>
-         <excludePackageNames>org.melati.*</excludePackageNames>
-         <minmemory>128m</minmemory>
-         <maxmemory>512</maxmemory>
+         <debug>true</debug>
+         <old>true</old>
+          <source>1.6</source>
+          <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+          <docletArtifact>
+            <groupId>gr.spinellis</groupId>
+            <artifactId>UmlGraph</artifactId>
+            <version>4.6</version>
+          </docletArtifact>
+          <additionalparam>
+            -inferrel
+            -inferdep
+            -hide java.*
+            -collpackages java.util.*
+            -qualify
+            -constructors
+            -visibility
+            -types
+            -postfixpackage
+            -nodefontsize 9
+            -nodefontpackagesize 7
+          </additionalparam>
+         <tags>
+           <tag>
+             <name>todo</name>
+             <!-- Should be a combination of the letters Xaoptcmf -->
+             <placement>a</placement>
+             <head>To do something:</head>
+           </tag>
+           <tag>
+             <name>generator</name>
+             <placement>mct</placement>
+             <head>Generator</head>
+           </tag>
+         </tags>
          <footer><![CDATA[<center><div style="margin:1px; text-align:center; width: 468px; height:60px;"><script type="text/javascript">google_ad_client = "pub-7262107064058357"; google_ad_width = 468; google_ad_height = 60; google_ad_format = "468x60_as"; google_ad_type ="text"; google_ad_channel =""; google_page_url = document.location; google_color_bg = "236248255"; google_color_url = "0051255"; google_color_link = "0051255"; google_color_text = "000000"; google_color_border = "221170170";  </script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div></center> ]]> </footer>
         </configuration>
-      </plugin>
-    </plugins>
+      </plugin>      
+
+     </plugins>
   </reporting>
   <build>
    <plugins>
@@ -442,3 +497,4 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
    </plugins>
   </build>
 </project>
+

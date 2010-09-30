@@ -55,12 +55,12 @@ import java.util.Iterator;
 import java.util.Enumeration;
 
 /**
- * Representation of occurences of an HTTP header field.
+ * Representation of occurrences of an HTTP header field.
  * <p>
  * These are defined in RFC 2616 and have the same general form as in
  * RFC 822 section 3.1.
  * <P>
- * We generally assume that all continuation lines and occurences in
+ * We generally assume that all continuation lines and occurrences in
  * a message are concatenated with comma separators.
  *
  * @author  Jim Wright

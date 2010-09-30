@@ -48,80 +48,89 @@
 
 package org.melati.util.test;
 
-
 import java.util.Arrays;
 
 import junit.framework.TestCase;
 
 import org.melati.util.AcceptCharset;
-import org.melati.util.HttpHeader;
 
 /**
  * Tests the corresponding class in the superpackage.
- *
+ * 
  * @see AcceptCharset
  * @author jimw At paneris.org
- * @version $Version: $
  */
 public class AcceptCharsetTest extends TestCase {
 
-  /**
-   * Constructor.
-   */
-  public AcceptCharsetTest(String testCaseName) {
-    super(testCaseName);
-  }
-
-  /**
-   * Test choosing charsets.
-   */
-  public void testChoices() throws Exception {
-
-    String headerValue = "ISO-8859-2, utf-8;q=0.66, *;q=0.66";
-    String supportedPreference[] = new String[] {
-      "UTF-16",
-      "UTF-8",
-      "ISO-8859-1",
-    };
-    AcceptCharset ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
-    assertEquals("ISO-8859-2", ac.clientChoice());
-    assertEquals("UTF-16", ac.serverChoice());
-
-    headerValue = "utf-8;q=0.66,ISO-8859-3,ISO-8859-2";
-    supportedPreference = new String[] {
-      "ISO-8859-1",
-      "UTF-16",
-      "UTF-8",
-      "BOLLOX",
-    };
-    
-    ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
-    assertEquals("ISO-8859-3", ac.clientChoice());
-    assertEquals("ISO-8859-1", ac.serverChoice());
-
-    headerValue = "*;q=0.0";
-    supportedPreference = new String[] {
-      "UTF-16",
-      "UTF-8",
-      "BOLLOX",
-      "ISO-8859-1",
-    };
-    ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
-    assertEquals(null, ac.clientChoice());
-    assertEquals(null, ac.serverChoice());
-
-    ac = new AcceptCharset(null, Arrays.asList(supportedPreference));
-    assertEquals("ISO-8859-1", ac.clientChoice());
-    assertEquals("ISO-8859-1", ac.serverChoice());
-
-    try { 
-      ac = new AcceptCharset("BOLLOX", Arrays.asList(supportedPreference));
-      fail("Should have blown up");
-    } catch (HttpHeader.HttpHeaderException e) { 
-      e = null;
+    /**
+     * Constructor.
+     */
+    public AcceptCharsetTest(String testCaseName) {
+        super(testCaseName);
     }
 
-  }
+    public void failingtestXmacRoman() throws Exception {
 
+        String headerValue = "x-mac-roman,utf-8;q=0.7,*;q=0.7";
+        String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
+                "ISO-8859-1", };
+        AcceptCharset ac = new AcceptCharset(headerValue, Arrays
+                .asList(supportedPreference));
+        assertEquals("UTF-8", ac.clientChoice());
+        assertEquals("UTF-16", ac.serverChoice());
+    }
+
+    /**
+     * Test choosing charsets.
+     */
+    public void testChoices() throws Exception {
+
+        String headerValue = "ISO-8859-2, utf-8;q=0.66, *;q=0.66";
+        String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
+                "ISO-8859-1", };
+        AcceptCharset ac = new AcceptCharset(headerValue, Arrays
+                .asList(supportedPreference));
+        assertEquals("ISO-8859-2", ac.clientChoice());
+        assertEquals("UTF-16", ac.serverChoice());
+
+        headerValue = "utf-8;q=0.66,ISO-8859-3,ISO-8859-2";
+        supportedPreference = new String[] { "ISO-8859-1", "UTF-16", "UTF-8",
+                "BOLLOX", };
+
+        ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
+        assertEquals("ISO-8859-3", ac.clientChoice());
+        assertEquals("ISO-8859-1", ac.serverChoice());
+
+        headerValue = "*;q=0.0";
+        supportedPreference = new String[] { "UTF-16", "UTF-8", "BOLLOX",
+                "ISO-8859-1", };
+        ac = new AcceptCharset(headerValue, Arrays.asList(supportedPreference));
+        assertEquals(null, ac.clientChoice());
+        assertEquals(null, ac.serverChoice());
+
+        ac = new AcceptCharset(null, Arrays.asList(supportedPreference));
+        assertEquals("ISO-8859-1", ac.clientChoice());
+        assertEquals("ISO-8859-1", ac.serverChoice());
+
+    }
+
+    public void failingtestSensibleDefault() throws Exception {
+        String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
+                "ISO-8859-1", };
+        AcceptCharset ac = new AcceptCharset("", Arrays
+                .asList(supportedPreference));
+        assertEquals("ISO-8859-1", ac.clientChoice());
+        assertEquals("ISO-8859-1", ac.serverChoice());
+
+    }
+
+    public void failingtestSensibleDefaultForRubbish() throws Exception {
+        String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
+                "ISO-8859-1", };
+        AcceptCharset ac = new AcceptCharset("BOLLOX", Arrays
+                .asList(supportedPreference));
+        assertEquals("ISO-8859-1", ac.clientChoice());
+        assertEquals("ISO-8859-1", ac.serverChoice());
+
+    }
 }
-

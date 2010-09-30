@@ -569,7 +569,7 @@ public class HttpHeader {
    * So although we could nearly always blame the caller we provide
    * a service instead (as part of the contract).
    * <p>
-   * We do sometime blame the caller because we assume that the
+   * We do sometimes blame the caller because we assume that the
    * caller has checked the next token type before some call.
    * We do this by throwing an <code>IllegalStateException</code>
    * instead.

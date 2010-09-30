@@ -75,8 +75,9 @@ public class HttpHeader {
   /**
    * Create an instance representing the given comma separated fields.
    */
-  public HttpHeader(String values) throws HttpHeaderException {
-    // System.err.println("Tested 21");
+  public HttpHeader(String values) {
+    if(values == null)
+      values= "";
     tokenizer = new Tokenizer(values);
   }
 
@@ -118,7 +119,6 @@ public class HttpHeader {
      * @see #next()
      */
     public final boolean hasNext() {
-      // System.err.println("Tested 24");
       return tokenizer.ttype != StreamTokenizer.TT_EOF;
     }
 
@@ -127,7 +127,6 @@ public class HttpHeader {
      * @see java.util.Iterator#remove()
      */
     public void remove() throws UnsupportedOperationException {
-      // System.err.println("Tested 25");
       throw new UnsupportedOperationException("Cannot remove tokens from the HTTP header");
     }
 
@@ -138,11 +137,9 @@ public class HttpHeader {
      */
     public Object next() {
       try {
-        // System.err.println("Tested 26");
         return nextToken();
       }
       catch (HttpHeaderException e) {
-        // System.err.println("Tested 27");
         return e;
       }
     }
@@ -317,16 +314,14 @@ public class HttpHeader {
      * allowed to explicitly indicate that there are no such fields,
      * if an instance if required nevertheless to provide other
      * functionality.
-     *
+     * 
+     * @param fields A non-null, non-empty String
      * @throws HttpHeaderException Error detected in the argument.
      */
-    public Tokenizer(String fields) throws HttpHeaderException {
-      super(new StringReader(fields == null ? "" : fields));
+    Tokenizer(String fields) {
+      super(new StringReader(fields));
 
-      if (fields != null && fields.length() == 0) {
-        // System.err.println("Tested 35");
-        throw new HttpHeaderException("Empty sequence of HTTP header fields");        
-      }
+
       resetSyntax();
       // Initially make all non-control characters token
       // characters
@@ -553,29 +548,10 @@ public class HttpHeader {
 
   }
 
-  /**
-   * Exception detected in an {@link HttpHeader}.
-   * <p>
-   * We might want to declare some supertype as thrown or make this
-   * outer.
-   * <p>
-   * Header fields are usually obtained from servlet containers or
-   * similar after some processing.
-   * But its possible that some unusual client has sent something
-   * erroneous or just unusual that has not been filtered out
-   * earlier and causes an error here.
-   * <p>
-   * In general detecting such problems requires parsing.
-   * So although we could nearly always blame the caller we provide
-   * a service instead (as part of the contract).
-   * <p>
-   * We do sometimes blame the caller because we assume that the
-   * caller has checked the next token type before some call.
-   * We do this by throwing an <code>IllegalStateException</code>
-   * instead.
-   */
-  public static class HttpHeaderException extends java.lang.Exception {
-    private static final long serialVersionUID = 1L;
+
+  public static class HttpHeaderException extends MelatiRuntimeException {
+
+    private static final long serialVersionUID = -8870151118057435290L;
 
     /**
      * Create an instance with message.

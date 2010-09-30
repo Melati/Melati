@@ -370,14 +370,10 @@ public class MelatiTest extends TestCase {
     m.setRequest(mock);
     m.establishCharsets();
 
+    // We ignore what we do not understand
     mock.setHeader("Accept-Charset", "rubbish");
     m.setRequest(mock);
-    try { 
-      m.establishCharsets();
-      fail("Should have blown up");
-    } catch (CharsetException e) { 
-      e = null;
-    }
+    m.establishCharsets();
 
     mock.setHeader("Accept-Charset", "");
     mock.setCharacterEncoding(null);

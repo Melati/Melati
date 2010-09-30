@@ -12,7 +12,6 @@ import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.Field;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
-import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;

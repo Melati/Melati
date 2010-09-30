@@ -69,7 +69,7 @@ public class AcceptCharsetTest extends TestCase {
         super(testCaseName);
     }
 
-    public void failingtestXmacRoman() throws Exception {
+    public void testXmacRoman() throws Exception {
 
         String headerValue = "x-mac-roman,utf-8;q=0.7,*;q=0.7";
         String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
@@ -114,7 +114,7 @@ public class AcceptCharsetTest extends TestCase {
 
     }
 
-    public void failingtestSensibleDefault() throws Exception {
+    public void testSensibleDefault() throws Exception {
         String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
                 "ISO-8859-1", };
         AcceptCharset ac = new AcceptCharset("", Arrays
@@ -124,7 +124,7 @@ public class AcceptCharsetTest extends TestCase {
 
     }
 
-    public void failingtestSensibleDefaultForRubbish() throws Exception {
+    public void testSensibleDefaultForRubbish() throws Exception {
         String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
                 "ISO-8859-1", };
         AcceptCharset ac = new AcceptCharset("BOLLOX", Arrays

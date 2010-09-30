@@ -110,18 +110,6 @@ public class HttpHeaderTest extends TestCase {
     assertTrue(! taqvi.hasMoreElements());
     assertTrue(taqvi.next() instanceof HttpHeader.HttpHeaderException);
 
-    try {
-      cornFields = new HttpHeader("");
-      assertTrue(false);
-    }
-    catch (HttpHeader.HttpHeaderException e) {
-      e = null; // shut PMD up
-    }
-    catch (AssertionError e) {
-      // This is the current policy. "" is treated as null if
-      // assertions are switched off.
-      e = null; // shut PMD up
-    }
       
     try {
       cornFields = new HttpHeader(",EmptyFirst");

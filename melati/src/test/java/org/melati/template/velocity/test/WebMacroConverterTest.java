@@ -4,7 +4,6 @@
 package org.melati.template.velocity.test;
 
 import org.melati.template.velocity.WebMacroConverter;
-import org.melati.util.test.StringInputStream;
 
 import junit.framework.TestCase;
 

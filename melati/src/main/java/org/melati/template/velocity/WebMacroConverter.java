@@ -56,6 +56,8 @@ import org.melati.util.MelatiBugMelatiException;
  * which uses optional #begin in #foreach.
  * 
  * @author Tim Pizey based on work by Jason vanZyl and Tim Joyce.
+ * 
+ * FIXME Refactor to use java regexp.
  *
  */
 public final class WebMacroConverter {
@@ -150,20 +152,24 @@ public final class WebMacroConverter {
     try {
       ca = new byte[in.available()];
       in.read(ca);
-      String contents = new String(ca);
-      /* Regular expression tool */
-      final Perl5Util perl = new Perl5Util();
-      for (int i = 0; i < regExps.length; i += 2) {
-        while (perl.match("/" + regExps[i] + "/", contents)) {
-          contents = perl.substitute(
-              "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
-        }
-      }
+      String contents = convert(new String(ca));
       //System.err.println(contents);
       return new ByteArrayInputStream(contents.getBytes());
     } catch (IOException e) {
       throw new MelatiBugMelatiException(
               "Problem loading WebMacro template as a VelocityTemplate", e);
     }
+  }
+  
+  public static String convert(String in) { 
+      /* Regular expression tool */
+      final Perl5Util perl = new Perl5Util();
+      for (int i = 0; i < regExps.length; i += 2) {
+        while (perl.match("/" + regExps[i] + "/", in)) {
+          in = perl.substitute(
+              "s/" + regExps[i] + "/" + regExps[i+1] + "/", in);
+        }
+      }
+      return in;      
   }
 }

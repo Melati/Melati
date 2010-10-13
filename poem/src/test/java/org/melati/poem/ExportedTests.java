@@ -12,6 +12,9 @@ import junit.framework.TestSuite;
  * access these tests with the Surefire plugin.
  * 
  * See my comment on http://jira.codehaus.org/browse/SUREFIRE-569
+ * See also http://jira.codehaus.org/browse/SUREFIRE-120 
+ * Note that this does not implement junit.framework.Test or it would be 
+ * discovered by the Maven Surefire plugin. 
  * 
  * @author timp
  */

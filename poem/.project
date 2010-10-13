@@ -1,9 +1,7 @@
 <projectDescription>
   <name>poem</name>
-  <comment>Persistent Object Engine for Melati.</comment>
-  <projects>
-    <project>throwing-jdbc</project>
-  </projects>
+  <comment>Persistent Object Engine for Melati. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

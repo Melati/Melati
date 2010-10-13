@@ -1,9 +1,4 @@
-/**
- * 
- */
 package org.melati.poem.test;
-
-import java.util.Vector;
 
 import junit.framework.TestCase;
 
@@ -18,6 +13,7 @@ import org.melati.poem.PoemDatabaseFactory;
  *
  */
 public class PoemDatabaseFactoryTest extends TestCase {
+
   /** Default db name */
   private String databaseName = "melatijunit";  // change to poemtest
 
@@ -99,20 +95,20 @@ public class PoemDatabaseFactoryTest extends TestCase {
    * Test method for {@link org.melati.poem.PoemDatabaseFactory#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
+    int initialSize = PoemDatabaseFactory.initialisedDatabases().size();
     getPoemDatabase();
     getEverythingDatabase();
-    Vector them = PoemDatabaseFactory.initialisedDatabases();
-    assertEquals(2,them.size());
+    assertEquals(initialSize + 2,PoemDatabaseFactory.initialisedDatabases().size());
   }
 
   /**
    * Test method for {@link org.melati.poem.PoemDatabaseFactory#getInitialisedDatabaseNames()}.
    */
   public void testGetInitialisedDatabaseNames() {
-    Vector them = PoemDatabaseFactory.getInitialisedDatabaseNames();
-    assertEquals(2,them.size()); 
-    String name = (String)them.get(1);
-    assertEquals(EverythingTestCase.databaseName, name);
+    assertTrue(PoemDatabaseFactory.
+        getInitialisedDatabaseNames().
+        toString().
+        indexOf(EverythingTestCase.databaseName) != -1);
     
   }
 

@@ -2181,7 +2181,7 @@ public class JdbcTable implements Selectable, Table {
 
     // Set the new column up
 
-    Column column = ExtraColumn.from(this, infoP, extrasIndex++,
+    Column column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
                                      DefinitionSource.runtime);
     column.setColumnInfo(infoP);
 
@@ -2662,7 +2662,7 @@ public class JdbcTable implements Selectable, Table {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column column = _getColumn(columnInfo.getName());
       if (column == null) {
-        column = ExtraColumn.from(this, columnInfo, extrasIndex++,
+        column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
                                   DefinitionSource.infoTables);
         _defineColumn(column);
       }
@@ -2712,7 +2712,7 @@ public class JdbcTable implements Selectable, Table {
                                      dbms().melatiName(
                                              colName),
                                      colType, DefinitionSource.sqlMetaData,
-                                     extrasIndex++);
+                                     getNextExtrasIndex());
 
             _defineColumn(column);
 

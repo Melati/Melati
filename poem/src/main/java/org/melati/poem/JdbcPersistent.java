@@ -272,9 +272,15 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
     getTable().create(this);
   }
   
+  /* New extra columns could have been added since we were created */
   synchronized Object[] extras() {
     if (extras == null)
       extras = new Object[table.extrasCount()];
+    else if (extras.length < table.extrasCount() ) {
+      Object[] newExtras = new Object[table.extrasCount()];
+      System.arraycopy(extras, 0, newExtras, 0, extras.length);
+      extras = newExtras;
+    }
     return extras;
   }
 

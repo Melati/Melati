@@ -27,6 +27,7 @@ public class JettyWebTestCase extends WebTestCase {
   protected static String webAppDirName = "src/test/webapp";
   protected static String referenceOutputDir = "src/test/resources";
 
+  protected static int actualPort;  
   /**
    * 
    * Default constructor.
@@ -48,7 +49,7 @@ public class JettyWebTestCase extends WebTestCase {
     startServer(0);
   
     // getLocalPort returns the port that was actually assigned
-    int actualPort = server.getConnectors()[0].getLocalPort();
+    actualPort = server.getConnectors()[0].getLocalPort();
     getTestContext().setBaseUrl("http://localhost:" + actualPort + "/" );
   }
 
@@ -62,7 +63,8 @@ public class JettyWebTestCase extends WebTestCase {
    * @throws Exception
    */
   public static void main(String[] args) throws Exception {
-    startServer(8080);
+    actualPort = 8080;
+    startServer(actualPort);
   }
 
   protected static void startServer(int port) throws Exception {
@@ -77,6 +79,10 @@ public class JettyWebTestCase extends WebTestCase {
       started = true;
     }
     
+  }
+  
+  protected int getActualPort() { 
+    return actualPort;
   }
   
   /**
@@ -99,6 +105,7 @@ public class JettyWebTestCase extends WebTestCase {
    * @see net.sourceforge.jwebunit.junit.WebTestCase#gotoPage(java.lang.String)
    */
   public void gotoPage(String url) { 
+    System.err.println(contextUrl(url));
     super.gotoPage(contextUrl(url));
   }
   protected String contextUrl(String url) { 

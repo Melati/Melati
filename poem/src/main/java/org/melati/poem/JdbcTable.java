@@ -2181,7 +2181,9 @@ public class JdbcTable implements Selectable, Table {
 
     // Set the new column up
 
-    System.err.println("Adding extra column from runtime " + dbms().melatiName(infoP.getName_unsafe()));
+    System.err.println("Adding extra column from runtime " + 
+        dbms().melatiName(infoP.getName_unsafe()) + 
+        " to " + name);
     Column column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
                                      DefinitionSource.runtime);
     column.setColumnInfo(infoP);

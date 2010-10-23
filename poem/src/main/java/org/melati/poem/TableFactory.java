@@ -116,6 +116,7 @@ public final class TableFactory {
     // We will have to create one
     TableInfo tableInfo = (TableInfo)db.getTableInfoTable().newPersistent();
     tableInfo.setName(simpleName);
+    tableInfo.setDisplayname(simpleName);
     tableInfo.setDescription(simpleName + " introspected table");
     tableInfo.setDisplayorder(13);
     tableInfo.setSeqcached(Boolean.FALSE);

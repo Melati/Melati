@@ -374,7 +374,4 @@ ${firstChar}${rest}#end
       <url>http://www.melati.org/maven2/</url>
     </repository>
   </repositories>
-  <properties>
-        <pDir>/dist/${artifactId}</pDir>
-  </properties>
 </project>

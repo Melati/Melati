@@ -2181,6 +2181,7 @@ public class JdbcTable implements Selectable, Table {
 
     // Set the new column up
 
+    System.err.println("Adding extra column from runtime " + dbms().melatiName(infoP.getName_unsafe()));
     Column column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
                                      DefinitionSource.runtime);
     column.setColumnInfo(infoP);
@@ -2662,6 +2663,7 @@ public class JdbcTable implements Selectable, Table {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column column = _getColumn(columnInfo.getName());
       if (column == null) {
+        System.err.println("Adding extra column from info tables " + dbms().melatiName(columnInfo.getName_unsafe()));
         column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
                                   DefinitionSource.infoTables);
         _defineColumn(column);
@@ -2683,7 +2685,7 @@ public class JdbcTable implements Selectable, Table {
       throws PoemException {
     boolean debug = false;
     
-    Hashtable dbColumns = new Hashtable();
+    Hashtable<Column, Boolean> dbColumns = new Hashtable<Column, Boolean>();
 
     int colCount = 0;
     if (colDescs != null){
@@ -2707,7 +2709,8 @@ public class JdbcTable implements Selectable, Table {
             if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
                 dbms().canRepresent(colType, DeletedPoemType.it) != null)
               colType = DeletedPoemType.it;
-
+            
+            System.err.println("Adding extra column from sql meta data " + dbms().melatiName(colName));
             column = new ExtraColumn(this, 
                                      dbms().melatiName(
                                              colName),

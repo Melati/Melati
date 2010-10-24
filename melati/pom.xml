@@ -84,7 +84,25 @@
       <version>1.4</version>
       <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- dependent projects may need these if they use webmacro -->
+ <!--     
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.8</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.12</version>
+    </dependency>
+ -->    
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.melati</groupId>

@@ -49,6 +49,8 @@ import org.melati.poem.Table;
 /**
  * Use CSV tables as backing store.
  * 
+ * NOTE 2010/10/24 I could not get this working due to problems with prepaed statements. 
+ *
  * @author timp
  * @since 23 Sep 2008
  *

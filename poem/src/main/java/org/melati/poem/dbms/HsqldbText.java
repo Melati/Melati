@@ -84,15 +84,16 @@ public class HsqldbText extends Hsqldb {
    * @see org.melati.poem.dbms.AnsiStandard#tableInitialisationSql(org.melati.poem.Table)
    */
   public String tableInitialisationSql(Table table) {
+    String tableInitialisationSql = null;
     if (table.getDbmsTableType() == null) 
-      return "SET TABLE " + getQuotedName(table.getName()) + 
+      tableInitialisationSql =  "SET TABLE " + getQuotedName(table.getName()) + 
              " SOURCE " + getQuotedName(table.getName() + ".csv;ignore_first=true;all_quoted=true");
     else
       if (table.getDbmsTableType().equals("TEXT"))
-        return "SET TABLE " + getQuotedName(table.getName()) + 
+        tableInitialisationSql =  "SET TABLE " + getQuotedName(table.getName()) + 
                " SOURCE " + getQuotedName(table.getName() + ".csv;ignore_first=true;all_quoted=true");
-      else 
-        return null;
+    System.err.println("Returning tableInitialisationSql:"+ tableInitialisationSql);
+    return tableInitialisationSql;
   }
   
   

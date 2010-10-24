@@ -926,7 +926,10 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   public String displayString(PoemLocale locale, int style)
       throws AccessPoemException {
     Column displayColumn = getTable().displayColumn();
-    return displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
+    if (displayColumn.isTroidColumn() && this.troid == null)
+      return "null";
+    else
+      return displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
                                                   locale, style);
   }
 

@@ -46,10 +46,7 @@ public class JettyWebTestCase extends WebTestCase {
 
   protected void setUp() throws Exception {
     // Port 0 means "assign arbitrarily port number"
-    startServer(0);
-  
-    // getLocalPort returns the port that was actually assigned
-    actualPort = server.getConnectors()[0].getLocalPort();
+    actualPort = startServer(0);
     getTestContext().setBaseUrl("http://localhost:" + actualPort + "/" );
   }
 
@@ -63,11 +60,11 @@ public class JettyWebTestCase extends WebTestCase {
    * @throws Exception
    */
   public static void main(String[] args) throws Exception {
-    actualPort = 8080;
-    startServer(actualPort);
+    actualPort = startServer(8080);
   }
 
-  protected static void startServer(int port) throws Exception {
+  protected static int startServer(int port) throws Exception {
+    
     if (!started) { 
       server = new Server(port);
       WebAppContext wac = new WebAppContext(
@@ -78,6 +75,8 @@ public class JettyWebTestCase extends WebTestCase {
       wac.dumpUrl();
       started = true;
     }
+    // getLocalPort returns the port that was actually assigned
+    return server.getConnectors()[0].getLocalPort();
     
   }
   

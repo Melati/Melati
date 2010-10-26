@@ -63,6 +63,10 @@ import org.melati.poem.util.StringUtils;
 
 public class Hsqldb extends AnsiStandard {
 
+  // 2010/10/25 Have experienced issues with records no being committed
+  //       st.execute("SET WRITE_DELAY FALSE");
+  // had no effect
+
   /**
    * HSQLDB does not have a pleasant <code>TEXT</code> 
    * datatype, so we use an arbetary value in a 

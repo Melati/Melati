@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.math.BigDecimal;
@@ -29,7 +26,9 @@ import org.melati.poem.TableInfo;
 import org.melati.poem.util.EnumUtils;
 
 /**
- * Test the addition, and lter the deletion, of columns to a table.
+ * Test the addition, and later the deletion, of columns to a table.
+ * 
+ * FIXME add deletion testing 
  * 
  * @author timp
  * @since 01-Februray-2007
@@ -126,7 +125,7 @@ public class DynamicTableTest extends EverythingTestCase {
     extraPersistent.getField("extra").getRaw();
 
     assertEquals(new Integer(0), extraPersistent.getTroid());
-    Enumeration cols = getDb().getColumnInfoTable().getTableinfoColumn()
+    Enumeration<Persistent> cols = getDb().getColumnInfoTable().getTableinfoColumn()
             .selectionWhereEq(info.getTroid());
     int colCount = 0;
     while (cols.hasMoreElements()) {
@@ -430,7 +429,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration en = dt.selection();
+    Enumeration <Persistent>en = dt.selection();
     Dynamic d = (Dynamic)en.nextElement();
     t = (Integer)d.getRaw("testtypecol");
     int count = 0;
@@ -444,7 +443,7 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(1, count);
 
     PoemTypeFactory t2 = null;
-    Enumeration en2 = dt.selection();
+    Enumeration<Persistent> en2 = dt.selection();
     t2 = (PoemTypeFactory)((Dynamic)en2.nextElement()).getCooked("testtypecol");
     while (en2.hasMoreElements()) {
       assertEquals(t2.getName(), ((PoemTypeFactory)((Dynamic)en2.nextElement())
@@ -890,7 +889,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Timestamp t = null;
-    Enumeration en = dt.selection();
+    Enumeration<Persistent> en = dt.selection();
     t = (Timestamp)((Dynamic)en.nextElement()).getRaw("testtimestampcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testtimestampcol"));
@@ -938,7 +937,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     byte[] t = null;
-    Enumeration en = dt.selection();
+    Enumeration<Persistent> en = dt.selection();
     t = (byte[])((Dynamic)en.nextElement()).getRaw("testbinarycol");
     while (en.hasMoreElements()) {
       assertEquals(t.length, ((byte[])((Dynamic)en.nextElement())
@@ -988,14 +987,14 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration en = dt.selection();
+    Enumeration<Persistent> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testdisplaylevelcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testdisplaylevelcol"));
     }
 
     DisplayLevel t2 = null;
-    Enumeration en2 = dt.selection();
+    Enumeration<Persistent> en2 = dt.selection();
     t2 = (DisplayLevel)((Dynamic)en2.nextElement())
             .getCooked("testdisplaylevelcol");
     while (en2.hasMoreElements()) {
@@ -1050,7 +1049,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration en = dt.selection();
+    Enumeration<Persistent> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testsearchabilitycol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement())
@@ -1058,7 +1057,7 @@ public class DynamicTableTest extends EverythingTestCase {
     }
 
     Searchability t2 = null;
-    Enumeration en2 = dt.selection();
+    Enumeration<Persistent> en2 = dt.selection();
     t2 = (Searchability)((Dynamic)en2.nextElement())
             .getCooked("testsearchabilitycol");
     while (en2.hasMoreElements()) {
@@ -1113,14 +1112,14 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration en = dt.selection();
+    Enumeration<Persistent> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testIntegrityfixcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testIntegrityfixcol"));
     }
 
     IntegrityFix t2 = null;
-    Enumeration en2 = dt.selection();
+    Enumeration<Persistent> en2 = dt.selection();
     t2 = (IntegrityFix)((Dynamic)en2.nextElement())
             .getCooked("testIntegrityfixcol");
     while (en2.hasMoreElements()) {

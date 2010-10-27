@@ -665,15 +665,23 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     submit("action","Delete");
     assertTextPresent("Done");
 
+    int c = new Integer(columnTroid).intValue() -1;
+    columnTroid = new Integer(c).toString(); 
+    gotoPage("/Admin/" + dbName + "/columninfo/" + columnTroid + "/Main"); 
+    gotoFrame("admin_bottom");    
+    gotoFrame("admin_record");
+    gotoFrame("admin_edit_columninfo_" + columnTroid);
+    submit("action","Delete");
+    assertTextPresent("Done");
+
     gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
     gotoFrame("admin_bottom");    
     gotoFrame("admin_record");
     gotoFrame("admin_edit_tableinfo_" + tableTroid);
     submit("action","Delete");
-    clickLink("edit_columninfo_" + (new Integer(columnTroid).intValue() -1));
-    submit("action","Delete");
-    assertTextPresent("Done");
-    clickLink("continue");
+    
+    System.err.println(getPageSource());
+    
     assertTextPresent("Done");
     clickLink("continue");
     assertTextPresent("Melati Database Admin Suite - Admintest database");

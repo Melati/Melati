@@ -144,7 +144,7 @@ public class Copy extends TemplateServlet {
               public void run() {
                 System.err.println("PoemThread " + PoemThread.database().getDisplayName());
                 try {
-                  Enumeration<Table> en = fromDb.getDisplayTables(null);
+                  Enumeration<Table> en = fromDb.displayTables(null);
                   while(en.hasMoreElements()) { 
                     Table fromTable = (Table)en.nextElement();
                     String fromTableName = fromTable.getName();

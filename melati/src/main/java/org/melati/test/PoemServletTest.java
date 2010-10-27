@@ -48,7 +48,6 @@ package org.melati.test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.servlet.ServletException;
@@ -176,9 +175,7 @@ public class PoemServletTest extends PoemServlet {
      output.write("<table>");
      output.write("<tr><th colspan=2>Tables in the Database " + melati.getDatabaseName() + "</th></tr>\n");
 
-     for (Enumeration e = melati.getDatabase().getDisplayTables(); 
-         e.hasMoreElements();) {
-       Table t = (Table)e.nextElement();
+     for (Table t : melati.getDatabase().getDisplayTables()) { 
        output.write("<tr>\n <td>");
        output.write(t.getDisplayName());
        output.write("</td>\n <td>");
@@ -266,7 +263,7 @@ public class PoemServletTest extends PoemServlet {
 
   private void doUpload(Melati melati) throws IOException {
 
-    Hashtable fields = null;
+    Hashtable<String, MultipartFormField> fields = null;
     InputStream in = melati.getRequest().getInputStream();
     MultipartFormDataDecoder decoder =
         new MultipartFormDataDecoder(melati,

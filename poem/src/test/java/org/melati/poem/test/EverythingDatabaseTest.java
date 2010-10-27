@@ -1,7 +1,6 @@
 package org.melati.poem.test;
 
-import java.util.Enumeration;
-
+import org.melati.poem.Table;
 import org.melati.poem.UserTable;
 
 /**
@@ -66,10 +65,9 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "tablecategory (from the data structure definition)" +
     "setting (from the data structure definition)";
 
-    Enumeration en = getDb().getDisplayTables();
     String outcome = "";
-    while (en.hasMoreElements()) {
-      outcome += en.nextElement().toString();
+    for (Table t : getDb().getDisplayTables()) { 
+      outcome += t.toString();      
     }
     //System.err.println(expected);
     //System.err.println(result);

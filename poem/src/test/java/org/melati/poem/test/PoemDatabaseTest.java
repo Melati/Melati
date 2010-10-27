@@ -79,10 +79,9 @@ public class PoemDatabaseTest extends PoemTestCase {
             + "tablecategory (from the data structure definition)"
             + "setting (from the data structure definition)";
 
-    Enumeration<Table> en = getDb().getDisplayTables();
     String outcome = "";
-    while (en.hasMoreElements()) {
-      outcome += en.nextElement().toString();
+    for (Table t : getDb().getDisplayTables()) { 
+      outcome += t.toString();      
     }
     if (getDb().getDbms().canDropColumns()) {
       assertEquals(expected, outcome);
@@ -525,7 +524,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testReferencesToPersistent() {
     Enumeration<Persistent> en = getDb().referencesTo(
-            getDb().getUserTable().administratorUser());
+        getDb().getUserTable().administratorUser());
     int count = 0;
     while (en.hasMoreElements()) {
       en.nextElement();
@@ -534,6 +533,13 @@ public class PoemDatabaseTest extends PoemTestCase {
     System.err.println(count);
     assertTrue(count == 1);
 
+  }
+  /**
+   * Test method for {@link org.melati.poem.Database#getReferencesTo(org.melati.poem.Persistent)}.
+   */
+  public void testGetReferencesToPersistent() {
+   assertEquals(1, getDb().getReferencesTo(
+       getDb().getUserTable().administratorUser()).size());
   }
 
   /**

@@ -45,6 +45,8 @@
 
 package org.melati.poem.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -62,7 +64,7 @@ public final class EnumUtils {
    */
   public static <T extends Object> int skip(Enumeration<T> e, int n) {
     int c = 0;
-    if (e instanceof SkipEnumeration) {
+    if (e instanceof SkipEnumeration<?>) {
       SkipEnumeration<T> s = (SkipEnumeration<T>)e;
       while (c < n && s.hasMoreElements()) {
         s.skip();
@@ -167,5 +169,13 @@ public final class EnumUtils {
         return true;
 
     return false;
+  }
+
+  /** @return a List from an Enumeration */
+  public static <T> List<T> list(Enumeration<T> enumeration) {
+    ArrayList<T> them = new ArrayList<T>();
+    while(enumeration.hasMoreElements())
+      them.add(enumeration.nextElement());
+    return them;
   }
 }

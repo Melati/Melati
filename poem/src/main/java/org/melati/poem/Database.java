@@ -52,6 +52,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import org.melati.poem.dbms.Dbms;
@@ -60,6 +61,7 @@ import org.melati.poem.transaction.Transaction;
 import org.melati.poem.transaction.TransactionPool;
 import org.melati.poem.util.ArrayEnumeration;
 import org.melati.poem.util.ArrayUtils;
+import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.FlattenedEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.poem.util.StringUtils;
@@ -133,8 +135,8 @@ public abstract class Database implements TransactionPool {
    */
   private synchronized void init() {
     if (!initialised) {
-      for (Enumeration<Table> t = this.tables.elements(); t.hasMoreElements();)
-        ((Table)t.nextElement()).init();
+      for (Table t : this.tables)
+        t.init();
       initialised = true;
     }
   }
@@ -302,10 +304,8 @@ public abstract class Database implements TransactionPool {
       throw new ReconnectionPoemException(this);
 
     try {
-      Enumeration<Transaction> iter = freeTransactions.elements();
-      while (iter.hasMoreElements()) {
-        PoemTransaction txn = (PoemTransaction)iter.nextElement();
-        txn.getConnection().close();
+      for (Transaction poemTransaction : freeTransactions){ 
+        ((PoemTransaction)poemTransaction).getConnection().close();
       }
       freeTransactions.removeAllElements();
       
@@ -384,15 +384,22 @@ public abstract class Database implements TransactionPool {
    * @param info the tableInfo for the table to delete
    */
   public void deleteTableAndCommit(TableInfo info) { 
-    beginStructuralModification();
     try {
       Table table = info.actualTable();
+      Enumeration<Column> columns = table.columns();
+      while (columns.hasMoreElements()){ 
+        Column c = columns.nextElement();
+        table.deleteColumnAndCommit(c.getColumnInfo());
+      }
+        
       info.delete(); // Ensure we have no references in metadata
+      beginStructuralModification();
       table.dbModifyStructure(" DROP TABLE " + table.quotedName());
       synchronized (tables) {
         tables.remove(table);
         tablesByName.remove(table.getName().toLowerCase());
-        displayTables = (Table[])ArrayUtils.removed(displayTables, table);
+        if (displayTables != null)
+          displayTables = (Table[])ArrayUtils.removed(displayTables, table);
         uncache();
         table.invalidateTransactionStuffs();
       }
@@ -423,13 +430,13 @@ public abstract class Database implements TransactionPool {
 
     // Conversely, add tableInfo for the tables that do not have an entry in tableInfo
 
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-      ((Table)t.nextElement()).createTableInfo();
+    for (Table t : tables)
+      t.createTableInfo();
 
     // Check all tables against columnInfo
 
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-      ((Table)t.nextElement()).unifyWithColumnInfo();
+    for (Table t : tables)
+      t.unifyWithColumnInfo();
 
     // Finally, check tables against the actual JDBC metadata
 
@@ -510,8 +517,7 @@ public abstract class Database implements TransactionPool {
 
     // ... and create any that simply don't exist
 
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();) {
-      Table table = (Table)t.nextElement();
+    for (Table table : tables) {
       // bit yukky using getColumns ...
       ResultSet colDescs = columnsMetadata(m,
                                dbms.unreservedName(table.getName()));
@@ -522,8 +528,8 @@ public abstract class Database implements TransactionPool {
       }
     }
 
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-      ((JdbcTable)t.nextElement()).postInitialise();
+    for (Table table : tables)
+      ((JdbcTable)table).postInitialise();
     
   }
 
@@ -544,8 +550,8 @@ public abstract class Database implements TransactionPool {
             PoemThread.commit();
             beginStructuralModification();
             try {
-              for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-                ((Table)t.nextElement()).dbAddConstraints();
+              for (Table table : tables)
+                table.dbAddConstraints();
               PoemThread.commit();
             }
             finally {
@@ -667,9 +673,10 @@ public abstract class Database implements TransactionPool {
    */
   public void beginExclusiveLock() {
     // FIXME Yuk
-    if (PoemThread.inSession())
+    if (PoemThread.inSession()) { 
       lock.readLock().unlock();
-
+      
+    }
     lock.writeLock().lock();
   }
 
@@ -870,13 +877,25 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
+    * All the tables in the database.
+    * NOTE This will include any deleted tables
+   */
+  public final List<Table> getTables() { 
+    return tables;
+  }
+  
+  /**
    * All the tables in the database in DisplayOrder
    * order, using current transaction if there is one.
    *
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s
    */
-  public Enumeration<Table> getDisplayTables() {
-    return getDisplayTables(PoemThread.inSession() ? PoemThread.transaction() : null);
+  public Enumeration<Table> displayTables() {
+    return displayTables(PoemThread.inSession() ? PoemThread.transaction() : null);
+  }
+  /** A convenience wrapper around displayTables() */
+  public List<Table> getDisplayTables() {
+    return EnumUtils.list(displayTables());
   }
   
   /**
@@ -885,7 +904,7 @@ public abstract class Database implements TransactionPool {
    *
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s
    */
-  public Enumeration<Table> getDisplayTables(PoemTransaction transaction) {
+  public Enumeration<Table> displayTables(PoemTransaction transaction) {
     Table[] displayTablesL = this.displayTables;
 
     if (displayTablesL == null) {
@@ -917,13 +936,11 @@ public abstract class Database implements TransactionPool {
    * @see #getTableInfoTable
    */
   Table tableWithTableInfoID(int tableInfoID) {
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();) {
-      Table table = (Table)t.nextElement();
+    for (Table table : tables) {
       Integer id = table.tableInfoID();
       if (id != null && id.intValue() == tableInfoID)
         return table;
     }
-
     return null;
   }
 
@@ -938,15 +955,18 @@ public abstract class Database implements TransactionPool {
           }
         });
   }
+  /** Wrapper around columns() */
+  public List<Column> getColumns() { 
+    return EnumUtils.list(columns());
+  }
    
   /**    
    * @param columnInfoID   
    * @return the Column with the given troid   
    */  
   Column columnWithColumnInfoID(int columnInfoID) {  
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();) {  
-      Column column =  
-          ((Table)t.nextElement()).columnWithColumnInfoID(columnInfoID);   
+    for (Table table : tables) {  
+      Column column = table.columnWithColumnInfoID(columnInfoID);   
       if (column != null)  
         return column;   
     }  
@@ -1260,8 +1280,8 @@ public abstract class Database implements TransactionPool {
    *                    basis.
    */
   public void trimCache(int maxSize) {
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-      ((Table)t.nextElement()).trimCache(maxSize);
+    for (Table table : tables)
+      table.trimCache(maxSize);
   }
 
   /**
@@ -1281,16 +1301,24 @@ public abstract class Database implements TransactionPool {
   /**
    * Find all references to specified object in all tables. 
    * 
-   * @param object the object being referred to 
+   * @param persistent the object being referred to 
    * @return an Enumeration of {@link Persistent}s
    */
-  public Enumeration<Persistent> referencesTo(final Persistent object) {
+  public Enumeration<Persistent> referencesTo(final Persistent persistent) {
     return new FlattenedEnumeration<Persistent>(
         new MappedEnumeration<Enumeration<Persistent>, Table>(tables()) {
           public Enumeration<Persistent> mapped(Table table) {
-            return table.referencesTo(object);
+            return table.referencesTo(persistent);
           }
         });
+  }
+
+  /** 
+   * Wrapper around referencesTo() 
+   * @return a List of Columns referring to given Table 
+   */
+  public List<Persistent> getReferencesTo(final Persistent persistent) { 
+    return EnumUtils.list(referencesTo(persistent));
   }
 
   /**
@@ -1304,14 +1332,22 @@ public abstract class Database implements TransactionPool {
           }
         });
   }
+  
+  /** 
+   * Wrapper around referencesTo() 
+   * @return a List of Columns referring to given Table 
+   */
+  public List<Column> getReferencesTo(final Table table) { 
+    return EnumUtils.list(referencesTo(table));
+  }
 
   /**
    * Print some diagnostic information about the contents and consistency of
    * POEM's cache to stderr.
    */
   public void dumpCacheAnalysis() {
-    for (Enumeration<Table> t = tables.elements(); t.hasMoreElements();)
-      ((Table)t.nextElement()).dumpCacheAnalysis();
+    for (Table table : tables)
+      table.dumpCacheAnalysis();
   }
 
   /**

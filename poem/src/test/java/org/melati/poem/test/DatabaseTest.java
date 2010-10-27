@@ -11,6 +11,9 @@ import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
+import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfo;
+import org.melati.poem.util.EnumUtils;
 
 import junit.framework.TestCase;
 
@@ -112,6 +115,25 @@ public class DatabaseTest extends TestCase {
   public void testAddTableAndCommit() {
   }
 
+  public void testDeleteTableAndCommit() { 
+    String name = "abouttodie";
+    getDb().beginSession(AccessToken.root);
+    TableInfo tableInfo = (TableInfo) getDb().getTableInfoTable().newPersistent();
+    tableInfo.setName(name);
+    tableInfo.setDisplayname(name);
+    tableInfo.setDescription(name + " element table");
+    tableInfo.setDisplayorder(13);
+    tableInfo.setSeqcached(Boolean.FALSE);
+    tableInfo.setCategory(TableCategoryTable.NORMAL);
+    tableInfo.setCachelimit(555);
+    tableInfo.makePersistent();
+    assertEquals(9, EnumUtils.vectorOf(getDb().tables()).size());
+    getDb().addTableAndCommit(tableInfo, "troid");
+    assertEquals(10, EnumUtils.vectorOf(getDb().tables()).size());
+    getDb().deleteTableAndCommit(tableInfo);
+    assertEquals(9, EnumUtils.vectorOf(getDb().tables()).size());
+    getDb().endSession();
+  }
   /**
    * Test method for {@link org.melati.poem.Database#addConstraints()}.
    */
@@ -229,6 +251,13 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
+   * Test method for {@link org.melati.poem.Database#tables()}.
+   */
+  public void testGetTables() {
+    assertEquals(9, getDb().getTables().size());
+  }
+
+  /**
    * Test method for {@link org.melati.poem.Database#getDisplayTables()}.
    */
   public void testGetDisplayTables() {
@@ -240,6 +269,12 @@ public class DatabaseTest extends TestCase {
    */
   public void testColumns() {
     
+  }
+  /**
+   * Test method for {@link org.melati.poem.Database#getColumns()}.
+   */
+  public void testGetColumns() {
+    assertEquals(69, getDb().getColumns().size());
   }
 
   /**
@@ -403,6 +438,12 @@ public class DatabaseTest extends TestCase {
   public void testReferencesToPersistent() {
     
   }
+  /**
+   * Test method for {@link org.melati.poem.Database#getReferencesTo(org.melati.poem.Persistent)}.
+   */
+  public void testGetReferencesToPersistent() {
+    
+  }
 
   /**
    * Test method for {@link org.melati.poem.Database#referencesTo(org.melati.poem.Table)}.
@@ -495,4 +536,17 @@ public class DatabaseTest extends TestCase {
     
   }
 
+  /**
+   * Test method for {@link org.melati.poem.Database#getName()}.
+   */
+  public void testGetName() { 
+    assertEquals("m2", getDb().getName());
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.Database#getDisplayName()}.
+   */
+  public void testGetDisplayName() { 
+    assertEquals("M2", getDb().getDisplayName());
+  }
 }

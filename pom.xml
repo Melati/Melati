@@ -13,7 +13,9 @@
     <module>maven-dsd-plugin</module>
     <module>melati-webapp</module>
     <module>melati-archetype</module>
+<!--
     <module>melati-skin</module>
+-->
     <module>throwing-jdbc</module>
   </modules>
   <version>0.7.8-RC3-SNAPSHOT</version>

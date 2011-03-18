@@ -85,25 +85,18 @@
       <scope>compile</scope>
     </dependency>
     <!-- dependent projects may need these if they use webmacro -->
- <!--     
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.8</version>
+      <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.12</version>
-    </dependency>
- -->    
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>poem</artifactId>
       <version>${project.version}</version>
       <classifier>tests</classifier>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

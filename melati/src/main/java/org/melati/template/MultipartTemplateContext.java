@@ -70,7 +70,7 @@ import org.melati.servlet.MultipartFormDataDecoder;
  */
 public class MultipartTemplateContext implements ServletTemplateContext {
   ServletTemplateContext peer;
-  Hashtable fields;
+  Hashtable<String,MultipartFormField> fields;
   Melati melati;
 
   /**
@@ -93,7 +93,7 @@ public class MultipartTemplateContext implements ServletTemplateContext {
       fields = decoder.parseData();
     }
     catch (IOException e) {
-      fields = new Hashtable();
+      fields = new Hashtable<String,MultipartFormField>();
       throw e;
     }
   }
@@ -120,7 +120,7 @@ public class MultipartTemplateContext implements ServletTemplateContext {
       fields = decoder.parseData();
     }
     catch (IOException e) {
-      fields = new Hashtable();
+      fields = new Hashtable<String,MultipartFormField>();
       throw e;
     }
   }
@@ -155,8 +155,8 @@ public class MultipartTemplateContext implements ServletTemplateContext {
   /**
    * @return an Enumeration of Field names
    */
-  public Enumeration getFieldNames() {
-    return fields.elements();
+  public Enumeration<String> getFieldNames() {
+    return fields.keys();
   }
 
   /**

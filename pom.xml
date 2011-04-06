@@ -442,13 +442,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      </plugins>
   </reporting>
   <build>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-         <artifactId>wagon-ssh-external</artifactId>
-         <version>1.0-beta-7</version>
-     </extension>
-    </extensions>    
     <pluginManagement>
       <plugins>
         <plugin>

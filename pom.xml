@@ -47,11 +47,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
-      <url>http://melati.org/data/www/maven2/</url>
+      <url>http://melati.org/maven2/</url>
     </repository>
     <site>
       <id>melati_site</id>
-      <url>http://melati.org/data/www/melati/</url>
+      <url>http://melati.org/melati/</url>
     </site>
   </distributionManagement>
   <pluginRepositories>

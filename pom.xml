@@ -51,7 +51,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </repository>
     <site>
       <id>melati_site</id>
-      <url>http://melati.org/melati/</url>
+      <url>scp://melati.org/var/www/melati/</url>
     </site>
   </distributionManagement>
   <pluginRepositories>

@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 /**
  * Test db outside of PoemTestCase so that we do not run into session closing
  * issues.<p>
- * This test excercises the jdbc metadata unification.
+ * This test exercises the jdbc metadata unification.
  * 
  * @author timp
  * @since 25 Jan 2007

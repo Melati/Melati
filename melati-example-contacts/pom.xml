@@ -14,6 +14,20 @@
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
+    <!-- logger used by webmacro -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.8</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.12</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>poem</artifactId>

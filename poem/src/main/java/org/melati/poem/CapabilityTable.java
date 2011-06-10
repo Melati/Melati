@@ -111,9 +111,9 @@ public class CapabilityTable extends CapabilityTableBase {
   * @param colDescs the {@link Column} descriptions
   * @see org.melati.poem.Table#defineColumn(Column, boolean) 
   */
-  public synchronized void unifyWithDB(ResultSet colDescs)
+  public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {
-    super.unifyWithDB(colDescs);
+    super.unifyWithDB(colDescs, troidColumnName);
 
     administer = ensure("_administer_");
     

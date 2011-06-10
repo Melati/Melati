@@ -147,9 +147,9 @@ public class UserTable extends UserTableBase {
    * {@inheritDoc}
    * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
    */
-  public synchronized void unifyWithDB(ResultSet colDescs)
+  public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {
-    super.unifyWithDB(colDescs);
+    super.unifyWithDB(colDescs, troidColumnName);
     guestUser = (User)getLoginColumn().ensure(guestUser);
     administratorUser = (User)getLoginColumn().ensure(administratorUser);
   }

@@ -133,7 +133,7 @@ public final class TableFactory {
             DefinitionSource.runtime, table.getNextExtrasIndex()));
     table.setTableInfo(tableInfo);
     table.unifyWithColumnInfo();
-    table.unifyWithDB(null);
+    table.unifyWithDB(null,troidName);
 
     PoemThread.commit();
     db.defineTable(table);

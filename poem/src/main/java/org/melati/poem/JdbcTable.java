@@ -2683,7 +2683,7 @@ public class JdbcTable implements Selectable, Table {
    *
    * @param colDescs a JDBC {@link ResultSet} describing the columns
    */
-  public synchronized void unifyWithDB(ResultSet colDescs)
+  public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {
     boolean debug = false;
     
@@ -2701,13 +2701,13 @@ public class JdbcTable implements Selectable, Table {
             SQLPoemType colType =
                 database.defaultPoemTypeOfColumnMetaData(colDescs);
 
-            // magically make eligible columns called "id" and "deleted"
-            // into troid and soft-deleted-flag columns
 
-            if (troidColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("id")) &&
+            if (troidColumn == null && colName.equalsIgnoreCase(troidColumnName) &&
                 dbms().canRepresent(colType, TroidPoemType.it) != null)
               colType = TroidPoemType.it;
 
+            // magically make eligible columns "deleted"
+            // into soft-deleted-flag columns
             if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
                 dbms().canRepresent(colType, DeletedPoemType.it) != null)
               colType = DeletedPoemType.it;

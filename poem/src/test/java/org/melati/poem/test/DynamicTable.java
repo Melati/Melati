@@ -53,10 +53,10 @@ public class DynamicTable extends DynamicTableBase {
    * {@inheritDoc}
    * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
    */
-  public synchronized void unifyWithDB(ResultSet colDescs)
-      throws PoemException {
-    super.unifyWithDB(colDescs);
-  }
+//  public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
+//      throws PoemException {
+//    super.unifyWithDB(colDescs, troidColumnName);
+//  }
 
   /** 
    * {@inheritDoc}

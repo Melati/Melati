@@ -1159,7 +1159,8 @@ public interface Table {
      * meta data held in the {@link org.melati.poem.TableInfo}
      *
      * @param colDescs a JDBC {@link java.sql.ResultSet} describing the columns
+     * @param primaryKey name of primary key column
      */
-    void unifyWithDB(ResultSet colDescs)
+    void unifyWithDB(ResultSet colDescs, String primaryKey)
         throws PoemException;
 }

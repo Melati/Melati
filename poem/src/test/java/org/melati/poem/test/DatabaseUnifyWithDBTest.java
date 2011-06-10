@@ -68,7 +68,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     Hsqldb dbms = new Hsqldb();
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + dbms.getQuotedName("testable") + " (");
-    sqb.append(dbms.getQuotedName("id") + " INTEGER NOT NULL");
+    sqb.append(dbms.getQuotedName("id") + " INTEGER NOT NULL PRIMARY KEY");
     sqb.append(", ");
     sqb.append(dbms.getQuotedName("testname") + " VARCHAR(233) NOT NULL");
     sqb.append(", ");
@@ -148,7 +148,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     Hsqldb dbms = new Hsqldb();
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + dbms.getQuotedName("testable2") + " (");
-    sqb.append(dbms.getQuotedName("testableId") + " INTEGER NOT NULL");
+    sqb.append(dbms.getQuotedName("testableId") + " INTEGER NOT NULL PRIMARY KEY");
     sqb.append(", ");
     sqb.append(dbms.getQuotedName("testname") + " VARCHAR(233) NOT NULL");
     sqb.append(", ");
@@ -166,11 +166,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     try { 
       s.executeUpdate(sqb.toString());
     } catch (SQLException e) { 
-      try { 
         assertTrue(e.getMessage().indexOf("already exists") > 0);
-      } catch (Error e2) { 
-        throw e;
-      }
     }
     try { 
       s.executeUpdate("CREATE UNIQUE INDEX \"TESTABLE_ID_INDEX\" ON \"TESTABLE2\" (\"TESTABLEID\")");    
@@ -179,7 +175,7 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     }
     StringBuffer sqb2 = new StringBuffer();
     sqb2.append("INSERT INTO " + dbms.getQuotedName("testable2") + " (");
-    sqb2.append(dbms.getQuotedName("id")) ;
+    sqb2.append(dbms.getQuotedName("testableid")) ;
     sqb2.append(", ");
     sqb2.append(dbms.getQuotedName("testname"))  ;
     sqb2.append(") VALUES (");

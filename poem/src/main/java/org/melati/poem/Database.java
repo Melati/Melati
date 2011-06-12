@@ -352,26 +352,9 @@ public abstract class Database implements TransactionPool {
     return m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
   }
 
-  private String primaryKey(DatabaseMetaData m, String tableName) throws SQLException {
-    String pk = null;
-    try { 
-      ResultSet r = m.getPrimaryKeys(null, dbms.getSchema(), dbms.unreservedName(tableName));
-      while(r.next())
-        pk = r.getString("COLUMN_NAME");
-      
-    } catch (SQLException e) {
-      // Assume that this is caused by table not existing 
-    };
-    
-    if (pk == null)
-      pk = "id";
-
-    return pk;
-      
-  }
 
   /**
-   * Add a Table to this Databse and commit the Transaction.
+   * Add a Table to this Database and commit the Transaction.
    * @param info Table metadata object
    * @param troidName name of troidColumn
    * @return new minted {@link Table} 
@@ -428,6 +411,36 @@ public abstract class Database implements TransactionPool {
     }
   }
 
+  private String getTroidColumnName(DatabaseMetaData m, String tableName) throws SQLException {
+    String pk = null;
+    ResultSet tables = m.getTables(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
+    if (tables.next()) {
+      ResultSet r = m.getPrimaryKeys(null, dbms.getSchema(), dbms.unreservedName(tableName));
+      while(r.next())
+        pk = r.getString("COLUMN_NAME");
+      r.close();
+    } 
+    tables.close();
+    
+    if (pk != null) {
+      log(dbms.getJdbcMetadataName(dbms.unreservedName(pk)));
+      ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), dbms.getJdbcMetadataName(dbms.unreservedName(pk)));
+      log("Got a troid column for discovered jdbc table :" + tableName + ":" + pk);
+      if (idCol.next()) {
+        if (dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) == null)
+          if (pk.equals("id"))
+            throw new UnificationPoemException("Primary Key id cannot represent a Troid");
+          else
+            pk = null;
+      } else throw new UnexpectedExceptionPoemException("Found a primary key but no corresponding column");
+          
+      idCol.close();
+    } 
+    
+    return pk;
+      
+  }
+
   private synchronized void unifyWithDB() throws PoemException, SQLException {
     boolean debug = true;
     
@@ -470,7 +483,7 @@ public abstract class Database implements TransactionPool {
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       if (debug) log("Melati Table name :" + tableName);
       Table table = null;
-      String primaryKey = null;
+      String troidColumnName = null;
       if (tableName != null) { 
         table = getTableIgnoringCase(tableName);
         if (table == null) {  // We do not know about this table
@@ -479,14 +492,10 @@ public abstract class Database implements TransactionPool {
           // but we only want to include them if they have a plausible troid:
 //          ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
 //              dbms.getJdbcMetadataName(dbms.unreservedName("id")));
-          primaryKey = primaryKey(m,dbms.unreservedName(tableName));
-          if(debug) log("Primary key:"+ primaryKey);
-          ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
-              primaryKey);
-          if (idCol.next()) { 
-            if (debug) log("Got a troid column for discovered jdbc table :" + tableName + ":" + primaryKey);
-            if (dbms.canRepresent(
-                   defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
+          troidColumnName = getTroidColumnName(m,dbms.unreservedName(tableName));
+          if(debug) log("Primary key:"+ troidColumnName);
+          if (troidColumnName != null) { 
+            if (debug) log("Got a troid column for discovered jdbc table :" + tableName + ":" + troidColumnName);
               try {
                 table = new JdbcTable(this, tableName,
                                   DefinitionSource.sqlMetaData);
@@ -496,12 +505,7 @@ public abstract class Database implements TransactionPool {
                 throw new UnexpectedExceptionPoemException(e);
               }
               table.createTableInfo();
-            } else throw new UnificationPoemException("Found troid column with suitable name" + 
-                primaryKey + " but it cannot represent a Troid");
-          
-          } 
-          else if (debug) log("Table " + dbms.unreservedName(tableName) + 
-                " does not to have a troid column called " + primaryKey);      
+          }
         } else if (debug) log("table not null:" + tableName + "Table has name " + table.getName());
       }
 
@@ -511,7 +515,7 @@ public abstract class Database implements TransactionPool {
                             + columnsMetadata(m, tableName));
          // Create the table if it has no metadata
          // unify with it either way
-        table.unifyWithDB(columnsMetadata(m, tableName), primaryKey);
+        table.unifyWithDB(columnsMetadata(m, tableName), troidColumnName);
       } else if (debug) log("table still null, probably doesn't have a troid:" + tableName);
 
     }
@@ -525,7 +529,7 @@ public abstract class Database implements TransactionPool {
       if (!colDescs.next()) {
         // System.err.println("Table has no columns in dbms:" +
         //                    dbms.unreservedName(table.getName()));
-        table.unifyWithDB(null, primaryKey(m,dbms.unreservedName(table.getName())));
+        table.unifyWithDB(null, getTroidColumnName(m,dbms.unreservedName(table.getName())));
       }
     }
 

@@ -70,9 +70,9 @@ public class PassbackEvaluationExceptionHandler
     velContext = vc;
   }
 
-  @SuppressWarnings("unchecked")
+
   @Override
-  public Object methodException(Class claz, String method, Exception problem) throws Exception {
+  public Object methodException(@SuppressWarnings("rawtypes") Class claz, String method, Exception problem) throws Exception {
     System.err.println(method + " " + problem);
     MarkupLanguage ml = (MarkupLanguage)velContext.get("ml");
     if (ml == null) throw new PropertyException(

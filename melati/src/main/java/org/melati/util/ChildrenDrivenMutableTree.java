@@ -72,7 +72,7 @@ public class ChildrenDrivenMutableTree {
      * An enumeration that is always empty. This is used when an enumeration
      * of a leaf node's children is requested.
      */
-    @SuppressWarnings("unchecked") // FIXME we need our own empty enumeration
+    // FIXME we need our own empty enumeration
     public static final Enumeration EMPTY_ENUMERATION = 
       DefaultMutableTreeNode.EMPTY_ENUMERATION; 
 
@@ -167,7 +167,7 @@ public class ChildrenDrivenMutableTree {
      * @return the nodes
      */
     @SuppressWarnings("unchecked")
-    public Enumeration preorderEnumeration() {
+    public Enumeration<TreeNode> preorderEnumeration() {
       return root.preorderEnumeration();
     }
 
@@ -180,7 +180,7 @@ public class ChildrenDrivenMutableTree {
      * @return the nodes
      */
     @SuppressWarnings("unchecked")
-    public Enumeration postorderEnumeration() {
+    public Enumeration<TreeNode> postorderEnumeration() {
       return root.postorderEnumeration();
     }
 
@@ -188,7 +188,7 @@ public class ChildrenDrivenMutableTree {
      * @return an enumeration of nodes in breadth first order.
      */
     @SuppressWarnings("unchecked")
-    public Enumeration breadthFirstEnumeration() {
+    public Enumeration<TreeNode> breadthFirstEnumeration() {
       return root.breadthFirstEnumeration();
     }
 
@@ -196,7 +196,7 @@ public class ChildrenDrivenMutableTree {
      * @return an enumeration of nodes in depth first order.
      */
     @SuppressWarnings("unchecked")
-    public Enumeration depthFirstEnumeration() {
+    public Enumeration<TreeNode> depthFirstEnumeration() {
       return root.depthFirstEnumeration();
     }
 }

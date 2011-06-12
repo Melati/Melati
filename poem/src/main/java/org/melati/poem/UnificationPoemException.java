@@ -64,6 +64,11 @@ public class UnificationPoemException extends SeriousPoemException {
   }
   
   /** Constructor. */
+  public UnificationPoemException(String message) {
+    super(message);
+  }
+
+  /** Constructor. */
   public UnificationPoemException(String message, Exception subException) {
     super(message, subException);
   }

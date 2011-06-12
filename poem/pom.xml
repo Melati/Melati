@@ -193,7 +193,7 @@
        <include>**/*Test.java</include>
       </includes>
       <excludes>
-       <!-- exclude>**/throwing/*Test.java</exclude -->
+       <exclude>**/throwing/*Test.java</exclude>
 
        <!-- MSAccess problem -->
        <!-- exclude>**/DynamicTableTest.java</exclude -->

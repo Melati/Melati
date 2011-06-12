@@ -58,6 +58,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Enumeration;
@@ -82,6 +83,7 @@ import org.melati.poem.SQLType;
 import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
+import org.melati.poem.TimePoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.util.StringUtils;
@@ -420,7 +422,7 @@ public class AnsiStandard implements Dbms {
       case Types.DATE :
         return new DatePoemType(nullable);
       case Types.TIME :
-        return unsupported("TIME", md);
+        return new TimePoemType(nullable);
       case Types.TIMESTAMP :
         return new TimestampPoemType(nullable);
 
@@ -518,6 +520,9 @@ public class AnsiStandard implements Dbms {
       return StringUtils.quoted(value,'\'');
     }
     if (sqlType instanceof TimestampPoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof TimePoemType) {
       return StringUtils.quoted(value,'\'');
     }
     if (sqlType instanceof PasswordPoemType) {
@@ -714,6 +719,9 @@ public class AnsiStandard implements Dbms {
     }
     if (sqlType instanceof TimestampPoemType) {
       return new Timestamp(System.currentTimeMillis()).toString();
+    }
+    if (sqlType instanceof TimePoemType) {
+      return new Time(System.currentTimeMillis()).toString();
     }
     if (sqlType instanceof PasswordPoemType) {
       return "FIXME";

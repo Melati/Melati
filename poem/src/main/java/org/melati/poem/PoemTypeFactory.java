@@ -140,6 +140,8 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory DATE;
   /** Timestamp base-type factory. */
   public static final PoemTypeFactory TIMESTAMP;
+  /** Time base-type factory. */
+  public static final PoemTypeFactory TIME;
   /** Binary base-type factory. */
   public static final PoemTypeFactory BINARY;
 
@@ -405,6 +407,31 @@ public abstract class PoemTypeFactory {
        */
       public String getName() {
         return "TIMESTAMP";
+      }
+
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
+      public String getDescription() {
+        return "...";
+      }
+    }, TIME = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
+      public SQLPoemType typeOf(Database database, Parameter info) {
+        return new TimePoemType(info.getNullable());
+      }
+
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
+      public String getName() {
+        return "TIME";
       }
 
       /**

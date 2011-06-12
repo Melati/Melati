@@ -98,10 +98,10 @@ public class PoemDatabaseFactoryTest extends TestCase {
     int initialSize = PoemDatabaseFactory.initialisedDatabases().size();
     getPoemDatabase();
     getEverythingDatabase();
-    if (initialSize < 2)
+    if (initialSize == 0)
       assertEquals(initialSize + 2, PoemDatabaseFactory.initialisedDatabases().size());
     else 
-      assertEquals(initialSize, PoemDatabaseFactory.initialisedDatabases().size());
+      assertEquals(2, PoemDatabaseFactory.initialisedDatabases().size());
         
   }
 

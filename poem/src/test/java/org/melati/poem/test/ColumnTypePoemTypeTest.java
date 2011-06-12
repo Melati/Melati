@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -17,34 +14,13 @@ import org.melati.poem.PoemLocale;
  */
 public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
 
-  /**
-   * 
-   */
   public ColumnTypePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public ColumnTypePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setUp()
-   */
-  protected void setUp() throws Exception {
-    super.setUp();
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
 
   /**
    * {@inheritDoc}
@@ -56,19 +32,16 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = it.possibleRaws();
+    Enumeration<?> them = it.possibleRaws();
     int count = 0;
-    Integer dummy = null;
     while(them.hasMoreElements()) {
-      Integer type = (Integer)them.nextElement();
-      dummy = type;
-      type = dummy;
+      them.nextElement();
       count++;
       //System.err.println(type.intValue() + " : " + 
       //    PoemTypeFactory.forCode(getDb(),type.intValue()).getDisplayName());
     }
     if (getDb().getDbms().canDropColumns())
-      assertEquals(25,count);
+      assertEquals(26,count);
   }
 
   public void testRawOfCooked() {

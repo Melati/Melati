@@ -58,6 +58,12 @@ public class UnexpectedExceptionPoemException extends SeriousPoemException {
   public String info;
 
   /** Constructor. */
+  public UnexpectedExceptionPoemException(String info) {
+    super(info);
+    this.info = info;
+  }
+
+  /** Constructor. */
   public UnexpectedExceptionPoemException(Exception exception, String info) {
     super(exception);
     this.info = info;

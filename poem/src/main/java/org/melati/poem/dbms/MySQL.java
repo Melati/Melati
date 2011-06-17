@@ -349,8 +349,11 @@ public class MySQL extends AnsiStandard {
       return new MySQLStringPoemType(nullable, md.getInt("COLUMN_SIZE"));
     else if(typeName.equals("smallint"))
       return new IntegerPoemType(nullable);
+    else if(typeName.equals("set"))
+      return new IntegerPoemType(nullable);
+    
     else if(typeName.equals("char"))
-      return new StringPoemType(nullable, 1);
+      return new StringPoemType(nullable, md.getInt("COLUMN_SIZE"));
     // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
     else if(typeName.equals("tinyint"))
       return new MySQLBooleanPoemType(nullable);

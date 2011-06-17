@@ -350,7 +350,7 @@ public class MySQL extends AnsiStandard {
     else if(typeName.equals("smallint"))
       return new IntegerPoemType(nullable);
     else if(typeName.equals("set"))
-      return new IntegerPoemType(nullable);
+      return new StringPoemType(nullable, md.getInt("COLUMN_SIZE"));
     
     else if(typeName.equals("char"))
       return new StringPoemType(nullable, md.getInt("COLUMN_SIZE"));

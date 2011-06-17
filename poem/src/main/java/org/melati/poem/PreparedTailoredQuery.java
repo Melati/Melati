@@ -88,7 +88,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @return the results (a TailoredResultSetEnumeration) as an Enumeration.
    * @see org.melati.poem.TailoredQuery#selection()
    */
-  public Enumeration<Object> selection() {
+  public Enumeration<FieldSet> selection() {
     return new TailoredResultSetEnumeration(this, statements.resultSet());
   }
 

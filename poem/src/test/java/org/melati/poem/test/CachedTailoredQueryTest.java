@@ -120,14 +120,14 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     
     // The query and 2 lookups of tableinfo
     int numberOfCachedTableinfoRecords = 0;
-    Enumeration r = getDb().getTableInfoTable().getCacheInfo().getHeldElements();      
+    Enumeration<Object> r = getDb().getTableInfoTable().getCacheInfo().getHeldElements();      
     while(r.hasMoreElements()){
       r.nextElement();
       numberOfCachedTableinfoRecords++;
     }
     //System.err.println("TableInfo records:" + numberOfCachedTableinfoRecords);
     int numberOfCachedGroupRecords = 0;
-    Enumeration g = getDb().getGroupTable().getCacheInfo().getHeldElements();      
+    Enumeration<Object> g = getDb().getGroupTable().getCacheInfo().getHeldElements();      
     while(g.hasMoreElements()){
       g.nextElement();
       numberOfCachedGroupRecords++;

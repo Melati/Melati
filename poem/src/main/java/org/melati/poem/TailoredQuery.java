@@ -366,7 +366,7 @@ public class TailoredQuery {
    * <TT><I>tab</I>_<I>col</I></TT>.
    */
 
-  public Enumeration selection() {
+  public Enumeration<FieldSet> selection() {
     return new TailoredResultSetEnumeration(this, database.sqlQuery(sql));
   }
 

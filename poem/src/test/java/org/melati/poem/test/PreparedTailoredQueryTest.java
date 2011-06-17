@@ -91,7 +91,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
                     + "=" + moneyPenny.getTroid(), null);
     assertEquals(new Integer(1), new Integer(EnumUtils
             .vectorOf(ptq.selection()).size()));
-    Enumeration<Object> en = ptq.selection();
+    Enumeration<FieldSet> en = ptq.selection();
     while (en.hasMoreElements()) {
       Object ne = en.nextElement();
       System.err.println("FieldSet:" + ne);
@@ -100,7 +100,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     PoemTask readAsGuest = new PoemTask() {
       public void run() {
         try {
-          Enumeration<Object> en2 = ptq.selection();
+          Enumeration<FieldSet> en2 = ptq.selection();
           assertEquals(new Integer(1), new Integer(EnumUtils.vectorOf(en2)
                   .size()));
           en2 = ptq.selection();
@@ -128,7 +128,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
             null);
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
-        Enumeration<Object> en2 = ptq2.selection();
+        Enumeration<FieldSet> en2 = ptq2.selection();
         try {
         assertEquals(2, EnumUtils.vectorOf(en2).size());
           en2 = ptq2.selection();

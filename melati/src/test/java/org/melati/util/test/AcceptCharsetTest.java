@@ -71,12 +71,13 @@ public class AcceptCharsetTest extends TestCase {
 
     public void testXmacRoman() throws Exception {
 
-        String headerValue = "x-mac-roman,utf-8;q=0.7,*;q=0.7";
+        String headerValue = "x-mac-roman,utf-8;q=0.87,*;q=0.7";
         String supportedPreference[] = new String[] { "UTF-16", "UTF-8",
                 "ISO-8859-1", };
         AcceptCharset ac = new AcceptCharset(headerValue, Arrays
                 .asList(supportedPreference));
-        assertEquals("UTF-8", ac.clientChoice());
+        assertEquals("MacRoman", ac.clientChoice());
+        //assertEquals("UTF-8", ac.clientChoice());
         assertEquals("UTF-16", ac.serverChoice());
     }
 

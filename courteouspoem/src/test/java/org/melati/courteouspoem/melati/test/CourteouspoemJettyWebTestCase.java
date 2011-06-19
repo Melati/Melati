@@ -11,7 +11,7 @@
  *     http://paneris.org/~timp
  */
 
-package org.melati.courtiouspoem.melati.test;
+package org.melati.courteouspoem.melati.test;
 
 import org.melati.JettyWebTestCase;
 
@@ -23,9 +23,9 @@ import org.melati.JettyWebTestCase;
 
 
 
-public class CourtiouspoemJettyWebTestCase extends JettyWebTestCase {
+public class CourteouspoemJettyWebTestCase extends JettyWebTestCase {
 
-  public CourtiouspoemJettyWebTestCase(String name) {
+  public CourteouspoemJettyWebTestCase(String name) {
     super(name);
     webAppDirName = "src/main/webapp";
     contextName = "";

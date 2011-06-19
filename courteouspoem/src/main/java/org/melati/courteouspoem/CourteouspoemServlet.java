@@ -1,5 +1,5 @@
 
-package org.melati.courtiouspoem;
+package org.melati.courteouspoem;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +12,9 @@ import org.melati.template.ServletTemplateContext;
 //import org.melati.courtiouspoem.poem.CourtiouspoemDatabase;
 
 /**
- * Base servlet for Courtiouspoem servlets.
+ * Base servlet for Courteouspoem servlets.
  */
-public abstract class CourtiouspoemServlet extends TemplateServlet {
+public abstract class CourteouspoemServlet extends TemplateServlet {
 
 
   public static final String templatePrefix = "org/melati/courtiouspoem/view/";

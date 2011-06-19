@@ -1,13 +1,13 @@
-package org.melati.courtiouspoem.poem;
+package org.melati.courteouspoem.poem;
 
-import org.melati.courtiouspoem.poem.generated.CourtiouspoemDatabaseBase;
+import org.melati.courteouspoem.poem.generated.CourteouspoemDatabaseBase;
 import org.melati.poem.PoemException;
 
 /**
  * Melati POEM generated, programmer modifiable stub.
  */
-public class CourtiouspoemDatabase extends CourtiouspoemDatabaseBase
-                            implements CourtiouspoemDatabaseTables {
+public class CourteouspoemDatabase extends CourteouspoemDatabaseBase
+                            implements CourteouspoemDatabaseTables {
 
   // programmer's domain-specific code here
   

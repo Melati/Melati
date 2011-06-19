@@ -1,5 +1,5 @@
 /*
- * DSD for jdbc:hsqldb:/dist/courtiouspoem/db/courtiouspoem (org.melati.courtiouspoem.poem.CourtiouspoemDatabase)
+ * DSD for jdbc:hsqldb:/dist/courteouspoem/db/courteouspoem (org.melati.courteouspoem.poem.CourteouspoemDatabase)
  * 
  *  Generated for _guest_
  * 
@@ -18,7 +18,7 @@
  *    
  */
 
-package org.melati.courtiouspoem.poem;
+package org.melati.courteouspoem.poem;
 
 
 

@@ -1,4 +1,4 @@
-package org.melati.courtiouspoem.poem;
+package org.melati.courteouspoem.poem;
 
 import org.melati.poem.JdbcTable;
 import org.melati.poem.DefinitionSource;
@@ -8,7 +8,7 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifyable inheritance hook.
  */
-public class CourtiouspoemTable extends JdbcTable {
+public class CourteouspoemTable extends JdbcTable {
 
  /**
   * Constructor. 
@@ -20,7 +20,7 @@ public class CourtiouspoemTable extends JdbcTable {
   * @throws PoemException    if anything goes wrong
   */
 
-  public CourtiouspoemTable(
+  public CourteouspoemTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);

@@ -8,10 +8,10 @@
     <version>0.7.8-RC3-SNAPSHOT</version>
   </parent>
   <groupId>org.melati</groupId>
-  <artifactId>courtiouspoem</artifactId>
+  <artifactId>courteouspoem</artifactId>
   <version>0.7.8-RC3-SNAPSHOT</version>
-  <name>courtiouspoem</name>
-  <url>http://www.paneris.net/courtiouspoem</url>
+  <name>courteouspoem</name>
+  <url>http://www.paneris.net/courteouspoem</url>
   <licenses>
     <license>
       <name>Gnu Public License</name>
@@ -60,9 +60,9 @@
     </mailingList>
   </mailingLists>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:courtiouspoem</connection>
-    <developerConnection>scm:cvs:ext:timp@paneris.net:/usr/cvsroot:courtiouspoem</developerConnection>
-    <url>http://paneris.net/cgi-bin/cvsweb.cgi/courtiouspoem/</url>
+    <connection>scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:courteouspoem</connection>
+    <developerConnection>scm:cvs:ext:timp@paneris.net:/usr/cvsroot:courteouspoem</developerConnection>
+    <url>http://paneris.net/cgi-bin/cvsweb.cgi/courteouspoem/</url>
   </scm>
   <ciManagement>
     <system>Jenkins</system>
@@ -77,7 +77,7 @@
     <site>
       <id>live</id>
       <name>Live Site</name>
-      <url>scp://www.paneris.net/data/www/courtiouspoem/</url>
+      <url>scp://www.paneris.net/data/www/courteouspoem/</url>
     </site>
   </distributionManagement>
   <dependencies>
@@ -209,10 +209,10 @@
             </goals>
             <configuration>
               <tasks>
-                <move file="${project.build.sourceDirectory}/org/melati/AppServlet.java" tofile="${project.build.sourceDirectory}/org/melati/courtiouspoem/CourtiouspoemServlet.java" failonerror="false" />
-                <move file="${project.build.sourceDirectory}/org/melati/poem/App.dsd" tofile="${project.build.sourceDirectory}/org/melati/courtiouspoem/poem/courtiouspoem.dsd" failonerror="false" />
-                <move file="${project.build.testSourceDirectory}/org/melati/poem/test/PoemTest.java" tofile="${project.build.testSourceDirectory}/org/melati/courtiouspoem/poem/test/PoemTest.java" failonerror="false" />
-                <move file="${project.build.testSourceDirectory}/org/melati/melati/test/JettyWebTestCase.java" tofile="${project.build.testSourceDirectory}/org/melati/courtiouspoem/melati/test/CourtiouspoemJettyWebTestCase.java" failonerror="false" />
+                <move file="${project.build.sourceDirectory}/org/melati/AppServlet.java" tofile="${project.build.sourceDirectory}/org/melati/courteouspoem/CourteouspoemServlet.java" failonerror="false" />
+                <move file="${project.build.sourceDirectory}/org/melati/poem/App.dsd" tofile="${project.build.sourceDirectory}/org/melati/courteouspoem/poem/courteouspoem.dsd" failonerror="false" />
+                <move file="${project.build.testSourceDirectory}/org/melati/poem/test/PoemTest.java" tofile="${project.build.testSourceDirectory}/org/melati/courteouspoem/poem/test/PoemTest.java" failonerror="false" />
+                <move file="${project.build.testSourceDirectory}/org/melati/melati/test/JettyWebTestCase.java" tofile="${project.build.testSourceDirectory}/org/melati/courteouspoem/melati/test/CourteouspoemJettyWebTestCase.java" failonerror="false" />
                 <delete dir="${project.build.sourceDirectory}/org/melati/poem" failonerror="false" />
                 <delete dir="${project.build.testSourceDirectory}/org/melati/poem" failonerror="false" />
                 <delete dir="${project.build.testSourceDirectory}/org/melati/melati" failonerror="false" />
@@ -240,8 +240,8 @@
           </dependency>
         </dependencies>
         <configuration>
-          <dsdPackage>org.melati.courtiouspoem.poem</dsdPackage>
-          <dsdFile>courtiouspoem.dsd</dsdFile>
+          <dsdPackage>org.melati.courteouspoem.poem</dsdPackage>
+          <dsdFile>courteouspoem.dsd</dsdFile>
         </configuration>
       </plugin>
       <plugin>
@@ -282,10 +282,10 @@
         <configuration>
           <mainClass>org.melati.app.DSDApp</mainClass>
           <arguments>
-            <argument>courtiouspoem</argument>
+            <argument>courteouspoem</argument>
             <argument>DSD</argument>
             <argument>-output</argument>
-            <argument>${project.build.sourceDirectory}/org/melati/courtiouspoem/poem/courtiouspoem.dsd</argument>
+            <argument>${project.build.sourceDirectory}/org/melati/courteouspoem/poem/courteouspoem.dsd</argument>
           </arguments>
         </configuration>
       </plugin>

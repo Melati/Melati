@@ -1538,5 +1538,35 @@ public abstract class Database implements TransactionPool {
     this.displayName = displayName;
   }
 
+  /**
+   * Use this for DDL statements, ie those which alter the structure of the db.
+   * Postgresql in particular does not like DDL statements being executed within a transaction.
+   * 
+   * @param sql the SQL DDL statement to execute
+   * @throws StructuralModificationFailedPoemException
+   */
+  public void modifyStructure(String sql)
+      throws StructuralModificationFailedPoemException {
+    
+    // We have to do this to avoid blocking
+    if (PoemThread.inSession())
+      PoemThread.commit();
+  
+    try {
+      if (logSQL()) log("about to execute:" + sql);
+  
+      Statement updateStatement = getCommittedConnection().createStatement();
+      updateStatement.executeUpdate(sql);
+      updateStatement.close();
+      getCommittedConnection().commit();
+      if (logCommits()) log(new CommitLogEvent(null));
+      if (logSQL()) log(new StructuralModificationLogEvent(sql));
+      incrementQueryCount(sql);
+    }
+    catch (SQLException e) {
+      throw new StructuralModificationFailedPoemException(sql, e);
+    }
+  }
+
 }
 

@@ -82,7 +82,7 @@ public class JdbcTable implements Selectable, Table {
 
   private JdbcTable _this = this;
 
-  private Database database;
+  Database database;
   private String name;
   private String quotedName;
   private DefinitionSource definitionSource;
@@ -594,41 +594,19 @@ public class JdbcTable implements Selectable, Table {
   // 
 
   /**
-   * Use this for DDL statements, ie those which alter the structure of the db.
-   * Postgresql in particular does not like DDL statements being executed within a transaction.
-   * 
-   * @param sql the SQL DDL statement to execute
-   * @throws StructuralModificationFailedPoemException
+   * @deprecated Use {@link org.melati.poem.Database#modifyStructure(String)} instead
    */
   public void dbModifyStructure(String sql)
       throws StructuralModificationFailedPoemException {
-    
-    // We have to do this to avoid blocking
-    if (PoemThread.inSession())
-      PoemThread.commit();
-
-    try {
-      if (database.logSQL()) database.log("about to execute:" + sql);
-
-      Statement updateStatement = database.getCommittedConnection().createStatement();
-      updateStatement.executeUpdate(sql);
-      updateStatement.close();
-      database.getCommittedConnection().commit();
-      if (database.logCommits()) database.log(new CommitLogEvent(null));
-      if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
-      database.incrementQueryCount(sql);
-    }
-    catch (SQLException e) {
-      throw new StructuralModificationFailedPoemException(sql, e);
-    }
+        database.modifyStructure(sql);
   }
 
   private void dbCreateTable() {
     String createTableSql = dbms().createTableSql(this);
-    dbModifyStructure(createTableSql);
+    database.modifyStructure(createTableSql);
     String tableSetup = database.getDbms().tableInitialisationSql(this); 
     if (tableSetup != null) { 
-      dbModifyStructure(tableSetup);
+      database.modifyStructure(tableSetup);
     }
   }
   

@@ -353,7 +353,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#dbModifyStructure(String)
+   * @see #MISSING()
    */
   public void testDbModifyStructure() {
 

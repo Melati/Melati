@@ -9,8 +9,8 @@
   <url>http://www.paneris.net/${artifactId}</url>
 
   <ciManagement>
-    <system>Hudson</system>
-    <url>http://hudson.paneris.net/</url>
+    <system>Jenkins</system>
+    <url>http://jenkins.paneris.net/</url>
   </ciManagement>
 
   <scm>

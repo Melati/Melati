@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+  <!-- ============================================================= -->
+  <!--  A simple Servlet 2.3 setup for Courtiouspoem                        -->
+  <!--                                                               -->
+  <!-- \$Date$                                  -->
+  <!-- \$Author$                                               -->
+  <!--                                                               -->
+  <!-- ============================================================= -->
+<web-app>
+
+  <display-name>Courtiouspoem</display-name>
+
+<!-- Register every servlet used in the site -->
+
+  <servlet>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <servlet-class>org.melati.admin.Admin</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <servlet-class>org.melati.admin.Display</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <servlet-class>org.melati.admin.Status</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <servlet-class>org.melati.test.SessionAnalysisServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.ServletTest</servlet-name>
+    <servlet-class>org.melati.test.ServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
+    <servlet-class>org.melati.test.ConfigServletTest</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <servlet-class>org.melati.test.ConfigServletTestOverride</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.CharsetServletTest</servlet-name>
+    <servlet-class>org.melati.test.CharsetServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.CharsetTemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.CharsetTemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.EmailTemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <servlet-class>org.melati.test.PoemServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.TemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.TemplateServletTestOverride</servlet-name>
+    <servlet-class>org.melati.test.TemplateServletTestOverride</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <servlet-class>org.melati.test.FlushingServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <servlet-class>org.melati.test.WebmacroMelatiServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <servlet-class>org.melati.test.WebmacroStandalone</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>org.melati.test.ExitServlet</servlet-name>
+    <servlet-class>org.melati.test.ExitServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <servlet-class>org.melati.login.Login</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <servlet-class>org.melati.login.Logout</servlet-class>
+  </servlet>
+  
+
+<!-- Now map them to URLs -->
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Admin/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/org.melati.admin.Admin/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/Admin/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/Display/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/Status/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/org.melati.test.SessionAnalysisServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/melati/org.melati.test.SessionAnalysisServlet/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.ServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ServletTest</servlet-name>
+    <url-pattern>/org.melati.test.ServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.ConfigServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
+    <url-pattern>/org.melati.test.ConfigServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <url-pattern>/melati/org.melati.test.ConfigServletTestOverride/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <url-pattern>/org.melati.test.ConfigServletTestOverride/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.PoemServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <url-pattern>/org.melati.test.PoemServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.CharsetServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.CharsetServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.CharsetServletTest</servlet-name>
+    <url-pattern>/org.melati.test.CharsetServletTest/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.CharsetTemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.CharsetTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.CharsetTemplateServletTest</servlet-name>
+    <url-pattern>/org.melati.test.CharsetTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.EmailTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <url-pattern>/org.melati.test.EmailTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.TemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <url-pattern>/org.melati.test.TemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTestOverride</servlet-name>
+    <url-pattern>/melati/org.melati.test.TemplateServletTestOverride/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTestOverride</servlet-name>
+    <url-pattern>/org.melati.test.TemplateServletTestOverride/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.FlushingServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <url-pattern>/org.melati.test.FlushingServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroMelatiServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <url-pattern>/org.melati.test.WebmacroMelatiServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroStandalone/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <url-pattern>/org.melati.test.WebmacroStandalone/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/melati/org.melati.login.Login/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/org.melati.login.Login/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/Login/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/melati/org.melati.login.Logout/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/org.melati.login.Logout/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/Logout/*</url-pattern>
+  </servlet-mapping>
+
+  <listener>
+    <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
+  </listener>
+
+<!-- courtiouspoem specific -->
+  <servlet>
+    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
+    <servlet-class>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
+    <url-pattern>/org.melati.courtiouspoem.CourtiouspoemServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
+    <url-pattern>/CourtiouspoemServlet/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
+
+
+
+
+
+
+

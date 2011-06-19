@@ -216,11 +216,13 @@
      <artifactId>maven-surefire-plugin</artifactId>
      <version>2.8.1</version>
      <configuration>
+     <!--
       <redirectTestOutputToFile>true</redirectTestOutputToFile>
       <forkMode>once</forkMode>
-      <!-- threadCount>1</threadCount-->
-      <!-- childDelegation>false</childDelegation -->
+      <threadCount>1</threadCount>
+      <childDelegation>false</childDelegation>
       <useFile>true</useFile>
+      -->
       <includes>
        <include>**/*Test.java</include>
       </includes>

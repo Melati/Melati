@@ -9,6 +9,9 @@
     <module>poem</module>
     <module>melati</module>
     <module>melati-example-contacts</module>
+    <!--
+    <module>melati-example-courtious</module>
+    -->
     <module>melati-example-odmg</module>
     <module>maven-dsd-plugin</module>
     <module>melati-webapp</module>
@@ -17,8 +20,6 @@
     <module>melati-skin</module>
 -->
     <module>throwing-jdbc</module>
-    <module>art</module>
-    <module>melati-example-courtious</module>
   </modules>
   <version>0.7.8-RC3-SNAPSHOT</version>
   <description>

@@ -1472,14 +1472,14 @@ public abstract class Database implements TransactionPool {
     System.err.println(s);
   }
 
-  void beginStructuralModification() {
+  protected void beginStructuralModification() {
     beginExclusiveLock();
   }
 
   /**
    * Uncache, increment serial and release exclusive lock.
    */
-  void endStructuralModification() {
+  protected void endStructuralModification() {
     for (int t = 0; t < tables.size(); ++t)
       ((Table)tables.elementAt(t)).uncache();
     ++structureSerial;

@@ -9,9 +9,7 @@
     <module>poem</module>
     <module>melati</module>
     <module>melati-example-contacts</module>
-    <!--
-    <module>melati-example-courtious</module>
-    -->
+    <module>courtiouspoem</module>
     <module>melati-example-odmg</module>
     <module>maven-dsd-plugin</module>
     <module>melati-webapp</module>

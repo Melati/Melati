@@ -36,6 +36,25 @@
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
+      <artifactId>courteouspoem</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.8</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.0.4</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.melati</groupId>
       <artifactId>melati-example-odmg</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>

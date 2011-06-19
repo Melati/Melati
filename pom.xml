@@ -17,6 +17,8 @@
     <module>melati-skin</module>
 -->
     <module>throwing-jdbc</module>
+    <module>art</module>
+    <module>melati-example-courtious</module>
   </modules>
   <version>0.7.8-RC3-SNAPSHOT</version>
   <description>
@@ -51,7 +53,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </repository>
     <site>
       <id>melati_site</id>
-      <url>scp://melati.org/var/www/melati/</url>
+      <url>file://var/www/melati/</url>
     </site>
   </distributionManagement>
   <pluginRepositories>
@@ -531,4 +533,3 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
    </plugins>
   </build>
 </project>
-

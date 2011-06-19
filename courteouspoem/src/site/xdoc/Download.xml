@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <body>
+
+
+<section name=" Download Latest Release ">
+
+      <p>
+        The latest snapshot build can be found in our local <a
+	href="http://maven.apache.org/">Maven</a> 
+        repository
+        <a href="http://maven.melati.org/maven2/org.melati/courtiouspoem">here</a>.
+      </p>
+      
+</section>
+<section name=" CVS Access ">
+
+<p>Melati is available via anonymous CVS, which also has a 
+<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/courtiouspoem/">web interface</A>. 
+</p>
+<p>With the command-line CVS client, you do:
+<pre>
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
+(Logging in to anonymous@melati.org)
+CVS password: anonymous
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout courtiouspoem
+</pre>
+</p>
+
+<p>
+ You will need a CVS client to perform the above procedure.  
+ Every Linux distribution comes with command line CVS.
+</p>
+<p>
+If you are using <a href="http://www.eclipse.org/">Eclipse</a> then
+ you can just point to the above repository and checkout as project.
+</p>
+<p>If you want a Windows CVS client, check out <a
+ href="http://www.tortoisecvs.org">www.tortoisecvs.org</a>
+</p>
+</section>
+</body>
+</document>
+
+

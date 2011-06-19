@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>melati-example-contacts - Melati Maven derived site</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+melati-example-contacts Maven Melati
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Courteous Poem Database ">
+<table border="12" align="center"><tr><td>
+<p>
+To use POEM you need to have write access to your database. 
+
+POEM gathers information about your database and stores that information 
+in the following tables, which it creates:
+<ul>
+<li>
+<tt>tableinfo</tt>
+</li>
+<li>
+<tt>columninfo</tt>
+</li>
+<li>
+<tt>tablecategory</tt>
+</li>
+<li>
+<tt>group</tt>
+</li>
+<li>
+<tt>user</tt>
+</li>
+</ul>
+</p>
+<p>
+POEM is very well behaved and leaves no other trace of its interaction, 
+but you may feel that creating tables in a databse is too much.
+</p>  
+<p>
+A <tt>CourtiousPoemDatabase</tt> deletes these tables during shutdown. 
+You may have used POEM to modify the databse, but you do not need to 
+perform the cleanup step of removing temporary the metadata tables. 
+</p>
+  
+</td></tr></table>
+</section>
+</body>
+</document>
+
+

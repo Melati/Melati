@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <body>
+
+
+<section name="Using the Admin System">
+<p>
+The website can be viewed as a tree with the home page as the root.
+The tree view can be viewed by clicking the <b>tree</b> link on the top right  
+frame of a <b>Page</b> record within the 
+<a href="/db/Admin/wvm/Main">Admin System</a>.
+</p>
+<subsection name="Creating a new Record">
+<p>
+Access the <a href="/courtiouspoem/Admin/courtiouspoem/Main">Admin System</a>, 
+where you can select Table you wish to add to from the dropdown. 
+</p>
+<ol>
+<li>Click the New Record icon <img src="/melati-static/admin/edit_file.gif"
+alt="New Record Icon"/>.
+</li>
+<li>Fill in at least the items marked with a red <font color="red">*</font>.
+[Leave the <font color="red">Deleted</font> box unchecked.]
+</li>
+<li>Press <tt>Update</tt></li>
+</ol>
+<p>
+You have created a new record!
+</p>
+</subsection>
+</section>
+</body>
+</document>
+
+
+
+
+

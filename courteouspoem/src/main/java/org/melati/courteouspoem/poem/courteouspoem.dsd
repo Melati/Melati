@@ -1,0 +1,24 @@
+/*
+ * DSD for jdbc:hsqldb:/dist/courtiouspoem/db/courtiouspoem (org.melati.courtiouspoem.poem.CourtiouspoemDatabase)
+ * 
+ *  Generated for _guest_
+ * 
+ * WARNING
+ * This export is not necessarily information preserving.
+ * 1) if you have used a capitalisation regime other than first 
+ *    letter capital then the case  will not be preserved.
+ * 2) Abstract tables are not preserved; the tables are 'de-normalised'.
+ * 3) Importing another DSD, such as messageboards, is 
+ *    not preserved, all tables are in a single package namespace.
+ *    
+ * NOTE
+ * This template can include all system and inherited tables but then 
+ * should NOT be used to replace an existing DSD.
+ * (add all=true to URL)
+ *    
+ */
+
+package org.melati.courtiouspoem.poem;
+
+
+

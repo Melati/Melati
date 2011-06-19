@@ -53,7 +53,7 @@ POEM is very well behaved and leaves no other trace of its interaction,
 but you may feel that creating tables in a databse is too much.
 </p>  
 <p>
-A <tt>CourtiousPoemDatabase</tt> deletes these tables during shutdown. 
+A <tt>CourteousPoemDatabase</tt> deletes these tables during shutdown. 
 You may have used POEM to modify the databse, but you do not need to 
 perform the cleanup step of removing temporary the metadata tables. 
 </p>

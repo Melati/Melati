@@ -16,7 +16,7 @@ import org.melati.poem.SettingTable;
 
 /**
  * Melati POEM generated base interface to the tables in 
- * org.melati.courtiouspoem.poem.
+ * org.melati.courteouspoem.poem.
  */
 public interface CourteouspoemDatabaseTablesBase {
 

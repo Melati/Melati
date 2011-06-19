@@ -11,21 +11,21 @@
         The latest snapshot build can be found in our local <a
 	href="http://maven.apache.org/">Maven</a> 
         repository
-        <a href="http://maven.melati.org/maven2/org.melati/courtiouspoem">here</a>.
+        <a href="http://maven.melati.org/maven2/org.melati/courteouspoem">here</a>.
       </p>
       
 </section>
 <section name=" CVS Access ">
 
 <p>Melati is available via anonymous CVS, which also has a 
-<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/courtiouspoem/">web interface</A>. 
+<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/courteouspoem/">web interface</A>. 
 </p>
 <p>With the command-line CVS client, you do:
 <pre>
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
 (Logging in to anonymous@melati.org)
 CVS password: anonymous
-$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout courtiouspoem
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout courteouspoem
 </pre>
 </p>
 

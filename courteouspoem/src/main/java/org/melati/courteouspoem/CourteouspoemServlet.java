@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
-//import org.melati.courtiouspoem.poem.CourtiouspoemDatabase;
+//import org.melati.courteouspoem.poem.CourteouspoemDatabase;
 
 /**
  * Base servlet for Courteouspoem servlets.
@@ -17,7 +17,7 @@ import org.melati.template.ServletTemplateContext;
 public abstract class CourteouspoemServlet extends TemplateServlet {
 
 
-  public static final String templatePrefix = "org/melati/courtiouspoem/view/";
+  public static final String templatePrefix = "org/melati/courteouspoem/view/";
 
   public String getSysAdminName () {
     return "TimP";
@@ -59,13 +59,13 @@ public abstract class CourteouspoemServlet extends TemplateServlet {
   private boolean fileAt(String filename){
     if (filename.equals("")) return false;
     if (filename.equals("/")) return false;
-    String fsName = "/dist/courtiouspoem/www" + filename;
+    String fsName = "/dist/courteouspoem/www" + filename;
     File it = new File(fsName);
     System.err.println("FS:" + fsName + " " + it.exists());
     return it.exists();
   }
 
-  public String courtiouspoemTemplate(String name) {
+  public String courteouspoemTemplate(String name) {
     return addExtension(templatePrefix + name);
   }
 
@@ -88,7 +88,7 @@ public abstract class CourteouspoemServlet extends TemplateServlet {
    */
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
-    return courtiouspoemTemplate(reallyDoTemplateRequest(melati, context));
+    return courteouspoemTemplate(reallyDoTemplateRequest(melati, context));
   }
 
   /**

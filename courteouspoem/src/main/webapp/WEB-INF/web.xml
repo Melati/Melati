@@ -5,7 +5,7 @@
   "http://java.sun.com/dtd/web-app_2_3.dtd">
 
   <!-- ============================================================= -->
-  <!--  A simple Servlet 2.3 setup for Courtiouspoem                        -->
+  <!--  A simple Servlet 2.3 setup for Courteouspoem                        -->
   <!--                                                               -->
   <!-- \$Date$                                  -->
   <!-- \$Author$                                               -->
@@ -13,7 +13,7 @@
   <!-- ============================================================= -->
 <web-app>
 
-  <display-name>Courtiouspoem</display-name>
+  <display-name>Courteouspoem</display-name>
 
 <!-- Register every servlet used in the site -->
 
@@ -299,18 +299,18 @@
     <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
   </listener>
 
-<!-- courtiouspoem specific -->
+<!-- courteouspoem specific -->
   <servlet>
-    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
-    <servlet-class>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-class>
+    <servlet-name>org.melati.courteouspoem.CourteouspoemServlet</servlet-name>
+    <servlet-class>org.melati.courteouspoem.CourteouspoemServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
-    <url-pattern>/org.melati.courtiouspoem.CourtiouspoemServlet/*</url-pattern>
+    <servlet-name>org.melati.courteouspoem.CourteouspoemServlet</servlet-name>
+    <url-pattern>/org.melati.courteouspoem.CourteouspoemServlet/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>org.melati.courtiouspoem.CourtiouspoemServlet</servlet-name>
-    <url-pattern>/CourtiouspoemServlet/*</url-pattern>
+    <servlet-name>org.melati.courteouspoem.CourteouspoemServlet</servlet-name>
+    <url-pattern>/CourteouspoemServlet/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

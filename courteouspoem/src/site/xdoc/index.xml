@@ -3,7 +3,7 @@
 <document>
 
   <properties>
-    <title>melati-example-contacts - Melati Maven derived site</title>
+    <title>CourteousPoemDatabase - Melati Maven derived site</title>
     <author email="timp@paneris.org">Tim Pizey</author>
     <keywords>
 melati-example-contacts Maven Melati
@@ -13,23 +13,19 @@ melati-example-contacts Maven Melati
   <body>
 
 
-<!--
-<p align="center">
- <font size="-1"><i>
-This page last updated: $Date$ $Author$
- </i></font>
-</p>
--->
-  
 <!-- menu -->
 
 <section name=" Courteous Poem Database ">
 <table border="12" align="center"><tr><td>
 <p>
-To use POEM you need to have write access to your database. 
-
+To use POEM you need to have write access to your database.
+POEM is very well behaved and leaves no trace of its interaction, 
+other than its metadata tables,
+but you may feel that creating tables in your database is too much.
+</p>
+<p>
 POEM gathers information about your database and stores that information 
-in the following tables, which it creates:
+in the following tables:
 <ul>
 <li>
 <tt>tableinfo</tt>
@@ -49,15 +45,16 @@ in the following tables, which it creates:
 </ul>
 </p>
 <p>
-POEM is very well behaved and leaves no other trace of its interaction, 
-but you may feel that creating tables in a databse is too much.
-</p>  
-<p>
 A <tt>CourteousPoemDatabase</tt> deletes these tables during shutdown. 
-You may have used POEM to modify the databse, but you do not need to 
-perform the cleanup step of removing temporary the metadata tables. 
+You may have used POEM to modify the database, but you do not need to 
+perform the cleanup step of removing the temporary metadata tables. 
 </p>
-  
+<p>
+After you have accessed a database with POEM then it is no longer pristine, 
+the possibility of it havintg been altered still remains, 
+not least by your applicatrion, but there will not be a bunch of 
+POEM specific new tables let behind. 
+</p>
 </td></tr></table>
 </section>
 </body>

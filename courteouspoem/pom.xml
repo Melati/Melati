@@ -11,75 +11,12 @@
   <artifactId>courteouspoem</artifactId>
   <version>0.7.8-RC3-SNAPSHOT</version>
   <name>courteouspoem</name>
-  <url>http://www.paneris.net/courteouspoem</url>
-  <licenses>
-    <license>
-      <name>Gnu Public License</name>
-      <url>http://www.gnu.org/copyleft/gpl.html</url>
-      <distribution>repo</distribution>
-    </license>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <developers>
-    <developer>
-      <id>timp</id>
-      <name>Tim Pizey</name>
-      <email>timp At paneris.org</email>
-      <url>http://paneris.org/~timp</url>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Maintainer</role>
-        <role>Maven maven</role>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-  </developers>
-  <mailingLists>
-    <mailingList>
-      <name>Melati Announce</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/melati-announce</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/melati-announce</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=melati-announce</archive>
-    </mailingList>
-    <mailingList>
-      <name>Melati Developers</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/melati-developers</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/melati-developers</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=melati-developers</archive>
-    </mailingList>
-    <mailingList>
-      <name>Melati Users</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/melati-users</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/melati-users</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=melati-users</archive>
-    </mailingList>
-  </mailingLists>
+  <url>http://www.melati.org/courteouspoem</url>
   <scm>
     <connection>scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:courteouspoem</connection>
     <developerConnection>scm:cvs:ext:timp@paneris.net:/usr/cvsroot:courteouspoem</developerConnection>
     <url>http://paneris.net/cgi-bin/cvsweb.cgi/courteouspoem/</url>
   </scm>
-  <ciManagement>
-    <system>Jenkins</system>
-    <url>http://jenkins.paneris.net/</url>
-  </ciManagement>
-  <distributionManagement>
-    <repository>
-      <id>melati</id>
-      <name>Default Repository</name>
-      <url>scp://melati.org/data/www/maven2/</url>
-    </repository>
-    <site>
-      <id>live</id>
-      <name>Live Site</name>
-      <url>scp://www.paneris.net/data/www/courteouspoem/</url>
-    </site>
-  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>
@@ -199,29 +136,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>moveGeneratedFiles</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <move file="${project.build.sourceDirectory}/org/melati/AppServlet.java" tofile="${project.build.sourceDirectory}/org/melati/courteouspoem/CourteouspoemServlet.java" failonerror="false" />
-                <move file="${project.build.sourceDirectory}/org/melati/poem/App.dsd" tofile="${project.build.sourceDirectory}/org/melati/courteouspoem/poem/courteouspoem.dsd" failonerror="false" />
-                <move file="${project.build.testSourceDirectory}/org/melati/poem/test/PoemTest.java" tofile="${project.build.testSourceDirectory}/org/melati/courteouspoem/poem/test/PoemTest.java" failonerror="false" />
-                <move file="${project.build.testSourceDirectory}/org/melati/melati/test/JettyWebTestCase.java" tofile="${project.build.testSourceDirectory}/org/melati/courteouspoem/melati/test/CourteouspoemJettyWebTestCase.java" failonerror="false" />
-                <delete dir="${project.build.sourceDirectory}/org/melati/poem" failonerror="false" />
-                <delete dir="${project.build.testSourceDirectory}/org/melati/poem" failonerror="false" />
-                <delete dir="${project.build.testSourceDirectory}/org/melati/melati" failonerror="false" />
-              </tasks>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.melati</groupId>
         <artifactId>maven-dsd-plugin</artifactId>
         <executions>
@@ -243,29 +157,6 @@
           <dsdPackage>org.melati.courteouspoem.poem</dsdPackage>
           <dsdFile>courteouspoem.dsd</dsdFile>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>dependency-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unzip-resources</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.melati</groupId>
-                  <artifactId>melati</artifactId>
-                  <version>0.7.8-RC3-SNAPSHOT</version>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>src/main/webapp</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -299,24 +190,4 @@
       </plugin>
     </plugins>
   </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag>FIXME</tag>
-            <tag>@deprecated</tag>
-            <tag>HACK</tag>
-            <tag>NOTE</tag>
-          </tags>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>

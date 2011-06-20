@@ -51,9 +51,9 @@ perform the cleanup step of removing the temporary metadata tables.
 </p>
 <p>
 After you have accessed a database with POEM then it is no longer pristine, 
-the possibility of it havintg been altered still remains, 
-not least by your applicatrion, but there will not be a bunch of 
-POEM specific new tables let behind. 
+the possibility of it having been altered still remains, 
+not least by your application, but there will not be a bunch of 
+new POEM-specific tables left behind. 
 </p>
 </td></tr></table>
 </section>

@@ -54,7 +54,7 @@ import java.util.NoSuchElementException;
 public class EmptyEnumeration<T> implements Enumeration<T> {
 
   /** The instance. */
-  public static final EmptyEnumeration<Object> it = new EmptyEnumeration<Object>();
+  public static final EmptyEnumeration it = new EmptyEnumeration();
 
   /**
    * {@inheritDoc}

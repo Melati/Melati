@@ -100,10 +100,10 @@ public class CachedSelection extends CachedQuery {
   /**
    * @return an Enumeration of Table Row ReferencePoemType objects
    */
-  public Enumeration objects() {
+  public Enumeration<Persistent> objects() {
     return
-        new MappedEnumeration(troids()) {
-          public Object mapped(Object troid) {
+        new MappedEnumeration<Persistent,Integer>(troids()) {
+          public Persistent mapped(Integer troid) {
             return table.getObject((Integer)troid);
           }
         };

@@ -116,7 +116,7 @@ public class Contact extends ContactBase implements Treeable {
   }
 
   /**
-   * @param v vector od Treeables
+   * @param v vector of Treeables
    * @return an array of Treeables
    */
   public static Treeable[] arrayOf(Vector v) {

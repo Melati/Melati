@@ -390,5 +390,6 @@ public abstract class ContactCategoryBase extends JdbcPersistent {
     Column c = _getContactCategoryTable().getContactColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

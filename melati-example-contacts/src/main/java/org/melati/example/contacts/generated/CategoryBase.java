@@ -10,6 +10,10 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.CachedSelection;
+import org.melati.poem.util.EmptyEnumeration;
+import java.util.Enumeration;
+import org.melati.poem.Persistent;
 
 
 /**
@@ -236,5 +240,20 @@ public abstract class CategoryBase extends JdbcPersistent {
     Column c = _getCategoryTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection categoryContactCategorys = null;
+  /** References to this in the ContactCategory table via its category field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Persistent> getCategoryContactCategorys() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (categoryContactCategorys == null)
+        categoryContactCategorys =
+        getContactsDatabaseTables().getContactCategoryTable().getCategoryColumn().cachedSelectionWhereEq(getTroid());
+      return categoryContactCategorys.objects();
+    }
+    }
+
 }
 

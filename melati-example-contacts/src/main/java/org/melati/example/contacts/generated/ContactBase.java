@@ -14,6 +14,10 @@ import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.CachedSelection;
+import org.melati.poem.util.EmptyEnumeration;
+import java.util.Enumeration;
+import org.melati.poem.Persistent;
 
 
 /**
@@ -760,5 +764,20 @@ public abstract class ContactBase extends JdbcPersistent {
     Column c = _getContactTable().getLastupdateuserColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection contactContactCategorys = null;
+  /** References to this in the ContactCategory table via its contact field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Persistent> getContactContactCategorys() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (contactContactCategorys == null)
+        contactContactCategorys =
+        getContactsDatabaseTables().getContactCategoryTable().getContactColumn().cachedSelectionWhereEq(getTroid());
+      return contactContactCategorys.objects();
+    }
+    }
+
 }
 

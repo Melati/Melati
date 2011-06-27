@@ -89,6 +89,7 @@ public class TableDef {
   String displayName;
   String description;
   String category;
+  String superclass;
   int displayOrder;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
@@ -137,7 +138,6 @@ public class TableDef {
     suffix = tokens.sval;
     name = suffix.toLowerCase();
 
-    String superclass = null;
 
     if (tokens.nextToken() == StreamTokenizer.TT_WORD) {
       if (!tokens.sval.equals("extends"))
@@ -279,6 +279,7 @@ public class TableDef {
       throws IOException {
     boolean needSelectionImports = false;
     for (TableDef t : dsd.tablesInDatabase) { 
+      if (!t.isAbstract && t.superclass == null)
       for (FieldDef f : t.fields) { 
         if (f instanceof ReferenceFieldDef) { 
           ReferenceFieldDef rfd = (ReferenceFieldDef) f;
@@ -367,32 +368,34 @@ public class TableDef {
     //  write getReferencesByColumname
     for (TableDef t : dsd.tablesInDatabase) { 
       // w.write("// " + t.name + "\n");
-      for (FieldDef f : t.fields) { 
-        if (f instanceof ReferenceFieldDef) { 
-          ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-         // w.write("// " + t.name 
-         //     + "-" + rfd.name + "-" 
-         //     + "-" + rfd.type + "-" 
-         //     + "-" + rfd.name + "-" 
-         //     +  rfd.mainClass + "\n");
+      if (!t.isAbstract && t.superclass == null) { 
+        for (FieldDef f : t.fields) { 
+          if (f instanceof ReferenceFieldDef) { 
+            ReferenceFieldDef rfd = (ReferenceFieldDef) f;
+           // w.write("// " + t.name 
+           //     + "-" + rfd.name + "-" 
+           //     + "-" + rfd.type + "-" 
+           //     + "-" + rfd.name + "-" 
+           //     +  rfd.mainClass + "\n");
           
-          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {
-            //w.write("// " + t.name + "-" + rfd.type + "- "+ rfd.mainClass + "\n");
-            w.write('\n');
+            if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {
+              //w.write("// " + t.name + "-" + rfd.type + "- "+ rfd.mainClass + "\n");
+              w.write('\n');
           
-            w.write("  private CachedSelection " + rfd.name+rfd.mainClass + "s = null;\n");
-            w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field.*/\n");
-            w.write("  @SuppressWarnings(\"unchecked\")\n");
-            w.write("  public Enumeration<Persistent> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s() {\n");
-            w.write("    if (getTroid() == null)\n");
-            w.write("      return EmptyEnumeration.it;\n");
-            w.write("    else {\n");
-            w.write("      if (" + rfd.name+rfd.mainClass + "s == null)\n");
-            w.write("        " + rfd.name+rfd.mainClass + "s =\n");
-            w.write("          get" + dsd.databaseTablesClassName + "().get"+rfd.mainClass+"Table().get"+StringUtils.capitalised(rfd.name)+"Column().cachedSelectionWhereEq(getTroid());\n");
-            w.write("      return " + rfd.name+rfd.mainClass + "s.objects();\n");
-            w.write("    }\n");
-            w.write("    }\n");
+              w.write("  private CachedSelection " + rfd.name+rfd.mainClass + "s = null;\n");
+              w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field.*/\n");
+              w.write("  @SuppressWarnings(\"unchecked\")\n");
+              w.write("  public Enumeration<Persistent> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s() {\n");
+              w.write("    if (getTroid() == null)\n");
+              w.write("      return EmptyEnumeration.it;\n");
+              w.write("    else {\n");
+              w.write("      if (" + rfd.name+rfd.mainClass + "s == null)\n");
+              w.write("        " + rfd.name+rfd.mainClass + "s =\n");
+              w.write("          get" + dsd.databaseTablesClassName + "().get"+rfd.mainClass+"Table().get"+StringUtils.capitalised(rfd.name)+"Column().cachedSelectionWhereEq(getTroid());\n");
+              w.write("      return " + rfd.name+rfd.mainClass + "s.objects();\n");
+              w.write("    }\n");
+              w.write("    }\n");
+            }
           }
         }
       }

@@ -277,25 +277,6 @@ public class TableDef {
    */
   public void generatePersistentBaseJava(Writer w)
       throws IOException {
-    boolean needSelectionImports = false;
-    for (TableDef t : dsd.tablesInDatabase) { 
-      if (!t.isAbstract && t.superclass == null)
-      for (FieldDef f : t.fields) { 
-        if (f instanceof ReferenceFieldDef) { 
-          ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {  
-            needSelectionImports = true;
-          }
-        }
-      }
-    }
-    if (needSelectionImports) { 
-      persistentBaseImports.addElement("org.melati.poem.CachedSelection");
-      persistentBaseImports.addElement("org.melati.poem.util.EmptyEnumeration");
-      persistentBaseImports.addElement("java.util.Enumeration");
-      persistentBaseImports.addElement("org.melati.poem.Persistent");
-    }
-    w.write("\n");
     for (Enumeration<String> e = persistentBaseImports.elements(); e.hasMoreElements();) {
       w.write("import " + e.nextElement() + ";\n");
     }
@@ -367,7 +348,7 @@ public class TableDef {
     // for references to this table in tableDefs
     //  write getReferencesByColumname
     for (TableDef t : dsd.tablesInDatabase) { 
-      // w.write("// " + t.name + "\n");
+      // w.write("// " + t.name +  "-" + t.superclass + "\n");
       if (!t.isAbstract && t.superclass == null) { 
         for (FieldDef f : t.fields) { 
           if (f instanceof ReferenceFieldDef) { 
@@ -377,15 +358,18 @@ public class TableDef {
            //     + "-" + rfd.type + "-" 
            //     + "-" + rfd.name + "-" 
            //     +  rfd.mainClass + "\n");
+            
+            
           
             if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {
-              //w.write("// " + t.name + "-" + rfd.type + "- "+ rfd.mainClass + "\n");
+              w.write("// " + t.name + "-" + rfd.type + "- "+ rfd.mainClass + "\n");
+              w.write("// " + rfd.toString() + "\n");
               w.write('\n');
           
-              w.write("  private CachedSelection " + rfd.name+rfd.mainClass + "s = null;\n");
+              w.write("  private CachedSelection<" + StringUtils.capitalised(rfd.mainClass) +"> "+rfd.name+rfd.mainClass + "s = null;\n");
               w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field.*/\n");
               w.write("  @SuppressWarnings(\"unchecked\")\n");
-              w.write("  public Enumeration<Persistent> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s() {\n");
+              w.write("  public Enumeration<" + StringUtils.capitalised(rfd.mainClass) +"> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s() {\n");
               w.write("    if (getTroid() == null)\n");
               w.write("      return EmptyEnumeration.it;\n");
               w.write("    else {\n");
@@ -394,7 +378,16 @@ public class TableDef {
               w.write("          get" + dsd.databaseTablesClassName + "().get"+rfd.mainClass+"Table().get"+StringUtils.capitalised(rfd.name)+"Column().cachedSelectionWhereEq(getTroid());\n");
               w.write("      return " + rfd.name+rfd.mainClass + "s.objects();\n");
               w.write("    }\n");
-              w.write("    }\n");
+              w.write("  }\n");
+              w.write("\n");
+              w.write("\n");
+              w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field, as a List.*/\n");
+              w.write("  public List<" + StringUtils.capitalised(rfd.mainClass) +"> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "sList() {\n");
+              w.write("    return Collections.list(get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s());\n");
+              w.write("  }\n");
+              w.write("\n");
+              w.write("\n");
+              w.write("\n");
             }
           }
         }
@@ -659,6 +652,30 @@ public class TableDef {
 
     boolean hasDisplayLevel = false;
     boolean hasSearchability = false;
+    
+    boolean needSelectionImports = false;
+    for (TableDef t : dsd.tablesInDatabase) { 
+      if (!t.isAbstract && t.superclass == null)
+      for (FieldDef f : t.fields) { 
+        if (f instanceof ReferenceFieldDef) { 
+          ReferenceFieldDef rfd = (ReferenceFieldDef) f;
+          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {  
+            needSelectionImports = true;
+            addImport(rfd.table.naming.packageName + "." + StringUtils.capitalised(rfd.name), "persistent");
+          }
+        }
+      }
+    }
+    if (needSelectionImports) { 
+      persistentBaseImports.addElement(naming.packageName + ".*");
+      persistentBaseImports.addElement("org.melati.poem.CachedSelection");
+      persistentBaseImports.addElement("org.melati.poem.util.EmptyEnumeration");
+      persistentBaseImports.addElement("java.util.Enumeration");
+      persistentBaseImports.addElement("java.util.List");
+      persistentBaseImports.addElement("java.util.Collections");
+      persistentBaseImports.addElement("org.melati.poem.Persistent");
+    }
+    
     int fieldCount = 0;
     for (Enumeration<FieldDef> e = fields.elements(); e.hasMoreElements();) {
       fieldCount++;
@@ -688,7 +705,7 @@ public class TableDef {
       addImport(naming.superclassMainFQName(), "persistent");
     }
 
-    // we may not have any fields in an in an overridden class
+    // we may not have any fields in an overridden class
     // but we need the import for getTable
     addImport(naming.tableMainClassFQName(), "persistent");
     addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "persistent");

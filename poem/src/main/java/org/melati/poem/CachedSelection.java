@@ -45,13 +45,16 @@
 
 package org.melati.poem;
 
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
+
 import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A cached instance of an SQL <code>select</code> query.
  */
-public class CachedSelection extends CachedQuery {
+public class CachedSelection<T> extends CachedQuery {
 
   /**
    * Constructor.
@@ -100,15 +103,25 @@ public class CachedSelection extends CachedQuery {
   /**
    * @return an Enumeration of Table Row ReferencePoemType objects
    */
-  public Enumeration<Persistent> objects() {
+  public Enumeration<T> objects() {
     return
-        new MappedEnumeration<Persistent,Integer>(troids()) {
-          public Persistent mapped(Integer troid) {
-            return table.getObject((Integer)troid);
+        new MappedEnumeration<T,Integer>(troids()) {
+          @SuppressWarnings("unchecked")
+          public T mapped(Integer troid) {
+            return (T)table.getObject((Integer)troid);
           }
         };
   }
+  /**
+   * Convenience method.
+   * 
+   * @return a List of Table Row ReferencePoemType objects
+   */
 
+  public List<T> objectList() { 
+    return Collections.list(objects());
+  }
+  
   /**
    * @return the first, often only, result
    */

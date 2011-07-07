@@ -3,13 +3,20 @@
 package org.melati.poem.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.CapabilityTable;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.GroupCapability;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.TableInfo;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 
 
 /**
@@ -243,5 +250,116 @@ public abstract class CapabilityBase extends JdbcPersistent {
     Column c = _getCapabilityTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection<GroupCapability> capabilityGroupCapabilitys = null;
+  /** References to this in the GroupCapability table via its capability field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<GroupCapability> getCapabilityGroupCapabilitys() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (capabilityGroupCapabilitys == null)
+        capabilityGroupCapabilitys =
+          getPoemDatabaseTables().getGroupCapabilityTable().getCapabilityColumn().cachedSelectionWhereEq(getTroid());
+      return capabilityGroupCapabilitys.objects();
+    }
+  }
+
+
+  /** References to this in the GroupCapability table via its capability field, as a List.*/
+  public List<GroupCapability> getCapabilityGroupCapabilitysList() {
+    return Collections.list(getCapabilityGroupCapabilitys());
+  }
+
+
+
+  private CachedSelection<TableInfo> defaultcanreadTableInfos = null;
+  /** References to this in the TableInfo table via its defaultcanread field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<TableInfo> getDefaultcanreadTableInfos() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (defaultcanreadTableInfos == null)
+        defaultcanreadTableInfos =
+          getPoemDatabaseTables().getTableInfoTable().getDefaultcanreadColumn().cachedSelectionWhereEq(getTroid());
+      return defaultcanreadTableInfos.objects();
+    }
+  }
+
+
+  /** References to this in the TableInfo table via its defaultcanread field, as a List.*/
+  public List<TableInfo> getDefaultcanreadTableInfosList() {
+    return Collections.list(getDefaultcanreadTableInfos());
+  }
+
+
+
+  private CachedSelection<TableInfo> defaultcanwriteTableInfos = null;
+  /** References to this in the TableInfo table via its defaultcanwrite field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<TableInfo> getDefaultcanwriteTableInfos() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (defaultcanwriteTableInfos == null)
+        defaultcanwriteTableInfos =
+          getPoemDatabaseTables().getTableInfoTable().getDefaultcanwriteColumn().cachedSelectionWhereEq(getTroid());
+      return defaultcanwriteTableInfos.objects();
+    }
+  }
+
+
+  /** References to this in the TableInfo table via its defaultcanwrite field, as a List.*/
+  public List<TableInfo> getDefaultcanwriteTableInfosList() {
+    return Collections.list(getDefaultcanwriteTableInfos());
+  }
+
+
+
+  private CachedSelection<TableInfo> defaultcandeleteTableInfos = null;
+  /** References to this in the TableInfo table via its defaultcandelete field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<TableInfo> getDefaultcandeleteTableInfos() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (defaultcandeleteTableInfos == null)
+        defaultcandeleteTableInfos =
+          getPoemDatabaseTables().getTableInfoTable().getDefaultcandeleteColumn().cachedSelectionWhereEq(getTroid());
+      return defaultcandeleteTableInfos.objects();
+    }
+  }
+
+
+  /** References to this in the TableInfo table via its defaultcandelete field, as a List.*/
+  public List<TableInfo> getDefaultcandeleteTableInfosList() {
+    return Collections.list(getDefaultcandeleteTableInfos());
+  }
+
+
+
+  private CachedSelection<TableInfo> cancreateTableInfos = null;
+  /** References to this in the TableInfo table via its cancreate field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<TableInfo> getCancreateTableInfos() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (cancreateTableInfos == null)
+        cancreateTableInfos =
+          getPoemDatabaseTables().getTableInfoTable().getCancreateColumn().cachedSelectionWhereEq(getTroid());
+      return cancreateTableInfos.objects();
+    }
+  }
+
+
+  /** References to this in the TableInfo table via its cancreate field, as a List.*/
+  public List<TableInfo> getCancreateTableInfosList() {
+    return Collections.list(getCancreateTableInfos());
+  }
+
+
+
 }
 

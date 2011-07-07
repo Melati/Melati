@@ -3,13 +3,19 @@
 package org.melati.poem.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfo;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 
 
 /**
@@ -243,5 +249,28 @@ public abstract class TableCategoryBase extends JdbcPersistent {
     Column c = _getTableCategoryTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection<TableInfo> categoryTableInfos = null;
+  /** References to this in the TableInfo table via its category field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<TableInfo> getCategoryTableInfos() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (categoryTableInfos == null)
+        categoryTableInfos =
+          getPoemDatabaseTables().getTableInfoTable().getCategoryColumn().cachedSelectionWhereEq(getTroid());
+      return categoryTableInfos.objects();
+    }
+  }
+
+
+  /** References to this in the TableInfo table via its category field, as a List.*/
+  public List<TableInfo> getCategoryTableInfosList() {
+    return Collections.list(getCategoryTableInfos());
+  }
+
+
+
 }
 

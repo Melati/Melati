@@ -3,13 +3,20 @@
 package org.melati.poem.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.GroupCapability;
+import org.melati.poem.GroupMembership;
 import org.melati.poem.GroupTable;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 
 
 /**
@@ -243,5 +250,50 @@ public abstract class GroupBase extends JdbcPersistent {
     Column c = _getGroupTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection<GroupMembership> groupGroupMemberships = null;
+  /** References to this in the GroupMembership table via its group field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<GroupMembership> getGroupGroupMemberships() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (groupGroupMemberships == null)
+        groupGroupMemberships =
+          getPoemDatabaseTables().getGroupMembershipTable().getGroupColumn().cachedSelectionWhereEq(getTroid());
+      return groupGroupMemberships.objects();
+    }
+  }
+
+
+  /** References to this in the GroupMembership table via its group field, as a List.*/
+  public List<GroupMembership> getGroupGroupMembershipsList() {
+    return Collections.list(getGroupGroupMemberships());
+  }
+
+
+
+  private CachedSelection<GroupCapability> groupGroupCapabilitys = null;
+  /** References to this in the GroupCapability table via its group field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<GroupCapability> getGroupGroupCapabilitys() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (groupGroupCapabilitys == null)
+        groupGroupCapabilitys =
+          getPoemDatabaseTables().getGroupCapabilityTable().getGroupColumn().cachedSelectionWhereEq(getTroid());
+      return groupGroupCapabilitys.objects();
+    }
+  }
+
+
+  /** References to this in the GroupCapability table via its group field, as a List.*/
+  public List<GroupCapability> getGroupGroupCapabilitysList() {
+    return Collections.list(getGroupGroupCapabilitys());
+  }
+
+
+
 }
 

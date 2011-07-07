@@ -1394,5 +1394,6 @@ for this <code>Persistent</code>.
     Column c = _getColumnInfoTable().getIntegrityfixColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

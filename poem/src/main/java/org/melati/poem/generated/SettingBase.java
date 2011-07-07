@@ -330,5 +330,6 @@ public abstract class SettingBase extends ValueInfo {
     Column c = _getSettingTable().getValueColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

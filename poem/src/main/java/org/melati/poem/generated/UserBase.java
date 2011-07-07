@@ -3,13 +3,19 @@
 package org.melati.poem.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.GroupMembership;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.UserTable;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 
 
 /**
@@ -417,5 +423,28 @@ public abstract class UserBase extends JdbcPersistent {
     Column c = _getUserTable().getPasswordColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection<GroupMembership> userGroupMemberships = null;
+  /** References to this in the GroupMembership table via its user field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<GroupMembership> getUserGroupMemberships() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (userGroupMemberships == null)
+        userGroupMemberships =
+          getPoemDatabaseTables().getGroupMembershipTable().getUserColumn().cachedSelectionWhereEq(getTroid());
+      return userGroupMemberships.objects();
+    }
+  }
+
+
+  /** References to this in the GroupMembership table via its user field, as a List.*/
+  public List<GroupMembership> getUserGroupMembershipsList() {
+    return Collections.list(getUserGroupMemberships());
+  }
+
+
+
 }
 

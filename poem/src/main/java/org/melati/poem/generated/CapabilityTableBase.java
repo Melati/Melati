@@ -2,6 +2,7 @@
 
 package org.melati.poem.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;

@@ -1347,5 +1347,6 @@ public abstract class TableInfoBase extends JdbcPersistent {
     Column c = _getTableInfoTable().getCategoryColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

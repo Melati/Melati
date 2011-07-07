@@ -397,5 +397,6 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
     Column c = _getGroupMembershipTable().getGroupColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

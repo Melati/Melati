@@ -1381,5 +1381,6 @@ public abstract class ValueInfoBase extends JdbcPersistent {
     Column c = _getValueInfoTable().getRangelimit_stringColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

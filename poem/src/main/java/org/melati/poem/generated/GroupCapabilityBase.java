@@ -397,5 +397,6 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
     Column c = _getGroupCapabilityTable().getCapabilityColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

@@ -666,14 +666,13 @@ public class TableDef {
         }
       }
     }
-    if (needSelectionImports) { 
-      persistentBaseImports.addElement(naming.packageName + ".*");
-      persistentBaseImports.addElement("org.melati.poem.CachedSelection");
-      persistentBaseImports.addElement("org.melati.poem.util.EmptyEnumeration");
-      persistentBaseImports.addElement("java.util.Enumeration");
-      persistentBaseImports.addElement("java.util.List");
-      persistentBaseImports.addElement("java.util.Collections");
-      persistentBaseImports.addElement("org.melati.poem.Persistent");
+    if (needSelectionImports) {
+      addImport("org.melati.poem.CachedSelection", "persistent");
+      addImport("org.melati.poem.util.EmptyEnumeration","persistent");
+      addImport("java.util.Enumeration","persistent");
+      addImport("java.util.List","persistent");
+      addImport("java.util.Collections","persistent");
+      addImport("org.melati.poem.Persistent","persistent");
     }
     
     int fieldCount = 0;

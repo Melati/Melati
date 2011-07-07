@@ -1,10 +1,7 @@
 <projectDescription>
   <name>melati-example-odmg</name>
-  <comment>Melati Java Web Development Suite</comment>
-  <projects>
-    <project>melati</project>
-    <project>poem</project>
-  </projects>
+  <comment>Melati Java Web Development Suite. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

@@ -2,6 +2,7 @@
 
 package org.melati.example.odmg.generated;
 
+
 import org.melati.example.odmg.OdmgDatabaseTables;
 import org.melati.example.odmg.OdmgTable;
 import org.melati.example.odmg.Parent;

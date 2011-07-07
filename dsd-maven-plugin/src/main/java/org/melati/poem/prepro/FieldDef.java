@@ -74,7 +74,7 @@ public abstract class FieldDef {
 
   protected final String rawType;
 
-  protected final Vector qualifiers;
+  protected final Vector<FieldQualifier> fieldQualifiers;
 
   final String mainClass;
 
@@ -130,7 +130,7 @@ public abstract class FieldDef {
    *           if a semantic inconsistency is detected
    */
   public FieldDef(int lineNo, TableDef table, String name, String type,
-      String rawType, int displayOrder, Vector qualifiers)
+      String rawType, int displayOrder, Vector<FieldQualifier> qualifiers)
       throws IllegalityException {
     this.lineNumber = lineNo;
     this.table = table;
@@ -139,7 +139,7 @@ public abstract class FieldDef {
     this.suffix = StringUtils.capitalised(name);
     this.typeShortName = type;
     this.rawType = rawType;
-    this.qualifiers = qualifiers;
+    this.fieldQualifiers = qualifiers;
 
     this.mainClass = table.naming.mainClassUnambiguous();
     this.tableAccessorMethod = table.naming.tableAccessorMethod();
@@ -156,7 +156,7 @@ public abstract class FieldDef {
         + typeShortName + ")";
   }
 
-  private static void fieldQualifiers(Vector qualifiers, StreamTokenizer tokens)
+  private static void readFieldQualifiers(Vector<FieldQualifier> qualifiers, StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     while (tokens.ttype == '(') {
       tokens.nextToken();
@@ -193,8 +193,8 @@ public abstract class FieldDef {
     table.addImport("org.melati.poem.Persistent", "table");
 
     table.definesColumns = true;
-    Vector qualifiers = new Vector();
-    fieldQualifiers(qualifiers, tokens);
+    Vector<FieldQualifier> qualifiers = new Vector<FieldQualifier>();
+    readFieldQualifiers(qualifiers, tokens);
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field type>", tokens);
     String type = tokens.sval;
@@ -209,7 +209,7 @@ public abstract class FieldDef {
       throw new ParsingDSDException("<field name>", tokens);
     String name = tokens.sval;
     tokens.nextToken();
-    fieldQualifiers(qualifiers, tokens);
+    readFieldQualifiers(qualifiers, tokens);
     DSD.expect(tokens, ';');
     int lineNo = tokens.lineno();
     if (type.equals("Integer"))

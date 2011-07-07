@@ -58,6 +58,8 @@ import java.io.IOException;
 public class ReferenceFieldDef extends FieldDef {
 
   String integrityfix;
+  
+  TableNamingInfo targetTableNamingInfo;
 
  /**
   * Constructor.
@@ -89,7 +91,13 @@ public class ReferenceFieldDef extends FieldDef {
     // to enable forward reference within the DSD
     table.addImport(type,"table");
     table.addImport(type,"persistent");
-        
+    // TODO test with references to tables yet to be defined 
+    targetTableNamingInfo = table.dsd.nameStore.tablesByShortName.get(typeShortName);
+    
+    if (targetTableNamingInfo == null)
+      throw new ParsingDSDException(lineNo, 
+          "Reference to a type (" + typeShortName + ") which has yet to be defined. \n" + 
+          "If there are no reciprocal references then reorder definitions.");
   }
 
  /**
@@ -125,9 +133,7 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   private String targetCast() {
-    TableNamingInfo targetTable =
-      (TableNamingInfo)table.dsd.nameStore.tablesByShortName.get(typeShortName);
-    return targetTable == null || targetTable.superclass == null ?
+    return targetTableNamingInfo.superclass == null ?
              "" : "(" + typeShortName + ")";
   }
 

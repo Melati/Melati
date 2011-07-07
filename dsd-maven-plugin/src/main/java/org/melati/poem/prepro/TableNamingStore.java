@@ -59,8 +59,8 @@ public class TableNamingStore {
     super();
  }
 
-  Hashtable tablesByShortName = new Hashtable();
-  Hashtable tablesByFQName = new Hashtable();
+  Hashtable<String,TableNamingInfo> tablesByShortName = new Hashtable<String,TableNamingInfo>();
+  Hashtable<String,TableNamingInfo> tablesByFQName = new Hashtable<String,TableNamingInfo>();
   boolean debug = false;
 
   /**

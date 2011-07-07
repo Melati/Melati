@@ -3,13 +3,19 @@
 package org.melati.example.odmg.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import org.melati.example.odmg.Child;
 import org.melati.example.odmg.OdmgDatabaseTables;
 import org.melati.example.odmg.ParentTable;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 
 
 /**
@@ -232,5 +238,28 @@ public abstract class ParentBase extends JdbcPersistent {
     Column c = _getParentTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
+
+  private CachedSelection<Child> parentChilds = null;
+  /** References to this in the Child table via its parent field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Child> getParentChilds() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (parentChilds == null)
+        parentChilds =
+          getOdmgDatabaseTables().getChildTable().getParentColumn().cachedSelectionWhereEq(getTroid());
+      return parentChilds.objects();
+    }
+  }
+
+
+  /** References to this in the Child table via its parent field, as a List.*/
+  public List<Child> getParentChildsList() {
+    return Collections.list(getParentChilds());
+  }
+
+
+
 }
 

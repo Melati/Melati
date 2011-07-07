@@ -91,7 +91,7 @@ public class IntegerFieldDef extends AtomFieldDef {
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> value, with checking, for this \n"
       + "  * <code>" 
       + table.suffix 
@@ -112,9 +112,9 @@ public class IntegerFieldDef extends AtomFieldDef {
       + "  *         if the value is not valid\n"
       + "  */\n");
     w.write("\n" +
-            "  public final void set" + suffix + "(int cooked)\n" +
+            "  public final void set" + capitalisedName + "(int cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(new Integer(cooked));\n" +
+            "    set" + capitalisedName + "(new Integer(cooked));\n" +
             "  }\n");
   }
 

@@ -85,7 +85,7 @@ public class LongFieldDef extends AtomFieldDef {
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> value, with checking, for this \n"
       + "  * <code>" 
       + table.suffix 
@@ -107,9 +107,9 @@ public class LongFieldDef extends AtomFieldDef {
       + "  */\n");
     w.write(
       "\n" +
-      "  public final void set" + suffix + "(long cooked)\n" +
+      "  public final void set" + capitalisedName + "(long cooked)\n" +
       "      throws AccessPoemException, ValidationPoemException {\n" +
-      "    set" + suffix + "(new Long(cooked));\n" +
+      "    set" + capitalisedName + "(new Long(cooked));\n" +
       "  }\n");
   }
 }

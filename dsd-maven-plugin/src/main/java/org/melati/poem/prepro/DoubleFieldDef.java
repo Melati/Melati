@@ -86,7 +86,7 @@ public class DoubleFieldDef extends AtomFieldDef {
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> value, with checking, for this <code>" 
       + table.suffix 
       + "</code> <code>Persistent</code>.\n"
@@ -107,9 +107,9 @@ public class DoubleFieldDef extends AtomFieldDef {
       + "  */\n");
     w.write(
       "\n" +
-      "  public final void set" + suffix + "(double cooked)\n" +
+      "  public final void set" + capitalisedName + "(double cooked)\n" +
       "      throws AccessPoemException, ValidationPoemException {\n" +
-      "    set" + suffix + "(new Double(cooked));\n" +
+      "    set" + capitalisedName + "(new Double(cooked));\n" +
       "  }\n");
   }
 }

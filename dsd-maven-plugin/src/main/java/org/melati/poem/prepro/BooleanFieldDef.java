@@ -92,7 +92,7 @@ public class BooleanFieldDef extends AtomFieldDef {
     w.write(
         "\n /**\n"
         + "  * Sets the <code>" 
-        + suffix 
+        + capitalisedName 
         + "</code> value, with checking, \n"
         + "  * from a <code>boolean</code>, for this \n"
         + "  * <code>" 
@@ -114,9 +114,9 @@ public class BooleanFieldDef extends AtomFieldDef {
         + "  *         if the value is not valid\n"
         + "  */\n");
     w.write("\n" +
-            "  public final void set" + suffix + "(boolean cooked)\n" +
+            "  public final void set" + capitalisedName + "(boolean cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(cooked ? Boolean.TRUE : Boolean.FALSE);\n" +
+            "    set" + capitalisedName + "(cooked ? Boolean.TRUE : Boolean.FALSE);\n" +
             "  }\n");
   }
 

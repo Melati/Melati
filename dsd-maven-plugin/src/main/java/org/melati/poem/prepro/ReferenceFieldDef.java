@@ -75,7 +75,7 @@ public class ReferenceFieldDef extends FieldDef {
   public ReferenceFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                            String type, Vector<FieldQualifier> qualifiers)
       throws IllegalityException {
-    super(lineNo, table, name, type, "Integer", displayOrder, qualifiers);
+    super(lineNo, table, name, type, "Integer", displayOrder, qualifiers);// TODO test with Troid
     table.addImport("org.melati.poem.ReferencePoemType", 
                       "table");
     table.addImport("org.melati.poem.NoSuchRowPoemException", 
@@ -104,13 +104,13 @@ public class ReferenceFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "Troid();\n" +
+      "            return ((" + mainClass + ")g).get" + capitalisedName + "Troid();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "Troid((" +
+      "            ((" + mainClass + ")g).set" + capitalisedName + "Troid((" +
                    rawType + ")raw);\n" +
       "          }\n");
 
@@ -157,10 +157,10 @@ public class ReferenceFieldDef extends FieldDef {
       + "  * @return the TROID as an <code>Integer</code> \n"
       + "  */\n");
     w.write("\n" +
-      "  public Integer get" + suffix + "Troid()\n" +
+      "  public Integer get" + capitalisedName + "Troid()\n" +
       "      throws AccessPoemException {\n" +
       "    readLock();\n" +
-      "    return get" + suffix + "_unsafe();\n" +
+      "    return get" + capitalisedName + "_unsafe();\n" +
       "  }\n" +
       "\n");
     w.write(
@@ -176,9 +176,9 @@ public class ReferenceFieldDef extends FieldDef {
       + "  *         does not confer write access rights\n"
       + "  */\n");
     w.write(
-      "  public void set" + suffix + "Troid(Integer raw)\n" +
+      "  public void set" + capitalisedName + "Troid(Integer raw)\n" +
       "      throws AccessPoemException {\n" +
-      "    set" + suffix + "(" +
+      "    set" + capitalisedName + "(" +
       "raw == null ? null : \n" +
       // This cast is necessary when the target table is
       // an "extends"
@@ -189,7 +189,7 @@ public class ReferenceFieldDef extends FieldDef {
       "\n");
     w.write(
       "\n /**\n"
-      + "  * Retrieves the <code>" + suffix + "</code> object referred to.\n"
+      + "  * Retrieves the <code>" + capitalisedName + "</code> object referred to.\n"
       + "  *  \n"
       + "  * @generator " 
       + "org.melati.poem.prepro.ReferenceFieldDef" 
@@ -201,15 +201,15 @@ public class ReferenceFieldDef extends FieldDef {
       + "  *         if the <code>Persistent</code> has yet "
       + "to be allocated a TROID \n"
       + "  * @return the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> as a <code>" 
       + typeShortName 
       + "</code> \n"
       + "  */\n");
     w.write(
-      "  public " + typeShortName + " get" + suffix + "()\n" +
+      "  public " + typeShortName + " get" + capitalisedName + "()\n" +
       "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-      "    Integer troid = get" + suffix + "Troid();\n" +
+      "    Integer troid = get" + capitalisedName + "Troid();\n" +
       "    return troid == null ? null :\n" +
       // This cast is necessary when the target table is
       // an "extends"
@@ -222,7 +222,7 @@ public class ReferenceFieldDef extends FieldDef {
     w.write(
       "\n /**\n"
       + "  * Set the "
-      + suffix
+      + capitalisedName
       + ".\n" 
       + "  * \n"
       + "  * @generator " 
@@ -236,17 +236,17 @@ public class ReferenceFieldDef extends FieldDef {
       + "  *         does not confer write access rights \n"
       + "  */\n");
     w.write(
-      "  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
+      "  public void set" + capitalisedName + "(" + typeShortName + " cooked)\n" +
       "      throws AccessPoemException {\n" +
       "    _" + tableAccessorMethod + "().\n" + 
-      "      get" + suffix + "Column().\n" +
+      "      get" + capitalisedName + "Column().\n" +
       "        getType().assertValidCooked(cooked);\n" +
       "    writeLock();\n" +
       "    if (cooked == null)\n" +
-      "      set" + suffix + "_unsafe(null);\n" +
+      "      set" + capitalisedName + "_unsafe(null);\n" +
       "    else {\n" +
       "      cooked.existenceLock();\n" +
-      "      set" + suffix + "_unsafe(cooked.troid());\n" +
+      "      set" + capitalisedName + "_unsafe(cooked.troid());\n" +
       "    }\n" +
       "  }\n");
   }

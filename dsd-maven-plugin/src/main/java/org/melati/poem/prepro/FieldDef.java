@@ -61,7 +61,7 @@ public abstract class FieldDef {
 
   protected final String name;
 
-  protected final String suffix;
+  protected final String capitalisedName;
 
   protected int displayOrder;
 
@@ -136,7 +136,7 @@ public abstract class FieldDef {
     this.table = table;
     this.name = name;
     this.displayOrder = displayOrder;
-    this.suffix = StringUtils.capitalised(name);
+    this.capitalisedName = StringUtils.capitalised(name);
     this.typeShortName = type;
     this.rawType = rawType;
     this.fieldQualifiers = qualifiers;
@@ -261,21 +261,21 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateBaseMethods(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> value, without locking, \n" + "  * for this <code>"
         + table.suffix + "</code> <code>Persistent</code>.\n" + "  *\n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n" + "  * @return the " + rawType + " " + name
         + "\n" + "  */\n");
-    w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n"
+    w.write("  public " + rawType + " get" + capitalisedName + "_unsafe() {\n"
         + "    return " + name + ";\n" + "  }\n" + "\n");
-    w.write("\n /**\n" + "  * Sets the <code>" + suffix
+    w.write("\n /**\n" + "  * Sets the <code>" + capitalisedName
         + "</code> value directly, without checking, \n" + "  * for this "
         + table.suffix + " <code>Persistent</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n"
         + "  * @param cooked  the pre-validated value to set\n" + "  */\n");
-    w.write("  public void set" + suffix + "_unsafe(" + rawType
+    w.write("  public void set" + capitalisedName + "_unsafe(" + rawType
         + " cooked) {\n" + "    " + name + " = cooked;\n" + "  }\n");
   }
 
@@ -288,7 +288,7 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateFieldCreator(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
         + table.suffix + "</code> <code>Persistent</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
@@ -296,9 +296,9 @@ public abstract class FieldDef {
         + "  *         if the current <code>AccessToken</code> \n"
         + "  *         does not confer write access rights\n"
         + "  * @return the " + rawType + " " + name + "\n" + "  */\n");
-    w.write("  public Field get" + suffix + "Field() "
+    w.write("  public Field get" + capitalisedName + "Field() "
         + "throws AccessPoemException {\n" + "    Column c = _"
-        + tableAccessorMethod + "()." + "get" + suffix + "Column();\n"
+        + tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
         + "    return new Field(c.getRaw(this), c);\n" + "  }\n");
   }
 
@@ -333,13 +333,13 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateColAccessor(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> <code>Column</code> for this \n" + "  * <code>"
         + table.suffix + "</code> <code>Table</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateColAccessor \n" + "  * @return the " + name
         + " <code>Column</code>\n" + "  */\n");
-    w.write("  public final Column get" + suffix + "Column() {\n"
+    w.write("  public final Column get" + capitalisedName + "Column() {\n"
         + "    return col_" + name + ";\n" + "  }\n");
   }
 
@@ -355,12 +355,12 @@ public abstract class FieldDef {
   protected void generateColRawAccessors(Writer w) throws IOException {
     w.write("          public Object getRaw_unsafe(Persistent g)\n"
         + "              throws AccessPoemException {\n"
-        + "            return ((" + mainClass + ")g)." + "get" + suffix
+        + "            return ((" + mainClass + ")g)." + "get" + capitalisedName
         + "_unsafe();\n" + "          }\n" + "\n");
 
     w.write("          public void setRaw_unsafe(Persistent g, Object raw)\n"
         + "              throws AccessPoemException {\n" + "            (("
-        + mainClass + ")g).set" + suffix + "_unsafe((" + rawType + ")raw);\n"
+        + mainClass + ")g).set" + capitalisedName + "_unsafe((" + rawType + ")raw);\n"
         + "          }\n");
   }
 
@@ -390,16 +390,16 @@ public abstract class FieldDef {
             + "            return (("
             + mainClass
             + ")g).get"
-            + suffix
+            + capitalisedName
             + "();\n"
             + "          }\n"
             + "\n"
             + "          public void setCooked(Persistent g, Object cooked)\n"
             + "              throws AccessPoemException, ValidationPoemException {\n"
-            + "            ((" + mainClass + ")g).set" + suffix + "((" + typeShortName
+            + "            ((" + mainClass + ")g).set" + capitalisedName + "((" + typeShortName
             + ")cooked);\n" + "          }\n" + "\n"
             + "          public Field asField(Persistent g) {\n"
-            + "            return ((" + mainClass + ")g).get" + suffix
+            + "            return ((" + mainClass + ")g).get" + capitalisedName
             + "Field();\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isEditable)

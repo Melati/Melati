@@ -88,13 +88,13 @@ public class AtomFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
+      "            return ((" + mainClass + ")g).get" + capitalisedName + "();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix +
+      "            ((" + mainClass + ")g).set" + capitalisedName +
                      "((" + rawType + ")raw);\n" +
       "          }\n");
   }
@@ -110,7 +110,7 @@ public class AtomFieldDef extends FieldDef {
     w.write(
       "\n /**\n"
       + "  * Retrieves the " 
-      + suffix 
+      + capitalisedName 
       + " value, with locking, for this \n"
       + "  * <code>" 
       + table.suffix 
@@ -126,24 +126,24 @@ public class AtomFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights \n"
       + "  * @return the value of the field <code>"
-      + suffix
+      + capitalisedName
       + "</code> for this \n"
       + "  *         <code>" 
       + table.suffix 
       + "</code> <code>Persistent</code>  \n"
       + "  */\n");
     w.write("\n" +
-            "  public " + typeShortName + " get" + suffix + "()\n" +
+            "  public " + typeShortName + " get" + capitalisedName + "()\n" +
             "      throws AccessPoemException {\n" +
             "    readLock();\n" +
-            "    return get" + suffix + "_unsafe();\n" +
+            "    return get" + capitalisedName + "_unsafe();\n" +
             "  }\n" +
             "\n");
 
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> value, with checking, for this \n"
       + "  * <code>" 
       + table.suffix 
@@ -163,12 +163,12 @@ public class AtomFieldDef extends FieldDef {
       + "  *         if the value is not valid\n"
       + "  */\n");
     w.write(
-            "  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
+            "  public void set" + capitalisedName + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    _" + tableAccessorMethod + "().get" + suffix + "Column().\n" +
+            "    _" + tableAccessorMethod + "().get" + capitalisedName + "Column().\n" +
             "      getType().assertValidCooked(cooked);\n" +
             "    writeLock();\n" +
-            "    set" + suffix + "_unsafe(cooked);\n" +
+            "    set" + capitalisedName + "_unsafe(cooked);\n" +
             "  }\n");
   }
 

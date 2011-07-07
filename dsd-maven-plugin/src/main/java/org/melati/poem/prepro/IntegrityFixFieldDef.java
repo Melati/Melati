@@ -95,13 +95,13 @@ public class IntegrityFixFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "Index();\n" +
+      "            return ((" + mainClass + ")g).get" + capitalisedName + "Index();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "Index((" +
+      "            ((" + mainClass + ")g).set" + capitalisedName + "Index((" +
                        rawType + ")raw);\n" +
       "          }\n");
   }
@@ -120,7 +120,7 @@ public class IntegrityFixFieldDef extends FieldDef {
     w.write(
       "\n /**\n"
       + "  * Retrieves the " 
-      + suffix 
+      + capitalisedName 
       + " index value \n"
       + "  * of this <code>Persistent</code>.\n" 
       + ((description != null) ?   "  * Field description: \n" 
@@ -137,17 +137,17 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  * @return the " + rawType + " " + name + "\n"
       + "  */\n");
     w.write("\n" +
-            "  public Integer get" + suffix + "Index()\n" +
+            "  public Integer get" + capitalisedName + "Index()\n" +
             "      throws AccessPoemException {\n" +
             "    readLock();\n" +
-            "    return get" + suffix + "_unsafe();\n" +
+            "    return get" + capitalisedName + "_unsafe();\n" +
             "  }\n" +
             "\n");
 
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> index value, with checking, \n" 
       + "for this <code>Persistent</code>.\n"
       + ((description != null) ?   "  * Field description: \n" 
@@ -163,18 +163,18 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights\n"
       + "  */\n");
-    w.write("  public void set" + suffix + "Index(Integer raw)\n" +
+    w.write("  public void set" + capitalisedName + "Index(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
-            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+            "    " + tableAccessorMethod + "().get" + capitalisedName + "Column()." +
                      "getType().assertValidRaw(raw);\n" +
             "    writeLock();\n" +
-            "    set" + suffix + "_unsafe(raw);\n" +
+            "    set" + capitalisedName + "_unsafe(raw);\n" +
             "  }\n" +
             "\n");
     w.write(
       "\n /**\n"
       + "  * Retrieves the " 
-      + suffix 
+      + capitalisedName 
       + " value \n"
       + "  * of this <code>Persistent</code>.\n" 
       + ((description != null) ?   "  * Field description: \n" 
@@ -189,9 +189,9 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  *         does not confer read access rights\n"
       + "  * @return the " + typeShortName + "\n"
       + "  */\n");
-    w.write("  public " + typeShortName + " get" + suffix + "()\n" +
+    w.write("  public " + typeShortName + " get" + capitalisedName + "()\n" +
             "      throws AccessPoemException {\n" +
-            "    Integer index = get" + suffix + "Index();\n" +
+            "    Integer index = get" + capitalisedName + "Index();\n" +
             "    return index == null ? null :\n" +
             "        StandardIntegrityFix.forIndex(index.intValue());\n" +
             "  }\n" +
@@ -199,7 +199,7 @@ public class IntegrityFixFieldDef extends FieldDef {
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 
-      + suffix 
+      + capitalisedName 
       + "</code> value, with checking, \n"
       + " for the <code>Persistent</code> argument.\n"
       + ((description != null) ?   "  * Field description: \n" 
@@ -215,9 +215,9 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights\n"
       + "  */\n");
-    w.write("  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
+    w.write("  public void set" + capitalisedName + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + 
+            "    set" + capitalisedName + 
             "Index(cooked == null ? null : cooked.getIndex());\n" +
             "  }\n");
   }

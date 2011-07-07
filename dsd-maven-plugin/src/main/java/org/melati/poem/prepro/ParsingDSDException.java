@@ -60,7 +60,6 @@ import java.io.StreamTokenizer;
  * and must not hide a table in this or an imported DSD.     
  */
 class ParsingDSDException extends RuntimeException {
-  private static final long serialVersionUID = 1L;
 
   String expected, got;
   int lineNumber;

@@ -133,7 +133,7 @@ public class AtomFieldDef extends FieldDef {
       + "</code> <code>Persistent</code>  \n"
       + "  */\n");
     w.write("\n" +
-            "  public " + type + " get" + suffix + "()\n" +
+            "  public " + typeShortName + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
             "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
@@ -163,7 +163,7 @@ public class AtomFieldDef extends FieldDef {
       + "  *         if the value is not valid\n"
       + "  */\n");
     w.write(
-            "  public void set" + suffix + "(" + type + " cooked)\n" +
+            "  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
             "    _" + tableAccessorMethod + "().get" + suffix + "Column().\n" +
             "      getType().assertValidCooked(cooked);\n" +
@@ -180,11 +180,11 @@ public class AtomFieldDef extends FieldDef {
   *           if something goes wrong with the file system
   */   
   public void generateJavaDeclaration(Writer w) throws IOException {
-    w.write(type + " " + name);
+    w.write(typeShortName + " " + name);
   }
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new " + type + "PoemType(" + isNullable() + ")";
+    return "new " + typeShortName + "PoemType(" + isNullable() + ")";
   }
 }

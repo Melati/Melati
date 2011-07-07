@@ -70,7 +70,7 @@ public class DeletedFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
-    if (!field.type.equals("Boolean") || field.isNullable())
+    if (!field.typeShortName.equals("Boolean") || field.isNullable())
       throw new DeletedTypeException(field);
     field.setDeletedColumn(true);
   }

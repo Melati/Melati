@@ -69,7 +69,8 @@ public abstract class FieldDef {
 
   String description;
 
-  protected final String type;
+  /** short name eg String, User */
+  protected final String typeShortName;
 
   protected final String rawType;
 
@@ -136,7 +137,7 @@ public abstract class FieldDef {
     this.name = name;
     this.displayOrder = displayOrder;
     this.suffix = StringUtils.capitalised(name);
-    this.type = type;
+    this.typeShortName = type;
     this.rawType = rawType;
     this.qualifiers = qualifiers;
 
@@ -152,7 +153,7 @@ public abstract class FieldDef {
   /** @return a name for this class */
   public String toString() {
     return table.name + "." + name + " (" + (isNullable ? "nullable " : "")
-        + type + ")";
+        + typeShortName + ")";
   }
 
   private static void fieldQualifiers(Vector qualifiers, StreamTokenizer tokens)
@@ -395,7 +396,7 @@ public abstract class FieldDef {
             + "\n"
             + "          public void setCooked(Persistent g, Object cooked)\n"
             + "              throws AccessPoemException, ValidationPoemException {\n"
-            + "            ((" + mainClass + ")g).set" + suffix + "((" + type
+            + "            ((" + mainClass + ")g).set" + suffix + "((" + typeShortName
             + ")cooked);\n" + "          }\n" + "\n"
             + "          public Field asField(Persistent g) {\n"
             + "            return ((" + mainClass + ")g).get" + suffix

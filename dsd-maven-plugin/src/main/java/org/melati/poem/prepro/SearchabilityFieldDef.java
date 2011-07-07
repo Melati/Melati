@@ -187,10 +187,10 @@ public class SearchabilityFieldDef extends FieldDef {
       + "  * @throws AccessPoemException \n"
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer read access rights\n"
-      + "  * @return the " + type + "\n"
+      + "  * @return the " + typeShortName + "\n"
       + "  */\n");
     w.write(
-            "  public " + type + " get" + suffix + "()\n" +
+            "  public " + typeShortName + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
             "    Integer index = get" + suffix + "Index();\n" +
             "    return index == null ? null :\n" +
@@ -217,7 +217,7 @@ public class SearchabilityFieldDef extends FieldDef {
       + "  *         does not confer write access rights\n"
       + "  */\n");
     w.write(
-            "  public void set" + suffix + "(" + type + " cooked)\n" +
+            "  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException {\n" +
             "    set" + suffix + 
             "Index(cooked == null ? null : cooked.index);\n" +

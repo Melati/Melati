@@ -126,9 +126,9 @@ public class ReferenceFieldDef extends FieldDef {
 
   private String targetCast() {
     TableNamingInfo targetTable =
-      (TableNamingInfo)table.dsd.nameStore.tablesByShortName.get(type);
+      (TableNamingInfo)table.dsd.nameStore.tablesByShortName.get(typeShortName);
     return targetTable == null || targetTable.superclass == null ?
-             "" : "(" + type + ")";
+             "" : "(" + typeShortName + ")";
   }
 
  /**
@@ -139,8 +139,8 @@ public class ReferenceFieldDef extends FieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
-    String targetTableAccessorMethod = "get" + type + "Table";
-    String targetSuffix = type;
+    String targetTableAccessorMethod = "get" + typeShortName + "Table";
+    String targetSuffix = typeShortName;
 
     String db = "get" + table.dsd.databaseTablesClassName + "()";
 
@@ -203,11 +203,11 @@ public class ReferenceFieldDef extends FieldDef {
       + "  * @return the <code>" 
       + suffix 
       + "</code> as a <code>" 
-      + type 
+      + typeShortName 
       + "</code> \n"
       + "  */\n");
     w.write(
-      "  public " + type + " get" + suffix + "()\n" +
+      "  public " + typeShortName + " get" + suffix + "()\n" +
       "      throws AccessPoemException, NoSuchRowPoemException {\n" +
       "    Integer troid = get" + suffix + "Troid();\n" +
       "    return troid == null ? null :\n" +
@@ -229,14 +229,14 @@ public class ReferenceFieldDef extends FieldDef {
       + "org.melati.poem.prepro.ReferenceFieldDef" 
       + "#generateBaseMethods \n"
       + "  * @param cooked  a validated <code>" 
-      + type 
+      + typeShortName 
       + "</code>\n"
       + "  * @throws AccessPoemException  \n" 
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights \n"
       + "  */\n");
     w.write(
-      "  public void set" + suffix + "(" + type + " cooked)\n" +
+      "  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
       "      throws AccessPoemException {\n" +
       "    _" + tableAccessorMethod + "().\n" + 
       "      get" + suffix + "Column().\n" +
@@ -264,7 +264,7 @@ public class ReferenceFieldDef extends FieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    String targetTableAccessorMethod = "get" + type + "Table";
+    String targetTableAccessorMethod = "get" + typeShortName + "Table";
     String db = "get" + table.dsd.databaseTablesClassName + "()";
 
     return

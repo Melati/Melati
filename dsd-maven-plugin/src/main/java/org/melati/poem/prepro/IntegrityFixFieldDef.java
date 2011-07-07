@@ -187,9 +187,9 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  * @throws AccessPoemException \n"
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer read access rights\n"
-      + "  * @return the " + type + "\n"
+      + "  * @return the " + typeShortName + "\n"
       + "  */\n");
-    w.write("  public " + type + " get" + suffix + "()\n" +
+    w.write("  public " + typeShortName + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
             "    Integer index = get" + suffix + "Index();\n" +
             "    return index == null ? null :\n" +
@@ -215,7 +215,7 @@ public class IntegrityFixFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights\n"
       + "  */\n");
-    w.write("  public void set" + suffix + "(" + type + " cooked)\n" +
+    w.write("  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException {\n" +
             "    set" + suffix + 
             "Index(cooked == null ? null : cooked.getIndex());\n" +

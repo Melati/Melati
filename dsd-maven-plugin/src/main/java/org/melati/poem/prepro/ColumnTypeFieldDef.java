@@ -177,7 +177,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       "\n /**\n"
       + "  * Retrieves the <code>" 
       + suffix 
-      + "</code> value as an <code>" + type + "</code> for this " 
+      + "</code> value as an <code>" + typeShortName + "</code> for this " 
       + "<code>Column</code> of the <code>"
       + table.suffix 
       + "</code> <code>Table</code>.\n"
@@ -195,7 +195,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       + "  * @return the <code>" + suffix 
       + "</code> value of this <code>Column</code>\n"
       + "  */\n");
-    w.write("  public " + type + " get" + suffix + "()\n" +
+    w.write("  public " + typeShortName + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
             "    Integer code = get" + suffix + "Code();\n" +
             "    return code == null ? null :\n" +
@@ -205,7 +205,7 @@ public class ColumnTypeFieldDef extends FieldDef {
             "\n");
     w.write(
       "\n /**\n"
-      + "  * Sets the <code>" + type + "</code> <code>" 
+      + "  * Sets the <code>" + typeShortName + "</code> <code>" 
       + suffix 
       + "</code> value  for this <code>" 
       + table.suffix
@@ -225,7 +225,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer write access rights\n"
       + "  */\n");
-    w.write("  public void set" + suffix + "(" + type + " cooked)\n" +
+    w.write("  public void set" + suffix + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException {\n" +
             "    set" + suffix + "Code(cooked == null ? null : " +
             "cooked.getCode());\n" +

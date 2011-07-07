@@ -361,8 +361,8 @@ public class TableDef {
             
             
           
-            if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {
-              w.write("// " + t.name + "-" + rfd.type + "- "+ rfd.mainClass + "\n");
+            if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.typeShortName.equalsIgnoreCase(name)) {
+              w.write("// " + t.name + "-" + rfd.typeShortName + "- "+ rfd.mainClass + "\n");
               w.write("// " + rfd.toString() + "\n");
               w.write('\n');
           
@@ -659,7 +659,7 @@ public class TableDef {
       for (FieldDef f : t.fields) { 
         if (f instanceof ReferenceFieldDef) { 
           ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.type.equalsIgnoreCase(name)) {  
+          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.typeShortName.equalsIgnoreCase(name)) {  
             needSelectionImports = true;
             addImport(rfd.table.naming.packageName + "." + StringUtils.capitalised(rfd.name), "persistent");
           }
@@ -809,7 +809,7 @@ public class TableDef {
     for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
       FieldDef fd = f.nextElement();
       table.append(DSD.javadocFormat(1, 1, "<tr><td> " + fd.name
-          + " </td><td> " + fd.type + " </td><td> "
+          + " </td><td> " + fd.typeShortName + " </td><td> "
           + ((fd.description != null) ? fd.description : "&nbsp;")
           + " </td></tr>"));
     }

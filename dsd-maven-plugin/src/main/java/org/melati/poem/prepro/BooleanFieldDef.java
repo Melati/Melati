@@ -70,7 +70,7 @@ public class BooleanFieldDef extends AtomFieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public BooleanFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                         Vector qualifiers) throws IllegalityException {
+                         Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "Boolean", displayOrder, qualifiers);
     if (isDeletedColumn())
       table.addImport("org.melati.poem.DeletedPoemType", 

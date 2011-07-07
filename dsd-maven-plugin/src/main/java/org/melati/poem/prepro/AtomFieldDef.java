@@ -67,7 +67,7 @@ public class AtomFieldDef extends FieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public AtomFieldDef(int lineNo, TableDef table, String name,
-                      String type, int displayOrder, Vector qualifiers)
+                      String type, int displayOrder, Vector<FieldQualifier> qualifiers)
        throws IllegalityException {
     super(lineNo, table, name, type, type, displayOrder, qualifiers);
     table.addImport("org.melati.poem.ValidationPoemException", 

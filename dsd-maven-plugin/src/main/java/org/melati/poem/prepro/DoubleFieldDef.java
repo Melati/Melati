@@ -70,7 +70,7 @@ public class DoubleFieldDef extends AtomFieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public DoubleFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                        Vector qualifiers) throws IllegalityException {
+                        Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "Double", displayOrder, qualifiers);
     table.addImport("org.melati.poem.DoublePoemType", 
                     "table");

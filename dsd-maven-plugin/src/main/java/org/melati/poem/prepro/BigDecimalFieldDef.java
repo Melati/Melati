@@ -77,7 +77,7 @@ public class BigDecimalFieldDef extends AtomFieldDef {
    *           if a semantic inconsistency is detected
    */
   public BigDecimalFieldDef(int lineNo, TableDef table, String name,
-      int displayOrder, Vector qualifiers) throws IllegalityException {
+      int displayOrder, Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "BigDecimal", displayOrder, qualifiers);
     table.addImport("org.melati.poem.BigDecimalPoemType", "table");
     table.addImport("java.math.BigDecimal", "table");

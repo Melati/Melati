@@ -73,7 +73,7 @@ public class ReferenceFieldDef extends FieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public ReferenceFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                           String type, Vector qualifiers)
+                           String type, Vector<FieldQualifier> qualifiers)
       throws IllegalityException {
     super(lineNo, table, name, type, "Integer", displayOrder, qualifiers);
     table.addImport("org.melati.poem.ReferencePoemType", 

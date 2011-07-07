@@ -75,7 +75,7 @@ public class StringFieldDef extends AtomFieldDef {
    *           if a semantic inconsistency is detected
    */
   public StringFieldDef(int lineNo, TableDef table, String name,
-      int displayOrder, Vector qualifiers) throws IllegalityException {
+      int displayOrder, Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "String", displayOrder, qualifiers);
     if (size == 0)
       throw new StringSizeZeroException(this);

@@ -68,7 +68,7 @@ public class PasswordFieldDef extends StringFieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public PasswordFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                          Vector qualifiers)
+                          Vector<FieldQualifier> qualifiers)
       throws IllegalityException {
     super(lineNo, table, name, displayOrder, qualifiers);
     table.addImport("org.melati.poem.PasswordPoemType", 

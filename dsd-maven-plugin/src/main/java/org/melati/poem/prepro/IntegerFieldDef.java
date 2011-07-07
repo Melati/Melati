@@ -70,7 +70,7 @@ public class IntegerFieldDef extends AtomFieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public IntegerFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                         Vector qualifiers) throws IllegalityException {
+                         Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "Integer", displayOrder, qualifiers);
     if (isTroidColumn())
       table.addImport("org.melati.poem.TroidPoemType", 

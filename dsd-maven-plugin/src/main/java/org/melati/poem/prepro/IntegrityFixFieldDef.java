@@ -72,7 +72,7 @@ public class IntegrityFixFieldDef extends FieldDef {
   * @throws IllegalityException if a semantic inconsistency is detected
   */
   public IntegrityFixFieldDef(int lineNo, TableDef table, String name, int displayOrder,
-                              Vector qualifiers) throws IllegalityException {
+                              Vector<FieldQualifier> qualifiers) throws IllegalityException {
     super(lineNo, table, name, "StandardIntegrityFix", "Integer", displayOrder,
           qualifiers);
     table.addImport("org.melati.poem.IntegrityFixPoemType", 

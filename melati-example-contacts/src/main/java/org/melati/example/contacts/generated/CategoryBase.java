@@ -3,17 +3,19 @@
 package org.melati.example.contacts.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.example.contacts.CategoryTable;
+import org.melati.example.contacts.ContactCategory;
 import org.melati.example.contacts.ContactsDatabaseTables;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.CachedSelection;
 import org.melati.poem.util.EmptyEnumeration;
-import java.util.Enumeration;
-import org.melati.poem.Persistent;
 
 
 /**
@@ -241,19 +243,27 @@ public abstract class CategoryBase extends JdbcPersistent {
     return new Field(c.getRaw(this), c);
   }
 
-  private CachedSelection categoryContactCategorys = null;
+  private CachedSelection<ContactCategory> categoryContactCategorys = null;
   /** References to this in the ContactCategory table via its category field.*/
   @SuppressWarnings("unchecked")
-  public Enumeration<Persistent> getCategoryContactCategorys() {
+  public Enumeration<ContactCategory> getCategoryContactCategorys() {
     if (getTroid() == null)
       return EmptyEnumeration.it;
     else {
       if (categoryContactCategorys == null)
         categoryContactCategorys =
-        getContactsDatabaseTables().getContactCategoryTable().getCategoryColumn().cachedSelectionWhereEq(getTroid());
+          getContactsDatabaseTables().getContactCategoryTable().getCategoryColumn().cachedSelectionWhereEq(getTroid());
       return categoryContactCategorys.objects();
     }
-    }
+  }
+
+
+  /** References to this in the ContactCategory table via its category field, as a List.*/
+  public List<ContactCategory> getCategoryContactCategorysList() {
+    return Collections.list(getCategoryContactCategorys());
+  }
+
+
 
 }
 

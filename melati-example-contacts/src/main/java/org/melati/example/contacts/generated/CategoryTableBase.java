@@ -2,6 +2,7 @@
 
 package org.melati.example.contacts.generated;
 
+
 import org.melati.example.contacts.Category;
 import org.melati.example.contacts.ContactsDatabaseTables;
 import org.melati.example.contacts.ContactsTable;

@@ -2,6 +2,7 @@
 
 package org.melati.example.contacts.generated;
 
+
 import java.sql.Date;
 import org.melati.example.contacts.Contact;
 import org.melati.example.contacts.ContactsDatabaseTables;

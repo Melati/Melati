@@ -4,20 +4,22 @@ package org.melati.example.contacts.generated;
 
 
 import java.sql.Date;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.example.contacts.Contact;
+import org.melati.example.contacts.ContactCategory;
 import org.melati.example.contacts.ContactTable;
 import org.melati.example.contacts.ContactsDatabaseTables;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.CachedSelection;
 import org.melati.poem.util.EmptyEnumeration;
-import java.util.Enumeration;
-import org.melati.poem.Persistent;
 
 
 /**
@@ -765,19 +767,49 @@ public abstract class ContactBase extends JdbcPersistent {
     return new Field(c.getRaw(this), c);
   }
 
-  private CachedSelection contactContactCategorys = null;
+  private CachedSelection<Contact> ownerContacts = null;
+  /** References to this in the Contact table via its owner field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Contact> getOwnerContacts() {
+    if (getTroid() == null)
+      return EmptyEnumeration.it;
+    else {
+      if (ownerContacts == null)
+        ownerContacts =
+          getContactsDatabaseTables().getContactTable().getOwnerColumn().cachedSelectionWhereEq(getTroid());
+      return ownerContacts.objects();
+    }
+  }
+
+
+  /** References to this in the Contact table via its owner field, as a List.*/
+  public List<Contact> getOwnerContactsList() {
+    return Collections.list(getOwnerContacts());
+  }
+
+
+
+  private CachedSelection<ContactCategory> contactContactCategorys = null;
   /** References to this in the ContactCategory table via its contact field.*/
   @SuppressWarnings("unchecked")
-  public Enumeration<Persistent> getContactContactCategorys() {
+  public Enumeration<ContactCategory> getContactContactCategorys() {
     if (getTroid() == null)
       return EmptyEnumeration.it;
     else {
       if (contactContactCategorys == null)
         contactContactCategorys =
-        getContactsDatabaseTables().getContactCategoryTable().getContactColumn().cachedSelectionWhereEq(getTroid());
+          getContactsDatabaseTables().getContactCategoryTable().getContactColumn().cachedSelectionWhereEq(getTroid());
       return contactContactCategorys.objects();
     }
-    }
+  }
+
+
+  /** References to this in the ContactCategory table via its contact field, as a List.*/
+  public List<ContactCategory> getContactContactCategorysList() {
+    return Collections.list(getContactContactCategorys());
+  }
+
+
 
 }
 

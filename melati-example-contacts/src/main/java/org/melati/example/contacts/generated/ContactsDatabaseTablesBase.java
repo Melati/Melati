@@ -2,6 +2,7 @@
 
 package org.melati.example.contacts.generated;
 
+
 // 13 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;

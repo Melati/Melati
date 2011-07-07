@@ -353,5 +353,6 @@ public abstract class ChildBase extends JdbcPersistent {
     Column c = _getChildTable().getParentColumn();
     return new Field(c.getRaw(this), c);
   }
+
 }
 

@@ -2,6 +2,7 @@
 
 package org.melati.example.odmg.generated;
 
+
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.UserTable;

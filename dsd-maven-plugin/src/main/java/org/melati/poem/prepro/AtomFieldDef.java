@@ -88,13 +88,13 @@ public class AtomFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + capitalisedName + "();\n" +
+      "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName + "();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + capitalisedName +
+      "            ((" + shortestUnambiguousClassname + ")g).set" + capitalisedName +
                      "((" + rawType + ")raw);\n" +
       "          }\n");
   }

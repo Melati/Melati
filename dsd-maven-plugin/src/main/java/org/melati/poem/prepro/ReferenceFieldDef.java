@@ -59,7 +59,6 @@ public class ReferenceFieldDef extends FieldDef {
 
   String integrityfix;
   
-  TableNamingInfo targetTableNamingInfo;
 
  /**
   * Constructor.
@@ -91,13 +90,12 @@ public class ReferenceFieldDef extends FieldDef {
     // to enable forward reference within the DSD
     table.addImport(type,"table");
     table.addImport(type,"persistent");
-    // TODO test with references to tables yet to be defined 
-    targetTableNamingInfo = table.dsd.nameStore.tablesByShortName.get(typeShortName);
     
-    if (targetTableNamingInfo == null)
-      throw new ParsingDSDException(lineNo, 
-          "Reference to a type (" + typeShortName + ") which has yet to be defined. \n" + 
-          "If there are no reciprocal references then reorder definitions.");
+  }
+  
+  /** Due to possible forward references this could be null until we finish parse */
+  public TableNamingInfo getTargetTableNamingInfo() {
+    return table.dsd.nameStore.tablesByShortName.get(typeShortName);
   }
 
  /**
@@ -112,13 +110,13 @@ public class ReferenceFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + capitalisedName + "Troid();\n" +
+      "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName + "Troid();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + capitalisedName + "Troid((" +
+      "            ((" + shortestUnambiguousClassname + ")g).set" + capitalisedName + "Troid((" +
                    rawType + ")raw);\n" +
       "          }\n");
 
@@ -132,8 +130,17 @@ public class ReferenceFieldDef extends FieldDef {
     }
   }
 
+  // FIXME Forwards references to extended classes would fail here
+  // As it is this will fail with a
   private String targetCast() {
-    return targetTableNamingInfo.superclass == null ?
+    // If this is irksome comment it out, but then we are relying upon hack below.
+    if (getTargetTableNamingInfo() == null)
+      throw new ParsingDSDException(lineNumber, 
+          "Reference to a type (" + typeShortName + ") which has yet to be defined. \n" + 
+          "If there are no reciprocal references then reorder definitions.");
+
+    // FIXME HACK Forwards references to extended classes should fail here until we do two passes
+    return getTargetTableNamingInfo() == null || getTargetTableNamingInfo().superclass == null ?
              "" : "(" + typeShortName + ")";
   }
 

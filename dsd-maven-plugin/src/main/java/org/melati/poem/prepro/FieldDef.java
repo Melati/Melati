@@ -76,7 +76,7 @@ public abstract class FieldDef {
 
   protected final Vector<FieldQualifier> fieldQualifiers;
 
-  final String mainClass;
+  final String shortestUnambiguousClassname;
 
   final String tableAccessorMethod;
 
@@ -141,8 +141,8 @@ public abstract class FieldDef {
     this.rawType = rawType;
     this.fieldQualifiers = qualifiers;
 
-    this.mainClass = table.naming.mainClassUnambiguous();
-    this.tableAccessorMethod = table.naming.tableAccessorMethod();
+    this.shortestUnambiguousClassname = table.tableNamingInfo.mainClassUnambiguous();
+    this.tableAccessorMethod = table.tableNamingInfo.tableAccessorMethod();
 
     for (int q = 0; q < qualifiers.size(); ++q) {
       ((FieldQualifier)qualifiers.elementAt(q)).apply(this);
@@ -355,12 +355,12 @@ public abstract class FieldDef {
   protected void generateColRawAccessors(Writer w) throws IOException {
     w.write("          public Object getRaw_unsafe(Persistent g)\n"
         + "              throws AccessPoemException {\n"
-        + "            return ((" + mainClass + ")g)." + "get" + capitalisedName
+        + "            return ((" + shortestUnambiguousClassname + ")g)." + "get" + capitalisedName
         + "_unsafe();\n" + "          }\n" + "\n");
 
     w.write("          public void setRaw_unsafe(Persistent g, Object raw)\n"
         + "              throws AccessPoemException {\n" + "            (("
-        + mainClass + ")g).set" + capitalisedName + "_unsafe((" + rawType + ")raw);\n"
+        + shortestUnambiguousClassname + ")g).set" + capitalisedName + "_unsafe((" + rawType + ")raw);\n"
         + "          }\n");
   }
 
@@ -388,7 +388,7 @@ public abstract class FieldDef {
             + "          public Object getCooked(Persistent g)\n"
             + "              throws AccessPoemException, PoemException {\n"
             + "            return (("
-            + mainClass
+            + shortestUnambiguousClassname
             + ")g).get"
             + capitalisedName
             + "();\n"
@@ -396,10 +396,10 @@ public abstract class FieldDef {
             + "\n"
             + "          public void setCooked(Persistent g, Object cooked)\n"
             + "              throws AccessPoemException, ValidationPoemException {\n"
-            + "            ((" + mainClass + ")g).set" + capitalisedName + "((" + typeShortName
+            + "            ((" + shortestUnambiguousClassname + ")g).set" + capitalisedName + "((" + typeShortName
             + ")cooked);\n" + "          }\n" + "\n"
             + "          public Field asField(Persistent g) {\n"
-            + "            return ((" + mainClass + ")g).get" + capitalisedName
+            + "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName
             + "Field();\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isEditable)

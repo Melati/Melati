@@ -96,11 +96,12 @@ public class TableDef {
   private Vector<FieldDef> fields = new Vector<FieldDef>();
   boolean isAbstract;
   boolean definesColumns;
-  TableNamingInfo naming = null;
+  TableNamingInfo tableNamingInfo = null;
 
   int nextFieldDisplayOrder = 0;
   // Note we have to store the imports and process them at
   // the end to avoid referring to a table that has yet to be processed.
+  // There is a similar problem with ReferenceFieldDef, really we need two passes
   private final Hashtable<String, String> imports = new Hashtable<String, String>();
   private final Vector<String> tableBaseImports = new Vector<String>();
   private final Vector<String> persistentBaseImports = new Vector<String>();
@@ -153,7 +154,7 @@ public class TableDef {
     } else
       tokens.pushBack();
 
-    naming = nameStore.add(dsd.packageName, dsd.getProjectName(), suffix, superclass);
+    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), suffix, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -197,7 +198,7 @@ public class TableDef {
   public void generateTableDeclJava(Writer w)
       throws IOException {
     if (!isAbstract)
-      w.write("  private " + naming.tableMainClassUnambiguous() + " tab_"
+      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() + " tab_"
           + name + " = null;\n");
   }
 
@@ -211,7 +212,7 @@ public class TableDef {
       throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " + "new "
-          + naming.tableMainClassUnambiguous() + "(this, \"" + name + "\", "
+          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + name + "\", "
           + "DefinitionSource.dsd));\n");
   }
 
@@ -227,16 +228,16 @@ public class TableDef {
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
     // NOT !!
-    String requiredReturnClass = naming.tableMainClassRootReturnClass();
+    String requiredReturnClass = tableNamingInfo.tableMainClassRootReturnClass();
 
     if (!isAbstract) {
       w.write("\n /**\n" + "  * Retrieves the "
-          + naming.tableMainClassShortName() + " table.\n" + "  *\n"
+          + tableNamingInfo.tableMainClassShortName() + " table.\n" + "  *\n"
           + "  * @see " + "org.melati.poem.prepro.TableDef"
           + "#generateTableAccessorJava \n" + "  * @return the "
           + requiredReturnClass + " from this database\n" + "  */\n");
       w.write("  public " + requiredReturnClass + " get"
-          + naming.tableMainClassShortName() + "() {\n" + "    return ");
+          + tableNamingInfo.tableMainClassShortName() + "() {\n" + "    return ");
       // This cast is not actually required as ours is a subclass anyway
       // if (!requiredReturnClass.equals(naming.tableMainClassUnambiguous()))
       //   w.write("(" + requiredReturnClass + ")");
@@ -255,17 +256,17 @@ public class TableDef {
     if (!isAbstract) {
       w.write("\n /**\n"
           + "  * Retrieves the <code>"
-          + naming.tableMainClassShortName()
+          + tableNamingInfo.tableMainClassShortName()
           + "</code> table"
-          + (naming.tableMainClassRootReturnClass().equals(
-              naming.tableMainClassShortName()) ? ".\n" : ("as a  <code>"
-              + naming.tableMainClassRootReturnClass() + "</code>.\n"))
+          + (tableNamingInfo.tableMainClassRootReturnClass().equals(
+              tableNamingInfo.tableMainClassShortName()) ? ".\n" : ("as a  <code>"
+              + tableNamingInfo.tableMainClassRootReturnClass() + "</code>.\n"))
           + "  * \n" + "  * @see " + "org.melati.poem.prepro.TableDef"
           + "#generateTableAccessorDefnJava \n" + "  * @return the "
-          + naming.tableMainClassRootReturnClass() + " from this database\n"
+          + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n"
           + "  */\n");
-      w.write("  " + naming.tableMainClassRootReturnClass() + " get"
-          + naming.tableMainClassShortName() + "();\n");
+      w.write("  " + tableNamingInfo.tableMainClassRootReturnClass() + " get"
+          + tableNamingInfo.tableMainClassShortName() + "();\n");
     }
   }
 
@@ -284,7 +285,7 @@ public class TableDef {
 
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
-    String requiredReturnClass = naming.tableMainClassRootReturnClass();
+    String requiredReturnClass = tableNamingInfo.tableMainClassRootReturnClass();
 
     w.write("\n" + "/**\n"
         + " * Melati POEM generated abstract base class for a "
@@ -293,8 +294,8 @@ public class TableDef {
         " * @see "
         + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
         " */\n");
-    w.write("public abstract class " + naming.baseClassShortName()
-        + " extends " + naming.superclassMainShortName() + " {\n" + "\n");
+    w.write("public abstract class " + tableNamingInfo.baseClassShortName()
+        + " extends " + tableNamingInfo.superclassMainShortName() + " {\n" + "\n");
 
     w.write("\n /**\n" + 
             "  * Retrieves the Database object.\n" + "  * \n" + 
@@ -305,22 +306,22 @@ public class TableDef {
         + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
 
     w.write("\n /**\n" + "  * Retrieves the  <code>"
-        + naming.tableMainClassShortName() + "</code> table \n"
+        + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.TableDef"
         + "#generatePersistentBaseJava \n" 
         + "  * @return the " + requiredReturnClass
         + "\n" + "  */\n");
     w.write("  public " + requiredReturnClass + " "
-        + naming.tableAccessorMethod() + "() {\n" + "    return ("
+        + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
         + requiredReturnClass + ")getTable();\n" + "  }\n\n");
       
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
-      w.write("  private " + naming.tableMainClassUnambiguous() + " _"
-          + naming.tableAccessorMethod() + "() {\n" + "    return ("
-          + naming.tableMainClassUnambiguous() + ")getTable();\n" + "  }\n\n");
+      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() + " _"
+          + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
+          + tableNamingInfo.tableMainClassUnambiguous() + ")getTable();\n" + "  }\n\n");
 
       w.write("  // Fields in this table \n");
       for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
@@ -348,44 +349,31 @@ public class TableDef {
     // for references to this table in tableDefs
     //  write getReferencesByColumname
     for (TableDef t : dsd.tablesInDatabase) { 
-      // w.write("// " + t.name +  "-" + t.superclass + "\n");
-      if (!t.isAbstract && t.superclass == null) { 
+      if (!t.isAbstract && t.superclass == null) { //TODO handle abstract and extended classes
         for (FieldDef f : t.fields) { 
           if (f instanceof ReferenceFieldDef) { 
             ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-           // w.write("// " + t.name 
-           //     + "-" + rfd.name + "-" 
-           //     + "-" + rfd.type + "-" 
-           //     + "-" + rfd.name + "-" 
-           //     +  rfd.mainClass + "\n");
-            
-            
-          
-            if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.typeShortName.equalsIgnoreCase(name)) {
-              w.write("// " + t.name + "-" + rfd.typeShortName + "- "+ rfd.mainClass + "\n");
-              w.write("// " + rfd.toString() + "\n");
-              w.write('\n');
-          
-              w.write("  private CachedSelection<" + StringUtils.capitalised(rfd.mainClass) +"> "+rfd.name+rfd.mainClass + "s = null;\n");
-              w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field.*/\n");
+            if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
+              w.write('\n');          
+              w.write("  private CachedSelection<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> "+rfd.name+rfd.shortestUnambiguousClassname + "s = null;\n");
+              w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field.*/\n");
               w.write("  @SuppressWarnings(\"unchecked\")\n");
-              w.write("  public Enumeration<" + StringUtils.capitalised(rfd.mainClass) +"> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s() {\n");
+              w.write("  public Enumeration<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s() {\n");
               w.write("    if (getTroid() == null)\n");
               w.write("      return EmptyEnumeration.it;\n");
               w.write("    else {\n");
-              w.write("      if (" + rfd.name+rfd.mainClass + "s == null)\n");
-              w.write("        " + rfd.name+rfd.mainClass + "s =\n");
-              w.write("          get" + dsd.databaseTablesClassName + "().get"+rfd.mainClass+"Table().get"+StringUtils.capitalised(rfd.name)+"Column().cachedSelectionWhereEq(getTroid());\n");
-              w.write("      return " + rfd.name+rfd.mainClass + "s.objects();\n");
+              w.write("      if (" + rfd.name+rfd.shortestUnambiguousClassname + "s == null)\n");
+              w.write("        " + rfd.name+rfd.shortestUnambiguousClassname + "s =\n");
+              w.write("          get" + dsd.databaseTablesClassName + "().get"+rfd.shortestUnambiguousClassname+"Table().get"+StringUtils.capitalised(rfd.name)+"Column().cachedSelectionWhereEq(getTroid());\n");
+              w.write("      return " + rfd.name+rfd.shortestUnambiguousClassname + "s.objects();\n");
               w.write("    }\n");
               w.write("  }\n");
               w.write("\n");
               w.write("\n");
-              w.write("  /** References to this in the " + rfd.mainClass+" table via its "+ rfd.name+" field, as a List.*/\n");
-              w.write("  public List<" + StringUtils.capitalised(rfd.mainClass) +"> get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "sList() {\n");
-              w.write("    return Collections.list(get" + StringUtils.capitalised(rfd.name)+rfd.mainClass + "s());\n");
+              w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field, as a List.*/\n");
+              w.write("  public List<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "sList() {\n");
+              w.write("    return Collections.list(get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s());\n");
               w.write("  }\n");
-              w.write("\n");
               w.write("\n");
               w.write("\n");
             }
@@ -408,11 +396,11 @@ public class TableDef {
       throws IOException {
 
     w.write("import " + dsd.packageName + ".generated."
-        + naming.baseClassShortName() + ";\n");
+        + tableNamingInfo.baseClassShortName() + ";\n");
     w.write("\n/**\n"
         + " * Melati POEM generated, programmer modifiable stub \n"
         + " * for a <code>Persistent</code> <code>"
-        + naming.mainClassShortName() + "</code> object.\n");
+        + tableNamingInfo.mainClassShortName() + "</code> object.\n");
     w.write(" * \n"
         + (description != null ? " * <p> \n"
             + " * Description: \n"
@@ -422,13 +410,13 @@ public class TableDef {
     w.write(fieldSummaryTable());
     w.write(" * \n" + " * @see " + "org.melati.poem.prepro.TableDef"
         + "#generatePersistentJava \n" + " */\n");
-    w.write("public class " + naming.mainClassShortName() + " extends "
-        + naming.baseClassShortName() + " {\n");
+    w.write("public class " + tableNamingInfo.mainClassShortName() + " extends "
+        + tableNamingInfo.baseClassShortName() + " {\n");
 
     w.write("\n /**\n"
             + "  * Constructor \n"
             + "  * for a <code>Persistent</code> <code>"
-            + naming.mainClassShortName()
+            + tableNamingInfo.mainClassShortName()
             + "</code> object.\n"
             + (description != null ? ("  * <p>\n"
                 + "  * Description: \n"
@@ -439,7 +427,7 @@ public class TableDef {
             + "  * @see " + "org.melati.poem.prepro.TableDef"
             + "#generatePersistentJava \n" + "  */\n");
 
-    w.write("  public " + naming.mainClassShortName() + "() { \n"
+    w.write("  public " + tableNamingInfo.mainClassShortName() + "() { \n"
             + "    super();\n"
             + "}\n" + "\n"
             + "  // programmer's domain-specific code here\n" + "}\n");
@@ -463,8 +451,8 @@ public class TableDef {
     w.write(" *\n" 
         + " * @see " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + " */\n");
-    w.write("\npublic class " + naming.tableBaseClassShortName() + " extends "
-        + naming.superclassTableShortName() + " {\n" + "\n");
+    w.write("\npublic class " + tableNamingInfo.tableBaseClassShortName() + " extends "
+        + tableNamingInfo.superclassTableShortName() + " {\n" + "\n");
 
     for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
       w.write("  private ");
@@ -479,7 +467,7 @@ public class TableDef {
         + "  * @param name              the name of this <code>Table</code>\n"
         + "  * @param definitionSource  which definition is being used\n"
         + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
-    w.write("\n" + "  public " + naming.tableBaseClassShortName() + "(\n"
+    w.write("\n" + "  public " + tableNamingInfo.tableBaseClassShortName() + "(\n"
         + "      Database database, String name,\n"
         + "      DefinitionSource definitionSource)"
         + " throws PoemException {\n"
@@ -526,10 +514,10 @@ public class TableDef {
 
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
-    String requiredReturnClass = naming.mainClassRootReturnClass();
+    String requiredReturnClass = tableNamingInfo.mainClassRootReturnClass();
 
     w.write("\n /**\n" + "  * Retrieve the <code>"
-        + naming.mainClassShortName() + "</code> as a <code>"
+        + tableNamingInfo.mainClassShortName() + "</code> as a <code>"
         + requiredReturnClass + "</code>.\n" 
         + "  *\n" 
         + "  * @see "
@@ -538,12 +526,12 @@ public class TableDef {
         + "  * @return the <code>Persistent</code> identified "
         + "by the <code>troid</code>\n" + "  */\n");
     w.write("  public " + requiredReturnClass + " get"
-        + naming.mainClassShortName() + "Object(" + "Integer troid) {\n"
+        + tableNamingInfo.mainClassShortName() + "Object(" + "Integer troid) {\n"
         + "    return (" + requiredReturnClass + ")getObject(troid);\n"
         + "  }\n" + "\n");
 
     w.write("\n /**\n" + "  * Retrieve the <code>"
-        + naming.mainClassShortName() + "</code> \n" 
+        + tableNamingInfo.mainClassShortName() + "</code> \n" 
         + "  * as a <code>" + requiredReturnClass + "</code>.\n" 
         + "  *\n" 
         + "  * @see "
@@ -551,13 +539,13 @@ public class TableDef {
         + "  * @param troid a Table Row Object ID\n"
         + "  * @return the <code>Persistent</code> identified " + "  */\n");
     w.write("  public " + requiredReturnClass + " get"
-        + naming.mainClassShortName() + "Object(" + "int troid) {\n"
+        + tableNamingInfo.mainClassShortName() + "Object(" + "int troid) {\n"
         + "    return (" + requiredReturnClass + ")getObject(troid);\n"
         + "  }\n");
 
     if (!isAbstract)
       w.write("\n" + "  protected JdbcPersistent _newPersistent() {\n"
-          + "    return new " + naming.mainClassUnambiguous() + "();\n" + "  }"
+          + "    return new " + tableNamingInfo.mainClassUnambiguous() + "();\n" + "  }"
           + "\n");
     
     if (displayName != null)
@@ -597,7 +585,7 @@ public class TableDef {
   public void generateTableJava(Writer w)
       throws IOException {
 
-    w.write("import " + naming.tableBaseClassFQName() + ";\n");
+    w.write("import " + tableNamingInfo.tableBaseClassFQName() + ";\n");
     w.write("import org.melati.poem.DefinitionSource;\n");
     w.write("import org.melati.poem.Database;\n");
     w.write("import org.melati.poem.PoemException;\n");
@@ -605,7 +593,7 @@ public class TableDef {
     w.write("\n/**\n"
         + " * Melati POEM generated, programmer modifiable stub \n"
         + " * for a <code>"
-        + naming.tableMainClassShortName()
+        + tableNamingInfo.tableMainClassShortName()
         + "</code> object.\n"
         + (description != null ? " * <p>\n"
             + " * Description: \n"
@@ -615,8 +603,8 @@ public class TableDef {
     w.write(fieldSummaryTable());
     w.write(" * \n" 
         + " * @see  " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n" + " */\n");
-    w.write("public class " + naming.tableMainClassShortName() + " extends "
-        + naming.tableBaseClassShortName() + " {\n");
+    w.write("public class " + tableNamingInfo.tableMainClassShortName() + " extends "
+        + tableNamingInfo.tableBaseClassShortName() + " {\n");
     Object o = new Object() {
       public String toString() {
         return "\n /**\n"
@@ -631,7 +619,7 @@ public class TableDef {
       }
     };
     w.write(o.toString());
-    w.write("  public " + naming.tableMainClassShortName() + "(\n"
+    w.write("  public " + tableNamingInfo.tableMainClassShortName() + "(\n"
         + "      Database database, String name,\n"
         + "      DefinitionSource definitionSource)"
         + " throws PoemException {\n"
@@ -659,9 +647,9 @@ public class TableDef {
       for (FieldDef f : t.fields) { 
         if (f instanceof ReferenceFieldDef) { 
           ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-          if (!rfd.mainClass.equalsIgnoreCase(name) && rfd.typeShortName.equalsIgnoreCase(name)) {  
+          if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
             needSelectionImports = true;
-            addImport(rfd.table.naming.packageName + "." + StringUtils.capitalised(rfd.name), "persistent");
+            addImport(rfd.table.tableNamingInfo.mainClassFQName(), "persistent");
           }
         }
       }
@@ -672,7 +660,6 @@ public class TableDef {
       addImport("java.util.Enumeration","persistent");
       addImport("java.util.List","persistent");
       addImport("java.util.Collections","persistent");
-      addImport("org.melati.poem.Persistent","persistent");
     }
     
     int fieldCount = 0;
@@ -684,7 +671,7 @@ public class TableDef {
       if (f.searchability != null)
         hasSearchability = true;
     }
-    if (fieldCount == 0 && !isAbstract && naming.superclass == null)
+    if (fieldCount == 0 && !isAbstract && tableNamingInfo.superclass == null)
       throw new NonAbstractEmptyTableException(name);
 
     if (!isAbstract)
@@ -693,20 +680,20 @@ public class TableDef {
       addImport("org.melati.poem.DisplayLevel", "table");
     if (hasSearchability)
       addImport("org.melati.poem.Searchability", "table");
-    addImport(naming.tableFQName, "table");
+    addImport(tableNamingInfo.tableFQName, "table");
     if (definesColumns) {
       addImport("org.melati.poem.Column", "both");
       addImport("org.melati.poem.Field", "both");
     }
-    if (naming.superclassMainUnambiguous().equals("JdbcPersistent")) {
+    if (tableNamingInfo.superclassMainUnambiguous().equals("JdbcPersistent")) {
       addImport("org.melati.poem.JdbcPersistent", "persistent");
     } else {
-      addImport(naming.superclassMainFQName(), "persistent");
+      addImport(tableNamingInfo.superclassMainFQName(), "persistent");
     }
 
     // we may not have any fields in an overridden class
     // but we need the import for getTable
-    addImport(naming.tableMainClassFQName(), "persistent");
+    addImport(tableNamingInfo.tableMainClassFQName(), "persistent");
     addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "persistent");
 
     addImport("org.melati.poem.Database", "table");
@@ -716,10 +703,10 @@ public class TableDef {
     if (!isAbstract)
       addImport("org.melati.poem.Persistent", "table");
 
-    if (naming.superclassTableUnambiguous().equals("Table")) {
+    if (tableNamingInfo.superclassTableUnambiguous().equals("Table")) {
       addImport("org.melati.poem.Table", "table");
     } else {
-      addImport(naming.superclassTableFQName(), "table");
+      addImport(tableNamingInfo.superclassTableFQName(), "table");
     }
     addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "table");
 
@@ -771,28 +758,28 @@ public class TableDef {
     for (int i = 0; i < p.length; i++)
       persistentBaseImports.addElement((String)p[i]);
 
-    dsd.createJava(naming.baseClassShortName(), new Generator() {
+    dsd.createJava(tableNamingInfo.baseClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
         this_.generatePersistentBaseJava(w);
       }
     }, true);
 
-    dsd.createJava(naming.mainClassShortName(), new Generator() {
+    dsd.createJava(tableNamingInfo.mainClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
         this_.generatePersistentJava(w);
       }
     }, false);
 
-    dsd.createJava(naming.tableBaseClassShortName(), new Generator() {
+    dsd.createJava(tableNamingInfo.tableBaseClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
         this_.generateTableBaseJava(w);
       }
     }, true);
 
-    dsd.createJava(naming.tableMainClassShortName(), new Generator() {
+    dsd.createJava(tableNamingInfo.tableMainClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
         this_.generateTableJava(w);

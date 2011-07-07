@@ -92,13 +92,13 @@ public class ColumnTypeFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + capitalisedName + "Code();\n" +
+      "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName + "Code();\n" +
       "          }\n" +
       "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + capitalisedName + "Code((" +
+      "            ((" + shortestUnambiguousClassname + ")g).set" + capitalisedName + "Code((" +
                        rawType + ")raw);\n" +
       "          }\n");
   }

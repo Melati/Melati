@@ -287,11 +287,11 @@ public class DSD {
     try {
       if (overwrite) { // FIXME Nasty - overwrite here meaning generating base package
         w.write(autogenStamp + "\n" + "\n");
-        w.write("package " + packageName + ".generated;\n" + "\n");
+        w.write("package " + packageName + ".generated;\n" );
       } else {
-        w.write("package " + packageName + ";\n" + "\n");
+        w.write("package " + packageName + ";\n" );
       }
-
+      w.write("\n\n");
       proc.process(w);
     } catch (IOException e) {
       try {
@@ -392,8 +392,8 @@ public class DSD {
 
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
-      if (!(td.naming.hidden || td.isAbstract))
-        w.write(td.naming.importTableString());
+      if (!(td.tableNamingInfo.hidden || td.isAbstract))
+        w.write(td.tableNamingInfo.importTableString());
     }
 
     w.write("\n" +
@@ -407,7 +407,7 @@ public class DSD {
 
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
-      if (!td.naming.hidden)
+      if (!td.tableNamingInfo.hidden)
         td.generateTableDeclJava(w);
     }
 
@@ -416,7 +416,7 @@ public class DSD {
 
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
-      if (!td.naming.hidden)
+      if (!td.tableNamingInfo.hidden)
         td.generateTableDefnJava(w);
     }
 
@@ -424,7 +424,7 @@ public class DSD {
 
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
-      if (!td.naming.hidden) {
+      if (!td.tableNamingInfo.hidden) {
         w.write('\n');
         td.generateTableAccessorJava(w);
       }
@@ -452,9 +452,9 @@ public class DSD {
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
       if (td.isAbstract) w.write("// abstract ");
-      if (td.naming.hidden) w.write ("// hidden ");
-      if (td.naming.hidesOther) w.write ("// hides ");
-      w.write(td.naming.importTableString());
+      if (td.tableNamingInfo.hidden) w.write ("// hidden ");
+      if (td.tableNamingInfo.hidesOther) w.write ("// hides ");
+      w.write(td.tableNamingInfo.importTableString());
 
     }
     for (int j = 0; j < importedDSDs.size(); j++) {
@@ -484,7 +484,7 @@ public class DSD {
     w.write(" {\n\n");
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
-      if (!td.naming.hidden)
+      if (!td.tableNamingInfo.hidden)
         td.generateTableAccessorDefnJava(w);
     }
     w.write("}\n\n");

@@ -83,7 +83,8 @@ public class TableDef {
 
   DSD dsd;
   /** Mixed case name. */
-  final String suffix;
+  final String mixedCaseName;
+  final String lowercasedInitialLetterName;
   /** Lowercase name. */
   final String name;
   String displayName;
@@ -136,9 +137,9 @@ public class TableDef {
     this.isAbstract = isAbstract;
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<table name>", tokens);
-    suffix = tokens.sval;
-    name = suffix.toLowerCase();
-
+    mixedCaseName = tokens.sval;
+    name = mixedCaseName.toLowerCase();
+    lowercasedInitialLetterName = mixedCaseName.substring(0,1).toLowerCase() + mixedCaseName.substring(1);
 
     if (tokens.nextToken() == StreamTokenizer.TT_WORD) {
       if (!tokens.sval.equals("extends"))
@@ -154,7 +155,7 @@ public class TableDef {
     } else
       tokens.pushBack();
 
-    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), suffix, superclass);
+    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), mixedCaseName, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -212,7 +213,7 @@ public class TableDef {
       throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " + "new "
-          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + name + "\", "
+          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + lowercasedInitialLetterName + "\", "
           + "DefinitionSource.dsd));\n");
   }
 
@@ -290,7 +291,7 @@ public class TableDef {
     w.write("\n" + "/**\n"
         + " * Melati POEM generated abstract base class for a "
         + "<code>Persistent</code> \n" + 
-        " * <code>" + suffix + "</code> Object.\n" + " *\n" + 
+        " * <code>" + mixedCaseName + "</code> Object.\n" + " *\n" + 
         " * @see "
         + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
         " */\n");
@@ -447,7 +448,7 @@ public class TableDef {
 
     w.write("\n");
     w.write("\n" + "/**\n" + " * Melati POEM generated base class for \n"
-        + "<code>Table</code> <code>" + suffix + "</code>.\n");
+        + "<code>Table</code> <code>" + mixedCaseName + "</code>.\n");
     w.write(" *\n" 
         + " * @see " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + " */\n");
@@ -790,7 +791,7 @@ public class TableDef {
   String fieldSummaryTable() {
     StringBuffer table = new StringBuffer();
     table.append(" * \n" + " * <table> \n" + " * <tr><th colspan='3'>\n"
-        + " * Field summary for SQL table <code>" + suffix + "</code>\n"
+        + " * Field summary for SQL table <code>" + mixedCaseName + "</code>\n"
         + " * </th></tr>\n"
         + " * <tr><th>Name</th><th>Type</th><th>Description</th></tr>\n");
     for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {

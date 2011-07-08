@@ -94,8 +94,8 @@ public class BigDecimalFieldDef extends AtomFieldDef {
   // public void generateBaseMethods(Writer w) throws IOException {
   // super.generateBaseMethods(w);
   /*
-   * w.write("\n" + " public final void set" + suffix + "(double cooked)\n" + "
-   * throws AccessPoemException, ValidationPoemException {\n" + " set" + suffix +
+   * w.write("\n" + " public final void set" + mixedCaseName + "(double cooked)\n" + "
+   * throws AccessPoemException, ValidationPoemException {\n" + " set" + mixedCaseName +
    * "(new Double(cooked));\n" + " }\n");
    */
   // }

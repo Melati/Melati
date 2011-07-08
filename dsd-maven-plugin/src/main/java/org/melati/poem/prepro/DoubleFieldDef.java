@@ -88,7 +88,7 @@ public class DoubleFieldDef extends AtomFieldDef {
       + "  * Sets the <code>" 
       + capitalisedName 
       + "</code> value, with checking, for this <code>" 
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Persistent</code>.\n"
       + ((description != null) ? "  * Field description: \n" 
                                  + DSD.javadocFormat(2, 3, description)

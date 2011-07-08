@@ -263,7 +263,7 @@ public abstract class FieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> value, without locking, \n" + "  * for this <code>"
-        + table.suffix + "</code> <code>Persistent</code>.\n" + "  *\n"
+        + table.mixedCaseName + "</code> <code>Persistent</code>.\n" + "  *\n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n" + "  * @return the " + rawType + " " + name
         + "\n" + "  */\n");
@@ -271,7 +271,7 @@ public abstract class FieldDef {
         + "    return " + name + ";\n" + "  }\n" + "\n");
     w.write("\n /**\n" + "  * Sets the <code>" + capitalisedName
         + "</code> value directly, without checking, \n" + "  * for this "
-        + table.suffix + " <code>Persistent</code>.\n" + "  * \n"
+        + table.mixedCaseName + " <code>Persistent</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateBaseMethods \n"
         + "  * @param cooked  the pre-validated value to set\n" + "  */\n");
@@ -290,7 +290,7 @@ public abstract class FieldDef {
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
-        + table.suffix + "</code> <code>Persistent</code>.\n" + "  * \n"
+        + table.mixedCaseName + "</code> <code>Persistent</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateFieldCreator \n" + "  * @throws AccessPoemException \n"
         + "  *         if the current <code>AccessToken</code> \n"
@@ -335,7 +335,7 @@ public abstract class FieldDef {
   public void generateColAccessor(Writer w) throws IOException {
     w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
         + "</code> <code>Column</code> for this \n" + "  * <code>"
-        + table.suffix + "</code> <code>Table</code>.\n" + "  * \n"
+        + table.mixedCaseName + "</code> <code>Table</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateColAccessor \n" + "  * @return the " + name
         + " <code>Column</code>\n" + "  */\n");

@@ -113,7 +113,7 @@ public class AtomFieldDef extends FieldDef {
       + capitalisedName 
       + " value, with locking, for this \n"
       + "  * <code>" 
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Persistent</code>.\n"
       + ((description != null) ? "  * Field description: \n" 
                                + DSD.javadocFormat(2, 3, description)
@@ -129,7 +129,7 @@ public class AtomFieldDef extends FieldDef {
       + capitalisedName
       + "</code> for this \n"
       + "  *         <code>" 
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Persistent</code>  \n"
       + "  */\n");
     w.write("\n" +
@@ -146,7 +146,7 @@ public class AtomFieldDef extends FieldDef {
       + capitalisedName 
       + "</code> value, with checking, for this \n"
       + "  * <code>" 
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Persistent</code>.\n"
       + (description != null ?   "  * Field description: \n" 
                                + DSD.javadocFormat(2, 3, description)

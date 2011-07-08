@@ -120,7 +120,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       + capitalisedName 
       + "</code> value as an <code>Integer</code> for this " 
       + "<code>Column</code> of the <code>"
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Table</code>.\n"
       + ((description != null) ? "  * Field description: \n" 
                                  + DSD.javadocFormat(2, 3, description)
@@ -147,9 +147,9 @@ public class ColumnTypeFieldDef extends FieldDef {
       + "  * Sets the <code>Integer</code> <code>" 
       + capitalisedName 
       + "</code> value  for this <code>" 
-      + table.suffix
+      + table.mixedCaseName
       + "</code> <code>Column</code> of the <code>"
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Table</code>.\n" 
       + ((description != null) ? "  * Field description: \n" 
                                  + DSD.javadocFormat(2, 3, description)
@@ -179,7 +179,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       + capitalisedName 
       + "</code> value as an <code>" + typeShortName + "</code> for this " 
       + "<code>Column</code> of the <code>"
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Table</code>.\n"
       + ((description != null) ? "  * Field description: \n" 
                                  + DSD.javadocFormat(2, 3, description)
@@ -208,9 +208,9 @@ public class ColumnTypeFieldDef extends FieldDef {
       + "  * Sets the <code>" + typeShortName + "</code> <code>" 
       + capitalisedName 
       + "</code> value  for this <code>" 
-      + table.suffix
+      + table.mixedCaseName
       + "</code> <code>Column</code> of the <code>"
-      + table.suffix 
+      + table.mixedCaseName 
       + "</code> <code>Table</code>.\n" 
       + ((description != null) ? "  * Field description: \n" 
                                  + DSD.javadocFormat(2, 3, description)

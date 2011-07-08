@@ -78,6 +78,6 @@ public class TypeDefinitionMismatchException extends SeriousPoemException {
   public String getMessage() {
     return
         "Column " + column + " has its type overridden " +
-        "incompatibly in " + newTypeSource + ": " + newType;
+        "incompatibly in " + newTypeSource + ": (" + newType.getClass() + ")" + newType;
   }
 }

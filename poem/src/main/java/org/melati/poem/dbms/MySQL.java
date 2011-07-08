@@ -148,7 +148,7 @@ public class MySQL extends AnsiStandard {
   * @return this dbms specific type keyword
   */
   public String getSqlDefinition(String sqlTypeName) {
-    if(sqlTypeName.equals("BOOLEAN")) return "BOOL"; 
+    if(sqlTypeName.equals("BOOLEAN")) return "bool"; 
     return super.getSqlDefinition(sqlTypeName);
   }
 
@@ -158,7 +158,7 @@ public class MySQL extends AnsiStandard {
    */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
-      return "TEXT";
+      return "text";
     }
     return super.getStringSqlDefinition(size); //VARCHAR(size) is OK
   }
@@ -195,32 +195,15 @@ public class MySQL extends AnsiStandard {
       super(nullable, size);
     }
 
-    //_assertValidRow(Object) is defined OK in StringPoemType
-
     //MySQL returns metadata info size 65535 for TEXT type
     protected boolean _canRepresent(SQLPoemType other) {
       return
-             sqlTypeCode() == other.sqlTypeCode() &&
-             other instanceof StringPoemType &&
-             (getSize()<0 || getSize()==mysqlTextSize ||
-             getSize()>=((StringPoemType)other).getSize());
+             sqlTypeCode() == other.sqlTypeCode() 
+             && other instanceof StringPoemType 
+             && (getSize()<0 || getSize()==mysqlTextSize || getSize()>=((StringPoemType)other).getSize());
     }
 
     /**
-     * Looks like this is unnecessary.
-     * {@inheritDoc}
-     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
-     */
-    /*
-    public PoemType canRepresent(PoemType other) {
-      return other instanceof StringPoemType &&
-             _canRepresent((StringPoemType)other) &&
-             !(!getNullable() && ((StringPoemType)other).getNullable()) ?
-               other : null;
-    }
-     */
-    /**
-     * {@inheritDoc}
      * @see org.melati.poem.SizedAtomPoemType#withSize(int)
      */
     public SizedAtomPoemType withSize(int newSize) {
@@ -342,7 +325,7 @@ public class MySQL extends AnsiStandard {
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-    String typeName = md.getString("TYPE_NAME");
+    String typeName = md.getString("TYPE_NAME").toLowerCase();
     if(typeName.equals("blob"))
       return new BlobPoemType(nullable, md.getInt("COLUMN_SIZE"));
     else if(typeName.equals("text"))

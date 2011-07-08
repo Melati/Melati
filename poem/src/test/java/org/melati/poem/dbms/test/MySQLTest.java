@@ -62,7 +62,7 @@ public class MySQLTest extends DbmsSpec {
    */
   public void testGetStringSqlDefinition() throws Exception {
     assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
-    assertEquals("TEXT",  it.getStringSqlDefinition(-1));
+    assertEquals("text",  it.getStringSqlDefinition(-1));
   }
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
@@ -70,7 +70,7 @@ public class MySQLTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testGetSqlDefinition() throws Exception {
-    assertEquals("BOOL", it.getSqlDefinition("BOOLEAN"));
+    assertEquals("bool", it.getSqlDefinition("BOOLEAN"));
     assertEquals("DOUBLE PRECISION", it.getSqlDefinition("DOUBLE PRECISION"));
     assertEquals("INT8", it.getSqlDefinition("INT8"));
     assertEquals("Big Decimal", it.getSqlDefinition("Big Decimal"));

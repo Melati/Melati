@@ -506,7 +506,7 @@ public abstract class Database implements TransactionPool {
               }
               table.createTableInfo();
           }
-        } else if (debug) log("table not null:" + tableName + "Table has name " + table.getName());
+        } else if (debug) log("Table not null:" + tableName + " has name " + table.getName());
       }
 
       if (table != null) {
@@ -523,6 +523,8 @@ public abstract class Database implements TransactionPool {
     // ... and create any tables that simply don't exist in the db
 
     for (Table table : tables) {
+      if (debug) log("Unifying:" + table.getName() + "(" + dbms.unreservedName(table.getName()) + ")");
+
       // bit yukky using getColumns ...
       ResultSet colDescs = columnsMetadata(m,
                                dbms.unreservedName(table.getName()));

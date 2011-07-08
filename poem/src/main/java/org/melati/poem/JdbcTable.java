@@ -2636,7 +2636,7 @@ public class JdbcTable implements Selectable, Table {
     if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");
     
-    for (Enumeration ci =
+    for (Enumeration<Persistent> ci =
              database.getColumnInfoTable().getTableinfoColumn().
                  selectionWhereEq(info.troid());
          ci.hasMoreElements();) {
@@ -2651,7 +2651,7 @@ public class JdbcTable implements Selectable, Table {
       column.setColumnInfo(columnInfo);
     }
 
-    for (Enumeration c = columns(); c.hasMoreElements();)
+    for (Enumeration<Column> c = columns(); c.hasMoreElements();)
       ((Column)c.nextElement()).createColumnInfo();
   }
 
@@ -2743,7 +2743,7 @@ public class JdbcTable implements Selectable, Table {
     if (info != null) {
 
       // Ensure that column has at least one index of the correct type 
-      Hashtable dbHasIndexForColumn = new Hashtable();
+      Hashtable<Column,Boolean> dbHasIndexForColumn = new Hashtable<Column,Boolean>();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
       if (debug) System.err.println("Getting indexes for " + unreservedName + "(was " + getName() + ")");

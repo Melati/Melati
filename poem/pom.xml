@@ -146,27 +146,6 @@
          </configuration>
        </execution>
      </executions>
-     <!-- The mojo currently has a very empty classpath
-      all attempts to populate it have failed
-      So I have used a copy of the current jar (to get around cyclic dependencies.
-      
-      None of these problems occur for main or for use of dsd in other projects.
-      -->
-     <dependencies>
-      <!-- Evil Hack -->
-      <dependency>
-      <groupId>org.melati</groupId>
-      <artifactId>poemCopy</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-      </dependency>
-       <!-- WTF -->
-      <dependency>
-       <groupId>concurrent</groupId>
-       <artifactId>concurrent</artifactId>
-       <version>1.3.4</version>
-      </dependency>
-     </dependencies>
     </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

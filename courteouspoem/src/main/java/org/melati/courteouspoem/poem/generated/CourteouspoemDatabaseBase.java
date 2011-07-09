@@ -34,11 +34,11 @@ public class CourteouspoemDatabaseBase extends PoemDatabase {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
     redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
     redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
-    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership", DefinitionSource.dsd));
-    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability", DefinitionSource.dsd));
-    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
-    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
-    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
+    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupMembership", DefinitionSource.dsd));
+    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupCapability", DefinitionSource.dsd));
+    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tableCategory", DefinitionSource.dsd));
+    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
+    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
   }
 

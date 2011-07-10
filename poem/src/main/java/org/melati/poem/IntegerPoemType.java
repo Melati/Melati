@@ -55,7 +55,7 @@ import org.melati.poem.util.IntegerEnumeration;
 /**
  * Plain old integers, the range being contingent on the underlying SQL type. 
  */
-public class IntegerPoemType<T> extends AtomPoemType<T> {
+public class IntegerPoemType extends AtomPoemType<Integer> {
 
   /** Instance of a nullable IntegerPoemType. */
   public static final IntegerPoemType nullableInstance = new IntegerPoemType(true);
@@ -76,7 +76,7 @@ public class IntegerPoemType<T> extends AtomPoemType<T> {
   /**
    * @todo Do down-counting?
    */
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     Integer low = (Integer)getLowRaw();
     Integer limit = (Integer)getLimitRaw();
     return low == null ?
@@ -102,7 +102,8 @@ public class IntegerPoemType<T> extends AtomPoemType<T> {
     ps.setInt(col, ((Integer)integer).intValue());
   }
 
-  protected Object _rawOfString(String rawString)
+  @Override
+  protected Integer _rawOfString(String rawString)
       throws ParsingPoemException {
     try {
       return new Integer(rawString);
@@ -116,7 +117,7 @@ public class IntegerPoemType<T> extends AtomPoemType<T> {
    * {@inheritDoc}
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof IntegerPoemType;
   }
 

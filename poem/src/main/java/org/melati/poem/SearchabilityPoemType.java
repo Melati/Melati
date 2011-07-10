@@ -66,7 +66,7 @@ public class SearchabilityPoemType extends IndexPoemType {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#possibleRaws()
    */
-  public Enumeration possibleRaws() {
+  public Enumeration<Integer> possibleRaws() {
     return new IntegerEnumeration(0, Searchability.count());
   }
 
@@ -80,7 +80,7 @@ public class SearchabilityPoemType extends IndexPoemType {
     return Searchability.forIndex(((Integer)raw).intValue());
   }
 
-  protected Object _rawOfCooked(Object cooked) {
+  protected Integer _rawOfCooked(Object cooked) {
     return ((Searchability)cooked).getIndex();
   }
 
@@ -90,7 +90,7 @@ public class SearchabilityPoemType extends IndexPoemType {
     return ((Searchability)cooked).getName();
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof SearchabilityPoemType;
   }
 

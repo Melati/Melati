@@ -74,7 +74,7 @@ public class DisplayLevelPoemType extends IndexPoemType {
     return DisplayLevel.forIndex(((Integer)raw).intValue());
   }
 
-  protected Object _rawOfCooked(Object cooked) {
+  protected Integer _rawOfCooked(Object cooked) {
     return ((DisplayLevel)cooked).getIndex();
   }
 
@@ -84,7 +84,7 @@ public class DisplayLevelPoemType extends IndexPoemType {
     return ((DisplayLevel)cooked).getName();
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof DisplayLevelPoemType;
   }
 

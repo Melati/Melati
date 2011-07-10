@@ -56,7 +56,7 @@ import org.melati.poem.util.ConsEnumeration;
 /**
  * Base class of all fundamental types.
  */
-public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
+public abstract class BasePoemType<T> implements SQLPoemType<T>, Cloneable {
   private int sqlTypeCode;
   protected boolean nullable;
 
@@ -180,7 +180,7 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
     }
   }
 
-  protected Enumeration<Object> _possibleRaws() {
+  protected Enumeration<T> _possibleRaws() {
     return null;
   }
   
@@ -188,10 +188,10 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#possibleRaws()
    */
-  public Enumeration<Object> possibleRaws() {
-    Enumeration<Object> them = _possibleRaws();
+  public Enumeration<T> possibleRaws() {
+    Enumeration<T> them = _possibleRaws();
     return them == null ? null :
-                   getNullable() ? new ConsEnumeration<Object>(null, them) :
+                   getNullable() ? new ConsEnumeration<T>(null, them) :
                    them;
   }
 
@@ -211,7 +211,7 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
    * Converts a non-null string to an appropriate value 
    * for insertion into the underlying DBMS.
    */
-  protected abstract Object _rawOfString(String string)
+  protected abstract T _rawOfString(String string)
       throws ParsingPoemException;
 
   /**
@@ -226,9 +226,9 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#rawOfString(java.lang.String)
    */
-  public final Object rawOfString(String string)
+  public final T rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
-    Object raw = string == null ? null : _rawOfString(string);
+    T raw = string == null ? null : _rawOfString(string);
     assertValidRaw(raw);
     return raw;
   }
@@ -295,13 +295,13 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
     return raw == null ? null : _cookedOfRaw(raw);
   }
 
-  protected abstract Object _rawOfCooked(Object raw) throws PoemException;
+  protected abstract T _rawOfCooked(Object raw) throws PoemException;
 
   /**
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#rawOfCooked(java.lang.Object)
    */
-  public final Object rawOfCooked(Object cooked) {
+  public final T rawOfCooked(Object cooked) {
     doubleCheckValidCooked(cooked);
     return cooked == null ? null : _rawOfCooked(cooked);
   }
@@ -358,20 +358,20 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
   public String sqlTypeDefinition(Dbms dbms) {
     return _sqlDefinition(dbms);
   }
-  protected abstract boolean _canRepresent(SQLPoemType other);
+  protected abstract boolean _canRepresent(SQLPoemType<?> other);
 
   /**
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
    */
-  public PoemType<?> canRepresent(PoemType other) {
+  public PoemType<?> canRepresent(PoemType<?> other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
     if (!(other instanceof SQLPoemType)) 
       // NOTE Never happens as currently all PoemTypes are SQLPoemTypes
       return null;
     else {
-      SQLPoemType q = (SQLPoemType)other;
+      SQLPoemType<?> q = (SQLPoemType<?>)other;
       return
           !(!nullable && q.getNullable()) && // Nullable may represent not nullable
           _canRepresent(q) ?
@@ -384,7 +384,7 @@ public abstract class BasePoemType<T> implements SQLPoemType, Cloneable {
    * @see org.melati.poem.PoemType#withNullable(boolean)
    */
   @SuppressWarnings("unchecked")
-  public final PoemType withNullable(boolean nullableP) {
+  public final PoemType<T> withNullable(boolean nullableP) {
     if (this.nullable == nullableP)
       return this;
     else {

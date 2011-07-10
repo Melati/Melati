@@ -61,7 +61,7 @@ public class IntegrityFixPoemType extends IndexPoemType {
     super(nullable);
   }
 
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     return new IntegerEnumeration(0, StandardIntegrityFix.count());
   }
 
@@ -80,7 +80,7 @@ public class IntegrityFixPoemType extends IndexPoemType {
     return StandardIntegrityFix.forIndex(((Integer)raw).intValue());
   }
 
-  protected Object _rawOfCooked(Object cooked) {
+  protected Integer _rawOfCooked(Object cooked) {
     return ((StandardIntegrityFix)cooked).getIndex();
   }
 
@@ -90,7 +90,7 @@ public class IntegrityFixPoemType extends IndexPoemType {
     return ((StandardIntegrityFix)cooked).getName();
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof IntegrityFixPoemType;
   }
 

@@ -89,9 +89,12 @@ public abstract class AtomPoemType<T> extends BasePoemType<T> {
 
   /**
    * Returns the given value unchanged.
+   * FIXME needs to be duplicated in each type
    */
-  protected Object _rawOfCooked(Object cooked) {
-    return cooked;
+  
+  @SuppressWarnings("unchecked")
+  protected T _rawOfCooked(Object cooked) {
+    return (T)cooked;
   }
 
   protected String _stringOfCooked(Object cooked,

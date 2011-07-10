@@ -101,7 +101,7 @@ public class ReferencePoemType extends IndexPoemType {
     return targetTable.getObject((Integer)raw);
   }
 
-  protected Object _rawOfCooked(Object cooked) {
+  protected Integer _rawOfCooked(Object cooked) {
     return ((Persistent)cooked).troid();
   }
 
@@ -111,7 +111,7 @@ public class ReferencePoemType extends IndexPoemType {
     return ((Persistent)cooked).displayString(locale, style);
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return
         other instanceof ReferencePoemType &&
         ((ReferencePoemType)other).targetTable == targetTable;

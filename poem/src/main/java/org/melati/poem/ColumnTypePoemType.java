@@ -100,7 +100,7 @@ public class ColumnTypePoemType extends IndexPoemType {
     return PoemTypeFactory.forCode(database, ((Integer)raw).intValue());
   }
 
-  protected Object _rawOfCooked(Object cooked) {
+  protected Integer _rawOfCooked(Object cooked) {
     return ((PoemTypeFactory)cooked).code;
   }
 
@@ -110,7 +110,7 @@ public class ColumnTypePoemType extends IndexPoemType {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof ColumnTypePoemType;
   }
 

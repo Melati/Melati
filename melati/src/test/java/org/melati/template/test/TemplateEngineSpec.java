@@ -88,7 +88,7 @@ public abstract class TemplateEngineSpec extends PoemTestCase {
    * Test method for {@link org.melati.template.TemplateEngine#addRoot(java.lang.String)}.
    */
   public void testAddRoot() {
-    Enumeration en = templateEngine.getRoots();
+    Enumeration<String> en = templateEngine.getRoots();
     int counter = 0;
     while (en.hasMoreElements()) { 
       en.nextElement();

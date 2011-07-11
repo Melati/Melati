@@ -74,7 +74,7 @@ public class ConfigServletTest extends ConfigServlet {
 
     String method = melati.getMethod();
     if (method != null && method.equals("Upload")) {
-      Hashtable fields = null;
+      Hashtable<String, MultipartFormField> fields = null;
       InputStream in = melati.getRequest().getInputStream();
       MultipartFormDataDecoder decoder=
         new MultipartFormDataDecoder(melati,

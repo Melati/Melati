@@ -38,7 +38,7 @@ public class CountedDumbPagedEnumerationTest extends PagedEnumerationSpec {
     super.tearDown();
   }
   
-  protected PagedEnumeration getObjectUnderTest() {
+  protected PagedEnumeration<Integer> getObjectUnderTest() {
     Vector<Integer> them = new Vector<Integer>();
     for (int i = 0; i < 30; i++)
       them.add(new Integer(i));

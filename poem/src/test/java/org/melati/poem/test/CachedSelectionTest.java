@@ -47,6 +47,8 @@ package org.melati.poem.test;
 import org.melati.poem.Group;
 import org.melati.poem.Table;
 import org.melati.poem.CachedSelection;
+import org.melati.poem.TableInfo;
+import org.melati.poem.User;
 
 /**
  * Test the behaviour of CachedSelections in a multithreaded setup.
@@ -91,23 +93,23 @@ public class CachedSelectionTest extends PoemTestCase {
    * @see org.melati.poem.CachedSelection#firstObject()
    */
   public void testFirstObject() {
-    CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    CachedSelection<TableInfo> cachedSelection = new CachedSelection<TableInfo>(getDb().getTableInfoTable(), null, null, null);
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    assertEquals("tableinfo/0", cachedSelection.firstObject().toString());
+    assertEquals("tableInfo/0", cachedSelection.firstObject().toString());
   }
 
   /**
    * @see org.melati.poem.CachedSelection#nth()
    */
   public void testNth() {
-    CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    CachedSelection<TableInfo> cachedSelection = new CachedSelection<TableInfo>(getDb().getTableInfoTable(), null, null, null);
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    assertEquals("tableinfo/0", cachedSelection.nth(0).toString());
-    assertEquals("tableinfo/7", cachedSelection.nth(6).toString());
+    assertEquals("tableInfo/0", cachedSelection.nth(0).toString());
+    assertEquals("tableInfo/7", cachedSelection.nth(6).toString());
     assertNull(cachedSelection.nth(999));
   }
 
@@ -142,7 +144,7 @@ public class CachedSelectionTest extends PoemTestCase {
     int count = getDb().getQueryCount();
     
     
-    CachedSelection cachedSelection = new CachedSelection(
+    CachedSelection<User> cachedSelection = new CachedSelection<User>(
         getDb().getUserTable(), query, null, others);
     assertEquals(count + 4, getDb().getQueryCount());    
     //getDb().setLogSQL(true);

@@ -125,7 +125,7 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#getColumnInfo()
    */
   public void testGetColumnInfo() {
-    assertEquals("columninfo/0", 
+    assertEquals("columnInfo/0", 
         getDb().getUserTable().troidColumn().getColumnInfo().toString());
   }
 
@@ -353,7 +353,7 @@ public class ColumnTest extends PoemTestCase {
         firstWhereEq(new Integer(0)));
     assertNull(getDb().getColumnInfoTable().getHeightColumn().
         firstWhereEq(new Integer(2)));
-    assertEquals("columninfo/0", 
+    assertEquals("columnInfo/0", 
         getDb().getColumnInfoTable().getHeightColumn().
             firstWhereEq(new Integer(1)).toString());
   }
@@ -481,11 +481,11 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#referencesTo(Persistent)
    */
   public void testReferencesTo() {
-    Column userTroidColumn = getDb().getUserTable().troidColumn();
+    Column<Integer> userTroidColumn = getDb().getUserTable().troidColumn();
     User admin = getDb().getUserTable().administratorUser();
     assertEquals("", EnumUtils.concatenated("|", userTroidColumn.referencesTo(admin)));
-    Column userColumn = getDb().getGroupMembershipTable().getUserColumn();
-    assertEquals("groupmembership/0", 
+    Column<User> userColumn = getDb().getGroupMembershipTable().getUserColumn();
+    assertEquals("groupMembership/0", 
                  EnumUtils.concatenated("|", userColumn.referencesTo(admin)));    
   }
 

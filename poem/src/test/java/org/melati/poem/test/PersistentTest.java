@@ -428,7 +428,7 @@ public class PersistentTest extends EverythingTestCase {
     assertEquals("Melati database administrator", name);
     p = getDb().getUserTable().getTableInfo();
     TableCategory c = (TableCategory)p.getCooked("category");
-    assertEquals("tablecategory/0", c.toString());
+    assertEquals("tableCategory/0", c.toString());
   }
 
   /**
@@ -780,7 +780,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testToString() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    assertEquals("groupmembership/0", p.toString());
+    assertEquals("groupMembership/0", p.toString());
   }
 
   /**

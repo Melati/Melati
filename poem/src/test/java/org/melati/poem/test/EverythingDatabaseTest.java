@@ -40,29 +40,29 @@ public class EverythingDatabaseTest extends EverythingTestCase {
    */
   public void testGetDisplayTables() {
     final String expected = 
-    "binaryfield (from the data structure definition)" +
-    "stringfield (from the data structure definition)" + 
-    "passwordfield (from the data structure definition)" + 
-    "booleanfield (from the data structure definition)" + 
-    "datefield (from the data structure definition)" + 
-    "doublefield (from the data structure definition)" + 
-    "integerfield (from the data structure definition)" + 
-    "longfield (from the data structure definition)" + 
-    "bigdecimalfield (from the data structure definition)" + 
-    "timestampfield (from the data structure definition)" + 
-    "everythingnormal (from the data structure definition)" + 
-    "enextended (from the data structure definition)" + 
-    "eaextended (from the data structure definition)" + 
+    "binaryField (from the data structure definition)" +
+    "stringField (from the data structure definition)" + 
+    "passwordField (from the data structure definition)" + 
+    "booleanField (from the data structure definition)" + 
+    "dateField (from the data structure definition)" + 
+    "doubleField (from the data structure definition)" + 
+    "integerField (from the data structure definition)" + 
+    "longField (from the data structure definition)" + 
+    "bigdecimalField (from the data structure definition)" + 
+    "timestampField (from the data structure definition)" + 
+    "everythingNormal (from the data structure definition)" + 
+    "eNExtended (from the data structure definition)" + 
+    "eAExtended (from the data structure definition)" + 
     "protected (from the data structure definition)" +
     "dynamic (from the data structure definition)" +
     "user (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 
-    "groupmembership (from the data structure definition)" + 
-    "groupcapability (from the data structure definition)" + 
-    "tableinfo (from the data structure definition)" + 
-    "columninfo (from the data structure definition)" + 
-    "tablecategory (from the data structure definition)" +
+    "groupMembership (from the data structure definition)" + 
+    "groupCapability (from the data structure definition)" + 
+    "tableInfo (from the data structure definition)" + 
+    "columnInfo (from the data structure definition)" + 
+    "tableCategory (from the data structure definition)" +
     "setting (from the data structure definition)";
 
     String outcome = "";

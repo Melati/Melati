@@ -89,7 +89,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   protected void forceLogin(HttpServletResponse resp,
                             String realm, String message) {
     String desc = realm == null ? "<unknown>"
-                                : StringUtils.tr(realm, '"', ' ');
+                                : realm.replace('"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
     // I don't believe there is a lot we can do about an IO exception here
     try {

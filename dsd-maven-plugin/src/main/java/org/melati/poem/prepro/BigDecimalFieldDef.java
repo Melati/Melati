@@ -106,7 +106,7 @@ public class BigDecimalFieldDef extends AtomFieldDef {
   }
 
   /**
-   * Retrieve the prcision.
+   * Retrieve the precision.
    * 
    * @return the precision
    */

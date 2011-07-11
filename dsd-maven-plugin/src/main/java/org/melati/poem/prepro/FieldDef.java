@@ -288,18 +288,20 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateFieldCreator(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
-        + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
-        + table.mixedCaseName + "</code> <code>Persistent</code>.\n" + "  * \n"
-        + "  * @see " + "org.melati.poem.prepro.FieldDef"
-        + "#generateFieldCreator \n" + "  * @throws AccessPoemException \n"
+    w.write("\n /**\n" 
+        + "  * Retrieves the <code>" + capitalisedName + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
+        + table.mixedCaseName + "</code> <code>Persistent</code>.\n" 
+        + "  * \n"
+        + "  * @see " + "org.melati.poem.prepro.FieldDef#generateFieldCreator \n" 
+        + "  * @throws AccessPoemException \n"
         + "  *         if the current <code>AccessToken</code> \n"
         + "  *         does not confer write access rights\n"
-        + "  * @return the " + rawType + " " + name + "\n" + "  */\n");
-    w.write("  public Field get" + capitalisedName + "Field() "
-        + "throws AccessPoemException {\n" + "    Column c = _"
-        + tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
-        + "    return new Field(c.getRaw(this), c);\n" + "  }\n");
+        + "  * @return the " + rawType + " " + name + "\n" 
+        + "  */\n");
+    w.write("  public Field<" + rawType + "> get" + capitalisedName + "Field() throws AccessPoemException {\n" 
+        + "    Column c = _"+ tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
+        + "    return new Field<"+rawType+">(("+rawType+")c.getRaw(this), c);\n" 
+        + "  }\n");
   }
 
   /**

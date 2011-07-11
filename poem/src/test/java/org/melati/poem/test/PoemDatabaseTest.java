@@ -72,11 +72,11 @@ public class PoemDatabaseTest extends PoemTestCase {
     final String expected = "user (from the data structure definition)"
             + "group (from the data structure definition)"
             + "capability (from the data structure definition)"
-            + "groupmembership (from the data structure definition)"
-            + "groupcapability (from the data structure definition)"
-            + "tableinfo (from the data structure definition)"
-            + "columninfo (from the data structure definition)"
-            + "tablecategory (from the data structure definition)"
+            + "groupMembership (from the data structure definition)"
+            + "groupCapability (from the data structure definition)"
+            + "tableInfo (from the data structure definition)"
+            + "columnInfo (from the data structure definition)"
+            + "tableCategory (from the data structure definition)"
             + "setting (from the data structure definition)";
 
     String outcome = "";
@@ -177,11 +177,11 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#referencesTo(Table)
    */
   public void testReferencesToTable() {
-    String expected = "groupmembership.user: reference to user "
+    String expected = "groupMembership.user: reference to user "
             + "(INT (org.melati.poem.ReferencePoemType)) "
             + "(from the data structure definition)";
     String outcome = "";
-    Enumeration<Column> en = getDb().referencesTo(getDb().getUserTable());
+    Enumeration<Column<?>> en = getDb().referencesTo(getDb().getUserTable());
     while (en.hasMoreElements())
       outcome += en.nextElement();
     assertEquals(expected, outcome);

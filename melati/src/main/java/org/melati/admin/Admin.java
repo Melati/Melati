@@ -368,7 +368,7 @@ public class Admin extends TemplateServlet {
 
     Vector<Field> orderings = new Vector<Field>();
     // NOTE Order by searchable columns, this could be summary columns
-    Enumeration<Object> searchColumns = searchColumnsType.possibleRaws();
+    Enumeration<Integer> searchColumns = searchColumnsType.possibleRaws();
     int o = 0;
     while (searchColumns.hasMoreElements()) {
       String name = "order-" + o++;

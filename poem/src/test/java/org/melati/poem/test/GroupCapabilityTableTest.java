@@ -45,7 +45,7 @@ public class GroupCapabilityTableTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.GroupCapabilityTable#ensure(org.melati.poem.Group, org.melati.poem.Capability)}.
    */
   public void testEnsure() {
-    assertEquals("groupcapability/0", 
+    assertEquals("groupCapability/0", 
             getDb().getGroupCapabilityTable().
               ensure(getDb().getGroupTable().getGroupObject(new Integer(0)), 
                      getDb().administerCapability()).toString());

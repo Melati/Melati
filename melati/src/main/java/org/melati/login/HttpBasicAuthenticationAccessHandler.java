@@ -51,7 +51,6 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.Melati;
-import org.melati.poem.util.StringUtils;
 import org.melati.util.UnexpectedExceptionException;
 
 

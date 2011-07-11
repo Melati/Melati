@@ -15,7 +15,7 @@ import junit.framework.TestCase;
  */
 public abstract class PagedEnumerationSpec extends TestCase {
 
-   PagedEnumeration it = null;
+   PagedEnumeration<?> it = null;
   /**
    * @param name
    */
@@ -40,7 +40,7 @@ public abstract class PagedEnumerationSpec extends TestCase {
     super.tearDown();
   }
 
-  protected abstract PagedEnumeration getObjectUnderTest(); 
+  protected abstract PagedEnumeration<?> getObjectUnderTest(); 
   
   /**
    * Test method for {@link org.melati.poem.util.PagedEnumeration#getPageStart()}.

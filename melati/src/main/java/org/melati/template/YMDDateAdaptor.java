@@ -75,7 +75,7 @@ class YearPoemType extends IntegerPoemType {
     setRawRange(new Integer(low), new Integer(limit));
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof YearPoemType;
   }
 
@@ -102,7 +102,7 @@ class MonthPoemType extends IntegerPoemType {
     setRawRange(new Integer(1), new Integer(13));
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof MonthPoemType;
   }
 
@@ -142,7 +142,7 @@ class DayPoemType extends IntegerPoemType {
     setRawRange(new Integer(1), new Integer(32));
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof DayPoemType;
   }
 

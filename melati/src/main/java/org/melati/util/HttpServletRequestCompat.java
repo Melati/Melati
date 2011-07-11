@@ -73,7 +73,6 @@ import java.lang.reflect.InvocationTargetException;
  */
 
 public final class HttpServletRequestCompat {
-  private static final long serialVersionUID = 1L;
 
   private HttpServletRequestCompat() {
   }
@@ -545,8 +544,8 @@ public final class HttpServletRequestCompat {
    * @since 2.1
    */
   @SuppressWarnings("unchecked")
-  public static Enumeration getHeaders(HttpServletRequest it, String arg) {
-    return (Enumeration)invoke(getHeaders, it, new Object[] { arg });
+  public static Enumeration<String> getHeaders(HttpServletRequest it, String arg) {
+    return (Enumeration<String>)invoke(getHeaders, it, new Object[] { arg });
   }
 
   /**
@@ -619,8 +618,8 @@ public final class HttpServletRequestCompat {
    * @since 2.2
    */
   @SuppressWarnings("unchecked")
-  public static Enumeration getAttributeNames(HttpServletRequest it) {
-    return (Enumeration)invoke(getAttributeNames, it, noargs);
+public static Enumeration<String> getAttributeNames(HttpServletRequest it) {
+    return (Enumeration<String>)invoke(getAttributeNames, it, noargs);
   }
 
   /**
@@ -657,8 +656,8 @@ public final class HttpServletRequestCompat {
    * @since 2.2
    */
   @SuppressWarnings("unchecked")
-  public static Enumeration getLocales(HttpServletRequest it) {
-    return (Enumeration)invoke(getLocales, it, noargs);
+  public static Enumeration<String> getLocales(HttpServletRequest it) {
+    return (Enumeration<String>)invoke(getLocales, it, noargs);
   }
 
   /**
@@ -795,8 +794,8 @@ public final class HttpServletRequestCompat {
    * @since 2.3
    */
   @SuppressWarnings("unchecked")
-  public static Map getParameterMap(HttpServletRequest it) {
-    return (Map)invoke(getParameterMap, it, noargs);
+  public static Map<String, String[]> getParameterMap(HttpServletRequest it) {
+    return (Map<String, String[]>)invoke(getParameterMap, it, noargs);
   }
 
 

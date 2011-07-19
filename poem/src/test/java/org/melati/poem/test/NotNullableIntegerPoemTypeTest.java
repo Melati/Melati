@@ -17,7 +17,7 @@ import org.melati.poem.TypeMismatchPoemException;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
   /**
    * 
@@ -66,15 +66,15 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()) , 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()) , 
+        ((SQLPoemType<Integer>)it).quotedRaw(((SQLPoemType<Integer>)it).rawOfString(
+                ((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = ((IntegerPoemType)it).possibleRaws();
+    Enumeration<Integer> them = ((IntegerPoemType)it).possibleRaws();
     if (!it.getNullable())
       assertNull(them);
     ((IntegerPoemType)it).setRawRange(new Integer(Integer.MAX_VALUE -5), (Integer)null);

@@ -58,11 +58,11 @@ import org.melati.poem.util.MappedEnumeration;
  * if the current user is not allowed to access it. 
  * 
  */
-public class Field implements FieldAttributes, Cloneable {
+public class Field<T> implements FieldAttributes<T>, Cloneable {
 
   private AccessPoemException accessException;
   private Object raw;
-  private FieldAttributes attrs;
+  private FieldAttributes<T> attrs;
 
   /**
    * Constructor.
@@ -70,7 +70,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param raw the object value, integer for reference types
    * @param attrs the metadata attributes to set
    */
-  public Field(Object raw, FieldAttributes attrs) {
+  public Field(Object raw, FieldAttributes<T> attrs) {
     this.raw = raw;
     this.attrs = attrs;
     accessException = null;
@@ -82,7 +82,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param accessException the access violation
    * @param attrs the metadata attributes to set
    */
-  public Field(AccessPoemException accessException, FieldAttributes attrs) {
+  public Field(AccessPoemException accessException, FieldAttributes<T> attrs) {
     this.accessException = accessException;
     this.attrs = attrs;
     raw = null;
@@ -141,7 +141,7 @@ public class Field implements FieldAttributes, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getType()
    */
-  public PoemType getType() {
+  public PoemType<T> getType() {
     return attrs.getType();
   }
 
@@ -204,11 +204,13 @@ public class Field implements FieldAttributes, Cloneable {
    * 
    * @return the Object value, Integer for reference types
    * @throws AccessPoemException
+   * FIXME Integer/Persistent issue
    */
-  public final Object getRaw() throws AccessPoemException {
+  @SuppressWarnings("unchecked")
+  public final T getRaw() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return raw;
+    return (T)raw;
   }
 
   /**
@@ -261,8 +263,9 @@ public class Field implements FieldAttributes, Cloneable {
    * @param rawP new value to set
    * @return a clone with the raw value set to new value
    */
-  public Field withRaw(Object rawP) {
-    Field it = (Field)clone();
+  public Field<T> withRaw(T rawP) {
+    @SuppressWarnings("unchecked")
+    Field<T> it = (Field<T>)clone();
     it.raw = rawP;
     return it;
   }
@@ -273,8 +276,8 @@ public class Field implements FieldAttributes, Cloneable {
    * @param nullable the new nullability
    * @return a new Field with a new, presumably different, nullability
    */
-  public Field withNullable(boolean nullable) {
-    return new Field(raw, new BaseFieldAttributes(attrs, nullable));
+  public Field<T> withNullable(boolean nullable) {
+    return new Field<T>(raw, new BaseFieldAttributes<T>(attrs, nullable));
   }
 
   /**
@@ -283,8 +286,8 @@ public class Field implements FieldAttributes, Cloneable {
    * @param name the new name
    * @return a new Field with a new name
    */
-  public Field withName(String name) {
-    return new Field(raw, new BaseFieldAttributes(attrs, name));
+  public Field<T> withName(String name) {
+    return new Field<T>(raw, new BaseFieldAttributes<T>(attrs, name));
   }
 
   /**
@@ -293,8 +296,8 @@ public class Field implements FieldAttributes, Cloneable {
    * @param description the new description
    * @return a new Field with a new description
    */
-  public Field withDescription(String description) {
-    return new Field(raw, new BaseFieldAttributes(
+  public Field<T> withDescription(String description) {
+    return new Field<T>(raw, new BaseFieldAttributes<T>(
                                         attrs, attrs.getName(), description));
   }
 
@@ -304,13 +307,13 @@ public class Field implements FieldAttributes, Cloneable {
    * 
    * @return All possible values or null.
    */
-  public Enumeration getPossibilities() {
-    final Field _this = this;
-    Enumeration en = getType().possibleRaws();
+  public Enumeration<Field<T>> getPossibilities() {
+    final Field<T> _this = this;
+    Enumeration<T> en = getType().possibleRaws();
     return
         en == null ? null :
-          new MappedEnumeration(en) {
-            protected Object mapped(Object rawP) {
+          new MappedEnumeration<Field<T>,T>(en) {
+            protected Field<T> mapped(T rawP) {
               return _this.withRaw(rawP);
             }
           };
@@ -322,9 +325,9 @@ public class Field implements FieldAttributes, Cloneable {
    * A bit of a hack?
    * @return the first 100 possibilities or null
    */
-  public Enumeration getFirst1000Possibilities() {
-    Enumeration en = getPossibilities();
-    return en == null ? null : new LimitedEnumeration(en, 1000);
+  public Enumeration<Field<T>> getFirst1000Possibilities() {
+    Enumeration<Field<T>> en = getPossibilities();
+    return en == null ? null : new LimitedEnumeration<Field<T>>(en, 1000);
   }
 
   /**
@@ -334,7 +337,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @return whether the other field has the same raw value as this one
    * @throws AccessPoemException if it is already set
    */
-  public boolean sameRawAs(Field other) throws AccessPoemException {
+  public boolean sameRawAs(Field<T> other) throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return raw == null ? other.raw == null : raw.equals(other.raw);
@@ -368,6 +371,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param type the PoemType of the Field
    * @return a newly created Field
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public static Field basic(Object value, String name, PoemType type) {
     return
         new Field(value,
@@ -382,6 +386,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param name the name of the new Field, also used as description
    * @return a newly created nullable Field of type StringPoemType
    */
+  @SuppressWarnings("rawtypes")
   public static Field string(String value, String name) {
     return basic(value, name, StringPoemType.nullableInstance);
   }
@@ -393,6 +398,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param name the name of the new Field, also used as description
    * @return a newly created nullable Field of type IntegerPoemType
    */
+  @SuppressWarnings("rawtypes")
   public static Field integer(Integer value, String name) {
     return basic(value, name, IntegerPoemType.nullableInstance);
   }
@@ -404,6 +410,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param name the name of the new Field, also used as description
    * @return a newly created nullable Field of type ReferencePoemType
    */
+  @SuppressWarnings("rawtypes")
   public static Field reference(Persistent value, String name) {
     return basic(value.troid(), name,
                  new ReferencePoemType(value.getTable(), true));
@@ -416,6 +423,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @param name the name of the new Field, also used as description
    * @return a newly created nullable Field of type ReferencePoemType
    */
+  @SuppressWarnings("rawtypes")
   public static Field reference(Table table, String name) {
     return basic(null, name, new ReferencePoemType(table, true));
   }

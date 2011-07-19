@@ -50,13 +50,13 @@ package org.melati.poem;
  * A {@link Column} which exists in the dbms but is not defined in the 
  * DSD.
  */
-public class ExtraColumn extends Column {
+public class ExtraColumn<T> extends Column<T> {
   private final int extrasIndex;
 
   /**
    * Constructor.
    */
-  public ExtraColumn(Table table, String name, SQLPoemType type,
+  public ExtraColumn(Table table, String name, SQLPoemType<T> type,
                      DefinitionSource definitionSource,
                      int extrasIndex) {
     super(table, name, type, definitionSource);
@@ -67,7 +67,7 @@ public class ExtraColumn extends Column {
    * {@inheritDoc}
    * @see org.melati.poem.Column#getRaw(org.melati.poem.Persistent)
    */
-  public Object getRaw(Persistent g) throws AccessPoemException {
+  public T getRaw(Persistent g) throws AccessPoemException {
     ((JdbcPersistent)g).readLock();
     return getRaw_unsafe(g);
   }
@@ -76,8 +76,9 @@ public class ExtraColumn extends Column {
    * {@inheritDoc}
    * @see org.melati.poem.Column#getRaw_unsafe(org.melati.poem.Persistent)
    */
-  public Object getRaw_unsafe(Persistent g) {
-    return ((JdbcPersistent)g).extras()[extrasIndex];
+  @SuppressWarnings("unchecked")
+  public T getRaw_unsafe(Persistent g) {
+    return (T)((JdbcPersistent)g).extras()[extrasIndex];
   }
 
   /**
@@ -124,12 +125,12 @@ public class ExtraColumn extends Column {
    * {@inheritDoc}
    * @see org.melati.poem.Column#asField(org.melati.poem.Persistent)
    */
-  public Field asField(Persistent g) {
+  public Field<T> asField(Persistent g) {
     try {
-      return new Field(getRaw(g), this);
+      return new Field<T>((T)getRaw(g), this);
     }
     catch (AccessPoemException accessException) {
-      return new Field(accessException, this);
+      return new Field<T>(accessException, this);
     }
   }
 
@@ -141,9 +142,9 @@ public class ExtraColumn extends Column {
    * @param source
    * @return a new ExtraColumn 
    */
-  public static Column from(Table table, ColumnInfo columnInfo,
+  public static <O>Column<O> from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
-    return new ExtraColumn(
+    return new ExtraColumn<O>(
         table, columnInfo.getName(), columnInfo.getType(), 
         source, extrasIndex);
   }

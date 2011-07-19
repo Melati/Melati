@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.dbms.test;
 
 import org.melati.poem.dbms.Dbms;

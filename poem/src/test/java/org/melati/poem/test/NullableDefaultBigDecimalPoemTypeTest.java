@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.BigDecimalPoemType;
@@ -12,9 +9,6 @@ import org.melati.poem.BigDecimalPoemType;
  */
 public class NullableDefaultBigDecimalPoemTypeTest extends NotNullableDefaultBigDecimalPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableDefaultBigDecimalPoemTypeTest() {
   }
 

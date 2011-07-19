@@ -51,18 +51,13 @@ package org.melati.poem;
  */
 public abstract class FieldAccessPoemException
     extends PersistentAccessPoemException {
-
-  /**
-   * Eclipse generated.
-   */
-  private static final long serialVersionUID = 4615333903994178134L;
   
   /** The Column we are dealing with. */
-  public Column column;
+  public Column<?> column;
 
   /** Constructor. */
   public FieldAccessPoemException(
-      Persistent object, Column column,
+      Persistent object, Column<?> column,
       AccessToken token, Capability capability) {
     super(object, token, capability);
     this.column = column;

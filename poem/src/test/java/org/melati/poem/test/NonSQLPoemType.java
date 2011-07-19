@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -20,7 +17,7 @@ import org.melati.poem.PoemLocale;
  * @since 29 Dec 2006
  *
  */
-public class NonSQLPoemType implements PoemType {
+public class NonSQLPoemType implements PoemType<Object> {
 
     /**
      * {@inheritDoc}
@@ -40,14 +37,10 @@ public class NonSQLPoemType implements PoemType {
           throw new NullTypeMismatchPoemException(this);
       else
           throw new TypeMismatchPoemException(raw, this);
-      
     }
 
-    /**
-     * {@inheritDoc}
-     * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
-     */
-    public PoemType canRepresent(PoemType other) {
+    @Override
+    public <O> PoemType<O> canRepresent(PoemType<O> other) {
       return null;
     }
 
@@ -74,7 +67,7 @@ public class NonSQLPoemType implements PoemType {
      * {@inheritDoc}
      * @see org.melati.poem.PoemType#possibleRaws()
      */
-    public Enumeration possibleRaws() {
+    public Enumeration<Object> possibleRaws() {
       return null;
     }
 
@@ -133,7 +126,7 @@ public class NonSQLPoemType implements PoemType {
      * {@inheritDoc}
      * @see org.melati.poem.PoemType#withNullable(boolean)
      */
-    public PoemType withNullable(boolean nullable) {
+    public PoemType<Object> withNullable(boolean nullable) {
       return null;
     }
     

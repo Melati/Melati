@@ -56,12 +56,12 @@ import org.melati.poem.Table;
  * A class to define a sequence of {@link CSVTable}s and process them by
  * parsing the files and writing the data to the database.
  * 
- * @author MylesC@paneris.org
+ * @author MylesC AT paneris.org
  *  
  */
 public class CSVFilesProcessor {
 
-  protected Vector tables = new Vector();
+  protected Vector<CSVTable> tables = new Vector<CSVTable>();
   Database db = null;
 
   /**

@@ -57,7 +57,7 @@ import java.util.Vector;
  * the results will be recomputed. 
  * 
  */
-public abstract class CachedQuery {
+public abstract class CachedQuery<T> {
 
   protected PreparedStatementFactory statements = null;
 
@@ -99,15 +99,15 @@ public abstract class CachedQuery {
     return statements;
   }
 
-  protected Object extract(ResultSet rs) throws SQLException {
+  protected Integer extract(ResultSet rs) throws SQLException {
     return new Integer(rs.getInt(1));
   }
 
   protected void compute() {
-    Vector rowsLocal = this.rows;
+    Vector<Integer> rowsLocal = this.rows;
     SessionToken token = PoemThread.sessionToken();
     if (rowsLocal == null || somethingHasChanged(token.transaction)) {
-      rowsLocal = new Vector();
+      rowsLocal = new Vector<Integer>();
       try {
         ResultSet rs = statements().resultSet(token);
         try {

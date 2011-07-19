@@ -10,7 +10,7 @@ import org.melati.poem.SizedAtomPoemType;
  * @since 30 Dec 2006
  *
  */
-public abstract class SizedAtomPoemTypeSpec extends SQLPoemTypeSpec {
+public abstract class SizedAtomPoemTypeSpec<T> extends SQLPoemTypeSpec<T> {
 
   /**
    * @param name
@@ -53,15 +53,15 @@ public abstract class SizedAtomPoemTypeSpec extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SizedAtomPoemType#getSize()}.
    */
   public void testGetSize() {
-    ((SizedAtomPoemType)it).getSize();
+    ((SizedAtomPoemType<T>)it).getSize();
   }
 
   /**
    * Test method for {@link org.melati.poem.SizedAtomPoemType#withSize(int)}.
    */
   public void testWithSize() {
-    int currentSize = ((SizedAtomPoemType)it).getSize();
-    assertEquals(it, ((SizedAtomPoemType)it).withSize(currentSize));
+    int currentSize = ((SizedAtomPoemType<T>)it).getSize();
+    assertEquals(it, ((SizedAtomPoemType<T>)it).withSize(currentSize));
   }
 
   /**
@@ -69,7 +69,7 @@ public abstract class SizedAtomPoemTypeSpec extends SQLPoemTypeSpec {
    * sizeGreaterEqual(int, int)}.
    */
   public void testSizeGreaterEqual() {
-    int currentSize = ((SizedAtomPoemType)it).getSize();
+    int currentSize = ((SizedAtomPoemType<T>)it).getSize();
     assertTrue(SizedAtomPoemType.sizeGreaterEqual(currentSize, currentSize));
   }
 

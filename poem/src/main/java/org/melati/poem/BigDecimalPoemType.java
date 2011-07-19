@@ -58,7 +58,7 @@ import org.melati.poem.dbms.Dbms;
  * By default, this is a 22 digit number, with 2 digits after the
  * decimal.
  * */
-public class BigDecimalPoemType extends FixedPointAtomPoemType {
+public class BigDecimalPoemType extends FixedPointAtomPoemType<BigDecimal> {
 
   /**
    * Constructor.
@@ -107,7 +107,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
     ps.setBigDecimal(col, ((BigDecimal)real));
   }
 
-  protected Object _rawOfString(String rawString) throws ParsingPoemException {
+  protected BigDecimal _rawOfString(String rawString) throws ParsingPoemException {
     try {
       return new BigDecimal(rawString);
     } catch (NumberFormatException e) {
@@ -129,7 +129,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
    * to BigDecimals.
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return // sqlTypeCode() == other.sqlTypeCode() && //commented out to allow doubles  
            other instanceof BigDecimalPoemType || other instanceof DoublePoemType;
   }

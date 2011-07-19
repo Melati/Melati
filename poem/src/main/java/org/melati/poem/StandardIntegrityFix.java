@@ -117,7 +117,7 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
    *@return an {@link Enumeration} of the remaining referers, which if 
    *        not empty will prevent deletion     
    */
-   public abstract Enumeration referencesTo(Persistent referee,
+   public abstract Enumeration<Persistent> referencesTo(Persistent referee,
                                    Column column,
                                    Enumeration refs,
                                    Map referenceFixOfColumn);
@@ -127,27 +127,27 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
    */
   private static final StandardIntegrityFix[] fixes = { 
     delete = new StandardIntegrityFix(0, "delete") {
-      public Enumeration referencesTo(Persistent referee, Column column,
+      public Enumeration<Persistent> referencesTo(Persistent referee, Column column,
                                       Enumeration refs,
                                       Map referenceFixOfColumn) {
         while (refs.hasMoreElements()) {
           Persistent p = (Persistent)refs.nextElement();
           p.delete(referenceFixOfColumn);
         }
-        return EmptyEnumeration.it;
+        return new EmptyEnumeration<Persistent>();
       }
     },
     clear = new StandardIntegrityFix(1, "clear") {
-      public Enumeration referencesTo(Persistent referrer, Column column,
+      public Enumeration<Persistent> referencesTo(Persistent referrer, Column column,
                                       Enumeration refs,
                                       Map referenceFixOfColumn) {
         while (refs.hasMoreElements())
           column.setRaw((Persistent)refs.nextElement(), null);
-        return EmptyEnumeration.it;
+        return new EmptyEnumeration<Persistent>();
       }
     },
     prevent = new StandardIntegrityFix(2, "prevent") {
-      public Enumeration referencesTo(Persistent referrer, Column column,
+      public Enumeration<Persistent> referencesTo(Persistent referrer, Column column,
                                       Enumeration refs,
                                       Map referenceFixOfColumn) {
         return refs;

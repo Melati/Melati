@@ -364,14 +364,14 @@ public abstract class BasePoemType<T> implements SQLPoemType<T>, Cloneable {
    * {@inheritDoc}
    * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
    */
-  public PoemType<?> canRepresent(PoemType<?> other) {
+  public <O>PoemType<O> canRepresent(PoemType<O> other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
     if (!(other instanceof SQLPoemType)) 
       // NOTE Never happens as currently all PoemTypes are SQLPoemTypes
       return null;
     else {
-      SQLPoemType<?> q = (SQLPoemType<?>)other;
+      SQLPoemType<O> q = (SQLPoemType<O>)other;
       return
           !(!nullable && q.getNullable()) && // Nullable may represent not nullable
           _canRepresent(q) ?

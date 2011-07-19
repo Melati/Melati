@@ -387,9 +387,9 @@ public abstract class Database implements TransactionPool {
   public void deleteTableAndCommit(TableInfo info) { 
     try {
       Table table = info.actualTable();
-      Enumeration<Column> columns = table.columns();
+      Enumeration<Column<?>> columns = table.columns();
       while (columns.hasMoreElements()){ 
-        Column c = columns.nextElement();
+        Column<?> c = columns.nextElement();
         table.deleteColumnAndCommit(c.getColumnInfo());
       }
         
@@ -954,16 +954,16 @@ public abstract class Database implements TransactionPool {
  /**
   * @return All the {@link Column}s in the whole {@link Database}
   */
-  public Enumeration<Column> columns() {
-    return new FlattenedEnumeration<Column>(
-        new MappedEnumeration<Enumeration<Column>, Table>(tables()) {
-          public Enumeration<Column> mapped(Table table) {
+  public Enumeration<Column<?>> columns() {
+    return new FlattenedEnumeration<Column<?>>(
+        new MappedEnumeration<Enumeration<Column<?>>, Table>(tables()) {
+          public Enumeration<Column<?>> mapped(Table table) {
             return table.columns();
           }
         });
   }
   /** Wrapper around columns() */
-  public List<Column> getColumns() { 
+  public List<Column<?>> getColumns() { 
     return EnumUtils.list(columns());
   }
    
@@ -1331,10 +1331,10 @@ public abstract class Database implements TransactionPool {
   /**
    * @return An Enumeration of Columns referring to the specified Table. 
    */
-  public Enumeration<Column> referencesTo(final Table tableIn) {
-    return new FlattenedEnumeration<Column>(
-        new MappedEnumeration<Enumeration<Column>, Table>(tables()) {
-          public Enumeration<Column> mapped(Table table) {
+  public Enumeration<Column<?>> referencesTo(final Table tableIn) {
+    return new FlattenedEnumeration<Column<?>>(
+        new MappedEnumeration<Enumeration<Column<?>>, Table>(tables()) {
+          public Enumeration<Column<?>> mapped(Table table) {
             return table.referencesTo(tableIn);
           }
         });
@@ -1344,7 +1344,7 @@ public abstract class Database implements TransactionPool {
    * Wrapper around referencesTo() 
    * @return a List of Columns referring to given Table 
    */
-  public List<Column> getReferencesTo(final Table table) { 
+  public List<Column<?>> getReferencesTo(final Table table) { 
     return EnumUtils.list(referencesTo(table));
   }
 

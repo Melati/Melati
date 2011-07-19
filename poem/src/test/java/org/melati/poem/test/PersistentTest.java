@@ -476,7 +476,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetField() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Field f = p.getField("user");
+    Field<?> f = p.getField("user");
     assertEquals("user: Melati database administrator", f.toString());
   }
 
@@ -485,12 +485,12 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testFieldsOfColumns() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.fieldsOfColumns(p.getTable().columns());
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.fieldsOfColumns(p.getTable().columns());
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("id: 0", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 
@@ -499,12 +499,12 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.getFields();
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.getFields();
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("id: 0", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 
@@ -513,10 +513,10 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetRecordDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.getRecordDisplayFields();
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.getRecordDisplayFields();
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 
@@ -525,12 +525,12 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetDetailDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.getDetailDisplayFields();
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.getDetailDisplayFields();
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("id: 0", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 
@@ -539,10 +539,10 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetSummaryDisplayFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.getSummaryDisplayFields();
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.getSummaryDisplayFields();
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 
@@ -551,12 +551,12 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetSearchCriterionFields() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Enumeration<Field> fields = p.getSearchCriterionFields();
-    Field f = (Field)fields.nextElement();
+    Enumeration<Field<?>> fields = p.getSearchCriterionFields();
+    Field<?> f = (Field<?>)fields.nextElement();
     assertEquals("id: 0", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("user: Melati database administrator", f.toString());
-    f = (Field)fields.nextElement();
+    f = (Field<?>)fields.nextElement();
     assertEquals("group: Melati database administrators", f.toString());
   }
 

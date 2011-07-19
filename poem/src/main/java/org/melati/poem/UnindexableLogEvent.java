@@ -53,13 +53,13 @@ package org.melati.poem;
 public class UnindexableLogEvent extends PoemLogEvent {
 
   /** The Column we are dealing with. */ 
-  public Column column;
+  public Column<?> column;
 
   /**
    * Constructor.
    * @param column the column which cannot be indexed
    */
-  public UnindexableLogEvent(Column column) {
+  public UnindexableLogEvent(Column<?> column) {
     this.column = column;
   }
 

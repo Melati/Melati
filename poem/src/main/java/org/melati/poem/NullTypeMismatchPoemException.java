@@ -49,13 +49,13 @@ package org.melati.poem;
   * Thrown when a <code>null</code> value is discovered in a non-nullable 
   * {@link Field}.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC ATpaneris.org
   */
 public class NullTypeMismatchPoemException extends TypeMismatchPoemException {
   private static final long serialVersionUID = 1L;
 
   /** Constructor. */
-  public NullTypeMismatchPoemException(PoemType type) {
+  public NullTypeMismatchPoemException(PoemType<?> type) {
     super(null, type);
   }
 

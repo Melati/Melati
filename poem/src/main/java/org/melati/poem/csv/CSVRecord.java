@@ -64,9 +64,8 @@ import org.melati.poem.Table;
  * A record within a CSV File.
  */
 public class CSVRecord {
-  private static final long serialVersionUID = 1L;
 
-  private Vector fields;
+  private Vector<CSVField> fields;
   
   /** The value of the primary key of this record, from the csv file */
   String primaryKeyValue = null;
@@ -89,7 +88,7 @@ public class CSVRecord {
   public CSVRecord(Table table) {
     super();
     this.table = table;
-    this.fields = new Vector();
+    this.fields = new Vector<CSVField>();
   }
 
   /**
@@ -236,7 +235,7 @@ public class CSVRecord {
   /**
    * @return the fields 
    */
-  public Vector getFields() {
+  public Vector<CSVField> getFields() {
     return fields;
   }
 

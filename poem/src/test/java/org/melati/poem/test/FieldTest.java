@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.io.PrintStream;
@@ -23,8 +20,8 @@ import org.melati.poem.User;
  */
 public class FieldTest extends PoemTestCase {
 
-  Field stringField = null;
-  Field integerField = null;
+  Field<String> stringField = null;
+  Field<Integer> integerField = null;
   /**
    * Constructor for FieldTest.
    * @param name
@@ -39,7 +36,7 @@ public class FieldTest extends PoemTestCase {
   protected void setUp()
       throws Exception {
     super.setUp();
-    stringField = new Field("stringfield", new BaseFieldAttributes("stringName",
+    stringField = new Field<String>("stringfield", new BaseFieldAttributes<String>("stringName",
         "String Display Name", "String description",
         StringPoemType.nullableInstance,
         20,    // width
@@ -49,7 +46,7 @@ public class FieldTest extends PoemTestCase {
         true,  // userEditable
         true   // user createbale
         ));
-    integerField = new Field(new Integer(1), new BaseFieldAttributes("integerName",
+    integerField = new Field<Integer>(new Integer(1), new BaseFieldAttributes<Integer>("integerName",
         "Integer Display Name", "Integer description",
         IntegerPoemType.nullableInstance,
         20,    // width
@@ -78,9 +75,12 @@ public class FieldTest extends PoemTestCase {
 
   /**
    * @see org.melati.poem.Field#Field(AccessPoemException, FieldAttributes)
+   * Deliberately allowing abuse of type system
    */
+  @SuppressWarnings({ "unchecked"})
   public void testFieldAccessPoemExceptionFieldAttributes() {
-    Field f = new Field(new AccessPoemException(), stringField);
+    @SuppressWarnings("rawtypes")
+    Field f = new Field<String>(new AccessPoemException(), stringField);
     try {
       f.getRaw();
       fail("Should have blown up");
@@ -116,12 +116,13 @@ public class FieldTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Field#clone()
    */
+  @SuppressWarnings("unchecked")
   public void testClone() {
-    Field s2 = (Field)stringField.clone();
+    Field<String> s2 = (Field<String>)stringField.clone();
     assertFalse(s2.equals(stringField));
     assertEquals(stringField.getName(), s2.getName());
 
-    Field i2 = (Field)integerField.clone();
+    Field<Integer> i2 = (Field<Integer>)integerField.clone();
     assertFalse(i2.equals(integerField));
     assertEquals(integerField.getName(), i2.getName());
   }
@@ -244,9 +245,10 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#withRaw(Object)
    */
   public void testWithRaw() {
-    Field stringField2 = stringField.withRaw("stringField2");
+    Field<String> stringField2 = stringField.withRaw("stringField2");
     assertEquals("stringField2", (String)stringField2.getRaw());
-    Field integerField2 = stringField.withRaw(new Integer(2));
+    
+    Field<Integer> integerField2 = integerField.withRaw(new Integer(2));
     assertEquals(new Integer(2), integerField2.getRaw());
   }
 
@@ -255,11 +257,11 @@ public class FieldTest extends PoemTestCase {
    */
   public void testWithNullable() {
     assertTrue(stringField.getType().getNullable());
-    Field stringField2 = stringField.withNullable(false);
+    Field<String> stringField2 = stringField.withNullable(false);
     assertFalse(stringField2.getType().getNullable());
 
     assertTrue(integerField.getType().getNullable());
-    Field integerField2 = integerField.withNullable(false);
+    Field<Integer> integerField2 = integerField.withNullable(false);
     assertFalse(integerField2.getType().getNullable());
   }
 
@@ -267,9 +269,9 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#withName(String)
    */
   public void testWithName() {
-    Field stringField2 = stringField.withName("stringField2");
+    Field<String> stringField2 = stringField.withName("stringField2");
     assertEquals("stringField2", stringField2.getName());
-    Field integerField2 = stringField.withName("integerField2");
+    Field<Integer> integerField2 = integerField.withName("integerField2");
     assertEquals("integerField2", integerField2.getName());
   }
 
@@ -277,9 +279,9 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#withDescription(String)
    */
   public void testWithDescription() {
-    Field stringField2 = stringField.withDescription("stringField2");
+    Field<String> stringField2 = stringField.withDescription("stringField2");
     assertEquals("stringField2", stringField2.getDescription());
-    Field integerField2 = stringField.withDescription("integerField2");
+    Field<Integer> integerField2 = integerField.withDescription("integerField2");
     assertEquals("integerField2", integerField2.getDescription());
   }
 
@@ -316,11 +318,11 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#sameRawAs(Field)
    */
   public void testSameRawAs() {
-    Field stringField2 = stringField.withRaw("stringField2");
+    Field<String> stringField2 = stringField.withRaw("stringField2");
     assertFalse(stringField.sameRawAs(stringField2));
     stringField2 = stringField2.withRaw("stringfield");
     assertTrue(stringField.sameRawAs(stringField2));
-    Field integerField2 = stringField.withRaw(new Integer(2));
+    Field<Integer> integerField2 = integerField.withRaw(new Integer(2));
     assertFalse(integerField.sameRawAs(integerField2));
     integerField2 = integerField2.withRaw(new Integer(1));
     assertTrue(integerField.sameRawAs(integerField2));

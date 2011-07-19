@@ -55,7 +55,7 @@ import org.melati.poem.dbms.Dbms;
  * @author WilliamC At paneris.org
  *
  */
-public interface SQLType {
+public interface SQLType<T> {
   
   /**
    * @return The SQL92 ANSI code for this type.

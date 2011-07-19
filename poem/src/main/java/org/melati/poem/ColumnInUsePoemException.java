@@ -54,14 +54,14 @@ public class ColumnInUsePoemException extends SeriousPoemException {
   /** The Table the Column belongs to.*/
   public Table table;
   /** The Column being defined a second time. */
-  public Column column;
+  public Column<?> column;
 
   /**
    * Constructor. 
    * @param table The Table the Column belongs to.
    * @param column The Column being defined a second time.
    */
-  public ColumnInUsePoemException(Table table, Column column) {
+  public ColumnInUsePoemException(Table table, Column<?> column) {
     this.table = table;
     this.column = column;
   }

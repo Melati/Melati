@@ -21,7 +21,7 @@ import org.melati.poem.dbms.Dbms;
  * @since 3 February 2007
  *
  */
-public class SqlExceptionPoemType extends AtomPoemType {
+public class SqlExceptionPoemType extends AtomPoemType<Integer> {
 
   /**
    * Constructor.
@@ -50,7 +50,7 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * 
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return false;
   }
 
@@ -68,7 +68,7 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * 
    * @see org.melati.poem.BasePoemType#_rawOfString(java.lang.String)
    */
-  protected Object _rawOfString(String string) throws ParsingPoemException {
+  protected Integer _rawOfString(String string) throws ParsingPoemException {
     
     return new Integer(string);
   }

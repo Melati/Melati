@@ -48,7 +48,7 @@ package org.melati.poem;
 /**
  * A cached instance of an SQL <code>count</code> query.
  */
-public class CachedCount extends CachedQuery {
+public class CachedCount extends CachedQuery <Integer> {
 
   /**
    * Constructor.

@@ -51,13 +51,12 @@ package org.melati.poem;
  * @author WilliamC At paneris.org
  */
 public class FieldContentsPoemException extends PoemException {
-  private static final long serialVersionUID = 1L;
 
   /** The Column we are dealing with. */
-  public Column column;
+  public Column<?> column;
 
   /** Constructor. */
-  public FieldContentsPoemException(Column column, Exception problem) {
+  public FieldContentsPoemException(Column<?> column, Exception problem) {
     super(problem);
     this.column = column;
   }

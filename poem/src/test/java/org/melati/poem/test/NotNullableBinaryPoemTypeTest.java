@@ -18,7 +18,7 @@ import org.melati.poem.dbms.AnsiStandard;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
+public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec<byte[]> {
 
   /**
    * 
@@ -46,7 +46,7 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
    */
   public void testQuotedRaw() {
     assertEquals("'" + new String(Base64.encodeBase64(new byte[20])) + "'", 
-        ((SQLPoemType)it).quotedRaw(new byte[20]));
+        ((SQLPoemType<byte[]>)it).quotedRaw(new byte[20]));
 
   }
 
@@ -64,10 +64,8 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
    */
   public void testSetRaw() {
     try {
-      ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, null);
+      ((SQLPoemType<byte[]>)it).setRaw((PreparedStatement)null, 1, null);
       fail("Should have blown up");
-    } catch (ClassCastException e) {
-      assertTrue(it instanceof NonSQLPoemType);
     } catch (NullPointerException e) {
       e = null;
     } catch (NullTypeMismatchPoemException e2) {
@@ -75,25 +73,15 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec {
       e2 = null;
     }
     try {
-      //String sVal = ((SQLType)it).sqlDefaultValue();
-
-      //Object value = it.rawOfString(sVal);
-      try {
-        ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, new byte[20]);
-        fail("Should have blown up");
-      } catch (SQLSeriousPoemException e) {
-        assertTrue(it instanceof SqlExceptionPoemType);
-        e = null;
-      } catch (NullTypeMismatchPoemException e2) {
-        assertFalse(it.getNullable());
-        e2 = null;
-      } catch (NullPointerException e3) {
-        e3 = null;
-      }
-    } catch (ClassCastException e) {
-      assertTrue(it instanceof NonSQLPoemType);
+      ((SQLPoemType<byte[]>)it).setRaw((PreparedStatement)null, 1, new byte[20]);
+      fail("Should have blown up");
+    
+    } catch (NullTypeMismatchPoemException e2) {
+      assertFalse(it.getNullable());
+      e2 = null;
+    } catch (NullPointerException e3) {
+      e3 = null;
     }
-
   }
   /**
    * Test method for

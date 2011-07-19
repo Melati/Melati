@@ -74,10 +74,10 @@ public class CSVTable {
 
   protected Table table = null;
   protected File data = null;
-  protected Hashtable columns = new Hashtable();
-  protected Vector columnsInUploadOrder = new Vector();
+  protected Hashtable<String,CSVColumn> columns = new Hashtable<String,CSVColumn>();
+  protected Vector<CSVColumn> columnsInUploadOrder = new Vector<CSVColumn>();
   protected CSVColumn primaryKey = null;
-  protected Vector records = new Vector();
+  protected Vector<CSVRecord> records = new Vector<CSVRecord>();
   protected BufferedReader reader = null;
   protected CSVFileParser parser = null;
   
@@ -120,7 +120,7 @@ public class CSVTable {
 
       while (parser.recordHasMoreFields()) {
         String key = parser.nextField();
-        Object col = columns.get(key);
+        CSVColumn col = columns.get(key);
         if (col == null)
           throw new CSVParseException(
             "I don't know what to do with the column in " + data.getPath() +
@@ -257,7 +257,7 @@ public class CSVTable {
   * Delete all Persistents from the Poem table.
   */
   public void emptyTable() {
-    Enumeration rows = table.selection();
+    Enumeration<Persistent> rows = table.selection();
     while(rows.hasMoreElements()) {
       Persistent p = (Persistent)rows.nextElement();
       p.delete();

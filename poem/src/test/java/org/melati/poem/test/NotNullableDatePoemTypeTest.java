@@ -16,7 +16,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableDatePoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableDatePoemTypeTest extends SQLPoemTypeSpec<Date> {
 
   /**
    * 
@@ -52,9 +52,9 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()), 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Date>)it).sqlDefaultValue(getDb().getDbms()), 
+        ((SQLPoemType<Date>)it).quotedRaw(((SQLPoemType<Date>)it).rawOfString(
+                ((SQLPoemType<Date>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 

@@ -61,11 +61,11 @@ import org.melati.poem.util.StringUtils;
  * @author WilliamC At paneris.org
  * 
  */
-public abstract class Column implements FieldAttributes {
+public abstract class Column<T> implements FieldAttributes<T> {
   private Table table = null;
   private String name;
   private String quotedName;
-  private SQLPoemType type;
+  private SQLPoemType<T> type;
   private DefinitionSource definitionSource;
   private ColumnInfo info = null;
 
@@ -79,7 +79,7 @@ public abstract class Column implements FieldAttributes {
   public Column(
     Table table,
     String name,
-    SQLPoemType type,
+    SQLPoemType<T> type,
     DefinitionSource definitionSource) {
     this.table = table;
     this.name = name;
@@ -101,12 +101,12 @@ public abstract class Column implements FieldAttributes {
     return getDatabase().getDbms();
   }
 
-  void unifyType(SQLPoemType storeType, DefinitionSource source) {
-    PoemType<?> unified = dbms().canRepresent(storeType, type);
+  void unifyType(SQLPoemType<Object> storeType, DefinitionSource source) {
+    PoemType<T> unified = dbms().canRepresent(storeType, type);
     if (unified == null || !(unified instanceof SQLPoemType))
       throw new TypeDefinitionMismatchException(this, storeType, source);
 
-    type = (SQLPoemType) unified;
+    type = (SQLPoemType<T>) unified;
   }
 
   void assertMatches(ResultSet colDesc)
@@ -388,7 +388,7 @@ public abstract class Column implements FieldAttributes {
   /**
    * @return the SQLPoemType of this Column
    */
-  public final SQLPoemType getSQLType() {
+  public final SQLPoemType<T> getSQLType() {
     return type;
   }
 
@@ -396,7 +396,7 @@ public abstract class Column implements FieldAttributes {
    * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getType()
    */
-  public final PoemType<?> getType() {
+  public final PoemType<T> getType() {
     return type;
   }
 
@@ -698,16 +698,15 @@ public abstract class Column implements FieldAttributes {
    * Thrown when any unforeseen problem arises loading a {@link Column}.
    */
   public static class LoadException extends UnexpectedExceptionPoemException {
-    private static final long serialVersionUID = 1L;
 
-    private Column column;
+    private Column<?> column;
 
     /**
      * Constructor.
      * @param column Column relevant to
      * @param problem the Exception
      */
-    public LoadException(Column column, Exception problem) {
+    public LoadException(Column<?> column, Exception problem) {
       super(problem);
       this.column = column;
     }
@@ -725,7 +724,8 @@ public abstract class Column implements FieldAttributes {
     /**
      * @return Returns the column.
      */
-     protected Column getColumn() {
+     @SuppressWarnings("rawtypes")
+    protected Column getColumn() {
       return column;
     }
   }
@@ -775,14 +775,14 @@ public abstract class Column implements FieldAttributes {
    * @param g the Persistent
    * @return a Field
    */
-  public abstract Field asField(Persistent g);
+  public abstract Field<T> asField(Persistent g);
 
   /**
    * Return a Field of the same type as this Column with default attributes.
    * @return the empty Field
    */
-  public Field asEmptyField() {
-    return new Field((Object) null, this);
+  public Field<T> asEmptyField() {
+    return new Field<T>((T) null, this);
   }
 
   /**
@@ -790,11 +790,10 @@ public abstract class Column implements FieldAttributes {
    * of a {@link Column}.
    */
   public static class SettingException extends NormalPoemException {
-    private static final long serialVersionUID = 1L;
     /** The Persistent to which this Column belongs. */
     public Persistent persistent;
     /** The Column setting which caused the problem. */
-    public Column column;
+    public Column<?> column;
     /** The description of the Column. */
     public String columnDesc;
 
@@ -804,10 +803,7 @@ public abstract class Column implements FieldAttributes {
      * @param column he Column with the problem
      * @param trouble the problem
      */
-    public SettingException(
-      Persistent persistent,
-      Column column,
-      Exception trouble) {
+    public SettingException(Persistent persistent, Column<?> column, Exception trouble) {
       super(trouble);
       this.persistent = persistent;
       this.column = column;
@@ -852,18 +848,17 @@ public abstract class Column implements FieldAttributes {
    * @param object A persistent of the type referred to by this column
    * @return an Enumeration {@link Persistent}s referencing this Column of the Persistent
    */
-  @SuppressWarnings("unchecked")  // QUE cast will not work within if 
   public Enumeration<Persistent> referencesTo(Persistent object) {
     return (Enumeration<Persistent>) (getType() instanceof ReferencePoemType
       && ((ReferencePoemType) getType()).targetTable() == object.getTable()
         ? selectionWhereEq(object.troid())
-        : EmptyEnumeration.it);
+        : new EmptyEnumeration<Persistent>());
   }
 
   /**
    * Ensures a row exists for which this column matches when compared with
    * the given {@link Persistent}.
-   * <p>
+   * 
    * The given object is used to create a new row if
    * necessary, in which case it will be assigned the next troid and
    * cached.

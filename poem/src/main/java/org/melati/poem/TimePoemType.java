@@ -59,7 +59,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * An SQL Time.
  */
-public class TimePoemType extends AtomPoemType {
+public class TimePoemType extends AtomPoemType<Time> {
 
   /** Simple date format. */
   public static final DateFormat format =
@@ -98,7 +98,7 @@ public class TimePoemType extends AtomPoemType {
     return format.format((java.util.Date)raw);
   }
 
-  protected Object _rawOfString(String raw) {
+  protected Time _rawOfString(String raw) {
     try {
       return new Time(format.parse(raw).getTime());
     }
@@ -116,7 +116,7 @@ public class TimePoemType extends AtomPoemType {
     return locale.timestampFormat(style).format((Time)cooked);
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof TimePoemType;
   }
 

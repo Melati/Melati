@@ -49,18 +49,17 @@ package org.melati.poem;
   * Thrown when there is a problem with the format of the <code>String</code> 
   * representation of a non-<code>String</code> datatype instance.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC AT paneris.org
   */
 public class ParsingPoemException extends NormalPoemException {
-  private static final long serialVersionUID = 1L;
 
   /** The PoemType of Field value. */
-  public PoemType type;
+  public PoemType<?> type;
   /** The String that we failed to force into type. */
   public String string;
 
   /** Constructor. */
-  public ParsingPoemException(PoemType type, String string,
+  public ParsingPoemException(PoemType<?> type, String string,
                               Exception exception) {
     super(exception);
     this.type = type;
@@ -68,7 +67,7 @@ public class ParsingPoemException extends NormalPoemException {
   }
 
   /** Constructor. */
-  public ParsingPoemException(PoemType type, String string) {
+  public ParsingPoemException(PoemType<?> type, String string) {
     this(type, string, null);
   }
 

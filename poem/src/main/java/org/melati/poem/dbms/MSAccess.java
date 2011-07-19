@@ -215,7 +215,7 @@ public class MSAccess extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == msAccessTextHack
               && ((StringPoemType) type).getSize() == -1) {
@@ -263,7 +263,7 @@ public class MSAccess extends AnsiStandard {
       super(nullable, size);
     }
     // We set size to sqlServerTextHack for our Text type
-    protected boolean _canRepresent(SQLPoemType other) {
+    protected boolean _canRepresent(SQLPoemType<?> other) {
       return sqlTypeCode() == other.sqlTypeCode() &&
              (getSize() < 0 || 
              getSize() == msAccessTextHack || 
@@ -273,7 +273,7 @@ public class MSAccess extends AnsiStandard {
      * {@inheritDoc}
      * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
      */
-    public PoemType canRepresent(PoemType other) {
+    public <O>PoemType<O> canRepresent(PoemType<O> other) {
       return other instanceof StringPoemType
               && _canRepresent((StringPoemType) other)
               && !(!getNullable() && ((StringPoemType) other).getNullable()) ? other
@@ -284,7 +284,7 @@ public class MSAccess extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     /*<pre>
      * ResultSetMetaData rsmd = md.getMetaData(); 
@@ -359,7 +359,7 @@ public class MSAccess extends AnsiStandard {
    * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
    *      java.lang.String)
    */
-  public String alterColumnNotNullableSQL(String tableName, Column column) {
+  public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
             + getQuotedName(column.getName()) + " "
             + column.getSQLType().sqlDefinition(this);
@@ -379,7 +379,7 @@ public class MSAccess extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
    */
-  public String getSqlDefaultValue(SQLType sqlType) {
+  public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("0");
     }

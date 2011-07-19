@@ -50,11 +50,10 @@ package org.melati.poem;
  * of a {@link Persistent} is attempted.
  */
 public class ReadFieldAccessPoemException extends FieldAccessPoemException {
-  private static final long serialVersionUID = 1L;
 
   /** Constructor. */
   public ReadFieldAccessPoemException(
-      Persistent object, Column column,
+      Persistent object, Column<?> column,
       AccessToken token, Capability capability) {
     super(object, column, token, capability);
   }

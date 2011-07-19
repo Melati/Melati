@@ -54,7 +54,7 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   }
 
   public void testPossibleRaws() {
-    Enumeration<Object> them = it.possibleRaws();
+    Enumeration<Integer> them = it.possibleRaws();
     int count = 0;
     while(them.hasMoreElements()) {
       them.nextElement();

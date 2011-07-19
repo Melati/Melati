@@ -53,7 +53,7 @@ import java.sql.SQLException;
 /**
  * Normal doubles, dependant upon the database/SQL implementation.
  */
-public class DoublePoemType extends AtomPoemType {
+public class DoublePoemType extends AtomPoemType<Double> {
 
   /** The nullable instance. */
   public static final DoublePoemType it = new DoublePoemType(true);
@@ -82,7 +82,7 @@ public class DoublePoemType extends AtomPoemType {
     ps.setDouble(col, ((Double)real).doubleValue());
   }
 
-  protected Object _rawOfString(String rawString)
+  protected Double _rawOfString(String rawString)
       throws ParsingPoemException {
     try {
       return new Double(rawString);
@@ -92,7 +92,7 @@ public class DoublePoemType extends AtomPoemType {
     }
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return sqlTypeCode() == other.sqlTypeCode() && 
            other instanceof DoublePoemType;
   }

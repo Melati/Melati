@@ -61,10 +61,10 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @param selectedColumns an array of columns we know we need
    * @param otherTables tables other than the one we belong to
    * @param whereClause raw SQL where clause
-   * @param orderByClause raw SQL order by clasue 
+   * @param orderByClause raw SQL order by clause 
    */
   public PreparedTailoredQuery(String modifier,
-                               Column[] selectedColumns, Table[] otherTables,
+                               Column<?>[] selectedColumns, Table[] otherTables,
                                String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     statements = new PreparedStatementFactory(database, sql);
@@ -78,7 +78,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @param whereClause raw SQL where clause
    * @param orderByClause raw SQL order by clasue 
    */
-  public PreparedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
+  public PreparedTailoredQuery(Column<?>[] selectedColumns, Table[] otherTables,
                                String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
@@ -89,7 +89,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @see org.melati.poem.TailoredQuery#selection()
    */
   public Enumeration<FieldSet> selection() {
-    return new TailoredResultSetEnumeration(this, statements.resultSet());
+    return new TailoredResultSetEnumeration<FieldSet>(this, statements.resultSet());
   }
 
   /**
@@ -98,7 +98,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
   public Enumeration<Object> selection_firstRaw() {
-    return new FirstRawTailoredResultSetEnumeration(this,
+    return new FirstRawTailoredResultSetEnumeration<Object>(this,
                                                     statements.resultSet());
   }
 }

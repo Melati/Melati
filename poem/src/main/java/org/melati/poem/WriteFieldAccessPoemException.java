@@ -49,15 +49,14 @@ package org.melati.poem;
  * Thrown when an unauthorised <tt>write</tt> of a {@link Field} 
  * of a {@link Persistent} is attempted.
  * 
- * @author WilliamC@paneris.org
+ * @author WilliamC AT paneris.org
  * 
  */
 public class WriteFieldAccessPoemException extends FieldAccessPoemException {
-  private static final long serialVersionUID = 1L;
 
   /** Constructor. */
   public WriteFieldAccessPoemException(
-      Persistent object, Column column,
+      Persistent object, Column<?> column,
       AccessToken token, Capability capability) {
     super(object, column, token, capability);
   }

@@ -1,7 +1,5 @@
 package org.melati.poem.test;
 
-import java.sql.ResultSet;
-
 import org.melati.poem.test.generated.DynamicTableBase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.Database;
@@ -50,16 +48,6 @@ public class DynamicTable extends DynamicTableBase {
   // programmer's domain-specific code here
   /**
    * Create guestUser and administratorUser.
-   * {@inheritDoc}
-   * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
-   */
-//  public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
-//      throws PoemException {
-//    super.unifyWithDB(colDescs, troidColumnName);
-//  }
-
-  /** 
-   * {@inheritDoc}
    * @see org.melati.poem.JdbcTable#postInitialise()
    */
   public void postInitialise() {

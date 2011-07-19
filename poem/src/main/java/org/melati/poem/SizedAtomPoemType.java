@@ -48,7 +48,7 @@ package org.melati.poem;
 /**
  * An {@link AtomPoemType} with a <code>size</code>.
  */
-public abstract class SizedAtomPoemType extends AtomPoemType {
+public abstract class SizedAtomPoemType<T> extends AtomPoemType<T> {
 
   private int size;
 
@@ -76,11 +76,12 @@ public abstract class SizedAtomPoemType extends AtomPoemType {
    * @param newSize size of returned field
    * @return this or clone with new size
    */
-  public SizedAtomPoemType withSize(int newSize) {
+  @SuppressWarnings("unchecked")
+  public SizedAtomPoemType<T> withSize(int newSize) {
     if (newSize == getSize())
       return this;
 
-    SizedAtomPoemType it = (SizedAtomPoemType)clone();
+    SizedAtomPoemType<T> it = (SizedAtomPoemType<T>)clone();
     it.size = newSize;
     return it;
   }

@@ -17,7 +17,7 @@ import org.melati.poem.SQLPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec<Long> {
 
   /**
    * 
@@ -44,16 +44,15 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()), 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Long>)it).sqlDefaultValue(getDb().getDbms()), 
+        ((SQLPoemType<Long>)it).quotedRaw(((SQLPoemType<Long>)it).rawOfString(
+                ((SQLPoemType<Long>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 
-  @SuppressWarnings("unchecked")
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration<Object> them = it.possibleRaws();
+    Enumeration<Long> them = it.possibleRaws();
     assertNull(them);
     ((LongPoemType)it).setRawRange(new Long(Long.MAX_VALUE -5), (Long)null);
     them = it.possibleRaws();

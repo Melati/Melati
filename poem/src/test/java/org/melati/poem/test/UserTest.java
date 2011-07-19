@@ -45,7 +45,7 @@ public class UserTest extends PoemTestCase {
   }
 
   protected void databaseUnchanged() { 
-    Column c = getDb().getUserTable().getNameColumn();
+    Column<String> c = getDb().getUserTable().getNameColumn();
     User tester = (User)c.firstWhereEq("tester");
     if (tester != null)
       tester.delete();

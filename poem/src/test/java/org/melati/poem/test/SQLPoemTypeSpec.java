@@ -19,9 +19,9 @@ import org.melati.poem.TypeMismatchPoemException;
  * @since 21 Dec 2006
  * 
  */
-abstract public class SQLPoemTypeSpec extends PoemTestCase {
+abstract public class SQLPoemTypeSpec<T> extends PoemTestCase {
 
-  protected PoemType it = null;
+  protected PoemType<T> it = null;
 
   /**
    * @param name
@@ -93,10 +93,10 @@ abstract public class SQLPoemTypeSpec extends PoemTestCase {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals("'" +((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()) + "'", 
-        ((SQLPoemType)it).quotedRaw(
-            ((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals("'" +((SQLPoemType<T>)it).sqlDefaultValue(getDb().getDbms()) + "'", 
+        ((SQLPoemType<T>)it).quotedRaw(
+            ((SQLPoemType<T>)it).rawOfString(
+                ((SQLPoemType<T>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 
@@ -106,7 +106,7 @@ abstract public class SQLPoemTypeSpec extends PoemTestCase {
    */
   public void testGetRaw() {
     try {
-      ((SQLPoemType)it).getRaw((ResultSet)null, 1);
+      ((SQLPoemType<T>)it).getRaw((ResultSet)null, 1);
       fail("Should have blown up");
     } catch (ClassCastException e) {
       assertTrue(it instanceof NonSQLPoemType);
@@ -125,7 +125,7 @@ abstract public class SQLPoemTypeSpec extends PoemTestCase {
    */
   public void testSetRaw() {
     try {
-      ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, null);
+      ((SQLPoemType<T>)it).setRaw((PreparedStatement)null, 1, null);
       fail("Should have blown up");
     } catch (ClassCastException e) {
       assertTrue(it instanceof NonSQLPoemType);
@@ -136,11 +136,12 @@ abstract public class SQLPoemTypeSpec extends PoemTestCase {
       e2 = null;
     }
     try {
-      String sVal = ((SQLType)it).sqlDefaultValue(getDb().getDbms());
+      @SuppressWarnings("unchecked")
+      String sVal = ((SQLType<T>)it).sqlDefaultValue(getDb().getDbms());
 
       Object value = it.rawOfString(sVal);
       try {
-        ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, value);
+        ((SQLPoemType<T>)it).setRaw((PreparedStatement)null, 1, value);
         fail("Should have blown up");
       } catch (SQLSeriousPoemException e) {
         assertTrue(it instanceof SqlExceptionPoemType);
@@ -224,7 +225,7 @@ abstract public class SQLPoemTypeSpec extends PoemTestCase {
       e = null;
     } 
     try {
-      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType<T>)it).sqlDefaultValue(getDb().getDbms()))));
     } catch (ClassCastException e){
       assertTrue(it instanceof NonSQLPoemType);
     }

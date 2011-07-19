@@ -45,11 +45,13 @@
 
 package org.melati.poem;
 
+import java.math.BigDecimal;
+
 /**
  * An extension of {@link AtomPoemType} which adds <code>precision</code> 
  * and <code>scale</code>.
  */
-public abstract class FixedPointAtomPoemType extends AtomPoemType {
+public abstract class FixedPointAtomPoemType<T> extends AtomPoemType<BigDecimal> {
 
   private int precision;
   private int scale;
@@ -82,13 +84,14 @@ public abstract class FixedPointAtomPoemType extends AtomPoemType {
    * @param newScale required scale
    * @return this or a clone with new values
    */
-  public FixedPointAtomPoemType withPrecisionAndScale(
+  public FixedPointAtomPoemType<T> withPrecisionAndScale(
     int newPrecision,
     int newScale) {
     if (newPrecision == getPrecision() && newScale == getScale())
       return this;
 
-    FixedPointAtomPoemType it = (FixedPointAtomPoemType) clone();
+    @SuppressWarnings("unchecked")
+    FixedPointAtomPoemType<T> it = (FixedPointAtomPoemType<T>) clone();
     it.precision = newPrecision;
     it.scale = newScale;
     return it;

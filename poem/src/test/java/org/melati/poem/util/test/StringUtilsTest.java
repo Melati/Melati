@@ -130,6 +130,7 @@ public class StringUtilsTest extends TestCase {
   /**
    * Test method for {@link org.melati.util.StringUtils#tr(String, char, char)}.
    */
+  @SuppressWarnings("deprecation")
   public void testTrStringCharChar() {
     assertEquals("Muther", StringUtils.tr("Mother",'o','u'));
   }

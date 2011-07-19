@@ -629,7 +629,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
 
   public final String getRawString(String name)
       throws AccessPoemException, NoSuchColumnPoemException {
-    Column column = getTable().getColumn(name);
+    Column<?> column = getTable().getColumn(name);
     return column.getType().stringOfRaw(column.getRaw(this));
   }
 
@@ -652,7 +652,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   public final void setRawString(String name, String string)
       throws NoSuchColumnPoemException, AccessPoemException,
              ParsingPoemException, ValidationPoemException {
-    Column column = getTable().getColumn(name);
+    Column<?> column = getTable().getColumn(name);
     column.setRaw(this, column.getType().rawOfString(string));
   }
 
@@ -680,7 +680,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
   public final String getCookedString(String name, PoemLocale locale,
                                      int style)
       throws NoSuchColumnPoemException, AccessPoemException {
-    Column column = getTable().getColumn(name);
+    Column<?> column = getTable().getColumn(name);
     return column.getType().stringOfCooked(column.getCooked(this),
                                           locale, style);
   }
@@ -706,7 +706,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getField(java.lang.String)
    */
-  public final Field getField(String name)
+  public final Field<?> getField(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).asField(this);
   }
@@ -715,11 +715,11 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#fieldsOfColumns(java.util.Enumeration)
    */
-  public Enumeration<Field> fieldsOfColumns(Enumeration<Column> columns) {
+  public Enumeration<Field<?>> fieldsOfColumns(Enumeration<Column<?>> columns) {
     final JdbcPersistent _this = this;
     return
-        new MappedEnumeration<Field, Column>(columns) {
-          public Field mapped(Column column) {
+        new MappedEnumeration<Field<?>, Column<?>>(columns) {
+          public Field<?> mapped(Column<?> column) {
             return column.asField(_this);
           }
         };
@@ -730,7 +730,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @see org.melati.poem.Persistent#getFields()
    */
 
-  public Enumeration<Field> getFields() {
+  public Enumeration<Field<?>> getFields() {
     return fieldsOfColumns(getTable().columns());
   }
 
@@ -739,7 +739,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @see org.melati.poem.Persistent#getRecordDisplayFields()
    */
 
-  public Enumeration<Field> getRecordDisplayFields() {
+  public Enumeration<Field<?>> getRecordDisplayFields() {
     return fieldsOfColumns(getTable().getRecordDisplayColumns());
   }
 
@@ -747,7 +747,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getDetailDisplayFields()
    */
-  public Enumeration<Field> getDetailDisplayFields() {
+  public Enumeration<Field<?>> getDetailDisplayFields() {
     return fieldsOfColumns(getTable().getDetailDisplayColumns());
   }
 
@@ -755,7 +755,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getSummaryDisplayFields()
    */
-  public Enumeration<Field> getSummaryDisplayFields() {
+  public Enumeration<Field<?>> getSummaryDisplayFields() {
     return fieldsOfColumns(getTable().getSummaryDisplayColumns());
   }
 
@@ -763,7 +763,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getSearchCriterionFields()
    */
-  public Enumeration<Field> getSearchCriterionFields() {
+  public Enumeration<Field<?>> getSearchCriterionFields() {
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
@@ -771,7 +771,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#getPrimaryDisplayField()
    */
-  public Field getPrimaryDisplayField() {
+  public Field<?> getPrimaryDisplayField() {
     return getTable().displayColumn().asField(this);
   }
 
@@ -785,17 +785,17 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#delete(java.util.Map)
    */
-  public void delete(Map<Column, IntegrityFix> integrityFixOfColumn) {
+  public void delete(Map<Column<?>, IntegrityFix> integrityFixOfColumn) {
     
     assertNotFloating();
 
     deleteLock(PoemThread.sessionToken());
 
-    Enumeration<Column> columns = getDatabase().referencesTo(getTable());
+    Enumeration<Column<?>> columns = getDatabase().referencesTo(getTable());
     Vector<Enumeration<Persistent>> refEnumerations = new Vector<Enumeration<Persistent>>();
 
     while (columns.hasMoreElements()) {
-      Column column = columns.nextElement();
+      Column<?> column = columns.nextElement();
 
       IntegrityFix fix;
       try {
@@ -856,7 +856,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#deleteAndCommit(java.util.Map)
    */
-  public void deleteAndCommit(Map<Column, IntegrityFix> integrityFixOfColumn)
+  public void deleteAndCommit(Map<Column<?>, IntegrityFix> integrityFixOfColumn)
       throws AccessPoemException, DeletionIntegrityPoemException {
 
     getDatabase().beginExclusiveLock();
@@ -925,7 +925,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    */
   public String displayString(PoemLocale locale, int style)
       throws AccessPoemException {
-    Column displayColumn = getTable().displayColumn();
+    Column<?> displayColumn = getTable().displayColumn();
     if (displayColumn.isTroidColumn() && this.troid == null)
       return "null";
     else
@@ -1031,9 +1031,9 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    */
   public void dump(PrintStream p) {
     p.println(getTable().getName() + "/" + troid());
-    for (Enumeration<Field> f = getRecordDisplayFields(); f.hasMoreElements();) {
+    for (Enumeration<Field<?>> f = getRecordDisplayFields(); f.hasMoreElements();) {
       p.print("  ");
-      ((Field)f.nextElement()).dump(p);
+      ((Field<?>)f.nextElement()).dump(p);
       p.println();
     }
   }

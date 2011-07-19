@@ -54,7 +54,7 @@ import java.sql.SQLException;
 /**
  * A type for Normal dates.
  */
-public class DatePoemType extends AtomPoemType {
+public class DatePoemType extends AtomPoemType<Date> {
 
  /**
   * Constructor.
@@ -90,7 +90,7 @@ public class DatePoemType extends AtomPoemType {
    * HACK reformat DDMMYYYY dates to YYYY-MM-DD
    * @see org.melati.poem.BasePoemType#_rawOfString(java.lang.String)
    */
-  protected Object _rawOfString(String raw) {
+  protected Date _rawOfString(String raw) {
     if (raw.length() == 8)
       return Date.valueOf(raw.substring(4,8)+ "-" + 
                           raw.substring(2,4) + "-" +
@@ -103,7 +103,7 @@ public class DatePoemType extends AtomPoemType {
     return locale.dateFormat(style).format((Date)cooked);
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof DatePoemType;
   }
 

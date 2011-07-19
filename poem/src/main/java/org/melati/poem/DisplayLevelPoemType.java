@@ -84,7 +84,7 @@ public class DisplayLevelPoemType extends IndexPoemType {
     return ((DisplayLevel)cooked).getName();
   }
 
-  protected boolean _canRepresent(SQLPoemType<?> other) {
+  protected boolean _canRepresent(@SuppressWarnings("rawtypes") SQLPoemType other) {
     return other instanceof DisplayLevelPoemType;
   }
 

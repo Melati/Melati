@@ -51,12 +51,12 @@ import org.melati.poem.util.StringUtils;
  * Base class of all {@link Field}s.
  * All the fields of a Field except its value.
  */
-public class BaseFieldAttributes implements FieldAttributes {
+public class BaseFieldAttributes<T> implements FieldAttributes<T> {
 
   private String name;
   private String displayName;
   private String description;
-  private PoemType type;
+  private PoemType<T> type;
   private String renderInfo;
   private int width, height;
   private boolean indexed;
@@ -78,7 +78,7 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param userCreateable whether users should be allowed to create new instances
    */
   public BaseFieldAttributes(
-      String name, String displayName, String description, PoemType type,
+      String name, String displayName, String description, PoemType<T> type,
       int width, int height, String renderInfo, boolean indexed,
       boolean userEditable, boolean userCreateable) {
     this.name = name;
@@ -93,14 +93,6 @@ public class BaseFieldAttributes implements FieldAttributes {
     this.userCreateable = userCreateable;
   }
 
-  /*
-  public BaseFieldAttributes(String name, String displayName,
-                             String description, PoemType type,
-                             int width, int height, String renderInfo) {
-    this(name, displayName, description, type, width, height, renderInfo,
-         false, true, false);
-  }
-  */
 
   /**
    * Convenience constructor. 
@@ -108,7 +100,7 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param name used as the name and, capitalised, the display name
    * @param type the Poem datatype
    */
-  public BaseFieldAttributes(String name, PoemType type) {
+  public BaseFieldAttributes(String name, PoemType<T> type) {
     this(name, StringUtils.capitalised(name), null, type, 0, 0, null, 
          false, true, true);
   }
@@ -119,7 +111,8 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param other the FieldAttributes to clone
    * @param type allows overriding of type
    */
-  public BaseFieldAttributes(FieldAttributes other, PoemType type) {
+  @SuppressWarnings("unchecked")
+  public BaseFieldAttributes(FieldAttributes<T> other, @SuppressWarnings("rawtypes") PoemType type) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
          type, other.getWidth(), other.getHeight(), other.getRenderInfo(),
          other.getIndexed(), other.getUserEditable(),
@@ -132,7 +125,7 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param other the FieldAttributes to clone
    * @param name the new name
    */
-  public BaseFieldAttributes(FieldAttributes other, String name) {
+  public BaseFieldAttributes(FieldAttributes<T> other, String name) {
     this(name, other.getDisplayName(), other.getDescription(),
          other.getType(), other.getWidth(), other.getHeight(), 
          other.getRenderInfo(),other.getIndexed(), other.getUserEditable(),
@@ -145,7 +138,7 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param name the new name
    * @param description the new description
    */
-  public BaseFieldAttributes(FieldAttributes other, String name, 
+  public BaseFieldAttributes(FieldAttributes<T> other, String name, 
                              String description) {
     this(name, other.getDisplayName(), description,
          other.getType(), other.getWidth(), other.getHeight(), 
@@ -160,7 +153,7 @@ public class BaseFieldAttributes implements FieldAttributes {
    * @param other the FieldAttributes to clone
    * @param nullable the new nullability
    */
-  public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
+  public BaseFieldAttributes(FieldAttributes<T> other, boolean nullable) {
     this(other, other.getType().withNullable(nullable));
   }
 
@@ -188,7 +181,7 @@ public class BaseFieldAttributes implements FieldAttributes {
   /* (non-Javadoc)
    * @see org.melati.poem.FieldAttributes#getType()
    */
-  public PoemType getType() {
+  public PoemType<T> getType() {
     return type;
   }
 

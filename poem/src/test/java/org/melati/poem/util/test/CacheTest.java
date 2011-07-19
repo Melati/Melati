@@ -178,7 +178,7 @@ public class CacheTest extends TestCase {
    */
   public void testGetReport() {
     c.setSize(1);
-    Enumeration report = c.getReport(); 
+    Enumeration<Object> report = c.getReport(); 
     assertTrue(report.hasMoreElements());
     assertEquals("1 maxSize, null theMRU, null theLRU, 0 collectedEver", report.nextElement());
     assertEquals("0 held, 0 total ", report.nextElement());
@@ -207,7 +207,7 @@ public class CacheTest extends TestCase {
    * Test method for {@link org.melati.poem.util.Cache#getInfo()}.
    */
   public void testGetInfo() {
-   Enumeration report = c.getInfo().getReport();
+   Enumeration<Object> report = c.getInfo().getReport();
    assertTrue(report.hasMoreElements());
    assertEquals(c.getReport().nextElement(), report.nextElement());
    
@@ -347,6 +347,7 @@ public class CacheTest extends TestCase {
   public void testGCHandling() { 
     char[] ballast = new char[4000000];
     try {
+      ballast[0]='e'; // Shut eclipse up
       for (int i=0; i<1000; i++) { 
         c.put(new Integer(i), new StringBuffer(1000000));
       }

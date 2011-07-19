@@ -57,7 +57,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * A <tt>Blob</tt> {@link Field} type.
  */
-public class BinaryPoemType extends SizedAtomPoemType {
+public class BinaryPoemType extends SizedAtomPoemType<byte[]> {
  
   /**
    * Constructor.
@@ -91,7 +91,7 @@ public class BinaryPoemType extends SizedAtomPoemType {
     ps.setBytes(col, (byte[])string);
   }
 
-  protected Object _rawOfString(String rawString) {
+  protected byte[] _rawOfString(String rawString) {
     return Base64.decodeBase64(rawString.getBytes());
   }
 
@@ -103,7 +103,7 @@ public class BinaryPoemType extends SizedAtomPoemType {
     }
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return 
         sqlTypeCode() == other.sqlTypeCode() && 
         other instanceof BinaryPoemType &&

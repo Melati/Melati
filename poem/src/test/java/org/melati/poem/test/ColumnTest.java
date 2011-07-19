@@ -484,7 +484,7 @@ public class ColumnTest extends PoemTestCase {
     Column<Integer> userTroidColumn = getDb().getUserTable().troidColumn();
     User admin = getDb().getUserTable().administratorUser();
     assertEquals("", EnumUtils.concatenated("|", userTroidColumn.referencesTo(admin)));
-    Column<User> userColumn = getDb().getGroupMembershipTable().getUserColumn();
+    Column<Integer> userColumn = getDb().getGroupMembershipTable().getUserColumn();
     assertEquals("groupMembership/0", 
                  EnumUtils.concatenated("|", userColumn.referencesTo(admin)));    
   }

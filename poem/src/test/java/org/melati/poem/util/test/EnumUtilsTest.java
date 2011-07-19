@@ -104,7 +104,7 @@ public class EnumUtilsTest extends TestCase {
    * Test method for {@link org.melati.poem.util.EnumUtils#concatenated(java.lang.String, java.util.Enumeration)}.
    */
   public void testConcatenated() {
-    String result = EnumUtils.concatenated(",",EmptyEnumeration.it);
+    String result = EnumUtils.concatenated(",",new EmptyEnumeration<String>());
     assertEquals("", result);
   }
 

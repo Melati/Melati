@@ -84,7 +84,7 @@ public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
   }
 
   /** Constructor. */
-  public DuplicateKeySQLPoemException(Column column, String sql,
+  public DuplicateKeySQLPoemException(Column<?> column, String sql,
                                       boolean insert, SQLException e) {
     super(sql, e);
     if (column != null) {

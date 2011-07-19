@@ -48,18 +48,17 @@ package org.melati.poem;
  /**
   * Thrown when a {@link Field}'s value does not meet its contract.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC AT paneris.org
   */
 public class ValidationPoemException extends NormalPoemException {
-  private static final long serialVersionUID = 1L;
 
   /** Type we are trying to assign to. */
-  public PoemType type;
+  public PoemType<?> type;
   /** Value that will not be coerced. */
   public Object value;
 
   /** Constructor. */
-  public ValidationPoemException(PoemType type, Object value,
+  public ValidationPoemException(PoemType<?> type, Object value,
                                  Exception exception) {
     super(exception);
     this.type = type;
@@ -67,7 +66,7 @@ public class ValidationPoemException extends NormalPoemException {
   }
 
   /** Constructor. */
-  public ValidationPoemException(PoemType type, Object value) {
+  public ValidationPoemException(PoemType<?> type, Object value) {
     this(type, value, null);
   }
 

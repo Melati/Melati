@@ -48,20 +48,19 @@ package org.melati.poem;
 /**
  * Thrown when the type of an object isn't the one expected.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC AT paneris.org
  * 
  */
 public class TypeMismatchPoemException extends AppBugPoemException {
-  private static final long serialVersionUID = 1L;
 
 
   /** The value we are trying to assign. */
   public Object value;
   /** The type of the destination.*/
-  public PoemType type;
+  public PoemType<?> type;
 
   /** Constructor. */
-  public TypeMismatchPoemException(Object value, PoemType type) {
+  public TypeMismatchPoemException(Object value, PoemType<?> type) {
     this.value = value;
     this.type = type;
   }

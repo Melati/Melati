@@ -166,7 +166,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == hsqldbTextHack
               && ((StringPoemType)type).getSize() == -1

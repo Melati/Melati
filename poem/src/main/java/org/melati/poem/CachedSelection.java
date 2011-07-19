@@ -54,7 +54,7 @@ import org.melati.poem.util.MappedEnumeration;
 /**
  * A cached instance of an SQL <code>select</code> query.
  */
-public class CachedSelection<T> extends CachedQuery {
+public class CachedSelection<T> extends CachedQuery<T> {
 
   /**
    * Constructor.

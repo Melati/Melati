@@ -10,7 +10,7 @@ import org.melati.poem.PasswordPoemType;
  * @since 7 Jan 2007
  *
  */
-public class NotNullableSizedPasswordPoemTypeTest extends SizedAtomPoemTypeSpec {
+public class NotNullableSizedPasswordPoemTypeTest extends SizedAtomPoemTypeSpec<String> {
 
   /**
    * 

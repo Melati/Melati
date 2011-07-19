@@ -49,22 +49,22 @@ package org.melati.poem;
  * Thrown during {@link Column} unification if there is a contradiction 
  * between two of the possible {@link DefinitionSource}s.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC AT paneris.org
  * 
  */
 public class TypeDefinitionMismatchException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
   /** Column in which problem occurred. */
-  public Column column;
+  public Column<?> column;
   /** Type we are trying to assign. */
-  public PoemType newType;
+  public PoemType<?> newType;
   /** Where the new type came from. */
   public DefinitionSource newTypeSource;
 
   /** Constructor. */
-  public TypeDefinitionMismatchException(Column column,
-                                         PoemType newType,
+  public TypeDefinitionMismatchException(Column<?> column,
+                                         PoemType<?> newType,
                                          DefinitionSource newTypeSource) {
     this.column = column;
     this.newType = newType;

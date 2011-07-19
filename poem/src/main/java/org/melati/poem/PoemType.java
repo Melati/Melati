@@ -150,9 +150,9 @@ public interface PoemType<T> {
    * or null.
    * 
    * @param other the other type to check
-   * @return the other or null 
+   * @return other or null 
    */
-  PoemType<?> canRepresent(PoemType<?> other);
+  <O>PoemType<O> canRepresent(PoemType<O> other);
 
   /**
    * Get a new type with a nullablity, presumably different.

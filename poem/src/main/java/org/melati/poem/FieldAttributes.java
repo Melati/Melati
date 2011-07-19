@@ -50,7 +50,7 @@ package org.melati.poem;
  *
  * @author WilliamC At paneris.org
  */
-public interface FieldAttributes {
+public interface FieldAttributes<T> {
   /**
    * @return the machine name of the field
    */
@@ -66,7 +66,7 @@ public interface FieldAttributes {
   /**
    * @return the PoemType of the field
    */
-  PoemType getType();
+  PoemType<T> getType();
   /**
    * @return whether the field is indexed
    */

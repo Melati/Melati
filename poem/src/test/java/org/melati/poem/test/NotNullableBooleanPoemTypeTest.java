@@ -14,7 +14,7 @@ import org.melati.poem.SQLPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeSpec<Boolean> {
 
   /**
    * 
@@ -76,14 +76,14 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeSpec {
   */
   public void testQuotedRaw() {
     assertEquals("false", 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+        ((SQLPoemType<Boolean>)it).quotedRaw(((SQLPoemType<Boolean>)it).rawOfString(
+                ((SQLPoemType<Boolean>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration<Object> them = it.possibleRaws();
+    Enumeration<Boolean> them = it.possibleRaws();
     int counter = 0;
     while(them.hasMoreElements()) {
       them.nextElement();

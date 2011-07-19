@@ -16,7 +16,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
-public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
   /**
    * 
@@ -42,7 +42,7 @@ public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec {
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration<Object> them = it.possibleRaws();
+    Enumeration<Integer> them = it.possibleRaws();
     int count = 0;
     while(them.hasMoreElements()) {
       them.nextElement();
@@ -67,9 +67,9 @@ public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()) , 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()) , 
+        ((SQLPoemType<Integer>)it).quotedRaw(((SQLPoemType<Integer>)it).rawOfString(
+                ((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
   

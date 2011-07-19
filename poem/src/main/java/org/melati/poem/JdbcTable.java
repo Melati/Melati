@@ -91,27 +91,27 @@ public class JdbcTable implements Selectable, Table {
 
   private TableListener[] listeners = {};
 
-  private Column[] columns = {};
-  private Hashtable<String, Column> columnsByName = new Hashtable<String, Column>();
+  private Column<?>[] columns = {};
+  private Hashtable<String, Column<?>> columnsByName = new Hashtable<String, Column<?>>();
 
-  private Column troidColumn = null;
-  private Column deletedColumn = null;
-  private Column canReadColumn = null;
-  private Column canSelectColumn = null;
-  private Column canWriteColumn = null;
-  private Column canDeleteColumn = null;
-  private Column displayColumn = null;
-  private Column searchColumn = null;
+  private Column<Integer> troidColumn = null;
+  private Column<Boolean> deletedColumn = null;
+  private Column<Capability> canReadColumn = null;
+  private Column<Capability> canSelectColumn = null;
+  private Column<Capability> canWriteColumn = null;
+  private Column<Capability> canDeleteColumn = null;
+  private Column<?> displayColumn = null;
+  private Column<?> searchColumn = null;
 
   private String defaultOrderByClause = null;
 
-  private Column[][] displayColumns = new Column[DisplayLevel.count()][];
-  private Column[] searchColumns = null;
+  private Column<?>[][] displayColumns = new Column[DisplayLevel.count()][];
+  private Column<?>[] searchColumns = null;
 
   private TransactionedSerial serial;
 
-  private CachedSelection allTroids = null;
-  private Hashtable<String, CachedSelection> cachedSelections = new Hashtable<String, CachedSelection>();
+  private CachedSelection<Integer> allTroids = null;
+  private Hashtable<String, CachedSelection<?>> cachedSelections = new Hashtable<String, CachedSelection<?>>();
   private Hashtable<String, CachedCount> cachedCounts = new Hashtable<String, CachedCount>();
   private Hashtable<String, CachedExists> cachedExists = new Hashtable<String, CachedExists>();
 
@@ -275,8 +275,8 @@ public class JdbcTable implements Selectable, Table {
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
-  public final Enumeration<Column> columns() {
-    return new ArrayEnumeration<Column>(columns);
+  public final Enumeration<Column<?>> columns() {
+    return new ArrayEnumeration<Column<?>>(columns);
   }
 
  /**
@@ -290,9 +290,9 @@ public class JdbcTable implements Selectable, Table {
    * @param columnInfoID
    * @return the Column with a TROID equal to columnInfoID
    */
-  public Column columnWithColumnInfoID(int columnInfoID) {
-    for (Enumeration<Column> c = columns(); c.hasMoreElements();) {
-      Column column = c.nextElement();
+  public Column<?> columnWithColumnInfoID(int columnInfoID) {
+    for (Enumeration<Column<?>> c = columns(); c.hasMoreElements();) {
+      Column<?> column = c.nextElement();
       Integer id = column.columnInfoID();
       if (id != null && id.intValue() == columnInfoID)
         return column;
@@ -309,14 +309,14 @@ public class JdbcTable implements Selectable, Table {
    * @return the id column
    * @see #getObject(java.lang.Integer)
    */
-  public final Column troidColumn() {
+  public final Column<Integer> troidColumn() {
     return troidColumn;
   }
 
   /**
    * @return The table's deleted-flag column, if any.
    */
-  public final Column deletedColumn() {
+  public final Column<Boolean> deletedColumn() {
     return deletedColumn;
   }
 
@@ -2651,7 +2651,7 @@ public class JdbcTable implements Selectable, Table {
       column.setColumnInfo(columnInfo);
     }
 
-    for (Enumeration<Column> c = columns(); c.hasMoreElements();)
+    for (Enumeration<Column<?>> c = columns(); c.hasMoreElements();)
       ((Column)c.nextElement()).createColumnInfo();
   }
 

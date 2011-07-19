@@ -58,10 +58,10 @@ public class DuplicateDeletedColumnPoemException extends NormalPoemException {
   /** The Table we are dealing with. */
   public Table table;
   /** The Column we are dealing with. */
-  public Column column;
+  public Column<?> column;
 
   /** Constructor. */
-  public DuplicateDeletedColumnPoemException(Table table, Column column) {
+  public DuplicateDeletedColumnPoemException(Table table, Column<?> column) {
     this.table = table;
     this.column = column;
   }

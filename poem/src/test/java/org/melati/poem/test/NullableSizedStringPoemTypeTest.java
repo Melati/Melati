@@ -10,7 +10,7 @@ import org.melati.poem.StringPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableSizedStringPoemTypeTest extends SizedAtomPoemTypeSpec {
+public class NullableSizedStringPoemTypeTest extends SizedAtomPoemTypeSpec<String> {
 
   /**
    * 

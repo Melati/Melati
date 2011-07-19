@@ -99,13 +99,13 @@ public class Postgresql extends AnsiStandard {
 
 
   /**
-   * Accomodate casting in placeholders.
+   * Accommodate casting in placeholders.
    *  
    * @param type the type to cast
    * @return the place holder string
    * @see org.melati.poem.dbms.AnsiStandard#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
-  public String preparedStatementPlaceholder(PoemType type) {
+  public String preparedStatementPlaceholder(PoemType<?> type) {
     if (type instanceof IntegerPoemType)
       return "CAST(? AS INT4)";
     else if (type instanceof LongPoemType)
@@ -173,7 +173,7 @@ public class Postgresql extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#
    *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
     md.getString("TYPE_NAME").equals("bytea") ?

@@ -17,7 +17,7 @@ import org.melati.poem.TimestampPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec<Timestamp> {
 
   /**
    * 

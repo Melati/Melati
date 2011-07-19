@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -57,7 +54,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
    * @see org.melati.poem.CachedTailoredQuery#selection_firstRaw()
    */
   public void testSelection_firstRaw() {
-    Column[] cols = new Column[1];
+    Column<?>[] cols = new Column[1];
     cols[0] = getDb().getTableCategoryTable().troidColumn();
     //cols[1] = getDb().getTableInfoTable().getColumn("category");
     Table[] tables = new Table[1];
@@ -86,7 +83,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
    *      Column[], Table[], String, String)
    */
   public void testCachedTailoredQueryStringColumnArrayTableArrayStringString() {
-    Column[] colsInQuery = new Column[2];
+    Column<?>[] colsInQuery = new Column[2];
     colsInQuery[0] = getDb().getGroupTable().getColumn("name");
     colsInQuery[1] = getDb().getGroupTable().troidColumn();
     Table[] tables = new Table[1];
@@ -102,7 +99,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
 
     getDb().setLogSQL(true);
     
-    Enumeration results = ctq.selection();
+    Enumeration<FieldSet> results = ctq.selection();
     System.err.println(ctq.toString());
     while (results.hasMoreElements()) {
       //System.err.println("Found:" + ((FieldSet)results.nextElement()).toString());
@@ -137,13 +134,13 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     assertEquals(queries3, queries4);
     
     System.err.println(ctq.toString());
-    Enumeration en = ctq.selection();
+    Enumeration<FieldSet> en = ctq.selection();
     while (en.hasMoreElements()) {
       FieldSet fs = (FieldSet) en.nextElement();
-      Enumeration fields = fs.elements();
+      Enumeration<Field<?>> fields = fs.elements();
       System.err.println("--");
       while (fields.hasMoreElements()) {
-        Field f = (Field) fields.nextElement();
+        Field<?> f = (Field<?>) fields.nextElement();
         System.err.println(f.getName() + "=" + f.getRawString());
       }
 
@@ -154,13 +151,13 @@ public class CachedTailoredQueryTest extends PoemTestCase {
         null);
     assertEquals(1,EnumUtils.vectorOf(ctqDistinct.selection()).size());
     System.err.println(ctqDistinct.toString());
-    Enumeration en2 = ctqDistinct.selection();
+    Enumeration<FieldSet> en2 = ctqDistinct.selection();
     while (en2.hasMoreElements()) {
       FieldSet fs = (FieldSet) en2.nextElement();
-      Enumeration fields = fs.elements();
+      Enumeration<Field<?>> fields = fs.elements();
       System.err.println("--");
       while (fields.hasMoreElements()) {
-        Field f = (Field) fields.nextElement();
+        Field<?> f = (Field<?>) fields.nextElement();
         System.err.println(f.getName() + "=" + f.getRawString());
       }
     }

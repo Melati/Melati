@@ -88,7 +88,7 @@ public abstract class PoemTypeFactory {
     int getSize();
   }
 
-  abstract SQLPoemType typeOf(Database database, Parameter info);
+  abstract <T>SQLPoemType<T> typeOf(Database database, Parameter info);
 
   /**
    * @return the arbetary code for this type

@@ -248,10 +248,10 @@ public class AnsiStandard implements Dbms {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE " + createTableTypeQualifierSql(table) + 
                "TABLE " + table.quotedName() + " (");
-    Enumeration<Column> columns = table.columns();
+    Enumeration<Column<?>> columns = table.columns();
     int colCount = 0;
     while (columns.hasMoreElements()) { 
-      Column col = (Column)columns.nextElement();
+      Column<?> col = (Column<?>)columns.nextElement();
       if (colCount != 0)
         sqb.append(", ");
       colCount++;
@@ -358,11 +358,11 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
-  public PoemType<?> canRepresent(PoemType<?> storage, PoemType<?> type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     return storage.canRepresent(type);
   }
 
-  private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
+  private SQLPoemType<?> unsupported(String sqlTypeName, ResultSet md)
       throws UnsupportedTypePoemException {
     UnsupportedTypePoemException e;
     try {
@@ -380,7 +380,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     int typeCode = md.getShort("DATA_TYPE");
     boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
@@ -500,7 +500,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
    */
-  public String getQuotedValue(SQLType sqlType, String value) {
+  public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BooleanPoemType) {
       return value;
     }
@@ -578,7 +578,7 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#getIndexLength(org.melati.poem.Column)
    * @see org.melati.poem.dbms.MySQL#getIndexLength
    */
-  public String getIndexLength(Column column) {
+  public String getIndexLength(Column<?> column) {
     return "";
   }
 
@@ -589,7 +589,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canBeIndexed(org.melati.poem.Column)
    */
-  public boolean canBeIndexed(Column column) {
+  public boolean canBeIndexed(Column<?> column) {
     return true;
   }
 
@@ -672,7 +672,7 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#
    *      alterColumnNotNullableSQL(java.lang.String, java.lang.String)
    */
-  public String alterColumnNotNullableSQL(String tableName, Column column) {
+  public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) +
     " ALTER COLUMN " + getQuotedName(column.getName()) +
     " SET NOT NULL";
@@ -690,7 +690,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
    */
-  public String booleanTrueExpression(Column booleanColumn) {
+  public String booleanTrueExpression(Column<Boolean> booleanColumn) {
     return booleanColumn.fullQuotedName();
   }
 
@@ -698,7 +698,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getSqlDefaultValue(java.lang.String)
    */
-  public String getSqlDefaultValue(SQLType sqlType) {
+  public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("false");
     }

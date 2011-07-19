@@ -57,8 +57,8 @@ import org.melati.poem.util.EnumUtils;
  */
 public class CachedTailoredQuery extends PreparedTailoredQuery {
 
-  private Vector results = null;
-  private Vector firstRawResults = null;
+  private Vector<FieldSet> results = null;
+  private Vector<Object> firstRawResults = null;
   private long[] tableSerials;
 
   /**
@@ -72,7 +72,7 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * @param orderByClause Raw ORDER BY clause
    */
   public CachedTailoredQuery(String modifier, 
-                             Column[] selectedColumns, Table[] otherTables,
+                             Column<?>[] selectedColumns, Table[] otherTables,
                              String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     tableSerials = new long[tables.length];
@@ -87,7 +87,7 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * @param whereClause Raw SQL
    * @param orderByClause Raw ORDER BY clause
    */
-  public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
+  public CachedTailoredQuery(Column<?>[] selectedColumns, Table[] otherTables,
                              String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
@@ -114,8 +114,8 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * {@inheritDoc}
    * @see org.melati.poem.TailoredQuery#selection()
    */
-  public Enumeration selection() {
-    Vector resultsLocal = this.results;
+  public Enumeration<FieldSet> selection() {
+    Vector<FieldSet> resultsLocal = this.results;
     if (!upToDate() || resultsLocal == null) {
       this.results = EnumUtils.vectorOf(super.selection());
       resultsLocal = this.results;
@@ -127,8 +127,8 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * {@inheritDoc}
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
-  public Enumeration selection_firstRaw()  {
-    Vector firstRawResultsLocal = this.firstRawResults;
+  public Enumeration<Object> selection_firstRaw()  {
+    Vector<Object> firstRawResultsLocal = this.firstRawResults;
     if (!upToDate() || firstRawResultsLocal == null) {
       this.firstRawResults =
         EnumUtils.vectorOf(super.selection_firstRaw());

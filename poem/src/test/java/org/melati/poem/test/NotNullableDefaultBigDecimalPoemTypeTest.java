@@ -4,6 +4,8 @@
 package org.melati.poem.test;
 
 
+import java.math.BigDecimal;
+
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
@@ -14,7 +16,7 @@ import org.melati.poem.SQLSeriousPoemException;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeSpec<BigDecimal> {
 
   /**
    * 

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,7 +47,7 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 
-//import org.melati.poem.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 
  /**
   * Thrown when an attempt is made to delete a {@link Persistent} which is 
@@ -58,23 +58,22 @@ import java.util.Enumeration;
   *
   */
 public class DeletionIntegrityPoemException extends PoemException {
-  private static final long serialVersionUID = 1L;
 
   /** The Persistent that we are attempting to delete.*/
   public Persistent object;
   /** References to our Persistent. */
-  public Enumeration references;
+  public Enumeration<Persistent> references;
 
   /** Constructor. */
   public DeletionIntegrityPoemException(Persistent object,
-                                        Enumeration references) {
+                                        Enumeration<Persistent> references) {
     this.object = object;
     this.references = references;
   }
 
   /** @return A description. */
   public String toString() {
-    return "You can't delete " + object + " since there are references to it";
-    //+ references == null ? "" : EnumUtils.concatenated(",",references);
+    return "You can't delete " + object + " since there are references to it"
+    + references == null ? "" : EnumUtils.concatenated(",",references);
   }
 }

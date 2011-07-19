@@ -17,7 +17,7 @@ import org.melati.poem.ValidationPoemException;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
   /**
    * 
@@ -43,10 +43,10 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()), 
-        ((SQLPoemType)it).quotedRaw(
-            ((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()), 
+        ((SQLPoemType<Integer>)it).quotedRaw(
+            ((SQLPoemType<Integer>)it).rawOfString(
+                ((SQLPoemType<Integer>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
   
@@ -63,7 +63,7 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec {
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = it.possibleRaws();
+    Enumeration<Integer> them = it.possibleRaws();
     them = it.possibleRaws();
     int count = 0;
     while(them.hasMoreElements()) {
@@ -73,7 +73,7 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec {
     if (it.getNullable())
       assertEquals(6,count);
     else {
-      Enumeration them2 = it.possibleRaws();
+      Enumeration<Integer> them2 = it.possibleRaws();
       while (them2.hasMoreElements()) {
         Integer raw = (Integer)them2.nextElement();
         System.err.println(raw + 

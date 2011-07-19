@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,6 +49,6 @@ package org.melati.poem;
  * A datatype of a {@link Field} which is both a {@link PoemType} 
  * and an {@link SQLType}.
  */
-public interface SQLPoemType<T> extends SQLType, PoemType<T> {
+public interface SQLPoemType<T> extends SQLType<T>, PoemType<T> {
 
 }

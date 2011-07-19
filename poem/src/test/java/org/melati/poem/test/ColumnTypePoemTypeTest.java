@@ -12,6 +12,7 @@ import org.melati.poem.PoemLocale;
  * @since 21 Dec 2006
  *
  */
+@SuppressWarnings("rawtypes")
 public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
 
   public ColumnTypePoemTypeTest() {

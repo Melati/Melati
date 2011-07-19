@@ -94,7 +94,7 @@ public final class TableFactory {
    *          class to introspect
    * @return A new or existing table
    */
-  public static Table fromClass(Database db, Class clazz) {
+  public static Table fromClass(Database db, Class<?> clazz) {
     if (clazz.isPrimitive())
       throw new IllegalArgumentException(
       "Cannot create a Table for a primitive type: " + clazz.getName());
@@ -129,7 +129,7 @@ public final class TableFactory {
     if (ClassUtils.getNoArgMethod(clazz, "getId") != null &&
         !(Persistent.class.isAssignableFrom(clazz)))
       troidName = "poemId";
-    table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
+    table.defineColumn(new ExtraColumn<Integer>(table, troidName, TroidPoemType.it,
             DefinitionSource.runtime, table.getNextExtrasIndex()));
     table.setTableInfo(tableInfo);
     table.unifyWithColumnInfo();
@@ -137,7 +137,7 @@ public final class TableFactory {
 
     PoemThread.commit();
     db.defineTable(table);
-    Hashtable props = new Hashtable();
+    Hashtable<String,Prop> props = new Hashtable<String,Prop>();
 
     Method[] methods = clazz.getMethods();
 
@@ -156,7 +156,7 @@ public final class TableFactory {
           String propName = methods[i].getName().substring(3);
           propName = StringUtils.uncapitalised(propName);
           Prop p = (Prop)props.get(propName);
-          Class setClass = methods[i].getParameterTypes()[0];
+          Class<?> setClass = methods[i].getParameterTypes()[0];
           if (p == null) {
             p = new Prop(propName);
             p.setSet(setClass);
@@ -188,7 +188,7 @@ public final class TableFactory {
           if (propName != null) { 
             propName = StringUtils.uncapitalised(propName);
             Prop p = (Prop)props.get(propName);
-            Class gotClass = methods[i].getReturnType();
+            Class<?> gotClass = methods[i].getReturnType();
             if (p == null) {
               p = new Prop(propName);
               p.setGot(gotClass);
@@ -200,7 +200,7 @@ public final class TableFactory {
         }
       }
     }
-    Enumeration propsEn = props.elements();
+    Enumeration<Prop> propsEn = props.elements();
     while (propsEn.hasMoreElements()) {
       Prop p = (Prop)propsEn.nextElement();
       if (p.getGot() != null && 
@@ -211,7 +211,7 @@ public final class TableFactory {
     return table;
   }
 
-  private static void addColumn(Table table, String name, Class fieldClass,
+  private static void addColumn(Table table, String name, Class<?> fieldClass,
           boolean hasSetter) {
     ColumnInfo columnInfo = (ColumnInfo)table.getDatabase()
             .getColumnInfoTable().newPersistent();
@@ -281,8 +281,8 @@ public final class TableFactory {
    */
   static final class Prop {
     String name = null;
-    Class set = null;
-    Class got = null;
+    Class<?> set = null;
+    Class<?> got = null;
     
     Prop(String name) {
       this.name = name;
@@ -298,7 +298,7 @@ public final class TableFactory {
     /**
      * @return the got
      */
-    public Class getGot() {
+    public Class<?> getGot() {
       return got;
     }
 
@@ -306,14 +306,14 @@ public final class TableFactory {
      * @param got
      *          the Class of the getter
      */
-    public void setGot(Class got) {
+    public void setGot(Class<?> got) {
       this.got = got;
     }
 
     /**
      * @return the set
      */
-    public Class getSet() {
+    public Class<?> getSet() {
       return set;
     }
 
@@ -321,7 +321,7 @@ public final class TableFactory {
      * @param set
      *          the Class of the setter
      */
-    public void setSet(Class set) {
+    public void setSet(Class<?> set) {
       this.set = set;
     }
 

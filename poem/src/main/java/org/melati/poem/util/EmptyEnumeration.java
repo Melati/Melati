@@ -53,9 +53,6 @@ import java.util.NoSuchElementException;
  */
 public class EmptyEnumeration<T> implements Enumeration<T> {
 
-  /** The instance. */
-  public static final EmptyEnumeration it = new EmptyEnumeration();
-
   /**
    * {@inheritDoc}
    * @see java.util.Enumeration#hasMoreElements()

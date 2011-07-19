@@ -98,7 +98,7 @@ public final class Searchability {
       yes = new Searchability(n++, "yes"),
       no = new Searchability(n++, "no") };
 
-  private static final Hashtable searchabilityOfName = new Hashtable();
+  private static final Hashtable<String, Searchability> searchabilityOfName = new Hashtable<String, Searchability>();
 
   static {
     for (int i = 0; i < searchabilities.length; ++i)

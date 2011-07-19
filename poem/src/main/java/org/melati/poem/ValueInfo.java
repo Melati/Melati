@@ -132,10 +132,10 @@ public class ValueInfo extends ValueInfoBase {
     if (poemType == null) {
       PoemTypeFactory f = getTypefactory();
 
-      if (f == null) {
+      if (f == null) { // FIXME Test this, remove if possible
         // this can happen before we have been fully initialised
         // it's convenient to return the "most general" type available ...
-        return StringPoemType.nullableInstance;
+        return (SQLPoemType)StringPoemType.nullableInstance;
       }
       poemType = f.typeOf(getDatabase(), toTypeParameter());
     }
@@ -147,6 +147,7 @@ public class ValueInfo extends ValueInfoBase {
    * @param nullableP whether nullable
    * @return A type
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   private SQLPoemType getRangeEndType(boolean nullableP) {
     // FIXME a little inefficient, but rarely used; also relies on BasePoemType
     // should have interface for ranged type ...
@@ -187,7 +188,7 @@ public class ValueInfo extends ValueInfoBase {
    * @param c a Column with a Range
    * @return a Field representing the end of the Range
    */
-  private Field rangeEndField(Column c) {
+  private Field rangeEndField(Column<?> c) {
     SQLPoemType unrangedType = getRangeEndType(c.getType().getNullable());
 
     if (unrangedType == null)
@@ -215,8 +216,8 @@ public class ValueInfo extends ValueInfoBase {
    * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#getRangelow_stringField()
    */
-  public Field getRangelow_stringField() {
-    Field it = rangeEndField(getValueInfoTable().getRangelow_stringColumn());
+  public Field<String> getRangelow_stringField() {
+    Field<String> it = rangeEndField(getValueInfoTable().getRangelow_stringColumn());
     return it != null ? it : super.getRangelow_stringField();
   }
 
@@ -236,7 +237,7 @@ public class ValueInfo extends ValueInfoBase {
   public void setRangelow_string(String value) {
     boolean nullableL = getValueInfoTable().getRangelow_stringColumn().
                         getType().getNullable();
-    PoemType unrangedType = getRangeEndType(nullableL);
+    PoemType<?> unrangedType = getRangeEndType(nullableL);
     if (unrangedType != null)
       value = unrangedType.stringOfRaw(unrangedType.rawOfString(value));
     super.setRangelow_string(value);
@@ -249,7 +250,7 @@ public class ValueInfo extends ValueInfoBase {
   public void setRangelimit_string(String value) {
     boolean nullableL = getValueInfoTable().getRangelimit_stringColumn().
                         getType().getNullable();
-    PoemType unrangedType = getRangeEndType(nullableL);
+    PoemType<?> unrangedType = getRangeEndType(nullableL);
     if (unrangedType != null)
       value = unrangedType.stringOfRaw(unrangedType.rawOfString(value));
     super.setRangelimit_string(value);

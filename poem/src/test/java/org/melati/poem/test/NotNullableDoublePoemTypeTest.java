@@ -12,7 +12,7 @@ import org.melati.poem.SQLPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NotNullableDoublePoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableDoublePoemTypeTest extends SQLPoemTypeSpec<Double> {
 
   /**
    * 
@@ -39,8 +39,8 @@ public class NotNullableDoublePoemTypeTest extends SQLPoemTypeSpec {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()) , 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
+    assertEquals(((SQLPoemType<Double>)it).sqlDefaultValue(getDb().getDbms()) , 
+        ((SQLPoemType<Double>)it).quotedRaw(((SQLPoemType<Double>)it).rawOfString(((SQLPoemType<Double>)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 

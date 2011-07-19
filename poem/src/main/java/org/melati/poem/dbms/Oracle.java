@@ -192,7 +192,7 @@ public class Oracle extends AnsiStandard {
         super(nullable, size);
       }
 
-      protected boolean _canRepresent(SQLPoemType other) {
+      protected boolean _canRepresent(SQLPoemType<?> other) {
         return sqlTypeCode() == other.sqlTypeCode() &&
                (getSize() == oracleTextHack && 
                ((StringPoemType)other).getSize() == -1)
@@ -204,7 +204,7 @@ public class Oracle extends AnsiStandard {
        * {@inheritDoc}
        * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
        */
-      public PoemType canRepresent(PoemType other) {
+      public <O>PoemType<O> canRepresent(PoemType<O> other) {
         return other instanceof StringPoemType &&
                _canRepresent((StringPoemType)other) &&
                !(!getNullable() && ((StringPoemType)other).getNullable()) ?
@@ -269,7 +269,7 @@ public class Oracle extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    *          (org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if ((storage instanceof IntegerPoemType &&
         type instanceof BigDecimalPoemType) && 
         !(!storage.getNullable() && type.getNullable())){
@@ -288,7 +288,7 @@ public class Oracle extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
 
     //ResultSetMetaData rsmd = md.getMetaData();
@@ -324,7 +324,7 @@ public class Oracle extends AnsiStandard {
     if(md.getString("TYPE_NAME").equals("FLOAT"))
       return new DoublePoemType(
                     md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    SQLPoemType t = 
+    SQLPoemType<?> t = 
       md.getString("TYPE_NAME").equals("NUMBER") ?
           new IntegerPoemType(md.getInt("NULLABLE") ==
                               DatabaseMetaData.columnNullable) :
@@ -369,7 +369,7 @@ public class Oracle extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
    */
-  public String booleanTrueExpression(Column booleanColumn) {
+  public String booleanTrueExpression(Column<Boolean> booleanColumn) {
     return booleanColumn.fullQuotedName() + "=1";
   }
 
@@ -377,7 +377,7 @@ public class Oracle extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
    */
-  public String getSqlDefaultValue(SQLType sqlType) {
+  public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("0");
     }

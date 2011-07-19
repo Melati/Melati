@@ -56,7 +56,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * Base of all character sequence types.
  */
-public class StringPoemType extends SizedAtomPoemType {
+public class StringPoemType extends SizedAtomPoemType<String> {
 
   /** The nullable instance. */
   public static final StringPoemType nullableInstance = new StringPoemType(true, -1);
@@ -89,7 +89,7 @@ public class StringPoemType extends SizedAtomPoemType {
     ps.setString(col, (String)string);
   }
 
-  protected Object _rawOfString(String rawString) {
+  protected String _rawOfString(String rawString) {
     return rawString;
   }
 
@@ -105,7 +105,7 @@ public class StringPoemType extends SizedAtomPoemType {
    * {@inheritDoc}
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return
         other instanceof StringPoemType &&
         sizeGreaterEqual(getSize(), ((StringPoemType)other).getSize());

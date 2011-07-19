@@ -1,7 +1,6 @@
 package org.melati.poem.test;
 
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.sql.Types;
 import java.text.DateFormat;
 
@@ -15,7 +14,7 @@ import org.melati.poem.TimePoemType;
  * @since 2011/06/11
  *
  */
-public class NotNullableTimePoemTypeTest extends SQLPoemTypeSpec {
+public class NotNullableTimePoemTypeTest extends SQLPoemTypeSpec<Time> {
 
   public NotNullableTimePoemTypeTest() {
   }
@@ -46,7 +45,7 @@ public class NotNullableTimePoemTypeTest extends SQLPoemTypeSpec {
     long now = System.currentTimeMillis();
     Time nowT = new Time(now);
     assertEquals("'" + TimePoemType.format.format(nowT) + "'", 
-        ((SQLPoemType)it).quotedRaw(nowT));
+        ((SQLPoemType<Time>)it).quotedRaw(nowT));
 
   }
 

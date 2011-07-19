@@ -153,7 +153,7 @@ public interface Table {
      * @return column of that name
      * @throws org.melati.poem.NoSuchColumnPoemException if there is no column with that name
      */
-    Column getColumn(String nameP) throws NoSuchColumnPoemException;
+    Column<?> getColumn(String nameP) throws NoSuchColumnPoemException;
 
     /**
      * All the table's columns.
@@ -161,7 +161,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
      * @see org.melati.poem.Column
      */
-    Enumeration<Column> columns();
+    Enumeration<Column<?>> columns();
 
     /**
      * @return the number of columns in this table.
@@ -172,7 +172,7 @@ public interface Table {
      * @param columnInfoID
      * @return the Column with a TROID equal to columnInfoID
      */
-    Column columnWithColumnInfoID(int columnInfoID);
+    Column<?> columnWithColumnInfoID(int columnInfoID);
 
     /**
      * The table's troid column.  Every table in a POEM database must have a
@@ -183,12 +183,12 @@ public interface Table {
      * @return the id column
      * @see #getObject(Integer)
      */
-    Column troidColumn();
+    Column<Integer> troidColumn();
 
     /**
      * @return The table's deleted-flag column, if any.
      */
-    Column deletedColumn();
+    Column<Boolean> deletedColumn();
 
     /**
      * The table's primary display column, the Troid column if not set.
@@ -203,12 +203,12 @@ public interface Table {
      * @see org.melati.poem.ReferencePoemType#_stringOfCooked
      * @see org.melati.poem.DisplayLevel#primary
      */
-    Column displayColumn();
+    Column<?> displayColumn();
 
     /**
      * @param column the display column to set
      */
-    void setDisplayColumn(Column column);
+    void setDisplayColumn(Column<?> column);
 
     /**
      * In a similar manner to the primary display column, each table can have
@@ -222,12 +222,12 @@ public interface Table {
      * @return the search column, if any
      * @see org.melati.poem.Searchability
      */
-    Column primaryCriterionColumn();
+    Column<?> primaryCriterionColumn();
 
     /**
      * @param column the search column to set
      */
-    void setSearchColumn(Column column);
+    void setSearchColumn(Column<?> column);
 
     /**
      * If the troidColumn has yet to be set then returns an empty string.
@@ -254,7 +254,7 @@ public interface Table {
      * @param level the {@link org.melati.poem.DisplayLevel} to select
      * @return an Enumeration of columns at the given level
      */
-    Enumeration<Column> displayColumns(DisplayLevel level);
+    Enumeration<Column<?>> displayColumns(DisplayLevel level);
 
     /**
      * @param level the {@link org.melati.poem.DisplayLevel} to select
@@ -270,7 +270,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#detail
      */
-    Enumeration<Column> getDetailDisplayColumns();
+    Enumeration<Column<?>> getDetailDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Detail</tt>
@@ -285,7 +285,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#record
      */
-    Enumeration<Column> getRecordDisplayColumns();
+    Enumeration<Column<?>> getRecordDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Record</tt>
@@ -301,7 +301,7 @@ public interface Table {
      * @see #displayColumns(org.melati.poem.DisplayLevel)
      * @see org.melati.poem.DisplayLevel#summary
      */
-    Enumeration<Column> getSummaryDisplayColumns();
+    Enumeration<Column<?>> getSummaryDisplayColumns();
 
     /**
      * @return the number of columns at display level <tt>Summary</tt>
@@ -315,7 +315,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
      * @see org.melati.poem.Column
      */
-    Enumeration<Column> getSearchCriterionColumns();
+    Enumeration<Column<?>> getSearchCriterionColumns();
 
     /**
      * @return the number of columns which are searchable
@@ -782,7 +782,7 @@ public interface Table {
      * @param table
      * @return an Enumeration of Columns referring to the specified Table
      */
-    Enumeration<Column> referencesTo(Table table);
+    Enumeration<Column<?>> referencesTo(Table table);
 
     /**
      * @return the current highest troid
@@ -900,22 +900,22 @@ public interface Table {
     /**
      * @return the canReadColumn or the canSelectColumn or null
      */
-    Column canReadColumn();
+    Column<Capability> canReadColumn();
 
     /**
      * @return the canSelectColumn or null
      */
-    Column canSelectColumn();
+    Column<Capability> canSelectColumn();
 
     /**
      * @return the canWriteColumn or null
      */
-    Column canWriteColumn();
+    Column<Capability> canWriteColumn();
 
     /**
      * @return the canDeleteColumn or null
      */
-    Column canDeleteColumn();
+    Column<Capability> canDeleteColumn();
 
     /**
      * Add a {@link org.melati.poem.Column} to the database and the {@link org.melati.poem.TableInfo} table.
@@ -923,7 +923,7 @@ public interface Table {
      * @param infoP the meta data about the {@link org.melati.poem.Column}
      * @return the newly added column
      */
-    Column addColumnAndCommit(ColumnInfo infoP) throws PoemException;
+    Column<?> addColumnAndCommit(ColumnInfo infoP) throws PoemException;
 
     /**
      * @param columnInfo metadata about the column to delete, which is itself deleted
@@ -967,7 +967,7 @@ public interface Table {
      * @param orderByClause which field to order by or null
      * @return the results
      */
-    CachedSelection cachedSelection(String whereClause,
+    CachedSelection<Persistent> cachedSelection(String whereClause,
                                              String orderByClause);
 
     /**
@@ -1049,7 +1049,7 @@ public interface Table {
      * @param nullable whether the ReferencePoemType is nullable
      * @return a {@link org.melati.poem.RestrictedReferencePoemType}
      */
-    RestrictedReferencePoemType cachedSelectionType(String whereClause,
+    RestrictedReferencePoemType<?> cachedSelectionType(String whereClause,
                                      String orderByClause, boolean nullable);
 
     /**
@@ -1103,7 +1103,7 @@ public interface Table {
      *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
      * @return a Field object
      */
-    Field cachedSelectionField(
+    Field<?> cachedSelectionField(
         String whereClause, String orderByClause, boolean nullable,
         Integer selectedTroid, String nameP);
 
@@ -1114,7 +1114,7 @@ public interface Table {
      * method) or directly in the RDBMS (in which case the initialisation code
      * will).
      */
-    void defineColumn(Column column)
+    void defineColumn(Column<?> column)
         throws DuplicateColumnNamePoemException,
                DuplicateTroidColumnPoemException,
                DuplicateDeletedColumnPoemException;

@@ -55,7 +55,7 @@ import java.util.Enumeration;
 /**
  * A <tt>Boolean</tt> <tt>Nullable</tt> {@link Field} type.
  */
-public class BooleanPoemType extends AtomPoemType {
+public class BooleanPoemType extends AtomPoemType<Boolean> {
 
   /**
    * Constructor.
@@ -65,7 +65,7 @@ public class BooleanPoemType extends AtomPoemType {
     super(Types.BIT, "BOOLEAN", nullable);
   }
 
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Boolean> _possibleRaws() {
     return new BooleanPossibleRawEnumeration();
   }
 
@@ -85,7 +85,7 @@ public class BooleanPoemType extends AtomPoemType {
     ps.setBoolean(col, ((Boolean)bool).booleanValue());
   }
 
-  protected Object _rawOfString(String rawString)
+  protected Boolean _rawOfString(String rawString)
       throws ParsingPoemException {
     rawString = rawString.trim();
     if (rawString.length() == 1)
@@ -108,7 +108,7 @@ public class BooleanPoemType extends AtomPoemType {
       throw new ParsingPoemException(this, rawString);
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return // sqlTypeCode() == other.sqlTypeCode() && // many things can represent boolean 
            other instanceof BooleanPoemType;
   }

@@ -106,9 +106,9 @@ public final class PersistentFactory {
   }
 
   private static boolean commonFieldsEqual(Persistent criterion, Persistent candidate) {
-    Enumeration<Column> cols = criterion.getTable().columns();
+    Enumeration<Column<?>> cols = criterion.getTable().columns();
     while (cols.hasMoreElements()) { 
-      Column col = (Column)cols.nextElement();
+      Column<?> col = (Column<?>)cols.nextElement();
       if (col.isTroidColumn()) 
         continue;
       if (col.getRaw(criterion) != null && 
@@ -135,9 +135,9 @@ public final class PersistentFactory {
         return ((Persistent)pojo);
     Persistent p = table.newPersistent();
     Class<?> c = pojo.getClass();
-    Enumeration<Column> columns = table.columns();
+    Enumeration<Column<?>> columns = table.columns();
     while (columns.hasMoreElements()) {
-      Column col = (Column)columns.nextElement();
+      Column<?> col = (Column<?>)columns.nextElement();
       if(col.isTroidColumn()) continue;
       Method memberGetter;
       Object raw;
@@ -201,9 +201,9 @@ public final class PersistentFactory {
 
   private static Object populatedPojo(Object pojo, Persistent persistent) 
       throws NoSuchMethodException {
-    Enumeration<Column> columns = persistent.getTable().columns();
+    Enumeration<Column<?>> columns = persistent.getTable().columns();
     while (columns.hasMoreElements()) {
-      Column col = (Column)columns.nextElement();
+      Column<?> col = (Column<?>)columns.nextElement();
       if(col.isTroidColumn() && !(pojo instanceof Persistent)) continue;
       Object cooked = col.getCooked(persistent);
       if (cooked != null) {

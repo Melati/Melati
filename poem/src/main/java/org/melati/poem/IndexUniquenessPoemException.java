@@ -53,14 +53,14 @@ public class IndexUniquenessPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Column we are dealing with. */
-  public Column column;
+  public Column<?> column;
   /** The column's index. */
   public String indexName;
   /** Whether this Column should be unique. */
   public boolean meantToBeUnique;
 
   /** Constructor. */
-  public IndexUniquenessPoemException(Column column, String indexName,
+  public IndexUniquenessPoemException(Column<?> column, String indexName,
                                       boolean meantToBeUnique) {
     this.column = column;
     this.indexName = indexName;

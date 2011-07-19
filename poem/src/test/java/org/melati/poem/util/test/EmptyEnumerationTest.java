@@ -43,7 +43,7 @@ public class EmptyEnumerationTest extends TestCase {
    * Test method for {@link org.melati.poem.util.EmptyEnumeration#hasMoreElements()}.
    */
   public void testHasMoreElements() {
-    assertFalse(EmptyEnumeration.it.hasMoreElements());
+    assertFalse(new EmptyEnumeration<String>().hasMoreElements());
   }
 
   /**
@@ -51,7 +51,7 @@ public class EmptyEnumerationTest extends TestCase {
    */
   public void testNextElement() {
     try { 
-      EmptyEnumeration.it.nextElement();
+      new EmptyEnumeration<String>().nextElement();
       fail("should have bombed");
     } catch (NoSuchElementException e) {
       e = null;      

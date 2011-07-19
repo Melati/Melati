@@ -56,7 +56,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  * Normal longs: <code>INT8</code>.
  */
-public class LongPoemType extends AtomPoemType {
+public class LongPoemType extends AtomPoemType<Long> {
 
   /** Instance of a nullable LongPoemType. */
   public static final LongPoemType nullableInstance = new LongPoemType(true);
@@ -77,7 +77,7 @@ public class LongPoemType extends AtomPoemType {
   /**
    * @todo Do down-counting??
    */
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Long> _possibleRaws() {
     Long low = (Long)getLowRaw();
     Long limit = (Long)getLimitRaw();
     return low == null ?
@@ -103,7 +103,7 @@ public class LongPoemType extends AtomPoemType {
     ps.setLong(col, ((Long)integer).longValue());
   }
 
-  protected Object _rawOfString(String rawString)
+  protected Long _rawOfString(String rawString)
       throws ParsingPoemException {
     try {
       return new Long(rawString);
@@ -124,7 +124,7 @@ public class LongPoemType extends AtomPoemType {
    * {@inheritDoc}
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     // Sql type code is not checked
     if (other instanceof LongPoemType) 
       return true;

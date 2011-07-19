@@ -51,7 +51,7 @@ public class TailoredQueryTest extends EverythingTestCase {
    *      String)
    */
   public void testTailoredQueryColumnArrayTableArrayStringString() {
-    Column[] columns = { 
+    Column<?>[] columns = { 
             getDb().getUserTable().getNameColumn(),
             getDb().getGroupTable().getNameColumn(), };
     Table[] tables = { getDb().getGroupMembershipTable() };
@@ -75,7 +75,7 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         getDb().getUserTable().getNameColumn().
                                             fullQuotedName());
     int count = 0;
-    for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+    for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
       //FieldSet fs = (FieldSet) 
       ms.nextElement();
@@ -96,7 +96,7 @@ public class TailoredQueryTest extends EverythingTestCase {
    *      String, String)
    */
   public void testTailoredQueryStringColumnArrayTableArrayStringString() {
-    Column[] columns = { getDb().getUserTable().getNameColumn(),
+    Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
     Table[] tables = { getDb().getGroupMembershipTable() };
 
@@ -119,7 +119,7 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         whereClause,
                                         null);
     int count = 0;
-    for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+    for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
       //FieldSet fs = (FieldSet) 
       ms.nextElement();
@@ -140,7 +140,7 @@ public class TailoredQueryTest extends EverythingTestCase {
    * @see org.melati.poem.TailoredQuery#selection()
    */
   public void testSelection() {
-    Column[] columns = { getDb().getUserTable().getNameColumn(),
+    Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
     Table[] tables = { getDb().getGroupMembershipTable() };
 
@@ -163,7 +163,7 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         whereClause,
                                         null);
     int count = 0;
-    for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+    for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
       //FieldSet fs = (FieldSet) 
       ms.nextElement();
@@ -184,7 +184,7 @@ public class TailoredQueryTest extends EverythingTestCase {
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
   public void testSelection_firstRaw() {
-    Column[] columns = { getDb().getUserTable().getNameColumn(),
+    Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
     Table[] tables = { getDb().getGroupMembershipTable() };
 

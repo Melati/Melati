@@ -123,7 +123,7 @@ public class Mckoi extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType &&
       type instanceof StringPoemType) {
 
@@ -154,9 +154,8 @@ public class Mckoi extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
-//      ResultSetMetaData rsmd= md.getMetaData();
 
     if(md.getString("TYPE_NAME").equals("NUMERIC"))
       return new DoublePoemType(md.getInt("NULLABLE")==

@@ -8,7 +8,7 @@ package org.melati.poem.test;
  * @since 21 Dec 2006
  *
  */
-public class NonSQLPoemTypeTest extends SQLPoemTypeSpec {
+public class NonSQLPoemTypeTest extends SQLPoemTypeSpec<Object> {
 
   /**
    * 

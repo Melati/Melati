@@ -709,10 +709,10 @@ public class TableTest extends PoemTestCase {
             getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("password"),"FIXME") + "))";
     assertEquals(expected, cnf);
     cnf = getDb().getUserTable().cnfWhereClause(
-            EmptyEnumeration.it);
+            new EmptyEnumeration<String>());
     assertEquals("", cnf);
-    Vector v = new Vector();
-    v.addElement(getDb().getUserTable().newPersistent());
+    Vector<User> v = new Vector<User>();
+    v.addElement((User)getDb().getUserTable().newPersistent());
     cnf = getDb().getUserTable().cnfWhereClause(
             v.elements());
     assertEquals("", cnf);

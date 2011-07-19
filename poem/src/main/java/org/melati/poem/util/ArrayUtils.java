@@ -60,7 +60,7 @@ public final class ArrayUtils {
    * @param v the Vector
    * @return the Array
    */
-  public static Object[] arrayOf(Vector v) {
+  public static Object[] arrayOf(Vector<Object> v) {
     Object[] arr;
     synchronized (v) {
       arr = new Object[v.size()];
@@ -74,8 +74,8 @@ public final class ArrayUtils {
    * @param e the Enumeration
    * @return the Array
    */
-  public static Object[] arrayOf(Enumeration e) {
-    Vector v = EnumUtils.vectorOf(e);
+  public static Object[] arrayOf(Enumeration<Object> e) {
+    Vector<Object> v = EnumUtils.vectorOf(e);
     return arrayOf(v);
   }
 

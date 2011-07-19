@@ -55,22 +55,22 @@ import java.util.Enumeration;
  * valid value is, so use a simple where clause.
  */
 
-public class RestrictedReferencePoemType extends ReferencePoemType {
+public class RestrictedReferencePoemType<T> extends ReferencePoemType {
 
-  private final CachedSelection selection;
+  private final CachedSelection<T> selection;
 
   /**
    * Constructor.
    * @param selection a CachedSelection of that is the sub-set
    * @param nullable whether instance may be null
    */
-  public RestrictedReferencePoemType(CachedSelection selection,
+  public RestrictedReferencePoemType(CachedSelection<T> selection,
                                      boolean nullable) {
     super(selection.getTable(), nullable);
     this.selection = selection;
   }
 
-  protected Enumeration _possibleRaws() {
+  protected Enumeration<Integer> _possibleRaws() {
     return selection.troids();
   }
 }

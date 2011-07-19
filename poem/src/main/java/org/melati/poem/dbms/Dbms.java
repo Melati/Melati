@@ -109,7 +109,7 @@ public interface Dbms {
    * @param value the value
    * @return a String quoted appropriately
    */
-  String getQuotedValue(SQLType sqlType, String value);
+  String getQuotedValue(SQLType<?> sqlType, String value);
   
   /**
    * Some DBMSen (HSQLDB) use canonical uppercased names in the metadata but not 
@@ -211,11 +211,11 @@ public interface Dbms {
    * Enable one PoemType to represent another, 
    * for example a <tt>bit</tt> to represent a <tt>boolean</tt>.
    * 
-   * @param storage the POEM native type
-   * @param type the current type
+   * @param storage the container
+   * @param other the type to store
    * @return the PoemType to use
    */
-  PoemType<?> canRepresent(PoemType<?> storage, PoemType<?> type);
+  <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> other);
 
   /**
    * The simplest POEM type corresponding to a JDBC description from the
@@ -225,7 +225,7 @@ public interface Dbms {
    * @return the PoemType to use 
    * @throws SQLException potentially
    */
-  SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
+  SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet rs)
       throws SQLException;
 
   /**
@@ -307,7 +307,7 @@ public interface Dbms {
    * @param column the POEM Column we are dealing with
    * @return SQL length string
    */
-  String getIndexLength(Column column);
+  String getIndexLength(Column<?> column);
 
   /**
    * Whether a <tt>Column</tt> can have an SQL index applied to it.
@@ -315,7 +315,7 @@ public interface Dbms {
    * @param column the POEM Column we are dealing with
    * @return true if it can, false otherwise.
    */
-  boolean canBeIndexed(Column column);
+  boolean canBeIndexed(Column<?> column);
 
   /**
    * SQL string to get a <tt>Capability</tt>.
@@ -373,7 +373,7 @@ public interface Dbms {
    * @param column
    * @return SQL snippet to set a column not nullable
    */
-  String alterColumnNotNullableSQL(String tableName, Column column);
+  String alterColumnNotNullableSQL(String tableName, Column<?> column);
 
   /**
    * Accomodate different limiting syntax.
@@ -389,7 +389,7 @@ public interface Dbms {
    * @param booleanColumn
    * @return an expresion that evaluates to True ie the column name or column name = 1
    */
-  String booleanTrueExpression(Column booleanColumn);
+  String booleanTrueExpression(Column<Boolean> booleanColumn);
 
   /**
    * Used to set a not null value when 
@@ -397,6 +397,6 @@ public interface Dbms {
    * @param type the type name
    * @return a String suitable for substitution in UPDATE table SET field = ?
    */
-  String getSqlDefaultValue(SQLType type);
+  String getSqlDefaultValue(SQLType<?> type);
 
 }

@@ -6,6 +6,7 @@ package org.melati.poem.test;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+import org.melati.poem.Persistent;
 import org.melati.poem.ResultSetEnumeration;
 import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.User;
@@ -52,7 +53,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.ResultSetEnumeration#hasMoreElements()}.
    */
   public void testHasMoreElements() {
-    Enumeration rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    Enumeration<Persistent> rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
     while (rse.hasMoreElements()) {
       rse.nextElement();
     }
@@ -63,7 +64,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.ResultSetEnumeration#nextElement()}.
    */
   public void testNextElement() {
-    Enumeration rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    Enumeration<Persistent> rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
     rse.nextElement();
     try { 
       rse.nextElement();
@@ -75,7 +76,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
     // FIXME There should be a way to provoke RowDisappearedPoemException
     User u = new User("tester","tester","tester");
     getDb().getUserTable().create(u); 
-    Enumeration rse2 = getDb().getUserTable().troidSelection(null,null,false);
+    Enumeration<Integer> rse2 = getDb().getUserTable().troidSelection(null,null,false);
     u.delete();
     try { 
       while(rse2.hasMoreElements()) { 
@@ -91,7 +92,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.ResultSetEnumeration#skip()}.
    */
   public void testSkip() {
-    ResultSetEnumeration rse = (ResultSetEnumeration)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    ResultSetEnumeration<Persistent> rse = (ResultSetEnumeration<Persistent>)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
     rse.skip();
     try { 
       rse.nextElement();
@@ -99,7 +100,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
     } catch (NoSuchElementException e) { 
       e = null;
     }    
-    rse = (ResultSetEnumeration)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    rse = (ResultSetEnumeration<Persistent>)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
     rse.skip();
     try { 
       rse.skip();

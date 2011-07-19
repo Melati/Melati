@@ -207,7 +207,7 @@ public class SQLServer extends AnsiStandard {
    * 
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */
-  public PoemType canRepresent(PoemType storage, PoemType type) {
+  public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == sqlServerTextHack
               && ((StringPoemType)type).getSize() == -1
@@ -343,7 +343,7 @@ public class SQLServer extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(
    *      java.sql.ResultSet)
    */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
           throws SQLException {
 
     /*
@@ -424,8 +424,8 @@ public class SQLServer extends AnsiStandard {
    * 
    * @return whether it is allowed.
    */
-  public boolean canBeIndexed(Column column) {
-    PoemType t = column.getType();
+  public boolean canBeIndexed(Column<?> column) {
+    PoemType<?> t = column.getType();
     if (t instanceof StringPoemType && ((StringPoemType)t).getSize() < 0)
       return false;
     return true;
@@ -471,7 +471,7 @@ public class SQLServer extends AnsiStandard {
    * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
    *      java.lang.String)
    */
-  public String alterColumnNotNullableSQL(String tableName, Column column) {
+  public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
             + getQuotedName(column.getName()) + " "
             + column.getSQLType().sqlDefinition(this);
@@ -491,7 +491,7 @@ public class SQLServer extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
    */
-  public String booleanTrueExpression(Column booleanColumn) {
+  public String booleanTrueExpression(Column<Boolean> booleanColumn) {
     return booleanColumn.fullQuotedName() + "=1";
   }
 
@@ -499,7 +499,7 @@ public class SQLServer extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
    */
-  public String getSqlDefaultValue(SQLType sqlType) {
+  public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("0");
     }
@@ -513,7 +513,7 @@ public class SQLServer extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
    */
-  public String getQuotedValue(SQLType sqlType, String value) {
+  public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BinaryPoemType) {
       return value;
     }

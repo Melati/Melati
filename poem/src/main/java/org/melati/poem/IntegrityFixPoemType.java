@@ -90,7 +90,7 @@ public class IntegrityFixPoemType extends IndexPoemType {
     return ((StandardIntegrityFix)cooked).getName();
   }
 
-  protected boolean _canRepresent(SQLPoemType<?> other) {
+  protected boolean _canRepresent(@SuppressWarnings("rawtypes") SQLPoemType other) {
     return other instanceof IntegrityFixPoemType;
   }
 

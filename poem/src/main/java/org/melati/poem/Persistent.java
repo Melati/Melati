@@ -547,7 +547,7 @@ public interface Persistent extends Persistable, Treeable {
    * @throws NoSuchColumnPoemException if there is no column of that name
    * @throws AccessPoemException if the current AccessToken does not grant access capability
    */
-  Field getField(String name) throws NoSuchColumnPoemException,
+  Field<?> getField(String name) throws NoSuchColumnPoemException,
           AccessPoemException;
 
   /**
@@ -556,7 +556,7 @@ public interface Persistent extends Persistable, Treeable {
    * @param columns an Enumeration of Columns
    * @return an Enumeration of Fields 
    */
-  Enumeration<Field> fieldsOfColumns(Enumeration<Column> columns);
+  Enumeration<Field<?>> fieldsOfColumns(Enumeration<Column<?>> columns);
 
   /**
    * The values of all the object's fields, wrapped up with type information
@@ -565,7 +565,7 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    */
 
-  Enumeration<Field> getFields();
+  Enumeration<Field<?>> getFields();
 
   /**
    * The values of all the object's fields designated for inclusion in full
@@ -576,7 +576,7 @@ public interface Persistent extends Persistable, Treeable {
    * @see DisplayLevel#record
    */
 
-  Enumeration<Field> getRecordDisplayFields();
+  Enumeration<Field<?>> getRecordDisplayFields();
 
   /**
    * All fields at the detailed display level in display order.
@@ -584,7 +584,7 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#detail
    */
-  Enumeration<Field> getDetailDisplayFields();
+  Enumeration<Field<?>> getDetailDisplayFields();
 
   /**
    * All fields at the summary display level in display order.
@@ -592,17 +592,17 @@ public interface Persistent extends Persistable, Treeable {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    * @see DisplayLevel#summary
    */
-  Enumeration<Field> getSummaryDisplayFields();
+  Enumeration<Field<?>> getSummaryDisplayFields();
 
   /**
    * @return an <TT>Enumeration</TT> of searchable <TT>Field</TT>s
    */
-  Enumeration<Field> getSearchCriterionFields();
+  Enumeration<Field<?>> getSearchCriterionFields();
 
   /**
    * @return the Primary Display Column as a Field
    */
-  Field getPrimaryDisplayField();
+  Field<?> getPrimaryDisplayField();
 
   /**
    * Delete the object.  Before the record is deleted from the database, POEM
@@ -624,7 +624,7 @@ public interface Persistent extends Persistable, Treeable {
    *            the default behaviour for the column is used.  (The default 
    *            is {@link StandardIntegrityFix#prevent}.)
    */
-  void delete(Map<Column, IntegrityFix> integrityFixOfColumn);
+  void delete(Map<Column<?>, IntegrityFix> integrityFixOfColumn);
 
   /**
    * Delete without access checks.
@@ -650,7 +650,7 @@ public interface Persistent extends Persistable, Treeable {
    * unless you really want this functionality.
    *
    */
-  void deleteAndCommit(Map<Column, IntegrityFix> integrityFixOfColumn)
+  void deleteAndCommit(Map<Column<?>, IntegrityFix> integrityFixOfColumn)
           throws AccessPoemException, DeletionIntegrityPoemException;
 
   /**

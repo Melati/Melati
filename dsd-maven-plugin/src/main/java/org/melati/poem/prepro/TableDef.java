@@ -356,12 +356,12 @@ public class TableDef {
             ReferenceFieldDef rfd = (ReferenceFieldDef) f;
             if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
               w.write('\n');          
-              w.write("  private CachedSelection<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> "+rfd.name+rfd.shortestUnambiguousClassname + "s = null;\n");
+              w.write("  private CachedSelection<" + rfd.shortestUnambiguousClassname +"> "+rfd.name+rfd.shortestUnambiguousClassname + "s = null;\n");
               w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field.*/\n");
               w.write("  @SuppressWarnings(\"unchecked\")\n");
-              w.write("  public Enumeration<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s() {\n");
+              w.write("  public Enumeration<" + rfd.shortestUnambiguousClassname +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s() {\n");
               w.write("    if (getTroid() == null)\n");
-              w.write("      return EmptyEnumeration.it;\n");
+              w.write("      return new EmptyEnumeration<" + rfd.shortestUnambiguousClassname +">();\n");
               w.write("    else {\n");
               w.write("      if (" + rfd.name+rfd.shortestUnambiguousClassname + "s == null)\n");
               w.write("        " + rfd.name+rfd.shortestUnambiguousClassname + "s =\n");

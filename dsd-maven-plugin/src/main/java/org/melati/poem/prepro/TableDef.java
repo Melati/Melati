@@ -372,7 +372,7 @@ public class TableDef {
               w.write("\n");
               w.write("\n");
               w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field, as a List.*/\n");
-              w.write("  public List<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "sList() {\n");
+              w.write("  public List<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "List() {\n");
               w.write("    return Collections.list(get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s());\n");
               w.write("  }\n");
               w.write("\n");

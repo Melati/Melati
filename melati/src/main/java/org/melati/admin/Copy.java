@@ -162,9 +162,9 @@ public class Copy extends TemplateServlet {
                       while (recs.hasMoreElements()) {
                         Persistent p = (Persistent)recs.nextElement();
                         Persistent p2 = toTable.newPersistent();
-                        Enumeration<Field> fields = p.getFields();
+                        Enumeration<Field<?>> fields = p.getFields();
                         while (fields.hasMoreElements()) { 
-                          Field f = fields.nextElement();
+                          Field<?> f = fields.nextElement();
                           p2.setRaw(f.getName(), f.getRaw());
                         }
                         p2.makePersistent();

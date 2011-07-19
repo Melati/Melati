@@ -83,8 +83,8 @@ public final class Form {
    */
   public static void extractFields(ServletTemplateContext context, 
                                    Persistent object) {
-    for (Enumeration<Column> c = object.getTable().columns(); c.hasMoreElements();) {
-      Column column = c.nextElement();
+    for (Enumeration<Column<?>> c = object.getTable().columns(); c.hasMoreElements();) {
+      Column<?> column = c.nextElement();
       String formFieldName = "field_" + column.getName();
       String rawString = context.getFormField(formFieldName);
 

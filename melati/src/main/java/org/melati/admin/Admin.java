@@ -261,8 +261,8 @@ public class Admin extends TemplateServlet {
 
     Vector<Object> whereClause = new Vector<Object>();
 
-    for (Enumeration<Column> c = table.columns(); c.hasMoreElements();) {
-      Column column = c.nextElement();
+    for (Enumeration<Column<?>> c = table.columns(); c.hasMoreElements();) {
+      Column<?> column = c.nextElement();
       String name = "field_" + column.getName();
       String fieldValue = Form.getFieldNulled(context, name);
       if (fieldValue != null) {
@@ -356,9 +356,9 @@ public class Admin extends TemplateServlet {
 
     final Persistent criteria = table.newPersistent();
 
-    MappedEnumeration<Field, Column> criterias = new MappedEnumeration<Field, Column>(table
+    MappedEnumeration<Field<?>, Column<?>> criterias = new MappedEnumeration<Field<?>, Column<?>>(table
         .getSearchCriterionColumns()) {
-      public Field mapped(Column c) {
+      public Field<?> mapped(Column<?> c) {
         return c.asField(criteria).withNullable(true);
       }
     };
@@ -388,8 +388,8 @@ public class Admin extends TemplateServlet {
     return new ReferencePoemType(database
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
-        return new MappedEnumeration<Integer, Column>(table.getSearchCriterionColumns()) {
-          public Integer mapped(Column column) {
+        return new MappedEnumeration<Integer, Column<?>>(table.getSearchCriterionColumns()) {
+          public Integer mapped(Column<?> column) {
             return column.getColumnInfo().getTroid();
           }
         };
@@ -439,7 +439,7 @@ public class Admin extends TemplateServlet {
      */
 
     // getDetailDisplayColumns() == columns() but could exclude some in theory
-    Enumeration<Column> columns = melati.getTable().getDetailDisplayColumns();
+    Enumeration<Column<?>> columns = melati.getTable().getDetailDisplayColumns();
     Vector<Field> fields = new Vector<Field>();
     while (columns.hasMoreElements()) {
       Column column = columns.nextElement();

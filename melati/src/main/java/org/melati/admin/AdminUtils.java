@@ -45,7 +45,9 @@
 package org.melati.admin;
 
 
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
@@ -541,8 +543,9 @@ public class AdminUtils {
    * @param table  the table to tree 
    * @return a tree with node as its root
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public JSStaticTree createForest(Table table) {
-    Object[] all = ArrayUtils.arrayOf(table.selection());
+    Object[] all = ArrayUtils.arrayOf((Enumeration) table.selection());
     Hashtable<Treeable, Boolean> hasParent = new Hashtable<Treeable, Boolean>();
     for (int i = 0; i < all.length; i++) {
       if (hasParent.get(all[i]) == null) { 

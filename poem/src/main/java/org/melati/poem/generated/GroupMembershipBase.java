@@ -163,9 +163,9 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getGroupMembershipTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getGroupMembershipTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -278,9 +278,9 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer user
   */
-  public Field getUserField() throws AccessPoemException {
-    Column c = _getGroupMembershipTable().getUserColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getUserField() throws AccessPoemException {
+    Column<Integer> c = _getGroupMembershipTable().getUserColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -393,9 +393,9 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer group
   */
-  public Field getGroupField() throws AccessPoemException {
-    Column c = _getGroupMembershipTable().getGroupColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getGroupField() throws AccessPoemException {
+    Column<Integer> c = _getGroupMembershipTable().getGroupColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 }

@@ -32,19 +32,19 @@ import org.melati.poem.ValueInfo;
 
 public class ValueInfoTableBase extends PoemTable {
 
-  private Column col_displayname = null;
-  private Column col_description = null;
-  private Column col_usereditable = null;
-  private Column col_typefactory = null;
-  private Column col_nullable = null;
-  private Column col_size = null;
-  private Column col_width = null;
-  private Column col_height = null;
-  private Column col_precision = null;
-  private Column col_scale = null;
-  private Column col_renderinfo = null;
-  private Column col_rangelow_string = null;
-  private Column col_rangelimit_string = null;
+  private Column<String> col_displayname = null;
+  private Column<String> col_description = null;
+  private Column<Boolean> col_usereditable = null;
+  private Column<Integer> col_typefactory = null;
+  private Column<Boolean> col_nullable = null;
+  private Column<Integer> col_size = null;
+  private Column<Integer> col_width = null;
+  private Column<Integer> col_height = null;
+  private Column<Integer> col_precision = null;
+  private Column<Integer> col_scale = null;
+  private Column<String> col_renderinfo = null;
+  private Column<String> col_rangelow_string = null;
+  private Column<String> col_rangelimit_string = null;
 
  /**
   * Constructor. 
@@ -76,7 +76,7 @@ public class ValueInfoTableBase extends PoemTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_displayname =
-        new Column(this, "displayname",
+        new Column<String>(this, "displayname",
                    new StringPoemType(false, 60),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -89,7 +89,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setDisplayname((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ValueInfo)g).getDisplaynameField();
           }
 
@@ -135,7 +135,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_description =
-        new Column(this, "description",
+        new Column<String>(this, "description",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -148,7 +148,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setDescription((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ValueInfo)g).getDescriptionField();
           }
 
@@ -190,7 +190,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_usereditable =
-        new Column(this, "usereditable",
+        new Column<Boolean>(this, "usereditable",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -203,7 +203,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setUsereditable((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ValueInfo)g).getUsereditableField();
           }
 
@@ -249,7 +249,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_typefactory =
-        new Column(this, "typefactory",
+        new Column<Integer>(this, "typefactory",
                    new ColumnTypePoemType(getDatabase()),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -262,7 +262,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setTypefactory((PoemTypeFactory)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getTypefactoryField();
           }
 
@@ -312,7 +312,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_nullable =
-        new Column(this, "nullable",
+        new Column<Boolean>(this, "nullable",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -325,7 +325,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setNullable((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ValueInfo)g).getNullableField();
           }
 
@@ -371,7 +371,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_size =
-        new Column(this, "size",
+        new Column<Integer>(this, "size",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -384,7 +384,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setSize((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getSizeField();
           }
 
@@ -430,7 +430,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_width =
-        new Column(this, "width",
+        new Column<Integer>(this, "width",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -443,7 +443,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setWidth((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getWidthField();
           }
 
@@ -489,7 +489,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_height =
-        new Column(this, "height",
+        new Column<Integer>(this, "height",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -502,7 +502,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setHeight((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getHeightField();
           }
 
@@ -548,7 +548,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_precision =
-        new Column(this, "precision",
+        new Column<Integer>(this, "precision",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -561,7 +561,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setPrecision((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getPrecisionField();
           }
 
@@ -611,7 +611,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_scale =
-        new Column(this, "scale",
+        new Column<Integer>(this, "scale",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -624,7 +624,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setScale((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ValueInfo)g).getScaleField();
           }
 
@@ -674,7 +674,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_renderinfo =
-        new Column(this, "renderinfo",
+        new Column<String>(this, "renderinfo",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -687,7 +687,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setRenderinfo((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ValueInfo)g).getRenderinfoField();
           }
 
@@ -733,7 +733,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_rangelow_string =
-        new Column(this, "rangelow_string",
+        new Column<String>(this, "rangelow_string",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -746,7 +746,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setRangelow_string((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ValueInfo)g).getRangelow_stringField();
           }
 
@@ -792,7 +792,7 @@ public class ValueInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_rangelimit_string =
-        new Column(this, "rangelimit_string",
+        new Column<String>(this, "rangelimit_string",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -805,7 +805,7 @@ public class ValueInfoTableBase extends PoemTable {
             ((ValueInfo)g).setRangelimit_string((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ValueInfo)g).getRangelimit_stringField();
           }
 
@@ -859,7 +859,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayname <code>Column</code>
   */
-  public final Column getDisplaynameColumn() {
+  public final Column<String> getDisplaynameColumn() {
     return col_displayname;
   }
 
@@ -871,7 +871,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the description <code>Column</code>
   */
-  public final Column getDescriptionColumn() {
+  public final Column<String> getDescriptionColumn() {
     return col_description;
   }
 
@@ -883,7 +883,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the usereditable <code>Column</code>
   */
-  public final Column getUsereditableColumn() {
+  public final Column<Boolean> getUsereditableColumn() {
     return col_usereditable;
   }
 
@@ -895,7 +895,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the typefactory <code>Column</code>
   */
-  public final Column getTypefactoryColumn() {
+  public final Column<Integer> getTypefactoryColumn() {
     return col_typefactory;
   }
 
@@ -907,7 +907,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the nullable <code>Column</code>
   */
-  public final Column getNullableColumn() {
+  public final Column<Boolean> getNullableColumn() {
     return col_nullable;
   }
 
@@ -919,7 +919,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the size <code>Column</code>
   */
-  public final Column getSizeColumn() {
+  public final Column<Integer> getSizeColumn() {
     return col_size;
   }
 
@@ -931,7 +931,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the width <code>Column</code>
   */
-  public final Column getWidthColumn() {
+  public final Column<Integer> getWidthColumn() {
     return col_width;
   }
 
@@ -943,7 +943,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the height <code>Column</code>
   */
-  public final Column getHeightColumn() {
+  public final Column<Integer> getHeightColumn() {
     return col_height;
   }
 
@@ -955,7 +955,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the precision <code>Column</code>
   */
-  public final Column getPrecisionColumn() {
+  public final Column<Integer> getPrecisionColumn() {
     return col_precision;
   }
 
@@ -967,7 +967,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the scale <code>Column</code>
   */
-  public final Column getScaleColumn() {
+  public final Column<Integer> getScaleColumn() {
     return col_scale;
   }
 
@@ -979,7 +979,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the renderinfo <code>Column</code>
   */
-  public final Column getRenderinfoColumn() {
+  public final Column<String> getRenderinfoColumn() {
     return col_renderinfo;
   }
 
@@ -991,7 +991,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelow_string <code>Column</code>
   */
-  public final Column getRangelow_stringColumn() {
+  public final Column<String> getRangelow_stringColumn() {
     return col_rangelow_string;
   }
 
@@ -1003,7 +1003,7 @@ public class ValueInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelimit_string <code>Column</code>
   */
-  public final Column getRangelimit_stringColumn() {
+  public final Column<String> getRangelimit_stringColumn() {
     return col_rangelimit_string;
   }
 

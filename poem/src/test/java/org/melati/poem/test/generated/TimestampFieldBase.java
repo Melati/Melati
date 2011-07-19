@@ -150,9 +150,9 @@ public abstract class TimestampFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getTimestampFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getTimestampFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -229,9 +229,10 @@ public abstract class TimestampFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Timestamp timestampfield
   */
-  public Field getTimestampfieldField() throws AccessPoemException {
-    Column c = _getTimestampFieldTable().getTimestampfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Timestamp> getTimestampfieldField() throws AccessPoemException {
+    Column<Timestamp> c = _getTimestampFieldTable().getTimestampfieldColumn();
+    return new Field<Timestamp>((Timestamp)c.getRaw(this), c);
   }
+
 }
 

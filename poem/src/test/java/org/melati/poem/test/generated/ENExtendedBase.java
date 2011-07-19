@@ -170,9 +170,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the byte[] binaryfield2
   */
-  public Field getBinaryfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getBinaryfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getBinaryfield2Field() throws AccessPoemException {
+    Column<byte[]> c = _getENExtendedTable().getBinaryfield2Column();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
 
 
@@ -253,9 +253,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the String stringfield2
   */
-  public Field getStringfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getStringfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getStringfield2Field() throws AccessPoemException {
+    Column<String> c = _getENExtendedTable().getStringfield2Column();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -336,9 +336,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the String passwordfield2
   */
-  public Field getPasswordfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getPasswordfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getPasswordfield2Field() throws AccessPoemException {
+    Column<String> c = _getENExtendedTable().getPasswordfield2Column();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -441,9 +441,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Boolean booleanfield2
   */
-  public Field getBooleanfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getBooleanfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getBooleanfield2Field() throws AccessPoemException {
+    Column<Boolean> c = _getENExtendedTable().getBooleanfield2Column();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -524,9 +524,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Date datefield2
   */
-  public Field getDatefield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getDatefield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getDatefield2Field() throws AccessPoemException {
+    Column<Date> c = _getENExtendedTable().getDatefield2Column();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
 
 
@@ -627,9 +627,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Double doublefield2
   */
-  public Field getDoublefield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getDoublefield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Double> getDoublefield2Field() throws AccessPoemException {
+    Column<Double> c = _getENExtendedTable().getDoublefield2Column();
+    return new Field<Double>((Double)c.getRaw(this), c);
   }
 
 
@@ -731,9 +731,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Integer integerfield2
   */
-  public Field getIntegerfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getIntegerfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegerfield2Field() throws AccessPoemException {
+    Column<Integer> c = _getENExtendedTable().getIntegerfield2Column();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -835,9 +835,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Long longfield2
   */
-  public Field getLongfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getLongfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Long> getLongfield2Field() throws AccessPoemException {
+    Column<Long> c = _getENExtendedTable().getLongfield2Column();
+    return new Field<Long>((Long)c.getRaw(this), c);
   }
 
 
@@ -918,9 +918,9 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the BigDecimal bigdecimalfield2
   */
-  public Field getBigdecimalfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getBigdecimalfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<BigDecimal> getBigdecimalfield2Field() throws AccessPoemException {
+    Column<BigDecimal> c = _getENExtendedTable().getBigdecimalfield2Column();
+    return new Field<BigDecimal>((BigDecimal)c.getRaw(this), c);
   }
 
 
@@ -1001,9 +1001,10 @@ public abstract class ENExtendedBase extends EverythingNormal {
   *         does not confer write access rights
   * @return the Timestamp timestampfield2
   */
-  public Field getTimestampfield2Field() throws AccessPoemException {
-    Column c = _getENExtendedTable().getTimestampfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Timestamp> getTimestampfield2Field() throws AccessPoemException {
+    Column<Timestamp> c = _getENExtendedTable().getTimestampfield2Column();
+    return new Field<Timestamp>((Timestamp)c.getRaw(this), c);
   }
+
 }
 

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.Column;
@@ -29,9 +30,9 @@ import org.melati.poem.test.EverythingTable;
 
 public class BinaryFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_binaryfield = null;
-  private Column col_unlimited = null;
+  private Column<Integer> col_id = null;
+  private Column<byte[]> col_binaryfield = null;
+  private Column<byte[]> col_unlimited = null;
 
  /**
   * Constructor. 
@@ -63,7 +64,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -76,7 +77,7 @@ public class BinaryFieldTableBase extends EverythingTable {
             ((BinaryField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((BinaryField)g).getIdField();
           }
 
@@ -142,7 +143,7 @@ public class BinaryFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_binaryfield =
-        new Column(this, "binaryfield",
+        new Column<byte[]>(this, "binaryfield",
                    new BinaryPoemType(true, 13),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -155,7 +156,7 @@ public class BinaryFieldTableBase extends EverythingTable {
             ((BinaryField)g).setBinaryfield((byte[])cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<byte[]> asField(Persistent g) {
             return ((BinaryField)g).getBinaryfieldField();
           }
 
@@ -213,7 +214,7 @@ public class BinaryFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_unlimited =
-        new Column(this, "unlimited",
+        new Column<byte[]>(this, "unlimited",
                    new BinaryPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -226,7 +227,7 @@ public class BinaryFieldTableBase extends EverythingTable {
             ((BinaryField)g).setUnlimited((byte[])cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<byte[]> asField(Persistent g) {
             return ((BinaryField)g).getUnlimitedField();
           }
 
@@ -292,7 +293,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -304,7 +305,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
   */
-  public final Column getBinaryfieldColumn() {
+  public final Column<byte[]> getBinaryfieldColumn() {
     return col_binaryfield;
   }
 
@@ -316,7 +317,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the unlimited <code>Column</code>
   */
-  public final Column getUnlimitedColumn() {
+  public final Column<byte[]> getUnlimitedColumn() {
     return col_unlimited;
   }
 

@@ -150,9 +150,9 @@ public abstract class DateFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getDateFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getDateFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -229,9 +229,10 @@ public abstract class DateFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Date datefield
   */
-  public Field getDatefieldField() throws AccessPoemException {
-    Column c = _getDateFieldTable().getDatefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getDatefieldField() throws AccessPoemException {
+    Column<Date> c = _getDateFieldTable().getDatefieldColumn();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
+
 }
 

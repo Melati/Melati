@@ -31,10 +31,10 @@ import org.melati.poem.ValidationPoemException;
 
 public class UserTableBase extends PoemTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
-  private Column col_login = null;
-  private Column col_password = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
+  private Column<String> col_login = null;
+  private Column<String> col_password = null;
 
  /**
   * Constructor. 
@@ -66,7 +66,7 @@ public class UserTableBase extends PoemTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -79,7 +79,7 @@ public class UserTableBase extends PoemTable {
             ((User)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((User)g).getIdField();
           }
 
@@ -125,7 +125,7 @@ public class UserTableBase extends PoemTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 60),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -138,7 +138,7 @@ public class UserTableBase extends PoemTable {
             ((User)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((User)g).getNameField();
           }
 
@@ -192,7 +192,7 @@ public class UserTableBase extends PoemTable {
         });
 
     defineColumn(col_login =
-        new Column(this, "login",
+        new Column<String>(this, "login",
                    new StringPoemType(false, 255),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -205,7 +205,7 @@ public class UserTableBase extends PoemTable {
             ((User)g).setLogin((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((User)g).getLoginField();
           }
 
@@ -247,7 +247,7 @@ public class UserTableBase extends PoemTable {
         });
 
     defineColumn(col_password =
-        new Column(this, "password",
+        new Column<String>(this, "password",
                    new PasswordPoemType(false, 20),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -260,7 +260,7 @@ public class UserTableBase extends PoemTable {
             ((User)g).setPassword((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((User)g).getPasswordField();
           }
 
@@ -314,7 +314,7 @@ public class UserTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -326,7 +326,7 @@ public class UserTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -338,7 +338,7 @@ public class UserTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the login <code>Column</code>
   */
-  public final Column getLoginColumn() {
+  public final Column<String> getLoginColumn() {
     return col_login;
   }
 
@@ -350,7 +350,7 @@ public class UserTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the password <code>Column</code>
   */
-  public final Column getPasswordColumn() {
+  public final Column<String> getPasswordColumn() {
     return col_password;
   }
 

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -39,16 +40,16 @@ import org.melati.poem.test.EverythingTable;
 
 public class EverythingAbstractTableBase extends EverythingTable {
 
-  private Column col_binaryfield = null;
-  private Column col_stringfield = null;
-  private Column col_passwordfield = null;
-  private Column col_booleanfield = null;
-  private Column col_datefield = null;
-  private Column col_doublefield = null;
-  private Column col_integerfield = null;
-  private Column col_longfield = null;
-  private Column col_bigdecimalfield = null;
-  private Column col_timestampfield = null;
+  private Column<byte[]> col_binaryfield = null;
+  private Column<String> col_stringfield = null;
+  private Column<String> col_passwordfield = null;
+  private Column<Boolean> col_booleanfield = null;
+  private Column<Date> col_datefield = null;
+  private Column<Double> col_doublefield = null;
+  private Column<Integer> col_integerfield = null;
+  private Column<Long> col_longfield = null;
+  private Column<BigDecimal> col_bigdecimalfield = null;
+  private Column<Timestamp> col_timestampfield = null;
 
  /**
   * Constructor. 
@@ -80,7 +81,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_binaryfield =
-        new Column(this, "binaryfield",
+        new Column<byte[]>(this, "binaryfield",
                    new BinaryPoemType(true, 13),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -93,7 +94,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setBinaryfield((byte[])cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<byte[]> asField(Persistent g) {
             return ((EverythingAbstract)g).getBinaryfieldField();
           }
 
@@ -151,7 +152,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_stringfield =
-        new Column(this, "stringfield",
+        new Column<String>(this, "stringfield",
                    new StringPoemType(true, 23),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -164,7 +165,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setStringfield((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((EverythingAbstract)g).getStringfieldField();
           }
 
@@ -214,7 +215,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_passwordfield =
-        new Column(this, "passwordfield",
+        new Column<String>(this, "passwordfield",
                    new PasswordPoemType(true, 23),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -227,7 +228,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setPasswordfield((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((EverythingAbstract)g).getPasswordfieldField();
           }
 
@@ -277,7 +278,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_booleanfield =
-        new Column(this, "booleanfield",
+        new Column<Boolean>(this, "booleanfield",
                    new BooleanPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -290,7 +291,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setBooleanfield((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((EverythingAbstract)g).getBooleanfieldField();
           }
 
@@ -340,7 +341,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_datefield =
-        new Column(this, "datefield",
+        new Column<Date>(this, "datefield",
                    new DatePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -353,7 +354,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setDatefield((Date)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Date> asField(Persistent g) {
             return ((EverythingAbstract)g).getDatefieldField();
           }
 
@@ -403,7 +404,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_doublefield =
-        new Column(this, "doublefield",
+        new Column<Double>(this, "doublefield",
                    new DoublePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -416,7 +417,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setDoublefield((Double)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Double> asField(Persistent g) {
             return ((EverythingAbstract)g).getDoublefieldField();
           }
 
@@ -466,7 +467,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_integerfield =
-        new Column(this, "integerfield",
+        new Column<Integer>(this, "integerfield",
                    new IntegerPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -479,7 +480,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setIntegerfield((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((EverythingAbstract)g).getIntegerfieldField();
           }
 
@@ -529,7 +530,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_longfield =
-        new Column(this, "longfield",
+        new Column<Long>(this, "longfield",
                    new LongPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -542,7 +543,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setLongfield((Long)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Long> asField(Persistent g) {
             return ((EverythingAbstract)g).getLongfieldField();
           }
 
@@ -592,7 +593,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_bigdecimalfield =
-        new Column(this, "bigdecimalfield",
+        new Column<BigDecimal>(this, "bigdecimalfield",
                    new BigDecimalPoemType(true, 22, 2),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -605,7 +606,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setBigdecimalfield((BigDecimal)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<BigDecimal> asField(Persistent g) {
             return ((EverythingAbstract)g).getBigdecimalfieldField();
           }
 
@@ -655,7 +656,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
         });
 
     defineColumn(col_timestampfield =
-        new Column(this, "timestampfield",
+        new Column<Timestamp>(this, "timestampfield",
                    new TimestampPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -668,7 +669,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
             ((EverythingAbstract)g).setTimestampfield((Timestamp)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Timestamp> asField(Persistent g) {
             return ((EverythingAbstract)g).getTimestampfieldField();
           }
 
@@ -726,7 +727,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
   */
-  public final Column getBinaryfieldColumn() {
+  public final Column<byte[]> getBinaryfieldColumn() {
     return col_binaryfield;
   }
 
@@ -738,7 +739,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield <code>Column</code>
   */
-  public final Column getStringfieldColumn() {
+  public final Column<String> getStringfieldColumn() {
     return col_stringfield;
   }
 
@@ -750,7 +751,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>
   */
-  public final Column getPasswordfieldColumn() {
+  public final Column<String> getPasswordfieldColumn() {
     return col_passwordfield;
   }
 
@@ -762,7 +763,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>
   */
-  public final Column getBooleanfieldColumn() {
+  public final Column<Boolean> getBooleanfieldColumn() {
     return col_booleanfield;
   }
 
@@ -774,7 +775,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield <code>Column</code>
   */
-  public final Column getDatefieldColumn() {
+  public final Column<Date> getDatefieldColumn() {
     return col_datefield;
   }
 
@@ -786,7 +787,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield <code>Column</code>
   */
-  public final Column getDoublefieldColumn() {
+  public final Column<Double> getDoublefieldColumn() {
     return col_doublefield;
   }
 
@@ -798,7 +799,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>
   */
-  public final Column getIntegerfieldColumn() {
+  public final Column<Integer> getIntegerfieldColumn() {
     return col_integerfield;
   }
 
@@ -810,7 +811,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield <code>Column</code>
   */
-  public final Column getLongfieldColumn() {
+  public final Column<Long> getLongfieldColumn() {
     return col_longfield;
   }
 
@@ -822,7 +823,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield <code>Column</code>
   */
-  public final Column getBigdecimalfieldColumn() {
+  public final Column<BigDecimal> getBigdecimalfieldColumn() {
     return col_bigdecimalfield;
   }
 
@@ -834,7 +835,7 @@ public class EverythingAbstractTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield <code>Column</code>
   */
-  public final Column getTimestampfieldColumn() {
+  public final Column<Timestamp> getTimestampfieldColumn() {
     return col_timestampfield;
   }
 

@@ -206,9 +206,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -289,9 +289,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getTableInfoTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -372,9 +372,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String displayname
   */
-  public Field getDisplaynameField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDisplaynameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getDisplaynameField() throws AccessPoemException {
+    Column<String> c = _getTableInfoTable().getDisplaynameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -455,9 +455,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String description
   */
-  public Field getDescriptionField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDescriptionColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getDescriptionField() throws AccessPoemException {
+    Column<String> c = _getTableInfoTable().getDescriptionColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -559,9 +559,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer displayorder
   */
-  public Field getDisplayorderField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDisplayorderColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDisplayorderField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getDisplayorderColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -674,9 +674,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer defaultcanread
   */
-  public Field getDefaultcanreadField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDefaultcanreadColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDefaultcanreadField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getDefaultcanreadColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -789,9 +789,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer defaultcanwrite
   */
-  public Field getDefaultcanwriteField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDefaultcanwriteColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDefaultcanwriteField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getDefaultcanwriteColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -904,9 +904,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer defaultcandelete
   */
-  public Field getDefaultcandeleteField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getDefaultcandeleteColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDefaultcandeleteField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getDefaultcandeleteColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1019,9 +1019,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer cancreate
   */
-  public Field getCancreateField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getCancreateColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCancreateField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getCancreateColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1123,9 +1123,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer cachelimit
   */
-  public Field getCachelimitField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getCachelimitColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCachelimitField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getCachelimitColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1228,9 +1228,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean seqcached
   */
-  public Field getSeqcachedField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getSeqcachedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getSeqcachedField() throws AccessPoemException {
+    Column<Boolean> c = _getTableInfoTable().getSeqcachedColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -1343,9 +1343,9 @@ public abstract class TableInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer category
   */
-  public Field getCategoryField() throws AccessPoemException {
-    Column c = _getTableInfoTable().getCategoryColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCategoryField() throws AccessPoemException {
+    Column<Integer> c = _getTableInfoTable().getCategoryColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 }

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -29,8 +30,8 @@ import org.melati.poem.test.EverythingTable;
 
 public class DynamicTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class DynamicTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class DynamicTableBase extends EverythingTable {
             ((Dynamic)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Dynamic)g).getIdField();
           }
 
@@ -121,7 +122,7 @@ public class DynamicTableBase extends EverythingTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -134,7 +135,7 @@ public class DynamicTableBase extends EverythingTable {
             ((Dynamic)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Dynamic)g).getNameField();
           }
 
@@ -192,7 +193,7 @@ public class DynamicTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -204,7 +205,7 @@ public class DynamicTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 

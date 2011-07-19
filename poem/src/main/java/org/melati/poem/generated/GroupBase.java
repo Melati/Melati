@@ -163,9 +163,9 @@ public abstract class GroupBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getGroupTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getGroupTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -246,9 +246,9 @@ public abstract class GroupBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getGroupTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getGroupTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
   private CachedSelection<GroupMembership> groupGroupMemberships = null;
@@ -256,7 +256,7 @@ public abstract class GroupBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<GroupMembership> getGroupGroupMemberships() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<GroupMembership>();
     else {
       if (groupGroupMemberships == null)
         groupGroupMemberships =
@@ -278,7 +278,7 @@ public abstract class GroupBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<GroupCapability> getGroupGroupCapabilitys() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<GroupCapability>();
     else {
       if (groupGroupCapabilitys == null)
         groupGroupCapabilitys =

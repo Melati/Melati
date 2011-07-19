@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -29,8 +30,8 @@ import org.melati.poem.test.IntegerField;
 
 public class IntegerFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_integerfield = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_integerfield = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class IntegerFieldTableBase extends EverythingTable {
             ((IntegerField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((IntegerField)g).getIdField();
           }
 
@@ -141,7 +142,7 @@ public class IntegerFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_integerfield =
-        new Column(this, "integerfield",
+        new Column<Integer>(this, "integerfield",
                    new IntegerPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -154,7 +155,7 @@ public class IntegerFieldTableBase extends EverythingTable {
             ((IntegerField)g).setIntegerfield((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((IntegerField)g).getIntegerfieldField();
           }
 
@@ -212,7 +213,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -224,7 +225,7 @@ public class IntegerFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>
   */
-  public final Column getIntegerfieldColumn() {
+  public final Column<Integer> getIntegerfieldColumn() {
     return col_integerfield;
   }
 

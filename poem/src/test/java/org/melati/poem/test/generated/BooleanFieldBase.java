@@ -149,9 +149,9 @@ public abstract class BooleanFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getBooleanFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getBooleanFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -247,9 +247,10 @@ public abstract class BooleanFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean booleanfield
   */
-  public Field getBooleanfieldField() throws AccessPoemException {
-    Column c = _getBooleanFieldTable().getBooleanfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getBooleanfieldField() throws AccessPoemException {
+    Column<Boolean> c = _getBooleanFieldTable().getBooleanfieldColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
+
 }
 

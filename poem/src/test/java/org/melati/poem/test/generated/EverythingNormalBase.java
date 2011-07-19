@@ -192,9 +192,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getEverythingNormalTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -271,9 +271,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the byte[] binaryfield
   */
-  public Field getBinaryfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getBinaryfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getBinaryfieldField() throws AccessPoemException {
+    Column<byte[]> c = _getEverythingNormalTable().getBinaryfieldColumn();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
 
 
@@ -350,9 +350,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String stringfield
   */
-  public Field getStringfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getStringfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getStringfieldField() throws AccessPoemException {
+    Column<String> c = _getEverythingNormalTable().getStringfieldColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -429,9 +429,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String passwordfield
   */
-  public Field getPasswordfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getPasswordfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getPasswordfieldField() throws AccessPoemException {
+    Column<String> c = _getEverythingNormalTable().getPasswordfieldColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -527,9 +527,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean booleanfield
   */
-  public Field getBooleanfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getBooleanfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getBooleanfieldField() throws AccessPoemException {
+    Column<Boolean> c = _getEverythingNormalTable().getBooleanfieldColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -606,9 +606,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Date datefield
   */
-  public Field getDatefieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getDatefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getDatefieldField() throws AccessPoemException {
+    Column<Date> c = _getEverythingNormalTable().getDatefieldColumn();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
 
 
@@ -702,9 +702,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Double doublefield
   */
-  public Field getDoublefieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getDoublefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Double> getDoublefieldField() throws AccessPoemException {
+    Column<Double> c = _getEverythingNormalTable().getDoublefieldColumn();
+    return new Field<Double>((Double)c.getRaw(this), c);
   }
 
 
@@ -799,9 +799,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer integerfield
   */
-  public Field getIntegerfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getIntegerfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegerfieldField() throws AccessPoemException {
+    Column<Integer> c = _getEverythingNormalTable().getIntegerfieldColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -896,9 +896,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Long longfield
   */
-  public Field getLongfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getLongfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Long> getLongfieldField() throws AccessPoemException {
+    Column<Long> c = _getEverythingNormalTable().getLongfieldColumn();
+    return new Field<Long>((Long)c.getRaw(this), c);
   }
 
 
@@ -975,9 +975,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the BigDecimal bigdecimalfield
   */
-  public Field getBigdecimalfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getBigdecimalfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<BigDecimal> getBigdecimalfieldField() throws AccessPoemException {
+    Column<BigDecimal> c = _getEverythingNormalTable().getBigdecimalfieldColumn();
+    return new Field<BigDecimal>((BigDecimal)c.getRaw(this), c);
   }
 
 
@@ -1054,9 +1054,9 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Timestamp timestampfield
   */
-  public Field getTimestampfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getTimestampfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Timestamp> getTimestampfieldField() throws AccessPoemException {
+    Column<Timestamp> c = _getEverythingNormalTable().getTimestampfieldColumn();
+    return new Field<Timestamp>((Timestamp)c.getRaw(this), c);
   }
 
 
@@ -1152,9 +1152,10 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean deletedfield
   */
-  public Field getDeletedfieldField() throws AccessPoemException {
-    Column c = _getEverythingNormalTable().getDeletedfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getDeletedfieldField() throws AccessPoemException {
+    Column<Boolean> c = _getEverythingNormalTable().getDeletedfieldColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
+
 }
 

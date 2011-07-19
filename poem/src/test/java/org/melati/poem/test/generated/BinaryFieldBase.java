@@ -153,9 +153,9 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getBinaryFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getBinaryFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -232,9 +232,9 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the byte[] binaryfield
   */
-  public Field getBinaryfieldField() throws AccessPoemException {
-    Column c = _getBinaryFieldTable().getBinaryfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getBinaryfieldField() throws AccessPoemException {
+    Column<byte[]> c = _getBinaryFieldTable().getBinaryfieldColumn();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
 
 
@@ -311,9 +311,10 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the byte[] unlimited
   */
-  public Field getUnlimitedField() throws AccessPoemException {
-    Column c = _getBinaryFieldTable().getUnlimitedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getUnlimitedField() throws AccessPoemException {
+    Column<byte[]> c = _getBinaryFieldTable().getUnlimitedColumn();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
+
 }
 

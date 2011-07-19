@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -29,8 +30,8 @@ import org.melati.poem.test.LongField;
 
 public class LongFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_longfield = null;
+  private Column<Integer> col_id = null;
+  private Column<Long> col_longfield = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class LongFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class LongFieldTableBase extends EverythingTable {
             ((LongField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((LongField)g).getIdField();
           }
 
@@ -141,7 +142,7 @@ public class LongFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_longfield =
-        new Column(this, "longfield",
+        new Column<Long>(this, "longfield",
                    new LongPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -154,7 +155,7 @@ public class LongFieldTableBase extends EverythingTable {
             ((LongField)g).setLongfield((Long)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Long> asField(Persistent g) {
             return ((LongField)g).getLongfieldField();
           }
 
@@ -212,7 +213,7 @@ public class LongFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -224,7 +225,7 @@ public class LongFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield <code>Column</code>
   */
-  public final Column getLongfieldColumn() {
+  public final Column<Long> getLongfieldColumn() {
     return col_longfield;
   }
 

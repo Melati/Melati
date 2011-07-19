@@ -40,5 +40,6 @@ public abstract class EmptyAbstractTableBase extends JdbcPersistent {
   }
 
   // There are no Fields in this table, only in its ancestors 
+
 }
 

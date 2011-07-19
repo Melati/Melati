@@ -29,9 +29,9 @@ import org.melati.poem.ValueInfoTable;
 
 public class SettingTableBase extends ValueInfoTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
-  private Column col_value = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
+  private Column<String> col_value = null;
 
  /**
   * Constructor. 
@@ -63,7 +63,7 @@ public class SettingTableBase extends ValueInfoTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -76,7 +76,7 @@ public class SettingTableBase extends ValueInfoTable {
             ((Setting)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Setting)g).getIdField();
           }
 
@@ -118,7 +118,7 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 200),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -131,7 +131,7 @@ public class SettingTableBase extends ValueInfoTable {
             ((Setting)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Setting)g).getNameField();
           }
 
@@ -173,7 +173,7 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_value =
-        new Column(this, "value",
+        new Column<String>(this, "value",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -186,7 +186,7 @@ public class SettingTableBase extends ValueInfoTable {
             ((Setting)g).setValue((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Setting)g).getValueField();
           }
 
@@ -228,7 +228,7 @@ public class SettingTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -240,7 +240,7 @@ public class SettingTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -252,7 +252,7 @@ public class SettingTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the value <code>Column</code>
   */
-  public final Column getValueColumn() {
+  public final Column<String> getValueColumn() {
     return col_value;
   }
 

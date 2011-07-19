@@ -201,9 +201,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -316,9 +316,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer tableinfo
   */
-  public Field getTableinfoField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getTableinfoColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getTableinfoField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getTableinfoColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -399,9 +399,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getColumnInfoTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -503,9 +503,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer displayorder
   */
-  public Field getDisplayorderField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getDisplayorderColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDisplayorderField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getDisplayorderColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -608,9 +608,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Boolean usercreateable
   */
-  public Field getUsercreateableField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getUsercreateableColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getUsercreateableField() throws AccessPoemException {
+    Column<Boolean> c = _getColumnInfoTable().getUsercreateableColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -728,9 +728,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer displaylevel
   */
-  public Field getDisplaylevelField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getDisplaylevelColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDisplaylevelField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getDisplaylevelColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -847,9 +847,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer searchability
   */
-  public Field getSearchabilityField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getSearchabilityColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getSearchabilityField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getSearchabilityColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -951,9 +951,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Integer displayorderpriority
   */
-  public Field getDisplayorderpriorityField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getDisplayorderpriorityColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getDisplayorderpriorityField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getDisplayorderpriorityColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1056,9 +1056,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Boolean sortdescending
   */
-  public Field getSortdescendingField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getSortdescendingColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getSortdescendingField() throws AccessPoemException {
+    Column<Boolean> c = _getColumnInfoTable().getSortdescendingColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -1161,9 +1161,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Boolean indexed
   */
-  public Field getIndexedField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getIndexedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getIndexedField() throws AccessPoemException {
+    Column<Boolean> c = _getColumnInfoTable().getIndexedColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -1266,9 +1266,9 @@ public abstract class ColumnInfoBase extends ValueInfo {
   *         does not confer write access rights
   * @return the Boolean unique
   */
-  public Field getUniqueField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getUniqueColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getUniqueField() throws AccessPoemException {
+    Column<Boolean> c = _getColumnInfoTable().getUniqueColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -1390,9 +1390,9 @@ for this <code>Persistent</code>.
   *         does not confer write access rights
   * @return the Integer integrityfix
   */
-  public Field getIntegrityfixField() throws AccessPoemException {
-    Column c = _getColumnInfoTable().getIntegrityfixColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegrityfixField() throws AccessPoemException {
+    Column<Integer> c = _getColumnInfoTable().getIntegrityfixColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 }

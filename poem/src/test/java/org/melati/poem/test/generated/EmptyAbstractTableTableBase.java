@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.PoemException;

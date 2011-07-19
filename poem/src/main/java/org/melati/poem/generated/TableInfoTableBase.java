@@ -36,18 +36,18 @@ import org.melati.poem.ValidationPoemException;
 
 public class TableInfoTableBase extends PoemTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
-  private Column col_displayname = null;
-  private Column col_description = null;
-  private Column col_displayorder = null;
-  private Column col_defaultcanread = null;
-  private Column col_defaultcanwrite = null;
-  private Column col_defaultcandelete = null;
-  private Column col_cancreate = null;
-  private Column col_cachelimit = null;
-  private Column col_seqcached = null;
-  private Column col_category = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
+  private Column<String> col_displayname = null;
+  private Column<String> col_description = null;
+  private Column<Integer> col_displayorder = null;
+  private Column<Integer> col_defaultcanread = null;
+  private Column<Integer> col_defaultcanwrite = null;
+  private Column<Integer> col_defaultcandelete = null;
+  private Column<Integer> col_cancreate = null;
+  private Column<Integer> col_cachelimit = null;
+  private Column<Boolean> col_seqcached = null;
+  private Column<Integer> col_category = null;
 
  /**
   * Constructor. 
@@ -79,7 +79,7 @@ public class TableInfoTableBase extends PoemTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -92,7 +92,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getIdField();
           }
 
@@ -138,7 +138,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 50),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -151,7 +151,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((TableInfo)g).getNameField();
           }
 
@@ -201,7 +201,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_displayname =
-        new Column(this, "displayname",
+        new Column<String>(this, "displayname",
                    new StringPoemType(false, 60),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -214,7 +214,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDisplayname((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((TableInfo)g).getDisplaynameField();
           }
 
@@ -260,7 +260,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_description =
-        new Column(this, "description",
+        new Column<String>(this, "description",
                    new StringPoemType(true, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -273,7 +273,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDescription((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((TableInfo)g).getDescriptionField();
           }
 
@@ -315,7 +315,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder",
+        new Column<Integer>(this, "displayorder",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -328,7 +328,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDisplayorder((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getDisplayorderField();
           }
 
@@ -374,7 +374,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_defaultcanread =
-        new Column(this, "defaultcanread",
+        new Column<Integer>(this, "defaultcanread",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -388,7 +388,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDefaultcanread((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getDefaultcanreadField();
           }
 
@@ -438,7 +438,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_defaultcanwrite =
-        new Column(this, "defaultcanwrite",
+        new Column<Integer>(this, "defaultcanwrite",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -452,7 +452,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDefaultcanwrite((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getDefaultcanwriteField();
           }
 
@@ -502,7 +502,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_defaultcandelete =
-        new Column(this, "defaultcandelete",
+        new Column<Integer>(this, "defaultcandelete",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -516,7 +516,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setDefaultcandelete((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getDefaultcandeleteField();
           }
 
@@ -566,7 +566,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_cancreate =
-        new Column(this, "cancreate",
+        new Column<Integer>(this, "cancreate",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -580,7 +580,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setCancreate((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getCancreateField();
           }
 
@@ -630,7 +630,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_cachelimit =
-        new Column(this, "cachelimit",
+        new Column<Integer>(this, "cachelimit",
                    new IntegerPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -643,7 +643,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setCachelimit((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getCachelimitField();
           }
 
@@ -689,7 +689,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_seqcached =
-        new Column(this, "seqcached",
+        new Column<Boolean>(this, "seqcached",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -702,7 +702,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setSeqcached((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((TableInfo)g).getSeqcachedField();
           }
 
@@ -748,7 +748,7 @@ public class TableInfoTableBase extends PoemTable {
         });
 
     defineColumn(col_category =
-        new Column(this, "category",
+        new Column<Integer>(this, "category",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getTableCategoryTable(), false),
                    DefinitionSource.dsd) { 
@@ -762,7 +762,7 @@ public class TableInfoTableBase extends PoemTable {
             ((TableInfo)g).setCategory((TableCategory)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TableInfo)g).getCategoryField();
           }
 
@@ -812,7 +812,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -824,7 +824,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -836,7 +836,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayname <code>Column</code>
   */
-  public final Column getDisplaynameColumn() {
+  public final Column<String> getDisplaynameColumn() {
     return col_displayname;
   }
 
@@ -848,7 +848,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the description <code>Column</code>
   */
-  public final Column getDescriptionColumn() {
+  public final Column<String> getDescriptionColumn() {
     return col_description;
   }
 
@@ -860,7 +860,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayorder <code>Column</code>
   */
-  public final Column getDisplayorderColumn() {
+  public final Column<Integer> getDisplayorderColumn() {
     return col_displayorder;
   }
 
@@ -872,7 +872,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcanread <code>Column</code>
   */
-  public final Column getDefaultcanreadColumn() {
+  public final Column<Integer> getDefaultcanreadColumn() {
     return col_defaultcanread;
   }
 
@@ -884,7 +884,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcanwrite <code>Column</code>
   */
-  public final Column getDefaultcanwriteColumn() {
+  public final Column<Integer> getDefaultcanwriteColumn() {
     return col_defaultcanwrite;
   }
 
@@ -896,7 +896,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcandelete <code>Column</code>
   */
-  public final Column getDefaultcandeleteColumn() {
+  public final Column<Integer> getDefaultcandeleteColumn() {
     return col_defaultcandelete;
   }
 
@@ -908,7 +908,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the cancreate <code>Column</code>
   */
-  public final Column getCancreateColumn() {
+  public final Column<Integer> getCancreateColumn() {
     return col_cancreate;
   }
 
@@ -920,7 +920,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the cachelimit <code>Column</code>
   */
-  public final Column getCachelimitColumn() {
+  public final Column<Integer> getCachelimitColumn() {
     return col_cachelimit;
   }
 
@@ -932,7 +932,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the seqcached <code>Column</code>
   */
-  public final Column getSeqcachedColumn() {
+  public final Column<Boolean> getSeqcachedColumn() {
     return col_seqcached;
   }
 
@@ -944,7 +944,7 @@ public class TableInfoTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the category <code>Column</code>
   */
-  public final Column getCategoryColumn() {
+  public final Column<Integer> getCategoryColumn() {
     return col_category;
   }
 

@@ -149,9 +149,9 @@ public abstract class LongFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getLongFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getLongFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -246,9 +246,10 @@ public abstract class LongFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Long longfield
   */
-  public Field getLongfieldField() throws AccessPoemException {
-    Column c = _getLongFieldTable().getLongfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Long> getLongfieldField() throws AccessPoemException {
+    Column<Long> c = _getLongFieldTable().getLongfieldColumn();
+    return new Field<Long>((Long)c.getRaw(this), c);
   }
+
 }
 

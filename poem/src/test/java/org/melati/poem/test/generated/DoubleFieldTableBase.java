@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -29,8 +30,8 @@ import org.melati.poem.test.EverythingTable;
 
 public class DoubleFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_doublefield = null;
+  private Column<Integer> col_id = null;
+  private Column<Double> col_doublefield = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class DoubleFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class DoubleFieldTableBase extends EverythingTable {
             ((DoubleField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((DoubleField)g).getIdField();
           }
 
@@ -141,7 +142,7 @@ public class DoubleFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_doublefield =
-        new Column(this, "doublefield",
+        new Column<Double>(this, "doublefield",
                    new DoublePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -154,7 +155,7 @@ public class DoubleFieldTableBase extends EverythingTable {
             ((DoubleField)g).setDoublefield((Double)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Double> asField(Persistent g) {
             return ((DoubleField)g).getDoublefieldField();
           }
 
@@ -212,7 +213,7 @@ public class DoubleFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -224,7 +225,7 @@ public class DoubleFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield <code>Column</code>
   */
-  public final Column getDoublefieldColumn() {
+  public final Column<Double> getDoublefieldColumn() {
     return col_doublefield;
   }
 

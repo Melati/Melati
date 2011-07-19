@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -40,16 +41,16 @@ import org.melati.poem.test.EverythingNormalTable;
 
 public class ENExtendedTableBase extends EverythingNormalTable {
 
-  private Column col_binaryfield2 = null;
-  private Column col_stringfield2 = null;
-  private Column col_passwordfield2 = null;
-  private Column col_booleanfield2 = null;
-  private Column col_datefield2 = null;
-  private Column col_doublefield2 = null;
-  private Column col_integerfield2 = null;
-  private Column col_longfield2 = null;
-  private Column col_bigdecimalfield2 = null;
-  private Column col_timestampfield2 = null;
+  private Column<byte[]> col_binaryfield2 = null;
+  private Column<String> col_stringfield2 = null;
+  private Column<String> col_passwordfield2 = null;
+  private Column<Boolean> col_booleanfield2 = null;
+  private Column<Date> col_datefield2 = null;
+  private Column<Double> col_doublefield2 = null;
+  private Column<Integer> col_integerfield2 = null;
+  private Column<Long> col_longfield2 = null;
+  private Column<BigDecimal> col_bigdecimalfield2 = null;
+  private Column<Timestamp> col_timestampfield2 = null;
 
  /**
   * Constructor. 
@@ -81,7 +82,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_binaryfield2 =
-        new Column(this, "binaryfield2",
+        new Column<byte[]>(this, "binaryfield2",
                    new BinaryPoemType(true, 13),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -94,7 +95,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setBinaryfield2((byte[])cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<byte[]> asField(Persistent g) {
             return ((ENExtended)g).getBinaryfield2Field();
           }
 
@@ -156,7 +157,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_stringfield2 =
-        new Column(this, "stringfield2",
+        new Column<String>(this, "stringfield2",
                    new StringPoemType(true, 23),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -169,7 +170,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setStringfield2((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ENExtended)g).getStringfield2Field();
           }
 
@@ -227,7 +228,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_passwordfield2 =
-        new Column(this, "passwordfield2",
+        new Column<String>(this, "passwordfield2",
                    new PasswordPoemType(true, 23),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -240,7 +241,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setPasswordfield2((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ENExtended)g).getPasswordfield2Field();
           }
 
@@ -294,7 +295,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_booleanfield2 =
-        new Column(this, "booleanfield2",
+        new Column<Boolean>(this, "booleanfield2",
                    new BooleanPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -307,7 +308,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setBooleanfield2((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ENExtended)g).getBooleanfield2Field();
           }
 
@@ -361,7 +362,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_datefield2 =
-        new Column(this, "datefield2",
+        new Column<Date>(this, "datefield2",
                    new DatePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -374,7 +375,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setDatefield2((Date)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Date> asField(Persistent g) {
             return ((ENExtended)g).getDatefield2Field();
           }
 
@@ -428,7 +429,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_doublefield2 =
-        new Column(this, "doublefield2",
+        new Column<Double>(this, "doublefield2",
                    new DoublePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -441,7 +442,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setDoublefield2((Double)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Double> asField(Persistent g) {
             return ((ENExtended)g).getDoublefield2Field();
           }
 
@@ -495,7 +496,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_integerfield2 =
-        new Column(this, "integerfield2",
+        new Column<Integer>(this, "integerfield2",
                    new IntegerPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -508,7 +509,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setIntegerfield2((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ENExtended)g).getIntegerfield2Field();
           }
 
@@ -562,7 +563,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_longfield2 =
-        new Column(this, "longfield2",
+        new Column<Long>(this, "longfield2",
                    new LongPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -575,7 +576,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setLongfield2((Long)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Long> asField(Persistent g) {
             return ((ENExtended)g).getLongfield2Field();
           }
 
@@ -629,7 +630,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_bigdecimalfield2 =
-        new Column(this, "bigdecimalfield2",
+        new Column<BigDecimal>(this, "bigdecimalfield2",
                    new BigDecimalPoemType(true, 22, 2),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -642,7 +643,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setBigdecimalfield2((BigDecimal)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<BigDecimal> asField(Persistent g) {
             return ((ENExtended)g).getBigdecimalfield2Field();
           }
 
@@ -696,7 +697,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
         });
 
     defineColumn(col_timestampfield2 =
-        new Column(this, "timestampfield2",
+        new Column<Timestamp>(this, "timestampfield2",
                    new TimestampPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -709,7 +710,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             ((ENExtended)g).setTimestampfield2((Timestamp)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Timestamp> asField(Persistent g) {
             return ((ENExtended)g).getTimestampfield2Field();
           }
 
@@ -771,7 +772,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield2 <code>Column</code>
   */
-  public final Column getBinaryfield2Column() {
+  public final Column<byte[]> getBinaryfield2Column() {
     return col_binaryfield2;
   }
 
@@ -783,7 +784,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield2 <code>Column</code>
   */
-  public final Column getStringfield2Column() {
+  public final Column<String> getStringfield2Column() {
     return col_stringfield2;
   }
 
@@ -795,7 +796,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield2 <code>Column</code>
   */
-  public final Column getPasswordfield2Column() {
+  public final Column<String> getPasswordfield2Column() {
     return col_passwordfield2;
   }
 
@@ -807,7 +808,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield2 <code>Column</code>
   */
-  public final Column getBooleanfield2Column() {
+  public final Column<Boolean> getBooleanfield2Column() {
     return col_booleanfield2;
   }
 
@@ -819,7 +820,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield2 <code>Column</code>
   */
-  public final Column getDatefield2Column() {
+  public final Column<Date> getDatefield2Column() {
     return col_datefield2;
   }
 
@@ -831,7 +832,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield2 <code>Column</code>
   */
-  public final Column getDoublefield2Column() {
+  public final Column<Double> getDoublefield2Column() {
     return col_doublefield2;
   }
 
@@ -843,7 +844,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield2 <code>Column</code>
   */
-  public final Column getIntegerfield2Column() {
+  public final Column<Integer> getIntegerfield2Column() {
     return col_integerfield2;
   }
 
@@ -855,7 +856,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield2 <code>Column</code>
   */
-  public final Column getLongfield2Column() {
+  public final Column<Long> getLongfield2Column() {
     return col_longfield2;
   }
 
@@ -867,7 +868,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield2 <code>Column</code>
   */
-  public final Column getBigdecimalfield2Column() {
+  public final Column<BigDecimal> getBigdecimalfield2Column() {
     return col_bigdecimalfield2;
   }
 
@@ -879,7 +880,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield2 <code>Column</code>
   */
-  public final Column getTimestampfield2Column() {
+  public final Column<Timestamp> getTimestampfield2Column() {
     return col_timestampfield2;
   }
 

@@ -187,9 +187,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String displayname
   */
-  public Field getDisplaynameField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getDisplaynameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getDisplaynameField() throws AccessPoemException {
+    Column<String> c = _getValueInfoTable().getDisplaynameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -270,9 +270,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String description
   */
-  public Field getDescriptionField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getDescriptionColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getDescriptionField() throws AccessPoemException {
+    Column<String> c = _getValueInfoTable().getDescriptionColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -375,9 +375,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean usereditable
   */
-  public Field getUsereditableField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getUsereditableColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getUsereditableField() throws AccessPoemException {
+    Column<Boolean> c = _getValueInfoTable().getUsereditableColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -492,9 +492,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer typefactory
   */
-  public Field getTypefactoryField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getTypefactoryColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getTypefactoryField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getTypefactoryColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -597,9 +597,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean nullable
   */
-  public Field getNullableField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getNullableColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getNullableField() throws AccessPoemException {
+    Column<Boolean> c = _getValueInfoTable().getNullableColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -704,9 +704,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer size
   */
-  public Field getSizeField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getSizeColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getSizeField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getSizeColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -811,9 +811,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer width
   */
-  public Field getWidthField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getWidthColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getWidthField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getWidthColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -918,9 +918,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer height
   */
-  public Field getHeightField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getHeightColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getHeightField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getHeightColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1022,9 +1022,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer precision
   */
-  public Field getPrecisionField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getPrecisionColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getPrecisionField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getPrecisionColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1126,9 +1126,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer scale
   */
-  public Field getScaleField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getScaleColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getScaleField() throws AccessPoemException {
+    Column<Integer> c = _getValueInfoTable().getScaleColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -1211,9 +1211,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String renderinfo
   */
-  public Field getRenderinfoField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getRenderinfoColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getRenderinfoField() throws AccessPoemException {
+    Column<String> c = _getValueInfoTable().getRenderinfoColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -1294,9 +1294,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String rangelow_string
   */
-  public Field getRangelow_stringField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getRangelow_stringColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getRangelow_stringField() throws AccessPoemException {
+    Column<String> c = _getValueInfoTable().getRangelow_stringColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -1377,9 +1377,9 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String rangelimit_string
   */
-  public Field getRangelimit_stringField() throws AccessPoemException {
-    Column c = _getValueInfoTable().getRangelimit_stringColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getRangelimit_stringField() throws AccessPoemException {
+    Column<String> c = _getValueInfoTable().getRangelimit_stringColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 }

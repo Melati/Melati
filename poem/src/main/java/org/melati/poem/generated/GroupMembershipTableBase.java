@@ -33,9 +33,9 @@ import org.melati.poem.ValidationPoemException;
 
 public class GroupMembershipTableBase extends PoemTable {
 
-  private Column col_id = null;
-  private Column col_user = null;
-  private Column col_group = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_user = null;
+  private Column<Integer> col_group = null;
 
  /**
   * Constructor. 
@@ -67,7 +67,7 @@ public class GroupMembershipTableBase extends PoemTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -80,7 +80,7 @@ public class GroupMembershipTableBase extends PoemTable {
             ((GroupMembership)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupMembership)g).getIdField();
           }
 
@@ -126,7 +126,7 @@ public class GroupMembershipTableBase extends PoemTable {
         });
 
     defineColumn(col_user =
-        new Column(this, "user",
+        new Column<Integer>(this, "user",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getUserTable(), false),
                    DefinitionSource.dsd) { 
@@ -140,7 +140,7 @@ public class GroupMembershipTableBase extends PoemTable {
             ((GroupMembership)g).setUser((User)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupMembership)g).getUserField();
           }
 
@@ -198,7 +198,7 @@ public class GroupMembershipTableBase extends PoemTable {
         });
 
     defineColumn(col_group =
-        new Column(this, "group",
+        new Column<Integer>(this, "group",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getGroupTable(), false),
                    DefinitionSource.dsd) { 
@@ -212,7 +212,7 @@ public class GroupMembershipTableBase extends PoemTable {
             ((GroupMembership)g).setGroup((Group)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupMembership)g).getGroupField();
           }
 
@@ -266,7 +266,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -278,7 +278,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the user <code>Column</code>
   */
-  public final Column getUserColumn() {
+  public final Column<Integer> getUserColumn() {
     return col_user;
   }
 
@@ -290,7 +290,7 @@ public class GroupMembershipTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>
   */
-  public final Column getGroupColumn() {
+  public final Column<Integer> getGroupColumn() {
     return col_group;
   }
 

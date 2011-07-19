@@ -149,9 +149,9 @@ public abstract class IntegerFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getIntegerFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getIntegerFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -246,9 +246,10 @@ public abstract class IntegerFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer integerfield
   */
-  public Field getIntegerfieldField() throws AccessPoemException {
-    Column c = _getIntegerFieldTable().getIntegerfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegerfieldField() throws AccessPoemException {
+    Column<Integer> c = _getIntegerFieldTable().getIntegerfieldColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
+
 }
 

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import java.sql.Timestamp;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
@@ -30,8 +31,8 @@ import org.melati.poem.test.TimestampField;
 
 public class TimestampFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_timestampfield = null;
+  private Column<Integer> col_id = null;
+  private Column<Timestamp> col_timestampfield = null;
 
  /**
   * Constructor. 
@@ -63,7 +64,7 @@ public class TimestampFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -76,7 +77,7 @@ public class TimestampFieldTableBase extends EverythingTable {
             ((TimestampField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((TimestampField)g).getIdField();
           }
 
@@ -142,7 +143,7 @@ public class TimestampFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_timestampfield =
-        new Column(this, "timestampfield",
+        new Column<Timestamp>(this, "timestampfield",
                    new TimestampPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -155,7 +156,7 @@ public class TimestampFieldTableBase extends EverythingTable {
             ((TimestampField)g).setTimestampfield((Timestamp)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Timestamp> asField(Persistent g) {
             return ((TimestampField)g).getTimestampfieldField();
           }
 
@@ -213,7 +214,7 @@ public class TimestampFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -225,7 +226,7 @@ public class TimestampFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield <code>Column</code>
   */
-  public final Column getTimestampfieldColumn() {
+  public final Column<Timestamp> getTimestampfieldColumn() {
     return col_timestampfield;
   }
 

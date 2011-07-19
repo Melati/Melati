@@ -166,9 +166,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the byte[] binaryfield
   */
-  public Field getBinaryfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getBinaryfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getBinaryfieldField() throws AccessPoemException {
+    Column<byte[]> c = _getEverythingAbstractTable().getBinaryfieldColumn();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
 
 
@@ -245,9 +245,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String stringfield
   */
-  public Field getStringfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getStringfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getStringfieldField() throws AccessPoemException {
+    Column<String> c = _getEverythingAbstractTable().getStringfieldColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -324,9 +324,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String passwordfield
   */
-  public Field getPasswordfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getPasswordfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getPasswordfieldField() throws AccessPoemException {
+    Column<String> c = _getEverythingAbstractTable().getPasswordfieldColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -422,9 +422,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean booleanfield
   */
-  public Field getBooleanfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getBooleanfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getBooleanfieldField() throws AccessPoemException {
+    Column<Boolean> c = _getEverythingAbstractTable().getBooleanfieldColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -501,9 +501,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Date datefield
   */
-  public Field getDatefieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getDatefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getDatefieldField() throws AccessPoemException {
+    Column<Date> c = _getEverythingAbstractTable().getDatefieldColumn();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
 
 
@@ -597,9 +597,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Double doublefield
   */
-  public Field getDoublefieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getDoublefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Double> getDoublefieldField() throws AccessPoemException {
+    Column<Double> c = _getEverythingAbstractTable().getDoublefieldColumn();
+    return new Field<Double>((Double)c.getRaw(this), c);
   }
 
 
@@ -694,9 +694,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer integerfield
   */
-  public Field getIntegerfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getIntegerfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegerfieldField() throws AccessPoemException {
+    Column<Integer> c = _getEverythingAbstractTable().getIntegerfieldColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -791,9 +791,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Long longfield
   */
-  public Field getLongfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getLongfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Long> getLongfieldField() throws AccessPoemException {
+    Column<Long> c = _getEverythingAbstractTable().getLongfieldColumn();
+    return new Field<Long>((Long)c.getRaw(this), c);
   }
 
 
@@ -870,9 +870,9 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the BigDecimal bigdecimalfield
   */
-  public Field getBigdecimalfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getBigdecimalfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<BigDecimal> getBigdecimalfieldField() throws AccessPoemException {
+    Column<BigDecimal> c = _getEverythingAbstractTable().getBigdecimalfieldColumn();
+    return new Field<BigDecimal>((BigDecimal)c.getRaw(this), c);
   }
 
 
@@ -949,9 +949,10 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Timestamp timestampfield
   */
-  public Field getTimestampfieldField() throws AccessPoemException {
-    Column c = _getEverythingAbstractTable().getTimestampfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Timestamp> getTimestampfieldField() throws AccessPoemException {
+    Column<Timestamp> c = _getEverythingAbstractTable().getTimestampfieldColumn();
+    return new Field<Timestamp>((Timestamp)c.getRaw(this), c);
   }
+
 }
 

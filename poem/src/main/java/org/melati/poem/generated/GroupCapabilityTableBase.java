@@ -32,9 +32,9 @@ import org.melati.poem.ValidationPoemException;
 
 public class GroupCapabilityTableBase extends PoemTable {
 
-  private Column col_id = null;
-  private Column col_group = null;
-  private Column col_capability = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_group = null;
+  private Column<Integer> col_capability = null;
 
  /**
   * Constructor. 
@@ -66,7 +66,7 @@ public class GroupCapabilityTableBase extends PoemTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -79,7 +79,7 @@ public class GroupCapabilityTableBase extends PoemTable {
             ((GroupCapability)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupCapability)g).getIdField();
           }
 
@@ -125,7 +125,7 @@ public class GroupCapabilityTableBase extends PoemTable {
         });
 
     defineColumn(col_group =
-        new Column(this, "group",
+        new Column<Integer>(this, "group",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getGroupTable(), false),
                    DefinitionSource.dsd) { 
@@ -139,7 +139,7 @@ public class GroupCapabilityTableBase extends PoemTable {
             ((GroupCapability)g).setGroup((Group)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupCapability)g).getGroupField();
           }
 
@@ -181,7 +181,7 @@ public class GroupCapabilityTableBase extends PoemTable {
         });
 
     defineColumn(col_capability =
-        new Column(this, "capability",
+        new Column<Integer>(this, "capability",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
@@ -195,7 +195,7 @@ public class GroupCapabilityTableBase extends PoemTable {
             ((GroupCapability)g).setCapability((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((GroupCapability)g).getCapabilityField();
           }
 
@@ -241,7 +241,7 @@ public class GroupCapabilityTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -253,7 +253,7 @@ public class GroupCapabilityTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>
   */
-  public final Column getGroupColumn() {
+  public final Column<Integer> getGroupColumn() {
     return col_group;
   }
 
@@ -265,7 +265,7 @@ public class GroupCapabilityTableBase extends PoemTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the capability <code>Column</code>
   */
-  public final Column getCapabilityColumn() {
+  public final Column<Integer> getCapabilityColumn() {
     return col_capability;
   }
 

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.UserTable;
@@ -63,25 +64,25 @@ public class EverythingDatabaseBase extends PoemDatabase {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
     redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
     redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
-    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership", DefinitionSource.dsd));
-    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability", DefinitionSource.dsd));
-    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
-    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
-    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
+    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupMembership", DefinitionSource.dsd));
+    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupCapability", DefinitionSource.dsd));
+    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tableCategory", DefinitionSource.dsd));
+    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
+    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_everythingnormal = new EverythingNormalTable(this, "everythingnormal", DefinitionSource.dsd));
-    redefineTable(tab_enextended = new ENExtendedTable(this, "enextended", DefinitionSource.dsd));
-    redefineTable(tab_eaextended = new EAExtendedTable(this, "eaextended", DefinitionSource.dsd));
-    redefineTable(tab_binaryfield = new BinaryFieldTable(this, "binaryfield", DefinitionSource.dsd));
-    redefineTable(tab_stringfield = new StringFieldTable(this, "stringfield", DefinitionSource.dsd));
-    redefineTable(tab_passwordfield = new PasswordFieldTable(this, "passwordfield", DefinitionSource.dsd));
-    redefineTable(tab_booleanfield = new BooleanFieldTable(this, "booleanfield", DefinitionSource.dsd));
-    redefineTable(tab_datefield = new DateFieldTable(this, "datefield", DefinitionSource.dsd));
-    redefineTable(tab_doublefield = new DoubleFieldTable(this, "doublefield", DefinitionSource.dsd));
-    redefineTable(tab_integerfield = new IntegerFieldTable(this, "integerfield", DefinitionSource.dsd));
-    redefineTable(tab_longfield = new LongFieldTable(this, "longfield", DefinitionSource.dsd));
-    redefineTable(tab_bigdecimalfield = new BigdecimalFieldTable(this, "bigdecimalfield", DefinitionSource.dsd));
-    redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampfield", DefinitionSource.dsd));
+    redefineTable(tab_everythingnormal = new EverythingNormalTable(this, "everythingNormal", DefinitionSource.dsd));
+    redefineTable(tab_enextended = new ENExtendedTable(this, "eNExtended", DefinitionSource.dsd));
+    redefineTable(tab_eaextended = new EAExtendedTable(this, "eAExtended", DefinitionSource.dsd));
+    redefineTable(tab_binaryfield = new BinaryFieldTable(this, "binaryField", DefinitionSource.dsd));
+    redefineTable(tab_stringfield = new StringFieldTable(this, "stringField", DefinitionSource.dsd));
+    redefineTable(tab_passwordfield = new PasswordFieldTable(this, "passwordField", DefinitionSource.dsd));
+    redefineTable(tab_booleanfield = new BooleanFieldTable(this, "booleanField", DefinitionSource.dsd));
+    redefineTable(tab_datefield = new DateFieldTable(this, "dateField", DefinitionSource.dsd));
+    redefineTable(tab_doublefield = new DoubleFieldTable(this, "doubleField", DefinitionSource.dsd));
+    redefineTable(tab_integerfield = new IntegerFieldTable(this, "integerField", DefinitionSource.dsd));
+    redefineTable(tab_longfield = new LongFieldTable(this, "longField", DefinitionSource.dsd));
+    redefineTable(tab_bigdecimalfield = new BigdecimalFieldTable(this, "bigdecimalField", DefinitionSource.dsd));
+    redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampField", DefinitionSource.dsd));
     redefineTable(tab_protected = new ProtectedTable(this, "protected", DefinitionSource.dsd));
     redefineTable(tab_dynamic = new DynamicTable(this, "dynamic", DefinitionSource.dsd));
   }

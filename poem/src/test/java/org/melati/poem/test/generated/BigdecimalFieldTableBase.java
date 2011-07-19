@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import java.math.BigDecimal;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BigDecimalPoemType;
@@ -30,8 +31,8 @@ import org.melati.poem.test.EverythingTable;
 
 public class BigdecimalFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_bigdecimalfield = null;
+  private Column<Integer> col_id = null;
+  private Column<BigDecimal> col_bigdecimalfield = null;
 
  /**
   * Constructor. 
@@ -63,7 +64,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -76,7 +77,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
             ((BigdecimalField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((BigdecimalField)g).getIdField();
           }
 
@@ -142,7 +143,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_bigdecimalfield =
-        new Column(this, "bigdecimalfield",
+        new Column<BigDecimal>(this, "bigdecimalfield",
                    new BigDecimalPoemType(true, 22, 2),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -155,7 +156,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
             ((BigdecimalField)g).setBigdecimalfield((BigDecimal)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<BigDecimal> asField(Persistent g) {
             return ((BigdecimalField)g).getBigdecimalfieldField();
           }
 
@@ -213,7 +214,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -225,7 +226,7 @@ public class BigdecimalFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield <code>Column</code>
   */
-  public final Column getBigdecimalfieldColumn() {
+  public final Column<BigDecimal> getBigdecimalfieldColumn() {
     return col_bigdecimalfield;
   }
 

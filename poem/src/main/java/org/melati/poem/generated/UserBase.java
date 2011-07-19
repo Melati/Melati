@@ -170,9 +170,9 @@ public abstract class UserBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getUserTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getUserTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -253,9 +253,9 @@ public abstract class UserBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getUserTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getUserTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -336,9 +336,9 @@ public abstract class UserBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String login
   */
-  public Field getLoginField() throws AccessPoemException {
-    Column c = _getUserTable().getLoginColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getLoginField() throws AccessPoemException {
+    Column<String> c = _getUserTable().getLoginColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -419,9 +419,9 @@ public abstract class UserBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String password
   */
-  public Field getPasswordField() throws AccessPoemException {
-    Column c = _getUserTable().getPasswordColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getPasswordField() throws AccessPoemException {
+    Column<String> c = _getUserTable().getPasswordColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
   private CachedSelection<GroupMembership> userGroupMemberships = null;
@@ -429,7 +429,7 @@ public abstract class UserBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<GroupMembership> getUserGroupMemberships() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<GroupMembership>();
     else {
       if (userGroupMemberships == null)
         userGroupMemberships =

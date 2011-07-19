@@ -163,9 +163,9 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getGroupCapabilityTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getGroupCapabilityTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -278,9 +278,9 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer group
   */
-  public Field getGroupField() throws AccessPoemException {
-    Column c = _getGroupCapabilityTable().getGroupColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getGroupField() throws AccessPoemException {
+    Column<Integer> c = _getGroupCapabilityTable().getGroupColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -393,9 +393,9 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer capability
   */
-  public Field getCapabilityField() throws AccessPoemException {
-    Column c = _getGroupCapabilityTable().getCapabilityColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCapabilityField() throws AccessPoemException {
+    Column<Integer> c = _getGroupCapabilityTable().getCapabilityColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 }

@@ -163,9 +163,9 @@ public abstract class CapabilityBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getCapabilityTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getCapabilityTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -246,9 +246,9 @@ public abstract class CapabilityBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getCapabilityTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getCapabilityTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
   private CachedSelection<GroupCapability> capabilityGroupCapabilitys = null;
@@ -256,7 +256,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<GroupCapability> getCapabilityGroupCapabilitys() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<GroupCapability>();
     else {
       if (capabilityGroupCapabilitys == null)
         capabilityGroupCapabilitys =
@@ -278,7 +278,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcanreadTableInfos() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<TableInfo>();
     else {
       if (defaultcanreadTableInfos == null)
         defaultcanreadTableInfos =
@@ -300,7 +300,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcanwriteTableInfos() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<TableInfo>();
     else {
       if (defaultcanwriteTableInfos == null)
         defaultcanwriteTableInfos =
@@ -322,7 +322,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcandeleteTableInfos() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<TableInfo>();
     else {
       if (defaultcandeleteTableInfos == null)
         defaultcandeleteTableInfos =
@@ -344,7 +344,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getCancreateTableInfos() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<TableInfo>();
     else {
       if (cancreateTableInfos == null)
         cancreateTableInfos =

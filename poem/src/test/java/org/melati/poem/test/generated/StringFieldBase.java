@@ -153,9 +153,9 @@ public abstract class StringFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getStringFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getStringFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -232,9 +232,9 @@ public abstract class StringFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String stringfield
   */
-  public Field getStringfieldField() throws AccessPoemException {
-    Column c = _getStringFieldTable().getStringfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getStringfieldField() throws AccessPoemException {
+    Column<String> c = _getStringFieldTable().getStringfieldColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -311,9 +311,10 @@ public abstract class StringFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String unlimited
   */
-  public Field getUnlimitedField() throws AccessPoemException {
-    Column c = _getStringFieldTable().getUnlimitedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getUnlimitedField() throws AccessPoemException {
+    Column<String> c = _getStringFieldTable().getUnlimitedColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
+
 }
 

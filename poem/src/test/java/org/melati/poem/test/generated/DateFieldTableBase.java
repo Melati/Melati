@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import java.sql.Date;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
@@ -30,8 +31,8 @@ import org.melati.poem.test.EverythingTable;
 
 public class DateFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_datefield = null;
+  private Column<Integer> col_id = null;
+  private Column<Date> col_datefield = null;
 
  /**
   * Constructor. 
@@ -63,7 +64,7 @@ public class DateFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -76,7 +77,7 @@ public class DateFieldTableBase extends EverythingTable {
             ((DateField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((DateField)g).getIdField();
           }
 
@@ -142,7 +143,7 @@ public class DateFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_datefield =
-        new Column(this, "datefield",
+        new Column<Date>(this, "datefield",
                    new DatePoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -155,7 +156,7 @@ public class DateFieldTableBase extends EverythingTable {
             ((DateField)g).setDatefield((Date)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Date> asField(Persistent g) {
             return ((DateField)g).getDatefieldField();
           }
 
@@ -213,7 +214,7 @@ public class DateFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -225,7 +226,7 @@ public class DateFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield <code>Column</code>
   */
-  public final Column getDatefieldColumn() {
+  public final Column<Date> getDatefieldColumn() {
     return col_datefield;
   }
 

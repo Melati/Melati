@@ -150,9 +150,9 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getBigdecimalFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getBigdecimalFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -229,9 +229,10 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the BigDecimal bigdecimalfield
   */
-  public Field getBigdecimalfieldField() throws AccessPoemException {
-    Column c = _getBigdecimalFieldTable().getBigdecimalfieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<BigDecimal> getBigdecimalfieldField() throws AccessPoemException {
+    Column<BigDecimal> c = _getBigdecimalFieldTable().getBigdecimalfieldColumn();
+    return new Field<BigDecimal>((BigDecimal)c.getRaw(this), c);
   }
+
 }
 

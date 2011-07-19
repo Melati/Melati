@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.Capability;
@@ -33,14 +34,14 @@ import org.melati.poem.test.Protected;
 
 public class ProtectedTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_spy = null;
-  private Column col_mission = null;
-  private Column col_canRead = null;
-  private Column col_canWrite = null;
-  private Column col_canDelete = null;
-  private Column col_canSelect = null;
-  private Column col_deleted = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_spy = null;
+  private Column<String> col_mission = null;
+  private Column<Integer> col_canRead = null;
+  private Column<Integer> col_canWrite = null;
+  private Column<Integer> col_canDelete = null;
+  private Column<Integer> col_canSelect = null;
+  private Column<Boolean> col_deleted = null;
 
  /**
   * Constructor. 
@@ -72,7 +73,7 @@ public class ProtectedTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -85,7 +86,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getIdField();
           }
 
@@ -131,7 +132,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_spy =
-        new Column(this, "spy",
+        new Column<Integer>(this, "spy",
                    new ReferencePoemType(getEverythingDatabaseTables().
                                              getUserTable(), false),
                    DefinitionSource.dsd) { 
@@ -145,7 +146,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setSpy((User)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getSpyField();
           }
 
@@ -191,7 +192,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_mission =
-        new Column(this, "mission",
+        new Column<String>(this, "mission",
                    new StringPoemType(false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -204,7 +205,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setMission((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Protected)g).getMissionField();
           }
 
@@ -254,7 +255,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_canRead =
-        new Column(this, "canRead",
+        new Column<Integer>(this, "canRead",
                    new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -268,7 +269,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setCanRead((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getCanReadField();
           }
 
@@ -306,7 +307,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_canWrite =
-        new Column(this, "canWrite",
+        new Column<Integer>(this, "canWrite",
                    new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
@@ -320,7 +321,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setCanWrite((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getCanWriteField();
           }
 
@@ -358,7 +359,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_canDelete =
-        new Column(this, "canDelete",
+        new Column<Integer>(this, "canDelete",
                    new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
@@ -372,7 +373,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setCanDelete((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getCanDeleteField();
           }
 
@@ -410,7 +411,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_canSelect =
-        new Column(this, "canSelect",
+        new Column<Integer>(this, "canSelect",
                    new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
@@ -424,7 +425,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setCanSelect((Capability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Protected)g).getCanSelectField();
           }
 
@@ -462,7 +463,7 @@ public class ProtectedTableBase extends EverythingTable {
         });
 
     defineColumn(col_deleted =
-        new Column(this, "deleted",
+        new Column<Boolean>(this, "deleted",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -475,7 +476,7 @@ public class ProtectedTableBase extends EverythingTable {
             ((Protected)g).setDeleted((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((Protected)g).getDeletedField();
           }
 
@@ -521,7 +522,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -533,7 +534,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the spy <code>Column</code>
   */
-  public final Column getSpyColumn() {
+  public final Column<Integer> getSpyColumn() {
     return col_spy;
   }
 
@@ -545,7 +546,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the mission <code>Column</code>
   */
-  public final Column getMissionColumn() {
+  public final Column<String> getMissionColumn() {
     return col_mission;
   }
 
@@ -557,7 +558,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canRead <code>Column</code>
   */
-  public final Column getCanReadColumn() {
+  public final Column<Integer> getCanReadColumn() {
     return col_canRead;
   }
 
@@ -569,7 +570,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canWrite <code>Column</code>
   */
-  public final Column getCanWriteColumn() {
+  public final Column<Integer> getCanWriteColumn() {
     return col_canWrite;
   }
 
@@ -581,7 +582,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canDelete <code>Column</code>
   */
-  public final Column getCanDeleteColumn() {
+  public final Column<Integer> getCanDeleteColumn() {
     return col_canDelete;
   }
 
@@ -593,7 +594,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canSelect <code>Column</code>
   */
-  public final Column getCanSelectColumn() {
+  public final Column<Integer> getCanSelectColumn() {
     return col_canSelect;
   }
 
@@ -605,7 +606,7 @@ public class ProtectedTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the deleted <code>Column</code>
   */
-  public final Column getDeletedColumn() {
+  public final Column<Boolean> getDeletedColumn() {
     return col_deleted;
   }
 

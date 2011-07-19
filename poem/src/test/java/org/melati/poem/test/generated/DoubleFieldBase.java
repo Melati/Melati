@@ -149,9 +149,9 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getDoubleFieldTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getDoubleFieldTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -245,9 +245,10 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Double doublefield
   */
-  public Field getDoublefieldField() throws AccessPoemException {
-    Column c = _getDoubleFieldTable().getDoublefieldColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Double> getDoublefieldField() throws AccessPoemException {
+    Column<Double> c = _getDoubleFieldTable().getDoublefieldColumn();
+    return new Field<Double>((Double)c.getRaw(this), c);
   }
+
 }
 

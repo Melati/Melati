@@ -176,9 +176,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getProtectedTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -291,9 +291,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer spy
   */
-  public Field getSpyField() throws AccessPoemException {
-    Column c = _getProtectedTable().getSpyColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getSpyField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getSpyColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -374,9 +374,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String mission
   */
-  public Field getMissionField() throws AccessPoemException {
-    Column c = _getProtectedTable().getMissionColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getMissionField() throws AccessPoemException {
+    Column<String> c = _getProtectedTable().getMissionColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -489,9 +489,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer canRead
   */
-  public Field getCanReadField() throws AccessPoemException {
-    Column c = _getProtectedTable().getCanReadColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCanReadField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getCanReadColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -604,9 +604,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer canWrite
   */
-  public Field getCanWriteField() throws AccessPoemException {
-    Column c = _getProtectedTable().getCanWriteColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCanWriteField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getCanWriteColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -719,9 +719,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer canDelete
   */
-  public Field getCanDeleteField() throws AccessPoemException {
-    Column c = _getProtectedTable().getCanDeleteColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCanDeleteField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getCanDeleteColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -834,9 +834,9 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer canSelect
   */
-  public Field getCanSelectField() throws AccessPoemException {
-    Column c = _getProtectedTable().getCanSelectColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCanSelectField() throws AccessPoemException {
+    Column<Integer> c = _getProtectedTable().getCanSelectColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -939,9 +939,10 @@ public abstract class ProtectedBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Boolean deleted
   */
-  public Field getDeletedField() throws AccessPoemException {
-    Column c = _getProtectedTable().getDeletedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getDeletedField() throws AccessPoemException {
+    Column<Boolean> c = _getProtectedTable().getDeletedColumn();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
+
 }
 

@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.Column;
@@ -29,8 +30,8 @@ import org.melati.poem.test.EverythingTable;
 
 public class BooleanFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_booleanfield = null;
+  private Column<Integer> col_id = null;
+  private Column<Boolean> col_booleanfield = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class BooleanFieldTableBase extends EverythingTable {
             ((BooleanField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((BooleanField)g).getIdField();
           }
 
@@ -141,7 +142,7 @@ public class BooleanFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_booleanfield =
-        new Column(this, "booleanfield",
+        new Column<Boolean>(this, "booleanfield",
                    new BooleanPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -154,7 +155,7 @@ public class BooleanFieldTableBase extends EverythingTable {
             ((BooleanField)g).setBooleanfield((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((BooleanField)g).getBooleanfieldField();
           }
 
@@ -212,7 +213,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -224,7 +225,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>
   */
-  public final Column getBooleanfieldColumn() {
+  public final Column<Boolean> getBooleanfieldColumn() {
     return col_booleanfield;
   }
 

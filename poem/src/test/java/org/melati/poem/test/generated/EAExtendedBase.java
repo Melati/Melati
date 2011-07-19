@@ -188,9 +188,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getEAExtendedTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -271,9 +271,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the byte[] binaryfield2
   */
-  public Field getBinaryfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getBinaryfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<byte[]> getBinaryfield2Field() throws AccessPoemException {
+    Column<byte[]> c = _getEAExtendedTable().getBinaryfield2Column();
+    return new Field<byte[]>((byte[])c.getRaw(this), c);
   }
 
 
@@ -354,9 +354,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the String stringfield2
   */
-  public Field getStringfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getStringfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getStringfield2Field() throws AccessPoemException {
+    Column<String> c = _getEAExtendedTable().getStringfield2Column();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -437,9 +437,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the String passwordfield2
   */
-  public Field getPasswordfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getPasswordfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getPasswordfield2Field() throws AccessPoemException {
+    Column<String> c = _getEAExtendedTable().getPasswordfield2Column();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -542,9 +542,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Boolean booleanfield2
   */
-  public Field getBooleanfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getBooleanfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Boolean> getBooleanfield2Field() throws AccessPoemException {
+    Column<Boolean> c = _getEAExtendedTable().getBooleanfield2Column();
+    return new Field<Boolean>((Boolean)c.getRaw(this), c);
   }
 
 
@@ -625,9 +625,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Date datefield2
   */
-  public Field getDatefield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getDatefield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getDatefield2Field() throws AccessPoemException {
+    Column<Date> c = _getEAExtendedTable().getDatefield2Column();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
 
 
@@ -728,9 +728,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Double doublefield2
   */
-  public Field getDoublefield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getDoublefield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Double> getDoublefield2Field() throws AccessPoemException {
+    Column<Double> c = _getEAExtendedTable().getDoublefield2Column();
+    return new Field<Double>((Double)c.getRaw(this), c);
   }
 
 
@@ -832,9 +832,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Integer integerfield2
   */
-  public Field getIntegerfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getIntegerfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIntegerfield2Field() throws AccessPoemException {
+    Column<Integer> c = _getEAExtendedTable().getIntegerfield2Column();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -936,9 +936,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Long longfield2
   */
-  public Field getLongfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getLongfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Long> getLongfield2Field() throws AccessPoemException {
+    Column<Long> c = _getEAExtendedTable().getLongfield2Column();
+    return new Field<Long>((Long)c.getRaw(this), c);
   }
 
 
@@ -1019,9 +1019,9 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the BigDecimal bigdecimalfield2
   */
-  public Field getBigdecimalfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getBigdecimalfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<BigDecimal> getBigdecimalfield2Field() throws AccessPoemException {
+    Column<BigDecimal> c = _getEAExtendedTable().getBigdecimalfield2Column();
+    return new Field<BigDecimal>((BigDecimal)c.getRaw(this), c);
   }
 
 
@@ -1102,9 +1102,10 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   *         does not confer write access rights
   * @return the Timestamp timestampfield2
   */
-  public Field getTimestampfield2Field() throws AccessPoemException {
-    Column c = _getEAExtendedTable().getTimestampfield2Column();
-    return new Field(c.getRaw(this), c);
+  public Field<Timestamp> getTimestampfield2Field() throws AccessPoemException {
+    Column<Timestamp> c = _getEAExtendedTable().getTimestampfield2Column();
+    return new Field<Timestamp>((Timestamp)c.getRaw(this), c);
   }
+
 }
 

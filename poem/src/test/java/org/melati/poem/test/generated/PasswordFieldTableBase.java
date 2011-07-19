@@ -2,6 +2,7 @@
 
 package org.melati.poem.test.generated;
 
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -29,8 +30,8 @@ import org.melati.poem.test.PasswordField;
 
 public class PasswordFieldTableBase extends EverythingTable {
 
-  private Column col_id = null;
-  private Column col_passwordfield = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_passwordfield = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class PasswordFieldTableBase extends EverythingTable {
             ((PasswordField)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((PasswordField)g).getIdField();
           }
 
@@ -141,7 +142,7 @@ public class PasswordFieldTableBase extends EverythingTable {
         });
 
     defineColumn(col_passwordfield =
-        new Column(this, "passwordfield",
+        new Column<String>(this, "passwordfield",
                    new PasswordPoemType(true, 23),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -154,7 +155,7 @@ public class PasswordFieldTableBase extends EverythingTable {
             ((PasswordField)g).setPasswordfield((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((PasswordField)g).getPasswordfieldField();
           }
 
@@ -212,7 +213,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -224,7 +225,7 @@ public class PasswordFieldTableBase extends EverythingTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>
   */
-  public final Column getPasswordfieldColumn() {
+  public final Column<String> getPasswordfieldColumn() {
     return col_passwordfield;
   }
 

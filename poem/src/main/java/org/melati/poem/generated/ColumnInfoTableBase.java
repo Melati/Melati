@@ -38,18 +38,18 @@ import org.melati.poem.ValueInfoTable;
 
 public class ColumnInfoTableBase extends ValueInfoTable {
 
-  private Column col_id = null;
-  private Column col_tableinfo = null;
-  private Column col_name = null;
-  private Column col_displayorder = null;
-  private Column col_usercreateable = null;
-  private Column col_displaylevel = null;
-  private Column col_searchability = null;
-  private Column col_displayorderpriority = null;
-  private Column col_sortdescending = null;
-  private Column col_indexed = null;
-  private Column col_unique = null;
-  private Column col_integrityfix = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_tableinfo = null;
+  private Column<String> col_name = null;
+  private Column<Integer> col_displayorder = null;
+  private Column<Boolean> col_usercreateable = null;
+  private Column<Integer> col_displaylevel = null;
+  private Column<Integer> col_searchability = null;
+  private Column<Integer> col_displayorderpriority = null;
+  private Column<Boolean> col_sortdescending = null;
+  private Column<Boolean> col_indexed = null;
+  private Column<Boolean> col_unique = null;
+  private Column<Integer> col_integrityfix = null;
 
  /**
   * Constructor. 
@@ -81,7 +81,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -94,7 +94,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getIdField();
           }
 
@@ -132,7 +132,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo",
+        new Column<Integer>(this, "tableinfo",
                    new ReferencePoemType(getPoemDatabaseTables().
                                              getTableInfoTable(), false),
                    DefinitionSource.dsd) { 
@@ -146,7 +146,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setTableinfo((TableInfo)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getTableinfoField();
           }
 
@@ -200,7 +200,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 50),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -213,7 +213,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((ColumnInfo)g).getNameField();
           }
 
@@ -263,7 +263,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder",
+        new Column<Integer>(this, "displayorder",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -276,7 +276,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setDisplayorder((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getDisplayorderField();
           }
 
@@ -326,7 +326,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_usercreateable =
-        new Column(this, "usercreateable",
+        new Column<Boolean>(this, "usercreateable",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -339,7 +339,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setUsercreateable((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ColumnInfo)g).getUsercreateableField();
           }
 
@@ -385,7 +385,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displaylevel =
-        new Column(this, "displaylevel",
+        new Column<Integer>(this, "displaylevel",
                    new DisplayLevelPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -398,7 +398,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setDisplaylevel((DisplayLevel)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getDisplaylevelField();
           }
 
@@ -444,7 +444,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_searchability =
-        new Column(this, "searchability",
+        new Column<Integer>(this, "searchability",
                    new SearchabilityPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -457,7 +457,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setSearchability((Searchability)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getSearchabilityField();
           }
 
@@ -499,7 +499,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorderpriority =
-        new Column(this, "displayorderpriority",
+        new Column<Integer>(this, "displayorderpriority",
                    new IntegerPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -512,7 +512,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setDisplayorderpriority((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getDisplayorderpriorityField();
           }
 
@@ -554,7 +554,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_sortdescending =
-        new Column(this, "sortdescending",
+        new Column<Boolean>(this, "sortdescending",
                    new BooleanPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -567,7 +567,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setSortdescending((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ColumnInfo)g).getSortdescendingField();
           }
 
@@ -613,7 +613,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_indexed =
-        new Column(this, "indexed",
+        new Column<Boolean>(this, "indexed",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -626,7 +626,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setIndexed((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ColumnInfo)g).getIndexedField();
           }
 
@@ -672,7 +672,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_unique =
-        new Column(this, "unique",
+        new Column<Boolean>(this, "unique",
                    new BooleanPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -685,7 +685,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setUnique((Boolean)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Boolean> asField(Persistent g) {
             return ((ColumnInfo)g).getUniqueField();
           }
 
@@ -731,7 +731,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_integrityfix =
-        new Column(this, "integrityfix",
+        new Column<Integer>(this, "integrityfix",
                    new IntegrityFixPoemType(true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -744,7 +744,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             ((ColumnInfo)g).setIntegrityfix((StandardIntegrityFix)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ColumnInfo)g).getIntegrityfixField();
           }
 
@@ -798,7 +798,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -810,7 +810,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the tableinfo <code>Column</code>
   */
-  public final Column getTableinfoColumn() {
+  public final Column<Integer> getTableinfoColumn() {
     return col_tableinfo;
   }
 
@@ -822,7 +822,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -834,7 +834,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayorder <code>Column</code>
   */
-  public final Column getDisplayorderColumn() {
+  public final Column<Integer> getDisplayorderColumn() {
     return col_displayorder;
   }
 
@@ -846,7 +846,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the usercreateable <code>Column</code>
   */
-  public final Column getUsercreateableColumn() {
+  public final Column<Boolean> getUsercreateableColumn() {
     return col_usercreateable;
   }
 
@@ -858,7 +858,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displaylevel <code>Column</code>
   */
-  public final Column getDisplaylevelColumn() {
+  public final Column<Integer> getDisplaylevelColumn() {
     return col_displaylevel;
   }
 
@@ -870,7 +870,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the searchability <code>Column</code>
   */
-  public final Column getSearchabilityColumn() {
+  public final Column<Integer> getSearchabilityColumn() {
     return col_searchability;
   }
 
@@ -882,7 +882,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayorderpriority <code>Column</code>
   */
-  public final Column getDisplayorderpriorityColumn() {
+  public final Column<Integer> getDisplayorderpriorityColumn() {
     return col_displayorderpriority;
   }
 
@@ -894,7 +894,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the sortdescending <code>Column</code>
   */
-  public final Column getSortdescendingColumn() {
+  public final Column<Boolean> getSortdescendingColumn() {
     return col_sortdescending;
   }
 
@@ -906,7 +906,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the indexed <code>Column</code>
   */
-  public final Column getIndexedColumn() {
+  public final Column<Boolean> getIndexedColumn() {
     return col_indexed;
   }
 
@@ -918,7 +918,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the unique <code>Column</code>
   */
-  public final Column getUniqueColumn() {
+  public final Column<Boolean> getUniqueColumn() {
     return col_unique;
   }
 
@@ -930,7 +930,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integrityfix <code>Column</code>
   */
-  public final Column getIntegrityfixColumn() {
+  public final Column<Integer> getIntegrityfixColumn() {
     return col_integrityfix;
   }
 

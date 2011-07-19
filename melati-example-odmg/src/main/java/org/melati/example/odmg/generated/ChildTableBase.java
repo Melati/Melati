@@ -30,9 +30,9 @@ import org.melati.poem.ValidationPoemException;
 
 public class ChildTableBase extends OdmgTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
-  private Column col_parent = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
+  private Column<Integer> col_parent = null;
 
  /**
   * Constructor. 
@@ -64,7 +64,7 @@ public class ChildTableBase extends OdmgTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -77,7 +77,7 @@ public class ChildTableBase extends OdmgTable {
             ((Child)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Child)g).getIdField();
           }
 
@@ -115,7 +115,7 @@ public class ChildTableBase extends OdmgTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 60),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -128,7 +128,7 @@ public class ChildTableBase extends OdmgTable {
             ((Child)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Child)g).getNameField();
           }
 
@@ -158,7 +158,7 @@ public class ChildTableBase extends OdmgTable {
         });
 
     defineColumn(col_parent =
-        new Column(this, "parent",
+        new Column<Integer>(this, "parent",
                    new ReferencePoemType(getOdmgDatabaseTables().
                                              getParentTable(), false),
                    DefinitionSource.dsd) { 
@@ -172,7 +172,7 @@ public class ChildTableBase extends OdmgTable {
             ((Child)g).setParent((Parent)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Child)g).getParentField();
           }
 
@@ -210,7 +210,7 @@ public class ChildTableBase extends OdmgTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -222,7 +222,7 @@ public class ChildTableBase extends OdmgTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -234,7 +234,7 @@ public class ChildTableBase extends OdmgTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the parent <code>Column</code>
   */
-  public final Column getParentColumn() {
+  public final Column<Integer> getParentColumn() {
     return col_parent;
   }
 

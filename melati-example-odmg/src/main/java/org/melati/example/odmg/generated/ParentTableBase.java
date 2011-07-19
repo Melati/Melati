@@ -28,8 +28,8 @@ import org.melati.poem.ValidationPoemException;
 
 public class ParentTableBase extends OdmgTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
 
  /**
   * Constructor. 
@@ -61,7 +61,7 @@ public class ParentTableBase extends OdmgTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -74,7 +74,7 @@ public class ParentTableBase extends OdmgTable {
             ((Parent)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Parent)g).getIdField();
           }
 
@@ -112,7 +112,7 @@ public class ParentTableBase extends OdmgTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, 60),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -125,7 +125,7 @@ public class ParentTableBase extends OdmgTable {
             ((Parent)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Parent)g).getNameField();
           }
 
@@ -163,7 +163,7 @@ public class ParentTableBase extends OdmgTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -175,7 +175,7 @@ public class ParentTableBase extends OdmgTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 

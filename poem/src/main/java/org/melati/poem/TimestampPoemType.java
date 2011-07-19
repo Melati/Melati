@@ -82,7 +82,7 @@ public class TimestampPoemType extends AtomPoemType<Timestamp> {
   }
 
   protected void _assertValidRaw(Object raw) {
-    if (raw != null && !((raw instanceof Timestamp) || raw instanceof Long))
+    if (raw != null && !(raw instanceof Timestamp))
       throw new TypeMismatchPoemException(raw, this);
   }
 
@@ -93,11 +93,6 @@ public class TimestampPoemType extends AtomPoemType<Timestamp> {
   protected void _setRaw(PreparedStatement ps, int col, Object raw)
       throws SQLException {
     ps.setTimestamp(col, (Timestamp)raw);
-  }
-
-  protected void _setRaw(PreparedStatement ps, int col, Long raw)
-    throws SQLException {
-    ps.setTimestamp(col, new Timestamp(raw));
   }
 
   protected String _stringOfRaw(Object raw) {

@@ -3,3 +3,7 @@ maven.log
 velocity.log
 *.ser
 maven-eclipse.xml
+.externalToolBuilders
+.settings
+.classpath
+.project

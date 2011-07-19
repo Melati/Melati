@@ -3,12 +3,17 @@
 package org.melati.util.test.generated;
 
 
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.util.EmptyEnumeration;
 import org.melati.util.test.Node;
 import org.melati.util.test.NodeTable;
 import org.melati.util.test.TreeDatabaseTables;
@@ -155,9 +160,9 @@ public abstract class NodeBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getNodeTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getNodeTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -238,9 +243,9 @@ public abstract class NodeBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getNodeTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getNodeTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -353,9 +358,32 @@ public abstract class NodeBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer parent
   */
-  public Field getParentField() throws AccessPoemException {
-    Column c = _getNodeTable().getParentColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getParentField() throws AccessPoemException {
+    Column<Integer> c = _getNodeTable().getParentColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
+
+  private CachedSelection<Node> parentNodes = null;
+  /** References to this in the Node table via its parent field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Node> getParentNodes() {
+    if (getTroid() == null)
+      return new EmptyEnumeration<Node>();
+    else {
+      if (parentNodes == null)
+        parentNodes =
+          getTreeDatabaseTables().getNodeTable().getParentColumn().cachedSelectionWhereEq(getTroid());
+      return parentNodes.objects();
+    }
+  }
+
+
+  /** References to this in the Node table via its parent field, as a List.*/
+  public List<Node> getParentNodesList() {
+    return Collections.list(getParentNodes());
+  }
+
+
+
 }
 

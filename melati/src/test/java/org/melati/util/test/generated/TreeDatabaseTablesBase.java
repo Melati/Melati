@@ -2,6 +2,7 @@
 
 package org.melati.util.test.generated;
 
+
 // 11 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;

@@ -2,6 +2,7 @@
 
 package org.melati.admin.test.generated;
 
+
 import org.melati.admin.test.AdminTestDatabaseTables;
 import org.melati.admin.test.AdminTestTable;
 import org.melati.admin.test.Specialised;
@@ -29,8 +30,8 @@ import org.melati.poem.ValidationPoemException;
 
 public class SpecialisedTableBase extends AdminTestTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
 
  /**
   * Constructor. 
@@ -62,7 +63,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -75,7 +76,7 @@ public class SpecialisedTableBase extends AdminTestTable {
             ((Specialised)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Specialised)g).getIdField();
           }
 
@@ -121,7 +122,7 @@ public class SpecialisedTableBase extends AdminTestTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -134,7 +135,7 @@ public class SpecialisedTableBase extends AdminTestTable {
             ((Specialised)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Specialised)g).getNameField();
           }
 
@@ -196,7 +197,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -208,7 +209,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 

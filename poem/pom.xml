@@ -146,6 +146,14 @@
          </configuration>
        </execution>
      </executions>
+     <dependencies>
+     <dependency>
+        <groupId>org.melati</groupId>
+        <artifactId>poem</artifactId>
+        <version>${project.version}</version>
+        <scope>runtime</scope>
+     </dependency>
+     </dependencies>
     </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

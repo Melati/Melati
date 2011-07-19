@@ -59,7 +59,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * A Timestamp.
  */
-public class TimestampPoemType extends AtomPoemType {
+public class TimestampPoemType extends AtomPoemType<Timestamp> {
 
   /** Simple date format. */
   public static final DateFormat format =
@@ -82,7 +82,7 @@ public class TimestampPoemType extends AtomPoemType {
   }
 
   protected void _assertValidRaw(Object raw) {
-    if (raw != null && !(raw instanceof Timestamp))
+    if (raw != null && !((raw instanceof Timestamp) || raw instanceof Long))
       throw new TypeMismatchPoemException(raw, this);
   }
 
@@ -95,11 +95,16 @@ public class TimestampPoemType extends AtomPoemType {
     ps.setTimestamp(col, (Timestamp)raw);
   }
 
+  protected void _setRaw(PreparedStatement ps, int col, Long raw)
+    throws SQLException {
+    ps.setTimestamp(col, new Timestamp(raw));
+  }
+
   protected String _stringOfRaw(Object raw) {
     return format.format((java.util.Date)raw);
   }
 
-  protected Object _rawOfString(String raw) {
+  protected Timestamp _rawOfString(String raw) {
     try {
       return new Timestamp(format.parse(raw).getTime());
     }
@@ -117,7 +122,7 @@ public class TimestampPoemType extends AtomPoemType {
     return locale.timestampFormat(style).format((Timestamp)cooked);
   }
 
-  protected boolean _canRepresent(SQLPoemType other) {
+  protected boolean _canRepresent(SQLPoemType<?> other) {
     return other instanceof TimestampPoemType;
   }
 

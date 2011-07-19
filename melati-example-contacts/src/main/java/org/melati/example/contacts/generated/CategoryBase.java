@@ -155,9 +155,9 @@ public abstract class CategoryBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getCategoryTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getCategoryTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -238,9 +238,9 @@ public abstract class CategoryBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getCategoryTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getCategoryTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
   private CachedSelection<ContactCategory> categoryContactCategorys = null;
@@ -248,7 +248,7 @@ public abstract class CategoryBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<ContactCategory> getCategoryContactCategorys() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<ContactCategory>();
     else {
       if (categoryContactCategorys == null)
         categoryContactCategorys =

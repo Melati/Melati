@@ -33,9 +33,9 @@ import org.melati.poem.ValidationPoemException;
 
 public class ContactCategoryTableBase extends ContactsTable {
 
-  private Column col_id = null;
-  private Column col_category = null;
-  private Column col_contact = null;
+  private Column<Integer> col_id = null;
+  private Column<Integer> col_category = null;
+  private Column<Integer> col_contact = null;
 
  /**
   * Constructor. 
@@ -67,7 +67,7 @@ public class ContactCategoryTableBase extends ContactsTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -80,7 +80,7 @@ public class ContactCategoryTableBase extends ContactsTable {
             ((ContactCategory)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ContactCategory)g).getIdField();
           }
 
@@ -126,7 +126,7 @@ public class ContactCategoryTableBase extends ContactsTable {
         });
 
     defineColumn(col_category =
-        new Column(this, "category",
+        new Column<Integer>(this, "category",
                    new ReferencePoemType(getContactsDatabaseTables().
                                              getCategoryTable(), false),
                    DefinitionSource.dsd) { 
@@ -140,7 +140,7 @@ public class ContactCategoryTableBase extends ContactsTable {
             ((ContactCategory)g).setCategory((Category)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ContactCategory)g).getCategoryField();
           }
 
@@ -190,7 +190,7 @@ public class ContactCategoryTableBase extends ContactsTable {
         });
 
     defineColumn(col_contact =
-        new Column(this, "contact",
+        new Column<Integer>(this, "contact",
                    new ReferencePoemType(getContactsDatabaseTables().
                                              getContactTable(), false),
                    DefinitionSource.dsd) { 
@@ -204,7 +204,7 @@ public class ContactCategoryTableBase extends ContactsTable {
             ((ContactCategory)g).setContact((Contact)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((ContactCategory)g).getContactField();
           }
 
@@ -262,7 +262,7 @@ public class ContactCategoryTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -274,7 +274,7 @@ public class ContactCategoryTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the category <code>Column</code>
   */
-  public final Column getCategoryColumn() {
+  public final Column<Integer> getCategoryColumn() {
     return col_category;
   }
 
@@ -286,7 +286,7 @@ public class ContactCategoryTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the contact <code>Column</code>
   */
-  public final Column getContactColumn() {
+  public final Column<Integer> getContactColumn() {
     return col_contact;
   }
 

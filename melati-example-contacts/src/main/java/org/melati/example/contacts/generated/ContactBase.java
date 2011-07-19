@@ -179,9 +179,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getContactTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getContactTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -262,9 +262,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String name
   */
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getContactTable().getNameColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getNameField() throws AccessPoemException {
+    Column<String> c = _getContactTable().getNameColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -377,9 +377,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer owner
   */
-  public Field getOwnerField() throws AccessPoemException {
-    Column c = _getContactTable().getOwnerColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getOwnerField() throws AccessPoemException {
+    Column<Integer> c = _getContactTable().getOwnerColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -460,9 +460,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the String address
   */
-  public Field getAddressField() throws AccessPoemException {
-    Column c = _getContactTable().getAddressColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<String> getAddressField() throws AccessPoemException {
+    Column<String> c = _getContactTable().getAddressColumn();
+    return new Field<String>((String)c.getRaw(this), c);
   }
 
 
@@ -564,9 +564,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer updates
   */
-  public Field getUpdatesField() throws AccessPoemException {
-    Column c = _getContactTable().getUpdatesColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getUpdatesField() throws AccessPoemException {
+    Column<Integer> c = _getContactTable().getUpdatesColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -647,9 +647,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Date lastupdated
   */
-  public Field getLastupdatedField() throws AccessPoemException {
-    Column c = _getContactTable().getLastupdatedColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Date> getLastupdatedField() throws AccessPoemException {
+    Column<Date> c = _getContactTable().getLastupdatedColumn();
+    return new Field<Date>((Date)c.getRaw(this), c);
   }
 
 
@@ -762,9 +762,9 @@ public abstract class ContactBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer lastupdateuser
   */
-  public Field getLastupdateuserField() throws AccessPoemException {
-    Column c = _getContactTable().getLastupdateuserColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getLastupdateuserField() throws AccessPoemException {
+    Column<Integer> c = _getContactTable().getLastupdateuserColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
   private CachedSelection<Contact> ownerContacts = null;
@@ -772,7 +772,7 @@ public abstract class ContactBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<Contact> getOwnerContacts() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<Contact>();
     else {
       if (ownerContacts == null)
         ownerContacts =
@@ -794,7 +794,7 @@ public abstract class ContactBase extends JdbcPersistent {
   @SuppressWarnings("unchecked")
   public Enumeration<ContactCategory> getContactContactCategorys() {
     if (getTroid() == null)
-      return EmptyEnumeration.it;
+      return new EmptyEnumeration<ContactCategory>();
     else {
       if (contactContactCategorys == null)
         contactContactCategorys =

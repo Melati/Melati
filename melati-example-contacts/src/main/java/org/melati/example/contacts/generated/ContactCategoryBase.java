@@ -156,9 +156,9 @@ public abstract class ContactCategoryBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer id
   */
-  public Field getIdField() throws AccessPoemException {
-    Column c = _getContactCategoryTable().getIdColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getIdField() throws AccessPoemException {
+    Column<Integer> c = _getContactCategoryTable().getIdColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -271,9 +271,9 @@ public abstract class ContactCategoryBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer category
   */
-  public Field getCategoryField() throws AccessPoemException {
-    Column c = _getContactCategoryTable().getCategoryColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getCategoryField() throws AccessPoemException {
+    Column<Integer> c = _getContactCategoryTable().getCategoryColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 
@@ -386,9 +386,9 @@ public abstract class ContactCategoryBase extends JdbcPersistent {
   *         does not confer write access rights
   * @return the Integer contact
   */
-  public Field getContactField() throws AccessPoemException {
-    Column c = _getContactCategoryTable().getContactColumn();
-    return new Field(c.getRaw(this), c);
+  public Field<Integer> getContactField() throws AccessPoemException {
+    Column<Integer> c = _getContactCategoryTable().getContactColumn();
+    return new Field<Integer>((Integer)c.getRaw(this), c);
   }
 
 }

@@ -35,13 +35,13 @@ import org.melati.poem.ValidationPoemException;
 
 public class ContactTableBase extends ContactsTable {
 
-  private Column col_id = null;
-  private Column col_name = null;
-  private Column col_owner = null;
-  private Column col_address = null;
-  private Column col_updates = null;
-  private Column col_lastupdated = null;
-  private Column col_lastupdateuser = null;
+  private Column<Integer> col_id = null;
+  private Column<String> col_name = null;
+  private Column<Integer> col_owner = null;
+  private Column<String> col_address = null;
+  private Column<Integer> col_updates = null;
+  private Column<Date> col_lastupdated = null;
+  private Column<Integer> col_lastupdateuser = null;
 
  /**
   * Constructor. 
@@ -73,7 +73,7 @@ public class ContactTableBase extends ContactsTable {
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id",
+        new Column<Integer>(this, "id",
                    new TroidPoemType(),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -86,7 +86,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setId((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Contact)g).getIdField();
           }
 
@@ -132,7 +132,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name",
+        new Column<String>(this, "name",
                    new StringPoemType(false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -145,7 +145,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setName((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Contact)g).getNameField();
           }
 
@@ -195,7 +195,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_owner =
-        new Column(this, "owner",
+        new Column<Integer>(this, "owner",
                    new ReferencePoemType(getContactsDatabaseTables().
                                              getContactTable(), true),
                    DefinitionSource.dsd) { 
@@ -209,7 +209,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setOwner((Contact)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Contact)g).getOwnerField();
           }
 
@@ -255,7 +255,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_address =
-        new Column(this, "address",
+        new Column<String>(this, "address",
                    new StringPoemType(false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -268,7 +268,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setAddress((String)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<String> asField(Persistent g) {
             return ((Contact)g).getAddressField();
           }
 
@@ -318,7 +318,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_updates =
-        new Column(this, "updates",
+        new Column<Integer>(this, "updates",
                    new IntegerPoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -331,7 +331,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setUpdates((Integer)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Contact)g).getUpdatesField();
           }
 
@@ -385,7 +385,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_lastupdated =
-        new Column(this, "lastupdated",
+        new Column<Date>(this, "lastupdated",
                    new DatePoemType(false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -398,7 +398,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setLastupdated((Date)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Date> asField(Persistent g) {
             return ((Contact)g).getLastupdatedField();
           }
 
@@ -452,7 +452,7 @@ public class ContactTableBase extends ContactsTable {
         });
 
     defineColumn(col_lastupdateuser =
-        new Column(this, "lastupdateuser",
+        new Column<Integer>(this, "lastupdateuser",
                    new ReferencePoemType(getContactsDatabaseTables().
                                              getUserTable(), false),
                    DefinitionSource.dsd) { 
@@ -466,7 +466,7 @@ public class ContactTableBase extends ContactsTable {
             ((Contact)g).setLastupdateuser((User)cooked);
           }
 
-          public Field asField(Persistent g) {
+          public Field<Integer> asField(Persistent g) {
             return ((Contact)g).getLastupdateuserField();
           }
 
@@ -524,7 +524,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
-  public final Column getIdColumn() {
+  public final Column<Integer> getIdColumn() {
     return col_id;
   }
 
@@ -536,7 +536,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
-  public final Column getNameColumn() {
+  public final Column<String> getNameColumn() {
     return col_name;
   }
 
@@ -548,7 +548,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the owner <code>Column</code>
   */
-  public final Column getOwnerColumn() {
+  public final Column<Integer> getOwnerColumn() {
     return col_owner;
   }
 
@@ -560,7 +560,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the address <code>Column</code>
   */
-  public final Column getAddressColumn() {
+  public final Column<String> getAddressColumn() {
     return col_address;
   }
 
@@ -572,7 +572,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the updates <code>Column</code>
   */
-  public final Column getUpdatesColumn() {
+  public final Column<Integer> getUpdatesColumn() {
     return col_updates;
   }
 
@@ -584,7 +584,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdated <code>Column</code>
   */
-  public final Column getLastupdatedColumn() {
+  public final Column<Date> getLastupdatedColumn() {
     return col_lastupdated;
   }
 
@@ -596,7 +596,7 @@ public class ContactTableBase extends ContactsTable {
   * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdateuser <code>Column</code>
   */
-  public final Column getLastupdateuserColumn() {
+  public final Column<Integer> getLastupdateuserColumn() {
     return col_lastupdateuser;
   }
 

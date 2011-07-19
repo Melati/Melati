@@ -300,7 +300,7 @@ public class PoemAppTest extends TestCase {
       it.run(args);
       fail("Should have bombed");
     } catch (UnhandledExceptionException e) { 
-      assertEquals("You need the capability _administer_ to write the object tableinfo/0 but your access token _guest_ doesn\'t confer it"  
+      assertEquals("You need the capability _administer_ to write the object tableInfo/0 but your access token _guest_ doesn\'t confer it"  
           , e.subException.getMessage());
       e = null;
     }
@@ -319,7 +319,7 @@ public class PoemAppTest extends TestCase {
       it.run(args);
       fail("Should have bombed");
     } catch (UnhandledExceptionException e) { 
-      assertEquals("You need the capability _administer_ to write the object tableinfo/0 but your access token _guest_ doesn\'t confer it"  
+      assertEquals("You need the capability _administer_ to write the object tableInfo/0 but your access token _guest_ doesn\'t confer it"  
           , e.subException.getMessage());
       e = null;
     }
@@ -339,7 +339,7 @@ public class PoemAppTest extends TestCase {
       it.run(args);
       fail("Should have bombed");
     } catch (UnhandledExceptionException e) { 
-      assertEquals("You need the capability _administer_ to write the object tableinfo/0 but your access token _guest_ doesn\'t confer it"  
+      assertEquals("You need the capability _administer_ to write the object tableInfo/0 but your access token _guest_ doesn\'t confer it"  
           , e.subException.getMessage());
       e = null;
     }

@@ -299,7 +299,7 @@ public abstract class FieldDef {
         + "  * @return the " + rawType + " " + name + "\n" 
         + "  */\n");
     w.write("  public Field<" + rawType + "> get" + capitalisedName + "Field() throws AccessPoemException {\n" 
-        + "    Column c = _"+ tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
+        + "    Column<"+rawType+"> c = _"+ tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
         + "    return new Field<"+rawType+">(("+rawType+")c.getRaw(this), c);\n" 
         + "  }\n");
   }
@@ -323,7 +323,8 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateColDecl(Writer w) throws IOException {
-    w.write("Column col_" + name);
+    // FIXME This should be different for ref types
+    w.write("Column<"+rawType+"> col_" + name);
   }
 
   /**
@@ -335,13 +336,13 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateColAccessor(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
-        + "</code> <code>Column</code> for this \n" + "  * <code>"
-        + table.mixedCaseName + "</code> <code>Table</code>.\n" + "  * \n"
+    w.write("\n /**\n" 
+        + "  * Retrieves the <code>" + capitalisedName + "</code> <code>Column</code> for this \n" 
+        + "  * <code>"+ table.mixedCaseName + "</code> <code>Table</code>.\n" + "  * \n"
         + "  * @see " + "org.melati.poem.prepro.FieldDef"
         + "#generateColAccessor \n" + "  * @return the " + name
         + " <code>Column</code>\n" + "  */\n");
-    w.write("  public final Column get" + capitalisedName + "Column() {\n"
+    w.write("  public final Column<"+rawType+"> get" + capitalisedName + "Column() {\n"
         + "    return col_" + name + ";\n" + "  }\n");
   }
 
@@ -380,7 +381,7 @@ public abstract class FieldDef {
         .write("    defineColumn(col_"
             + name
             + " =\n"
-            + "        new Column(this, \""
+            + "        new Column<"+rawType +">(this, \""
             + name
             + "\",\n"
             + "                   "
@@ -400,7 +401,7 @@ public abstract class FieldDef {
             + "              throws AccessPoemException, ValidationPoemException {\n"
             + "            ((" + shortestUnambiguousClassname + ")g).set" + capitalisedName + "((" + typeShortName
             + ")cooked);\n" + "          }\n" + "\n"
-            + "          public Field asField(Persistent g) {\n"
+            + "          public Field<"+rawType+"> asField(Persistent g) {\n"
             + "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName
             + "Field();\n" + "          }\n" + "\n");
 
@@ -571,7 +572,7 @@ public abstract class FieldDef {
   }
 
   /**
-   * @return whether this column is user creatable
+   * @return whether this column is user createable
    */
   public boolean isCreateable() {
     return isCreateable;
@@ -653,7 +654,7 @@ public abstract class FieldDef {
   }
 
   /**
-   * Set the heigth property.
+   * Set the height property.
    *
    * @param height the height to set
    */

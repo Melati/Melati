@@ -357,7 +357,7 @@ public class TableDef {
             if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
               w.write('\n');          
               w.write("  private CachedSelection<" + rfd.shortestUnambiguousClassname +"> "+rfd.name+rfd.shortestUnambiguousClassname + "s = null;\n");
-              w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field.*/\n");
+              w.write("  /** References to this "+tableNamingInfo.mainClassShortName()+" in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field.*/\n");
               w.write("  @SuppressWarnings(\"unchecked\")\n");
               w.write("  public Enumeration<" + rfd.shortestUnambiguousClassname +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s() {\n");
               w.write("    if (getTroid() == null)\n");
@@ -371,7 +371,7 @@ public class TableDef {
               w.write("  }\n");
               w.write("\n");
               w.write("\n");
-              w.write("  /** References to this in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field, as a List.*/\n");
+              w.write("  /** References to this "+tableNamingInfo.mainClassShortName()+" in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field, as a List.*/\n");
               w.write("  public List<" + StringUtils.capitalised(rfd.shortestUnambiguousClassname) +"> get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "List() {\n");
               w.write("    return Collections.list(get" + StringUtils.capitalised(rfd.name)+rfd.shortestUnambiguousClassname + "s());\n");
               w.write("  }\n");

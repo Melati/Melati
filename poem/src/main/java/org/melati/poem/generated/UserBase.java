@@ -425,7 +425,7 @@ public abstract class UserBase extends JdbcPersistent {
   }
 
   private CachedSelection<GroupMembership> userGroupMemberships = null;
-  /** References to this in the GroupMembership table via its user field.*/
+  /** References to this User in the GroupMembership table via its user field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<GroupMembership> getUserGroupMemberships() {
     if (getTroid() == null)
@@ -439,8 +439,8 @@ public abstract class UserBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the GroupMembership table via its user field, as a List.*/
-  public List<GroupMembership> getUserGroupMembershipsList() {
+  /** References to this User in the GroupMembership table via its user field, as a List.*/
+  public List<GroupMembership> getUserGroupMembershipList() {
     return Collections.list(getUserGroupMemberships());
   }
 

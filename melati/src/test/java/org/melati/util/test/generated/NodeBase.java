@@ -364,7 +364,7 @@ public abstract class NodeBase extends JdbcPersistent {
   }
 
   private CachedSelection<Node> parentNodes = null;
-  /** References to this in the Node table via its parent field.*/
+  /** References to this Node in the Node table via its parent field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<Node> getParentNodes() {
     if (getTroid() == null)
@@ -378,8 +378,8 @@ public abstract class NodeBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the Node table via its parent field, as a List.*/
-  public List<Node> getParentNodesList() {
+  /** References to this Node in the Node table via its parent field, as a List.*/
+  public List<Node> getParentNodeList() {
     return Collections.list(getParentNodes());
   }
 

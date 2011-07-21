@@ -252,7 +252,7 @@ public abstract class GroupBase extends JdbcPersistent {
   }
 
   private CachedSelection<GroupMembership> groupGroupMemberships = null;
-  /** References to this in the GroupMembership table via its group field.*/
+  /** References to this Group in the GroupMembership table via its group field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<GroupMembership> getGroupGroupMemberships() {
     if (getTroid() == null)
@@ -266,15 +266,15 @@ public abstract class GroupBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the GroupMembership table via its group field, as a List.*/
-  public List<GroupMembership> getGroupGroupMembershipsList() {
+  /** References to this Group in the GroupMembership table via its group field, as a List.*/
+  public List<GroupMembership> getGroupGroupMembershipList() {
     return Collections.list(getGroupGroupMemberships());
   }
 
 
 
   private CachedSelection<GroupCapability> groupGroupCapabilitys = null;
-  /** References to this in the GroupCapability table via its group field.*/
+  /** References to this Group in the GroupCapability table via its group field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<GroupCapability> getGroupGroupCapabilitys() {
     if (getTroid() == null)
@@ -288,8 +288,8 @@ public abstract class GroupBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the GroupCapability table via its group field, as a List.*/
-  public List<GroupCapability> getGroupGroupCapabilitysList() {
+  /** References to this Group in the GroupCapability table via its group field, as a List.*/
+  public List<GroupCapability> getGroupGroupCapabilityList() {
     return Collections.list(getGroupGroupCapabilitys());
   }
 

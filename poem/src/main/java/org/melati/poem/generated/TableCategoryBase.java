@@ -251,7 +251,7 @@ public abstract class TableCategoryBase extends JdbcPersistent {
   }
 
   private CachedSelection<TableInfo> categoryTableInfos = null;
-  /** References to this in the TableInfo table via its category field.*/
+  /** References to this TableCategory in the TableInfo table via its category field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getCategoryTableInfos() {
     if (getTroid() == null)
@@ -265,8 +265,8 @@ public abstract class TableCategoryBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the TableInfo table via its category field, as a List.*/
-  public List<TableInfo> getCategoryTableInfosList() {
+  /** References to this TableCategory in the TableInfo table via its category field, as a List.*/
+  public List<TableInfo> getCategoryTableInfoList() {
     return Collections.list(getCategoryTableInfos());
   }
 

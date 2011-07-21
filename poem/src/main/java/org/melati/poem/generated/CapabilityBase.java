@@ -252,7 +252,7 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
   private CachedSelection<GroupCapability> capabilityGroupCapabilitys = null;
-  /** References to this in the GroupCapability table via its capability field.*/
+  /** References to this Capability in the GroupCapability table via its capability field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<GroupCapability> getCapabilityGroupCapabilitys() {
     if (getTroid() == null)
@@ -266,15 +266,15 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the GroupCapability table via its capability field, as a List.*/
-  public List<GroupCapability> getCapabilityGroupCapabilitysList() {
+  /** References to this Capability in the GroupCapability table via its capability field, as a List.*/
+  public List<GroupCapability> getCapabilityGroupCapabilityList() {
     return Collections.list(getCapabilityGroupCapabilitys());
   }
 
 
 
   private CachedSelection<TableInfo> defaultcanreadTableInfos = null;
-  /** References to this in the TableInfo table via its defaultcanread field.*/
+  /** References to this Capability in the TableInfo table via its defaultcanread field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcanreadTableInfos() {
     if (getTroid() == null)
@@ -288,15 +288,15 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the TableInfo table via its defaultcanread field, as a List.*/
-  public List<TableInfo> getDefaultcanreadTableInfosList() {
+  /** References to this Capability in the TableInfo table via its defaultcanread field, as a List.*/
+  public List<TableInfo> getDefaultcanreadTableInfoList() {
     return Collections.list(getDefaultcanreadTableInfos());
   }
 
 
 
   private CachedSelection<TableInfo> defaultcanwriteTableInfos = null;
-  /** References to this in the TableInfo table via its defaultcanwrite field.*/
+  /** References to this Capability in the TableInfo table via its defaultcanwrite field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcanwriteTableInfos() {
     if (getTroid() == null)
@@ -310,15 +310,15 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the TableInfo table via its defaultcanwrite field, as a List.*/
-  public List<TableInfo> getDefaultcanwriteTableInfosList() {
+  /** References to this Capability in the TableInfo table via its defaultcanwrite field, as a List.*/
+  public List<TableInfo> getDefaultcanwriteTableInfoList() {
     return Collections.list(getDefaultcanwriteTableInfos());
   }
 
 
 
   private CachedSelection<TableInfo> defaultcandeleteTableInfos = null;
-  /** References to this in the TableInfo table via its defaultcandelete field.*/
+  /** References to this Capability in the TableInfo table via its defaultcandelete field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getDefaultcandeleteTableInfos() {
     if (getTroid() == null)
@@ -332,15 +332,15 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the TableInfo table via its defaultcandelete field, as a List.*/
-  public List<TableInfo> getDefaultcandeleteTableInfosList() {
+  /** References to this Capability in the TableInfo table via its defaultcandelete field, as a List.*/
+  public List<TableInfo> getDefaultcandeleteTableInfoList() {
     return Collections.list(getDefaultcandeleteTableInfos());
   }
 
 
 
   private CachedSelection<TableInfo> cancreateTableInfos = null;
-  /** References to this in the TableInfo table via its cancreate field.*/
+  /** References to this Capability in the TableInfo table via its cancreate field.*/
   @SuppressWarnings("unchecked")
   public Enumeration<TableInfo> getCancreateTableInfos() {
     if (getTroid() == null)
@@ -354,8 +354,8 @@ public abstract class CapabilityBase extends JdbcPersistent {
   }
 
 
-  /** References to this in the TableInfo table via its cancreate field, as a List.*/
-  public List<TableInfo> getCancreateTableInfosList() {
+  /** References to this Capability in the TableInfo table via its cancreate field, as a List.*/
+  public List<TableInfo> getCancreateTableInfoList() {
     return Collections.list(getCancreateTableInfos());
   }
 

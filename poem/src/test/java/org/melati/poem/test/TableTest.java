@@ -157,7 +157,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#columns()
    */
   public void testColumns() {
-    Enumeration en = getDb().tables();
+    Enumeration<Table> en = getDb().tables();
     while(en.hasMoreElements()) { 
       Table t = (Table)en.nextElement();
       int colCount = EnumUtils.vectorOf(t.columns()).size();
@@ -167,14 +167,14 @@ public class TableTest extends PoemTestCase {
               colCount == t.getDetailDisplayColumnsCount());
       int colIndex = 0;
       String[][] cols = new String[colCount][3] ;
-      Enumeration colEn = t.columns();
+      Enumeration<Column<?>> colEn = t.columns();
       while (colEn.hasMoreElements()) {
-        Column c = (Column)colEn.nextElement();
+        Column<?> c = (Column<?>)colEn.nextElement();
         cols[colIndex][0] = c.getName();
         boolean inDetailDisplayColumns = false; 
-        Enumeration detailDisplayCols = t.getDetailDisplayColumns();
+        Enumeration<Column<?>> detailDisplayCols = t.getDetailDisplayColumns();
         while (detailDisplayCols.hasMoreElements()) { 
-          Column recCol = (Column)detailDisplayCols.nextElement();
+          Column<?> recCol = detailDisplayCols.nextElement();
           if (recCol == c) 
             inDetailDisplayColumns = true;
         }
@@ -281,7 +281,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getDetailDisplayColumns()
    */
   public void testGetDetailDisplayColumns() {
-    Enumeration them = getDb().getUserTable().getDetailDisplayColumns();
+    Enumeration<Column<?>> them = getDb().getUserTable().getDetailDisplayColumns();
     int counter = 0;
     while (them.hasMoreElements()) {
       them.nextElement();
@@ -301,7 +301,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getRecordDisplayColumns()
    */
   public void testGetRecordDisplayColumns() {
-    Enumeration them = getDb().getUserTable().getRecordDisplayColumns();
+    Enumeration<Column<?>> them = getDb().getUserTable().getRecordDisplayColumns();
     int counter = 0;
     while (them.hasMoreElements()) {
       them.nextElement();
@@ -321,7 +321,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getSummaryDisplayColumns()
    */
   public void testGetSummaryDisplayColumns() {
-    Enumeration them = getDb().getUserTable().getSummaryDisplayColumns();
+    Enumeration<Column<?>> them = getDb().getUserTable().getSummaryDisplayColumns();
     int counter = 0;
     while (them.hasMoreElements()) {
       them.nextElement();
@@ -407,7 +407,7 @@ public class TableTest extends PoemTestCase {
    */
   public void testGetCacheInfo() {
     getDb().uncache();
-    Enumeration them = getDb().getUserTable().getCacheInfo().getHeldElements();
+    Enumeration<Object> them = getDb().getUserTable().getCacheInfo().getHeldElements();
     int counter = 0;
     while(them.hasMoreElements()){
       them.nextElement();
@@ -519,7 +519,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#troidSelection(String, String, boolean)
    */
   public void testTroidSelectionStringStringBoolean() {
-    Enumeration en = getDb().getUserTable().troidSelection(null, null, true);
+    Enumeration<Integer> en = getDb().getUserTable().troidSelection(null, null, true);
     assertEquals(2, EnumUtils.vectorOf(en).size());
   }
 
@@ -556,7 +556,7 @@ public class TableTest extends PoemTestCase {
    */
   public void testSelectionPersistent() {
     User exemplar = (User)getDb().getUserTable().newPersistent();
-    Enumeration found  = getDb().getUserTable().selection(exemplar);
+    Enumeration<Persistent> found  = getDb().getUserTable().selection(exemplar);
     int count = 0;
     User outcome = null;
     while (found.hasMoreElements()) {
@@ -1094,10 +1094,10 @@ public class TableTest extends PoemTestCase {
     // getDb().setLogSQL(true);
     String whereClause = getDb().getTableInfoTable().getDisplayorderColumn().fullQuotedName() + 
     "  <3000 AND " + getDb().getTableInfoTable().getDisplayorderColumn().fullQuotedName() + "  > 2000";
-    Field userTableFields = getDb().getTableInfoTable()
+    Field<?> userTableFields = getDb().getTableInfoTable()
         .cachedSelectionField(whereClause, null,
             true, null, "userTables");
-    Enumeration them = userTableFields.getPossibilities();
+    Enumeration<?> them = userTableFields.getPossibilities();
     assertEquals("userTables: ", them.nextElement().toString());
     assertEquals("userTables: User", them.nextElement().toString());
     assertEquals("userTables: Group", them.nextElement().toString());

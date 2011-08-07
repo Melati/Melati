@@ -333,14 +333,14 @@ public class JdbcTable implements Selectable, Table {
    * @see ReferencePoemType#_stringOfCooked
    * @see DisplayLevel#primary
    */
-  public final Column displayColumn() {
+  public final Column<?> displayColumn() {
     return displayColumn == null ? troidColumn : displayColumn;
   }
 
   /**
    * @param column the display column to set
    */
-  public final void setDisplayColumn(Column column) {
+  public final void setDisplayColumn(Column<?> column) {
     displayColumn = column;
   }
 
@@ -356,14 +356,14 @@ public class JdbcTable implements Selectable, Table {
   * @return the search column, if any
   * @see Searchability
   */
-  public final Column primaryCriterionColumn() {
+  public final Column<?> primaryCriterionColumn() {
     return searchColumn;
   }
 
   /**
    * @param column the search column to set
    */
-  public void setSearchColumn(Column column) {
+  public void setSearchColumn(Column<?> column) {
     searchColumn = column;
   }
 
@@ -464,8 +464,8 @@ public class JdbcTable implements Selectable, Table {
    * @param level the {@link DisplayLevel} to select
    * @return an Enumeration of columns at the given level
    */ 
-  public final Enumeration displayColumns(DisplayLevel level) {
-    Column[] columnsLocal = displayColumns[level.getIndex().intValue()];
+  public final Enumeration<Column<?>> displayColumns(DisplayLevel level) {
+    Column<?>[] columnsLocal = displayColumns[level.getIndex().intValue()];
 
     if (columnsLocal == null) {
       columnsLocal =
@@ -473,7 +473,7 @@ public class JdbcTable implements Selectable, Table {
                                                          level.getIndex());
       displayColumns[level.getIndex().intValue()] = columnsLocal;
     }
-    return new ArrayEnumeration(columnsLocal);
+    return new ArrayEnumeration<Column<?>>(columnsLocal);
   }
 
   /**
@@ -497,7 +497,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #displayColumns(DisplayLevel)
    * @see DisplayLevel#detail
    */
-  public final Enumeration getDetailDisplayColumns() {
+  public final Enumeration<Column<?>> getDetailDisplayColumns() {
     return displayColumns(DisplayLevel.detail);
   }
 
@@ -516,7 +516,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #displayColumns(DisplayLevel)
    * @see DisplayLevel#record
    */
-  public final Enumeration getRecordDisplayColumns() {
+  public final Enumeration<Column<?>> getRecordDisplayColumns() {
     return displayColumns(DisplayLevel.record);
   }
 
@@ -536,7 +536,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #displayColumns(DisplayLevel)
    * @see DisplayLevel#summary
    */
-  public final Enumeration getSummaryDisplayColumns() {
+  public final Enumeration<Column<?>> getSummaryDisplayColumns() {
     return displayColumns(DisplayLevel.summary);
   }
   
@@ -1249,7 +1249,7 @@ public class JdbcTable implements Selectable, Table {
    *                    {@link PoemThread#transaction()}
    * @return a selection of troids given arguments specifying a query
    */
-  public Enumeration troidSelection(Persistent criteria, String orderByClause,
+  public Enumeration<Integer> troidSelection(Persistent criteria, String orderByClause,
                                     boolean includeDeleted, 
                                     boolean excludeUnselectable,
                                     PoemTransaction transaction) {
@@ -1426,7 +1426,7 @@ public class JdbcTable implements Selectable, Table {
    * @return an enumeration of like objects
    * @see #selection(String, String, boolean)
    */
-  public Enumeration selection(Persistent criteria)
+  public Enumeration<Persistent> selection(Persistent criteria)
       throws SQLPoemException {
     return selection(criteria, 
                        criteria.getTable().defaultOrderByClause(), false, true);
@@ -1440,7 +1440,7 @@ public class JdbcTable implements Selectable, Table {
    * @param orderByClause Comma separated list
    * @return an enumeration of like objects with the specified ordering
    */
-  public Enumeration selection(Persistent criteria, String orderByClause)
+  public Enumeration<Persistent> selection(Persistent criteria, String orderByClause)
       throws SQLPoemException {
     return selection(criteria, orderByClause, false, true);
   }
@@ -1454,7 +1454,7 @@ public class JdbcTable implements Selectable, Table {
    * @param excludeUnselectable Whether to append unselectable exclusion SQL
    * @return an enumeration of like Persistents 
    */
-  public Enumeration selection(Persistent criteria, String orderByClause,
+  public Enumeration<Persistent> selection(Persistent criteria, String orderByClause,
                                 boolean includeDeleted, boolean excludeUnselectable)
       throws SQLPoemException {
     return objectsFromTroids(troidSelection(criteria, orderByClause,

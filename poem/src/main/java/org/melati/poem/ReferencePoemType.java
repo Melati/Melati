@@ -111,7 +111,6 @@ public class ReferencePoemType extends IndexPoemType {
     return ((Persistent)cooked).displayString(locale, style);
   }
 
-  @SuppressWarnings("unchecked")
   protected boolean _canRepresent(SQLPoemType<?> other) {
     return
         other instanceof ReferencePoemType &&

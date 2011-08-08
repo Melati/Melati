@@ -685,7 +685,7 @@ public interface Table {
         throws SQLPoemException;
 
     /**
-     * @return the number records in this table.
+     * @return the number of records in this table.
      */
     int count()
         throws SQLPoemException;

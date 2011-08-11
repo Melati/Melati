@@ -125,8 +125,8 @@ public class LoginHandler {
     String password = context.getFormField("field_password");
     UserTable users = PoemThread.database().getUserTable();
 
-    context.put("login", new Field(username, users.getLoginColumn()));
-    context.put("password", new Field(password, users.getPasswordColumn()));
+    context.put("login", new Field<String>(username, users.getLoginColumn()));
+    context.put("password", new Field<String>(password, users.getPasswordColumn()));
 
     context.put("loginUnknown", Boolean.FALSE);
     context.put("passwordWrong", Boolean.FALSE);

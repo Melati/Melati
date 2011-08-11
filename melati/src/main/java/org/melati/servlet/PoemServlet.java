@@ -226,6 +226,7 @@ public abstract class PoemServlet extends ConfigServlet {
     final PoemServlet _this = this;
 
     melati.getDatabase().inSession(AccessToken.root, new PoemTask() {
+      @SuppressWarnings("unchecked")
       public void run() {
         String poemAdministratorsName = null;
         String poemAdministratorsEmail = null;
@@ -233,9 +234,9 @@ public abstract class PoemServlet extends ConfigServlet {
         try {
           try {
             poemAdministratorsName = melati.getDatabase().administratorUser().getName();
-            Field emailField = null;
+            Field<String> emailField = null;
             try {
-              emailField = melati.getDatabase().administratorUser().getField("email");
+              emailField = (Field<String>)melati.getDatabase().administratorUser().getField("email");
               poemAdministratorsEmail = emailField.toString();
             } catch (NoSuchColumnPoemException e) {
               poemAdministratorsEmail = "noEmailDefined@nobody.com";

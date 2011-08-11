@@ -79,6 +79,7 @@ import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Field;
+import org.melati.poem.FieldAttributes;
 import org.melati.poem.Initialiser;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
@@ -181,16 +182,17 @@ public class Admin extends TemplateServlet {
   /**
    * @return primary select template
    */
+   @SuppressWarnings({ "unchecked", "rawtypes" })
   protected static String primarySelectTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     final Table table = melati.getTable();
 
-    Field primaryCriterion;
+    Field<Object> primaryCriterion;
 
-    Column column = table.primaryCriterionColumn();
+    Column<?> column = table.primaryCriterionColumn();
     if (column != null) {
       String sea = context.getFormField("field_" + column.getName());
-      primaryCriterion = new Field(
+      primaryCriterion = new Field<Object>(
           sea == null ? 
            (
             melati.getObject() == null ? 
@@ -346,6 +348,7 @@ public class Admin extends TemplateServlet {
     return adminTemplate("PopupSelect");
   }
 
+  @SuppressWarnings({ "rawtypes", "unchecked"})
   protected static ServletTemplateContext popupSelect(ServletTemplateContext context,
       Melati melati) throws PoemException {
     final Table table = melati.getTable();
@@ -366,7 +369,7 @@ public class Admin extends TemplateServlet {
     context.put("criteria", EnumUtils.vectorOf(criterias));
     ReferencePoemType searchColumnsType = getSearchColumnsType(database, table);
 
-    Vector<Field> orderings = new Vector<Field>();
+    Vector<Field<?>> orderings = new Vector<Field<?>>();
     // NOTE Order by searchable columns, this could be summary columns
     Enumeration<Integer> searchColumns = searchColumnsType.possibleRaws();
     int o = 0;
@@ -426,6 +429,7 @@ public class Admin extends TemplateServlet {
    * The Form does not normally contain values, but this could be used as a
    * mechanism for providing defaults.
    */
+  @SuppressWarnings("unchecked")
   protected static String addTemplate(final ServletTemplateContext context,
       Melati melati) throws PoemException {
 
@@ -440,16 +444,16 @@ public class Admin extends TemplateServlet {
 
     // getDetailDisplayColumns() == columns() but could exclude some in theory
     Enumeration<Column<?>> columns = melati.getTable().getDetailDisplayColumns();
-    Vector<Field> fields = new Vector<Field>();
+    Vector<Field<?>> fields = new Vector<Field<?>>();
     while (columns.hasMoreElements()) {
-      Column column = columns.nextElement();
+      Column<?> column = columns.nextElement();
       String stringValue = context.getFormField("field_" + column.getName());
       Object value = null;
       if (stringValue != null)
         value = column.getType().rawOfString(stringValue);
       else if (column.getType() instanceof ColumnTypePoemType)
         value = PoemTypeFactory.STRING.getCode();
-      fields.add(new Field(value, column));
+      fields.add(new Field<Object>(value, (FieldAttributes<Object>) column));
     }
     if (melati.getTable() instanceof TableInfoTable) {
       Database database = melati.getDatabase();
@@ -459,7 +463,7 @@ public class Admin extends TemplateServlet {
 
       final int troidHeight = 1;
       final int troidWidth = 20;
-      Field troidNameField = new Field("id", new BaseFieldAttributes(
+      Field<String> troidNameField = new Field<String>("id", new BaseFieldAttributes<String>(
           "troidName", "Troid column", "Name of TROID column", database
               .getColumnInfoTable().getNameColumn().getType(), troidWidth,
           troidHeight, null, false, true, true));

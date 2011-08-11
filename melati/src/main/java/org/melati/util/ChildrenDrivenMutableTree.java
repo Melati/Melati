@@ -73,6 +73,7 @@ public class ChildrenDrivenMutableTree {
      * of a leaf node's children is requested.
      */
     // FIXME we need our own empty enumeration
+    @SuppressWarnings("rawtypes")
     public static final Enumeration EMPTY_ENUMERATION = 
       DefaultMutableTreeNode.EMPTY_ENUMERATION; 
 

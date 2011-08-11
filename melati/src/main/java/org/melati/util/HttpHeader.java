@@ -95,7 +95,8 @@ public class HttpHeader {
    * Actually, it also removes the need to think about exceptions in
    * subtypes.
    */
-  public abstract class FieldIterator implements Iterator, Enumeration {
+  @SuppressWarnings("rawtypes")
+  public abstract class FieldIterator implements Iterator<Object>, Enumeration{
 
     /**
      * {@inheritDoc}

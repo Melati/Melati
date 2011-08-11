@@ -47,7 +47,6 @@ package org.melati.admin;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Vector;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
@@ -472,7 +471,7 @@ public class AdminUtils {
    * @param field the upload field
    * @return Upload Url
    */
-  public String UploadURL(Table table, Persistent object, Field field) {
+  public String UploadURL(Table table, Persistent object, Field<?> field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
   

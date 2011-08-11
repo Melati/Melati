@@ -980,7 +980,7 @@ public class Melati {
    *          the field to check
    * @return whether it is a reference poem type
    */
-  public boolean isReferencePoemType(Field field) {
+  public boolean isReferencePoemType(Field<?> field) {
     return field.getType() instanceof ReferencePoemType;
   }
 

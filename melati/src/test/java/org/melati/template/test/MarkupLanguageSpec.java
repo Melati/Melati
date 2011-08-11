@@ -279,9 +279,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * Test that special templets are found.
    */
   public void testSpecialTemplateFound() throws Exception { 
-    Column column = getDb().getGroupMembershipTable().getUserColumn();
-    BaseFieldAttributes fa = new BaseFieldAttributes(column, column.getType());
-    Field field = new Field(getDb().getUserTable().administratorUser().troid(), fa);
+    Column<Integer> column = getDb().getGroupMembershipTable().getUserColumn();
+    BaseFieldAttributes<Integer> fa = new BaseFieldAttributes<Integer>(column, column.getType());
+    Field<Integer> field = new Field<Integer>(getDb().getUserTable().administratorUser().troid(), fa);
     Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
     assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
     assertTrue(ml.input(field).indexOf("add_rule(\"field_user\",") != -1);
@@ -338,7 +338,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field)
    */
   public void testRenderedField() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertEquals("_guest_", ml.rendered(userName));
   }
   /**
@@ -347,7 +347,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field, int)
    */
   public void testRenderedFieldInt() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertEquals("_guest_", ml.rendered(userName,3));
   }
 
@@ -357,7 +357,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field, int, int)
    */
   public void testRenderedFieldIntInt() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertEquals("_gu...", ml.rendered(userName,3,3));
   }
 
@@ -368,7 +368,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#renderedStart(Field)
    */
   public void testRenderedStart() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertEquals("_guest_", ml.renderedStart(userName));
   }
 
@@ -378,7 +378,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testInputField() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
   /**
@@ -388,7 +388,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    */
   public void testInputFieldSelection() throws Exception {
     //Selection dropdown of references    
-    Field group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
+    Field<?> group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
     System.err.println(ml.input(group));
     assertTrue(ml.input(group).indexOf("name=\"field_group\"") != -1);
     assertTrue(ml.input(group).indexOf("id=\"field_group\"") != -1);
@@ -400,9 +400,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testSelectionWindowField() throws Exception {
-    Field owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
+    Field<?> owningTable = getDb().getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
     assertTrue(ml.input(owningTable).indexOf("<input type=\"text\" name=\"field_tableinfo_dummy\"") != -1);
-    Field user = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("user");
+    Field<?> user = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("user");
     assertTrue(ml.input(user).indexOf("<input type=\"text\" name=\"field_user_dummy\"") != -1);
   }
 
@@ -411,7 +411,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    */
   public void testInputFieldForRestrictedField() throws Exception { 
     PoemThread.setAccessToken(getDb().getUserTable().guestUser());
-    Field password = getDb().getUserTable().getPasswordColumn().asEmptyField();
+    Field<?> password = getDb().getUserTable().getPasswordColumn().asEmptyField();
     assertTrue(ml.input(password).toLowerCase().indexOf("name=\"field_password\"") != -1);
     //System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
   }
@@ -422,7 +422,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#inputAs(Field, String)
    */
   public void testInputAs() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.inputAs(userName, "nonExistantTemplateName").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
       fail("Should have bombed");
@@ -438,7 +438,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * @see org.melati.template.MarkupLanguage#searchInput(Field, String)
    */
   public void testSearchInput() throws Exception {
-    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
+    Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
 

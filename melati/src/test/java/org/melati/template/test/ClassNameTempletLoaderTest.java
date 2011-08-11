@@ -159,7 +159,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc = m.getTemplateContext();
     tc.put("melati", m);
     tc.put("ml", ml);
-    Field tableField = getDb().getColumnInfoTable().
+    Field<?> tableField = getDb().getColumnInfoTable().
                            getColumnInfoObject(0).getField("tableinfo");
     tc.put("object", tableField);
     t.write(m.getWriter(),tc, m.getTemplateEngine());

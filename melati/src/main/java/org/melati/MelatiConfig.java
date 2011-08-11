@@ -81,7 +81,7 @@ public class MelatiConfig {
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
   private static PoemLocale poemLocale = null;
-  private Vector<String> preferredCharsets = null;
+  private Vector<String> preferredCharsets = null; 
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;

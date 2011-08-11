@@ -96,9 +96,9 @@ public abstract class WMLMarkupLanguageSpec extends MarkupLanguageSpec {
    *   
    */
   public void testSpecialTemplateFound() throws Exception { 
-    Column column = getDb().getGroupMembershipTable().getUserColumn();
-    BaseFieldAttributes fa = new BaseFieldAttributes(column, column.getType());
-    Field field = new Field(getDb().getUserTable().administratorUser().troid(), fa);
+    Column<Integer> column = getDb().getGroupMembershipTable().getUserColumn();
+    BaseFieldAttributes<Integer> fa = new BaseFieldAttributes<Integer>(column, column.getType());
+    Field<Integer> field = new Field<Integer>(getDb().getUserTable().administratorUser().troid(), fa);
     Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
     assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
     

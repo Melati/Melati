@@ -92,7 +92,7 @@ public class SimpleDateAdaptor implements TempletAdaptor {
    * @param dateField the input Field
    * @return the rendered String
    */
-  public String rendered(Field dateField) {
+  public String rendered(Field<Date> dateField) {
     return dateField.getRaw() == null ?
                "" :
                dateFormatter1.format((java.util.Date)dateField.getRaw());

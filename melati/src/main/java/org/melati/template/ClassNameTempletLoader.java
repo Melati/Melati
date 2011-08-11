@@ -252,7 +252,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage,
-                          FieldAttributes attributes) {
+                          FieldAttributes<?> attributes) {
     if (attributes.getRenderInfo() != null) {
       String templetName = attributes.getType().getClass().getName() 
           + "-"

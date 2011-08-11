@@ -52,13 +52,14 @@ import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.PoemLocale;
+import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 
 /**
  * A numeric year type. 
  */
 
-class YearPoemType extends IntegerPoemType {
+class YearPoemType extends IntegerPoemType implements PoemType<Integer> {
   /** First year for a dropdown. */
   static final int firstYear = 2000; 
   /** Limit  (excluded)  year for a dropdown. */
@@ -207,16 +208,16 @@ public class YMDDateAdaptor implements TempletAdaptor {
    * @param dateField date field to extract year field from 
    * @return year constituent of date
    */
-  public Field yearField(Field dateField) {
+  public Field<Integer> yearField(Field<Date> dateField) {
 
     Calendar when = when(dateField);
 
     // This isn't meant to be used, so we don't try to localise it
     String displayName = dateField.getDisplayName() + " (year)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.YEAR)),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             dateField.getName() + yearSuffix,
             displayName,
             null,
@@ -230,16 +231,16 @@ public class YMDDateAdaptor implements TempletAdaptor {
    * @param dateField date field to extract month field from 
    * @return month constituent of date
    */
-  public Field monthField(Field dateField) {
+  public Field<Integer> monthField(Field<Date> dateField) {
 
     Calendar when = when(dateField);
     // This isn't meant to be used, so we don't try to localise it
 
     String displayName = dateField.getDisplayName() + " (month)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.MONTH) + 1),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             dateField.getName() + monthSuffix, displayName, null,
             dateField.getType().getNullable() ? new MonthPoemType(true) :
                                             new MonthPoemType(false),
@@ -251,16 +252,16 @@ public class YMDDateAdaptor implements TempletAdaptor {
    * @param dateField date field to extract day field from 
    * @return day constituent of date
    */
-  public Field dayField(Field dateField) {
+  public Field<Integer> dayField(Field<Date> dateField) {
 
     Calendar when = when(dateField);
     // This isn't meant to be used, so we don't try to localise it
 
     String displayName = dateField.getDisplayName() + " (day)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.DAY_OF_MONTH)),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             dateField.getName() + daySuffix, displayName, null,
             dateField.getType().getNullable() ? new DayPoemType(true) :
                                             new DayPoemType(false),
@@ -268,7 +269,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
             null, false, true, true));
   }
   
-  protected Calendar when(Field dateField) {
+  protected Calendar when(Field<Date> dateField) {
     if (dateField.getRaw() == null) return null;
     Calendar when = Calendar.getInstance();
     when.setTime((java.util.Date)dateField.getRaw());

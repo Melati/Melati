@@ -134,5 +134,5 @@ public interface TempletLoader {
    */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
-                   FieldAttributes attributes);
+                   FieldAttributes<?> attributes);
 }

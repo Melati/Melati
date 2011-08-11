@@ -45,6 +45,7 @@
 package org.melati.template;
 
 import java.util.Calendar;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.melati.poem.Field;
@@ -184,7 +185,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
    * @param field the field to copy
    * @return an hour field
    */
-  public Field hourField(Field field) {
+  public Field<Integer> hourField(Field<Date> field) {
 
     Calendar when = when(field);
 
@@ -192,9 +193,9 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
     String displayName = field.getDisplayName() + " (hour)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.HOUR_OF_DAY)),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             field.getName() + hourSuffix, displayName, null,
             field.getType().getNullable() ? new HourPoemType(true) :
                                             new HourPoemType(false),
@@ -206,7 +207,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
    * @param field the field to copy
    * @return a minute field
    */
-  public Field minuteField(Field field) {
+  public Field<Integer> minuteField(Field<Date> field) {
 
     Calendar when = when(field);
 
@@ -214,9 +215,9 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
     String displayName = field.getDisplayName() + " (minutes)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.MINUTE)),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             field.getName() + minuteSuffix, displayName, null,
             field.getType().getNullable() ? new MinutePoemType(true) :
                                             new MinutePoemType(false),
@@ -228,7 +229,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
    * @param field the field to copy
    * @return a second field
    */
-  public Field secondField(Field field) {
+  public Field<Integer> secondField(Field<Date> field) {
 
     Calendar when = when(field);
 
@@ -236,9 +237,9 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
     String displayName = field.getDisplayName() + " (seconds)";
 
-    return new Field(
+    return new Field<Integer>(
         when == null ? null : new Integer(when.get(Calendar.SECOND)),
-        new BaseFieldAttributes(
+        new BaseFieldAttributes<Integer>(
             field.getName() + secondSuffix, displayName, null,
             field.getType().getNullable() ? new SecondPoemType(true) :
                                             new SecondPoemType(false),

@@ -118,7 +118,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  String rendered(Field field, int style)
+  String rendered(Field<?> field, int style)
           throws TemplateEngineException;
 
   /**
@@ -135,7 +135,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  String rendered(Field field, int style, int limit)
+  String rendered(Field<?> field, int style, int limit)
           throws TemplateEngineException;
 
   /**
@@ -148,7 +148,7 @@ public interface MarkupLanguage {
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    */
-  String renderedStart(Field field);
+  String renderedStart(Field<?> field);
 
   
   
@@ -164,7 +164,7 @@ public interface MarkupLanguage {
    * @return The default input widget for the Field type
    * @throws NotFoundException if template not found
    */
-  String input(Field field) throws TemplateEngineException, NotFoundException;
+  String input(Field<?> field) throws TemplateEngineException, NotFoundException;
 
   /**
    * Get an input widget for this Field defined by name.
@@ -174,7 +174,7 @@ public interface MarkupLanguage {
    * @return The specified input widget for the Field type
    * @throws NotFoundException if template not found
    */
-  String inputAs(Field field, String templetName)
+  String inputAs(Field<?> field, String templetName)
           throws TemplateEngineException, NotFoundException;
 
   /**
@@ -185,7 +185,7 @@ public interface MarkupLanguage {
    * @return The default input widget for the Field type with a specified null value
    * @throws NotFoundException if template not found
    */
-  String searchInput(Field field, String nullValue)
+  String searchInput(Field<?> field, String nullValue)
           throws TemplateEngineException, NotFoundException;
 
 

@@ -149,7 +149,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int, int)
    */
-  public String rendered(Field field, int style, int limit)
+  public String rendered(Field<?> field, int style, int limit)
       throws TemplateEngineException {
     MelatiStringWriter sw = getStringWriter();
     render(field, style, limit, sw);
@@ -160,7 +160,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int)
    */
-  public String rendered(Field field, int style)
+  public String rendered(Field<?> field, int style)
       throws TemplateEngineException {
     MelatiStringWriter sw = getStringWriter();
     render(field, style, FIELD_POSSIBILITIES_LIMIT, sw);
@@ -176,7 +176,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     if (o instanceof String)
       render((String)o, sw);
     else if (o instanceof Field) 
-      render((Field)o, sw);
+      render((Field<?>)o, sw);
     else
       render(o, sw);
     return sw.toString();
@@ -229,7 +229,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @param field - the Field to be rendered
    * @param writer - the MelatiWriter to render this Object to
    */
-  protected void render(Field field, MelatiWriter writer) {
+  protected void render(Field<?> field, MelatiWriter writer) {
     render(field, DateFormat.MEDIUM, FIELD_POSSIBILITIES_LIMIT, writer);
   }
 
@@ -244,7 +244,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * @param limit - the length to trim the rendered string to
    * @param writer - the MelatiWriter to render this Object to
    */
-  protected void render(Field field, int style, int limit, MelatiWriter writer) {
+  protected void render(Field<?> field, int style, int limit, MelatiWriter writer) {
     render(field.getCookedString(locale, style), limit, writer);
   }
 
@@ -253,14 +253,14 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedStart(org.melati.poem.Field)
    */
-  public String renderedStart(Field field) {
+  public String renderedStart(Field<?> field) {
     MelatiStringWriter sw = getStringWriter();
     renderStart(field, sw);
     return sw.toString();
   }
   
 
-  protected void renderStart(Field field, MelatiWriter writer) {
+  protected void renderStart(Field<?> field, MelatiWriter writer) {
     render(field, DateFormat.MEDIUM, DATE_FIELD_POSSIBILITIES_LIMIT, writer);
   }
 
@@ -312,7 +312,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
-  public String input(Field field)
+  public String input(Field<?> field)
       throws TemplateEngineException,
              NotFoundException {
     return input(field, null, "", false);
@@ -322,7 +322,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#inputAs(org.melati.poem.Field, java.lang.String)
    */
-  public String inputAs(Field field, String templetName)
+  public String inputAs(Field<?> field, String templetName)
       throws TemplateEngineException,
              NotFoundException {
     return input(field, templetName, "", false);
@@ -332,13 +332,13 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
    * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#searchInput(org.melati.poem.Field, java.lang.String)
    */
-  public String searchInput(Field field, String nullValue)
+  public String searchInput(Field<?> field, String nullValue)
       throws TemplateEngineException,
              NotFoundException{
     return input(field, null, nullValue, true);
   }
 
-  protected String input(Field field,
+  protected String input(Field<?> field,
                          String templetName,
                          String nullValue,
                          boolean overrideNullable)

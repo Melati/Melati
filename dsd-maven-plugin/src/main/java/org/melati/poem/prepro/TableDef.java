@@ -353,7 +353,7 @@ public class TableDef {
         for (FieldDef f : t.fields) { 
           if (f instanceof ReferenceFieldDef) { 
             ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-            if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
+            if (rfd.getTargetTableNamingInfo() != null && rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
               w.write('\n');          
               w.write("  private CachedSelection<" + rfd.shortestUnambiguousClassname +"> "+rfd.name+rfd.shortestUnambiguousClassname + "s = null;\n");
               w.write("  /** References to this "+tableNamingInfo.mainClassShortName()+" in the " + rfd.shortestUnambiguousClassname+" table via its "+ rfd.name+" field.*/\n");
@@ -644,7 +644,8 @@ public class TableDef {
       for (FieldDef f : t.fields) { 
         if (f instanceof ReferenceFieldDef) { 
           ReferenceFieldDef rfd = (ReferenceFieldDef) f;
-          if (rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
+          if (!(rfd.getTargetTableNamingInfo() == null)  && 
+              rfd.getTargetTableNamingInfo().mainClassFQName().equals(tableNamingInfo.mainClassFQName())) {
             needSelectionImports = true;
             addImport(rfd.table.tableNamingInfo.mainClassFQName(), "persistent");
           }

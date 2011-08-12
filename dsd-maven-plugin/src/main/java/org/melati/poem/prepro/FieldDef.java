@@ -229,6 +229,9 @@ public abstract class FieldDef {
     else if (type.equals("Timestamp"))
       return new TimestampFieldDef(lineNo, table, name, displayOrder,
           qualifiers);
+    else if (type.equals("Time"))
+      return new TimeFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("ColumnType"))
       return new ColumnTypeFieldDef(lineNo, table, name, displayOrder,
           qualifiers);

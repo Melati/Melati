@@ -134,7 +134,6 @@ import org.melati.util.MelatiRuntimeException;
  */
 
 public class Admin extends TemplateServlet {
-  private static final long serialVersionUID = 1L;
 
   private static String screenStylesheetURL = null;
   private static String primaryDisplayTable = null;
@@ -518,16 +517,18 @@ public class Admin extends TemplateServlet {
   protected static String deleteTemplate(ServletTemplateContext context,
       Melati melati) throws PoemException {
     try {
-      if (melati.getTable().getName().equals("tableinfo")) {
+      if (melati.getTable().getName().equalsIgnoreCase("tableinfo")) {
         TableInfo tableInfo = (TableInfo) melati.getObject();
         melati.getDatabase().deleteTableAndCommit(tableInfo);
-      } else if (melati.getTable().getName().equals("columninfo")) {
+      } else if (melati.getTable().getName().equalsIgnoreCase("columninfo")) {
         ColumnInfo columnInfo = (ColumnInfo) melati.getObject();
         columnInfo.getTableinfo().actualTable().deleteColumnAndCommit(
             columnInfo);
       } else
         melati.getObject().delete();
-
+      melati.getPoemContext().setTroid(null);
+      melati.loadTableAndObject();
+      
       return adminTemplate("Updated");
     } catch (DeletionIntegrityPoemException e) {
       context.put("references", e.references);

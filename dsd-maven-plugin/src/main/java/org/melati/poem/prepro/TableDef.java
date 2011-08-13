@@ -213,7 +213,7 @@ public class TableDef {
       throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " + "new "
-          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + mixedCaseName + "\", "
+          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + lowercasedInitialLetterName + "\", "
           + "DefinitionSource.dsd));\n");
   }
 

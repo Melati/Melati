@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-table User
+table user
   (displayorder = 2010)
   (description = "A registered User of the database")
   (category = "User")
@@ -80,7 +80,7 @@ table User
     (searchability = no);
 }
 
-table Group
+table group
   (displayorder = 2020)
   (description = "A Group to which registered Users of the database can belong")
   (category = "User")
@@ -99,7 +99,7 @@ table Group
     (searchability = primary);
 }
 
-table Capability
+table capability
   (displayorder = 2030)
   (description = "A Capability which Users can be required to possess before accessing data")
   (category = "User")
@@ -119,7 +119,7 @@ table Capability
     (searchability = primary);
 }
 
-table GroupMembership
+table groupMembership
   (displayorder = 2040)
   (displayname = "Group membership")
   (category = "User")
@@ -145,7 +145,7 @@ table GroupMembership
     (searchability = primary);
 }
 
-table GroupCapability
+table groupCapability
   (displayorder = 2050)
   (displayname = "Group capability")
   (category = "User")
@@ -166,7 +166,7 @@ table GroupCapability
     (description = "The capability");
 }
 
-table TableCategory
+table tableCategory
   (displayorder = 3030)
   (displayname = "Table type")
   (description = "A category under which a table can be classified")
@@ -185,7 +185,7 @@ table TableCategory
     (searchability = primary);
 }
 
-table TableInfo
+table tableInfo
   (displayorder = 3010)
   (displayname = "Table")
   (description = "Configuration information about a table in the database")
@@ -373,7 +373,7 @@ abstract table ValueInfo {
     (searchability = no);
 }
 
-table ColumnInfo extends org.melati.poem.ValueInfo
+table columnInfo extends org.melati.poem.ValueInfo
     (displayorder = 3020)
     (displayname = "Column")
     (description = "Configuration information about a column in the database")
@@ -456,7 +456,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     ;
 }
 
-table Setting extends org.melati.poem.ValueInfo
+table setting extends org.melati.poem.ValueInfo
   (displayorder = 3040)
   (description = "A configurable Setting for the application, where a Setting can be of any object type")
   (category = "System")

@@ -27,7 +27,7 @@ import org.melati.poem.ValueInfo;
  * Melati POEM generated base class for 
 <code>Table</code> <code>ValueInfo</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ValueInfoTableBase extends PoemTable {
@@ -49,7 +49,7 @@ public class ValueInfoTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -66,7 +66,7 @@ public class ValueInfoTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -856,7 +856,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Displayname</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayname <code>Column</code>
   */
   public final Column<String> getDisplaynameColumn() {
@@ -868,7 +868,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Description</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the description <code>Column</code>
   */
   public final Column<String> getDescriptionColumn() {
@@ -880,7 +880,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Usereditable</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the usereditable <code>Column</code>
   */
   public final Column<Boolean> getUsereditableColumn() {
@@ -892,7 +892,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Typefactory</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the typefactory <code>Column</code>
   */
   public final Column<Integer> getTypefactoryColumn() {
@@ -904,7 +904,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Nullable</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the nullable <code>Column</code>
   */
   public final Column<Boolean> getNullableColumn() {
@@ -916,7 +916,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Size</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the size <code>Column</code>
   */
   public final Column<Integer> getSizeColumn() {
@@ -928,7 +928,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Width</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the width <code>Column</code>
   */
   public final Column<Integer> getWidthColumn() {
@@ -940,7 +940,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Height</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the height <code>Column</code>
   */
   public final Column<Integer> getHeightColumn() {
@@ -952,7 +952,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Precision</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the precision <code>Column</code>
   */
   public final Column<Integer> getPrecisionColumn() {
@@ -964,7 +964,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Scale</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the scale <code>Column</code>
   */
   public final Column<Integer> getScaleColumn() {
@@ -976,7 +976,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Renderinfo</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the renderinfo <code>Column</code>
   */
   public final Column<String> getRenderinfoColumn() {
@@ -988,7 +988,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Rangelow_string</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelow_string <code>Column</code>
   */
   public final Column<String> getRangelow_stringColumn() {
@@ -1000,7 +1000,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieves the <code>Rangelimit_string</code> <code>Column</code> for this 
   * <code>ValueInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelimit_string <code>Column</code>
   */
   public final Column<String> getRangelimit_stringColumn() {
@@ -1011,7 +1011,7 @@ public class ValueInfoTableBase extends PoemTable {
  /**
   * Retrieve the <code>ValueInfo</code> as a <code>ValueInfo</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -1024,7 +1024,7 @@ public class ValueInfoTableBase extends PoemTable {
   * Retrieve the <code>ValueInfo</code> 
   * as a <code>ValueInfo</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public ValueInfo getValueInfoObject(int troid) {

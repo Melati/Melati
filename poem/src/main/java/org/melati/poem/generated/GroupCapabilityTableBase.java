@@ -25,9 +25,9 @@ import org.melati.poem.ValidationPoemException;
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>GroupCapability</code>.
+<code>Table</code> <code>groupCapability</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class GroupCapabilityTableBase extends PoemTable {
@@ -39,7 +39,7 @@ public class GroupCapabilityTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -56,7 +56,7 @@ public class GroupCapabilityTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -236,9 +236,9 @@ public class GroupCapabilityTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>.
+  * <code>groupCapability</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -248,9 +248,9 @@ public class GroupCapabilityTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Group</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>.
+  * <code>groupCapability</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>
   */
   public final Column<Integer> getGroupColumn() {
@@ -260,9 +260,9 @@ public class GroupCapabilityTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Capability</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>.
+  * <code>groupCapability</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the capability <code>Column</code>
   */
   public final Column<Integer> getCapabilityColumn() {
@@ -273,7 +273,7 @@ public class GroupCapabilityTableBase extends PoemTable {
  /**
   * Retrieve the <code>GroupCapability</code> as a <code>GroupCapability</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -286,7 +286,7 @@ public class GroupCapabilityTableBase extends PoemTable {
   * Retrieve the <code>GroupCapability</code> 
   * as a <code>GroupCapability</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public GroupCapability getGroupCapabilityObject(int troid) {

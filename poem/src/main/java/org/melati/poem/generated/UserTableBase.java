@@ -24,9 +24,9 @@ import org.melati.poem.ValidationPoemException;
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>User</code>.
+<code>Table</code> <code>user</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class UserTableBase extends PoemTable {
@@ -39,7 +39,7 @@ public class UserTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -56,7 +56,7 @@ public class UserTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -309,9 +309,9 @@ public class UserTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>.
+  * <code>user</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -321,9 +321,9 @@ public class UserTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>.
+  * <code>user</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
   public final Column<String> getNameColumn() {
@@ -333,9 +333,9 @@ public class UserTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Login</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>.
+  * <code>user</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the login <code>Column</code>
   */
   public final Column<String> getLoginColumn() {
@@ -345,9 +345,9 @@ public class UserTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Password</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>.
+  * <code>user</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the password <code>Column</code>
   */
   public final Column<String> getPasswordColumn() {
@@ -358,7 +358,7 @@ public class UserTableBase extends PoemTable {
  /**
   * Retrieve the <code>User</code> as a <code>User</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -371,7 +371,7 @@ public class UserTableBase extends PoemTable {
   * Retrieve the <code>User</code> 
   * as a <code>User</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public User getUserObject(int troid) {

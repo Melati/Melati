@@ -29,9 +29,9 @@ import org.melati.poem.ValidationPoemException;
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>TableInfo</code>.
+<code>Table</code> <code>tableInfo</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class TableInfoTableBase extends PoemTable {
@@ -52,7 +52,7 @@ public class TableInfoTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -69,7 +69,7 @@ public class TableInfoTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -807,9 +807,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -819,9 +819,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
   public final Column<String> getNameColumn() {
@@ -831,9 +831,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Displayname</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayname <code>Column</code>
   */
   public final Column<String> getDisplaynameColumn() {
@@ -843,9 +843,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Description</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the description <code>Column</code>
   */
   public final Column<String> getDescriptionColumn() {
@@ -855,9 +855,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Displayorder</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayorder <code>Column</code>
   */
   public final Column<Integer> getDisplayorderColumn() {
@@ -867,9 +867,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Defaultcanread</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcanread <code>Column</code>
   */
   public final Column<Integer> getDefaultcanreadColumn() {
@@ -879,9 +879,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Defaultcanwrite</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcanwrite <code>Column</code>
   */
   public final Column<Integer> getDefaultcanwriteColumn() {
@@ -891,9 +891,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Defaultcandelete</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the defaultcandelete <code>Column</code>
   */
   public final Column<Integer> getDefaultcandeleteColumn() {
@@ -903,9 +903,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Cancreate</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the cancreate <code>Column</code>
   */
   public final Column<Integer> getCancreateColumn() {
@@ -915,9 +915,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Cachelimit</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the cachelimit <code>Column</code>
   */
   public final Column<Integer> getCachelimitColumn() {
@@ -927,9 +927,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Seqcached</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the seqcached <code>Column</code>
   */
   public final Column<Boolean> getSeqcachedColumn() {
@@ -939,9 +939,9 @@ public class TableInfoTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Category</code> <code>Column</code> for this 
-  * <code>TableInfo</code> <code>Table</code>.
+  * <code>tableInfo</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the category <code>Column</code>
   */
   public final Column<Integer> getCategoryColumn() {
@@ -952,7 +952,7 @@ public class TableInfoTableBase extends PoemTable {
  /**
   * Retrieve the <code>TableInfo</code> as a <code>TableInfo</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -965,7 +965,7 @@ public class TableInfoTableBase extends PoemTable {
   * Retrieve the <code>TableInfo</code> 
   * as a <code>TableInfo</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public TableInfo getTableInfoObject(int troid) {

@@ -23,9 +23,9 @@ import org.melati.poem.ValidationPoemException;
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>Capability</code>.
+<code>Table</code> <code>capability</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class CapabilityTableBase extends PoemTable {
@@ -36,7 +36,7 @@ public class CapabilityTableBase extends PoemTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -53,7 +53,7 @@ public class CapabilityTableBase extends PoemTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -188,9 +188,9 @@ public class CapabilityTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>Capability</code> <code>Table</code>.
+  * <code>capability</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -200,9 +200,9 @@ public class CapabilityTableBase extends PoemTable {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>Capability</code> <code>Table</code>.
+  * <code>capability</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
   public final Column<String> getNameColumn() {
@@ -213,7 +213,7 @@ public class CapabilityTableBase extends PoemTable {
  /**
   * Retrieve the <code>Capability</code> as a <code>Capability</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -226,7 +226,7 @@ public class CapabilityTableBase extends PoemTable {
   * Retrieve the <code>Capability</code> 
   * as a <code>Capability</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Capability getCapabilityObject(int troid) {

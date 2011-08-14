@@ -2572,18 +2572,6 @@ public class JdbcTable implements Selectable, Table {
     return StringUtils.capitalised(getName());
   }
   
-  /**
-   * Public method used in DSD.wm.
-   * Duplicated because <code>defaultDisplayName()</code>
-   * above is overwritten. 
-   * 
-   * @return the capitalised name
-   */
-  public String getDsdName() {
-    return getName();
-    // Exactly replicate jdbc, so prepro knows jdbc name
-    //return StringUtils.capitalised(getName());
-  }
 
   protected int defaultDisplayOrder() {
     return DISPLAY_ORDER_DEFAULT;

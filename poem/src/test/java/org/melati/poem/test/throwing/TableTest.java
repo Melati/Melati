@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test.throwing;
 
 import java.sql.Connection;
@@ -481,11 +478,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
   public void testGetDisplayName() {
     
     // super.testGetDisplayName();
-  }
-
-  public void testGetDsdName() {
-    
-    // super.testGetDsdName();
   }
 
   public void testGetInfo() {

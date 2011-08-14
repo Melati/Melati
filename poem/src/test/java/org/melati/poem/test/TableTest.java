@@ -1184,13 +1184,6 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#getDsdName()
-   */
-  public void testGetDsdName() {
-    assertEquals("User",getDb().getUserTable().getDsdName());
-  }
-
-  /**
    * @see org.melati.poem.Table#defaultDisplayOrder()
    */
   public void testDefaultDisplayOrder() {

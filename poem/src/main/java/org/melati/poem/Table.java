@@ -1139,14 +1139,6 @@ public interface Table {
      */
     String getDbmsTableType();
     
-    /**
-     * Public method used in DSD.wm.
-     * Duplicated because <code>defaultDisplayName()</code>
-     * above is overwritten.
-     *
-     * @return the capitalised name
-     */
-    String getDsdName();
 
     /**
      * Match columnInfo with this Table's columns.

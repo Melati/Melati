@@ -105,7 +105,7 @@ public class TableNamingStore {
     }
 
     tablesByFQName.put(info.tableFQName, info);
-    Object old = tablesByShortName.put(info.tableShortName, info);
+    Object old = tablesByShortName.put(info.capitalisedShortName, info);
     if (old != null) {
       if (old != info.superclass) {
         throw new HiddenTableException(name, 

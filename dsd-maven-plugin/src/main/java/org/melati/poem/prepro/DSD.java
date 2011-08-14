@@ -408,7 +408,7 @@ public class DSD {
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
       if (!td.tableNamingInfo.hidden)
-        td.generateTableDeclJava(w);
+        td.generateTableDeclarationJava(w);
     }
 
     w.write("\n" +
@@ -417,7 +417,7 @@ public class DSD {
     for (Enumeration<TableDef> t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = t.nextElement();
       if (!td.tableNamingInfo.hidden)
-        td.generateTableDefnJava(w);
+        td.generateTableDefinitionJava(w);
     }
 
     w.write("  }\n");

@@ -442,7 +442,7 @@ public abstract class Database implements TransactionPool {
   }
 
   private synchronized void unifyWithDB() throws PoemException, SQLException {
-    boolean debug = true;
+    boolean debug = false;
     
     // Check all tables defined in the tableInfo metadata table
     // defining the ones that don't exist

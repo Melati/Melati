@@ -95,7 +95,7 @@ package $(package);
 //   $table
 //   $table.Class.Name
 #end
-table $table.DsdName
+table $table.Name
 
 
 #foreach $field in $table.getInfo().getFields() #begin

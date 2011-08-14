@@ -126,6 +126,7 @@ public class JdbcTable implements Selectable, Table {
                DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
+    // System.err.println("Creating table with name " + name + " from " + definitionSource);
     // Don't do this here as the database does not know about the dbms yet
     // this.quotedName = database.quotedName(name);
     // this is actually set the first time it is accessed in quotedName()
@@ -2579,7 +2580,9 @@ public class JdbcTable implements Selectable, Table {
    * @return the capitalised name
    */
   public String getDsdName() {
-    return StringUtils.capitalised(getName());
+    return getName();
+    // Exactly replicate jdbc, so prepro knows jdbc name
+    //return StringUtils.capitalised(getName());
   }
 
   protected int defaultDisplayOrder() {

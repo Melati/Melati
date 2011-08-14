@@ -68,7 +68,6 @@ import java.io.IOException;
  *  The way around this is to have a separate jdbc name, 
  *  but this would be a lot of redundancy for a small use case.
  *  
- *   
  *  The use case is actually broken: MySQL allows significant 
  *  table name case, but only on operating systems where 
  *  file name case is significant, and the manual advises against.
@@ -83,8 +82,8 @@ public class TableDef {
 
   DSD dsd;
   /** Mixed case name. */
-  final String mixedCaseName;
-  final String lowercasedInitialLetterName;
+  final String nameFromDsd;
+  final String capitalisedName;
   /** Lowercase name. */
   final String name;
   String displayName;
@@ -137,9 +136,9 @@ public class TableDef {
     this.isAbstract = isAbstract;
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<table name>", tokens);
-    mixedCaseName = tokens.sval;
-    name = mixedCaseName.toLowerCase();
-    lowercasedInitialLetterName = mixedCaseName.substring(0,1).toLowerCase() + mixedCaseName.substring(1);
+    nameFromDsd = tokens.sval;
+    name = nameFromDsd.toLowerCase();
+    capitalisedName = nameFromDsd.substring(0,1).toUpperCase() + nameFromDsd.substring(1);
 
     if (tokens.nextToken() == StreamTokenizer.TT_WORD) {
       if (!tokens.sval.equals("extends"))
@@ -155,7 +154,7 @@ public class TableDef {
     } else
       tokens.pushBack();
 
-    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), mixedCaseName, superclass);
+    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), nameFromDsd, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -196,7 +195,7 @@ public class TableDef {
    * @throws IOException
    *         if a problem with the file system is encountered
    */
-  public void generateTableDeclJava(Writer w)
+  public void generateTableDeclarationJava(Writer w)
       throws IOException {
     if (!isAbstract)
       w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() + " tab_"
@@ -209,11 +208,11 @@ public class TableDef {
    * @throws IOException
    *         if a problem with the file system is encountered
    */
-  public void generateTableDefnJava(Writer w)
+  public void generateTableDefinitionJava(Writer w)
       throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " + "new "
-          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + lowercasedInitialLetterName + "\", "
+          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + nameFromDsd + "\", "
           + "DefinitionSource.dsd));\n");
   }
 
@@ -291,7 +290,7 @@ public class TableDef {
     w.write("\n" + "/**\n"
         + " * Melati POEM generated abstract base class for a "
         + "<code>Persistent</code> \n" + 
-        " * <code>" + mixedCaseName + "</code> Object.\n" + " *\n" + 
+        " * <code>" + nameFromDsd + "</code> Object.\n" + " *\n" + 
         " * see org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
         " */\n");
     w.write("public abstract class " + tableNamingInfo.baseClassShortName()
@@ -447,7 +446,7 @@ public class TableDef {
 
     w.write("\n");
     w.write("\n" + "/**\n" + " * Melati POEM generated base class for \n"
-        + "<code>Table</code> <code>" + mixedCaseName + "</code>.\n");
+        + "<code>Table</code> <code>" + nameFromDsd + "</code>.\n");
     w.write(" *\n" 
         + " * see org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + " */\n");
@@ -788,7 +787,7 @@ public class TableDef {
   String fieldSummaryTable() {
     StringBuffer table = new StringBuffer();
     table.append(" * \n" + " * <table> \n" + " * <tr><th colspan='3'>\n"
-        + " * Field summary for SQL table <code>" + mixedCaseName + "</code>\n"
+        + " * Field summary for SQL table <code>" + nameFromDsd + "</code>\n"
         + " * </th></tr>\n"
         + " * <tr><th>Name</th><th>Type</th><th>Description</th></tr>\n");
     for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {

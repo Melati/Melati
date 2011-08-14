@@ -47,6 +47,12 @@ package org.melati.poem.prepro;
 
 /** 
  * A store for Table Name information extracted from the DSD.
+ * 
+ * Java classes are capitalised, however SQL tables do not necessarily follow any rule. 
+ * To handle this we say that the name of a table in the DSD must be the same as the SQL name. 
+ * It is the SQL name which is stored in the tableInfo record but it is the capitalised one 
+ * which is used as teh class name. 
+ * 
  */
 public class TableNamingInfo {
 
@@ -59,10 +65,11 @@ public class TableNamingInfo {
   public String tableFQName = null;
 
   /** The last part of the FQName of the table (e.g. `User') */
-  public String tableShortName = null;
-
-  /** The TableNamingInfo of this Table's superclass (or null if extends
-      Persistent or Table). */
+  public String capitalisedShortName = null;
+  
+  /** The TableNamingInfo of this Table's superclass 
+   * (or null if this extends Persistent or Table). 
+   */
   public TableNamingInfo superclass = null;
 
   /** 
@@ -96,13 +103,13 @@ public class TableNamingInfo {
    * Constructor.
    * @param packageNameIn  the fully qualified java name of this package
    * @param projectNameIn  the name of this project 
-   * @param name           the name of this table
+   * @param nameFromDsd    the name of this table in the db and the dsd, not necessarily with initial capital
    */
-  public TableNamingInfo(String packageNameIn, String projectNameIn, String name) {
+  public TableNamingInfo(String packageNameIn, String projectNameIn, String nameFromDsd) {
     packageName = packageNameIn;
     projectName = projectNameIn; 
-    tableShortName = name;
-    tableFQName = packageName + "." + name;
+    capitalisedShortName = nameFromDsd.substring(0,1).toUpperCase() + nameFromDsd.substring(1);
+    tableFQName = packageName + "." + capitalisedShortName;
     superclass = null;
     hidesOther = false;
     hidden = false;
@@ -191,11 +198,11 @@ public class TableNamingInfo {
   }
 
   String baseClassFQName() {
-    return packageName + ".generated." + tableShortName + "Base";
+    return packageName + ".generated." + capitalisedShortName + "Base";
   }
 
   String baseClassShortName() {
-    return tableShortName + "Base";
+    return capitalisedShortName + "Base";
   }
 
   String baseClassUnambiguous() {
@@ -215,7 +222,7 @@ public class TableNamingInfo {
    * @return the name of the main class for this table
    */
   public String mainClassShortName() {
-    return tableShortName;
+    return StringUtils.capitalised(capitalisedShortName);
   }
 
   /**
@@ -244,10 +251,10 @@ public class TableNamingInfo {
   }
 
   String tableBaseClassFQName() {
-    return packageName + ".generated." + tableShortName + "TableBase";
+    return packageName + ".generated." + capitalisedShortName + "TableBase";
   }
   String tableBaseClassShortName() {
-    return tableShortName + "TableBase";
+    return capitalisedShortName + "TableBase";
   }
 
   String tableBaseClassUnambiguous() {
@@ -260,7 +267,7 @@ public class TableNamingInfo {
     return tableFQName + "Table";
   }
   String tableMainClassShortName() {
-    return tableShortName + "Table";
+    return capitalisedShortName + "Table";
   }
 
   String tableMainClassUnambiguous() {
@@ -297,7 +304,7 @@ public class TableNamingInfo {
   protected TableNamingInfo getRootSameNamedSuperclass() {
     TableNamingInfo curr = this;
     while (curr != null && curr.superclass != null &&
-             curr.tableShortName.equals(curr.superclass.tableShortName))
+             curr.capitalisedShortName.equals(curr.superclass.capitalisedShortName))
       curr = curr.superclass;
     return (curr != this) ? curr : null;
   }

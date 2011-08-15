@@ -502,7 +502,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoPage("/Admin/" + dbName + "/columnInfo/Selection");
     assertTextPresent("Records 1 to 20 of 90");
     clickLink("csv");
-    gotoWindow("_columnInfocsv");
+    gotoWindow("_columninfocsv");
     assertTextPresent("\"0\",\"0\",\"id\",\"10\",\"false\",");
   }
   /**
@@ -614,8 +614,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoRootWindow();
     gotoFrame("admin_bottom");
     gotoFrame("admin_record");
-    gotoFrame("admin_edit_tableInfo_" + tableTroid);
-    clickLink("create_columnInfo");
+    gotoFrame("admin_edit_tableinfo_" + tableTroid);
+    clickLink("create_columninfo");
     setTextField("field_name", "test");
     setTextField("field_description", "A Test column");
     setTextField("field_displayorder", "0");
@@ -661,23 +661,23 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoPage("/Admin/" + dbName + "/columnInfo/" + columnTroid + "/Main"); 
     gotoFrame("admin_bottom");    
     gotoFrame("admin_record");
-    gotoFrame("admin_edit_columnInfo_" + columnTroid);
+    gotoFrame("admin_edit_columninfo_" + columnTroid);
     submit("action","Delete");
     assertTextPresent("Done");
 
     int c = new Integer(columnTroid).intValue() -1;
     columnTroid = new Integer(c).toString(); 
-    gotoPage("/Admin/" + dbName + "/columnInfo/" + columnTroid + "/Main"); 
+    gotoPage("/Admin/" + dbName + "/columninfo/" + columnTroid + "/Main"); 
     gotoFrame("admin_bottom");    
     gotoFrame("admin_record");
-    gotoFrame("admin_edit_columnInfo_" + columnTroid);
+    gotoFrame("admin_edit_columninfo_" + columnTroid);
     submit("action","Delete");
     assertTextPresent("Done");
 
     gotoPage("/Admin/" + dbName + "/tableinfo/" + tableTroid + "/Main"); 
     gotoFrame("admin_bottom");    
     gotoFrame("admin_record");
-    gotoFrame("admin_edit_tableInfo_" + tableTroid);
+    gotoFrame("admin_edit_tableinfo_" + tableTroid);
     submit("action","Delete");
     
     

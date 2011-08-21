@@ -315,7 +315,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public void testAdminEditHeader() {
     gotoPage("/Admin/" + dbName + "/parent/0/EditHeader");
-    clickLinkWithText("Child");
+    clickLink("admin_edit_parent_0");
     gotoWindow("admin_edit_parent_0");
     assertElementPresent("selection");
     

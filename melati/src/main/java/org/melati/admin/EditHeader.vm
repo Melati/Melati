@@ -89,8 +89,9 @@ $ml.rendered($melati.Object.toString())</a>
    <p>
     <font face="Arial, Helvetica" size="-1">
 #foreach( $column in $references )
-[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid) 
+[&nbsp;<a href="$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid)" 
           target="$admin.EditFrameName($melati)"
+          id="$admin.EditFrameName($melati)"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>

@@ -25,7 +25,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated base class for 
 <code>Table</code> <code>Specialised</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class SpecialisedTableBase extends AdminTestTable {
@@ -36,7 +36,7 @@ public class SpecialisedTableBase extends AdminTestTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -53,7 +53,7 @@ public class SpecialisedTableBase extends AdminTestTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public AdminTestDatabaseTables getAdminTestDatabaseTables() {
@@ -194,7 +194,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>Specialised</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -206,7 +206,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   * Retrieves the <code>Name</code> <code>Column</code> for this 
   * <code>Specialised</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
   */
   public final Column<String> getNameColumn() {
@@ -217,7 +217,7 @@ public class SpecialisedTableBase extends AdminTestTable {
  /**
   * Retrieve the <code>Specialised</code> as a <code>Specialised</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -230,7 +230,7 @@ public class SpecialisedTableBase extends AdminTestTable {
   * Retrieve the <code>Specialised</code> 
   * as a <code>Specialised</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Specialised getSpecialisedObject(int troid) {

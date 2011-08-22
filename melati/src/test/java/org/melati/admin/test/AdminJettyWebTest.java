@@ -315,10 +315,8 @@ public class AdminJettyWebTest extends JettyWebTestCase {
    */
   public void testAdminEditHeader() {
     gotoPage("/Admin/" + dbName + "/parent/0/EditHeader");
-    dumpHtml();
-    
-    clickLink("admin_edit_parent_0");
-    gotoWindow("admin_edit_parent_0");
+    clickLink("admin_edit_Parent_0");
+    gotoWindow("admin_edit_Parent_0");
     assertElementPresent("selection");
     
   }
@@ -452,7 +450,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     assertTextPresent("[ Group membership ]");
     clickLink("recordTree");
     gotoRootWindow();
-    gotoFrame("admin_edit_user_0");
+    gotoFrame("admin_edit_User_0");
     assertTextPresent("Melati guest user tree");
     clickLinkWithText("Melati guest user");
   }

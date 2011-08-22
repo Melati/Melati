@@ -42,14 +42,14 @@ public class TreeDatabaseBase extends PoemDatabase {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_node = new NodeTable(this, "node", DefinitionSource.dsd));
+    redefineTable(tab_node = new NodeTable(this, "Node", DefinitionSource.dsd));
   }
 
 
  /**
   * Retrieves the UserTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
   public UserTable getUserTable() {
@@ -60,7 +60,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
   public GroupTable getGroupTable() {
@@ -71,7 +71,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the CapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
   public CapabilityTable getCapabilityTable() {
@@ -82,7 +82,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupMembershipTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
   public GroupMembershipTable getGroupMembershipTable() {
@@ -93,7 +93,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupCapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
   public GroupCapabilityTable getGroupCapabilityTable() {
@@ -104,7 +104,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableCategoryTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
   public TableCategoryTable getTableCategoryTable() {
@@ -115,7 +115,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
   public TableInfoTable getTableInfoTable() {
@@ -127,7 +127,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ColumnInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
   public ColumnInfoTable getColumnInfoTable() {
@@ -138,7 +138,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the SettingTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
   public SettingTable getSettingTable() {
@@ -149,7 +149,7 @@ public class TreeDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the NodeTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the NodeTable from this database
   */
   public NodeTable getNodeTable() {

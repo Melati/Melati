@@ -44,15 +44,15 @@ public class OdmgDatabaseBase extends PoemDatabase {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_parent = new ParentTable(this, "parent", DefinitionSource.dsd));
-    redefineTable(tab_child = new ChildTable(this, "child", DefinitionSource.dsd));
+    redefineTable(tab_parent = new ParentTable(this, "Parent", DefinitionSource.dsd));
+    redefineTable(tab_child = new ChildTable(this, "Child", DefinitionSource.dsd));
   }
 
 
  /**
   * Retrieves the UserTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
   public UserTable getUserTable() {
@@ -63,7 +63,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
   public GroupTable getGroupTable() {
@@ -74,7 +74,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the CapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
   public CapabilityTable getCapabilityTable() {
@@ -85,7 +85,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupMembershipTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
   public GroupMembershipTable getGroupMembershipTable() {
@@ -96,7 +96,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupCapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
   public GroupCapabilityTable getGroupCapabilityTable() {
@@ -107,7 +107,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableCategoryTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
   public TableCategoryTable getTableCategoryTable() {
@@ -118,7 +118,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
   public TableInfoTable getTableInfoTable() {
@@ -130,7 +130,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ColumnInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
   public ColumnInfoTable getColumnInfoTable() {
@@ -141,7 +141,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the SettingTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
   public SettingTable getSettingTable() {
@@ -152,7 +152,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ParentTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ParentTable from this database
   */
   public ParentTable getParentTable() {
@@ -163,7 +163,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ChildTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ChildTable from this database
   */
   public ChildTable getChildTable() {

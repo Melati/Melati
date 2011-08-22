@@ -46,16 +46,16 @@ public class ContactsDatabaseBase extends PoemDatabase {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_contact = new ContactTable(this, "contact", DefinitionSource.dsd));
-    redefineTable(tab_category = new CategoryTable(this, "category", DefinitionSource.dsd));
-    redefineTable(tab_contactcategory = new ContactCategoryTable(this, "contactCategory", DefinitionSource.dsd));
+    redefineTable(tab_contact = new ContactTable(this, "Contact", DefinitionSource.dsd));
+    redefineTable(tab_category = new CategoryTable(this, "Category", DefinitionSource.dsd));
+    redefineTable(tab_contactcategory = new ContactCategoryTable(this, "ContactCategory", DefinitionSource.dsd));
   }
 
 
  /**
   * Retrieves the UserTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
   public UserTable getUserTable() {
@@ -66,7 +66,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
   public GroupTable getGroupTable() {
@@ -77,7 +77,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the CapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
   public CapabilityTable getCapabilityTable() {
@@ -88,7 +88,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupMembershipTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
   public GroupMembershipTable getGroupMembershipTable() {
@@ -99,7 +99,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the GroupCapabilityTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
   public GroupCapabilityTable getGroupCapabilityTable() {
@@ -110,7 +110,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableCategoryTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
   public TableCategoryTable getTableCategoryTable() {
@@ -121,7 +121,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the TableInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
   public TableInfoTable getTableInfoTable() {
@@ -133,7 +133,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ColumnInfoTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
   public ColumnInfoTable getColumnInfoTable() {
@@ -144,7 +144,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the SettingTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
   public SettingTable getSettingTable() {
@@ -155,7 +155,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ContactTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ContactTable from this database
   */
   public ContactTable getContactTable() {
@@ -166,7 +166,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the CategoryTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CategoryTable from this database
   */
   public CategoryTable getCategoryTable() {
@@ -177,7 +177,7 @@ public class ContactsDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the ContactCategoryTable table.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ContactCategoryTable from this database
   */
   public ContactCategoryTable getContactCategoryTable() {

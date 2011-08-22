@@ -25,7 +25,7 @@ import org.melati.poem.test.StringField;
  * Melati POEM generated base class for 
 <code>Table</code> <code>StringField</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class StringFieldTableBase extends EverythingTable {
@@ -37,7 +37,7 @@ public class StringFieldTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -54,7 +54,7 @@ public class StringFieldTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -274,7 +274,7 @@ public class StringFieldTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>StringField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -286,7 +286,7 @@ public class StringFieldTableBase extends EverythingTable {
   * Retrieves the <code>Stringfield</code> <code>Column</code> for this 
   * <code>StringField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield <code>Column</code>
   */
   public final Column<String> getStringfieldColumn() {
@@ -298,7 +298,7 @@ public class StringFieldTableBase extends EverythingTable {
   * Retrieves the <code>Unlimited</code> <code>Column</code> for this 
   * <code>StringField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the unlimited <code>Column</code>
   */
   public final Column<String> getUnlimitedColumn() {
@@ -309,7 +309,7 @@ public class StringFieldTableBase extends EverythingTable {
  /**
   * Retrieve the <code>StringField</code> as a <code>StringField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -322,7 +322,7 @@ public class StringFieldTableBase extends EverythingTable {
   * Retrieve the <code>StringField</code> 
   * as a <code>StringField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public StringField getStringFieldObject(int troid) {

@@ -15,7 +15,7 @@ import org.melati.poem.test.EverythingTable;
  * Melati POEM generated base class for 
 <code>Table</code> <code>EmptyAbstractTable</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class EmptyAbstractTableTableBase extends EverythingTable {
@@ -24,7 +24,7 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -41,7 +41,7 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -56,7 +56,7 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
  /**
   * Retrieve the <code>EmptyAbstractTable</code> as a <code>EmptyAbstractTable</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -69,7 +69,7 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
   * Retrieve the <code>EmptyAbstractTable</code> 
   * as a <code>EmptyAbstractTable</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public EmptyAbstractTable getEmptyAbstractTableObject(int troid) {

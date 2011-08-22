@@ -29,7 +29,7 @@ import org.melati.poem.test.Protected;
  * Melati POEM generated base class for 
 <code>Table</code> <code>Protected</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ProtectedTableBase extends EverythingTable {
@@ -46,7 +46,7 @@ public class ProtectedTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -63,7 +63,7 @@ public class ProtectedTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -519,7 +519,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -531,7 +531,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>Spy</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the spy <code>Column</code>
   */
   public final Column<Integer> getSpyColumn() {
@@ -543,7 +543,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>Mission</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the mission <code>Column</code>
   */
   public final Column<String> getMissionColumn() {
@@ -555,7 +555,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>CanRead</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canRead <code>Column</code>
   */
   public final Column<Integer> getCanReadColumn() {
@@ -567,7 +567,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>CanWrite</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canWrite <code>Column</code>
   */
   public final Column<Integer> getCanWriteColumn() {
@@ -579,7 +579,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>CanDelete</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canDelete <code>Column</code>
   */
   public final Column<Integer> getCanDeleteColumn() {
@@ -591,7 +591,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>CanSelect</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the canSelect <code>Column</code>
   */
   public final Column<Integer> getCanSelectColumn() {
@@ -603,7 +603,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieves the <code>Deleted</code> <code>Column</code> for this 
   * <code>Protected</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the deleted <code>Column</code>
   */
   public final Column<Boolean> getDeletedColumn() {
@@ -614,7 +614,7 @@ public class ProtectedTableBase extends EverythingTable {
  /**
   * Retrieve the <code>Protected</code> as a <code>Protected</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -627,7 +627,7 @@ public class ProtectedTableBase extends EverythingTable {
   * Retrieve the <code>Protected</code> 
   * as a <code>Protected</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Protected getProtectedObject(int troid) {

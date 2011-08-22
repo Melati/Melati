@@ -25,7 +25,7 @@ import org.melati.poem.test.EverythingTable;
  * Melati POEM generated base class for 
 <code>Table</code> <code>BinaryField</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class BinaryFieldTableBase extends EverythingTable {
@@ -37,7 +37,7 @@ public class BinaryFieldTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -54,7 +54,7 @@ public class BinaryFieldTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -290,7 +290,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>BinaryField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -302,7 +302,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
   * <code>BinaryField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
   */
   public final Column<byte[]> getBinaryfieldColumn() {
@@ -314,7 +314,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * Retrieves the <code>Unlimited</code> <code>Column</code> for this 
   * <code>BinaryField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the unlimited <code>Column</code>
   */
   public final Column<byte[]> getUnlimitedColumn() {
@@ -325,7 +325,7 @@ public class BinaryFieldTableBase extends EverythingTable {
  /**
   * Retrieve the <code>BinaryField</code> as a <code>BinaryField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -338,7 +338,7 @@ public class BinaryFieldTableBase extends EverythingTable {
   * Retrieve the <code>BinaryField</code> 
   * as a <code>BinaryField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public BinaryField getBinaryFieldObject(int troid) {

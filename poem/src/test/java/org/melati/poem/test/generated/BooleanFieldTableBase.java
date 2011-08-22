@@ -25,7 +25,7 @@ import org.melati.poem.test.EverythingTable;
  * Melati POEM generated base class for 
 <code>Table</code> <code>BooleanField</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class BooleanFieldTableBase extends EverythingTable {
@@ -36,7 +36,7 @@ public class BooleanFieldTableBase extends EverythingTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -53,7 +53,7 @@ public class BooleanFieldTableBase extends EverythingTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -210,7 +210,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   * Retrieves the <code>Id</code> <code>Column</code> for this 
   * <code>BooleanField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
   */
   public final Column<Integer> getIdColumn() {
@@ -222,7 +222,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   * Retrieves the <code>Booleanfield</code> <code>Column</code> for this 
   * <code>BooleanField</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>
   */
   public final Column<Boolean> getBooleanfieldColumn() {
@@ -233,7 +233,7 @@ public class BooleanFieldTableBase extends EverythingTable {
  /**
   * Retrieve the <code>BooleanField</code> as a <code>BooleanField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -246,7 +246,7 @@ public class BooleanFieldTableBase extends EverythingTable {
   * Retrieve the <code>BooleanField</code> 
   * as a <code>BooleanField</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public BooleanField getBooleanFieldObject(int troid) {

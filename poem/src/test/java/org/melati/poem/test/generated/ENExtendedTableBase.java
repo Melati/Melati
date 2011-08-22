@@ -36,7 +36,7 @@ import org.melati.poem.test.EverythingNormalTable;
  * Melati POEM generated base class for 
 <code>Table</code> <code>ENExtended</code>.
  *
- * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ENExtendedTableBase extends EverythingNormalTable {
@@ -55,7 +55,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
  /**
   * Constructor. 
   * 
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -72,7 +72,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
  /**
   * Get the database tables.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -769,7 +769,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Binaryfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield2 <code>Column</code>
   */
   public final Column<byte[]> getBinaryfield2Column() {
@@ -781,7 +781,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Stringfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield2 <code>Column</code>
   */
   public final Column<String> getStringfield2Column() {
@@ -793,7 +793,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Passwordfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield2 <code>Column</code>
   */
   public final Column<String> getPasswordfield2Column() {
@@ -805,7 +805,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Booleanfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield2 <code>Column</code>
   */
   public final Column<Boolean> getBooleanfield2Column() {
@@ -817,7 +817,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Datefield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield2 <code>Column</code>
   */
   public final Column<Date> getDatefield2Column() {
@@ -829,7 +829,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Doublefield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield2 <code>Column</code>
   */
   public final Column<Double> getDoublefield2Column() {
@@ -841,7 +841,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Integerfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield2 <code>Column</code>
   */
   public final Column<Integer> getIntegerfield2Column() {
@@ -853,7 +853,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Longfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield2 <code>Column</code>
   */
   public final Column<Long> getLongfield2Column() {
@@ -865,7 +865,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Bigdecimalfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield2 <code>Column</code>
   */
   public final Column<BigDecimal> getBigdecimalfield2Column() {
@@ -877,7 +877,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieves the <code>Timestampfield2</code> <code>Column</code> for this 
   * <code>ENExtended</code> <code>Table</code>.
   * 
-  * @see org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * see org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield2 <code>Column</code>
   */
   public final Column<Timestamp> getTimestampfield2Column() {
@@ -888,7 +888,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
  /**
   * Retrieve the <code>ENExtended</code> as a <code>ENExtended</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -901,7 +901,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   * Retrieve the <code>ENExtended</code> 
   * as a <code>ENExtended</code>.
   *
-  * @see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public ENExtended getENExtendedObject(int troid) {

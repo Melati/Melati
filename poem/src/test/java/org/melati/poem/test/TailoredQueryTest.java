@@ -284,7 +284,7 @@ public class TailoredQueryTest extends EverythingTestCase {
     spyMission.setDeleted(false);
     spyMission.makePersistent();
     
-    Column[] columns = { 
+    Column<?>[] columns = { 
             getDb().getUserTable().getNameColumn(),
             db.getProtectedTable().getMissionColumn() };
     Table[] otherTables = { db.getProtectedTable() };
@@ -302,15 +302,14 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         whereClause,
                                         null);
     int count = 0;
-    for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+    for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
-      FieldSet fs = (FieldSet) 
-      ms.nextElement();
+      FieldSet fs = ms.nextElement();
       System.out.println(
           fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("protected_mission").getCookedString(PoemLocale.HERE,
+          + fs.get("Protected_mission").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
     }
     assertEquals(1,count);

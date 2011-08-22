@@ -342,9 +342,9 @@ public class DynamicTableTest extends EverythingTestCase {
       columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
       fail("Should have blown up");
     } catch (DuplicateColumnNamePoemException e) {
-      assertEquals("Can't add duplicate column dynamic.testdeletedcol: "
+      assertEquals("Can't add duplicate column Dynamic.testdeletedcol: "
               + "deleted (BOOLEAN (org.melati.poem.DeletedPoemType)) "
-              + "(from the running application) to dynamic "
+              + "(from the running application) to Dynamic "
               + "(from the data structure definition)", e.getMessage());
       e = null;
     }
@@ -379,9 +379,9 @@ public class DynamicTableTest extends EverythingTestCase {
       columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo2);
       fail("Should have blown up");
     } catch (DuplicateDeletedColumnPoemException e) {
-      assertEquals("Can't add testdeletedcol2 to dynamic as a deleted column, "
+      assertEquals("Can't add testdeletedcol2 to Dynamic as a deleted column, "
               + "because it already has one, "
-              + "i.e. dynamic.testdeletedcol: deleted "
+              + "i.e. Dynamic.testdeletedcol: deleted "
               + "(BOOLEAN (org.melati.poem.DeletedPoemType)) "
               + "(from the running application)", e.getMessage());
       e = null;

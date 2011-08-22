@@ -40,21 +40,21 @@ public class EverythingDatabaseTest extends EverythingTestCase {
    */
   public void testGetDisplayTables() {
     final String expected = 
-    "binaryField (from the data structure definition)" +
-    "stringField (from the data structure definition)" + 
-    "passwordField (from the data structure definition)" + 
-    "booleanField (from the data structure definition)" + 
-    "dateField (from the data structure definition)" + 
-    "doubleField (from the data structure definition)" + 
-    "integerField (from the data structure definition)" + 
-    "longField (from the data structure definition)" + 
-    "bigdecimalField (from the data structure definition)" + 
-    "timestampField (from the data structure definition)" + 
-    "everythingNormal (from the data structure definition)" + 
-    "eNExtended (from the data structure definition)" + 
-    "eAExtended (from the data structure definition)" + 
-    "protected (from the data structure definition)" +
-    "dynamic (from the data structure definition)" +
+    "BinaryField (from the data structure definition)" +
+    "StringField (from the data structure definition)" + 
+    "PasswordField (from the data structure definition)" + 
+    "BooleanField (from the data structure definition)" + 
+    "DateField (from the data structure definition)" + 
+    "DoubleField (from the data structure definition)" + 
+    "IntegerField (from the data structure definition)" + 
+    "LongField (from the data structure definition)" + 
+    "BigdecimalField (from the data structure definition)" + 
+    "TimestampField (from the data structure definition)" + 
+    "EverythingNormal (from the data structure definition)" + 
+    "ENExtended (from the data structure definition)" + 
+    "EAExtended (from the data structure definition)" + 
+    "Protected (from the data structure definition)" +
+    "Dynamic (from the data structure definition)" +
     "user (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 

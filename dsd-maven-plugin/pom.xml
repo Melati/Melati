@@ -32,6 +32,13 @@
       <include>NOTICE.txt</include>
      </includes>
     </resource>
+    <resource>
+     <directory>src/main/java</directory>
+     <includes>
+     <!-- Note this is a symlink in the CVS repository -->
+      <include>**/Poem.dsd</include>
+     </includes>
+    </resource>
    </resources>
   </build>
 </project>

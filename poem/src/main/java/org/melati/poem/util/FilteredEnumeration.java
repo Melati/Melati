@@ -67,7 +67,7 @@ public abstract class FilteredEnumeration <T> implements SkipEnumeration<T> {
     this.base = base;
   }
 
-  protected abstract boolean isIncluded(Object o);
+  protected abstract boolean isIncluded(T o);
 
   private void probe() {
     if (finished == -1) {

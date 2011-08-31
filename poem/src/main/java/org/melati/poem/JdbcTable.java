@@ -387,8 +387,8 @@ public class JdbcTable implements Selectable, Table {
                       ((Column)b).getDisplayOrderPriority().intValue();
                 }
               },
-              new FilteredEnumeration(columns()) {
-                public boolean isIncluded(Object column) {
+              new FilteredEnumeration<Column<?>>(columns()) {
+                public boolean isIncluded(Column<?> column) {
                   return ((Column)column).getDisplayOrderPriority() != null;
                 }
               }))) {

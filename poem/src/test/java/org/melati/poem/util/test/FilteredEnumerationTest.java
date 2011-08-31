@@ -40,8 +40,8 @@ public class FilteredEnumerationTest extends TestCase {
     v.add("d");
     v.add("e");
     it = new FilteredEnumeration<String>(v.elements()) {
-      public boolean isIncluded(Object o) {
-        return ((String)o).compareTo("c") <= 0;
+      public boolean isIncluded(String o) {
+        return o.compareTo("c") <= 0;
       }
     };
   }

@@ -104,12 +104,12 @@ public class ColumnInfo extends ColumnInfoBase {
   public void assertCanRead(AccessToken token) {
   }
 
-  private Column _column = null;
+  private Column<?> _column = null;
 
   /**
    * @return the column
    */
-  Column column() {
+  Column<?> column() {
     // I have not fathomed how this circumstance arrives, but 
     // it can.
     if (_column == null && troid() != null)
@@ -117,7 +117,7 @@ public class ColumnInfo extends ColumnInfoBase {
     return _column;
   }
 
-  void setColumn(Column column) {
+  void setColumn(Column<?> column) {
     _column = column;
   }
 
@@ -152,10 +152,10 @@ public class ColumnInfo extends ColumnInfoBase {
   */
   public void setDisplaylevelIndex(Integer index) {
     super.setDisplaylevelIndex(index);
-    Column column = column();
+    Column<?> column = column();
     if (column != null) {
       Table table = column.getTable();
-      Column previous = table.displayColumn();
+      Column<?> previous = table.displayColumn();
       if (previous != null && previous != column) {
         if (index.equals(DisplayLevel.primary.getIndex())) {
           previous.setDisplayLevel(DisplayLevel.summary);
@@ -174,11 +174,11 @@ public class ColumnInfo extends ColumnInfoBase {
    * 
    * @return an Enumeration of {@link Field}s 
    */
-  public Enumeration getDsdQualifiers() {
-    Vector v = new Vector();
-    Enumeration allFields = getFields();
+  public Enumeration<Field<?>> getDsdQualifiers() {
+    Vector<Field<?>> v = new Vector<Field<?>>();
+    Enumeration<Field<?>> allFields = getFields();
     while (allFields.hasMoreElements()) {
-      Field f = (Field) allFields.nextElement();
+      Field<?> f = allFields.nextElement();
       String n = f.getName();
       if (!(f.getType() instanceof TroidPoemType)  // The id of this columnInfo record, not the target 
           && !n.equals("name")  // Name is not a qualifier

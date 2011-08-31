@@ -164,7 +164,7 @@ public final class SortUtils {
    * @param v Vector to sort
    * @return an Array of the sorted Vector's Elements 
    */
-  public static Object[] sorted(Order cmp, Vector v) {
+  public static Object[] sorted(Order cmp, Vector<Object> v) {
     Object[] arr = ArrayUtils.arrayOf(v);
     qsort(cmp, arr);
     return arr;

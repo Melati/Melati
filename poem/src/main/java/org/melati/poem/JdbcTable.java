@@ -437,24 +437,24 @@ public class JdbcTable implements Selectable, Table {
    * @param whereClause an SQL snippet
    * @return an array of Columns
    */
-  private Column[] columnsWhere(String whereClause) {
+  private Column<?>[] columnsWhere(String whereClause) {
     // get the col IDs from the committed session
-    Enumeration colIDs =
+    Enumeration<Integer> colIDs =
         getDatabase().getColumnInfoTable().troidSelection(
             database.quotedName("tableinfo") + " = " + tableInfoID() + 
               " AND (" + whereClause + ")",
             null, false, PoemThread.inSession() ? PoemThread.transaction() : null);
 
-    Vector them = new Vector();
+    Vector<Column<?>> them = new Vector<Column<?>>();
     while (colIDs.hasMoreElements()) {
-      Column column =
+      Column<?> column =
           columnWithColumnInfoID(((Integer)colIDs.nextElement()).intValue());
       // null shouldn't happen but let's not gratuitously fail if it does
       if (column != null)
         them.addElement(column);
     }
 
-    Column[] columnsLocal = new Column[them.size()];
+    Column<?>[] columnsLocal = new Column<?>[them.size()];
     them.copyInto(columnsLocal);
     return columnsLocal;
   }
@@ -555,8 +555,8 @@ public class JdbcTable implements Selectable, Table {
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
-  public final Enumeration getSearchCriterionColumns() {
-    Column[] columnsLocal = searchColumns;
+  public final Enumeration<Column<?>> getSearchCriterionColumns() {
+    Column<?>[] columnsLocal = searchColumns;
 
     if (columnsLocal == null) {
       columnsLocal = 
@@ -564,7 +564,7 @@ public class JdbcTable implements Selectable, Table {
                                           Searchability.yes.getIndex());
       searchColumns = columnsLocal;
     }
-    return new ArrayEnumeration(searchColumns);
+    return new ArrayEnumeration<Column<?>>(searchColumns);
   }
 
   /**
@@ -667,7 +667,7 @@ public class JdbcTable implements Selectable, Table {
 
   }
 
-  private void dbAddColumn(Column column) {
+  private void dbAddColumn(Column<?> column) {
     if (column.getType().getNullable()) {
       dbModifyStructure(
           "ALTER TABLE " + quotedName() +
@@ -689,7 +689,7 @@ public class JdbcTable implements Selectable, Table {
   }
 
   
-  private void dbCreateIndex(Column column) {
+  private void dbCreateIndex(Column<?> column) {
     if (column.getIndexed()) {
       if (!dbms().canBeIndexed(column)) {
         database.log(new UnindexableLogEvent(column));
@@ -704,7 +704,7 @@ public class JdbcTable implements Selectable, Table {
     }
   }
 
-  private String indexName(Column column) { 
+  private String indexName(Column<?> column) { 
     return database.quotedName(
             dbms().unreservedName(name) + "_" + 
             dbms().unreservedName(column.getName()) + "_index");
@@ -1281,7 +1281,7 @@ public class JdbcTable implements Selectable, Table {
       if (allTroids == null &&
               // troid column can be null during unification
               troidColumn() != null)
-        allTroids = new CachedSelection(this, null, null);
+        allTroids = new CachedSelection<Integer>(this, null, null);
     }
     else
       allTroids = null;
@@ -1371,7 +1371,7 @@ public class JdbcTable implements Selectable, Table {
    *
    * @see Column#selectionWhereEq(java.lang.Object)
    */
-  public final Enumeration selection(String whereClause)
+  public final Enumeration<Persistent> selection(String whereClause)
       throws SQLPoemException {
     return selection(whereClause, null, false);
   }
@@ -1392,7 +1392,7 @@ public class JdbcTable implements Selectable, Table {
   * @return the first item satisfying criteria
   */
   public Persistent firstSelection(String whereClause) {
-    Enumeration them = selection(whereClause);
+    Enumeration<Persistent> them = selection(whereClause);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
@@ -1603,7 +1603,7 @@ public class JdbcTable implements Selectable, Table {
    * appended with AND to a parenthesised prefix.
    */
   private String canSelectClause() {
-    Column canSelect = canSelectColumn();
+    Column<Capability> canSelect = canSelectColumn();
     AccessToken accessToken = PoemThread.inSession() ? 
             PoemThread.sessionToken().accessToken : null;
     if (canSelect == null ||
@@ -1870,11 +1870,11 @@ public class JdbcTable implements Selectable, Table {
    * @param table
    * @return an Enumeration of Columns referring to the specified Table
    */
-  public Enumeration referencesTo(final Table table) {
+  public Enumeration<Column<?>> referencesTo(final Table table) {
     return
-      new FilteredEnumeration(columns()) {
-        public boolean isIncluded(Object column) {
-          PoemType type = ((Column)column).getType();
+      new FilteredEnumeration<Column<?>>(columns()) {
+        public boolean isIncluded(Column<?> column) {
+          PoemType<?> type = ((Column<?>)column).getType();
           return type instanceof ReferencePoemType &&
                  ((ReferencePoemType)type).targetTable() == table;
         }
@@ -1890,7 +1890,7 @@ public class JdbcTable implements Selectable, Table {
   private void validate(Persistent persistent)
       throws FieldContentsPoemException {
     for (int c = 0; c < columns.length; ++c) {
-      Column column = columns[c];
+      Column<?> column = columns[c];
       try {
         column.getType().assertValidRaw(column.getRaw_unsafe(persistent));
       }
@@ -2119,28 +2119,29 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @return the canReadColumn or the canSelectColumn or null
    */
-  public final Column canReadColumn() {
+  public final Column<Capability> canReadColumn() {
     return canReadColumn == null ? canSelectColumn() : canReadColumn;
   }
 
   /**
    * @return the canSelectColumn or null
    */
-  public final Column canSelectColumn() {
+  
+  public final Column<Capability> canSelectColumn() {
     return canSelectColumn;
   }
 
   /**
    * @return the canWriteColumn or null
    */
-  public final Column canWriteColumn() {
+  public final Column<Capability> canWriteColumn() {
     return canWriteColumn;
   }
 
   /**
    * @return the canDeleteColumn or null
    */
-  public final Column canDeleteColumn() {
+  public final Column<Capability> canDeleteColumn() {
     return canDeleteColumn;
   }
 
@@ -2156,14 +2157,14 @@ public class JdbcTable implements Selectable, Table {
    * @param infoP the meta data about the {@link Column} 
    * @return the newly added column
    */
-  public Column addColumnAndCommit(ColumnInfo infoP) throws PoemException {
+  public Column<?> addColumnAndCommit(ColumnInfo infoP) throws PoemException {
 
     // Set the new column up
 
     System.err.println("Adding extra column from runtime " + 
         dbms().melatiName(infoP.getName_unsafe()) + 
         " to " + name);
-    Column column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
+    Column<?> column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
                                      DefinitionSource.runtime);
     column.setColumnInfo(infoP);
 
@@ -2197,7 +2198,7 @@ public class JdbcTable implements Selectable, Table {
   public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
     database.beginStructuralModification();
     try {
-      Column column = columnInfo.column();
+      Column<?> column = columnInfo.column();
       columnInfo.delete(); // Ensure we have no references in metadata
       if (database.getDbms().canDropColumns())
         dbModifyStructure(

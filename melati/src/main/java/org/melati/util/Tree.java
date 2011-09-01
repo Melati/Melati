@@ -245,7 +245,7 @@ public class Tree {
    */
   public Vector<TreeNode> sorted(Order cmp, int depthP) {
     Vector<TreeNode> flattened = flattened(depthP);
-    Object[] sorted = SortUtils.sorted(cmp, flattened);
+    TreeNode[] sorted = SortUtils.sorted(cmp, flattened);
     System.arraycopy(sorted, 0, flattened, 0, sorted.length);
     return flattened;
   }

@@ -60,10 +60,11 @@ public final class ArrayUtils {
    * @param v the Vector
    * @return the Array
    */
-  public static Object[] arrayOf(Vector<Object> v) {
-    Object[] arr;
+  @SuppressWarnings("unchecked")
+  public  static <T> T[] arrayOf(Vector<T> v) {
+    T[] arr;
     synchronized (v) {
-      arr = new Object[v.size()];
+      arr = (T[])new Object[v.size()];
       v.copyInto(arr);
     }
     return arr;

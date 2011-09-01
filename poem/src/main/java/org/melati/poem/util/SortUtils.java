@@ -164,8 +164,8 @@ public final class SortUtils {
    * @param v Vector to sort
    * @return an Array of the sorted Vector's Elements 
    */
-  public static Object[] sorted(Order cmp, Vector<Object> v) {
-    Object[] arr = ArrayUtils.arrayOf(v);
+  public static <O> O[] sorted(Order cmp, Vector<O> v) {
+    O[] arr = ArrayUtils.arrayOf(v);
     qsort(cmp, arr);
     return arr;
   }
@@ -176,7 +176,7 @@ public final class SortUtils {
    * @param e the Enumeration to sort
    * @return an Array of the sorted Enumeration's Elements 
    */
-  public static Object[] sorted(Order cmp, Enumeration e) {
+  public static <O> O[] sorted(Order cmp, Enumeration<O> e) {
     return sorted(cmp, EnumUtils.vectorOf(e));
   }
 

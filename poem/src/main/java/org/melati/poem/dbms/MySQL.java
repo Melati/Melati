@@ -111,7 +111,7 @@ import org.melati.poem.util.StringUtils;
   * of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
   * and ib_logfile1, both of size 5MB.
   * <br/>
-  * The table type is currently hardcoded in <tt>getCreateTableOptions</tt>.
+  * The table type is currently hardcoded in <tt>createTableOptions</tt>.
   *
   * </li>
   * <li>

@@ -69,7 +69,7 @@ public class Hsqldb extends AnsiStandard {
 
   /**
    * HSQLDB does not have a pleasant <code>TEXT</code> 
-   * datatype, so we use an arbetary value in a 
+   * datatype, so we use an arbitrary value in a 
    * <code>VARCHAR</code>.
    */
   public static int hsqldbTextHack = 266;

@@ -505,6 +505,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 	  </execution>
 	</executions>
     </plugin>
+<!--
     <plugin>
      <artifactId>maven-assembly-plugin</artifactId>
      <version>2.2.1</version>
@@ -524,6 +525,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        </execution>
      </executions>
     </plugin>
+-->
    </plugins>
   </build>
 </project>

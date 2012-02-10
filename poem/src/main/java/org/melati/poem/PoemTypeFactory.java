@@ -140,8 +140,6 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory DATE;
   /** Timestamp base-type factory. */
   public static final PoemTypeFactory TIMESTAMP;
-  /** Time base-type factory. */
-  public static final PoemTypeFactory TIME;
   /** Binary base-type factory. */
   public static final PoemTypeFactory BINARY;
 
@@ -152,7 +150,8 @@ public abstract class PoemTypeFactory {
   /** Poem IntegrityFix factory. */
   public static final PoemTypeFactory  INTEGRITYFIX;
 
-  private static int n = -1;
+  /** Time base-type factory. */
+  public static final PoemTypeFactory TIME;
 
   //   private static final void extractRange(Parameter info, BasePoemType type) {
   //     try {
@@ -164,6 +163,8 @@ public abstract class PoemTypeFactory {
   //     }
   //   }
 
+  // YUCK this counter means you will need to add new types to the end of the list
+  private static int n = -1;
   static final PoemTypeFactory[] atomTypeFactories =
     {
       TROID = new PoemTypeFactory(n--) {
@@ -416,31 +417,6 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    }, TIME = new PoemTypeFactory(n--) {
-      /**
-       * {@inheritDoc}
-       * @see org.melati.poem.PoemTypeFactory#typeOf
-       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
-       */
-      public SQLPoemType typeOf(Database database, Parameter info) {
-        return new TimePoemType(info.getNullable());
-      }
-
-      /**
-       * {@inheritDoc}
-       * @see org.melati.poem.PoemTypeFactory#getName()
-       */
-      public String getName() {
-        return "TIME";
-      }
-
-      /**
-       * {@inheritDoc}
-       * @see org.melati.poem.PoemTypeFactory#getDescription()
-       */
-      public String getDescription() {
-        return "...";
-      }
     }, DISPLAYLEVEL = new PoemTypeFactory(n--) {
       /**
        * {@inheritDoc}
@@ -591,7 +567,33 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    }, };
+    }, TIME = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
+      public SQLPoemType typeOf(Database database, Parameter info) {
+        return new TimePoemType(info.getNullable());
+      }
+
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
+      public String getName() {
+        return "TIME";
+      }
+
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
+      public String getDescription() {
+        return "...";
+      }
+    },
+    };
 
   /**
    * Returns an instance given a database and the integer code for

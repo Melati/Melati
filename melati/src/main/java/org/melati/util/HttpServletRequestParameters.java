@@ -67,8 +67,7 @@ public class HttpServletRequestParameters {
    */
   public HttpServletRequestParameters(HttpServletRequest request) {
     parameters = new Hashtable<String,Object> ();
-    for (@SuppressWarnings("unchecked")
-    Enumeration<String> p = request.getParameterNames();
+    for (Enumeration<String> p = request.getParameterNames();
          p.hasMoreElements();) {
       String name = (String)p.nextElement();
       parameters.put(name, request.getParameterValues(name));

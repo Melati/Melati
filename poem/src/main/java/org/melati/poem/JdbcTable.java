@@ -2635,7 +2635,9 @@ public class JdbcTable implements Selectable, Table {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column column = _getColumn(columnInfo.getName());
       if (column == null) {
-        System.err.println("Adding extra column from info tables " + dbms().melatiName(columnInfo.getName_unsafe()));
+        System.err.println("Adding extra column " 
+          + dbms().melatiName(columnInfo.getName_unsafe()) 
+          + " to " + name + " from info tables.");
         column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
                                   DefinitionSource.infoTables);
         _defineColumn(column);

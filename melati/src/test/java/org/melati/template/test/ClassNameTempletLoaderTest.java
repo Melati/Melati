@@ -80,7 +80,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("ml", ml);
     tc.put("object", new Integer("1"));
     m.setTemplateContext(tc);
-    t.write(m.getWriter(), m.getTemplateContext(), templateEngine);
+    t.write(m.getWriter(), m.getTemplateContext());
     t = ClassNameTempletLoader.getInstance().templet(
             templateEngine, ml, "error", new Exception().getClass());
     tc = m.getTemplateContext();
@@ -89,7 +89,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     // Wrong object type, should be an Exception
     tc.put("object", new Integer("1"));
     try {
-      t.write(m.getWriter(),tc, m.getTemplateEngine());
+      t.write(m.getWriter(),tc);
       System.err.println(m.getWriter().toString());
       if(templateEngine instanceof WebmacroServletTemplateEngine)
         fail("Should have bombed");
@@ -107,7 +107,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("ml", ml);
     tc.put("object",new Exception("A message"));
     m.setTemplateContext(tc);
-    t.write(m.getWriter(),tc, m.getTemplateEngine());
+    t.write(m.getWriter(),tc);
     assertTrue(m.getWriter().toString().indexOf("A message") != -1);
 
     t = ClassNameTempletLoader.getInstance().templet(
@@ -117,7 +117,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("ml", m.getMarkupLanguage());
     tc.put("object", new AccessPoemException(getDb().getUserTable().guestUser(),new Capability("Cool")));
     m.setTemplateContext(tc);
-    t.write(m.getWriter(),tc, m.getTemplateEngine());
+    t.write(m.getWriter(),tc);
     //System.err.println(m.getWriter().toString());
     assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     
@@ -151,7 +151,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("melati", m);
     tc.put("ml", ml);
     tc.put("object", new Object());
-    t.write(m.getWriter(),tc, m.getTemplateEngine());
+    t.write(m.getWriter(),tc);
     assertTrue(m.getWriter().toString().startsWith("[java.lang.Object@"));
 
     t = ClassNameTempletLoader.getInstance().templet(
@@ -162,7 +162,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     Field<?> tableField = getDb().getColumnInfoTable().
                            getColumnInfoObject(0).getField("tableinfo");
     tc.put("object", tableField);
-    t.write(m.getWriter(),tc, m.getTemplateEngine());
+    t.write(m.getWriter(),tc);
     System.err.println(m.getWriter().toString());
     assertTrue(m.getWriter().toString().indexOf("tableinfo_button") != -1);
 
@@ -195,7 +195,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("ml", ml);
     tc.put("object", new Integer("1"));
     m.setTemplateContext(tc);
-    t.write(m.getWriter(), m.getTemplateContext(), templateEngine);
+    t.write(m.getWriter(), m.getTemplateContext());
     assertEquals("Hi, this is from a template.", m.getWriter().toString());
   }
 
@@ -224,7 +224,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     tc.put("melati", m);
     tc.put("ml", ml);
     tc.put("object", new Integer("1"));
-    t.write(m.getWriter(), tc, m.getTemplateEngine());
+    t.write(m.getWriter(), tc);
     // FIXME too much whitespace remaining
     assertEquals("[1]", m.getWriter().toString().trim());
     

@@ -40,14 +40,12 @@
  *
  *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
 package org.melati.template.velocity;
 
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
-import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 
@@ -85,11 +83,9 @@ public class VelocityTemplate implements org.melati.template.Template {
   /**
    * {@inheritDoc}
    * @see org.melati.template.Template#write
-   * (org.melati.util.MelatiWriter, org.melati.template.TemplateContext, 
-   * org.melati.template.TemplateEngine)
+   * (org.melati.util.MelatiWriter, org.melati.template.TemplateContext)
    */
-  public void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException {
+  public void write(MelatiWriter out, TemplateContext templateContext) throws TemplateEngineException {
     try {
       template.merge((VelocityContext)templateContext.getContext(),out);
     } catch (Exception e) {

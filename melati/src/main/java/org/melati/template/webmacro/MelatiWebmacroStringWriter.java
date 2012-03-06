@@ -58,8 +58,7 @@ import java.io.UnsupportedEncodingException;
  * {@link MelatiStringWriter} that can be used with WebMacro.
  *
  * @see WebmacroTemplate#write(org.melati.util.MelatiWriter, 
- *                             org.melati.template.TemplateContext, 
- *                             org.melati.template.TemplateEngine)
+ *                             org.melati.template.TemplateContext)
  */
 public class MelatiWebmacroStringWriter extends MelatiStringWriter
     implements MelatiWebmacroWriter {

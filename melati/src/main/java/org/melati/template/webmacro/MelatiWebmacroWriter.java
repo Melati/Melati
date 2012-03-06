@@ -47,8 +47,7 @@ package org.melati.template.webmacro;
  * MelatiWriter that can be used with WebMacro.
  *
  * @see WebmacroTemplate#write(org.melati.util.MelatiWriter, 
- *                             org.melati.template.TemplateContext, 
- *                             org.melati.template.TemplateEngine)
+ *                             org.melati.template.TemplateContext)
  */
 public interface MelatiWebmacroWriter {
 

@@ -47,7 +47,6 @@ package org.melati.template.webmacro;
 
 import java.io.IOException;
 
-import org.melati.template.TemplateEngine;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -78,8 +77,7 @@ public class WebmacroTemplate implements Template {
    * @param out a {@link MelatiWebmacroWriter}.
    * @throws IOException If WebMacro does
    */
-  public void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) {
+  public void write(MelatiWriter out, TemplateContext templateContext) {
     try {
       if (out instanceof MelatiWebmacroWriter) {
         MelatiWebmacroWriter mww = (MelatiWebmacroWriter)out;

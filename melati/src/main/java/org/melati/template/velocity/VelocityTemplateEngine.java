@@ -183,8 +183,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @throws NotFoundException if template not found
    */
   public void expandTemplate(MelatiWriter out, String templateName,
-      TemplateContext templateContext)
-      throws NotFoundException {
+      TemplateContext templateContext) throws NotFoundException {
     expandTemplate(out, template(templateName), templateContext);
   }
 
@@ -197,11 +196,13 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    *        the {@link org.melati.template.Template} to expand
    * @param templateContext
    *        the {@link TemplateContext} to expand the template against
+   * @see org.melati.template.TemplateEngine#expandTemplate(org.melati.util.MelatiWriter, org.melati.template.Template, org.melati.template.TemplateContext)
    */
+  @Override
   public void expandTemplate(MelatiWriter out,
       org.melati.template.Template template, TemplateContext templateContext) {
     try {
-      template.write(out, templateContext, this);
+      template.write(out, templateContext);
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof AccessPoemException) {
@@ -216,19 +217,13 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
       }
       throw problem;
     } 
+
   }
 
   /**
-   * Expand the Template against the context to a String.
-   * 
-   * @param template
-   *        the {@link org.melati.template.Template} to expand
-   * @param templateContext
-   *        the {@link TemplateContext} to expand the template against
-   * @return the interpolated template as a String
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#expandedTemplate
+   * @see org.melati.template.TemplateEngine#expandedTemplate(org.melati.template.Template, org.melati.template.TemplateContext)
    */
+  @Override
   public String expandedTemplate(org.melati.template.Template template,
       TemplateContext templateContext) {
     MelatiStringWriter s = new MelatiStringWriter();
@@ -237,13 +232,9 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   }
 
   /**
-   * Return a {@link MelatiStringWriter}.
-   * 
-   * @return a MelatiStringWriter
-   * {@inheritDoc}
-   * @see Melati#getStringWriter()
    * @see org.melati.template.TemplateEngine#getStringWriter()
    */
+  @Override
   public MelatiStringWriter getStringWriter() {
     return new MelatiStringWriter();
   }
@@ -251,10 +242,12 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   /**
    * Get the underlying engine.
    * 
+   * @see org.melati.template.TemplateEngine#getEngine()
    * @return null - for velocity there is none.
    */
+  @Override
   public Object getEngine() {
     return null;
   }
-  
+
 }

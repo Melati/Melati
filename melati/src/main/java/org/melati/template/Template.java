@@ -58,9 +58,7 @@ public interface Template {
    * Write the interpolated Template to a Writer.
    * @param out the MelatiWroter to write to 
    * @param templateContext the Context to interpolate the Template with regard to
-   * @param engine the engine to interpolate the template with
    * @throws TemplateEngineException if thrown by TemplateEngine
    */
-  void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException;
+  void write(MelatiWriter out, TemplateContext templateContext) throws TemplateEngineException;
 }

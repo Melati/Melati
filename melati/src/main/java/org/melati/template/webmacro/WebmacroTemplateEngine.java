@@ -170,7 +170,7 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
                              org.melati.template.Template template, 
                              TemplateContext templateContext) {
     try {
-      template.write(out, templateContext, this);
+      template.write(out, templateContext);
     } catch (TemplateEngineException problem) {
       // underlying will always be a PropertyException
       PropertyException underlying = (PropertyException)problem.subException;

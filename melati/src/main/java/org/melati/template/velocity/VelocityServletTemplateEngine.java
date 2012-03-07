@@ -54,11 +54,13 @@ import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateIOException;
+import org.melati.util.DelegatedHttpServletRequest;
 import org.melati.util.MelatiWriter;
 
 /**
+ * @author timp
  * @since 22 Aug 2007
- * 
+ *
  */
 public class VelocityServletTemplateEngine extends VelocityTemplateEngine
         implements ServletTemplateEngine {
@@ -74,17 +76,19 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    * Construct a new Engine for use in a servlet environment. For Velocity this
    * is no different to initialisation outside of a servlets environment.
    * 
-   * @see org.melati.servlet.TemplateServlet
    * @param melatiConfig
    *          a {@link MelatiConfig}
    * @param servlet
    *          the servlet we are within
    * @throws TemplateEngineException
    *           if any problem occurs with the engine
+   * @see org.melati.template.ServletTemplateEngine#init(org.melati.MelatiConfig, javax.servlet.http.HttpServlet)
    */
+  @Override
   public void init(MelatiConfig melatiConfig, HttpServlet servlet)
           throws TemplateEngineException {
     init(melatiConfig);
+    
   }
 
   /**
@@ -94,8 +98,10 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    * @param buffered
    *          whether the writer should be buffered
    * @return a {@link MelatiWriter} appropriate for this engine.
+   * @see org.melati.template.ServletTemplateEngine#getServletWriter(javax.servlet.http.HttpServletResponse, boolean)
    */
-  public MelatiWriter getServletWriter(HttpServletResponse response,
+  @Override
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
           boolean buffered) {
     if (buffered) {
       try {
@@ -118,13 +124,12 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    * @param melati
    *        the {@link Melati}
    * @return a {@link TemplateContext}
+   * @see org.melati.template.ServletTemplateEngine#getServletTemplateContext(org.melati.Melati)
    */
-  public ServletTemplateContext getServletTemplateContext(Melati melati) {
+  @Override
+  public ServletTemplateContext getServletTemplateContext(Melati melati) throws TemplateEngineException {
     VelocityContext context = new VelocityContext();
-    org.melati.template.velocity.HttpServletRequestWrap req = 
-      new org.melati.template.velocity.HttpServletRequestWrap(
-          melati.getRequest());
-    context.put(VelocityServletTemplateContext.REQUEST, req);
+    context.put(VelocityServletTemplateContext.REQUEST, new DelegatedHttpServletRequest(melati.getRequest()));
     context.put(VelocityServletTemplateContext.RESPONSE, melati.getResponse());
     return new VelocityServletTemplateContext(context);
   }

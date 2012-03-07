@@ -63,7 +63,8 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
    * @param output OutputStream to write to
    * @param encoding character encoding to use 
    */
-  public MelatiBufferedVelocityWriter(OutputStream output, String encoding)
+  public MelatiBufferedVelocityWriter(OutputStream output, 
+                                     String encoding)
       throws IOException {
     super(new ByteArrayOutputStream(), encoding);
     buffer = (ByteArrayOutputStream)outputStream;
@@ -82,7 +83,6 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
   
 
   /**
-   * {@inheritDoc}
    * @see org.melati.template.velocity.MelatiVelocityWriter#close()
    */
   public void close() throws IOException {
@@ -98,7 +98,6 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
   }
   
   /**
-   * {@inheritDoc}
    * @see org.melati.util.MelatiWriter#flush()
    */
   public void flush() throws IOException {

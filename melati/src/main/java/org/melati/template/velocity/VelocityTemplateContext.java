@@ -42,7 +42,7 @@
  */
 package org.melati.template.velocity;
 
-import org.apache.velocity.VelocityContext;
+
 import org.apache.velocity.app.event.EventCartridge;
 import org.melati.template.TemplateContext;
 
@@ -53,15 +53,15 @@ import org.melati.template.TemplateContext;
  */
 public class VelocityTemplateContext implements TemplateContext {
 
-  /** The webcontext. */
-  public VelocityContext velContext;
+  /** The velocity context. */
+  public org.apache.velocity.VelocityContext velocityContext;
 
   /**
    * Constructor.
    * @param vc context
    */
-  public VelocityTemplateContext(VelocityContext vc) {    
-    velContext = vc;
+  public VelocityTemplateContext(org.apache.velocity.VelocityContext vc) {    
+    velocityContext = vc;
     setPropagateExceptionHandling();
   }    
 
@@ -69,8 +69,8 @@ public class VelocityTemplateContext implements TemplateContext {
    * {@inheritDoc}
    * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
    */
-  public void put(String s, Object o) {    
-    velContext.put(s,o);    
+  public Object put(String s, Object o) {    
+    return velocityContext.put(s,o);    
   }
 
   /**
@@ -78,7 +78,7 @@ public class VelocityTemplateContext implements TemplateContext {
    * @see org.melati.template.TemplateContext#get(java.lang.String)
    */
   public Object get(String s) {    
-    return velContext.get(s);    
+    return velocityContext.get(s);    
   }
 
   /**
@@ -86,7 +86,7 @@ public class VelocityTemplateContext implements TemplateContext {
    * @see org.melati.template.TemplateContext#getContext()
    */
   public Object getContext() {    
-    return velContext;    
+    return velocityContext;    
   }
 
   /**
@@ -94,12 +94,12 @@ public class VelocityTemplateContext implements TemplateContext {
    * @see org.melati.template.TemplateContext#setPassbackExceptionHandling()
    */
   public void setPassbackExceptionHandling() {
-    EventCartridge ec = velContext.getEventCartridge();    
+    EventCartridge ec = velocityContext.getEventCartridge();    
     if (ec == null) {    
       ec = new EventCartridge();    
-      velContext.attachEventCartridge(ec);    
+      velocityContext.attachEventCartridge(ec);    
     }    
-    ec.addEventHandler(new PassbackEvaluationExceptionHandler(velContext));        
+    ec.addEventHandler(new PassbackEvaluationExceptionHandler(velocityContext));        
   }
 
   /**
@@ -107,10 +107,10 @@ public class VelocityTemplateContext implements TemplateContext {
    * @see org.melati.template.TemplateContext#setPropagateExceptionHandling()
    */
   public void setPropagateExceptionHandling() {
-    EventCartridge ec = velContext.getEventCartridge();    
+    EventCartridge ec = velocityContext.getEventCartridge();    
     if (ec == null) {    
       ec = new EventCartridge();    
-      velContext.attachEventCartridge(ec);    
+      velocityContext.attachEventCartridge(ec);    
     }    
     ec.addEventHandler(new PropagateEvaluationExceptionHandler());        
   }

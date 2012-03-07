@@ -42,7 +42,6 @@
  */
 package org.melati.template.freemarker;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,8 +82,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
   public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
       config = new Configuration();
-      config.setDirectoryForTemplateLoading(
-              new File("src/test/java"));
+      config.setClassForTemplateLoading(this.getClass(), "/"); // note first argument redundant
       config.setObjectWrapper(new DefaultObjectWrapper());
     } catch (Exception e) {
       throw new TemplateEngineException(e);
@@ -126,7 +124,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
     try {
       t = config.getTemplate(templateName);
     } catch (FileNotFoundException e) {
-      throw new NotFoundException("Could not find template " + templateName);
+      throw new NotFoundException("Could not find template " + templateName, e);
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }

@@ -100,14 +100,14 @@ public final class ClassNameTempletLoader implements TempletLoader {
                                String purpose, String name) {
     if (purpose == null)
       return 
-                 templetsPath(templateEngine, markupLanguage) + 
-                 name +
-                 templateEngine.templateExtension();
+        templetsPath(templateEngine, markupLanguage) + 
+        name +
+        templateEngine.templateExtension();
     return 
-               templetsPath(templateEngine, markupLanguage) + 
-               purpose + "/" + 
-               name +
-               templateEngine.templateExtension();
+        templetsPath(templateEngine, markupLanguage) + 
+        purpose + "/" + 
+        name +
+        templateEngine.templateExtension();
   }
 
   protected static String classpathTempletPath(Class<?> clazz, TemplateEngine templateEngine) { 

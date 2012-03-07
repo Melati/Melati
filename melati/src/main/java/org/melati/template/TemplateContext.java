@@ -38,14 +38,17 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp AT paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.template;
 
+
 /**
  * A Context for use by a {@link TemplateEngine} to expand a {@link Template} 
  * against.
+ * 
+ * TODO Extend Map
  * 
  * @see ServletTemplateContext
  */
@@ -54,10 +57,10 @@ public interface TemplateContext {
   /**
    * Put an object into the Context with a key.
    * 
-   * @param s the key
-   * @param o the object
+   * @param key the key
+   * @param value the object
    */
-  void put(String s, Object o);
+  Object put(String key, Object value);
 
   /**
    * Get an object from the Context by key.

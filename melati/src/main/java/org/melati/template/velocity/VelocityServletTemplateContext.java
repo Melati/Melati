@@ -47,6 +47,8 @@ package org.melati.template.velocity;
 import javax.servlet.http.HttpSession;    
     
 import org.melati.template.ServletTemplateContext;    
+import org.melati.template.SimpleForm;
+import org.melati.util.DelegatedHttpServletRequest;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.servlet.MultipartFormField;    
 import org.apache.velocity.VelocityContext;    
@@ -76,7 +78,7 @@ public class VelocityServletTemplateContext
   /** Mimicking the $Form behaviour of Webmacro. */
   public static final String FORM = "Form";
     
-  private Form form;
+  private SimpleForm form;
   
   /**
    * Constructor.
@@ -84,8 +86,8 @@ public class VelocityServletTemplateContext
    */
   public VelocityServletTemplateContext(VelocityContext vc) {
     super(vc);
-    form = new Form((HttpServletRequestWrap)velContext.get(REQUEST));
-    velContext.put(FORM, form);
+    form = new SimpleForm((DelegatedHttpServletRequest)velocityContext.get(REQUEST));
+    velocityContext.put(FORM, form);
   }    
     
   /**
@@ -110,7 +112,7 @@ public class VelocityServletTemplateContext
    * @see org.melati.template.ServletTemplateContext#getSession()
    */
   public HttpSession getSession() {    
-    return ((HttpServletRequestWrap)velContext.get(REQUEST)).getSession(true);    
+    return ((DelegatedHttpServletRequest)velocityContext.get(REQUEST)).getSession(true);    
   }
     
 }    

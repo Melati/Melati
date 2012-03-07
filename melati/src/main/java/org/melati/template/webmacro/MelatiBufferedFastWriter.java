@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj AT paneris.org>
  */
 
 package org.melati.template.webmacro;
@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.webmacro.Broker;
 
 /**
- * Writes to a buffered output object.
+ * Writes to a buffered output stream.
  */
 
 public class MelatiBufferedFastWriter extends MelatiFastWriter {
@@ -96,6 +96,9 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
     this(new ByteArrayOutputStream(), encoding);
   }
 */
+  /**
+   * @see org.melati.template.velocity.MelatiVelocityWriter#close()
+   */
   public void close() throws IOException {
     super.close();
     buffer.writeTo(underlying);
@@ -104,6 +107,9 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
     underlying.close();
   }
   
+  /**
+   * @see org.melati.util.MelatiWriter#flush()
+   */
   public void flush() throws IOException {
     out.flush();
     buffer.writeTo(underlying);

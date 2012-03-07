@@ -50,6 +50,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Enumeration;
+
 import javax.servlet.http.HttpSession;
 import org.melati.Melati;
 import org.melati.servlet.MultipartFormField;
@@ -129,8 +130,8 @@ public class MultipartTemplateContext implements ServletTemplateContext {
    * {@inheritDoc}
    * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
    */
-  public void put(String s, Object o) {
-    peer.put(s,o);
+  public Object put(String s, Object o) {
+    return peer.put(s,o);
   }
 
   /**
@@ -199,7 +200,6 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     peer.setPropagateExceptionHandling();    
   }
 
-  
 }
 
 

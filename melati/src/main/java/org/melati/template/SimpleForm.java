@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2008 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,49 +38,42 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj At paneris.org>
- *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
-package org.melati.template.velocity;
+
+package org.melati.template;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-import org.melati.util.DelegatedHttpServletRequest;
-
 /**
- * A wrapper around an HttpServletRequest.
+ * Mimicking the $Form behaviour of Webmacro in Velocity and Freemarker, 
+ * possibly not a good thing. 
+ * 
+ * @author timp
+ * @since  1 Apr 2008
  *
  */
+public class SimpleForm {
 
-public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
+  /**
+   * The request object from the VelocityContext.
+   */
+  final HttpServletRequest _request;
+  
+  /**
+   * Constructor.
+   */
+  public SimpleForm(final HttpServletRequest r) {
+    _request = r;
+  }
 
-    /**
-     *  Constructor.
-     *
-     *  @param peer HttpServletRequest object to wrap
-     */
-    public HttpServletRequestWrap(HttpServletRequest peer) {
-        super(peer);
-    }
+  /**
+   * Get a form value.
+   * NOTE this only returns the first value for a parameter. 
+   */
+  final public String get(String formFieldName) {
+      return  _request.getParameter(formFieldName);
+  }
 
-    /**
-     *  Accessor to allow one to retrieve the wrapped 
-     *  HttpServletRequest.
-     *
-     *  @return Wrapped HttpServletRequest
-     */
-    public HttpServletRequest getWrappedObject() {
-        return peer;
-    }
-   
-    /**
-     *  Accessor to allow one to retrieve the parameters.
-     *
-     *  @return Parameter as String
-     */
-    public String get(String name) {
-        return getParameter(name);
-    }
 }

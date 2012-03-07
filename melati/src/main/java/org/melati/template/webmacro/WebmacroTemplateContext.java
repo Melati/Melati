@@ -75,8 +75,8 @@ public class WebmacroTemplateContext implements TemplateContext {
    * @param o value
    * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
    */
-  public void put(String s, Object o) {
-    context.put(s,o);
+  public Object put(String s, Object o) {
+    return context.put(s,o);
   }
 
   /**

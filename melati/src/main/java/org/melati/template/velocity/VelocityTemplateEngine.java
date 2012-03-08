@@ -127,6 +127,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * 
    * @return the name of the current configured template engine
    */
+  @Override
   public String getName() {
     return NAME;
   }
@@ -134,6 +135,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   /**
    * @return the extension of the templates used by Velocity, including the dot.
    */
+  @Override
   public String templateExtension() {
     return ".vm";
   }
@@ -146,6 +148,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
    * @return a template
    * @throws NotFoundException if template not found
    */
+  @Override
   public org.melati.template.Template template(String templateName)
       throws NotFoundException {
     try {

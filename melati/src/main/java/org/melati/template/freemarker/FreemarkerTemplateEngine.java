@@ -59,8 +59,9 @@ import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
+import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
+//import freemarker.template.DefaultObjectWrapper;
 
 /**
  * Wrapper for the Freemarker Template Engine for use with Melati.
@@ -83,7 +84,10 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
     try {
       config = new Configuration();
       config.setClassForTemplateLoading(this.getClass(), "/"); // note first argument redundant
-      config.setObjectWrapper(new DefaultObjectWrapper());
+      BeansWrapper bw = new BeansWrapper();
+      bw.setExposureLevel(BeansWrapper.EXPOSE_ALL);
+      config.setObjectWrapper(bw);
+      //config.setObjectWrapper(new DefaultObjectWrapper());
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
@@ -112,7 +116,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
    */
   @Override
   public String templateExtension() {
-    return ".vm";
+    return ".fml";
   }
 
   /**
@@ -132,14 +136,6 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
   }
 
 
-  /**
-   * @see org.melati.template.TemplateEngine#getTemplateName(java.lang.String, java.lang.String)
-   */
-  @Override
-  public String getTemplateName(String key, String classifier) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
   /**
    * @see org.melati.template.TemplateEngine#expandTemplate(org.melati.util.MelatiWriter, java.lang.String, org.melati.template.TemplateContext)
@@ -194,9 +190,10 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
 
   /**
    * Get the underlying engine.
+   * Only used by WebMacro, deprecated.
    * 
    * @see org.melati.template.TemplateEngine#getEngine()
-   * @return null - for velocity there is none.
+   * @return null - for Freemarker we do not expose this
    */
   @Override
   public Object getEngine() {

@@ -68,8 +68,10 @@ public class WebMacroClasspathResourceLoader
     extends ClasspathResourceLoader {
   
   /**
-   * Get an InputStream so that the Runtime can build a
+   * Get an InputStream so that the Velocity Runtime can build a
    * template with it, munge it if it is a WM template.
+   *
+   * FIXME Hardcoded paths 
    *
    * @param templateName name of template to get
    * @return InputStream containing the template

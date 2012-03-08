@@ -336,8 +336,9 @@ Needed by jwebunit 3.0
      <includes>
       <include>**/*.dsd</include>
       <include>**/*.properties</include>
-      <include>**/*.wm</include>
+      <include>**/*.fml</include>
       <include>**/*.vm</include>
+      <include>**/*.wm</include>
      </includes>
     </testResource>
    </testResources>
@@ -354,8 +355,9 @@ Needed by jwebunit 3.0
     <resource>
      <directory>src/main/java</directory>
      <includes>
-      <include>**/*.wm</include>
+      <include>**/*.fml</include>
       <include>**/*.vm</include>
+      <include>**/*.wm</include>
       <include>**/*.dsd</include>
       <include>**/*.defaults</include>
      </includes>

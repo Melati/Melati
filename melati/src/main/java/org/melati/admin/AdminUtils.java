@@ -224,6 +224,10 @@ public class AdminUtils {
     url += "/Bottom";
     return url;
   }
+  public String bottomURL(Melati melati) {
+    return BottomURL(melati);
+  }
+  
   /**
    * @return The Left URL.
    */

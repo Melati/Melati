@@ -1,0 +1,61 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 Tim Joyce
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#-- Melati is free software; Permission is granted to copy, distribute
+--><#-- and/or modify this software under the terms either:
+--><#--
+--><#-- (a) the GNU General Public License as published by the Free Software
+--><#--    Foundation; either version 2 of the License, or (at your option)
+--><#--    any later version,
+--><#--
+--><#--    or
+--><#--
+--><#-- (b) any version of the Melati Software License, as published
+--><#--    at http://melati.org
+--><#--
+--><#-- You should have received a copy of the GNU General Public License and
+--><#-- the Melati Software License along with this program;
+--><#-- if not, write to the Free Software Foundation, Inc.,
+--><#-- 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+--><#-- GNU General Public License and visit http://melati.org to obtain the
+--><#-- Melati Software License.
+--><#--
+--><#-- Feel free to contact the Developers of Melati (http://melati.org),
+--><#-- if you would like to work out a different arrangement than the options
+--><#-- outlined here.  It is our intention to allow Melati to be used by as
+--><#-- wide an audience as possible.
+--><#--
+--><#-- This program is distributed in the hope that it will be useful,
+--><#-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+--><#-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--><#-- GNU General Public License for more details.
+--><#--
+--><#-- Contact details for copyright holder:
+--><#--
+--><#--     Tim Joyce <TimJ At paneris.org>
+--><#--     http://paneris.org/~timj
+--><#--
+--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+            "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+<head>
+ <title>Melati Database Admin Suite - Select a ${ml.rendered(melati.table.displayName)}</title>
+ <meta name="version" content="CVS Id: SelectionWindow.vm,v 1.1 2010/02/12 09:52:28 timp Exp $">
+</head>
+
+  <frameset frameborder="no" rows="46,*">
+    <frame name="selectionwindow_primaryselect" src="${admin.selectionWindowPrimarySelectURL(melati.Table)}?returnfield=${Form.returnfield}" marginwidth="0" marginheight="5" frameborder="0" scrolling="auto">
+    <frame name="selectionwindow_selection" src="${admin.selectionWindowSelectionURL(melati.Table)}?returnfield=${Form.returnfield}" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto">
+  </frameset>
+
+<noframes>
+No frames?
+</noframes>
+
+</html>

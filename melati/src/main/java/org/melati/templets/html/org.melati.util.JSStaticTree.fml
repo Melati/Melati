@@ -1,0 +1,125 @@
+<#--
+--><#-- Copyright (C) 2002 Myles Chippendale
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#-- Melati is free software; Permission is granted to copy, distribute
+--><#-- and/or modify this software under the terms either:
+--><#--
+--><#-- (a) the GNU General Public License as published by the Free Software
+--><#--    Foundation; either version 2 of the License, or (at your option)
+--><#--    any later version,
+--><#--
+--><#--    or
+--><#--
+--><#-- (b) any version of the Melati Software License, as published
+--><#--    at http://melati.org
+--><#--
+--><#-- You should have received a copy of the GNU General Public License and
+--><#-- the Melati Software License along with this program;
+--><#-- if not, write to the Free Software Foundation, Inc.,
+--><#-- 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+--><#-- GNU General Public License and visit http://melati.org to obtain the
+--><#-- Melati Software License.
+--><#--
+--><#-- Feel free to contact the Developers of Melati (http://melati.org),
+--><#-- if you would like to work out a different arrangement than the options
+--><#-- outlined here.  It is our intention to allow Melati to be used by as
+--><#-- wide an audience as possible.
+--><#--
+--><#-- This program is distributed in the hope that it will be useful,
+--><#-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+--><#-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--><#-- GNU General Public License for more details.
+--><#--
+--><#-- Contact details for copyright holder:
+--><#--
+--><#--     Mylesc Chippendale <mylesc At paneris.org>
+--><#--     http://paneris.org/
+--><#--
+--><#--     Tim Pizey <timp At paneris.org>
+--><#--     http://paneris.org/~timp/
+--><#--
+--><#--
+-->
+<#assign tree = object>
+<!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
+<script language="JavaScript1.2" type="text/javascript" 
+        src="${melati.javascriptLibraryURL}/statictrees.js"></script>
+
+<script language="JavaScript1.2" type="text/javascript" >
+
+function init() {
+  
+    <#-- NOTE sizes hard coded
+-->    // Preloading images gives big speed improveemnt on firefox
+    if (document.images)
+    {
+      var vertline = new Image(16,22);
+      vertline.src = "${tree.verticalLinkImage}";
+      var spacer = new Image(600, 72);
+      spacer.src = "${tree.spacerImage}";
+      var node_minus = new Image(16,22);
+      node_minus.src = "${tree.openedTImage}";  
+      var lastnode_minus = new Image(16,22);
+      lastnode_minus.src = "${tree.openedLImage}";  
+      var node_plus = new Image(16,22);
+      node_plus.src = "${tree.closedTImage}";  
+      var lastnode_plus = new Image(16,22);
+      lastnode_plus.src = "${tree.closedLImage}";  
+      var node = new Image(16,22);
+      node.src = "${tree.leafTImage}";    
+      var last_node = new Image(16,22);
+      last_node = "${tree.leafLImage}";
+      var openfolder = new Image(24,22);
+      openfolder.src = "${tree.openedFolderImage}";
+      var closedfolder = new Image(24,22);
+      closedfolder.src = "${tree.closedFolderImage}";
+      var file = new Image(8,10);
+      file.src = "${tree.leafImage}";
+    }
+
+  
+  // Go through nodes adding items and lists
+
+
+<#foreach node in tree.flattened(tree.depthPerDownload)>    Node${node.uniqueName} = new TreeNode("${ml.rendered(node)}" , ${node.depth}, ${node.isLeaf()}, "${node.uniqueName}","${node.data.table.name}",${node.data.troid});
+  <#if node.parent>  
+      Node${node.uniqueName}.setParent(Node${node.parent.uniqueName});
+
+  </#if></#foreach>
+
+
+  var roots=[];
+  
+  <#foreach root in tree.flattened(0)>  roots[roots.length] = Node${root.uniqueName};
+  </#foreach>
+  theTree = new StaticTree(document.getElementById("content"),
+                roots,                
+                false,                     <#-- selectNodes
+-->                false,                     <#-- selectLeaves
+-->                "${tree.backgroundColour}",
+                "",                        <#-- no stylesheet set
+-->                "${tree.verticalLinkImage}",
+                "${tree.spacerImage}",
+                "${tree.openedTImage}",  
+                "${tree.openedLImage}",  
+                "${tree.closedTImage}",  
+                "${tree.closedLImage}",  
+                "${tree.leafTImage}",    
+                "${tree.leafLImage}",     
+                "${tree.openedFolderImage}",
+                "${tree.closedFolderImage}",
+                "${tree.leafImage}");
+    theTree.display();
+  }
+
+  // In case someone forgets the onload in the body tag
+  // :( does not work on IE, do remember to put this in your body tag
+  //if (window.onload == null) window.onload = init;
+  // -->
+</script>
+
+
+<!-- end org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->

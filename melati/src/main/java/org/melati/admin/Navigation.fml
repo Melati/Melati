@@ -1,0 +1,112 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 Tim Joyce
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#-- Melati is free software; Permission is granted to copy, distribute
+--><#-- and/or modify this software under the terms either:
+--><#--
+--><#-- (a) the GNU General Public License as published by the Free Software
+--><#--    Foundation; either version 2 of the License, or (at your option)
+--><#--    any later version,
+--><#--
+--><#--    or
+--><#--
+--><#-- (b) any version of the Melati Software License, as published
+--><#--    at http://melati.org
+--><#--
+--><#-- You should have received a copy of the GNU General Public License and
+--><#-- the Melati Software License along with this program;
+--><#-- if not, write to the Free Software Foundation, Inc.,
+--><#-- 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+--><#-- GNU General Public License and visit http://melati.org to obtain the
+--><#-- Melati Software License.
+--><#--
+--><#-- Feel free to contact the Developers of Melati (http://melati.org),
+--><#-- if you would like to work out a different arrangement than the options
+--><#-- outlined here.  It is our intention to allow Melati to be used by as
+--><#-- wide an audience as possible.
+--><#--
+--><#-- This program is distributed in the hope that it will be useful,
+--><#-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+--><#-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--><#-- GNU General Public License for more details.
+--><#--
+--><#-- Contact details for copyright holder:
+--><#--
+--><#--     Tim Joyce <timj At paneris.org>
+--><#--     http://paneris.org/~timj
+--><#--
+--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>Melati Database Admin Suite - Navigation</title>
+ <meta name="version" content="CVS Id: Navigation.vm,v 1.1 2010/02/12 09:52:28 timp Exp $">
+ <link rel="stylesheet" title="Default" href="${admin.getScreenStylesheetURL(melati)}"
+      type="text/css" media="screen">
+<script TYPE="text/javascript">
+<!--
+  if (top.admin_search && !top.admin_search.closed) {
+    top.admin_search.close();
+  }
+
+  function openWindow() {
+    top.admin_search = window.open("", "admin_search", "width=470,height=500,resizable=yes,scrollbars=yes");
+    if (top.admin_search != null) {
+      top.admin_search.location.href = '${admin.popUpURL(melati.Table)}';
+      top.admin_search.focus();
+    }
+    return false;
+  }
+
+//-->
+</script>
+</HEAD>
+<BODY BGCOLOR="#dddddd" id="navigation">
+
+<DIV align="CENTER">
+<TABLE cellpadding="0" cellspacing="0" border="0">
+<TR>
+<TD>
+   <a onClick ='openWindow();'
+      href='${admin.popUpURL(melati.Table)}' 
+      id="search"
+      target='admin_search'
+      title='Open search window'><IMG 
+      src='${admin.staticURL}/search.gif' 
+      border='0' 
+      alt='Search ${melati.table.displayName}' /></a>
+  </TD>
+</TR>
+<TR>
+  <TD>
+    <a href='${admin.addURL(melati.Table)}?returnTarget=parent.admin_left.admin_selection&amp;returnURL=${ml.encoded(admin.selectionURL(melati.Table))}' 
+       title="New ${melati.table.displayName}" 
+       id="add"
+       target="admin_record"><IMG 
+           src="${admin.staticURL}/edit_file.gif" 
+           border="0" 
+           alt="New ${melati.table.displayName}" /></a>
+  </TD>
+</TR>
+<TR>
+  <TD>
+<script type="text/javascript"> 
+ <!--
+  document.write ("<a href='${admin.treeURL(melati.Table)}?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=${ml.encoded(admin.selectionURL(melati.Table))}'");
+  document.write ("     target='admin_selection'");
+  document.write ("     id='tableTree'");
+  document.write ("     title='Display tree view'");
+  document.write ("     ><img src='${admin.staticURL}/tree.gif' alt='Tree view' border='0' /></a>");
+ // -->
+</script>
+  </TD>
+</TR>
+</TABLE>
+</DIV>
+</BODY>
+</HTML>

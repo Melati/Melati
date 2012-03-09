@@ -1,0 +1,20 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 William Chesters
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#--
+--><#-- Expecting $object to be a Field
+--><select 
+  id="field_${ml.rendered(object.name)}"
+  name="field_${ml.rendered(object.name)}">
+  <#foreach poss in object.First1000Possibilities>    <option value="${ml.attr.rendered(poss.rawString)}">
+      <#if poss.rawString.equals("") && nullValue>        ${ml.rendered(nullValue)}
+     <#else>        ${ml.rendered(poss)}
+      </#if>    </option>
+  </#foreach></select>
+

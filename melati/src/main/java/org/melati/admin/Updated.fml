@@ -1,0 +1,87 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 William Chesters
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#--
+--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>Updated a ${ml.rendered(melati.table.displayName)} Record</title>
+ <meta name="version" content="CVS Id: Updated.vm,v 1.6 2010/02/12 09:52:28 timp Exp $">
+ <link rel="stylesheet" title="Default" href="${admin.getScreenStylesheetURL(melati)}"
+      type="text/css" media="screen">
+<!-- 
+return target = 
+<#if Form.returnTarget>${Form.returnTarget}
+</#if>return url = 
+<#if Form.returnURL>${Form.returnURL}
+</#if>
+-->
+
+<#if melati.getTable().getName().equals("tableinfo")> <script type="text/javascript">
+  function reload() {
+   <#if object>    top.location.href="${object.troid()}/Main";
+  <#else>    top.location.href="Main";
+   </#if>  }
+ </script>
+<#else>  <#if Form.returnTarget> <script type="text/javascript">
+  function reload() {
+    ${Form.returnTarget}.location.href="${Form.returnURL}";
+    ${Form.returnTarget}.focus();
+  }
+ </script>
+ <#else>    <#if Form.returnURL> <script type="text/javascript">
+  function reload() {
+    location.href="${Form.returnURL}";
+  }
+ </script>
+   <#else> <script type="text/javascript">
+  function reload() {
+    location.href="Edit";
+  }
+ </script>
+    </#if>  </#if></#if><#if Form.returnfield> <script language="JavaScript" TYPE="text/javascript">
+  function updateCaller(returnfield, id, value) {
+    opener.updateFromPopup(parent, returnfield, id, value)
+  }
+ </script>
+</HEAD>
+<BODY bgcolor="#cccccc" 
+      onLoad="updateCaller('${Form.returnfield}',${melati.object.troid},'${ml.escaped(melati.object)}')"
+      id="done">
+<#else></HEAD>
+<BODY bgcolor="#cccccc" onLoad="reload()" id="done">
+</#if><br/><br/><br/><br/>
+<h3 align="center">
+  <font face="Arial, Helvetica">
+    <a 
+<#if melati.getTable().getName().equals("tableinfo")>   <#if object>        href="${admin.mainURL(melati.Table, object)}"
+  <#else>        href="${admin.mainURL(melati.Table)}"
+   </#if>        target="_top"
+<#else>  <#if Form.returnURL>        href="${Form.returnURL}"
+  <#else>    <#if melati.method == "Created">        href="${melati.object.troid()}/Edit"  
+   <#else>        href="Edit"  
+    </#if>  </#if>  <#if Form.returnTarget>        target="${admin.simpleName(Form.returnTarget)}"
+ <#else>        target=""
+  </#if></#if>
+        id="continue"
+    >Done</a>
+  </font>
+</h3>
+
+<#-- Used in testCreateTableStory 
+--><form method="GET" action="?">
+<input type="hidden" name="troid"
+<#if melati.object>  value="${melati.object.troid()}"
+  source="melati"
+<#else>  <#if object>    value="${object.troid()}"
+    source="object"
+  </#if></#if>>
+</form>
+</BODY>
+</HTML>

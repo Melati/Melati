@@ -1,0 +1,80 @@
+<#--
+--><#-- $Id$
+--><#--
+--><#-- Copyright (C) 2006 Tim Pizey
+--><#--
+--><#-- Part of Melati and subject to http://melati.org/Licence.html.
+--><#--
+--><#assign melati.responseContentType = "text/html"><#assign ml = melati.htMLMarkupLanguage><?xml version=\"1.0\" encoding="${melati.response.characterEncoding}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>${servlet.servletName}</title>
+</head>
+<body>
+<h1>Test Email sending</h1>
+<#if error><font color="red">
+${error}
+</font>
+</#if><#if done><h2>Sent</h2>
+<p>
+Check your email.
+</p>
+</#if><form method="post" enctype="multipart/form-data" >
+<table>
+ <tr>
+  <th>Smtp Server</th>
+  <td>
+   <input type="text" name="SMTPServer" value="localhost" />
+  </td>
+ </tr>
+ <tr>
+  <th>To</th>
+  <td>
+   <input type="text" name="to" value="timp@paneris.org" />
+  </td>
+ </tr>
+ <tr>
+  <th>From</th>
+  <td>
+   <input type="text" name="from" value="from@paneris.co.uk" />
+  </td>
+ </tr>
+ <tr>
+  <th>Subject</th>
+  <td>
+   <input type="text" name="subject" value="Test of org.melati.util.Email" />
+  </td>
+ </tr>
+ <tr>
+  <th>Message</th>
+  <td>
+   <textarea rows="10" cols="30" name="message" >
+<h1> Test of org.melati.util.Email</h1>
+    <img src="003.jpg">
+   </textarea>
+  </td>
+ </tr>
+ <tr>
+  <th>Referenced File</th>
+  <td>
+<input type="file" name="referencedFile">
+  </td>
+ </tr>
+ <tr>
+ <tr>
+  <th>Attachment</th>
+  <td>
+<input type="file" name="attachedFile">
+  </td>
+ </tr>
+ <tr>
+  <th colspan="2">
+   <input type="submit"> 
+  </th>
+ </tr>
+</table>
+</form>
+</body>
+</html>

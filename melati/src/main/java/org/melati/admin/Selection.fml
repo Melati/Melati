@@ -1,0 +1,135 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 Tim Joyce
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#-- Melati is free software; Permission is granted to copy, distribute
+--><#-- and/or modify this software under the terms either:
+--><#--
+--><#-- (a) the GNU General Public License as published by the Free Software
+--><#--    Foundation; either version 2 of the License, or (at your option)
+--><#--    any later version,
+--><#--
+--><#--    or
+--><#--
+--><#-- (b) any version of the Melati Software License, as published
+--><#--    at http://melati.org
+--><#--
+--><#-- You should have received a copy of the GNU General Public License and
+--><#-- the Melati Software License along with this program;
+--><#-- if not, write to the Free Software Foundation, Inc.,
+--><#-- 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+--><#-- GNU General Public License and visit http://melati.org to obtain the
+--><#-- Melati Software License.
+--><#--
+--><#-- Feel free to contact the Developers of Melati (http://melati.org),
+--><#-- if you would like to work out a different arrangement than the options
+--><#-- outlined here.  It is our intention to allow Melati to be used by as
+--><#-- wide an audience as possible.
+--><#--
+--><#-- This program is distributed in the hope that it will be useful,
+--><#-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+--><#-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--><#-- GNU General Public License for more details.
+--><#--
+--><#-- Contact details for copyright holder:
+--><#--
+--><#--     Tim Joyce <timj At paneris.org>
+--><#--     http://paneris.org/~timj
+--><#--
+--><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <title>${ml.rendered(melati.table.displayName)} Table Record Selection</title>
+ <meta name="version" content="CVS Id: Selection.vm,v 1.5 2010/02/12 09:52:28 timp Exp $">
+ <link rel="stylesheet" title="Default" href="${admin.getScreenStylesheetURL(melati)}"
+      type="text/css" media="screen">
+<#if inPopup><SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<!--
+  function updateCaller(returnfield,id,value) {
+    parent.opener.updateFromPopup(parent,returnfield,id,value)
+  }
+//-->
+</SCRIPT>
+</#if><#if inPopup><#assign target = ""> <!-- inPopup -->
+<#else>  <#if inRight> <!-- inRight -->
+   <#assign target = ""> <#else> <!-- inLeft -->
+   <#assign target = "admin_record">  </#if></#if></HEAD>
+
+<BODY BGCOLOR="#eeeeee" id="selection">
+<form action="">
+<table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
+<#if results><#assign colSpan = melati.table.summaryDisplayColumnsCount-1>  <tr>
+    <th>&nbsp;</th>
+    <th align="center" colspan="${colSpan}">
+  <#if results.prevPageStart>      <a title="Previous page" 
+         href="${melati.sameURLWith("start", results.prevPageStart)}">
+     &lt;</a>
+  </#if>      Records ${results.pageStart} to ${results.pageEnd} of ${results.totalCount}
+
+  <#if results.nextPageStart>       <a title="Next page" 
+          href="${melati.sameURLWith("start", results.nextPageStart)}">
+       &gt;</a>
+  </#if>    </th>
+<#if inRight || inPopup>    <th>
+      <a href='${admin.addURL(melati.Table)}?${whereClause}' 
+         title="New ${melati.table.displayName}"
+         id="create_${melati.table.name}"
+       ><IMG
+         src="${admin.staticURL}/edit_file.gif" border="0" alt="New ${melati.table.displayName}" /></a>
+<#else>    <th align="right">
+    <a href='${melati.sameURLWith("template", "CSV")}' 
+       title="Selection as CSV" 
+       id="csv"
+       target="_${melati.table.name}csv"><IMG 
+           src="${admin.staticURL}/csv.png" 
+           border="0" 
+           alt="${melati.table.displayName} selecton as CSV" /></a>
+     &nbsp;
+</#if>    </th>    
+  </tr>
+  <tr>
+   <th><font size="-1">&nbsp;</FONT></th>
+  <#foreach column in melati.table.summaryDisplayColumns>   <th align="left" valign="bottom">
+    <font face="Arial, Helvetica" size="-1">
+     <a href="${admin.toggledOrderSelectionURL(melati, "field_order-1", column.getColumnInfo().getTroid())}">${ml.rendered(column.displayName)}</a>&nbsp;
+    </font>
+   </th>
+  </#foreach>  </tr>
+  <#assign color1 = "#E9EDFD"><#assign class1 = "row1"><#assign color2 = "#FFFFFF"><#assign class2 = "row2"><#assign color = color1><#assign class = class2>  <#foreach result in results>  <TR>
+    <TD bgcolor="${color}" class="${class}">
+      <a 
+<#if inPopup>          onClick ="updateCaller('${Form.returnfield}',${result.troid},'${ml.escaped(result)}')"
+<#else>  <#if inRight>          href='${admin.recordURL(result, Form.returnTarget, ml.encoded(melati.sameURL))}' 
+  <#else>          href='${admin.recordURL(result, "parent.parent.parent.admin_bottom.admin_left.admin_selection", ml.encoded(ml.encoded(melati.sameURL)))}' 
+   </#if>          target="${target}"
+</#if>          title="Choose"><IMG src="${admin.staticURL}/file.gif" border="0" alt="Select" /></a>&nbsp;
+    </TD>
+    <#foreach field in result.summaryDisplayFields>    <TD bgcolor="${color}" class="${class}">
+     <font face="Arial, Helvetica" size="-1">
+      <a 
+<#if inPopup>          onClick ="updateCaller('${Form.returnfield}',${result.troid},'${ml.escaped(result)}')"
+<#else>  <#if inRight>          href='${admin.recordURL(result, Form.returnTarget, ml.encoded(admin.selectionURL(melati.Table, Form.returnTarget) + "&start=" + results.pageStart + "&amp;" + whereClause + "&amp;" + orderClause))}' 
+  <#else>          href='${admin.recordURL(result, "parent.parent.parent.admin_bottom.admin_left.admin_selection", ml.encoded(melati.sameURL))}' 
+   </#if>          target="${target}"
+</#if>          title="Choose">
+       ${ml.renderedStart(field)}
+     </a>
+     &nbsp;
+    </font>
+   </TD>
+    </#foreach>   <TD>&nbsp;
+   </TD>
+  </TR>
+    <#if color == color1><#assign color = color2><#assign class = class2>   <#else><#assign color = color1><#assign class = class1>    </#if>  </#foreach><#else>  <tr><td align="center">
+  No records found.
+  </td></tr>
+</#if>
+</table>
+</form>
+</BODY>
+</HTML>

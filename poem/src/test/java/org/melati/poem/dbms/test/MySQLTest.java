@@ -170,14 +170,14 @@ public class MySQLTest extends DbmsSpec {
    */
   public void testGivesCapabilitySQL() {
     String actual = it.givesCapabilitySQL(new Integer(42), "hello");
-    String expected = "SELECT " + it.getQuotedName("groupmembership") + ".* "
-            + "FROM " + it.getQuotedName("groupmembership") + " LEFT JOIN "
-            + it.getQuotedName("groupcapability") + " ON "
-            + it.getQuotedName("groupmembership") + "."
+    String expected = "SELECT " + it.getQuotedName("groupMembership") + ".* "
+            + "FROM " + it.getQuotedName("groupMembership") + " LEFT JOIN "
+            + it.getQuotedName("groupCapability") + " ON "
+            + it.getQuotedName("groupMembership") + "."
             + it.getQuotedName("group") + " =  "
-            + it.getQuotedName("groupcapability") + "."
+            + it.getQuotedName("groupCapability") + "."
             + it.getQuotedName("group") + " WHERE " + it.getQuotedName("user")
-            + " = 42" + " " + "AND " + it.getQuotedName("groupcapability")
+            + " = 42" + " " + "AND " + it.getQuotedName("groupCapability")
             + "." + it.getQuotedName("group") + " IS NOT NULL " + "AND "
             + it.getQuotedName("capability") + " = hello";
 

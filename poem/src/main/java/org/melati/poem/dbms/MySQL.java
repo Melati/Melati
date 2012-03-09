@@ -449,12 +449,12 @@ public class MySQL extends AnsiStandard {
    */
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return
-        "SELECT groupmembership.* " + 
-        "FROM groupmembership LEFT JOIN groupcapability " +
-        "ON groupmembership." + getQuotedName("group") +
-        " =  groupcapability." + getQuotedName("group") + " " +
+        "SELECT groupMembership.* " + 
+        "FROM groupMembership LEFT JOIN groupCapability " +
+        "ON groupMembership." + getQuotedName("group") +
+        " =  groupCapability." + getQuotedName("group") + " " +
         "WHERE " + getQuotedName("user") + " = " + userTroid + " " +
-        "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
+        "AND groupCapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
 

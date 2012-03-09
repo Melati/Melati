@@ -306,15 +306,15 @@ public abstract class DbmsSpec extends PoemTestCase {
    */
   public void testGivesCapabilitySQL() {
     String actual = it.givesCapabilitySQL(new Integer(42),"hello");
-    String expected = "SELECT * FROM " + it.getQuotedName("groupmembership") + 
+    String expected = "SELECT * FROM " + it.getQuotedName("groupMembership") + 
                       " WHERE " + it.getQuotedName("user") + " = 42 AND " + 
-                      "EXISTS ( SELECT " + it.getQuotedName("groupcapability") + 
+                      "EXISTS ( SELECT " + it.getQuotedName("groupCapability") + 
                       "." + it.getQuotedName("group") +  
-                      " FROM " + it.getQuotedName("groupcapability") + 
+                      " FROM " + it.getQuotedName("groupCapability") + 
                       " WHERE " + 
-                      it.getQuotedName("groupcapability") + "." + it.getQuotedName("group") + 
+                      it.getQuotedName("groupCapability") + "." + it.getQuotedName("group") + 
                       " = " + 
-                      it.getQuotedName("groupmembership") + "." + 
+                      it.getQuotedName("groupMembership") + "." + 
                       it.getQuotedName("group") + " AND " + 
                       it.getQuotedName("capability") + " = hello)";
     assertEquals(expected,actual);

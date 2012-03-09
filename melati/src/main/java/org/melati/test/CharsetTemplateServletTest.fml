@@ -1,0 +1,49 @@
+<#--
+--><#-- $Id$
+--><#--
+--><#-- Copyright (C) 2003 Jim Wright
+--><#--
+--><#-- Part of Melati and subject to http://melati.org/Licence.html.
+--><#--
+--><#assign melati.responseContentType = "text/html"><#assign ml = melati.htMLMarkupLanguage><?xml version=\"1.0\" encoding="${melati.response.characterEncoding}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>${servlet.servletName}</title>
+</head>
+<body>
+<h1>Characters Displayed in a Template</h1>
+<p>
+melati.Response.CharacterEncoding = ${melati.response.characterEncoding}
+</p>
+<p>
+The test data originally comes from the Unicode Database.
+If you are viewing it online then for copyright information
+and UCD Terms click here:
+<a href="http://www.unicode.org/unicode/copyright.html">
+http://www.unicode.org/unicode/copyright.html</a>.
+Offline please refer to the Javadocs.
+</p>
+<table border="1">
+<thead>
+<tr>
+<th>Description</th>
+<th>Character Reference</th>
+<th>Character</th>
+<th>Entitied</th>
+<th>Encoding Test</th>
+</tr>
+</thead>
+<tbody>
+<#foreach item in items><tr>
+<td>${item.description}</td>
+<td>${item.reference}</td>
+<td>${item.char}</td>
+<td>${melati.hTMLMarkupLanguage.rendered(item.char)}</td>
+<td>${item.encodingTest(melati)}</td>
+</tr>
+</#foreach></tbody>
+</table>
+</body>
+</html>

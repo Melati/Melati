@@ -1,0 +1,69 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 William Chesters
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#--
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+ <title>Add a new ${ml.rendered(melati.table.displayName)} record</title>
+ <meta name="version" content="CVS Id: Add.vm,v 1.1 2010/02/12 09:52:28 timp Exp $">
+ <link rel="stylesheet" title="Default" href="${admin.getScreenStylesheetURL(melati)}"
+      type="text/css" media="screen">
+ <SCRIPT src="${melati.javascriptLibraryURL}/validation.js" type="text/javascript"></SCRIPT>
+
+<script TYPE="text/javascript" >
+<!--
+  function updateFromPopup(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+  }
+//-->
+</script>
+</head>
+<body bgcolor="#cccccc" id="add">
+
+<form method="post" 
+  action="Created"
+>
+<h3>Create a new ${ml.rendered(melati.table.displayName)} record</h3>
+<table cellspacing="0" cellpadding="0">
+  <#foreach field in fields>    <#if field.userCreateable>  <tr><td>&nbsp;</td></tr>
+  <tr>
+	<td><FONT SIZE="-1" FACE="Arial, Helvetica">
+	  <#if field.type.nullable>	    <b>${ml.rendered(field.displayName)}</b>
+	 <#else>	    <B><font color="red">${ml.rendered(field.displayName)}</font></B>
+	  </#if>           </font>
+      <#if field.description>            <FONT SIZE="-2" FACE="Arial, Helvetica">
+	  (${ml.rendered(field.description)})
+            </font>
+      </#if>    </td></tr><tr><td>
+	  <font SIZE="-1" FACE="Arial, Helvetica">
+      ${ml.input(field)}
+      </font>
+    </td>
+  </tr>
+    </#if>  </#foreach>  <tr><td><FONT SIZE="0">&nbsp;</FONT></td></tr>
+</table>
+
+<#if Form.returnURL>  <input type="hidden" name="returnURL" value='${Form.returnURL}'>
+<#else>  <#if CGI.htTP_REFERER>    <input type="hidden" name="returnURL" value='${CGI.htTP_REFERER}'>
+  </#if></#if><#if Form.returnTarget>  <input type="hidden" name="returnTarget" value='${Form.returnTarget}'>
+</#if><#if Form.returnfield>  <input type="hidden" name="returnfield" value='${Form.returnfield}'>
+</#if> <input type="submit"
+     id="action" 
+     name="action" 
+     value="Create"
+     title="Create a new ${ml.rendered(melati.table.displayName)}"
+     onclick="return validate(this.form);">
+</form>
+</body>
+</html>

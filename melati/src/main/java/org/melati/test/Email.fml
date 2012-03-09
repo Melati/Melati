@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+body {
+BACKGROUND-COLOR: \#FFFFFF;
+text-align: center;
+ }
+\#page {
+ margin-top: 0 auto;
+ margin-bottom: 0 auto;
+ margin-left: 3em auto;
+ margin-right: 3em auto;
+ border: solid 1px black;
+ padding-top: 1em;
+ padding-left: 2em;
+ padding-right: 2em;
+ padding-bottom: 1em;
+ }
+\#pagetitle {
+FONT-SIZE: 11px;
+COLOR: \#000000;
+FONT-FAMILY: arial;
+FONT-WEIGHT: bold;
+background-color: MediumAquaMarine;
+width: auto;
+text-align: center;
+padding: 0.5em;
+margin-top: 1em;
+margin-bottom: 2em;
+border: solid 1px black;
+ }
+\#toptext {
+FONT-SIZE: 11px;
+COLOR: \#000000;
+FONT-FAMILY: arial;
+FONT-WEIGHT: normal;
+width: auto;
+display:compact;
+text-align: left;
+margin-bottom: 2em;
+ }
+\#content {
+FONT-SIZE: 11px;
+COLOR: \#000000;
+FONT-FAMILY: arial;
+FONT-WEIGHT: normal;
+width: auto;
+display:compact;
+text-align: left;
+ }
+\#footer {
+FONT-SIZE: 11px;
+COLOR: \#000000;
+FONT-FAMILY: arial;
+FONT-WEIGHT: normal;
+width: auto;
+background-color: DarkCyan;
+text-align: center;
+margin-top: 4em;
+ }
+A {
+display:compact;
+color: blue;
+ }
+</style>
+<title>${servlet} output</title>
+</head>
+<body>
+<div id='page'>
+<div id='pagetitle'>
+<h3>${servlet} output</h3>
+</div>
+<div id='toptext'>
+${subject}
+</div>
+<div id='content'>
+${message}
+</div>
+</div>
+<div id='footer'>
+<a href='http://www.melati.org/'>Melati</a>
+</div>
+</body>
+</html>

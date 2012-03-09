@@ -1,0 +1,44 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 William Chesters
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#--
+--><#-- Expecting $object to be a Field
+--><#--
+--><#-- Note that the template inheritance tree is not  backed up for templates specialised with renderinfo. 
+--><#--
+-->
+<#assign admin = melati.getContextUtil("org.melati.admin.AdminUtils")><input type="hidden"
+    name="field_${ml.rendered(object.name)}" 
+    value='${ml.rendered(object.rawString)}' />
+<input type="text" name="field_${ml.rendered(object.name)}${dummy}" 
+<#if object.raw>    value="${ml.rendered(object.cooked)}"
+</#if>    size="30" 
+<#if object.description>    title="${ml.rendered(object.description)}" 
+</#if>    onfocus="document.forms[0].${ml.rendered(object.name)}${button.focus()}" 
+    />
+<input type="button" 
+    value="Choose" 
+    id="${ml.rendered(object.name)}${button}" 
+    name="${ml.rendered(object.name)}${button}" 
+    onClick ="choosewindow = window.open('${admin.selectionWindowURL(object.getType().targetTable())}&returnfield=field_${ml.rendered(object.name)}','${ml.rendered(object.name)}','width=400,height=500,scrollbars=yes'); return false;" 
+    />
+<input type="button" 
+    value="Create" 
+    id="${ml.rendered(object.name)}${button}" 
+    name="${ml.rendered(object.name)}${button}" 
+    onClick ="createwindow = window.open('${admin.addURL(object.getType().targetTable())}?returnfield=field_${ml.rendered(object.name)}','${ml.rendered(object.name)}','width=400,height=500,scrollbars=yes'); return false;" 
+    />
+<#if object.type.nullable>  <input type="button" value="Clear" 
+  onClick="document.forms[0].field_${ml.rendered(object.name)}.value = ''; document.forms[0].field_${ml.rendered(object.name)}${dummy.value} = ''; return false;" 
+  />
+</#if><script language="JavaScript1.2" type="text/javascript">
+  add_rule("field_${ml.escaped(object.name)}",
+           "${ml.escaped(object.displayName)}",
+	   !${object.type.nullable})
+</script>

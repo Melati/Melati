@@ -1,0 +1,25 @@
+<#--
+--><#-- $Source$
+--><#-- $Revision$
+--><#--
+--><#-- Copyright (C) 2000 William Chesters
+--><#--
+--><#-- Part of Melati (http://melati.org), a framework for the rapid
+--><#-- development of clean, maintainable web applications.
+--><#--
+--><#--
+--><#-- Expecting $object to be a Field
+--><!--  Source: /usr/cvsroot/melati/melati/src/main/java/org/melati/templets/html/org.melati.poem.IndexPoemType.vm,v $ -->
+<select 
+  name="field_${ml.rendered(object.name)}" 
+  id="field_${ml.rendered(object.name)}"
+<#if object.description>  title="${object.description}"
+</#if>>
+
+  <#foreach poss in object.First1000Possibilities>    <option value="${ml.attr.rendered(poss.rawString)}"
+      <#if poss.sameRawAs(object)>        selected="selected"
+      </#if>    >
+      <#if poss.rawString.equals("") && nullValue>        ${ml.rendered(nullValue)}
+     <#else>        ${ml.rendered(poss)}
+      </#if>    &nbsp;</option>
+  </#foreach></select>

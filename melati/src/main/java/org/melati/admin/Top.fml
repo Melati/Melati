@@ -67,7 +67,7 @@
 <select name="table" OnChange="submit();" title="Select table to edit">
 <#assign lasttype = "">
 <#assign selected = false>
-<#list melati.database.displayTables as table>  
+<#list melati.database.getDisplayTables() as table>  
   <#if !table.tableInfo.category.equals(lasttype)>
     <option value="">&nbsp;</option>
     <option value="">${table.tableInfo.category.name}</option>
@@ -76,8 +76,8 @@
   <#assign lasttype = table.tableInfo.category>
   <option value="${table.name}"
   <#if !selected>
-   <#if melati.table>
-    <#if melati.table.equals(table)>
+   <#if melati.getTable() != null>
+    <#if melati.getTable().equals(table)>
     selected="selected"
      <#assign selected = true>
    </#if> 

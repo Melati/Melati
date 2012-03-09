@@ -602,13 +602,13 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.MySQL#givesCapabilitySQL
    */
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
-    return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
+    return "SELECT * FROM " + getQuotedName("groupMembership") + " WHERE "
         + getQuotedName("user") + " = " + userTroid + " AND "
-        + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
+        + "EXISTS ( " + "SELECT " + getQuotedName("groupCapability") + "."
         + getQuotedName("group") + " FROM "
-        + getQuotedName("groupcapability") + " WHERE "
-        + getQuotedName("groupcapability") + "." + getQuotedName("group")
-        + " = " + getQuotedName("groupmembership") + "."
+        + getQuotedName("groupCapability") + " WHERE "
+        + getQuotedName("groupCapability") + "." + getQuotedName("group")
+        + " = " + getQuotedName("groupMembership") + "."
         + getQuotedName("group") + " AND " + getQuotedName("capability")
         + " = " + capabilityExpr + ")";
   }

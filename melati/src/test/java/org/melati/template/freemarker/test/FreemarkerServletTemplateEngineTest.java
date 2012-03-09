@@ -66,7 +66,7 @@ public class FreemarkerServletTemplateEngineTest extends
    * @see org.melati.template.test.TemplateEngineSpec#testTemplateExtension()
    */
   public void testTemplateExtension() {
-    assertEquals(".vm",templateEngine.templateExtension());    
+    assertEquals(".fml",templateEngine.templateExtension());    
   }
 
 

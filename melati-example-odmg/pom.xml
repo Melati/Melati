@@ -48,6 +48,7 @@
     <plugin>
      <groupId>org.melati</groupId>
      <artifactId>maven-dsd-plugin</artifactId>
+     <version>${project.version}</version>
      <executions>
       <execution>
        <phase>generate-sources</phase>

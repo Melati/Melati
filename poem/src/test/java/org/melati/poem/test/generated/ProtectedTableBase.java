@@ -22,8 +22,8 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingTable;
 import org.melati.poem.test.Protected;
-// FIXME wtf?
- import org.melati.poem.test.User;
+// FIXME extended table 
+import org.melati.poem.test.User;
 
 
 /**

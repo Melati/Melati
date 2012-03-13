@@ -95,7 +95,7 @@ public class ReferenceFieldDef extends FieldDef {
   
   /** Due to possible forward references this could be null until we finish parse */
   public TableNamingInfo getTargetTableNamingInfo() {
-    return table.dsd.nameStore.tablesByShortName.get(typeShortName);
+    return table.dsd.tableNamingStore.tableInfoByPersistentShortName.get(typeShortName);
   }
 
  /**

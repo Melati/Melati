@@ -292,8 +292,8 @@ public abstract class FieldDef {
    */
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("\n /**\n" 
-        + "  * Retrieves the <code>" + capitalisedName + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
-        + table.nameFromDsd + "</code> <code>Persistent</code>.\n" 
+        + "  * Retrieves the <code>" + capitalisedName + "</code> value as a <code>Field</code>\n" 
+        + "  * from this <code>" + table.nameFromDsd + "</code> <code>Persistent</code>.\n" 
         + "  * \n"
         + "  * see org.melati.poem.prepro.FieldDef#generateFieldCreator \n" 
         + "  * @throws AccessPoemException \n"
@@ -409,65 +409,65 @@ public abstract class FieldDef {
             + "Field();\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isEditable)
-      w.write("          protected boolean defaultUserEditable() {\n"
+      w.write("          public boolean defaultUserEditable() {\n"
           + "            return false;\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isCreateable)
-      w.write("          protected boolean defaultUserCreateable() {\n"
+      w.write("          public boolean defaultUserCreateable() {\n"
           + "            return false;\n" + "          }\n" + "\n");
 
     if (displayLevel != null)
-      w.write("          protected DisplayLevel defaultDisplayLevel() {\n"
+      w.write("          public DisplayLevel defaultDisplayLevel() {\n"
           + "            return DisplayLevel." + displayLevel + ";\n"
           + "          }\n" + "\n");
 
     if (searchability != null)
-      w.write("          protected Searchability defaultSearchability() {\n"
+      w.write("          public Searchability defaultSearchability() {\n"
           + "            return Searchability." + searchability + ";\n"
           + "          }\n" + "\n");
 
     if (displayOrderPriority != -1)
-      w.write("          protected Integer defaultDisplayOrderPriority() {\n"
+      w.write("          public Integer defaultDisplayOrderPriority() {\n"
           + "            return new Integer(" + displayOrderPriority + ");\n"
           + "          }\n" + "\n");
 
     if (sortDescending)
-      w.write("          protected boolean defaultSortDescending() {\n"
+      w.write("          public boolean defaultSortDescending() {\n"
           + "            return true;\n" + "          }\n" + "\n");
 
     if (displayName != null)
-      w.write("          protected String defaultDisplayName() {\n"
+      w.write("          public String defaultDisplayName() {\n"
           + "            return " + StringUtils.quoted(displayName, '"')
           + ";\n" + "          }\n" + "\n");
 
     w
-        .write("          protected int defaultDisplayOrder() {\n"
+        .write("          public int defaultDisplayOrder() {\n"
             + "            return " + displayOrder + ";\n" + "          }\n"
             + "\n");
 
     if (description != null)
-      w.write("          protected String defaultDescription() {\n"
+      w.write("          public String defaultDescription() {\n"
           + "            return " + StringUtils.quoted(description, '"')
           + ";\n" + "          }\n" + "\n");
 
     if (isIndexed)
-      w.write("          protected boolean defaultIndexed() {\n"
+      w.write("          public boolean defaultIndexed() {\n"
           + "            return true;\n" + "          }\n" + "\n");
 
     if (isUnique)
-      w.write("          protected boolean defaultUnique() {\n"
+      w.write("          public boolean defaultUnique() {\n"
           + "            return true;\n" + "          }\n" + "\n");
 
     if (width != -1)
-      w.write("          protected int defaultWidth() {\n"
+      w.write("          public int defaultWidth() {\n"
           + "            return " + width + ";\n" + "          }\n" + "\n");
 
     if (height != -1)
-      w.write("          protected int defaultHeight() {\n"
+      w.write("          public int defaultHeight() {\n"
           + "            return " + height + ";\n" + "          }\n" + "\n");
 
     if (renderinfo != null)
-      w.write("          protected String defaultRenderinfo() {\n"
+      w.write("          public String defaultRenderinfo() {\n"
           + "            return " + StringUtils.quoted(renderinfo, '"') + ";\n"
           + "          }\n" + "\n");
 

@@ -59,61 +59,65 @@ public class TableNamingStore {
     super();
  }
 
-  Hashtable<String,TableNamingInfo> tablesByShortName = new Hashtable<String,TableNamingInfo>();
-  Hashtable<String,TableNamingInfo> tablesByFQName = new Hashtable<String,TableNamingInfo>();
+  Hashtable<String,TableNamingInfo> tableInfoByPersistentShortName = new Hashtable<String,TableNamingInfo>();
+  Hashtable<String,TableNamingInfo> tableInfoByTableOrPersistentFQName = new Hashtable<String,TableNamingInfo>();
   boolean debug = false;
 
   /**
    * Add a table to the naming store. 
-   * 
-   * @param packageName fully qualified java package name
-   * @param projectNameIn short name of project
+   * @param dsd TODO
    * @param name        the name of this table
    * @param superclass  not null if table extends another
+   * @param packageName fully qualified java package name
+   * @param projectNameIn short name of project
    * @throws HiddenTableException if this table has the same name as 
    *                    one already encountered but does not extend it 
    * @return a newly created <code>TableNamingInfo</code> 
    */
-  public TableNamingInfo add(String packageName, String projectNameIn, String name, 
+  public TableNamingInfo add(DSD dsd, String packageName, String name, 
                              String superclass)
       throws HiddenTableException {
 
-    TableNamingInfo info = new TableNamingInfo(packageName, projectNameIn, name);
+    TableNamingInfo info = new TableNamingInfo(dsd.packageName, dsd.projectName, name);
 
     // superclass could be FQ (e.g. 'org.melati.poem.User') 
     // or not (e.g. 'User')
     // We make sure it ends up FQ
     if (superclass != null) {
       if (superclass.indexOf('.') == -1) {
-        TableNamingInfo sup = (TableNamingInfo)tablesByShortName.
+        TableNamingInfo sup = (TableNamingInfo)tableInfoByPersistentShortName.
                                                    get(superclass);
         if (sup != null) {
-          superclass = sup.tableFQName;
+          superclass = sup.objectFQName;
         } else {
-          superclass = packageName + "." + superclass;
+          superclass = dsd.packageName + "." + superclass;
         }
       }
 
-      TableNamingInfo sup = (TableNamingInfo)tablesByFQName.get(superclass);
+      TableNamingInfo sup = (TableNamingInfo)tableInfoByTableOrPersistentFQName.get(superclass);
       if (sup != null) {
         info.superclass = sup;
       } else {
         String pack = superclass.substring(0, superclass.lastIndexOf("."));
         String nam = superclass.substring(superclass.lastIndexOf(".")+1);
-        info.superclass = add(pack, projectNameIn, nam, null);
+        info.superclass = add(dsd, pack, nam, null);
       }
     }
 
-    tablesByFQName.put(info.tableFQName, info);
-    Object old = tablesByShortName.put(info.capitalisedShortName, info);
+    TableNamingInfo old = tableInfoByPersistentShortName.put(info.capitalisedShortName, info);
+    System.err.println("Putting " + info.capitalisedShortName + ":" + old);
     if (old != null) {
       if (old != info.superclass) {
         throw new HiddenTableException(name, 
-                                       ((TableNamingInfo)old).tableFQName);
+                                       old.objectFQName);
       }
-      ((TableNamingInfo)old).hidden = true;
+      old.hidden = true;
       info.hidesOther = true;
+      info.extended = old;
+      dsd.hasAnExtenedTable = true;
     }
+    tableInfoByTableOrPersistentFQName.put(info.objectFQName, info);
+    tableInfoByTableOrPersistentFQName.put(info.tableMainClassFQName(), info);
 
     return info;
   }

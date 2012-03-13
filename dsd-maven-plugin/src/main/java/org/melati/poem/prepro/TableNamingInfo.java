@@ -61,10 +61,10 @@ public class TableNamingInfo {
   /** This package eg org.melati.example.contacts . */
   public String packageName = null;
 
-  /** The fully qualified name of the table (e.g. `org.melati.poem.User') */
-  public String tableFQName = null;
+  /** The fully qualified name of the table persistent  (e.g. `org.melati.poem.User') */
+  public String objectFQName = null;
 
-  /** The last part of the FQName of the table (e.g. `User') */
+  /** The last part of the FQName of the persistent (e.g. `User') */
   public String capitalisedShortName = null;
   
   /** The TableNamingInfo of this Table's superclass 
@@ -99,6 +99,8 @@ public class TableNamingInfo {
 
   private String projectName;
 
+  public TableNamingInfo extended;
+
   /**
    * Constructor.
    * @param packageNameIn  the fully qualified java name of this package
@@ -109,7 +111,7 @@ public class TableNamingInfo {
     packageName = packageNameIn;
     projectName = projectNameIn; 
     capitalisedShortName = nameFromDsd.substring(0,1).toUpperCase() + nameFromDsd.substring(1);
-    tableFQName = packageName + "." + capitalisedShortName;
+    objectFQName = packageName + "." + capitalisedShortName;
     superclass = null;
     hidesOther = false;
     hidden = false;
@@ -191,10 +193,14 @@ public class TableNamingInfo {
   }
 
   String importTableString() {
-//    return (hidesOther && !hidden) ? "import " + tableMainClassFQName() + 
-//                             ";\n" : "";
-      return "import " + tableMainClassFQName() + ";\n"; 
-
+//  return (hidesOther && !hidden) ? "import " + tableMainClassFQName() + 
+//                           ";\n" : "";
+    return "import " + tableMainClassFQName() + ";\n";
+  }
+  String importPersistentString() {
+    return (hidesOther || hidden) ? 
+        "// import " + mainClassFQName() +  ";\n" 
+        : "import " + mainClassFQName() +  ";\n" ;
   }
 
   String baseClassFQName() {
@@ -215,7 +221,7 @@ public class TableNamingInfo {
    * @return the fully qualified name of the main class for this table
    */
   public String mainClassFQName() {
-    return tableFQName;
+    return objectFQName;
   }
 
   /**
@@ -230,7 +236,7 @@ public class TableNamingInfo {
    * given the import lines we put in all our generated flies
    */
   public String mainClassUnambiguous() {
-    return (hidden)
+    return (hidden || hidesOther)
               ? mainClassFQName()
               : mainClassShortName();
   }
@@ -264,14 +270,14 @@ public class TableNamingInfo {
   }
 
   String tableMainClassFQName() {
-    return tableFQName + "Table";
+    return objectFQName + "Table";
   }
   String tableMainClassShortName() {
     return capitalisedShortName + "Table";
   }
 
   String tableMainClassUnambiguous() {
-    return (hidden)
+    return (hidden || hidesOther)
                ? tableMainClassFQName()
                : tableMainClassShortName();
   }
@@ -285,7 +291,7 @@ public class TableNamingInfo {
    * <p>
    * NB if the superclass is abstract then we
    *
-   * @return the root return class 
+   * @return the table root return class 
    */
   public String tableMainClassRootReturnClass() {
     TableNamingInfo root = getRootSameNamedSuperclass();

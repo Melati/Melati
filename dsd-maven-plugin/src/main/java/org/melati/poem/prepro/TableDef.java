@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -154,7 +154,7 @@ public class TableDef {
     } else
       tokens.pushBack();
 
-    tableNamingInfo = nameStore.add(dsd.packageName, dsd.getProjectName(), nameFromDsd, superclass);
+    tableNamingInfo = nameStore.add(dsd, dsd.packageName, nameFromDsd, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -198,8 +198,9 @@ public class TableDef {
   public void generateTableDeclarationJava(Writer w)
       throws IOException {
     if (!isAbstract)
-      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() + " tab_"
-          + name + " = null;\n");
+      w.write("  private " + tableNamingInfo.tableMainClassRootReturnClass() +
+          "<" + tableNamingInfo.mainClassRootReturnClass() + ">" +
+          " tab_" + name + " = null;\n");
   }
 
   /**
@@ -212,7 +213,14 @@ public class TableDef {
       throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " + "new "
-          + tableNamingInfo.tableMainClassUnambiguous() + "(this, \"" + nameFromDsd + "\", "
+          + tableNamingInfo.tableMainClassUnambiguous() 
+          + ( 
+              (tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()) 
+                  ?
+                  "<"+ tableNamingInfo.mainClassUnambiguous() +">" 
+                  : "")
+            )
+          + "(this, \"" + nameFromDsd + "\", "
           + "DefinitionSource.dsd));\n");
   }
 
@@ -224,26 +232,19 @@ public class TableDef {
    */
   public void generateTableAccessorJava(Writer w)
       throws IOException {
+    if (isAbstract) 
+      return;
 
-    // if we subclass a table with the same name we need to cast the table to
-    // have the same return type as the root superclass
-    // NOT !!
-    String requiredReturnClass = tableNamingInfo.tableMainClassRootReturnClass();
-
-    if (!isAbstract) {
-      w.write("\n /**\n" + "  * Retrieves the "
-          + tableNamingInfo.tableMainClassShortName() + " table.\n" + "  *\n"
-          + "  * see " + "org.melati.poem.prepro.TableDef"
-          + "#generateTableAccessorJava \n" + "  * @return the "
-          + requiredReturnClass + " from this database\n" + "  */\n");
-      w.write("  public " + requiredReturnClass + " get"
-          + tableNamingInfo.tableMainClassShortName() + "() {\n" + "    return ");
-      // This cast is not actually required as ours is a subclass anyway
-      // if (!requiredReturnClass.equals(naming.tableMainClassUnambiguous()))
-      //   w.write("(" + requiredReturnClass + ")");
-      w.write("tab_" + name + ";\n  }\n");
-    }
+    generateTableAccessorDeclaration(w, false);
+    
+    w.write(" {\n" + "    return ");
+    // This cast is not actually required as ours is a subclass anyway
+    // but with generics we need to :(
+    if (!tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()))
+      w.write("(" + tableNamingInfo.tableMainClassRootReturnClass() + ")");
+    w.write("tab_" + name + ";\n  }\n");
   }
+
 
   /**
    * @param w
@@ -253,21 +254,25 @@ public class TableDef {
    */
   public void generateTableAccessorDefnJava(Writer w)
       throws IOException {
-    if (!isAbstract) {
-      w.write("\n /**\n"
-          + "  * Retrieves the <code>"
-          + tableNamingInfo.tableMainClassShortName()
-          + "</code> table"
-          + (tableNamingInfo.tableMainClassRootReturnClass().equals(
-              tableNamingInfo.tableMainClassShortName()) ? ".\n" : ("as a  <code>"
-              + tableNamingInfo.tableMainClassRootReturnClass() + "</code>.\n"))
-          + "  * \n" + "  * see " + "org.melati.poem.prepro.TableDef"
-          + "#generateTableAccessorDefnJava \n" + "  * @return the "
-          + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n"
-          + "  */\n");
-      w.write("  " + tableNamingInfo.tableMainClassRootReturnClass() + " get"
-          + tableNamingInfo.tableMainClassShortName() + "();\n");
-    }
+    if (isAbstract) 
+      return;
+
+    generateTableAccessorDeclaration(w, true);    
+    w.write(";\n");
+  }
+
+  private void generateTableAccessorDeclaration(Writer w, boolean inInterface) throws IOException {
+    w.write("\n /**\n"
+        + "  * Retrieves the " + tableNamingInfo.tableMainClassShortName() + " table.\n"
+        + "  *\n"
+        + "  * see " + "org.melati.poem.prepro.TableDef"
+        + "#generateTableAccessorJava \n"
+        + "  * @return the " + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n" + "  */\n");
+    if (!inInterface)
+     if (!tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()))
+        w.write("  @SuppressWarnings({ \"rawtypes\", \"unchecked\" })\n");
+    w.write("  public " + tableNamingInfo.tableMainClassRootReturnClass() + "<" + tableNamingInfo.mainClassRootReturnClass() + "> get"
+        + tableNamingInfo.tableMainClassShortName() + "()");
   }
 
   /**
@@ -279,7 +284,19 @@ public class TableDef {
   public void generatePersistentBaseJava(Writer w)
       throws IOException {
     for (Enumeration<String> e = persistentBaseImports.elements(); e.hasMoreElements();) {
-      w.write("import " + e.nextElement() + ";\n");
+      String packageName = e.nextElement();
+      TableNamingInfo tni = dsd.tableNamingStore.tableInfoByTableOrPersistentFQName.get(packageName);
+      //if (tni != null) w.write("// tni " + tni.objectFQName + ";\n");
+      if (tableNamingInfo.extended != null) { 
+        if (tni!=null)
+          if (tni.equals(tableNamingInfo) || tni.equals(tableNamingInfo.extended))
+            w.write("// import " + packageName + ";\n");
+          else 
+            w.write("import " + packageName + ";\n");                 
+        else 
+          w.write("import " + packageName + ";\n");                 
+      } else
+        w.write("import " + packageName + ";\n");
     }
     w.write("\n");
 
@@ -291,36 +308,37 @@ public class TableDef {
         + " * Melati POEM generated abstract base class for a "
         + "<code>Persistent</code> \n" + 
         " * <code>" + nameFromDsd + "</code> Object.\n" + " *\n" + 
-        " * see org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
+        " * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava \n" + 
         " */\n");
-    w.write("public abstract class " + tableNamingInfo.baseClassShortName()
-        + " extends " + tableNamingInfo.superclassMainShortName() + " {\n" + "\n");
+    w.write("public abstract class " + tableNamingInfo.baseClassUnambiguous()
+        + " extends " + tableNamingInfo.superclassMainUnambiguous() + " {\n" + "\n");
 
     w.write("\n /**\n" + 
             "  * Retrieves the Database object.\n" + "  * \n" + 
-            "  * see org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + 
+            "  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava \n" + 
             "  * @return the database\n" + "  */\n");
     w.write("  public " + dsd.databaseTablesClassName + " get"
         + dsd.databaseTablesClassName + "() {\n" + "    return ("
         + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
 
-    w.write("\n /**\n" + "  * Retrieves the  <code>"
-        + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
+    w.write("\n /**\n" + "  * Retrieves the  <code>" + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
         + "  * see org.melati.poem.prepro.TableDef"
         + "#generatePersistentBaseJava \n" 
-        + "  * @return the " + requiredReturnClass
-        + "\n" + "  */\n");
-    w.write("  public " + requiredReturnClass + " "
+        + "  * @return the " + requiredReturnClass + "\n" 
+        + "  */\n");
+    w.write("  @SuppressWarnings(\"unchecked\")\n");
+    w.write("  public " + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+"> "
         + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
-        + requiredReturnClass + ")getTable();\n" + "  }\n\n");
+        + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+">)getTable();\n" + "  }\n\n");
       
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
-      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() + " _"
+      w.write("  @SuppressWarnings(\"unchecked\")\n");
+      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous()+"> _"
           + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
-          + tableNamingInfo.tableMainClassUnambiguous() + ")getTable();\n" + "  }\n\n");
+          + tableNamingInfo.tableMainClassUnambiguous() + "<"+tableNamingInfo.mainClassUnambiguous()+">)getTable();\n" + "  }\n\n");
 
       w.write("  // Fields in this table \n");
       for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
@@ -441,17 +459,24 @@ public class TableDef {
   public void generateTableBaseJava(Writer w)
       throws IOException {
 
-    for (Enumeration<String> e = tableBaseImports.elements(); e.hasMoreElements();)
-      w.write("import " + e.nextElement() + ";\n");
+    for (Enumeration<String> e = tableBaseImports.elements(); e.hasMoreElements();) {
+      String packageName = e.nextElement();
+      if (ambiguous(packageName)) 
+        w.write("// FIXME extended table \nimport " + packageName + ";\n");
+      else
+        w.write("import " + packageName + ";\n");
+    }
 
     w.write("\n");
-    w.write("\n" + "/**\n" + " * Melati POEM generated base class for \n"
-        + "<code>Table</code> <code>" + nameFromDsd + "</code>.\n");
+    w.write("\n" 
+        + "/**\n" 
+        + " * Melati POEM generated base class for " + "<code>Table</code> <code>" + nameFromDsd + "</code>.\n");
     w.write(" *\n" 
         + " * see org.melati.poem.prepro.TableDef"
-        + "#generateTableBaseJava \n" + " */\n");
-    w.write("\npublic class " + tableNamingInfo.tableBaseClassShortName() + " extends "
-        + tableNamingInfo.superclassTableShortName() + " {\n" + "\n");
+        + "#generateTableBaseJava \n" + " */\n\n");
+    w.write("public class " + tableNamingInfo.tableBaseClassShortName() + "<T extends "+tableNamingInfo.mainClassShortName()+"> extends "
+        + tableNamingInfo.superclassTableShortName() + "<T> {\n" 
+        + "\n");
 
     for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
       w.write("  private ");
@@ -486,20 +511,23 @@ public class TableDef {
     //    + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" 
     //    + "\n");
     
-    w.write("\n /**\n" + "  * Get the database tables.\n" + "  *\n"
-        + "  * see org.melati.poem.prepro.TableDef"
-        + "#generateTableBaseJava \n" + "  * @return the database tables\n"
+    w.write("\n /**\n" 
+        + "  * Get the database tables.\n" + "  *\n"
+        + "  * see org.melati.poem.prepro.TableDef#generateTableBaseJava \n" 
+        + "  * @return the database tables\n"
         + "  */\n");
     w.write("  public " + dsd.databaseTablesClassName + " get"+ dsd.databaseTablesClassName + "() {\n" + 
         "    return (" + dsd.databaseTablesClassName + ")getDatabase();\n" + 
         "  }\n" + 
-        "\n" + 
+        "\n"); 
+    Enumeration<FieldDef> fs = fields.elements(); 
+    w.write(
         "  public void init() throws PoemException {\n" + 
         "    super.init();\n");
 
-    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
-      (f.nextElement()).generateColDefinition(w);
-      if (f.hasMoreElements())
+    for (; fs.hasMoreElements();) {
+      (fs.nextElement()).generateColDefinition(w);
+      if (fs.hasMoreElements())
         w.write('\n');
     }
 
@@ -545,31 +573,40 @@ public class TableDef {
           + "\n");
     
     if (displayName != null)
-      w.write("  protected String defaultDisplayName() {\n" + "    return "
+      w.write("  public String defaultDisplayName() {\n" + "    return "
           + StringUtils.quoted(displayName, '"') + ";\n" + "  }\n" + "\n");
 
     if (description != null)
-      w.write("  protected String defaultDescription() {\n" + "    return "
+      w.write("  public String defaultDescription() {\n" + "    return "
           + StringUtils.quoted(description, '"') + ";\n" + "  }\n" + "\n");
 
     if (seqCached)
-      w.write("  protected boolean defaultRememberAllTroids() {\n"
+      w.write("  public boolean defaultRememberAllTroids() {\n"
           + "    return true;\n" + "  }\n" + "\n");
 
     if (cacheSize != CacheSizeTableQualifier.DEFAULT)
-      w.write("  protected Integer defaultCacheLimit() {\n"
+      w.write("  public Integer defaultCacheLimit() {\n"
           + "    return new Integer("
           + (cacheSize == CacheSizeTableQualifier.UNLIMITED ? "999999999" : ""
               + cacheSize) + ");\n" + "  }\n" + "\n");
 
     if (category != null)
-      w.write("  protected String defaultCategory() {\n" + "    return "
+      w.write("  public String defaultCategory() {\n" + "    return "
           + StringUtils.quoted(category, '"') + ";\n" + "  }\n" + "\n");
 
-    w.write("  protected int defaultDisplayOrder() {\n" + "    return "
+    w.write("  public int defaultDisplayOrder() {\n" + "    return "
         + displayOrder + ";\n" + "  }\n");
 
     w.write("}\n");
+  }
+
+  private boolean ambiguous(String packageName) {
+    TableNamingInfo tni = dsd.tableNamingStore.tableInfoByTableOrPersistentFQName.get(packageName);
+    if (tni == null)
+      return false;
+    else if(tni.hidden || tni.hidesOther)
+      return true;
+    return false;
   }
 
   /**
@@ -599,8 +636,9 @@ public class TableDef {
     w.write(fieldSummaryTable());
     w.write(" * \n" 
         + " * see  org.melati.poem.prepro.TableDef" + "#generateTableJava \n" + " */\n");
-    w.write("public class " + tableNamingInfo.tableMainClassShortName() + " extends "
-        + tableNamingInfo.tableBaseClassShortName() + " {\n");
+    w.write("public class " + tableNamingInfo.tableMainClassShortName() + "<T extends "+tableNamingInfo.mainClassShortName()+"> extends "
+        + tableNamingInfo.tableBaseClassShortName() + "<"+tableNamingInfo.mainClassShortName()+"> {\n");
+    
     Object o = new Object() {
       public String toString() {
         return "\n /**\n"
@@ -677,7 +715,7 @@ public class TableDef {
       addImport("org.melati.poem.DisplayLevel", "table");
     if (hasSearchability)
       addImport("org.melati.poem.Searchability", "table");
-    addImport(tableNamingInfo.tableFQName, "table");
+    addImport(tableNamingInfo.objectFQName, "table");
     if (definesColumns) {
       addImport("org.melati.poem.Column", "both");
       addImport("org.melati.poem.Field", "both");
@@ -706,18 +744,19 @@ public class TableDef {
       addImport(tableNamingInfo.superclassTableFQName(), "table");
     }
     addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "table");
+    addImport(tableNamingInfo.mainClassFQName(), "persistent");
 
     // Sort out the imports
     for (Enumeration<String> i = imports.keys(); i.hasMoreElements();) {
       String fqKey;
       String key = i.nextElement();
       if (key.indexOf(".") == -1) {
-        TableNamingInfo targetTable = (TableNamingInfo) dsd.nameStore.tablesByShortName
+        TableNamingInfo targetTable = (TableNamingInfo) dsd.tableNamingStore.tableInfoByPersistentShortName
             .get(key);
         if (targetTable == null)
           throw new RuntimeException("No TableNamingInfo for " + key + 
                   ". This is probably a typo either in the table definition name or in a reference field.");
-        fqKey = targetTable.tableFQName;
+        fqKey = targetTable.objectFQName;
         String destination = imports.get(key);
         imports.remove(key);
         addImport(fqKey, destination);
@@ -729,8 +768,8 @@ public class TableDef {
 
       if (key.indexOf(".") == -1) {
         TableNamingInfo targetTable = 
-            (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
-        fqKey = targetTable.tableFQName;
+            (TableNamingInfo)dsd.tableNamingStore.tableInfoByPersistentShortName.get(key);
+        fqKey = targetTable.objectFQName;
       } else {
         fqKey = key;
       }

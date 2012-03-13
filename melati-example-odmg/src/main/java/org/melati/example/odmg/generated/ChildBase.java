@@ -3,6 +3,7 @@
 package org.melati.example.odmg.generated;
 
 
+import org.melati.example.odmg.Child;
 import org.melati.example.odmg.ChildTable;
 import org.melati.example.odmg.OdmgDatabaseTables;
 import org.melati.example.odmg.Parent;
@@ -41,12 +42,14 @@ public abstract class ChildBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ChildTable
   */
-  public ChildTable getChildTable() {
-    return (ChildTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ChildTable<Child> getChildTable() {
+    return (ChildTable<Child>)getTable();
   }
 
-  private ChildTable _getChildTable() {
-    return (ChildTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ChildTable<Child> _getChildTable() {
+    return (ChildTable<Child>)getTable();
   }
 
   // Fields in this table 

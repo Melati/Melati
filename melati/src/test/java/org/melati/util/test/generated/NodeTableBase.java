@@ -23,13 +23,12 @@ import org.melati.util.test.TreeTable;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Node</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Node</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class NodeTableBase extends TreeTable {
+public class NodeTableBase<T extends Node> extends TreeTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -82,23 +81,23 @@ public class NodeTableBase extends TreeTable {
             return ((Node)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -141,27 +140,27 @@ public class NodeTableBase extends TreeTable {
             return ((Node)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Contact Name";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -205,23 +204,23 @@ public class NodeTableBase extends TreeTable {
             return ((Node)g).getParentField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Parent of this Node";
           }
 
@@ -310,15 +309,15 @@ public class NodeTableBase extends TreeTable {
   protected JdbcPersistent _newPersistent() {
     return new Node();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A Tree Node";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Data";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 40;
   }
 }

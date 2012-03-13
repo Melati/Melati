@@ -9,6 +9,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.StringField;
 import org.melati.poem.test.StringFieldTable;
 
 
@@ -39,12 +40,14 @@ public abstract class StringFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the StringFieldTable
   */
-  public StringFieldTable getStringFieldTable() {
-    return (StringFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public StringFieldTable<StringField> getStringFieldTable() {
+    return (StringFieldTable<StringField>)getTable();
   }
 
-  private StringFieldTable _getStringFieldTable() {
-    return (StringFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private StringFieldTable<StringField> _getStringFieldTable() {
+    return (StringFieldTable<StringField>)getTable();
   }
 
   // Fields in this table 

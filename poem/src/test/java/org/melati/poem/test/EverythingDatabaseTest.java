@@ -29,9 +29,10 @@ public class EverythingDatabaseTest extends EverythingTestCase {
    * Test method for 'org.melati.poem.test.generated.EverythingDatabaseBase.getUserTable()'
    * Test method for 'org.melati.poem.Database.getTable(String)'
    */
+  @SuppressWarnings("unchecked")
   public void testGetUserTable() {
-      UserTable ut1 = getDb().getUserTable();
-      UserTable ut2 = (UserTable)getDb().getTable("user");
+      UserTable<org.melati.poem.User> ut1 = getDb().getUserTable();
+      UserTable<User> ut2 = (UserTable<User>)getDb().getTable("user");
       assertEquals(ut1, ut2);
   }
 
@@ -55,7 +56,7 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "EAExtended (from the data structure definition)" + 
     "Protected (from the data structure definition)" +
     "Dynamic (from the data structure definition)" +
-    "user (from the data structure definition)" + 
+    "User (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 
     "groupMembership (from the data structure definition)" + 
@@ -66,7 +67,7 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "setting (from the data structure definition)";
 
     String outcome = "";
-    for (Table t : getDb().getDisplayTables()) { 
+    for (Table<?> t : getDb().getDisplayTables()) { 
       outcome += t.toString();      
     }
     //System.err.println(expected);

@@ -134,13 +134,13 @@ public interface Dbms {
    * 
    * @return The appropriate SQL string to create a table 
    */
-  String createTableSql(Table table);
+  String createTableSql(Table<?> table);
   
   /**
    * Allow Hsqldb to have a different create table syntax.
    * Should have trailing space if not empty String
    */
-  String createTableTypeQualifierSql(Table table);
+  String createTableTypeQualifierSql(Table<?> table);
   
   /**
    * Accomodate MySQL table creation options.
@@ -152,7 +152,7 @@ public interface Dbms {
    * @param table
    * @return SQL to be run after creation or null
    */
-  String tableInitialisationSql(Table table);
+  String tableInitialisationSql(Table<?> table);
      
  /**
   * Retrieve a SQL type keyword used by the DBMS 
@@ -262,7 +262,7 @@ public interface Dbms {
    * @return an appropriate exception
    * @see Postgresql#exceptionForUpdate
    */
-  SQLPoemException exceptionForUpdate(Table table, String sql, boolean insert,
+  SQLPoemException exceptionForUpdate(Table<?> table, String sql, boolean insert,
                                       SQLException e);
 
   /**
@@ -282,7 +282,7 @@ public interface Dbms {
    *                             boolean, java.sql.SQLException)
    */
 
-  SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
+  SQLPoemException exceptionForUpdate(Table<?> table, PreparedStatement ps,
                                       boolean insert, SQLException e);
 
   /**

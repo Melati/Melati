@@ -56,7 +56,7 @@ public class ExtraColumn<T> extends Column<T> {
   /**
    * Constructor.
    */
-  public ExtraColumn(Table table, String name, SQLPoemType<T> type,
+  public <P extends Persistent> ExtraColumn(Table<P> table, String name, SQLPoemType<T> type,
                      DefinitionSource definitionSource,
                      int extrasIndex) {
     super(table, name, type, definitionSource);
@@ -142,10 +142,11 @@ public class ExtraColumn<T> extends Column<T> {
    * @param source
    * @return a new ExtraColumn 
    */
-  public static <O>Column<O> from(Table table, ColumnInfo columnInfo,
+  @SuppressWarnings("unchecked")
+  public static <O,P extends Persistent>Column<O> from(Table<P> table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
     return new ExtraColumn<O>(
-        table, columnInfo.getName(), columnInfo.getType(), 
+        table, columnInfo.getName(), (SQLPoemType<O>)columnInfo.getType(), 
         source, extrasIndex);
   }
 }

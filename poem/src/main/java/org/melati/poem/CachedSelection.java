@@ -54,7 +54,7 @@ import org.melati.poem.util.MappedEnumeration;
 /**
  * A cached instance of an SQL <code>select</code> query.
  */
-public class CachedSelection<T> extends CachedQuery<T> {
+public class CachedSelection<P extends Persistent> extends CachedQuery<P> {
 
   /**
    * Constructor.
@@ -63,10 +63,10 @@ public class CachedSelection<T> extends CachedQuery<T> {
    * @param orderByClause SQL snippet
    * @param otherTables an Array of Tables which are also referenced in query
    */
-  public CachedSelection(final Table table,
+  public CachedSelection(final Table<?> table,
                          final String whereClause,
                          final String orderByClause,
-                         final Table otherTables[]) {
+                         final Table<?> otherTables[]) {
     super(table, null, otherTables);
     
 
@@ -86,7 +86,7 @@ public class CachedSelection<T> extends CachedQuery<T> {
    * @param whereClause SQL snippet
    * @param orderByClause SQL snippet
    */
-  public CachedSelection(final Table table,
+  public CachedSelection(final Table<P> table,
                          final String whereClause,
                          final String orderByClause) {
     this(table,whereClause,orderByClause,null);
@@ -103,12 +103,12 @@ public class CachedSelection<T> extends CachedQuery<T> {
   /**
    * @return an Enumeration of Table Row ReferencePoemType objects
    */
-  public Enumeration<T> objects() {
+  public Enumeration<P> objects() {
     return
-        new MappedEnumeration<T,Integer>(troids()) {
+        new MappedEnumeration<P,Integer>(troids()) {
           @SuppressWarnings("unchecked")
-          public T mapped(Integer troid) {
-            return (T)table.getObject((Integer)troid);
+          public P mapped(Integer troid) {
+            return (P)table.getObject((Integer)troid);
           }
         };
   }
@@ -118,7 +118,7 @@ public class CachedSelection<T> extends CachedQuery<T> {
    * @return a List of Table Row ReferencePoemType objects
    */
 
-  public List<T> objectList() { 
+  public List<P> objectList() { 
     return Collections.list(objects());
   }
   

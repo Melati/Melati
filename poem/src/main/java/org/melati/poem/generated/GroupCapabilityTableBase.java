@@ -24,13 +24,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>groupCapability</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>groupCapability</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupCapabilityTableBase extends PoemTable {
+public class GroupCapabilityTableBase<T extends GroupCapability> extends PoemTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Integer> col_group = null;
@@ -83,23 +82,23 @@ public class GroupCapabilityTableBase extends PoemTable {
             return ((GroupCapability)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Table Row Object ID";
           }
 
@@ -143,19 +142,19 @@ public class GroupCapabilityTableBase extends PoemTable {
             return ((GroupCapability)g).getGroupField();
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Group which has the capability";
           }
 
@@ -199,15 +198,15 @@ public class GroupCapabilityTableBase extends PoemTable {
             return ((GroupCapability)g).getCapabilityField();
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The capability";
           }
 
@@ -296,19 +295,19 @@ public class GroupCapabilityTableBase extends PoemTable {
   protected JdbcPersistent _newPersistent() {
     return new GroupCapability();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Group capability";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A record that Users belonging to a given Group possess a given Capability";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "User";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 2050;
   }
 }

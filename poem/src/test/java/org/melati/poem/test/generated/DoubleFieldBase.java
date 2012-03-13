@@ -8,6 +8,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.DoubleField;
 import org.melati.poem.test.DoubleFieldTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -39,12 +40,14 @@ public abstract class DoubleFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DoubleFieldTable
   */
-  public DoubleFieldTable getDoubleFieldTable() {
-    return (DoubleFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public DoubleFieldTable<DoubleField> getDoubleFieldTable() {
+    return (DoubleFieldTable<DoubleField>)getTable();
   }
 
-  private DoubleFieldTable _getDoubleFieldTable() {
-    return (DoubleFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private DoubleFieldTable<DoubleField> _getDoubleFieldTable() {
+    return (DoubleFieldTable<DoubleField>)getTable();
   }
 
   // Fields in this table 

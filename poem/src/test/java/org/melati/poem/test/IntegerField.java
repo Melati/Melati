@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.IntegerFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.IntegerFieldBase;
  * <tr><td> integerfield </td><td> Integer </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class IntegerField extends IntegerFieldBase {
 
@@ -32,9 +35,11 @@ public class IntegerField extends IntegerFieldBase {
   *   A table with only an integer field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public IntegerField() { }
+  public IntegerField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

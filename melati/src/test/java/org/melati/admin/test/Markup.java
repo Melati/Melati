@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.admin.test;
+
 
 import org.melati.admin.test.generated.MarkupBase;
 
@@ -20,7 +23,7 @@ import org.melati.admin.test.generated.MarkupBase;
  * <tr><td> text </td><td> String </td><td> The text </td></tr> 
  * </table> 
  * 
- * @see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Markup extends MarkupBase {
 
@@ -32,9 +35,11 @@ public class Markup extends MarkupBase {
   *   An HTML markup fragment. 
   * </p>
   * 
-  * @see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public Markup() { }
+  public Markup() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

@@ -86,6 +86,7 @@ public class Hsqldb extends AnsiStandard {
    * 
    * @see org.melati.poem.dbms.Dbms#disconnect()
    */
+  @Override
   public void shutdown(Connection connection)  throws SQLException { 
     if (!connection.isClosed()) {
       Statement st = connection.createStatement();
@@ -109,7 +110,8 @@ public class Hsqldb extends AnsiStandard {
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
-  public String createTableTypeQualifierSql(Table table) {
+  @Override
+  public String createTableTypeQualifierSql(Table<?> table) {
     String tableType;
     if (table == null || table.getDbmsTableType() == null)
       tableType = "CACHED ";
@@ -135,9 +137,9 @@ public class Hsqldb extends AnsiStandard {
   }
   */
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
+  @Override
   public String getStringSqlDefinition(int size) {
     if (size < 0)
       return "LONGVARCHAR";
@@ -149,6 +151,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getLongSqlDefinition()
    */
+  @Override
   public String getLongSqlDefinition() {
     return "BIGINT";
   }
@@ -157,15 +160,17 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
+  @Override
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "LONGVARBINARY";
   }
 
   /**
-   * Accomodate our String size hack. 
+   * Accommodate our String size hack. 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */
+  @Override
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == hsqldbTextHack
@@ -199,6 +204,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
+  @Override
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
     if(name.equalsIgnoreCase("CONSTRAINT")) name = "MELATI_" + name.toUpperCase();
@@ -210,6 +216,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
+  @Override
   public String melatiName(String name) {
     if (name == null) return name;
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "UNIQUE";
@@ -225,6 +232,7 @@ public class Hsqldb extends AnsiStandard {
    * 
    * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
    */
+  @Override
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
@@ -238,6 +246,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
+  @Override
   public String getForeignKeyDefinition(String tableName, String fieldName, 
                                         String targetTableName, 
                                         String targetTableFieldName, 
@@ -265,6 +274,7 @@ public class Hsqldb extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getJdbcMetadataName(java.lang.String)
    */
+  @Override
   public String getJdbcMetadataName(String name) {
     return name.toUpperCase();
   }

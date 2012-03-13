@@ -11,6 +11,7 @@ import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.TableCategory;
+import org.melati.poem.TableInfo;
 import org.melati.poem.TableInfoTable;
 import org.melati.poem.ValidationPoemException;
 
@@ -42,12 +43,14 @@ public abstract class TableInfoBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the TableInfoTable
   */
-  public TableInfoTable getTableInfoTable() {
-    return (TableInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  public TableInfoTable<TableInfo> getTableInfoTable() {
+    return (TableInfoTable<TableInfo>)getTable();
   }
 
-  private TableInfoTable _getTableInfoTable() {
-    return (TableInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  private TableInfoTable<TableInfo> _getTableInfoTable() {
+    return (TableInfoTable<TableInfo>)getTable();
   }
 
   // Fields in this table 

@@ -49,12 +49,14 @@ public abstract class ContactBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ContactTable
   */
-  public ContactTable getContactTable() {
-    return (ContactTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ContactTable<Contact> getContactTable() {
+    return (ContactTable<Contact>)getTable();
   }
 
-  private ContactTable _getContactTable() {
-    return (ContactTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ContactTable<Contact> _getContactTable() {
+    return (ContactTable<Contact>)getTable();
   }
 
   // Fields in this table 

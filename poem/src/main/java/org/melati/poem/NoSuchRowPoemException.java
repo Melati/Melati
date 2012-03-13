@@ -54,12 +54,12 @@ public class NoSuchRowPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The table we are dealing with. */
-  public Table table;
+  public Table<?> table;
   /** Its TROID. */
   public Integer troid;
 
   /** Constructor. */
-  public NoSuchRowPoemException(Table table, Integer troid) {
+  public NoSuchRowPoemException(Table<?> table, Integer troid) {
     this.table = table;
     this.troid = troid;
   }

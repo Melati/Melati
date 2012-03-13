@@ -8,6 +8,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.BooleanField;
 import org.melati.poem.test.BooleanFieldTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -39,12 +40,14 @@ public abstract class BooleanFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BooleanFieldTable
   */
-  public BooleanFieldTable getBooleanFieldTable() {
-    return (BooleanFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public BooleanFieldTable<BooleanField> getBooleanFieldTable() {
+    return (BooleanFieldTable<BooleanField>)getTable();
   }
 
-  private BooleanFieldTable _getBooleanFieldTable() {
-    return (BooleanFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private BooleanFieldTable<BooleanField> _getBooleanFieldTable() {
+    return (BooleanFieldTable<BooleanField>)getTable();
   }
 
   // Fields in this table 

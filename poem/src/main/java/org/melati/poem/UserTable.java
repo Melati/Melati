@@ -77,7 +77,7 @@ import java.sql.ResultSet;
  * 
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class UserTable extends UserTableBase {
+public class UserTable<T extends User> extends UserTableBase<T> {
 
 
   // programmer's domain-specific code here

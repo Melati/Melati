@@ -12,6 +12,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.EverythingNormal;
 import org.melati.poem.test.EverythingNormalTable;
 
 
@@ -42,12 +43,14 @@ public abstract class EverythingNormalBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EverythingNormalTable
   */
-  public EverythingNormalTable getEverythingNormalTable() {
-    return (EverythingNormalTable)getTable();
+  @SuppressWarnings("unchecked")
+  public EverythingNormalTable<EverythingNormal> getEverythingNormalTable() {
+    return (EverythingNormalTable<EverythingNormal>)getTable();
   }
 
-  private EverythingNormalTable _getEverythingNormalTable() {
-    return (EverythingNormalTable)getTable();
+  @SuppressWarnings("unchecked")
+  private EverythingNormalTable<EverythingNormal> _getEverythingNormalTable() {
+    return (EverythingNormalTable<EverythingNormal>)getTable();
   }
 
   // Fields in this table 

@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.PasswordFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.PasswordFieldBase;
  * <tr><td> passwordfield </td><td> String </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class PasswordField extends PasswordFieldBase {
 
@@ -32,9 +35,11 @@ public class PasswordField extends PasswordFieldBase {
   *   A table with only a password field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public PasswordField() { }
+  public PasswordField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

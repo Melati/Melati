@@ -10,6 +10,7 @@ import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.ValueInfo;
 import org.melati.poem.ValueInfoTable;
 
 
@@ -40,12 +41,14 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ValueInfoTable
   */
-  public ValueInfoTable getValueInfoTable() {
-    return (ValueInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ValueInfoTable<ValueInfo> getValueInfoTable() {
+    return (ValueInfoTable<ValueInfo>)getTable();
   }
 
-  private ValueInfoTable _getValueInfoTable() {
-    return (ValueInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ValueInfoTable<ValueInfo> _getValueInfoTable() {
+    return (ValueInfoTable<ValueInfo>)getTable();
   }
 
   // Fields in this table 

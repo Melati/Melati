@@ -30,13 +30,12 @@ import org.melati.poem.ValueInfoTable;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>columnInfo</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>columnInfo</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ColumnInfoTableBase extends ValueInfoTable {
+public class ColumnInfoTableBase<T extends ColumnInfo> extends ValueInfoTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Integer> col_tableinfo = null;
@@ -98,15 +97,15 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -150,31 +149,31 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getTableinfoField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Owning table";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The table to which the field belongs";
           }
 
-          protected String defaultRenderinfo() {
+          public String defaultRenderinfo() {
             return "SelectionWindow";
           }
 
@@ -217,27 +216,27 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getNameField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 50;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A code-name for the field";
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
@@ -280,27 +279,27 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getDisplayorderField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display order";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 51;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A rank determining where the field appears in lists";
           }
 
@@ -343,23 +342,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getUsercreateableField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "User-createable";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 52;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether it makes sense for the user to initialise the field's value";
           }
 
@@ -402,23 +401,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getDisplaylevelField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display level";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 53;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A category determining what granularity of report the field appears in";
           }
 
@@ -461,19 +460,19 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getSearchabilityField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 54;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A category determining what level of searching this field supports";
           }
 
@@ -516,19 +515,19 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getDisplayorderpriorityField();
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display order priority";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 55;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "If present, the level at which lists of records are sorted by the field";
           }
 
@@ -571,23 +570,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getSortdescendingField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Sort Descending";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 56;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether when sorting by this column, the sort order should be reversed";
           }
 
@@ -630,23 +629,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getIndexedField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 57;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether the field is indexed (ignored if the field is marked `unique')";
           }
 
@@ -689,23 +688,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getUniqueField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 58;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether the field is unique (implies that it's `indexed')";
           }
 
@@ -748,23 +747,23 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getIntegrityfixField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Integrity fix";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 59;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "How referential integrity is maintained, what to do when the object referred to is deleted";
           }
 
@@ -961,27 +960,27 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   protected JdbcPersistent _newPersistent() {
     return new ColumnInfo();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Column";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "Configuration information about a column in the database";
   }
 
-  protected boolean defaultRememberAllTroids() {
+  public boolean defaultRememberAllTroids() {
     return true;
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(999999999);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "System";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 3020;
   }
 }

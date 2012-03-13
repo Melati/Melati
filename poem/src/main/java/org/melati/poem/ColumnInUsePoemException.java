@@ -52,7 +52,7 @@ public class ColumnInUsePoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table the Column belongs to.*/
-  public Table table;
+  public Table<?> table;
   /** The Column being defined a second time. */
   public Column<?> column;
 
@@ -61,7 +61,7 @@ public class ColumnInUsePoemException extends SeriousPoemException {
    * @param table The Table the Column belongs to.
    * @param column The Column being defined a second time.
    */
-  public ColumnInUsePoemException(Table table, Column<?> column) {
+  public ColumnInUsePoemException(Table<?> table, Column<?> column) {
     this.table = table;
     this.column = column;
   }

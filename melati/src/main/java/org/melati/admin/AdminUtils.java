@@ -162,7 +162,7 @@ public class AdminUtils {
   /**
    * @return name prepended with ldb and table name
    */
-  public String getURL(Table table, String name) { 
+  public String getURL(Table<?> table, String name) { 
     String url = servletURL + "/" + logicalDatabase;
     url += "/" + table.getName();
     return url + "/" + name;
@@ -179,11 +179,11 @@ public class AdminUtils {
     return getURL(melati, "Main");
   }
   /** @return The Main URL after deletion of a tableinfo */
-  public String MainURL(Table table) {
+  public String MainURL(Table<?> table) {
     return getURL(table, "Main");
   }
   /** @return The Main URL after creation of a tableinfo */
-  public String MainURL(Table table,Persistent p) {
+  public String MainURL(Table<?> table,Persistent p) {
     String url = servletURL + "/" + logicalDatabase;
     url += "/" + table.getName();
     url += "/" + p.troid();
@@ -200,7 +200,7 @@ public class AdminUtils {
    */
   /*
    * Do not think this is used
-  public String BottomURL(Table table, Melati melati) {
+  public String BottomURL(Table<?> table, Melati melati) {
     return  servletURL + "/" + logicalDatabase + 
         "/" + table.getName() +
         (melati.getObject() != null &&  
@@ -231,7 +231,7 @@ public class AdminUtils {
   /**
    * @return The Left URL.
    */
-  public String TableURL(Table table) {
+  public String TableURL(Table<?> table) {
     return getURL(table, "Table");
   }
   
@@ -270,13 +270,13 @@ public class AdminUtils {
   /**
    * @return The Selection URL.
    */
-  public String SelectionURL(Table table) {
+  public String SelectionURL(Table<?> table) {
     return SelectionURL(table,"admin_record");
   }
   /**
    * @return The Selection URL.
    */
-  public String SelectionURL(Table table, String returnTarget) {
+  public String SelectionURL(Table<?> table, String returnTarget) {
     return SelectionURL(table, "admin_record", returnTarget);
   }
   /**
@@ -285,7 +285,7 @@ public class AdminUtils {
    * @param returnTarget
    * @return the url
    */
-  public String SelectionURL(Table table, String targetPane, String returnTarget) {
+  public String SelectionURL(Table<?> table, String targetPane, String returnTarget) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection?" +
             "target=" + targetPane +  
@@ -331,7 +331,7 @@ public class AdminUtils {
   /**
    * @return The Selection Right URL.
    */
-  public String SelectionRightURL(Table table) {
+  public String SelectionRightURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
     + "/SelectionRight";
   }
@@ -339,7 +339,7 @@ public class AdminUtils {
   /**
    * @return The Navigation URL.
    */
-  public String NavigationURL(Table table) {
+  public String NavigationURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
     + "/Navigation";
   }
@@ -393,7 +393,7 @@ public class AdminUtils {
   /**
    * @return The Tree URL.
    */
-  public String TreeURL(Table table) throws AccessPoemException {
+  public String TreeURL(Table<?> table) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             +  "/Tree";
   }
@@ -402,7 +402,7 @@ public class AdminUtils {
   /**
    * @return The Add URL.
    */
-  public String AddURL(Table table) throws AccessPoemException {
+  public String AddURL(Table<?> table) throws AccessPoemException {
     return servletURL
             + "/"
             + logicalDatabase
@@ -415,14 +415,14 @@ public class AdminUtils {
   /**
    * @return The Popup URL.
    */
-  public String PopUpURL(Table table) {
+  public String PopUpURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
   
   /**
    * @return The Selection Window URL.
    */
-  public String SelectionWindowURL(Table table) {
+  public String SelectionWindowURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindow?target=";
   }
@@ -430,7 +430,7 @@ public class AdminUtils {
   /**
    * @return The Selection Window Primary Select URL.
    */
-  public String SelectionWindowPrimarySelectURL(Table table) {
+  public String SelectionWindowPrimarySelectURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowPrimarySelect";
   }
@@ -438,7 +438,7 @@ public class AdminUtils {
   /**
    * @return The Selection Window Selection URL.
    */
-  public String SelectionWindowSelectionURL(Table table) {
+  public String SelectionWindowSelectionURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowSelection";
   }
@@ -475,7 +475,7 @@ public class AdminUtils {
    * @param field the upload field
    * @return Upload Url
    */
-  public String UploadURL(Table table, Persistent object, Field<?> field) {
+  public String UploadURL(Table<?> table, Persistent object, Field<?> field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
   
@@ -487,10 +487,10 @@ public class AdminUtils {
    * @param field the upload field
    * @return Upload done URL
    */
-  public String UploadHandlerURL(Table table, Persistent object, String field) {
+  public String UploadHandlerURL(Table<?> table, Persistent object, String field) {
     return upload(table, object) + "/UploadDone?field=" + field;
   }
-  private String upload(Table table, Persistent object) {
+  private String upload(Table<?> table, Persistent object) {
     String url = servletURL + "/" + logicalDatabase + "/" + table.getName();
     if (object != null)
       url += "/" + object.troid();
@@ -547,7 +547,7 @@ public class AdminUtils {
    * @return a tree with node as its root
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public JSStaticTree createForest(Table table) {
+  public JSStaticTree createForest(Table<?> table) {
     Object[] all = ArrayUtils.arrayOf((Enumeration) table.selection());
     Hashtable<Treeable, Boolean> hasParent = new Hashtable<Treeable, Boolean>();
     for (int i = 0; i < all.length; i++) {

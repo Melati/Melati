@@ -64,7 +64,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @param orderByClause raw SQL order by clause 
    */
   public PreparedTailoredQuery(String modifier,
-                               Column<?>[] selectedColumns, Table[] otherTables,
+                               Column<?>[] selectedColumns, Table<?>[] otherTables,
                                String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     statements = new PreparedStatementFactory(database, sql);
@@ -76,9 +76,9 @@ public class PreparedTailoredQuery extends TailoredQuery {
    * @param selectedColumns an array of columns we know we need
    * @param otherTables tables other than the one we belong to
    * @param whereClause raw SQL where clause
-   * @param orderByClause raw SQL order by clasue 
+   * @param orderByClause raw SQL order by clause 
    */
-  public PreparedTailoredQuery(Column<?>[] selectedColumns, Table[] otherTables,
+  public PreparedTailoredQuery(Column<?>[] selectedColumns, Table<?>[] otherTables,
                                String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }

@@ -49,7 +49,7 @@ import java.util.Enumeration;
  /**
   * An object on which selections can be performed.
   */ 
-public interface Selectable {
+public interface Selectable<P extends Persistent> {
   
   /**
    * Get an object by its key.
@@ -57,12 +57,12 @@ public interface Selectable {
    * @return the object referenced by the key
    * @throws NoSuchRowPoemException if the key does not exist
    */
-  Persistent getObject(Integer troid) throws NoSuchRowPoemException;
+  P getObject(Integer troid) throws NoSuchRowPoemException;
   
   /**
    * All the Objects.
    * @return an Enumeration of all Objects held
    * @throws SQLPoemException
    */
-  Enumeration selection() throws SQLPoemException;
+  Enumeration<P> selection() throws SQLPoemException;
 }

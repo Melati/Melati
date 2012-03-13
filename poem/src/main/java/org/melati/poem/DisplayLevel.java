@@ -131,7 +131,7 @@ public final class DisplayLevel {
       detail = new DisplayLevel(n++, "detail"),
       never = new DisplayLevel(n++, "never") };
 
-  private static final Hashtable levelOfName = new Hashtable();
+  private static final Hashtable<String, DisplayLevel> levelOfName = new Hashtable<String, DisplayLevel>();
 
   static {
     for (int i = 0; i < displayLevels.length; ++i)

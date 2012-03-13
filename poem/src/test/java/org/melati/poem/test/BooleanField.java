@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.BooleanFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.BooleanFieldBase;
  * <tr><td> booleanfield </td><td> Boolean </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class BooleanField extends BooleanFieldBase {
 
@@ -32,9 +35,11 @@ public class BooleanField extends BooleanFieldBase {
   *   A table with only a boolean field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public BooleanField() { }
+  public BooleanField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

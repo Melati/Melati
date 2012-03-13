@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.example.contacts;
+
 
 import org.melati.example.contacts.generated.CategoryBase;
 
@@ -20,7 +23,7 @@ import org.melati.example.contacts.generated.CategoryBase;
  * <tr><td> name </td><td> String </td><td> Category Name </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Category extends CategoryBase {
 
@@ -32,9 +35,12 @@ public class Category extends CategoryBase {
   *   A Category for Contacts. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public Category() { }
+  public Category() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }
+

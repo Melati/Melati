@@ -123,7 +123,7 @@ public class LoginHandler {
 
     String username = context.getFormField("field_login");
     String password = context.getFormField("field_password");
-    UserTable users = PoemThread.database().getUserTable();
+    UserTable<User> users = PoemThread.database().getUserTable();
 
     context.put("login", new Field<String>(username, users.getLoginColumn()));
     context.put("password", new Field<String>(password, users.getPasswordColumn()));

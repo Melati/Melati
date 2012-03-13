@@ -13,6 +13,7 @@ import org.melati.poem.Field;
 import org.melati.poem.GroupMembership;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.User;
 import org.melati.poem.UserTable;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.util.EmptyEnumeration;
@@ -45,12 +46,14 @@ public abstract class UserBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the UserTable
   */
-  public UserTable getUserTable() {
-    return (UserTable)getTable();
+  @SuppressWarnings("unchecked")
+  public UserTable<User> getUserTable() {
+    return (UserTable<User>)getTable();
   }
 
-  private UserTable _getUserTable() {
-    return (UserTable)getTable();
+  @SuppressWarnings("unchecked")
+  private UserTable<User> _getUserTable() {
+    return (UserTable<User>)getTable();
   }
 
   // Fields in this table 

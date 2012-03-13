@@ -22,13 +22,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Category</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Category</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class CategoryTableBase extends ContactsTable {
+public class CategoryTableBase<T extends Category> extends ContactsTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -80,23 +79,23 @@ public class CategoryTableBase extends ContactsTable {
             return ((Category)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -139,27 +138,27 @@ public class CategoryTableBase extends ContactsTable {
             return ((Category)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Category Name";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -236,15 +235,15 @@ public class CategoryTableBase extends ContactsTable {
   protected JdbcPersistent _newPersistent() {
     return new Category();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A Category for Contacts";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Codes";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 100;
   }
 }

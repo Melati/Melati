@@ -9,6 +9,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.LongField;
 import org.melati.poem.test.LongFieldTable;
 
 
@@ -39,12 +40,14 @@ public abstract class LongFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the LongFieldTable
   */
-  public LongFieldTable getLongFieldTable() {
-    return (LongFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public LongFieldTable<LongField> getLongFieldTable() {
+    return (LongFieldTable<LongField>)getTable();
   }
 
-  private LongFieldTable _getLongFieldTable() {
-    return (LongFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private LongFieldTable<LongField> _getLongFieldTable() {
+    return (LongFieldTable<LongField>)getTable();
   }
 
   // Fields in this table 

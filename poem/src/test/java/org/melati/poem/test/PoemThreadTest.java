@@ -119,7 +119,7 @@ public class PoemThreadTest extends PoemTestCase {
    * assertHasCapability(org.melati.poem.Capability)}.
    */
   public void testAssertHasCapability() {
-    Column c = getDb().getCapabilityTable().getNameColumn();
+    Column<?> c = getDb().getCapabilityTable().getNameColumn();
     Capability canWrite = (Capability)c.firstWhereEq("canRead");
     assertNotNull(canWrite);
     PoemThread.assertHasCapability(canWrite);

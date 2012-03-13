@@ -56,9 +56,9 @@ public class CachedCount extends CachedQuery <Integer> {
    * @param whereClause discriminator, may be null
    * @param otherTables other tables involved in whereClause, if any
    */
-  public CachedCount(final Table table,
+  public CachedCount(final Table<?> table,
                        final String whereClause,
-                       final Table otherTables[]) {
+                       final Table<?> otherTables[]) {
     super(table, table.countSQL(whereClause), otherTables);
   }
 
@@ -81,7 +81,7 @@ public class CachedCount extends CachedQuery <Integer> {
    * @param table the table to count
    * @param whereClause discrimination, can be null
    */
-  public CachedCount(final Table table, final String whereClause) {
+  public CachedCount(final Table<?> table, final String whereClause) {
     this(table, whereClause, null);
   }
 

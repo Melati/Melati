@@ -80,7 +80,7 @@ import org.melati.poem.generated.GroupCapabilityTableBase;
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
-public class GroupCapabilityTable extends GroupCapabilityTableBase {
+public class GroupCapabilityTable<T extends GroupCapability> extends GroupCapabilityTableBase<T> {
 
  /**
   * Constructor.
@@ -121,7 +121,7 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
      GroupCapability p = (GroupCapability)newPersistent();
      p.setGroup(group);
      p.setCapability(capability);
-     Enumeration them = selection(p);
+     Enumeration<T> them = selection(p);
      if (them.hasMoreElements()) 
        return (GroupCapability)them.nextElement();
      else {

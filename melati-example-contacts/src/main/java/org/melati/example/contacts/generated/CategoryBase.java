@@ -6,6 +6,7 @@ package org.melati.example.contacts.generated;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import org.melati.example.contacts.Category;
 import org.melati.example.contacts.CategoryTable;
 import org.melati.example.contacts.ContactCategory;
 import org.melati.example.contacts.ContactsDatabaseTables;
@@ -45,12 +46,14 @@ public abstract class CategoryBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the CategoryTable
   */
-  public CategoryTable getCategoryTable() {
-    return (CategoryTable)getTable();
+  @SuppressWarnings("unchecked")
+  public CategoryTable<Category> getCategoryTable() {
+    return (CategoryTable<Category>)getTable();
   }
 
-  private CategoryTable _getCategoryTable() {
-    return (CategoryTable)getTable();
+  @SuppressWarnings("unchecked")
+  private CategoryTable<Category> _getCategoryTable() {
+    return (CategoryTable<Category>)getTable();
   }
 
   // Fields in this table 

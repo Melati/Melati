@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.CachedSelection;
+import org.melati.poem.Capability;
 import org.melati.poem.CapabilityTable;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
@@ -46,12 +47,14 @@ public abstract class CapabilityBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the CapabilityTable
   */
-  public CapabilityTable getCapabilityTable() {
-    return (CapabilityTable)getTable();
+  @SuppressWarnings("unchecked")
+  public CapabilityTable<Capability> getCapabilityTable() {
+    return (CapabilityTable<Capability>)getTable();
   }
 
-  private CapabilityTable _getCapabilityTable() {
-    return (CapabilityTable)getTable();
+  @SuppressWarnings("unchecked")
+  private CapabilityTable<Capability> _getCapabilityTable() {
+    return (CapabilityTable<Capability>)getTable();
   }
 
   // Fields in this table 

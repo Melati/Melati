@@ -53,12 +53,12 @@ public class RowDisappearedPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
   /** Its TROID. */
   public Integer troid;
 
   /** Constructor. */
-  public RowDisappearedPoemException(Table table, Integer troid) {
+  public RowDisappearedPoemException(Table<?> table, Integer troid) {
     this.table = table;
     this.troid = troid;
   }

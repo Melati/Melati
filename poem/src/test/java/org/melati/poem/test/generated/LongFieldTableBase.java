@@ -22,13 +22,12 @@ import org.melati.poem.test.LongField;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>LongField</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>LongField</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class LongFieldTableBase extends EverythingTable {
+public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Long> col_longfield = null;
@@ -80,43 +79,43 @@ public class LongFieldTableBase extends EverythingTable {
             return ((LongField)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Id";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -159,27 +158,27 @@ public class LongFieldTableBase extends EverythingTable {
             return ((LongField)g).getLongfieldField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Long Field";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 8;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -256,23 +255,23 @@ public class LongFieldTableBase extends EverythingTable {
   protected JdbcPersistent _newPersistent() {
     return new LongField();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Long Field";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A table with only a long field in it";
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(100);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Normal";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 28;
   }
 }

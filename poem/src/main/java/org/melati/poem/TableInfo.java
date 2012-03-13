@@ -108,7 +108,7 @@ public class TableInfo extends TableInfoBase {
 
   // programmer's domain-specific code here
 
-  private Table _actualTable = null;
+  private Table<?> _actualTable = null;
 
   /**
    * Constructor creates a {@link TableInfo} from a {@link Table}.
@@ -116,7 +116,7 @@ public class TableInfo extends TableInfoBase {
    * 
    * @param table from which to get metadata
    */
-  public TableInfo(JdbcTable table) {
+  public TableInfo(Table<?> table) {
     setName_unsafe(table.getName());
     setDisplayname_unsafe(table.defaultDisplayName());
     setDisplayorder_unsafe(new Integer(table.defaultDisplayOrder()));
@@ -133,7 +133,7 @@ public class TableInfo extends TableInfoBase {
    * 
    * @return The table this object represents.
    */
-  public Table actualTable() {
+  public Table<?> actualTable() {
     if (_actualTable == null && troid() != null)
       _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
     return _actualTable;
@@ -165,8 +165,8 @@ public class TableInfo extends TableInfoBase {
    */
   public void setSeqcached(Boolean b) throws AccessPoemException {
     super.setSeqcached(b);
-    Table t = actualTable();
-    if (t != null) t.rememberAllTroids(b.booleanValue());
+    if (actualTable() != null) 
+      actualTable().rememberAllTroids(b.booleanValue());
   }
 
   /**
@@ -176,8 +176,8 @@ public class TableInfo extends TableInfoBase {
    */
   public void setCachelimit(Integer limit) throws AccessPoemException {
     super.setCachelimit(limit);
-    Table t = actualTable();
-    if (t != null) t.setCacheLimit(limit);
+    if (actualTable() != null) 
+      actualTable().setCacheLimit(limit);
   }
 
 }

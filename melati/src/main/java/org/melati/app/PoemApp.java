@@ -46,7 +46,6 @@ package org.melati.app;
 import java.util.Enumeration;
 
 import org.melati.Melati;
-import org.melati.poem.Persistent;
 import org.melati.poem.User;
 
 /**
@@ -80,7 +79,7 @@ public class PoemApp extends AbstractPoemApp {
     melati.getWriter().write("Your Method was  : " + melati.getMethod() + "\n");
     melati.getWriter().write("System Users" + "\n");
     melati.getWriter().write("============" + "\n");
-    Enumeration<Persistent> e = melati.getDatabase().getUserTable().selection(); 
+    Enumeration<User> e = melati.getDatabase().getUserTable().selection(); 
     while(e.hasMoreElements()) {
       melati.getWriter().write("  " + ((User)e.nextElement()).getName() + "\n");
     }

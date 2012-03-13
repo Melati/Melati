@@ -58,10 +58,10 @@ public interface TableListener {
    * @param persistent the record that is being modified
    */
   void notifyTouched(PoemTransaction transaction,
-                     Table table, Persistent persistent);
+                     Table<?> table, Persistent persistent);
   /**
    * Notify a Table that it is being uncached. 
    * @param table the Table that is to be uncached
    */
-  void notifyUncached(Table table);
+  void notifyUncached(Table<?> table);
 }

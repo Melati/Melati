@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.melati.poem.Persistent;
+import org.melati.poem.Setting;
 import org.melati.poem.TableMap;
 import org.melati.poem.User;
 
@@ -19,8 +19,8 @@ import org.melati.poem.User;
  */
 public class TableMapTest extends PoemTestCase {
   
-  private TableMap it;
-  private TableMap noArg;
+  private TableMap<User> it;
+  private TableMap<Setting> noArg;
 
   /**
    * @param name
@@ -39,19 +39,18 @@ public class TableMapTest extends PoemTestCase {
   }
 
   protected void createObjectsUnderTest() {
-    it = new TableMap(getDb().getUserTable());
-    noArg = new TableMap();
+    it = new TableMap<User>(getDb().getUserTable());
+    noArg = new TableMap<Setting>();
   }
 
-  protected TableMap getObjectUnderTest() { 
+  protected TableMap<User> getObjectUnderTest() { 
     return it;
   }
-  protected TableMap getNoArgObjectUnderTest() { 
+  protected TableMap<Setting> getNoArgObjectUnderTest() { 
     return noArg;
   }
 
   /** 
-   * {@inheritDoc}
    * @see org.melati.poem.test.PoemTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
@@ -86,8 +85,8 @@ public class TableMapTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableMap#setTable(org.melati.poem.Table)}.
    */
   public void testSetTable() {
-    getNoArgObjectUnderTest().setTable(getDb().getUserTable());
-    assertEquals(getDb().getUserTable(), getNoArgObjectUnderTest().getTable());
+    getObjectUnderTest().setTable(getDb().getUserTable());
+    assertEquals(getDb().getUserTable(), getObjectUnderTest().getTable());
     
   }
 
@@ -159,8 +158,9 @@ public class TableMapTest extends PoemTestCase {
    */
   public void testIsEmpty() {
     assertFalse(getObjectUnderTest().isEmpty());
-    getObjectUnderTest().setTable(getDb().getSettingTable());
-    assertTrue(getObjectUnderTest().isEmpty());    
+    getNoArgObjectUnderTest().setTable(getDb().getSettingTable());
+    //System.err.println(getObjectUnderTest().size());
+    assertFalse(getObjectUnderTest().isEmpty());    
   }
 
   /**
@@ -195,7 +195,7 @@ public class TableMapTest extends PoemTestCase {
    */
   public void testPutAll() {
     try { 
-      getObjectUnderTest().putAll(noArg);
+      getNoArgObjectUnderTest().putAll(noArg);
       fail("Should have bombed");
     } catch (UnsupportedOperationException e) { 
       e = null;
@@ -235,8 +235,8 @@ public class TableMapTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableMap#values()}.
    */
   public void testValues() {
-    Collection<Persistent> c = getObjectUnderTest().values();
-    Iterator<Persistent> i = c.iterator(); 
+    Collection<User> c = getObjectUnderTest().values();
+    Iterator<User> i = c.iterator(); 
     assertEquals("_guest_",i.next().toString());
     assertEquals("_administrator_",i.next().toString());
     try { 

@@ -9,6 +9,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.BigdecimalField;
 import org.melati.poem.test.BigdecimalFieldTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -40,12 +41,14 @@ public abstract class BigdecimalFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BigdecimalFieldTable
   */
-  public BigdecimalFieldTable getBigdecimalFieldTable() {
-    return (BigdecimalFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public BigdecimalFieldTable<BigdecimalField> getBigdecimalFieldTable() {
+    return (BigdecimalFieldTable<BigdecimalField>)getTable();
   }
 
-  private BigdecimalFieldTable _getBigdecimalFieldTable() {
-    return (BigdecimalFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private BigdecimalFieldTable<BigdecimalField> _getBigdecimalFieldTable() {
+    return (BigdecimalFieldTable<BigdecimalField>)getTable();
   }
 
   // Fields in this table 

@@ -53,7 +53,8 @@ import java.util.SortedMap;
  * @since 8 Jun 2007
  *
  */
-public class TableSortedMap extends TableMap implements SortedMap<Integer, Persistent> {
+public class TableSortedMap<P extends Persistent> extends TableMap<P> 
+    implements SortedMap<Integer, P> {
 
   /**
    * Constructor for setter injection.
@@ -65,7 +66,7 @@ public class TableSortedMap extends TableMap implements SortedMap<Integer, Persi
    * Constructor for constructor injection.
    * @param t
    */
-  public TableSortedMap(Table t) {
+  public TableSortedMap(Table<P> t) {
     super(t);
   }
 
@@ -104,15 +105,15 @@ public class TableSortedMap extends TableMap implements SortedMap<Integer, Persi
   public Integer lastKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
-    Enumeration<Persistent> them  = table.selection(null, table.getDatabase().getDbms().getQuotedName("id") + " DESC", false);
-    return  ((Persistent)them.nextElement()).troid();
+    Enumeration<P> them  = table.selection(null, table.getDatabase().getDbms().getQuotedName("id") + " DESC", false);
+    return them.nextElement().troid();
   }
 
   /** 
    * {@inheritDoc}
    * @see java.util.SortedMap#subMap(K fromKey, K toKey)
    */
-  public SortedMap<Integer, Persistent> subMap(Integer fromKey, Integer toKey) {
+  public SortedMap<Integer, P> subMap(Integer fromKey, Integer toKey) {
     throw new UnsupportedOperationException();
   }
 
@@ -120,14 +121,14 @@ public class TableSortedMap extends TableMap implements SortedMap<Integer, Persi
    * {@inheritDoc}
    * @see java.util.SortedMap#headMap(K)
    */
-  public SortedMap<Integer, Persistent> headMap(Integer toKey) {
+  public SortedMap<Integer, P> headMap(Integer toKey) {
     throw new UnsupportedOperationException();
   }
   /** 
    * {@inheritDoc}
    * @see java.util.SortedMap#tailMap(K)
    */
-  public SortedMap<Integer, Persistent> tailMap(Integer arg0) {
+  public SortedMap<Integer, P> tailMap(Integer arg0) {
     throw new UnsupportedOperationException();
   }
 

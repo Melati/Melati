@@ -18,21 +18,21 @@ import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TroidPoemType;
-import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingTable;
 import org.melati.poem.test.Protected;
+// FIXME wtf?
+ import org.melati.poem.test.User;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Protected</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Protected</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ProtectedTableBase extends EverythingTable {
+public class ProtectedTableBase<T extends Protected> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Integer> col_spy = null;
@@ -90,23 +90,23 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -150,23 +150,23 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getSpyField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Spy";
           }
 
@@ -209,27 +209,27 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getMissionField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Secret mission";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -273,15 +273,15 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getCanReadField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 3;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Capability required to read this row ";
           }
 
@@ -325,15 +325,15 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getCanWriteField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 4;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Capability required to write this row ";
           }
 
@@ -377,15 +377,15 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getCanDeleteField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 5;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Capability required to delete this row ";
           }
 
@@ -429,15 +429,15 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getCanSelectField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 6;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Capability required to select this row ";
           }
 
@@ -480,15 +480,15 @@ public class ProtectedTableBase extends EverythingTable {
             return ((Protected)g).getDeletedField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 7;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether this record is existant ";
           }
 
@@ -637,15 +637,15 @@ public class ProtectedTableBase extends EverythingTable {
   protected JdbcPersistent _newPersistent() {
     return new Protected();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A protected table";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Data";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 90;
   }
 }

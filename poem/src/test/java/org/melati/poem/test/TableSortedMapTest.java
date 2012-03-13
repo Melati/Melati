@@ -15,8 +15,8 @@ import org.melati.poem.TableSortedMap;
  *
  */
 public class TableSortedMapTest extends TableMapTest {
-  private TableSortedMap it;
-  private TableSortedMap noArg;
+  private TableSortedMap<org.melati.poem.User> it;
+  private TableSortedMap<Setting> noArg;
 
   /**
    * @param name
@@ -34,13 +34,13 @@ public class TableSortedMapTest extends TableMapTest {
   }
   
   protected void createObjectsUnderTest() {
-    it = new TableSortedMap(getDb().getUserTable());
-    noArg = new TableSortedMap();
+    it = new TableSortedMap<org.melati.poem.User>(getDb().getUserTable());
+    noArg = new TableSortedMap<Setting>();
   }
-  protected TableMap getObjectUnderTest() { 
+  protected TableMap<org.melati.poem.User> getObjectUnderTest() { 
     return it;
   }
-  protected TableMap getNoArgObjectUnderTest() { 
+  protected TableMap<Setting> getNoArgObjectUnderTest() { 
     return noArg;
   }
 
@@ -79,9 +79,9 @@ public class TableSortedMapTest extends TableMapTest {
    */
   public void testFirstKey() {
     assertEquals(new Integer(0), it.firstKey());
-    it.setTable(getDb().getSettingTable());
+    noArg.setTable(getDb().getSettingTable());
     try { 
-      it.firstKey();
+      noArg.firstKey();
       fail("Should have bombed.");
     } catch (NoSuchElementException e) { 
       e = null;
@@ -90,12 +90,12 @@ public class TableSortedMapTest extends TableMapTest {
     Integer troid =  it.firstKey();
     Setting s2 = getDb().getSettingTable().ensure("s2", "s2", "S2", "test setting S2");
     s1.delete();
-    assertEquals(new Integer(troid.intValue() + 1), it.firstKey());
+    assertEquals(new Integer(troid.intValue() + 1), noArg.firstKey());
     s2.delete();
     try { 
       noArg.firstKey();
       fail("Should have bombed");
-    } catch (NullPointerException e) { 
+    } catch (NoSuchElementException e) { 
       e = null;
     }
   }
@@ -105,9 +105,9 @@ public class TableSortedMapTest extends TableMapTest {
    */
   public void testLastKey() {
     assertEquals(new Integer(1), it.lastKey());
-    it.setTable(getDb().getSettingTable());
+    noArg.setTable(getDb().getSettingTable());
     try { 
-      it.lastKey();
+      noArg.lastKey();
       fail("Should have bombed.");
     } catch (NoSuchElementException e) { 
       e = null;
@@ -115,7 +115,7 @@ public class TableSortedMapTest extends TableMapTest {
     try { 
       noArg.lastKey();
       fail("Should have bombed");
-    } catch (NullPointerException e) { 
+    } catch (NoSuchElementException e) { 
       e = null;
     }    
   }

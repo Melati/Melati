@@ -123,7 +123,7 @@ public class Melati {
   private HttpServletRequest request;
   private HttpServletResponse response;
   private Database database = null;
-  private Table table = null;
+  private Table<?> table = null;
   private Persistent object = null;
   private MarkupLanguage markupLanguage = null;
   
@@ -291,7 +291,7 @@ public class Melati {
    * @return the POEM Table for this Request
    * @see #loadTableAndObject
    */
-  public Table getTable() {
+  public Table<?> getTable() {
     return table;
   }
 

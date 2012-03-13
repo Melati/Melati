@@ -9,6 +9,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.DateField;
 import org.melati.poem.test.DateFieldTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -40,12 +41,14 @@ public abstract class DateFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DateFieldTable
   */
-  public DateFieldTable getDateFieldTable() {
-    return (DateFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public DateFieldTable<DateField> getDateFieldTable() {
+    return (DateFieldTable<DateField>)getTable();
   }
 
-  private DateFieldTable _getDateFieldTable() {
-    return (DateFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private DateFieldTable<DateField> _getDateFieldTable() {
+    return (DateFieldTable<DateField>)getTable();
   }
 
   // Fields in this table 

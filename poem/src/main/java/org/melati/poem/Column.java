@@ -59,9 +59,11 @@ import org.melati.poem.util.StringUtils;
  * Abstract {@link Table} column which is extended by the generated classes.
  *
  * @author WilliamC At paneris.org
+ * @param <P>
  * 
  */
 public abstract class Column<T> implements FieldAttributes<T> {
+  @SuppressWarnings("rawtypes")
   private Table table = null;
   private String name;
   private String quotedName;
@@ -77,7 +79,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
    * @param definitionSource where it is being defined from
    */
   public Column(
-    Table table,
+    Table<?> table,
     String name,
     SQLPoemType<T> type,
     DefinitionSource definitionSource) {
@@ -101,7 +103,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
     return getDatabase().getDbms();
   }
 
-  void unifyType(SQLPoemType<Object> storeType, DefinitionSource source) {
+  <O> void unifyType(SQLPoemType<O> storeType, DefinitionSource source) {
     PoemType<T> unified = dbms().canRepresent(storeType, type);
     if (unified == null || !(unified instanceof SQLPoemType))
       throw new TypeDefinitionMismatchException(this, storeType, source);
@@ -120,6 +122,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
         DefinitionSource.sqlMetaData);
   }
 
+  @SuppressWarnings("unchecked")
   void setColumnInfo(ColumnInfo columnInfo) {
     try {
       unifyType(columnInfo.getType(), DefinitionSource.infoTables);
@@ -208,6 +211,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   void createColumnInfo() throws PoemException {
     if (info == null) {
       info = (ColumnInfo)getDatabase().
@@ -263,7 +267,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
   // 
 
   /**
-   * @return the Databse our table is in
+   * @return the Database our table is in
    */
   public final Database getDatabase() {
     return getTable().getDatabase();
@@ -272,11 +276,12 @@ public abstract class Column<T> implements FieldAttributes<T> {
   /**
    * @return our Table
    */
-  public final Table getTable() {
+  @SuppressWarnings("unchecked")
+  public final Table<Persistent> getTable() {
     return table;
   }
 
-  final void setTable(Table table) {
+  final void setTable(Table<?> table) {
     this.table = table;
   }
 
@@ -609,6 +614,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
    * @param raw Object of correct type for this Column
    * @return a new CachedSelection of objects equal to raw.
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public CachedSelection cachedSelectionWhereEq(Object raw) {
     return new CachedSelection(getTable(), eqClause(raw), null);
   }

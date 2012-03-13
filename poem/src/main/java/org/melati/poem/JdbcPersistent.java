@@ -65,7 +65,7 @@ import org.melati.poem.util.MappedEnumeration;
  */
 
 public class JdbcPersistent extends Transactioned implements Persistent, Cloneable {
-  private Table table;
+  private Table<?> table;
   private Integer troid;        // null if a floating object
   private AccessToken clearedToken;
   private boolean
@@ -98,7 +98,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @param table the table of the Persistent
    * @param troid its Table Row Object Id
    */
-  public JdbcPersistent(JdbcTable table, Integer troid) {
+  public JdbcPersistent(JdbcTable<?> table, Integer troid) {
     super(table.getDatabase());
     this.table = table;
     this.troid = troid;
@@ -288,11 +288,11 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
  * {@inheritDoc}
  * @see org.melati.poem.Persistent#getTable()
  */
-  public final Table getTable() {
+  public final Table<?> getTable() {
     return table;
   }
 
-  synchronized void setTable(JdbcTable table, Integer troid) {
+  synchronized void setTable(JdbcTable<?> table, Integer troid) {
     setTransactionPool(table.getDatabase());
     this.table = table;
     this.troid = troid;

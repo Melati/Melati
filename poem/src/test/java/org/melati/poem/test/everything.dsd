@@ -1564,3 +1564,19 @@ table Dynamic
 
 
 }
+table User extends org.melati.poem.User 
+    (displayorder = 2010)
+    (description = "An emailed user")
+    (category = "User") {
+    
+    String email 
+      (size=unlimited) 
+      (nullable)
+      (width=40)
+      (description = "The user's email address")
+      (displaylevel = summary)
+      (displayorder = 50)
+      (searchability = yes);
+
+}
+

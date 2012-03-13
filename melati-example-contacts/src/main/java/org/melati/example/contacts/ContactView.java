@@ -73,7 +73,7 @@ public class ContactView extends ContactsServlet {
        throw new Exception("Invalid Method");
     }
     context.put("contact",contact);
-    context.put("categories",db.getCategoryTable().selection());
+    context.put("categories",db.getContactCategoryTable().selection());
     // The file extension is added by the template engine
     return "org/melati/example/contacts/ContactView";
   }

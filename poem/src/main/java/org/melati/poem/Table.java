@@ -56,7 +56,7 @@ import java.sql.ResultSet;
  *
  * @since 14-Apr-2008
  */
-public interface Table {
+public interface Table<P extends Persistent>  {
     /**
      * The database to which the table is attached.
      * @return the db
@@ -433,7 +433,7 @@ public interface Table {
      *
      * @see org.melati.poem.Persistent#getTroid()
      */
-    Persistent getObject(Integer troid) throws NoSuchRowPoemException;
+    P getObject(Integer troid) throws NoSuchRowPoemException;
 
     /**
      * The object from the table with a given troid.  See previous.
@@ -538,7 +538,7 @@ public interface Table {
      *         be passed over.
      * @see Selectable#selection()
      */
-    Enumeration<Persistent> selection() throws SQLPoemException;
+    Enumeration<P> selection() throws SQLPoemException;
 
     /**
      * A <TT>SELECT</TT>ion of objects from the table meeting given criteria.
@@ -563,7 +563,7 @@ public interface Table {
      *
      * @see org.melati.poem.Column#selectionWhereEq(Object)
      */
-    Enumeration<Persistent> selection(String whereClause)
+    Enumeration<P> selection(String whereClause)
         throws SQLPoemException;
 
     /**
@@ -599,7 +599,7 @@ public interface Table {
      * @return a ResultSet as an Enumeration
      * @see #selection(String)
      */
-    Enumeration<Persistent> selection(String whereClause, String orderByClause,
+    Enumeration<P> selection(String whereClause, String orderByClause,
                                   boolean includeDeleted)
         throws SQLPoemException;
 
@@ -610,7 +610,7 @@ public interface Table {
      * @return an enumeration of like objects
      * @see #selection(String, String, boolean)
      */
-    Enumeration<Persistent> selection(Persistent criteria)
+    Enumeration<P> selection(Persistent criteria)
         throws SQLPoemException;
 
     /**
@@ -621,7 +621,7 @@ public interface Table {
      * @param orderByClause Comma separated list
      * @return an enumeration of like objects with the specified ordering
      */
-    Enumeration<Persistent> selection(Persistent criteria, String orderByClause)
+    Enumeration<P> selection(Persistent criteria, String orderByClause)
         throws SQLPoemException;
 
     /**
@@ -633,7 +633,7 @@ public interface Table {
      * @param excludeUnselectable Whether to append unselectable exclusion SQL
      * @return an enumeration of like Persistents
      */
-    Enumeration<Persistent> selection(Persistent criteria, String orderByClause,
+    Enumeration<P> selection(Persistent criteria, String orderByClause,
                                   boolean includeDeleted, boolean excludeUnselectable)
         throws SQLPoemException;
 
@@ -753,7 +753,7 @@ public interface Table {
      * @see #cnfWhereClause(java.util.Enumeration, boolean, boolean)
      * @see #whereClause(org.melati.poem.Persistent)
      */
-    String cnfWhereClause(Enumeration<Persistent> persistents);
+    String cnfWhereClause(Enumeration<P> persistents);
 
     /**
      * Return a Conjunctive Normal Form (CNF) where clause.
@@ -761,7 +761,7 @@ public interface Table {
      *
      * @return an SQL fragment
      */
-    String cnfWhereClause(Enumeration<Persistent> persistents,
+    String cnfWhereClause(Enumeration<P> persistents,
                                  boolean includeDeleted, boolean excludeUnselectable);
 
     /**
@@ -774,7 +774,7 @@ public interface Table {
      * @return an <TT>Enumeration</TT> of <TT>Persistent</TT>s
      */
 
-    Enumeration<Persistent> referencesTo(Persistent object);
+    Enumeration<P> referencesTo(Persistent object);
 
     /**
      * All the columns in the table which refer to the given table.
@@ -782,7 +782,7 @@ public interface Table {
      * @param table
      * @return an Enumeration of Columns referring to the specified Table
      */
-    Enumeration<Column<?>> referencesTo(Table table);
+    Enumeration<Column<?>> referencesTo(Table<?> table);
 
     /**
      * @return the current highest troid
@@ -967,7 +967,7 @@ public interface Table {
      * @param orderByClause which field to order by or null
      * @return the results
      */
-    CachedSelection<Persistent> cachedSelection(String whereClause,
+    CachedSelection<P> cachedSelection(String whereClause,
                                              String orderByClause);
 
     /**
@@ -1155,4 +1155,18 @@ public interface Table {
      */
     void unifyWithDB(ResultSet colDescs, String primaryKey)
         throws PoemException;
+
+    String defaultDisplayName();
+
+    String defaultDescription();
+
+    int defaultDisplayOrder();
+
+    Integer defaultCacheLimit();
+
+    boolean defaultRememberAllTroids();
+
+    String defaultCategory();
+
+
 }

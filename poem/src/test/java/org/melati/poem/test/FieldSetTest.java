@@ -61,10 +61,10 @@ public class FieldSetTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.FieldSet#toString()}.
    */
   public void testToString() {
-    Hashtable h = new Hashtable();
+    Hashtable<String, Integer> h = new Hashtable<String, Integer>();
     FieldSet fs = new FieldSet(h,null);
     assertNull(fs.toString());
-    Field[] fields = new Field[1];
+    Field<?>[] fields = new Field[1];
     fields[0] = getDb().getUserTable().getNameColumn().asField(getDb().guestUser());
     fs = new FieldSet(h,fields);
     assertEquals("name=\"Melati guest user\"\n",fs.toString());

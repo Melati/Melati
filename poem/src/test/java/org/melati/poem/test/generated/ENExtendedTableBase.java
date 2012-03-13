@@ -33,13 +33,12 @@ import org.melati.poem.test.EverythingNormalTable;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>ENExtended</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>ENExtended</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ENExtendedTableBase extends EverythingNormalTable {
+public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalTable<T> {
 
   private Column<byte[]> col_binaryfield2 = null;
   private Column<String> col_stringfield2 = null;
@@ -99,39 +98,39 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getBinaryfield2Field();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Binaryfield2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 11;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Binary Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -174,35 +173,35 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getStringfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "String Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 20;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second String Field";
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 3;
           }
 
@@ -245,31 +244,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getPasswordfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Password Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 13;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Password Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -312,31 +311,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getBooleanfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Boolean Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 14;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Boolean Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -379,31 +378,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getDatefield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Date Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 15;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Date Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -446,31 +445,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getDoublefield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Double Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 16;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Double Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -513,31 +512,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getIntegerfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Integer Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 17;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Integer Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -580,31 +579,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getLongfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Long Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 18;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Long Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -647,31 +646,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getBigdecimalfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "BigDecimal Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 19;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second BigDecimal Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -714,31 +713,31 @@ public class ENExtendedTableBase extends EverythingNormalTable {
             return ((ENExtended)g).getTimestampfield2Field();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Timestamp Field 2";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 20;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Second Timestamp Field";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -911,23 +910,23 @@ public class ENExtendedTableBase extends EverythingNormalTable {
   protected JdbcPersistent _newPersistent() {
     return new ENExtended();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Everything Normal Extended";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "Every datatype inheritted from a normal table and normally defined";
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(100);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Normal";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 70;
   }
 }

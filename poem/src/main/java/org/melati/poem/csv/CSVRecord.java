@@ -71,7 +71,7 @@ public class CSVRecord {
   String primaryKeyValue = null;
 
   /** The table this record wants to be written to */
-  Table table = null;
+  Table<?> table = null;
 
   /** The Poem Persistent corresponding to writing this record to the db */
   Persistent poemRecord = null;
@@ -85,7 +85,7 @@ public class CSVRecord {
   /**
    * Constructor.
    */
-  public CSVRecord(Table table) {
+  public CSVRecord(Table<?> table) {
     super();
     this.table = table;
     this.fields = new Vector<CSVField>();

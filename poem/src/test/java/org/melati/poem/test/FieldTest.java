@@ -289,7 +289,7 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#getPossibilities()
    */
   public void testGetPossibilities() {
-    Enumeration en = stringField.getPossibilities();
+    Enumeration<?> en = stringField.getPossibilities();
     assertNull(en);
     en = integerField.getPossibilities();
     assertNull(en);
@@ -299,13 +299,13 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#getFirst1000Possibilities()
    */
   public void testGetFirst1000Possibilities() {
-    Enumeration en = stringField.getFirst1000Possibilities();
+    Enumeration<?> en = stringField.getFirst1000Possibilities();
     assertNull(en);
     en = integerField.getFirst1000Possibilities();
     assertNull(en);
     
-    Field tableCategoryField = getDb().getTableInfoTable().getCategoryColumn().asEmptyField();
-    Enumeration possibleCategories = tableCategoryField.getFirst1000Possibilities();
+    Field<?> tableCategoryField = getDb().getTableInfoTable().getCategoryColumn().asEmptyField();
+    Enumeration<?> possibleCategories = tableCategoryField.getFirst1000Possibilities();
     int counter = 0;
     while (possibleCategories.hasMoreElements()) {
       counter++;
@@ -345,6 +345,7 @@ public class FieldTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Field#basic(Object, String, org.melati.poem.PoemType)
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testBasic() {
     Field f1 = Field.basic("basicField", "basicField", StringPoemType.nullableInstance);
     Field f2 = Field.string("basicField", "basicField");
@@ -361,6 +362,7 @@ public class FieldTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Field#integer(Integer, String)
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testInteger() {
     Field f1 = Field.basic(new Integer(13), "integerField", IntegerPoemType.nullableInstance);
     Field f2 = Field.integer(new Integer(13), "integerField");
@@ -370,6 +372,7 @@ public class FieldTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Field#reference(org.melati.poem.Persistent, String)
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testReferencePersistentString() {
     User u = getDb().guestUser();
     Field f1 = Field.basic(u.getTroid(), "referenceField", 
@@ -381,6 +384,7 @@ public class FieldTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Field#reference(org.melati.poem.Table, String)
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testReferenceTableString() {
     Field f1 = Field.basic(null, "referenceField", 
             new ReferencePoemType(getDb().getUserTable(), true));

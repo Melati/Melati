@@ -52,12 +52,12 @@ package org.melati.poem;
 public class DuplicateColumnNamePoemException extends NormalPoemException {
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
   /** The Column we are dealing with. */
   public Column<?> column;
 
   /** Constructor. */
-  public DuplicateColumnNamePoemException(Table table, Column<?> column) {
+  public DuplicateColumnNamePoemException(Table<?> table, Column<?> column) {
     this.table = table;
     this.column = column;
   }

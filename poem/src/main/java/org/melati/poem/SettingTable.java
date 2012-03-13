@@ -75,7 +75,7 @@ import java.util.Hashtable;
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
-public class SettingTable extends SettingTableBase {
+public class SettingTable<T extends Setting> extends SettingTableBase<Setting> {
 
  /**
   * Constructor.
@@ -95,7 +95,7 @@ public class SettingTable extends SettingTableBase {
   // programmer's domain-specific code here
 
   private static final Object nullEntry = new Object();
-  private Hashtable cache = null;
+  private Hashtable<String, Object> cache = null;
   private long cacheSerial = 0L;
 
   /**
@@ -112,7 +112,7 @@ public class SettingTable extends SettingTableBase {
   public Object getCooked(String name) {
     if (cache == null || cacheSerial != serial(PoemThread.transaction())) {
       cacheSerial = serial(PoemThread.transaction());
-      cache = new Hashtable();
+      cache = new Hashtable<String, Object>();
     } else {
       Object value = cache.get(name);
       if (value == nullEntry)

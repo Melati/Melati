@@ -72,7 +72,7 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * @param orderByClause Raw ORDER BY clause
    */
   public CachedTailoredQuery(String modifier, 
-                             Column<?>[] selectedColumns, Table[] otherTables,
+                             Column<?>[] selectedColumns, Table<?>[] otherTables,
                              String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     tableSerials = new long[tables.length];
@@ -87,7 +87,7 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
    * @param whereClause Raw SQL
    * @param orderByClause Raw ORDER BY clause
    */
-  public CachedTailoredQuery(Column<?>[] selectedColumns, Table[] otherTables,
+  public CachedTailoredQuery(Column<?>[] selectedColumns, Table<?>[] otherTables,
                              String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }

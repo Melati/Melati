@@ -12,13 +12,12 @@ import org.melati.poem.test.EverythingTable;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>EmptyAbstractTable</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>EmptyAbstractTable</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class EmptyAbstractTableTableBase extends EverythingTable {
+public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends EverythingTable<T> {
 
 
  /**
@@ -75,23 +74,23 @@ public class EmptyAbstractTableTableBase extends EverythingTable {
   public EmptyAbstractTable getEmptyAbstractTableObject(int troid) {
     return (EmptyAbstractTable)getObject(troid);
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Empty Abstract";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "Empty abstract table to create a stub";
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(100);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Normal";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 50;
   }
 }

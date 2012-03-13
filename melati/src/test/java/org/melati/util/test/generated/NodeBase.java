@@ -46,12 +46,14 @@ public abstract class NodeBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the NodeTable
   */
-  public NodeTable getNodeTable() {
-    return (NodeTable)getTable();
+  @SuppressWarnings("unchecked")
+  public NodeTable<Node> getNodeTable() {
+    return (NodeTable<Node>)getTable();
   }
 
-  private NodeTable _getNodeTable() {
-    return (NodeTable)getTable();
+  @SuppressWarnings("unchecked")
+  private NodeTable<Node> _getNodeTable() {
+    return (NodeTable<Node>)getTable();
   }
 
   // Fields in this table 

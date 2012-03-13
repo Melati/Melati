@@ -9,6 +9,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.PasswordField;
 import org.melati.poem.test.PasswordFieldTable;
 
 
@@ -39,12 +40,14 @@ public abstract class PasswordFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the PasswordFieldTable
   */
-  public PasswordFieldTable getPasswordFieldTable() {
-    return (PasswordFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public PasswordFieldTable<PasswordField> getPasswordFieldTable() {
+    return (PasswordFieldTable<PasswordField>)getTable();
   }
 
-  private PasswordFieldTable _getPasswordFieldTable() {
-    return (PasswordFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private PasswordFieldTable<PasswordField> _getPasswordFieldTable() {
+    return (PasswordFieldTable<PasswordField>)getTable();
   }
 
   // Fields in this table 

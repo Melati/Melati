@@ -65,11 +65,11 @@ public abstract class CachedQuery<T> {
 
   private long tableSerial;
 
-  protected Table table;
+  protected Table<?> table;
 
   private String query;
 
-  private Table otherTables[];
+  private Table<?> otherTables[];
 
   private long otherTablesSerial[];
 
@@ -80,9 +80,9 @@ public abstract class CachedQuery<T> {
    * @param query the SQL query string 
    * @param otherTables an array of other tables involved in the query
    */
-  public CachedQuery(final Table table,
+  public CachedQuery(final Table<?> table,
                      final String query,
-          final Table otherTables[]) {
+          final Table<?> otherTables[]) {
     this.table = table;
     this.query = query;
     this.otherTables = otherTables;
@@ -155,7 +155,7 @@ public abstract class CachedQuery<T> {
   /**
    * @return the table property
    */
-  public Table getTable() {
+  public Table<?> getTable() {
     return table;
   }
 

@@ -4,6 +4,7 @@ package org.melati.poem.test.generated;
 
 
 import org.melati.poem.JdbcPersistent;
+import org.melati.poem.test.EmptyAbstractTable;
 import org.melati.poem.test.EmptyAbstractTableTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -35,8 +36,9 @@ public abstract class EmptyAbstractTableBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EmptyAbstractTableTable
   */
-  public EmptyAbstractTableTable getEmptyAbstractTableTable() {
-    return (EmptyAbstractTableTable)getTable();
+  @SuppressWarnings("unchecked")
+  public EmptyAbstractTableTable<EmptyAbstractTable> getEmptyAbstractTableTable() {
+    return (EmptyAbstractTableTable<EmptyAbstractTable>)getTable();
   }
 
   // There are no Fields in this table, only in its ancestors 

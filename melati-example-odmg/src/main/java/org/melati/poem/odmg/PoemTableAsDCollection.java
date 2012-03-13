@@ -54,25 +54,25 @@ import org.melati.poem.Table;
  * Wrapper class to present a Poem Table as a Collection.
  */
 
-class PoemTableAsDCollection implements org.odmg.DCollection {
+class PoemTableAsDCollection<P extends Persistent> implements org.odmg.DCollection {
 
-  private Table _wrappedTable = null;
+  private Table<P> _wrappedTable = null;
 
-  PoemTableAsDCollection(Table aTable) {
+  PoemTableAsDCollection(Table<P> aTable) {
     _wrappedTable = aTable;
   }
 
   public boolean isEmpty() { return size() == 0; }
-  public int size() { return _wrappedTable.count(""); }
+  public int size() { return _wrappedTable.count(); }
 
+  @SuppressWarnings("unchecked")
   public boolean add(Object obj) { 
-    _wrappedTable.create((Persistent)obj);
+    _wrappedTable.create((P)obj);
     return true;
   }
 
-  @SuppressWarnings("unchecked")
-public boolean removeAll(Collection coll) {  
-    Iterator iter = coll.iterator();
+  public boolean removeAll(@SuppressWarnings("rawtypes") Collection coll) {  
+    Iterator<?> iter = coll.iterator();
     while (iter.hasNext()) {
        if (!remove(iter.next()))
          return false;
@@ -81,27 +81,28 @@ public boolean removeAll(Collection coll) {
   }
 
  /** 
-  * removes the specified object from the collection.
+  * Removes the specified object from the collection.
   *
   * WARNING - this removes and commits it immediately!
   * WARNING2 - it also deletes entries from tables that reference this object 
   * - this means you CANNOT have circular references
   */
   public boolean remove(Object obj) {  
-    Persistent p = (Persistent)obj;
+    @SuppressWarnings("unchecked")
+    P p = (P)obj;
     // delete all references first
-     Enumeration<Persistent> refs = _wrappedTable.getDatabase().referencesTo(p);
-      while (refs.hasMoreElements()) {
-        Persistent q = (Persistent)refs.nextElement();
-        q.deleteAndCommit();
-      }
+    Enumeration<Persistent> refs = _wrappedTable.getDatabase().referencesTo(p);
+    while (refs.hasMoreElements()) {
+      Persistent q = (Persistent)refs.nextElement();
+      q.deleteAndCommit();
+    }
 
     p.deleteAndCommit();
     return true;
   }
 
-  public Iterator<Persistent> iterator() { 
-    return new EnumerationIterator<Persistent>(_wrappedTable.selection());
+  public Iterator<P> iterator() { 
+    return new EnumerationIterator<P>(_wrappedTable.selection());
   }
 
  /** 
@@ -109,7 +110,7 @@ public boolean removeAll(Collection coll) {
   * NOTE: The query string is split into the where-clause and 
   * the order-by-clause and passed to poem.
   */
-  public Iterator<Persistent> select(String queryString) {
+  public Iterator<P> select(String queryString) {
     String lowerCaseQueryString = queryString.toLowerCase();
     int whereStart = lowerCaseQueryString.indexOf("where ");
     if (whereStart<0) 
@@ -145,12 +146,12 @@ public boolean removeAll(Collection coll) {
     System.err.println("[poem-odmg]where clause="+whereClause);
     System.err.println("[poem-odmg]order by clause="+orderByClause);
 */
-    return new EnumerationIterator<Persistent>(
+    return new EnumerationIterator<P>(
         _wrappedTable.selection(whereClause,orderByClause,true));
   }
 
   public Object selectElement(String queryString) {
-    Iterator<Persistent> iter = select(queryString);
+    Iterator<P> iter = select(queryString);
     if (iter.hasNext())
       return iter.next();
     return null;
@@ -172,23 +173,21 @@ public boolean removeAll(Collection coll) {
   public boolean contains(Object obj) { 
     throw new org.odmg.NotImplementedException(); 
   }
-  @SuppressWarnings("unchecked")
-  public boolean addAll(Collection coll) { 
+  public boolean addAll(@SuppressWarnings("rawtypes") Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
-  @SuppressWarnings("unchecked")
-  public boolean containsAll(Collection coll) { 
+  public boolean containsAll(@SuppressWarnings("rawtypes") Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
-  @SuppressWarnings("unchecked")
-  public boolean retainAll(Collection coll) { 
+
+  public boolean retainAll(@SuppressWarnings("rawtypes") Collection coll) { 
     throw new org.odmg.NotImplementedException(); 
   }
   public void clear() { 
     throw new org.odmg.NotImplementedException(); 
   }
 
-/** utility class for converting enumerations into iterators 
+/** Utility class for converting enumerations into iterators 
  * @param <T>*/
 private class EnumerationIterator<T> implements Iterator<T> {
   private Enumeration<T> _enum = null;

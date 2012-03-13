@@ -118,7 +118,7 @@ public class CachedSelectionTest extends PoemTestCase {
    */
   public void testMultiTableSelection() {
     getDb().uncache();
-    Table[] others = new Table[] {getDb().getGroupMembershipTable(),
+    Table<?>[] others = new Table[] {getDb().getGroupMembershipTable(),
                                   getDb().getGroupTable()};
     String query =  
     getDb().getUserTable().troidColumn().fullQuotedName() +

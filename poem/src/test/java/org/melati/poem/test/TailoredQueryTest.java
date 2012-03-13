@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.text.DateFormat;
@@ -12,7 +9,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.Table;
 import org.melati.poem.TailoredQuery;
 import org.melati.poem.PoemLocale;
-import org.melati.poem.User;
+import org.melati.poem.test.User;
 
 /**
  * @author timp
@@ -54,7 +51,7 @@ public class TailoredQueryTest extends EverythingTestCase {
     Column<?>[] columns = { 
             getDb().getUserTable().getNameColumn(),
             getDb().getGroupTable().getNameColumn(), };
-    Table[] tables = { getDb().getGroupMembershipTable() };
+    Table<?>[] tables = { getDb().getGroupMembershipTable() };
 
     String whereClause = 
       getDb().getDbms().getQuotedName("user") + 
@@ -98,7 +95,7 @@ public class TailoredQueryTest extends EverythingTestCase {
   public void testTailoredQueryStringColumnArrayTableArrayStringString() {
     Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
-    Table[] tables = { getDb().getGroupMembershipTable() };
+    Table<?>[] tables = { getDb().getGroupMembershipTable() };
 
     String whereClause = 
       getDb().getDbms().getQuotedName("user") + 
@@ -142,7 +139,7 @@ public class TailoredQueryTest extends EverythingTestCase {
   public void testSelection() {
     Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
-    Table[] tables = { getDb().getGroupMembershipTable() };
+    Table<?>[] tables = { getDb().getGroupMembershipTable() };
 
     String whereClause = 
       getDb().getDbms().getQuotedName("user") + 
@@ -186,7 +183,7 @@ public class TailoredQueryTest extends EverythingTestCase {
   public void testSelection_firstRaw() {
     Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
-    Table[] tables = { getDb().getGroupMembershipTable() };
+    Table<?>[] tables = { getDb().getGroupMembershipTable() };
 
     String whereClause = 
       getDb().getDbms().getQuotedName("user") + 
@@ -207,7 +204,7 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         whereClause,
                                         null);
     int count = 0;
-    for (Enumeration ms = q.selection_firstRaw(); ms.hasMoreElements();) {
+    for (Enumeration<Object> ms = q.selection_firstRaw(); ms.hasMoreElements();) {
       count++;
       ms.nextElement();
     }
@@ -218,9 +215,9 @@ public class TailoredQueryTest extends EverythingTestCase {
    * @see java.lang.Object#toString()
    */
   public void testToString() {
-    Column[] columns = { getDb().getUserTable().getNameColumn(),
+    Column<?>[] columns = { getDb().getUserTable().getNameColumn(),
         getDb().getGroupTable().getNameColumn(), };
-    Table[] tables = { getDb().getGroupMembershipTable() };
+    Table<?>[] tables = { getDb().getGroupMembershipTable() };
 
     String whereClause = 
       getDb().getDbms().getQuotedName("user") + 
@@ -241,7 +238,7 @@ public class TailoredQueryTest extends EverythingTestCase {
                                         whereClause,
                                         null);
     int count = 0;
-    for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+    for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
       //FieldSet fs = (FieldSet) 
       ms.nextElement();
@@ -287,7 +284,7 @@ public class TailoredQueryTest extends EverythingTestCase {
     Column<?>[] columns = { 
             getDb().getUserTable().getNameColumn(),
             db.getProtectedTable().getMissionColumn() };
-    Table[] otherTables = { db.getProtectedTable() };
+    Table<?>[] otherTables = { db.getProtectedTable() };
 
     String whereClause = 
       db.getUserTable().getNameColumn().fullQuotedName() + 
@@ -305,8 +302,9 @@ public class TailoredQueryTest extends EverythingTestCase {
     for (Enumeration<FieldSet> ms = q.selection(); ms.hasMoreElements();) {
       count++;
       FieldSet fs = ms.nextElement();
+      System.err.println(fs);
       System.out.println(
-          fs.get("user_name").getCookedString(PoemLocale.HERE,
+          fs.get("User_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
           + fs.get("Protected_mission").getCookedString(PoemLocale.HERE,

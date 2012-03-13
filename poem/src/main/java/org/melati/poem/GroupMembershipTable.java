@@ -77,7 +77,7 @@ import org.melati.poem.generated.GroupMembershipTableBase;
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
-public class GroupMembershipTable extends GroupMembershipTableBase {
+public class GroupMembershipTable<T extends GroupMembership> extends GroupMembershipTableBase<T> {
 
  /**
   * Constructor.

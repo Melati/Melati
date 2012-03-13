@@ -49,7 +49,6 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,7 +92,8 @@ public class Postgresql extends AnsiStandard {
    * @throws SQLException
    * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
    */
-  public boolean canDropColumns(Connection con) throws SQLException {
+  @Override
+  public boolean canDropColumns() {
     return true;
   }
 
@@ -105,6 +105,7 @@ public class Postgresql extends AnsiStandard {
    * @return the place holder string
    * @see org.melati.poem.dbms.AnsiStandard#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
+  @Override
   public String preparedStatementPlaceholder(PoemType<?> type) {
     if (type instanceof IntegerPoemType)
       return "CAST(? AS INT4)";
@@ -117,13 +118,14 @@ public class Postgresql extends AnsiStandard {
   }
 
   /**
-   * Accomodate String/Text distinction. 
+   * Accommodate String/Text distinction. 
    * 
    * @param size the string length (-1 means no limit)
    * @return the SQL definition for a string of this size 
    * @throws SQLException
    * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
+  @Override
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
        return "TEXT";
@@ -135,6 +137,7 @@ public class Postgresql extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
+  @Override
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "BYTEA";
   }
@@ -173,6 +176,7 @@ public class Postgresql extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#
    *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
+  @Override
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
@@ -190,8 +194,9 @@ public class Postgresql extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
    */
+  @Override
   public SQLPoemException exceptionForUpdate(
-      Table table, String sql, boolean insert, SQLException e) {
+      Table<?> table, String sql, boolean insert, SQLException e) {
 
     String m = e.getMessage();
 

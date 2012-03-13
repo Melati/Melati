@@ -24,7 +24,7 @@ import org.melati.poem.PoemException;
  * 
  * @see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class ChildTable extends ChildTableBase {
+public class ChildTable<T extends Child> extends ChildTableBase<Child> {
 
  /**
   * Constructor.

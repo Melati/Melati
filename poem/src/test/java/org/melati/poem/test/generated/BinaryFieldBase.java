@@ -8,6 +8,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.BinaryField;
 import org.melati.poem.test.BinaryFieldTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -39,12 +40,14 @@ public abstract class BinaryFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BinaryFieldTable
   */
-  public BinaryFieldTable getBinaryFieldTable() {
-    return (BinaryFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public BinaryFieldTable<BinaryField> getBinaryFieldTable() {
+    return (BinaryFieldTable<BinaryField>)getTable();
   }
 
-  private BinaryFieldTable _getBinaryFieldTable() {
-    return (BinaryFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private BinaryFieldTable<BinaryField> _getBinaryFieldTable() {
+    return (BinaryFieldTable<BinaryField>)getTable();
   }
 
   // Fields in this table 

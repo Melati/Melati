@@ -53,9 +53,9 @@ import java.util.Set;
  * @since 8 Jun 2007
  *
  */
-public class TableMap implements Map<Integer, Persistent> {
+public class TableMap<P extends Persistent> implements Map<Integer, P> {
 
-  protected Table table;
+  protected Table<P> table;
   /**
    * Constructor.
    */
@@ -65,38 +65,38 @@ public class TableMap implements Map<Integer, Persistent> {
   /**
    * Constructor given a Table.
    */
-  public TableMap(Table t) {
+  public TableMap(Table<P> t) {
     this.table = t;
   }
 
   /**
    * @return the table
    */
-  public Table getTable() {
+  public Table<P> getTable() {
     return table;
   }
 
   /**
    * @param table the table to set
    */
-  public void setTable(Table table) {
+  public void setTable(Table<P> table) {
     this.table = table;
   }
   
 
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#clear()
    */
+  @Override
   public void clear() {
     throw new UnsupportedOperationException();
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#containsKey(java.lang.Object)
    */
+  @Override
   public boolean containsKey(Object key) {
     if (key == null)
       return false;
@@ -111,87 +111,86 @@ public class TableMap implements Map<Integer, Persistent> {
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#containsValue(java.lang.Object)
    */
+  @Override
   public boolean containsValue(Object value) {
     Integer troid  = ((Persistent)value).troid();
     return containsKey(troid);
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#entrySet()
    */
-  public Set<Map.Entry<Integer, Persistent>> entrySet() {
+  @Override
+  public Set<Map.Entry<Integer, P>> entrySet() {
     throw new UnsupportedOperationException();
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#get(java.lang.Object)
    */
-  public Persistent get(Object key) {
+  @Override
+  public P get(Object key) {
     return table.getObject((Integer)key);
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#isEmpty()
    */
+  @Override
   public boolean isEmpty() {
     return table.cachedCount((String)null).count() == 0;
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#keySet()
    */
+  @Override
   public Set<Integer> keySet() {
     throw new UnsupportedOperationException();
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#put(K, V)
    */
-  public Persistent put(Integer arg0, Persistent arg1) {
+  @Override
+  public P put(Integer arg0, Persistent arg1) {
     throw new UnsupportedOperationException();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.util.Map#putAll(java.util.Map)
-   */
-  public void putAll(Map<? extends Integer, ? extends Persistent> arg0) {
-    throw new UnsupportedOperationException();
-  }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#remove(java.lang.Object)
    */
-  public Persistent remove(Object key) {
-    Persistent p = table.getObject((Integer)key);
+  @Override
+  public P remove(Object key) {
+    P p = table.getObject((Integer)key);
     if (p != null)
       p.delete();
     return p;
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#size()
    */
+  @Override
   public int size() {
     return table.cachedCount((String)null).count();
   }
 
   /** 
-   * {@inheritDoc}
    * @see java.util.Map#values()
    */
-  public Collection<Persistent> values() {
+  @Override
+  public Collection<P> values() {
     return Collections.list(table.selection());
+  }
+
+
+  @Override
+  public void putAll(Map<? extends Integer, ? extends P> arg0) {
+    throw new UnsupportedOperationException();
   }
 
 

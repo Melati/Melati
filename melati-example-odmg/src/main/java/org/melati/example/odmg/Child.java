@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.example.odmg;
+
 
 import org.melati.example.odmg.generated.ChildBase;
 
@@ -17,7 +20,7 @@ import org.melati.example.odmg.generated.ChildBase;
  * <tr><td> parent </td><td> Parent </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Child extends ChildBase {
 
@@ -25,9 +28,12 @@ public class Child extends ChildBase {
   * Constructor 
   * for a <code>Persistent</code> <code>Child</code> object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public Child() { }
+  public Child() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }
+

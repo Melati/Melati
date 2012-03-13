@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -75,7 +75,7 @@ import java.sql.ResultSet;
  * 
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class CapabilityTable extends CapabilityTableBase {
+public class CapabilityTable<T extends Capability> extends CapabilityTableBase<T> {
 
  /**
   * Constructor.

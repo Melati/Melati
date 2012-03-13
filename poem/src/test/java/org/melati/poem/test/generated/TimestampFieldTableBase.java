@@ -23,13 +23,12 @@ import org.melati.poem.test.TimestampField;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>TimestampField</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>TimestampField</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class TimestampFieldTableBase extends EverythingTable {
+public class TimestampFieldTableBase<T extends TimestampField> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Timestamp> col_timestampfield = null;
@@ -81,43 +80,43 @@ public class TimestampFieldTableBase extends EverythingTable {
             return ((TimestampField)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Id";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -160,27 +159,27 @@ public class TimestampFieldTableBase extends EverythingTable {
             return ((TimestampField)g).getTimestampfieldField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Timestamp Field";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 10;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -257,23 +256,23 @@ public class TimestampFieldTableBase extends EverythingTable {
   protected JdbcPersistent _newPersistent() {
     return new TimestampField();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Timestamp  Field";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A table with only a timestamp field in it";
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(100);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Normal";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 32;
   }
 }

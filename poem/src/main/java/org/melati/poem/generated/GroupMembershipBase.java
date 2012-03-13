@@ -7,6 +7,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
+import org.melati.poem.GroupMembership;
 import org.melati.poem.GroupMembershipTable;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
@@ -42,12 +43,14 @@ public abstract class GroupMembershipBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupMembershipTable
   */
-  public GroupMembershipTable getGroupMembershipTable() {
-    return (GroupMembershipTable)getTable();
+  @SuppressWarnings("unchecked")
+  public GroupMembershipTable<GroupMembership> getGroupMembershipTable() {
+    return (GroupMembershipTable<GroupMembership>)getTable();
   }
 
-  private GroupMembershipTable _getGroupMembershipTable() {
-    return (GroupMembershipTable)getTable();
+  @SuppressWarnings("unchecked")
+  private GroupMembershipTable<GroupMembership> _getGroupMembershipTable() {
+    return (GroupMembershipTable<GroupMembership>)getTable();
   }
 
   // Fields in this table 

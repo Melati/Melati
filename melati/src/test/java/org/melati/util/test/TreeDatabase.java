@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.util.test;
+
 
 import org.melati.util.test.generated.TreeDatabaseBase;
 

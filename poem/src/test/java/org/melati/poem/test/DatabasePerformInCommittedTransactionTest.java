@@ -118,8 +118,8 @@ public class DatabasePerformInCommittedTransactionTest
     assertEquals(23, getDb().getTableInfoTable().count());
 
   }
-  protected void dumpTable(Table t) {
-    Enumeration<Persistent> them = t.selection();
+  protected <P extends Persistent> void dumpTable(Table<P> t) {
+    Enumeration<P> them = t.selection();
     while (them.hasMoreElements()) {
       Persistent it = (Persistent)them.nextElement();
       System.err.println(it.getTroid() + " " + it.getCooked("name") + " " +

@@ -27,13 +27,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Contact</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Contact</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ContactTableBase extends ContactsTable {
+public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -90,23 +89,23 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -149,27 +148,27 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Contact Name";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -213,23 +212,23 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getOwnerField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Contact who owns this contact";
           }
 
@@ -272,27 +271,27 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getAddressField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 3;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Contact Address";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 40;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 5;
           }
 
@@ -335,31 +334,31 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getUpdatesField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 4;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "How many times has this record been updated?";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 5;
           }
 
@@ -402,31 +401,31 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getLastupdatedField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 5;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "When was this last updated?";
           }
 
-          protected String defaultRenderinfo() {
+          public String defaultRenderinfo() {
             return "org.melati.poem.DatePoemType-dropdown";
           }
 
@@ -470,27 +469,27 @@ public class ContactTableBase extends ContactsTable {
             return ((Contact)g).getLastupdateuserField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 6;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Who last updated this?";
           }
 
@@ -627,15 +626,15 @@ public class ContactTableBase extends ContactsTable {
   protected JdbcPersistent _newPersistent() {
     return new Contact();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A Contact";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Data";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 10;
   }
 }

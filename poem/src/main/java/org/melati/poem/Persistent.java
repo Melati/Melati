@@ -80,7 +80,7 @@ public interface Persistent extends Persistable, Treeable {
    * complete with metadata.
    * @return the Table
    */
-  Table getTable();
+  Table<?> getTable();
   
   /**
    * @param table

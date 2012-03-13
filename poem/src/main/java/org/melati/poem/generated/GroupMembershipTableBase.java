@@ -25,13 +25,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>groupMembership</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>groupMembership</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupMembershipTableBase extends PoemTable {
+public class GroupMembershipTableBase<T extends GroupMembership> extends PoemTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Integer> col_user = null;
@@ -84,23 +83,23 @@ public class GroupMembershipTableBase extends PoemTable {
             return ((GroupMembership)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Table Row Object ID";
           }
 
@@ -144,31 +143,31 @@ public class GroupMembershipTableBase extends PoemTable {
             return ((GroupMembership)g).getUserField();
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "User";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The user who belongs to the group";
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
-          protected String defaultRenderinfo() {
+          public String defaultRenderinfo() {
             return "SelectionWindow";
           }
 
@@ -216,23 +215,23 @@ public class GroupMembershipTableBase extends PoemTable {
             return ((GroupMembership)g).getGroupField();
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Group";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The group to which the user belongs";
           }
 
@@ -321,19 +320,19 @@ public class GroupMembershipTableBase extends PoemTable {
   protected JdbcPersistent _newPersistent() {
     return new GroupMembership();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Group membership";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A record that a given User is a member of a given Group";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "User";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 2040;
   }
 }

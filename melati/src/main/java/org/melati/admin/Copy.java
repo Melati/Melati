@@ -144,12 +144,12 @@ public class Copy extends TemplateServlet {
               public void run() {
                 System.err.println("PoemThread " + PoemThread.database().getDisplayName());
                 try {
-                  Enumeration<Table> en = fromDb.displayTables(null);
+                  Enumeration<Table<?>> en = fromDb.displayTables(null);
                   while(en.hasMoreElements()) { 
-                    Table fromTable = (Table)en.nextElement();
+                    Table<?> fromTable = en.nextElement();
                     String fromTableName = fromTable.getName();
                     System.err.println("From " + fromDb + " table " + fromTableName); 
-                    Table toTable = toDb.getTable(fromTableName);
+                    Table<?> toTable = toDb.getTable(fromTableName);
                     int count = toTable.count();
                     if (count != 0 ) {
                       System.err.println("Skipping " + toTable.getName() + " as it contains " + count + " records." );
@@ -185,7 +185,7 @@ public class Copy extends TemplateServlet {
     return toDb;
 
   }
-  static Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids, final Table t) {
+  static Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids, final Table<?> t) {
     return new MappedEnumeration<Persistent, Integer>(troids) {
         public Persistent mapped(Integer troid) {
           return t.getObject(troid);

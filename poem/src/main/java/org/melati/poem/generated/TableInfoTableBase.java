@@ -28,13 +28,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>tableInfo</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>tableInfo</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class TableInfoTableBase extends PoemTable {
+public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -96,23 +95,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Table Row Object ID";
           }
 
@@ -155,27 +154,27 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getNameField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A code-name for the table";
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
@@ -218,23 +217,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDisplaynameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display name";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A user-friendly name for the table";
           }
 
@@ -277,19 +276,19 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDescriptionField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 3;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A brief description of the table's function";
           }
 
@@ -332,23 +331,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDisplayorderField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display order";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 4;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A rank determining where the table appears in the list of all tables";
           }
 
@@ -392,23 +391,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDefaultcanreadField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Default `read' capability";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 5;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The capability required, by default, for reading the table's records";
           }
 
@@ -456,23 +455,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDefaultcanwriteField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Default `write' capability";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 6;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The capability required, by default, for updating the table's records";
           }
 
@@ -520,23 +519,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getDefaultcandeleteField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Default `delete' capability";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 7;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The capability required, by default, for deleting the table's records";
           }
 
@@ -584,23 +583,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getCancreateField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Default `create' capability";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 8;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The capability required, by default, for creating records in the table";
           }
 
@@ -647,23 +646,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getCachelimitField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Cache size limit";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 9;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The maximum number of records from the table to keep in the cache";
           }
 
@@ -706,23 +705,23 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getSeqcachedField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Record sequence cached";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 10;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether the display sequence for the table's records is cached";
           }
 
@@ -766,19 +765,19 @@ public class TableInfoTableBase extends PoemTable {
             return ((TableInfo)g).getCategoryField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 11;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Which category the table falls into";
           }
 
@@ -975,27 +974,27 @@ public class TableInfoTableBase extends PoemTable {
   protected JdbcPersistent _newPersistent() {
     return new TableInfo();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Table";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "Configuration information about a table in the database";
   }
 
-  protected boolean defaultRememberAllTroids() {
+  public boolean defaultRememberAllTroids() {
     return true;
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(999999999);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "System";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 3010;
   }
 }

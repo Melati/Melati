@@ -23,13 +23,12 @@ import org.melati.poem.test.PasswordField;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>PasswordField</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>PasswordField</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class PasswordFieldTableBase extends EverythingTable {
+public class PasswordFieldTableBase<T extends PasswordField> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_passwordfield = null;
@@ -81,43 +80,43 @@ public class PasswordFieldTableBase extends EverythingTable {
             return ((PasswordField)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Id";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 1;
           }
 
@@ -160,27 +159,27 @@ public class PasswordFieldTableBase extends EverythingTable {
             return ((PasswordField)g).getPasswordfieldField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.summary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.yes;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Password Field";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 3;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
-          protected int defaultHeight() {
+          public int defaultHeight() {
             return 3;
           }
 
@@ -257,23 +256,23 @@ public class PasswordFieldTableBase extends EverythingTable {
   protected JdbcPersistent _newPersistent() {
     return new PasswordField();
   }
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return "Password Field";
   }
 
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A table with only a password field in it";
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(100);
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Normal";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 15;
   }
 }

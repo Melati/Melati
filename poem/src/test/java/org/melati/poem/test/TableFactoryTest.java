@@ -71,7 +71,7 @@ public class TableFactoryTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.TableFactory#fromInstance(org.melati.poem.Database, java.lang.Object)}.
    */
   public void testFromUnKnownInstance() {
-    Table t = TableFactory.fromInstance(getDb(), new ClassWithNoIdAndPublicMembers());
+    Table<?>t = TableFactory.fromInstance(getDb(), new ClassWithNoIdAndPublicMembers());
     assertEquals("ClassWithNoIdAndPublicMembers", t.getName());
     // FIXME Delete tableinfo and columnInfo
     //getDb().delete(t);
@@ -81,7 +81,7 @@ public class TableFactoryTest extends PoemTestCase {
    * Test exception thrown.
    */
   public void testFromObjectWithStringIdField() { 
-    Table table =  TableFactory.fromInstance(getDb(), new ClassWithStringId());
+    Table<?>table =  TableFactory.fromInstance(getDb(), new ClassWithStringId());
     assertEquals("ClassWithStringId", table.getName());
   }
   /**

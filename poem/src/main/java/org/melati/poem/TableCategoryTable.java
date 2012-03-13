@@ -70,7 +70,7 @@ import org.melati.poem.generated.TableCategoryTableBase;
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
-public class TableCategoryTable extends TableCategoryTableBase {
+public class TableCategoryTable<T extends TableCategory> extends TableCategoryTableBase<T> {
 
  /**
   * Constructor.

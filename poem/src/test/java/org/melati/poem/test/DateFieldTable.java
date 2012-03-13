@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.DateFieldTableBase;
 import org.melati.poem.DefinitionSource;
@@ -23,14 +26,14 @@ import org.melati.poem.PoemException;
  * <tr><td> datefield </td><td> Date </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class DateFieldTable extends DateFieldTableBase {
+public class DateFieldTable<T extends DateField> extends DateFieldTableBase<DateField> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * see org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

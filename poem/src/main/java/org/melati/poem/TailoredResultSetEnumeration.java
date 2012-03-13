@@ -90,7 +90,7 @@ public class TailoredResultSetEnumeration<T> extends ResultSetEnumeration<T> {
    * @return the raw value
    */
   Object column(ResultSet them, int c) {
-    Column column = query.columns[c];
+    Column<?> column = query.columns[c];
     Object raw = column.getSQLType().getRaw(them, c + 1);
 
     if (query.isCanReadColumn[c]) {
@@ -113,11 +113,12 @@ public class TailoredResultSetEnumeration<T> extends ResultSetEnumeration<T> {
    * {@inheritDoc}
    * @see org.melati.poem.ResultSetEnumeration#mapped(java.sql.ResultSet)
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   protected Object mapped(ResultSet them)
       throws SQLException, NoSuchRowPoemException {
     checkTableAccess();
 
-    Field[] fields = new Field[query.columns.length];
+    Field<?>[] fields = new Field[query.columns.length];
     try {
       for (int c = 0; c < fields.length; ++c)
         fields[c] = new Field(column(them, c), query.columns[c]);

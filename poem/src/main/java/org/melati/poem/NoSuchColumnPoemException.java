@@ -54,12 +54,12 @@ public class NoSuchColumnPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
   /** Its name. */
   public String name;
 
   /** Constructor. */
-  public NoSuchColumnPoemException(Table table, String name) {
+  public NoSuchColumnPoemException(Table<?> table, String name) {
     this.table = table;
     this.name = name;
   }

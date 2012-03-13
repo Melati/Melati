@@ -88,7 +88,7 @@ import org.melati.poem.generated.ValueInfoTableBase;
  * 
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class ValueInfoTable extends ValueInfoTableBase {
+public class ValueInfoTable<T extends ValueInfo> extends ValueInfoTableBase<T> {
 
  /**
   * Constructor.

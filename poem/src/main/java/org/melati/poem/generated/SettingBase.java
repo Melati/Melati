@@ -7,6 +7,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.Setting;
 import org.melati.poem.SettingTable;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.ValueInfo;
@@ -39,12 +40,14 @@ public abstract class SettingBase extends ValueInfo {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the SettingTable
   */
-  public SettingTable getSettingTable() {
-    return (SettingTable)getTable();
+  @SuppressWarnings("unchecked")
+  public SettingTable<Setting> getSettingTable() {
+    return (SettingTable<Setting>)getTable();
   }
 
-  private SettingTable _getSettingTable() {
-    return (SettingTable)getTable();
+  @SuppressWarnings("unchecked")
+  private SettingTable<Setting> _getSettingTable() {
+    return (SettingTable<Setting>)getTable();
   }
 
   // Fields in this table 

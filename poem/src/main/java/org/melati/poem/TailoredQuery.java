@@ -51,7 +51,7 @@ import java.util.Hashtable;
 import java.sql.ResultSet;
 
 /**
- * This is how you run low-level SQL queries including joins, and get the
+ * This is how you run low-level SQL queries, including joins, and get the
  * results back in the form of convenient Melati {@link Field}s which can be
  * rendered automatically in templates.  A complement to the high-level
  * {@link Table#selection()} on the one hand, and the low-level
@@ -91,8 +91,8 @@ public class TailoredQuery {
   int selectedColumnsCount;
   Column<?>[] columns;
   boolean[] isCanReadColumn;
-  Table[] tables;
-  Table[] tablesWithoutCanReadColumn;
+  Table<?>[] tables;
+  Table<?>[] tablesWithoutCanReadColumn;
 
   Hashtable<String, Integer> table_columnMap = new Hashtable<String,Integer>();
 
@@ -167,7 +167,7 @@ public class TailoredQuery {
    * @see BasePoemType#quotedRaw(java.lang.Object)
    */
 
-  public TailoredQuery(Column<?>[] selectedColumns, Table[] otherTables,
+  public TailoredQuery(Column<?>[] selectedColumns, Table<?>[] otherTables,
                        String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
@@ -184,17 +184,17 @@ public class TailoredQuery {
    * @see #TailoredQuery(Column[], Table[], String, String)
    */
   public TailoredQuery(String modifier,  
-                       Column<?>[] selectedColumns, Table[] otherTables,
+                       Column<?>[] selectedColumns, Table<?>[] otherTables,
                        String whereClause, String orderByClause) {
 
     this.database = selectedColumns[0].getDatabase();
 
     // Make a list of all the tables used
 
-    Vector<Table> tablesV = new Vector<Table>();
+    Vector<Table<?>> tablesV = new Vector<Table<?>>();
 
     for (int c = 0; c < selectedColumns.length; ++c) {
-      Table table = selectedColumns[c].getTable();
+      Table<Persistent> table = selectedColumns[c].getTable();
       if (!tablesV.contains(table))
         tablesV.addElement(table);
     }
@@ -212,7 +212,7 @@ public class TailoredQuery {
 
     Vector<Column<?>> columnsV = new Vector<Column<?>>();
     Vector<Integer> canReadColumnIndices = new Vector<Integer>();
-    Vector<Table> tablesWithoutCanReadColumnV = new Vector<Table>();
+    Vector<Table<?>> tablesWithoutCanReadColumnV = new Vector<Table<?>>();
 
     selectedColumnsCount = selectedColumns.length;
     for (int c = 0; c < selectedColumns.length; ++c) {
@@ -220,7 +220,7 @@ public class TailoredQuery {
     }
     
     for (int t = 0; t < tables.length; t++) {
-      Table table = tables[t];
+      Table<?> table = tables[t];
       Column<Capability> canRead = table.canReadColumn();
       if (canRead == null) {
         // No specific canRead column, revert to the table default protection
@@ -262,7 +262,7 @@ public class TailoredQuery {
 
     for (int c = 0; c < columnsV.size(); ++c) {
       if (c > 0) sqlLocal.append(", ");
-      Column column = (Column)columnsV.elementAt(c);
+      Column<?> column = (Column<?>)columnsV.elementAt(c);
       sqlLocal.append(column.getTable().quotedName());
       sqlLocal.append('.');
       sqlLocal.append(column.quotedName());
@@ -291,7 +291,7 @@ public class TailoredQuery {
     // (including the canRead columns, if anyone ever wants them)
 
     for (int c = 0; c < columnsV.size(); ++c) {
-      Column column = (Column)columnsV.elementAt(c);
+      Column<?> column = columnsV.elementAt(c);
       table_columnMap.put(
           column.getTable().getName() + "_" + column.getName(),
           new Integer(c));
@@ -367,7 +367,7 @@ public class TailoredQuery {
    */
 
   public Enumeration<FieldSet> selection() {
-    return new TailoredResultSetEnumeration(this, database.sqlQuery(sql));
+    return new TailoredResultSetEnumeration<FieldSet>(this, database.sqlQuery(sql));
   }
 
   /**
@@ -396,8 +396,8 @@ public class TailoredQuery {
   /**
    * @return the first row of this <code>TailoredQuery</code>
    */
-  public Enumeration selection_firstRaw() {
-    return new FirstRawTailoredResultSetEnumeration(this,
+  public Enumeration<Object> selection_firstRaw() {
+    return new FirstRawTailoredResultSetEnumeration<Object>(this,
                                                     database.sqlQuery(sql));
   }
   

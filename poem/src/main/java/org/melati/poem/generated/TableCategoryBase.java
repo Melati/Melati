@@ -12,6 +12,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.TableCategory;
 import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfo;
 import org.melati.poem.ValidationPoemException;
@@ -45,12 +46,14 @@ public abstract class TableCategoryBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the TableCategoryTable
   */
-  public TableCategoryTable getTableCategoryTable() {
-    return (TableCategoryTable)getTable();
+  @SuppressWarnings("unchecked")
+  public TableCategoryTable<TableCategory> getTableCategoryTable() {
+    return (TableCategoryTable<TableCategory>)getTable();
   }
 
-  private TableCategoryTable _getTableCategoryTable() {
-    return (TableCategoryTable)getTable();
+  @SuppressWarnings("unchecked")
+  private TableCategoryTable<TableCategory> _getTableCategoryTable() {
+    return (TableCategoryTable<TableCategory>)getTable();
   }
 
   // Fields in this table 

@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.LongFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.LongFieldBase;
  * <tr><td> longfield </td><td> Long </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class LongField extends LongFieldBase {
 
@@ -32,9 +35,11 @@ public class LongField extends LongFieldBase {
   *   A table with only a long field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public LongField() { }
+  public LongField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

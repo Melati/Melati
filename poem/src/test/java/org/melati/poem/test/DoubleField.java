@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.DoubleFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.DoubleFieldBase;
  * <tr><td> doublefield </td><td> Double </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class DoubleField extends DoubleFieldBase {
 
@@ -32,9 +35,11 @@ public class DoubleField extends DoubleFieldBase {
   *   A table with only a double field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public DoubleField() { }
+  public DoubleField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

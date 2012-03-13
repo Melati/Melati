@@ -49,9 +49,9 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
   abstract static class PoemTaskThread extends Thread {
 
-    Table table;
+    Table<?> table;
 
-    PoemTaskThread(Table table) {
+    PoemTaskThread(Table<?> table) {
       this.table = table;
     }
 
@@ -85,7 +85,7 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
     int serial = 0;
 
-    Setter(Table table) {
+    Setter(Table<?> table) {
       super(table);
     }
 
@@ -159,9 +159,10 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
     static Object[] theSignal = new Object[1];
 
-    CachedSelection cachedSelection;
+    CachedSelection<?> cachedSelection;
 
-    Getter(Table table) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    Getter(Table<?> table) {
       super(table);
       cachedSelection = new CachedSelection(table, null, null, null);
     }
@@ -188,7 +189,7 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
           break;
         } else {
           System.out.println("\n*** getter:");
-          Enumeration them = cachedSelection.objects();
+          Enumeration<?> them = cachedSelection.objects();
 
           System.out.print("** got\n");
           synchronized (theResult) {

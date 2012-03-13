@@ -815,7 +815,8 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testHashCode() {
     Persistent p = getDb().getUserTable().guestUser();
-    assertEquals(3599307, p.hashCode());
+    //assertEquals(3599307, p.hashCode());
+    assertEquals(2645995, p.hashCode());
     try { 
       p = getDb().getUserTable().newPersistent();
       p.hashCode();
@@ -858,10 +859,11 @@ public class PersistentTest extends EverythingTestCase {
     
     User u = (User)getDb().getUserTable().newPersistent();
     d = u.dump();
-    assertTrue(d.startsWith("user/null"));
+    
+    assertTrue(d, d.startsWith("User/null"));
     u = getDb().getUserTable().guestUser();
     d = u.dump();
-    assertTrue(d.startsWith("user/0"));
+    assertTrue(d,d.startsWith("User/0"));
 
 
     
@@ -888,18 +890,18 @@ public class PersistentTest extends EverythingTestCase {
       e = null;
     }
     // Some gets written before blowing up
-    assertTrue(baos.toString().startsWith("user/0"));
+    assertEquals(baos.toString(),"User/0\n  ",baos.toString());
     
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);
     User u = (User)getDb().getUserTable().newPersistent();
     u.dump(ps);
-    assertTrue(baos.toString().startsWith("user/null"));
+    assertTrue(baos.toString().startsWith("User/null"));
     u = getDb().getUserTable().guestUser();
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);
     u.dump(ps);
-    assertTrue(baos.toString().startsWith("user/0"));
+    assertTrue(baos.toString().startsWith("User/0"));
   
   }
 

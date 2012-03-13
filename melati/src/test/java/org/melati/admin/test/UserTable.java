@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.admin.test;
+
 
 import org.melati.admin.test.generated.UserTableBase;
 import org.melati.poem.DefinitionSource;
@@ -23,14 +26,14 @@ import org.melati.poem.PoemException;
  * </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableJava 
+ * see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class UserTable extends UserTableBase {
+public class UserTable<T extends User> extends UserTableBase<User> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableJava 
+  * see org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

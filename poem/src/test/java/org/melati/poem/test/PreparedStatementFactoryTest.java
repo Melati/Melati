@@ -66,7 +66,7 @@ public class PreparedStatementFactoryTest extends PoemTestCase {
    */
   public void testPreparedStatement() throws Exception {
     Database db = getDb();
-    UserTable ut = db.getUserTable();
+    UserTable<org.melati.poem.User> ut = db.getUserTable();
     String q = ut.selectionSQL(null,null,null,true,false);
     String expected = 
       "SELECT " + db.getDbms().getQuotedName("user") + "." + 

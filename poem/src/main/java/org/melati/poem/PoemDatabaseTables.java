@@ -38,14 +38,14 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc AT paneris.org>
  */
 package org.melati.poem;
 
 import org.melati.poem.generated.PoemDatabaseTablesBase;
 
 /**
- * Melati POEM generated, programmer modifyable interface stub 
+ * Melati POEM generated, programmer modifiable interface stub 
  * giving all the available tables in the {@link PoemDatabase}.
  */
 public interface PoemDatabaseTables extends PoemDatabaseTablesBase {

@@ -54,7 +54,7 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec<Timestamp>
     long now = System.currentTimeMillis();
     Timestamp nowStamp = new Timestamp(now);
     assertEquals("'" + TimestampPoemType.format.format(nowStamp) + "'", 
-        ((SQLPoemType)it).quotedRaw(nowStamp));
+        ((SQLPoemType<?>)it).quotedRaw(nowStamp));
 
   }
 

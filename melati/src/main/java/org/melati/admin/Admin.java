@@ -142,7 +142,7 @@ public class Admin extends TemplateServlet {
   /**
    * Creates a row for a table using field data in a template context.
    */
-  protected static Persistent create(Table table,
+  protected static Persistent create(Table<?> table,
       final ServletTemplateContext context) {
     Persistent result = table.create(new Initialiser() {
       public void init(Persistent object) throws AccessPoemException,
@@ -250,9 +250,10 @@ public class Admin extends TemplateServlet {
    * 
    * @return The modified context.
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   protected static ServletTemplateContext selection(
       ServletTemplateContext context, Melati melati, boolean paged) {
-    final Table table = melati.getTable();
+    final Table<?> table = melati.getTable();
 
     final Database database = table.getDatabase();
 
@@ -327,7 +328,7 @@ public class Admin extends TemplateServlet {
     if (paged) { 
       final int resultsPerPage = 20;
       context.put("results", 
-                  new CountedDumbPagedEnumeration<Persistent>(
+                  new CountedDumbPagedEnumeration(
                           table.selection(criteria, orderBySQL, false, false),
                           start, resultsPerPage,
                           table.cachedCount(criteria, false, false).count())
@@ -386,7 +387,7 @@ public class Admin extends TemplateServlet {
   /**
    * @return a type whose whose possible members are the search columns of the table
    */
-  private static ReferencePoemType getSearchColumnsType(final Database database, final Table table) {
+  private static ReferencePoemType getSearchColumnsType(final Database database, final Table<?> table) {
     return new ReferencePoemType(database
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {

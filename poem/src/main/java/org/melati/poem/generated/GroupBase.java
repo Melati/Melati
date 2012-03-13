@@ -10,6 +10,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.Group;
 import org.melati.poem.GroupCapability;
 import org.melati.poem.GroupMembership;
 import org.melati.poem.GroupTable;
@@ -46,12 +47,14 @@ public abstract class GroupBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupTable
   */
-  public GroupTable getGroupTable() {
-    return (GroupTable)getTable();
+  @SuppressWarnings("unchecked")
+  public GroupTable<Group> getGroupTable() {
+    return (GroupTable<Group>)getTable();
   }
 
-  private GroupTable _getGroupTable() {
-    return (GroupTable)getTable();
+  @SuppressWarnings("unchecked")
+  private GroupTable<Group> _getGroupTable() {
+    return (GroupTable<Group>)getTable();
   }
 
   // Fields in this table 

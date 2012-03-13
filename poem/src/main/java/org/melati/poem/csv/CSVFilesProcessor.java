@@ -91,7 +91,7 @@ public class CSVFilesProcessor {
    * @param file a CSV file, with first line containing field names
    * @return a new CSVTable
    */
-  public CSVTable addTable(Table tab, File file) {
+  public CSVTable addTable(Table<?> tab, File file) {
     if (!file.exists())
       throw new RuntimeException("File not found: " + file.getPath());
     CSVTable table = new CSVTable(tab, file);

@@ -122,13 +122,14 @@ public class ValueInfo extends ValueInfoBase {
         };
   }
 
-  private SQLPoemType poemType = null;
+  private SQLPoemType<?> poemType = null;
 
   /**
    * NOTE A type cannot be changed once initialised.
    * @return our SQLPoemType
    */
-  public SQLPoemType getType() {
+  @SuppressWarnings("rawtypes")
+  public SQLPoemType<?> getType() {
     if (poemType == null) {
       PoemTypeFactory f = getTypefactory();
 
@@ -163,8 +164,9 @@ public class ValueInfo extends ValueInfoBase {
       return null;
   }
 
-  private FieldAttributes fieldAttributesRenamedAs(FieldAttributes c,
-                                                   PoemType type) {
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private FieldAttributes<?> fieldAttributesRenamedAs(FieldAttributes<?> c,
+                                                   PoemType<?> type) {
     return new BaseFieldAttributes(
         c.getName(), c.getDisplayName(), c.getDescription(), type,
         width == null ? 12 : width.intValue(),
@@ -180,7 +182,7 @@ public class ValueInfo extends ValueInfoBase {
    * @param c a FieldAttributes eg a Field
    * @return a new FieldAttributes
    */
-  public FieldAttributes fieldAttributesRenamedAs(FieldAttributes c) {
+  public FieldAttributes<?> fieldAttributesRenamedAs(FieldAttributes<?> c) {
     return fieldAttributesRenamedAs(c, getType());
   }
 
@@ -188,8 +190,9 @@ public class ValueInfo extends ValueInfoBase {
    * @param c a Column with a Range
    * @return a Field representing the end of the Range
    */
-  private Field rangeEndField(Column<?> c) {
-    SQLPoemType unrangedType = getRangeEndType(c.getType().getNullable());
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private Field<String> rangeEndField(Column<?> c) {
+    SQLPoemType<?> unrangedType = getRangeEndType(c.getType().getNullable());
 
     if (unrangedType == null)
       return null;
@@ -225,8 +228,8 @@ public class ValueInfo extends ValueInfoBase {
    * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#getRangelimit_stringField()
    */
-  public Field getRangelimit_stringField() {
-    Field it = rangeEndField(getValueInfoTable().getRangelimit_stringColumn());
+  public Field<String> getRangelimit_stringField() {
+    Field<String> it = (Field<String>)rangeEndField(getValueInfoTable().getRangelimit_stringColumn());
     return it != null ? it : super.getRangelimit_stringField();
   }
 

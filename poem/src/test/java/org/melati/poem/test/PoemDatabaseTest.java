@@ -53,8 +53,9 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTable(String)
    */
   public void testGetUserTable() {
-    UserTable ut1 = getDb().getUserTable();
-    UserTable ut2 = (UserTable)getDb().getTable("user");
+    UserTable<User> ut1 = getDb().getUserTable();
+    @SuppressWarnings("unchecked")
+    UserTable<User> ut2 = (UserTable<User>)getDb().getTable("user");
     assertEquals(ut1, ut2);
   }
 
@@ -80,7 +81,7 @@ public class PoemDatabaseTest extends PoemTestCase {
             + "setting (from the data structure definition)";
 
     String outcome = "";
-    for (Table t : getDb().getDisplayTables()) { 
+    for (Table<?> t : getDb().getDisplayTables()) { 
       outcome += t.toString();      
     }
     if (getDb().getDbms().canDropColumns()) {

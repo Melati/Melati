@@ -56,10 +56,10 @@ public class TableMismatchPoemException extends PoemException {
   /** The Persistent. */
   public Persistent value;
     /** The Table it should have set. */
-  public Table table;
+  public Table<?> table;
 
   /** Constructor. */
-  public TableMismatchPoemException(Persistent value, Table table) {
+  public TableMismatchPoemException(Persistent value, Table<?> table) {
     this.value = value;
     this.table = table;
   }

@@ -23,13 +23,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>user</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>user</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class UserTableBase extends PoemTable {
+public class UserTableBase<T extends User> extends PoemTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -83,23 +82,23 @@ public class UserTableBase extends PoemTable {
             return ((User)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 10;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Table Row Object ID";
           }
 
@@ -142,31 +141,31 @@ public class UserTableBase extends PoemTable {
             return ((User)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Full name";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 20;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The user's real name";
           }
 
-          protected boolean defaultIndexed() {
+          public boolean defaultIndexed() {
             return true;
           }
 
@@ -209,19 +208,19 @@ public class UserTableBase extends PoemTable {
             return ((User)g).getLoginField();
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 30;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The user's login name";
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -264,23 +263,23 @@ public class UserTableBase extends PoemTable {
             return ((User)g).getPasswordField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 40;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The user's password";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 10;
           }
 
@@ -381,19 +380,19 @@ public class UserTableBase extends PoemTable {
   protected JdbcPersistent _newPersistent() {
     return new User();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A registered User of the database";
   }
 
-  protected boolean defaultRememberAllTroids() {
+  public boolean defaultRememberAllTroids() {
     return true;
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "User";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 2010;
   }
 }

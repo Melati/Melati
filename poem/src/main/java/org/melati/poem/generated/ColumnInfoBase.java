@@ -5,6 +5,7 @@ package org.melati.poem.generated;
 
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
@@ -44,12 +45,14 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ColumnInfoTable
   */
-  public ColumnInfoTable getColumnInfoTable() {
-    return (ColumnInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ColumnInfoTable<ColumnInfo> getColumnInfoTable() {
+    return (ColumnInfoTable<ColumnInfo>)getTable();
   }
 
-  private ColumnInfoTable _getColumnInfoTable() {
-    return (ColumnInfoTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ColumnInfoTable<ColumnInfo> _getColumnInfoTable() {
+    return (ColumnInfoTable<ColumnInfo>)getTable();
   }
 
   // Fields in this table 

@@ -10,6 +10,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.EAExtended;
 import org.melati.poem.test.EAExtendedTable;
 import org.melati.poem.test.EverythingAbstract;
 import org.melati.poem.test.EverythingDatabaseTables;
@@ -42,12 +43,14 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EAExtendedTable
   */
-  public EAExtendedTable getEAExtendedTable() {
-    return (EAExtendedTable)getTable();
+  @SuppressWarnings("unchecked")
+  public EAExtendedTable<EAExtended> getEAExtendedTable() {
+    return (EAExtendedTable<EAExtended>)getTable();
   }
 
-  private EAExtendedTable _getEAExtendedTable() {
-    return (EAExtendedTable)getTable();
+  @SuppressWarnings("unchecked")
+  private EAExtendedTable<EAExtended> _getEAExtendedTable() {
+    return (EAExtendedTable<EAExtended>)getTable();
   }
 
   // Fields in this table 

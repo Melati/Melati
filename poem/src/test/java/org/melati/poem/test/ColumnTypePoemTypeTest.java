@@ -27,6 +27,7 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeSpec {
    * {@inheritDoc}
    * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
    */
+  @SuppressWarnings("unchecked")
   void setObjectUnderTest() {
     it = new ColumnTypePoemType(getDb());
   }

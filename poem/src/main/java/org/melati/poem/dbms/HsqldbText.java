@@ -60,6 +60,7 @@ public class HsqldbText extends Hsqldb {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canDropColumns()
    */
+  @Override
   public boolean canDropColumns(){
     return false;
   }
@@ -72,7 +73,7 @@ public class HsqldbText extends Hsqldb {
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
-  public String createTableTypeQualifierSql(Table table) {
+  public String createTableTypeQualifierSql(Table<?> table) {
     String tableType;
     if (table == null || table.getDbmsTableType() == null)
       tableType = "TEXT ";
@@ -85,7 +86,8 @@ public class HsqldbText extends Hsqldb {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#tableInitialisationSql(org.melati.poem.Table)
    */
-  public String tableInitialisationSql(Table table) {
+  @Override
+  public String tableInitialisationSql(Table<?> table) {
     String tableInitialisationSql = null;
     if (table.getDbmsTableType() == null) 
       tableInitialisationSql =  "SET TABLE " + getQuotedName(table.getName()) + 

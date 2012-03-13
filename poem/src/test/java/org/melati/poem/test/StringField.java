@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.StringFieldBase;
 
@@ -18,9 +21,10 @@ import org.melati.poem.test.generated.StringFieldBase;
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> stringfield </td><td> String </td><td> &nbsp; </td></tr> 
+ * <tr><td> unlimited </td><td> String </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class StringField extends StringFieldBase {
 
@@ -32,9 +36,11 @@ public class StringField extends StringFieldBase {
   *   A table with only a string field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public StringField() { }
+  public StringField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

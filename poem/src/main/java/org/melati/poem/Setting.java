@@ -94,7 +94,7 @@ public class Setting extends SettingBase {
 
   // programmer's domain-specific code here
 
-  private FieldAttributes valueAttributes = null;
+  private FieldAttributes<?> valueAttributes = null;
   private Object raw = null;
   private Object cooked = null;
 
@@ -283,6 +283,7 @@ public class Setting extends SettingBase {
    * @return the attributes set in this Setting as the attributes for the 
    * value field
    */
+  @SuppressWarnings("rawtypes")
   private FieldAttributes valueFieldAttributes() {
     if (valueAttributes == null)
       valueAttributes =
@@ -296,11 +297,12 @@ public class Setting extends SettingBase {
    * use the attribute values set in this setting.
    * @see org.melati.poem.generated.SettingBase#getValueField()
    */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public Field getValueField() {
     try {
-      return new Field(getRaw(), valueFieldAttributes());
+      return new Field<String>(getRaw(), valueFieldAttributes());
     } catch (AccessPoemException accessException) {
-      return new Field(accessException, valueFieldAttributes());
+      return new Field<Exception>(accessException, valueFieldAttributes());
     }
   }
 

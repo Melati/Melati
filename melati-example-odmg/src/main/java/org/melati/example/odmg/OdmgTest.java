@@ -45,9 +45,9 @@ public static void main(String[] argsIn)
     }
 
     System.out.println("PARENTS DESCENDING");
-    Iterator iter = parents.select("order by name desc");
+    Iterator<Parent> iter = parents.select("order by name desc");
     while (iter.hasNext()) {
-      Parent p = (Parent)iter.next();
+      Parent p = iter.next();
       System.out.println("Parent:"+p.getName());
     }
 

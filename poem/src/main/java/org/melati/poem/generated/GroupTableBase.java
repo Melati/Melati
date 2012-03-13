@@ -22,13 +22,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>group</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>group</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupTableBase extends PoemTable {
+public class GroupTableBase<T extends Group> extends PoemTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -80,23 +79,23 @@ public class GroupTableBase extends PoemTable {
             return ((Group)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The Table Row Object ID";
           }
 
@@ -139,27 +138,27 @@ public class GroupTableBase extends PoemTable {
             return ((Group)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A human-readable name for the group";
           }
 
-          protected boolean defaultUnique() {
+          public boolean defaultUnique() {
             return true;
           }
 
@@ -236,19 +235,19 @@ public class GroupTableBase extends PoemTable {
   protected JdbcPersistent _newPersistent() {
     return new Group();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A Group to which registered Users of the database can belong";
   }
 
-  protected boolean defaultRememberAllTroids() {
+  public boolean defaultRememberAllTroids() {
     return true;
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "User";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 2020;
   }
 }

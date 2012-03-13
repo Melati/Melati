@@ -165,15 +165,17 @@ public class User extends UserBase implements AccessToken {
   /**
    * @return whether this User is the special, guest user
    */
+  @SuppressWarnings("unchecked")
   public boolean isGuest() {
-    return (this == ((UserTable)getTable()).guestUser()) ? true: false;
+    return (this == ((UserTable<User>)getTable()).guestUser()) ? true: false;
   }
 
   /**
    * @return whether this User is an administrator
    */
+  @SuppressWarnings("unchecked")
   public boolean isAdministrator() {
-    return (this == ((UserTable)getTable()).administratorUser()) ? true: false;
+    return (this == ((UserTable<User>)getTable()).administratorUser()) ? true: false;
   }
 
 }

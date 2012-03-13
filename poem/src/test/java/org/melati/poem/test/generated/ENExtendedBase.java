@@ -10,6 +10,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.ENExtended;
 import org.melati.poem.test.ENExtendedTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingNormal;
@@ -42,12 +43,14 @@ public abstract class ENExtendedBase extends EverythingNormal {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ENExtendedTable
   */
-  public ENExtendedTable getENExtendedTable() {
-    return (ENExtendedTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ENExtendedTable<ENExtended> getENExtendedTable() {
+    return (ENExtendedTable<ENExtended>)getTable();
   }
 
-  private ENExtendedTable _getENExtendedTable() {
-    return (ENExtendedTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ENExtendedTable<ENExtended> _getENExtendedTable() {
+    return (ENExtendedTable<ENExtended>)getTable();
   }
 
   // Fields in this table 

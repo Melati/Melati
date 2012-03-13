@@ -22,7 +22,7 @@ import org.melati.poem.PoemException;
  * 
  * @see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class ParentTable extends ParentTableBase {
+public class ParentTable<T extends Parent> extends ParentTableBase<Parent> {
 
  /**
   * Constructor.

@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.example.contacts;
+
 
 import org.melati.example.contacts.generated.ContactCategoryTableBase;
 import org.melati.poem.DefinitionSource;
@@ -24,14 +27,14 @@ import org.melati.poem.PoemException;
  * <tr><td> contact </td><td> Contact </td><td> Contact </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class ContactCategoryTable extends ContactCategoryTableBase {
+public class ContactCategoryTable<T extends ContactCategory> extends ContactCategoryTableBase<ContactCategory> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * see org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -45,3 +48,4 @@ public class ContactCategoryTable extends ContactCategoryTableBase {
 
   // programmer's domain-specific code here
 }
+

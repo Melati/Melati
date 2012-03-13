@@ -91,7 +91,7 @@ public class DynamicTableTest extends EverythingTestCase {
     info.setCategory_unsafe(new Integer(1));
     info.setCachelimit(0);
     info.makePersistent();
-    Table extra = getDb().addTableAndCommit(info, "id");
+    Table<?> extra = getDb().addTableAndCommit(info, "id");
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     ci.setTableinfo(info);
     ci.setTypefactory(PoemTypeFactory.STRING);
@@ -202,7 +202,7 @@ public class DynamicTableTest extends EverythingTestCase {
     ti.setCachelimit(0);
     ti.makePersistent();
     // PoemThread.commit();
-    Table extra = getDb().addTableAndCommit(ti, "id");
+    Table<?> extra = getDb().addTableAndCommit(ti, "id");
 
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     ci.setTableinfo(ti);
@@ -259,7 +259,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -304,7 +304,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -404,7 +404,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -429,7 +429,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration <Persistent>en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     Dynamic d = (Dynamic)en.nextElement();
     t = (Integer)d.getRaw("testtypecol");
     int count = 0;
@@ -443,7 +443,7 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(1, count);
 
     PoemTypeFactory t2 = null;
-    Enumeration<Persistent> en2 = dt.selection();
+    Enumeration<Dynamic> en2 = dt.selection();
     t2 = (PoemTypeFactory)((Dynamic)en2.nextElement()).getCooked("testtypecol");
     while (en2.hasMoreElements()) {
       assertEquals(t2.getName(), ((PoemTypeFactory)((Dynamic)en2.nextElement())
@@ -458,9 +458,9 @@ public class DynamicTableTest extends EverythingTestCase {
             dt.getColumn("testtypecol").selectionWhereEq(new Integer(0)))
             .size());
     assertEquals(new Integer(0), dt.two().getRaw("testtypecol"));
-    assertEquals("user", ((PoemTypeFactory)dt.two().getCooked("testtypecol"))
+    assertEquals("User", ((PoemTypeFactory)dt.two().getCooked("testtypecol"))
             .getName());
-    assertEquals("user", ((PoemTypeFactory)dt.getObject(0).getCooked(
+    assertEquals("User", ((PoemTypeFactory)dt.getObject(0).getCooked(
             "testtypecol")).getName());
     columnInfo.delete();
   }
@@ -472,7 +472,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -516,7 +516,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     // Two records are created on initialisation
     assertEquals(2, EnumUtils.vectorOf(dt.selection()).size());
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
@@ -562,7 +562,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -606,7 +606,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -650,7 +650,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -692,7 +692,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -733,7 +733,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -775,7 +775,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -817,7 +817,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -864,7 +864,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -889,7 +889,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Timestamp t = null;
-    Enumeration<Persistent> en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     t = (Timestamp)((Dynamic)en.nextElement()).getRaw("testtimestampcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testtimestampcol"));
@@ -912,7 +912,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -937,7 +937,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     byte[] t = null;
-    Enumeration<Persistent> en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     t = (byte[])((Dynamic)en.nextElement()).getRaw("testbinarycol");
     while (en.hasMoreElements()) {
       assertEquals(t.length, ((byte[])((Dynamic)en.nextElement())
@@ -962,7 +962,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -987,14 +987,14 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration<Persistent> en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testdisplaylevelcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testdisplaylevelcol"));
     }
 
     DisplayLevel t2 = null;
-    Enumeration<Persistent> en2 = dt.selection();
+    Enumeration<Dynamic> en2 = dt.selection();
     t2 = (DisplayLevel)((Dynamic)en2.nextElement())
             .getCooked("testdisplaylevelcol");
     while (en2.hasMoreElements()) {
@@ -1024,7 +1024,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -1049,7 +1049,7 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration<Persistent> en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testsearchabilitycol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement())
@@ -1057,7 +1057,7 @@ public class DynamicTableTest extends EverythingTestCase {
     }
 
     Searchability t2 = null;
-    Enumeration<Persistent> en2 = dt.selection();
+    Enumeration<Dynamic> en2 = dt.selection();
     t2 = (Searchability)((Dynamic)en2.nextElement())
             .getCooked("testsearchabilitycol");
     while (en2.hasMoreElements()) {
@@ -1087,7 +1087,7 @@ public class DynamicTableTest extends EverythingTestCase {
     if (!getDb().getDbms().canDropColumns()) {
       return;
     }
-    DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    DynamicTable<Dynamic> dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable()
             .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -1112,14 +1112,14 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.makePersistent();
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
-    Enumeration<Persistent> en = dt.selection();
+    Enumeration<Dynamic> en = dt.selection();
     t = (Integer)((Dynamic)en.nextElement()).getRaw("testIntegrityfixcol");
     while (en.hasMoreElements()) {
       assertEquals(t, ((Dynamic)en.nextElement()).getRaw("testIntegrityfixcol"));
     }
 
     IntegrityFix t2 = null;
-    Enumeration<Persistent> en2 = dt.selection();
+    Enumeration<Dynamic> en2 = dt.selection();
     t2 = (IntegrityFix)((Dynamic)en2.nextElement())
             .getCooked("testIntegrityfixcol");
     while (en2.hasMoreElements()) {

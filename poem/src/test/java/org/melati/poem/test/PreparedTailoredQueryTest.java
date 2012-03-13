@@ -13,7 +13,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PreparedTailoredQuery;
 import org.melati.poem.Table;
-import org.melati.poem.User;
+import org.melati.poem.test.User;
 import org.melati.poem.util.EnumUtils;
 
 /**
@@ -84,7 +84,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     nullCanSelectMission.setDeleted(false);
     nullCanSelectMission.makePersistent();
     
-    final Column canReadColumn = db.getProtectedTable().getCanReadColumn();
+    final Column<?> canReadColumn = db.getProtectedTable().getCanReadColumn();
     final PreparedTailoredQuery ptq = new PreparedTailoredQuery(
             new Column[] { canReadColumn }, new Table[0], canReadColumn
                     .fullQuotedName()
@@ -117,7 +117,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
 
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest);
 
-    final Column missionColumn = db.getProtectedTable().getMissionColumn();
+    final Column<?> missionColumn = db.getProtectedTable().getMissionColumn();
     assertEquals("moneyPenny", spyMission.getCanRead().getName());
     final PreparedTailoredQuery ptq2 = new PreparedTailoredQuery(new Column[] {
         missionColumn, db.getUserTable().getPasswordColumn() },

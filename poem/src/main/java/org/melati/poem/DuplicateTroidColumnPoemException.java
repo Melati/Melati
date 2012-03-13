@@ -52,12 +52,12 @@ public class DuplicateTroidColumnPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
   /** The Column we are dealing with. */
   public Column<?> column;
 
   /** Constructor. */
-  public DuplicateTroidColumnPoemException(Table table, Column<?> column) {
+  public DuplicateTroidColumnPoemException(Table<?> table, Column<?> column) {
     this.table = table;
     this.column = column;
   }

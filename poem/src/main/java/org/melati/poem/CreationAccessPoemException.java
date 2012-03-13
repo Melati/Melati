@@ -52,10 +52,10 @@ public class CreationAccessPoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we have a problem with. */
-  public Table table;
+  public Table<?> table;
 
   /** Constructor. */
-  public CreationAccessPoemException(Table table, AccessToken token,
+  public CreationAccessPoemException(Table<?> table, AccessToken token,
                                      Capability capability) {
     super(token, capability);
     this.table = table;

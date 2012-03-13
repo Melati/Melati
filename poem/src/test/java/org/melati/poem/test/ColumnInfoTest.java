@@ -5,8 +5,10 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
+import org.melati.poem.Column;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
+import org.melati.poem.Field;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.Searchability;
 
@@ -72,7 +74,7 @@ public class ColumnInfoTest extends PoemTestCase {
    * setDisplaylevelIndex(java.lang.Integer)}.
    */
   public void testSetDisplaylevelIndex() {
-    Enumeration them = getDb().getUserTable().getSummaryDisplayColumns();
+    Enumeration<Column<?>> them = getDb().getUserTable().getSummaryDisplayColumns();
     int counter = 0;
     while (them.hasMoreElements()) {
       them.nextElement();
@@ -153,7 +155,7 @@ public class ColumnInfoTest extends PoemTestCase {
    */
   public void testGetDsdQualifiers() {
     ColumnInfo ci = getDb().getUserTable().getPasswordColumn().getColumnInfo();
-    Enumeration them = ci.getDsdQualifiers();
+    Enumeration<Field<?>> them = ci.getDsdQualifiers();
     int counter = 0;
     while (them.hasMoreElements()) {
       counter++;
@@ -167,7 +169,7 @@ public class ColumnInfoTest extends PoemTestCase {
    */
   public void testGetDsdQualifiers2() {
     ColumnInfo ci = getDb().getUserTable().getIdColumn().getColumnInfo();
-    Enumeration them = ci.getDsdQualifiers();
+    Enumeration<Field<?>> them = ci.getDsdQualifiers();
     int counter = 0;
     while (them.hasMoreElements()) {
       counter++;

@@ -53,7 +53,7 @@ import org.melati.poem.util.StringUtils;
  */
 public class ReferencePoemType extends IndexPoemType {
 
-  private Table targetTable;
+  private Table<?> targetTable;
 
   /**
    * Constructor.
@@ -61,7 +61,7 @@ public class ReferencePoemType extends IndexPoemType {
    * @param targetTable the Table the type refers to 
    * @param nullable whether this type may contain null values
    */
-  public ReferencePoemType(Table targetTable, boolean nullable) {
+  public ReferencePoemType(Table<?> targetTable, boolean nullable) {
     super(nullable);
     if (targetTable == null)
       throw new NullPointerException();
@@ -71,7 +71,7 @@ public class ReferencePoemType extends IndexPoemType {
   /**
    * @return Table this type references
    */
-  public Table targetTable() {
+  public Table<?> targetTable() {
     return targetTable;
   }
 

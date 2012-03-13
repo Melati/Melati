@@ -55,16 +55,16 @@ import java.util.Enumeration;
  * valid value is, so use a simple where clause.
  */
 
-public class RestrictedReferencePoemType<T> extends ReferencePoemType {
+public class RestrictedReferencePoemType<P extends Persistent> extends ReferencePoemType {
 
-  private final CachedSelection<T> selection;
+  private final CachedSelection<P> selection;
 
   /**
    * Constructor.
    * @param selection a CachedSelection of that is the sub-set
    * @param nullable whether instance may be null
    */
-  public RestrictedReferencePoemType(CachedSelection<T> selection,
+  public RestrictedReferencePoemType(CachedSelection<P> selection,
                                      boolean nullable) {
     super(selection.getTable(), nullable);
     this.selection = selection;

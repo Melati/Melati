@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * An object factory which produces {@link PoemType} objects
  * given a {@link Database} and a code.
@@ -173,7 +176,8 @@ public abstract class PoemTypeFactory {
          * @see org.melati.poem.PoemTypeFactory#typeOf
          * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
          */
-        public SQLPoemType typeOf(Database database, Parameter info) {
+        @SuppressWarnings("unchecked")
+        public SQLPoemType<?> typeOf(Database database, Parameter info) {
           return TroidPoemType.it;
       }
 
@@ -186,7 +190,6 @@ public abstract class PoemTypeFactory {
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getDescription()
        */
       public String getDescription() {
@@ -194,11 +197,11 @@ public abstract class PoemTypeFactory {
       }
     }, DELETED = new PoemTypeFactory(n--) {
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return DeletedPoemType.it;
       }
 
@@ -223,7 +226,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new ColumnTypePoemType(database);
       }
 
@@ -248,7 +252,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new BooleanPoemType(info.getNullable());
       }
 
@@ -273,12 +278,12 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new IntegerPoemType(info.getNullable());
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getName()
        */
       public String getName() {
@@ -286,7 +291,6 @@ public abstract class PoemTypeFactory {
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getDescription()
        */
       public String getDescription() {
@@ -298,7 +302,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new DoublePoemType(info.getNullable());
       }
 
@@ -323,7 +328,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new StringPoemType(info.getNullable(), info.getSize());
       }
 
@@ -344,11 +350,11 @@ public abstract class PoemTypeFactory {
       }
     }, DATE = new PoemTypeFactory(n--) {
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<Date> typeOf(Database database, Parameter info) {
         return new DatePoemType(info.getNullable());
       }
 
@@ -369,16 +375,15 @@ public abstract class PoemTypeFactory {
       }
     }, PASSWORD = new PoemTypeFactory(n--) {
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new PasswordPoemType(info.getNullable(), info.getSize());
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getName()
        */
       public String getName() {
@@ -398,12 +403,12 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<Timestamp> typeOf(Database database, Parameter info) {
         return new TimestampPoemType(info.getNullable());
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getName()
        */
       public String getName() {
@@ -419,11 +424,11 @@ public abstract class PoemTypeFactory {
       }
     }, DISPLAYLEVEL = new PoemTypeFactory(n--) {
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new DisplayLevelPoemType();
       }
 
@@ -448,7 +453,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new SearchabilityPoemType();
       }
 
@@ -461,7 +467,6 @@ public abstract class PoemTypeFactory {
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getDescription()
        */
       public String getDescription() {
@@ -469,11 +474,11 @@ public abstract class PoemTypeFactory {
       }
     }, BINARY = new PoemTypeFactory(n--) {
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new BinaryPoemType(info.getNullable(), info.getSize());
       }
 
@@ -498,7 +503,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new LongPoemType(info.getNullable());
       }
 
@@ -523,12 +529,12 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new IntegrityFixPoemType(info.getNullable());
       }
 
       /**
-       * {@inheritDoc}
        * @see org.melati.poem.PoemTypeFactory#getName()
        */
       public String getName() {
@@ -548,7 +554,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new BigDecimalPoemType(info.getNullable());
       }
 
@@ -573,7 +580,8 @@ public abstract class PoemTypeFactory {
        * @see org.melati.poem.PoemTypeFactory#typeOf
        * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
        */
-      public SQLPoemType typeOf(Database database, Parameter info) {
+      @SuppressWarnings("unchecked")
+      public SQLPoemType<?> typeOf(Database database, Parameter info) {
         return new TimePoemType(info.getNullable());
       }
 
@@ -606,14 +614,15 @@ public abstract class PoemTypeFactory {
     if (code < 0)
       return atomTypeFactories[(-code) - 1];
     else {
-      final Table table = database.tableWithTableInfoID(code);
+      final Table<?> table = database.tableWithTableInfoID(code);
       return new PoemTypeFactory(code) {
         /**
          * {@inheritDoc}
          * @see org.melati.poem.PoemTypeFactory#typeOf
          * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
          */
-        public SQLPoemType typeOf(Database db, Parameter info) {
+        @SuppressWarnings("unchecked")
+        public SQLPoemType<?> typeOf(Database db, Parameter info) {
           return new ReferencePoemType(table, info.getNullable());
         }
 

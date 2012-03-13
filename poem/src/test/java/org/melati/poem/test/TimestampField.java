@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.TimestampFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.TimestampFieldBase;
  * <tr><td> timestampfield </td><td> Timestamp </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class TimestampField extends TimestampFieldBase {
 
@@ -32,9 +35,11 @@ public class TimestampField extends TimestampFieldBase {
   *   A table with only a timestamp field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public TimestampField() { }
+  public TimestampField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

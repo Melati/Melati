@@ -74,7 +74,7 @@ import org.melati.poem.generated.GroupTableBase;
  * 
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class GroupTable extends GroupTableBase {
+public class GroupTable<T extends Group> extends GroupTableBase<T> {
 
  /**
   * Constructor.

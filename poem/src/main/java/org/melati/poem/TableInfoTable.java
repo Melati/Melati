@@ -98,7 +98,7 @@ import org.melati.poem.generated.TableInfoTableBase;
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
-public class TableInfoTable extends TableInfoTableBase {
+public class TableInfoTable<T extends TableInfo> extends TableInfoTableBase<T> {
 
  /**
   * Constructor.
@@ -125,8 +125,8 @@ public class TableInfoTable extends TableInfoTableBase {
    * @param table the Table to get metadata from.
    * @return a new TableInfo Persistent
    */
-  protected TableInfo defaultTableInfoFor(Table table) {
-    return new TableInfo((JdbcTable)table);
+  protected TableInfo defaultTableInfoFor(Table<?> table) {
+    return new TableInfo(table);
   }
   
 }

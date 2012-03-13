@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.DateFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.DateFieldBase;
  * <tr><td> datefield </td><td> Date </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class DateField extends DateFieldBase {
 
@@ -32,9 +35,11 @@ public class DateField extends DateFieldBase {
   *   A table with only a date field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public DateField() { }
+  public DateField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

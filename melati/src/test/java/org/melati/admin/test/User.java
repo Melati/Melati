@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.admin.test;
+
 
 import org.melati.admin.test.generated.UserBase;
 
@@ -20,7 +23,7 @@ import org.melati.admin.test.generated.UserBase;
  * </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class User extends UserBase {
 
@@ -32,9 +35,11 @@ public class User extends UserBase {
   *   An emailed User. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public User() { }
+  public User() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

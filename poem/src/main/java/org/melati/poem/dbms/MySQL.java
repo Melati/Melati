@@ -349,8 +349,9 @@ public class MySQL extends AnsiStandard {
   * {@inheritDoc}
   * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
   */
+  @Override
   public SQLPoemException exceptionForUpdate(
-        Table table, String sql, boolean insert, SQLException e) {
+        Table<?> table, String sql, boolean insert, SQLException e) {
 
     String m = e.getMessage();
 
@@ -410,6 +411,7 @@ public class MySQL extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
+  @Override
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("group")) name = "poem_" + name;
     if(name.equalsIgnoreCase("precision")) name = "poem_" + name;
@@ -418,9 +420,9 @@ public class MySQL extends AnsiStandard {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
+  @Override
   public String melatiName(String name) {
     if (name == null) return name;
     if(name.equalsIgnoreCase("poem_group")) name = "group";
@@ -435,6 +437,7 @@ public class MySQL extends AnsiStandard {
   *
   * @return a snippet of sql to insert into an SQL statement.
   */
+  @Override
   public String getIndexLength(Column<?> column) {
     PoemType<?> t = column.getType();
     if (t instanceof StringPoemType && 

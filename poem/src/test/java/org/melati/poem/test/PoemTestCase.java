@@ -43,7 +43,7 @@ public class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  protected static int maxTrans = 0;
+  protected int maxTrans = 0;
   
   /** Default db name */
   private String databaseName = "melatijunit";  // change to poemtest
@@ -185,7 +185,7 @@ public class PoemTestCase extends TestCase implements Test {
   
   protected void dropTable(String tableName) { 
     Connection c = getDb().getCommittedConnection();
-    Table table = null;
+    Table<?> table = null;
     try { 
       table = getDb().getTable(tableName);
       Statement s = c.createStatement();
@@ -209,10 +209,10 @@ public class PoemTestCase extends TestCase implements Test {
     checkColumns(columnCount);
   }
   protected void checkTables(int tableCount) {
-    Enumeration e = getDb().tables();
+    Enumeration<Table<?>> e = getDb().tables();
     int count = 0;
     while (e.hasMoreElements()) {
-      Table t = (Table)e.nextElement();
+      Table<?> t = e.nextElement();
       if (t.getTableInfo().statusExistent()) count++;
     }
     if (count != tableCount) {
@@ -220,7 +220,7 @@ public class PoemTestCase extends TestCase implements Test {
               tableCount + " found:" + count);
       e = getDb().tables();
       while (e.hasMoreElements()) {
-        Table t = (Table)e.nextElement();
+        Table<?> t = e.nextElement();
         System.out.println(t.getTableInfo().getTroid() + " " +
                 t.getTableInfo().statusExistent() + " " +
                 t);
@@ -229,10 +229,10 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals(tableCount, count);
   }
   protected void checkColumns(int columnCount) {
-    Enumeration e = getDb().columns();
+    Enumeration<Column<?>> e = getDb().columns();
     int count = 0;
     while (e.hasMoreElements()) {
-      Column c = (Column)e.nextElement();
+      Column<?> c = e.nextElement();
       if (c.getColumnInfo().statusExistent())
         count++;
     }
@@ -247,10 +247,10 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals(columnCount, count);
   }
   
-  protected void dumpTable(Table t) {
-    Enumeration them = t.selection();
+  protected <P extends Persistent> void dumpTable(Table<P> t) {
+    Enumeration<P> them = t.selection();
     while (them.hasMoreElements()) {
-      Persistent it = (Persistent)them.nextElement();
+      P it = them.nextElement();
       System.err.println(it.getTroid() + " " + it.getCooked("name") + " " +
           it.getTable().getName());
     }

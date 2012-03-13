@@ -154,7 +154,7 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setDisplaylevelIndex(index);
     Column<?> column = column();
     if (column != null) {
-      Table table = column.getTable();
+      Table<?> table = column.getTable();
       Column<?> previous = table.displayColumn();
       if (previous != null && previous != column) {
         if (index.equals(DisplayLevel.primary.getIndex())) {

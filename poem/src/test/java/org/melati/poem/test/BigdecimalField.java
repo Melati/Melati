@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.BigdecimalFieldBase;
 
@@ -20,7 +23,7 @@ import org.melati.poem.test.generated.BigdecimalFieldBase;
  * <tr><td> bigdecimalfield </td><td> BigDecimal </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class BigdecimalField extends BigdecimalFieldBase {
 
@@ -32,9 +35,11 @@ public class BigdecimalField extends BigdecimalFieldBase {
   *   A table with only a big decimal field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public BigdecimalField() { }
+  public BigdecimalField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

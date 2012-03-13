@@ -72,7 +72,7 @@ import org.melati.poem.Table;
  */
 public class CSVTable {
 
-  protected Table table = null;
+  protected Table<?> table = null;
   protected File data = null;
   protected Hashtable<String,CSVColumn> columns = new Hashtable<String,CSVColumn>();
   protected Vector<CSVColumn> columnsInUploadOrder = new Vector<CSVColumn>();
@@ -94,7 +94,7 @@ public class CSVTable {
   * @param table POEM table to load data into
   * @param data CSV file to read from
   */
-  public CSVTable(Table table, File data) {
+  public CSVTable(Table<?> table, File data) {
     this.table = table;
     this.data = data;
     try {
@@ -257,7 +257,7 @@ public class CSVTable {
   * Delete all Persistents from the Poem table.
   */
   public void emptyTable() {
-    Enumeration<Persistent> rows = table.selection();
+    Enumeration<?> rows = table.selection();
     while(rows.hasMoreElements()) {
       Persistent p = (Persistent)rows.nextElement();
       p.delete();

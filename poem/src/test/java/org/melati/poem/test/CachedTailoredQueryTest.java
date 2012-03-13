@@ -57,7 +57,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     Column<?>[] cols = new Column[1];
     cols[0] = getDb().getTableCategoryTable().troidColumn();
     //cols[1] = getDb().getTableInfoTable().getColumn("category");
-    Table[] tables = new Table[1];
+    Table<?>[] tables = new Table[1];
     tables[0] = getDb().getTableCategoryTable();
     //tables[1] = getDb().getTableInfoTable();
     int queries = getDb().getQueryCount();
@@ -86,7 +86,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     Column<?>[] colsInQuery = new Column[2];
     colsInQuery[0] = getDb().getGroupTable().getColumn("name");
     colsInQuery[1] = getDb().getGroupTable().troidColumn();
-    Table[] tables = new Table[1];
+    Table<?>[] tables = new Table[1];
     tables[0] = getDb().getGroupTable();
     //tables[1] = getDb().getTableCategoryTable();
     int queries = getDb().getQueryCount();
@@ -122,13 +122,15 @@ public class CachedTailoredQueryTest extends PoemTestCase {
       r.nextElement();
       numberOfCachedTableinfoRecords++;
     }
-    //System.err.println("TableInfo records:" + numberOfCachedTableinfoRecords);
+    System.err.println("TableInfo records:" + numberOfCachedTableinfoRecords);
+    assertEquals(9,numberOfCachedTableinfoRecords);
     int numberOfCachedGroupRecords = 0;
     Enumeration<Object> g = getDb().getGroupTable().getCacheInfo().getHeldElements();      
     while(g.hasMoreElements()){
       g.nextElement();
       numberOfCachedGroupRecords++;
     }
+    assertEquals(1,numberOfCachedGroupRecords);
     assertEquals(1,EnumUtils.vectorOf(ctq.selection()).size());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);

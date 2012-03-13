@@ -117,7 +117,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
    *@return an {@link Enumeration} of the remaining referers, which if 
    *        not empty will prevent deletion     
    */
-   public abstract Enumeration<Persistent> referencesTo(Persistent referee,
+  @SuppressWarnings("rawtypes")
+  public abstract Enumeration<Persistent> referencesTo(Persistent referee,
                                    Column column,
                                    Enumeration refs,
                                    Map referenceFixOfColumn);
@@ -125,6 +126,7 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   /**
    * Create the fixes.
    */
+   @SuppressWarnings({"rawtypes","unchecked"})
   private static final StandardIntegrityFix[] fixes = { 
     delete = new StandardIntegrityFix(0, "delete") {
       public Enumeration<Persistent> referencesTo(Persistent referee, Column column,
@@ -172,7 +174,7 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     return fixes.length;
   }
 
-  private static final Hashtable fixOfName = new Hashtable();
+  private static final Hashtable<String,IntegrityFix> fixOfName = new Hashtable<String,IntegrityFix>();
 
   static {
     for (int i = 0; i < fixes.length; ++i)

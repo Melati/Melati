@@ -1,5 +1,6 @@
 package org.melati.example.contacts;
 
+
 import org.melati.example.contacts.generated.ContactTableBase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.Database;
@@ -32,14 +33,14 @@ import org.melati.poem.PoemException;
  * </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * see  org.melati.poem.prepro.TableDef#generateTableJava 
  */
-public class ContactTable extends ContactTableBase {
+public class ContactTable<T extends Contact> extends ContactTableBase<Contact> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * see org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -72,3 +73,4 @@ public class ContactTable extends ContactTableBase {
 
 
 }
+

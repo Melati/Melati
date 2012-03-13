@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.admin.test;
+
 
 import org.melati.admin.test.generated.UploadedImageBase;
 
@@ -21,7 +24,7 @@ import org.melati.admin.test.generated.UploadedImageBase;
  * relative to the server root </td></tr> 
  * </table> 
  * 
- * @see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class UploadedImage extends UploadedImageBase {
 
@@ -33,9 +36,11 @@ public class UploadedImage extends UploadedImageBase {
   *   An image uploaded by a user. 
   * </p>
   * 
-  * @see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public UploadedImage() { }
+  public UploadedImage() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

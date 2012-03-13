@@ -8,6 +8,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.Dynamic;
 import org.melati.poem.test.DynamicTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -39,12 +40,14 @@ public abstract class DynamicBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DynamicTable
   */
-  public DynamicTable getDynamicTable() {
-    return (DynamicTable)getTable();
+  @SuppressWarnings("unchecked")
+  public DynamicTable<Dynamic> getDynamicTable() {
+    return (DynamicTable<Dynamic>)getTable();
   }
 
-  private DynamicTable _getDynamicTable() {
-    return (DynamicTable)getTable();
+  @SuppressWarnings("unchecked")
+  private DynamicTable<Dynamic> _getDynamicTable() {
+    return (DynamicTable<Dynamic>)getTable();
   }
 
   // Fields in this table 

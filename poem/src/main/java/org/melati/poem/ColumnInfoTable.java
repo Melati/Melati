@@ -94,7 +94,7 @@ import org.melati.poem.generated.ColumnInfoTableBase;
  * 
  * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class ColumnInfoTable extends ColumnInfoTableBase {
+public class ColumnInfoTable<T extends ColumnInfo> extends ColumnInfoTableBase<T> {
 
  /**
   * Constructor.

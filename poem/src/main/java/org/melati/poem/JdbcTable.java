@@ -74,13 +74,13 @@ import org.melati.poem.util.StringUtils;
  * A Table.
  * @since 14 April 2008 
  */
-public class JdbcTable implements Selectable, Table {
+public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P> {
 
   /** Default limit for row cache. */
   private static final int CACHE_LIMIT_DEFAULT = 100;
   private static final int DISPLAY_ORDER_DEFAULT = 100;
 
-  private JdbcTable _this = this;
+  private JdbcTable<P> _this = this;
 
   Database database;
   private String name;
@@ -110,8 +110,8 @@ public class JdbcTable implements Selectable, Table {
 
   private TransactionedSerial serial;
 
-  private CachedSelection<Integer> allTroids = null;
-  private Hashtable<String, CachedSelection<?>> cachedSelections = new Hashtable<String, CachedSelection<?>>();
+  private CachedSelection<P> allTroids = null;
+  private Hashtable<String, CachedSelection<P>> cachedSelections = new Hashtable<String, CachedSelection<P>>();
   private Hashtable<String, CachedCount> cachedCounts = new Hashtable<String, CachedCount>();
   private Hashtable<String, CachedExists> cachedExists = new Hashtable<String, CachedExists>();
 
@@ -151,12 +151,12 @@ public class JdbcTable implements Selectable, Table {
     clearColumnInfoCaches();
     database.getColumnInfoTable().addListener(
         new TableListener() {
-          public void notifyTouched(PoemTransaction transaction, Table table,
+          public void notifyTouched(PoemTransaction transaction, Table<?> table,
                                     Persistent persistent) {
             _this.notifyColumnInfo((ColumnInfo)persistent);
           }
 
-          public void notifyUncached(Table table) {
+          public void notifyUncached(Table<?> table) {
             _this.clearColumnInfoCaches();
           }
         });
@@ -258,15 +258,15 @@ public class JdbcTable implements Selectable, Table {
    * @return column of that name
    * @throws NoSuchColumnPoemException if there is no column with that name
    */
-  public final Column getColumn(String nameP) throws NoSuchColumnPoemException {
-    Column column = _getColumn(nameP); 
+  public final Column<?> getColumn(String nameP) throws NoSuchColumnPoemException {
+    Column<?> column = _getColumn(nameP); 
     if (column == null)
       throw new NoSuchColumnPoemException(this, nameP);
     else
       return column;
   }
-  protected final Column _getColumn(String nameP) {
-    Column column = (Column)columnsByName.get(nameP.toLowerCase());    
+  protected final Column<?> _getColumn(String nameP) {
+    Column<?> column = columnsByName.get(nameP.toLowerCase());    
     return column;
   }
   
@@ -341,7 +341,8 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @param column the display column to set
    */
-  public final void setDisplayColumn(Column<?> column) {
+  @SuppressWarnings("rawtypes")
+  public final void setDisplayColumn(Column column) {
     displayColumn = column;
   }
 
@@ -373,6 +374,7 @@ public class JdbcTable implements Selectable, Table {
    *  
    * @return comma separated list of the columns to order by
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public String defaultOrderByClause() {
     String clause = defaultOrderByClause;
 
@@ -625,6 +627,7 @@ public class JdbcTable implements Selectable, Table {
    * Constraints are not used in POEM, but you might want to use them if 
    * exporting the db or using schema visualisation tools.
    */
+  @SuppressWarnings("deprecation")
   public void dbAddConstraints() {
     StringBuffer sqb = new StringBuffer();
     for (int c = 0; c < columns.length; ++c) {
@@ -667,6 +670,7 @@ public class JdbcTable implements Selectable, Table {
 
   }
 
+  @SuppressWarnings("deprecation")
   private void dbAddColumn(Column<?> column) {
     if (column.getType().getNullable()) {
       dbModifyStructure(
@@ -689,6 +693,7 @@ public class JdbcTable implements Selectable, Table {
   }
 
   
+  @SuppressWarnings("deprecation")
   private void dbCreateIndex(Column<?> column) {
     if (column.getIndexed()) {
       if (!dbms().canBeIndexed(column)) {
@@ -870,6 +875,7 @@ public class JdbcTable implements Selectable, Table {
    * @param transaction possibly null if working with the committed transaction
    * @param persistent the Persistent to load
    */
+  @SuppressWarnings("unchecked")
   public void load(PoemTransaction transaction, Persistent persistent) {
     load(transaction == null ?
             getCommittedTransactionStuff().get :
@@ -878,6 +884,7 @@ public class JdbcTable implements Selectable, Table {
   }
 
   private void modify(PoemTransaction transaction, Persistent persistent) {
+    @SuppressWarnings("unchecked")
     PreparedStatement modify =
         ((TransactionStuff)transactionStuffs.get(transaction.index)).modify;
     synchronized (modify) {
@@ -905,6 +912,7 @@ public class JdbcTable implements Selectable, Table {
     persistent.postModify();
   }
 
+  @SuppressWarnings("unchecked")
   private void insert(PoemTransaction transaction, Persistent persistent) {
     
     PreparedStatement insert =
@@ -1102,7 +1110,8 @@ public class JdbcTable implements Selectable, Table {
    *
    * @see Persistent#getTroid()
    */
-  public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
+  @SuppressWarnings("unchecked")
+  public P getObject(Integer troid) throws NoSuchRowPoemException {
     JdbcPersistent persistent = (JdbcPersistent)cache.get(troid);
 
     if (persistent == null) {
@@ -1129,7 +1138,7 @@ public class JdbcTable implements Selectable, Table {
 
     persistent.existenceLock(PoemThread.sessionToken());
 
-    return persistent;
+    return (P)persistent;
   }
 
   /**
@@ -1281,7 +1290,7 @@ public class JdbcTable implements Selectable, Table {
       if (allTroids == null &&
               // troid column can be null during unification
               troidColumn() != null)
-        allTroids = new CachedSelection<Integer>(this, null, null);
+        allTroids = new CachedSelection<P>(this, null, null);
     }
     else
       allTroids = null;
@@ -1344,7 +1353,7 @@ public class JdbcTable implements Selectable, Table {
    * {@inheritDoc}
    * @see org.melati.poem.Selectable#selection()
    */
-  public Enumeration<Persistent> selection() throws SQLPoemException {
+  public Enumeration<P> selection() throws SQLPoemException {
     return selection((String)null, (String)null, false);
   }
 
@@ -1371,7 +1380,7 @@ public class JdbcTable implements Selectable, Table {
    *
    * @see Column#selectionWhereEq(java.lang.Object)
    */
-  public final Enumeration<Persistent> selection(String whereClause)
+  public final Enumeration<P> selection(String whereClause)
       throws SQLPoemException {
     return selection(whereClause, null, false);
   }
@@ -1391,9 +1400,9 @@ public class JdbcTable implements Selectable, Table {
   *                            <TT>WHERE</TT> keyword
   * @return the first item satisfying criteria
   */
-  public Persistent firstSelection(String whereClause) {
-    Enumeration<Persistent> them = selection(whereClause);
-    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
+  public P firstSelection(String whereClause) {
+    Enumeration<P> them = selection(whereClause);
+    return them.hasMoreElements() ? them.nextElement() : null;
   }
 
   /**
@@ -1413,7 +1422,7 @@ public class JdbcTable implements Selectable, Table {
    * @return a ResultSet as an Enumeration 
    * @see #selection(java.lang.String)
    */   
-  public Enumeration<Persistent> selection(String whereClause, String orderByClause,
+  public Enumeration<P> selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
      return objectsFromTroids(troidSelection(whereClause, orderByClause,
@@ -1427,7 +1436,7 @@ public class JdbcTable implements Selectable, Table {
    * @return an enumeration of like objects
    * @see #selection(String, String, boolean)
    */
-  public Enumeration<Persistent> selection(Persistent criteria)
+  public Enumeration<P> selection(Persistent criteria)
       throws SQLPoemException {
     return selection(criteria, 
                        criteria.getTable().defaultOrderByClause(), false, true);
@@ -1441,7 +1450,7 @@ public class JdbcTable implements Selectable, Table {
    * @param orderByClause Comma separated list
    * @return an enumeration of like objects with the specified ordering
    */
-  public Enumeration<Persistent> selection(Persistent criteria, String orderByClause)
+  public Enumeration<P> selection(Persistent criteria, String orderByClause)
       throws SQLPoemException {
     return selection(criteria, orderByClause, false, true);
   }
@@ -1455,7 +1464,7 @@ public class JdbcTable implements Selectable, Table {
    * @param excludeUnselectable Whether to append unselectable exclusion SQL
    * @return an enumeration of like Persistents 
    */
-  public Enumeration<Persistent> selection(Persistent criteria, String orderByClause,
+  public Enumeration<P> selection(Persistent criteria, String orderByClause,
                                 boolean includeDeleted, boolean excludeUnselectable)
       throws SQLPoemException {
     return objectsFromTroids(troidSelection(criteria, orderByClause,
@@ -1466,9 +1475,9 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @return an enumeration of objects given an enumeration of troids.
    */
-  private Enumeration<Persistent> objectsFromTroids(Enumeration<Integer> troids) {
-    return new MappedEnumeration<Persistent, Integer>(troids) {
-        public Persistent mapped(Integer troid) {
+  private Enumeration<P> objectsFromTroids(Enumeration<Integer> troids) {
+    return new MappedEnumeration<P, Integer>(troids) {
+        public P mapped(Integer troid) {
           return getObject(troid);
         }
       };
@@ -1744,10 +1753,10 @@ public class JdbcTable implements Selectable, Table {
    * @see #clearColumnInfoCaches()
    */
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
-    Column[] columnsLocal = this.columns;
+    Column<?>[] columnsLocal = this.columns;
     boolean hadOne = false;
     for (int c = 0; c < columnsLocal.length; ++c) {
-      Column column = columnsLocal[c];
+      Column<?> column = columnsLocal[c];
       Object raw = column.getRaw_unsafe(persistent);
       if (raw != null) { //FIXME you can't search for NULLs ...
         if (hadOne)
@@ -1810,7 +1819,7 @@ public class JdbcTable implements Selectable, Table {
    * @see #cnfWhereClause(Enumeration, boolean, boolean)
    * @see #whereClause(Persistent)
    */
-  public String cnfWhereClause(Enumeration persistents) {
+  public String cnfWhereClause(Enumeration<P> persistents) {
     return cnfWhereClause(persistents, false, true);
   }
 
@@ -1820,7 +1829,7 @@ public class JdbcTable implements Selectable, Table {
    *  
    * @return an SQL fragment
    */
-  public String cnfWhereClause(Enumeration persistents,
+  public String cnfWhereClause(Enumeration<P> persistents,
                                boolean includeDeleted, boolean excludeUnselectable) {
     StringBuffer clause = new StringBuffer();
 
@@ -1854,10 +1863,11 @@ public class JdbcTable implements Selectable, Table {
    * @return an <TT>Enumeration</TT> of <TT>Persistent</TT>s
    */
 
-  public Enumeration referencesTo(final Persistent object) {
-    return new FlattenedEnumeration(
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Enumeration<P> referencesTo(final Persistent object) {
+    return new FlattenedEnumeration<P>(
         new MappedEnumeration(columns()) {
-          public Object mapped(Object column) {
+          public Enumeration mapped(Object column) {
             return ((Column)column).referencesTo(object);
           }
         });
@@ -1870,7 +1880,7 @@ public class JdbcTable implements Selectable, Table {
    * @param table
    * @return an Enumeration of Columns referring to the specified Table
    */
-  public Enumeration<Column<?>> referencesTo(final Table table) {
+  public Enumeration<Column<?>> referencesTo(final Table<?> table) {
     return
       new FilteredEnumeration<Column<?>>(columns()) {
         public boolean isIncluded(Column<?> column) {
@@ -2195,6 +2205,7 @@ public class JdbcTable implements Selectable, Table {
   /**
    * @param columnInfo metadata about the column to delete, which is itself deleted
    */
+  @SuppressWarnings("deprecation")
   public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
     database.beginStructuralModification();
     try {
@@ -2275,13 +2286,13 @@ public class JdbcTable implements Selectable, Table {
    * @param orderByClause which field to order by or null
    * @return the results
    */
-  public CachedSelection cachedSelection(String whereClause,
+  public CachedSelection<P> cachedSelection(String whereClause,
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
-    CachedSelection them = (CachedSelection)cachedSelections.get(key);
+    CachedSelection<P> them = cachedSelections.get(key);
     if (them == null) {
-      CachedSelection newThem =
-          new CachedSelection(this, whereClause, orderByClause);
+      CachedSelection<P> newThem =
+          new CachedSelection<P>(this, whereClause, orderByClause);
       cachedSelections.put(key, newThem);
       them = newThem;
     }
@@ -2351,7 +2362,7 @@ public class JdbcTable implements Selectable, Table {
    */
   public CachedCount cachedCount(String whereClause) {
     String key = "" + whereClause;
-    CachedCount it = (CachedCount)cachedCounts.get(key);
+    CachedCount it = cachedCounts.get(key);
     if (it == null) {
       it = new CachedCount(this, whereClause);
       cachedCounts.put(key, it);
@@ -2374,7 +2385,7 @@ public class JdbcTable implements Selectable, Table {
   public CachedExists cachedExists(String whereClause) {
     String key = "" + whereClause;
     CachedExists it = null;
-      it = (CachedExists)cachedExists.get(key);
+      it = cachedExists.get(key);
     if (it == null) {
       it = new CachedExists(this, whereClause);
       cachedExists.put(key, it);
@@ -2393,7 +2404,8 @@ public class JdbcTable implements Selectable, Table {
    * @param nullable whether the ReferencePoemType is nullable
    * @return a {@link RestrictedReferencePoemType}
    */
-  public RestrictedReferencePoemType cachedSelectionType(String whereClause, 
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public RestrictedReferencePoemType<?> cachedSelectionType(String whereClause, 
                                    String orderByClause, boolean nullable) {
     return new RestrictedReferencePoemType(
                cachedSelection(whereClause, orderByClause), nullable);
@@ -2426,7 +2438,7 @@ public class JdbcTable implements Selectable, Table {
    * always reflect the state of affairs within your transaction even if you
    * haven't done a commit.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the WHERE clause 
    * is suitable for the target DBMS.
    * 
    * @param whereClause         an SQL expression (the bit after the
@@ -2450,7 +2462,8 @@ public class JdbcTable implements Selectable, Table {
    *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
    * @return a Field object
    */
-  public Field cachedSelectionField(
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public Field<?> cachedSelectionField(
       String whereClause, String orderByClause, boolean nullable,
       Integer selectedTroid, String nameP) {
     return new Field(
@@ -2466,7 +2479,8 @@ public class JdbcTable implements Selectable, Table {
   // ================
   // 
 
-  private synchronized void defineColumn(Column column, boolean reallyDoIt)
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private synchronized void defineColumn(Column<?> column, boolean reallyDoIt)
       throws DuplicateColumnNamePoemException,
              DuplicateTroidColumnPoemException,
              DuplicateDeletedColumnPoemException {
@@ -2480,13 +2494,13 @@ public class JdbcTable implements Selectable, Table {
       if (troidColumn != null)
         throw new DuplicateTroidColumnPoemException(this, column);
       if (reallyDoIt)
-        troidColumn = column;
+        troidColumn = (Column<Integer>) column;
     }
     else if (column.isDeletedColumn()) {
       if (deletedColumn != null)
         throw new DuplicateDeletedColumnPoemException(this, column);
       if (reallyDoIt)
-        deletedColumn = column;
+        deletedColumn = (Column<Boolean>)column;
     }
     else {
       if (reallyDoIt) {
@@ -2495,13 +2509,13 @@ public class JdbcTable implements Selectable, Table {
             ((ReferencePoemType)type).targetTable() ==
                  database.getCapabilityTable()) {
           if (column.getName().equals("canRead"))
-            canReadColumn = column;
+            canReadColumn = (Column<Capability>) column;
           else if (column.getName().equals("canWrite"))
-            canWriteColumn = column;
+            canWriteColumn = (Column<Capability>) column;
           else if (column.getName().equals("canDelete"))
-            canDeleteColumn = column;
+            canDeleteColumn = (Column<Capability>) column;
           else if (column.getName().equals("canSelect"))
-            canSelectColumn = column;
+            canSelectColumn = (Column<Capability>) column;
         }
       }
     }
@@ -2520,14 +2534,14 @@ public class JdbcTable implements Selectable, Table {
    * method) or directly in the RDBMS (in which case the initialisation code
    * will).
    */
-  public final void defineColumn(Column column)
+  public final void defineColumn(Column<?> column)
       throws DuplicateColumnNamePoemException,
              DuplicateTroidColumnPoemException,
              DuplicateDeletedColumnPoemException {
     defineColumn(column, true);
   }
 
-  private void _defineColumn(Column column) {
+  private void _defineColumn(Column<?> column) {
     try {
       defineColumn(column);
     }
@@ -2569,12 +2583,12 @@ public class JdbcTable implements Selectable, Table {
    * in the DSD.  This is only ever used at startup time when creating
    * <TT>columninfo</TT> records for tables that don't have them.
    */
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
   
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return DISPLAY_ORDER_DEFAULT;
   }
 
@@ -2585,19 +2599,19 @@ public class JdbcTable implements Selectable, Table {
    * only ever used at startup time when creating <TT>columninfo</TT> records
    * for tables that don't have them.
    */
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return null;
   }
 
-  protected Integer defaultCacheLimit() {
+  public Integer defaultCacheLimit() {
     return new Integer(CACHE_LIMIT_DEFAULT);
   }
 
-  protected boolean defaultRememberAllTroids() {
+  public boolean defaultRememberAllTroids() {
     return false;
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return TableCategoryTable.normalTableCategoryName;
   }
 
@@ -2628,12 +2642,12 @@ public class JdbcTable implements Selectable, Table {
     if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");
     
-    for (Enumeration<Persistent> ci =
+    for (Enumeration<?> ci =
              database.getColumnInfoTable().getTableinfoColumn().
                  selectionWhereEq(info.troid());
          ci.hasMoreElements();) {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
-      Column column = _getColumn(columnInfo.getName());
+      Column<?> column = _getColumn(columnInfo.getName());
       if (column == null) {
         System.err.println("Adding extra column " 
           + dbms().melatiName(columnInfo.getName_unsafe()) 
@@ -2646,7 +2660,7 @@ public class JdbcTable implements Selectable, Table {
     }
 
     for (Enumeration<Column<?>> c = columns(); c.hasMoreElements();)
-      ((Column)c.nextElement()).createColumnInfo();
+      c.nextElement().createColumnInfo();
   }
 
   /**
@@ -2655,11 +2669,12 @@ public class JdbcTable implements Selectable, Table {
    *
    * @param colDescs a JDBC {@link ResultSet} describing the columns
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {
     boolean debug = false;
     
-    Hashtable<Column, Boolean> dbColumns = new Hashtable<Column, Boolean>();
+    Hashtable<Column<?>, Boolean> dbColumns = new Hashtable<Column<?>, Boolean>();
 
     int colCount = 0;
     if (colDescs != null){
@@ -2667,10 +2682,10 @@ public class JdbcTable implements Selectable, Table {
       try {
         for (; colDescs.next(); ++colCount) {
           String colName = colDescs.getString("COLUMN_NAME");
-          Column column = _getColumn(dbms().melatiName(colName));
+          Column<?> column = _getColumn(dbms().melatiName(colName));
 
           if (column == null) {
-            SQLPoemType colType =
+            SQLPoemType<?> colType =
                 database.defaultPoemTypeOfColumnMetaData(colDescs);
 
 
@@ -2684,7 +2699,7 @@ public class JdbcTable implements Selectable, Table {
                 dbms().canRepresent(colType, DeletedPoemType.it) != null)
               colType = DeletedPoemType.it;
             
-            System.err.println("Adding extra column from sql meta data " + dbms().melatiName(colName));
+            database.log("Adding extra column from sql meta data " + dbms().melatiName(colName));
             column = new ExtraColumn(this, 
                                      dbms().melatiName(
                                              colName),
@@ -2737,7 +2752,7 @@ public class JdbcTable implements Selectable, Table {
     if (info != null) {
 
       // Ensure that column has at least one index of the correct type 
-      Hashtable<Column,Boolean> dbHasIndexForColumn = new Hashtable<Column,Boolean>();
+      Hashtable<Column<?>,Boolean> dbHasIndexForColumn = new Hashtable<Column<?>,Boolean>();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
       if (debug) System.err.println("Getting indexes for " + unreservedName + "(was " + getName() + ")");
@@ -2756,7 +2771,7 @@ public class JdbcTable implements Selectable, Table {
             String mdColName = index.getString("COLUMN_NAME");
             if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
               String columnName = dbms().melatiName(mdColName);
-              Column column = getColumn(columnName);
+              Column<?> column = getColumn(columnName);
               
               // Deal with non-melati indices
               String expectedIndex = indexName(column).toUpperCase(); 
@@ -2853,7 +2868,7 @@ public class JdbcTable implements Selectable, Table {
    */
   public boolean equals(Object t) {
     return (t instanceof JdbcTable &&
-            ((Table)t).getName().equals(name));
+            ((Table<?>)t).getName().equals(name));
     
   }
 

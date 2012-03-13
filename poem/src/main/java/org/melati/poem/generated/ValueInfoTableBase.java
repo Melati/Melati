@@ -24,13 +24,12 @@ import org.melati.poem.ValueInfo;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>ValueInfo</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>ValueInfo</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ValueInfoTableBase extends PoemTable {
+public class ValueInfoTableBase<T extends ValueInfo> extends PoemTable<T> {
 
   private Column<String> col_displayname = null;
   private Column<String> col_description = null;
@@ -93,23 +92,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getDisplaynameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(2);
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Display name";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 100;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A user-friendly name for the field";
           }
 
@@ -152,19 +151,19 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getDescriptionField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 101;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A brief description of the field's function";
           }
 
@@ -207,23 +206,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getUsereditableField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "User-editable";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 200;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether it makes sense for the user to update the field's value";
           }
 
@@ -266,27 +265,27 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getTypefactoryField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Type";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 201;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The field's POEM type";
           }
 
@@ -329,23 +328,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getNullableField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 202;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Whether the field can be empty";
           }
 
@@ -388,23 +387,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getSizeField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 203;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)";
           }
 
@@ -447,23 +446,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getWidthField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Input-box width";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 204;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A sensible width for text boxes used for entering the field, where appropriate";
           }
 
@@ -506,23 +505,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getHeightField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Input-box height";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 205;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "A sensible height for text boxes used for entering the field, where appropriate";
           }
 
@@ -565,27 +564,27 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getPrecisionField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Precision";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 206;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Precision (total number of digits) for fixed-point numbers";
           }
 
@@ -628,27 +627,27 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getScaleField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Scale";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 207;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Scale (number of digits after the decimal) for fixed-point numbers";
           }
 
@@ -691,23 +690,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getRenderinfoField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Rendering information";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 208;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The name of the Melati templet (if not the default) to use for input controls for the field";
           }
 
@@ -750,23 +749,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getRangelow_stringField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Range: low";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 209;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The low end of the range of permissible values for the field";
           }
 
@@ -809,23 +808,23 @@ public class ValueInfoTableBase extends PoemTable {
             return ((ValueInfo)g).getRangelimit_stringField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.detail;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected String defaultDisplayName() {
+          public String defaultDisplayName() {
             return "Range: limit";
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 210;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "The (exclusive) limit of the range of permissible values for the field";
           }
 
@@ -1030,7 +1029,7 @@ public class ValueInfoTableBase extends PoemTable {
   public ValueInfo getValueInfoObject(int troid) {
     return (ValueInfo)getObject(troid);
   }
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 7;
   }
 }

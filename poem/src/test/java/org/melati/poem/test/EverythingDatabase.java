@@ -9,6 +9,7 @@ import org.melati.poem.test.generated.EverythingDatabaseBase;
 public class EverythingDatabase extends EverythingDatabaseBase
                             implements EverythingDatabaseTables {
   // programmer's domain-specific code here
+
   public Capability getCanAdminister() {
     return administerCapability();
   }

@@ -55,10 +55,10 @@ public class InitialisationPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
 
   /** Constructor. */
-  public InitialisationPoemException(Table table, Exception e) {
+  public InitialisationPoemException(Table<?> table, Exception e) {
     super(e);
     this.table = table;
   }

@@ -55,12 +55,12 @@ public class DuplicateTroidPoemException extends DBConsistencyPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
  /** The Table Row ID we are dealing with. */
   public Integer troid;
 
   /** Constructor. */
-  public DuplicateTroidPoemException(Table table, Integer troid) {
+  public DuplicateTroidPoemException(Table<?> table, Integer troid) {
     super("Troid " + troid + " duplicated in table " + table + ".");
     this.table = table;
     this.troid = troid;

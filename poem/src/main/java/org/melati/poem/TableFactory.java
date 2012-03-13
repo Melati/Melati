@@ -83,7 +83,7 @@ public final class TableFactory {
    *          class to introspect
    * @return A new or existing table
    */
-  public static Table fromInstance(Database db, Object pojo) {
+  public static Table<?> fromInstance(Database db, Object pojo) {
     return fromClass(db, pojo.getClass());
   }
 
@@ -94,7 +94,7 @@ public final class TableFactory {
    *          class to introspect
    * @return A new or existing table
    */
-  public static Table fromClass(Database db, Class<?> clazz) {
+  public static Table<?> fromClass(Database db, Class<?> clazz) {
     if (clazz.isPrimitive())
       throw new IllegalArgumentException(
       "Cannot create a Table for a primitive type: " + clazz.getName());
@@ -124,7 +124,7 @@ public final class TableFactory {
     tableInfo.setCachelimit(555);
     tableInfo.makePersistent();
 
-    Table table = new JdbcTable(db, simpleName, DefinitionSource.runtime);
+    Table<Persistent> table = new JdbcTable<Persistent>(db, simpleName, DefinitionSource.runtime);
     String troidName = "id";
     if (ClassUtils.getNoArgMethod(clazz, "getId") != null &&
         !(Persistent.class.isAssignableFrom(clazz)))
@@ -211,7 +211,7 @@ public final class TableFactory {
     return table;
   }
 
-  private static void addColumn(Table table, String name, Class<?> fieldClass,
+  private static void addColumn(Table<?> table, String name, Class<?> fieldClass,
           boolean hasSetter) {
     ColumnInfo columnInfo = (ColumnInfo)table.getDatabase()
             .getColumnInfoTable().newPersistent();
@@ -268,7 +268,7 @@ public final class TableFactory {
       columnInfo.setTypefactory(PoemTypeFactory.BINARY);
     }
     else {
-      Table referredTable = fromClass(table.getDatabase(), fieldClass);
+      Table<?> referredTable = fromClass(table.getDatabase(), fieldClass);
       columnInfo.setTypefactory(PoemTypeFactory.forCode(table.getDatabase(),
               referredTable.getInfo().troid().intValue()));
     }

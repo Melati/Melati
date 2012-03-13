@@ -22,13 +22,12 @@ import org.melati.poem.test.EverythingTable;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Dynamic</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Dynamic</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class DynamicTableBase extends EverythingTable {
+public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -80,23 +79,23 @@ public class DynamicTableBase extends EverythingTable {
             return ((Dynamic)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.no;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -139,27 +138,27 @@ public class DynamicTableBase extends EverythingTable {
             return ((Dynamic)g).getNameField();
           }
 
-          protected DisplayLevel defaultDisplayLevel() {
+          public DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.primary;
           }
 
-          protected Searchability defaultSearchability() {
+          public Searchability defaultSearchability() {
             return Searchability.primary;
           }
 
-          protected Integer defaultDisplayOrderPriority() {
+          public Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
-          protected String defaultDescription() {
+          public String defaultDescription() {
             return "Name";
           }
 
-          protected int defaultWidth() {
+          public int defaultWidth() {
             return 20;
           }
 
@@ -236,15 +235,15 @@ public class DynamicTableBase extends EverythingTable {
   protected JdbcPersistent _newPersistent() {
     return new Dynamic();
   }
-  protected String defaultDescription() {
+  public String defaultDescription() {
     return "A table for adding and deleting columns from";
   }
 
-  protected String defaultCategory() {
+  public String defaultCategory() {
     return "Data";
   }
 
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 100;
   }
 }

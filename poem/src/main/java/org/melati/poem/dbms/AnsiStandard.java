@@ -119,7 +119,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#unloadDriver()
    */
   public void unloadDriver() {
@@ -132,7 +131,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getSchema()
    */
   public String getSchema() {
@@ -140,7 +138,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#shutdown(java.sql.Connection)
    */
   public void shutdown(Connection connection)  
@@ -186,7 +183,6 @@ public class AnsiStandard implements Dbms {
    * The default windows installation of MySQL has autocommit set true, 
    * which throws an SQLException when one issues a commit.
    * 
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
    */
   public Connection getConnection(String url, String user, String password)
@@ -244,7 +240,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    */
-  public String createTableSql(Table table) {
+  public String createTableSql(Table<?> table) {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE " + createTableTypeQualifierSql(table) + 
                "TABLE " + table.quotedName() + " (");
@@ -268,7 +264,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableTypeQualifierSql(org.melati.poem.Table)
    */
-  public String createTableTypeQualifierSql(Table table) {
+  public String createTableTypeQualifierSql(Table<?> table) {
     return "";
   }
 
@@ -284,7 +280,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#tableInitialisationSql(org.melati.poem.Table)
    */
-  public String tableInitialisationSql(Table table) {
+  public String tableInitialisationSql(Table<?> table) {
     return null;
   }
   
@@ -347,7 +343,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
    */
   public String sqlBooleanValueOfRaw(Object raw) {
@@ -355,7 +350,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
@@ -366,9 +360,10 @@ public class AnsiStandard implements Dbms {
       throws UnsupportedTypePoemException {
     UnsupportedTypePoemException e;
     try {
-      e = new UnsupportedTypePoemException(md.getString("TABLE_NAME"), md
-          .getString("COLUMN_NAME"), md.getShort("DATA_TYPE"), sqlTypeName, md
-          .getString("TYPE_NAME"));
+      e = new UnsupportedTypePoemException(md.getString("TABLE_NAME"), 
+          md.getString("COLUMN_NAME"), 
+          md.getShort("DATA_TYPE"), 
+          sqlTypeName, md.getString("TYPE_NAME"));
     } catch (SQLException ee) {
       throw new UnsupportedTypePoemException(sqlTypeName);
     }
@@ -377,7 +372,6 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
@@ -469,7 +463,7 @@ public class AnsiStandard implements Dbms {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#exceptionForUpdate
    */
-  public SQLPoemException exceptionForUpdate(Table table, String sql,
+  public SQLPoemException exceptionForUpdate(Table<?> table, String sql,
       boolean insert, SQLException e) {
     return new ExecutingSQLPoemException(sql, e);
   }
@@ -480,7 +474,7 @@ public class AnsiStandard implements Dbms {
    *                              java.sql.PreparedStatement, 
    *                              boolean, java.sql.SQLException)
    */
-  public SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
+  public SQLPoemException exceptionForUpdate(Table<?> table, PreparedStatement ps,
       boolean insert, SQLException e) {
     return exceptionForUpdate(table, ps == null ? null : ps.toString(), insert,
         e);
@@ -515,7 +509,7 @@ public class AnsiStandard implements Dbms {
     }
     if (sqlType instanceof BigDecimalPoemType) {
       return value;
-         }
+    }
     if (sqlType instanceof DatePoemType) {
       return StringUtils.quoted(value,'\'');
     }
@@ -687,7 +681,6 @@ public class AnsiStandard implements Dbms {
   }
   
   /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
    */
   public String booleanTrueExpression(Column<Boolean> booleanColumn) {

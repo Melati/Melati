@@ -4,7 +4,7 @@ import org.melati.poem.PoemTask;
 import org.melati.example.contacts.generated.ContactsDatabaseBase;
 
 /**
- * Melati POEM generated, programmer modifyable stub.
+ * Melati POEM generated, programmer modifiable stub.
  */
 public class ContactsDatabase extends ContactsDatabaseBase
                             implements ContactsDatabaseTables {

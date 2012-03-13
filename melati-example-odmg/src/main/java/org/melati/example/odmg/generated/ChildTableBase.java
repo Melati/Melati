@@ -22,13 +22,12 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for 
-<code>Table</code> <code>Child</code>.
+ * Melati POEM generated base class for <code>Table</code> <code>Child</code>.
  *
  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ChildTableBase extends OdmgTable {
+public class ChildTableBase<T extends Child> extends OdmgTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<String> col_name = null;
@@ -81,15 +80,15 @@ public class ChildTableBase extends OdmgTable {
             return ((Child)g).getIdField();
           }
 
-          protected boolean defaultUserEditable() {
+          public boolean defaultUserEditable() {
             return false;
           }
 
-          protected boolean defaultUserCreateable() {
+          public boolean defaultUserCreateable() {
             return false;
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 0;
           }
 
@@ -132,7 +131,7 @@ public class ChildTableBase extends OdmgTable {
             return ((Child)g).getNameField();
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 1;
           }
 
@@ -176,7 +175,7 @@ public class ChildTableBase extends OdmgTable {
             return ((Child)g).getParentField();
           }
 
-          protected int defaultDisplayOrder() {
+          public int defaultDisplayOrder() {
             return 2;
           }
 
@@ -265,7 +264,7 @@ public class ChildTableBase extends OdmgTable {
   protected JdbcPersistent _newPersistent() {
     return new Child();
   }
-  protected int defaultDisplayOrder() {
+  public int defaultDisplayOrder() {
     return 1;
   }
 }

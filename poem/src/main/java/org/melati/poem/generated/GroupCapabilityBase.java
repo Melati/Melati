@@ -8,6 +8,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Group;
+import org.melati.poem.GroupCapability;
 import org.melati.poem.GroupCapabilityTable;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
@@ -42,12 +43,14 @@ public abstract class GroupCapabilityBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupCapabilityTable
   */
-  public GroupCapabilityTable getGroupCapabilityTable() {
-    return (GroupCapabilityTable)getTable();
+  @SuppressWarnings("unchecked")
+  public GroupCapabilityTable<GroupCapability> getGroupCapabilityTable() {
+    return (GroupCapabilityTable<GroupCapability>)getTable();
   }
 
-  private GroupCapabilityTable _getGroupCapabilityTable() {
-    return (GroupCapabilityTable)getTable();
+  @SuppressWarnings("unchecked")
+  private GroupCapabilityTable<GroupCapability> _getGroupCapabilityTable() {
+    return (GroupCapabilityTable<GroupCapability>)getTable();
   }
 
   // Fields in this table 

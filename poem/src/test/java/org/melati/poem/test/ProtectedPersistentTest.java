@@ -17,7 +17,7 @@ import org.melati.poem.NonRootSetAccessTokenPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReadPersistentAccessPoemException;
-import org.melati.poem.User;
+import org.melati.poem.test.User;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -101,7 +101,7 @@ public class ProtectedPersistentTest extends PersistentTest {
       try {
         g.delete();
       } catch (DeletionIntegrityPoemException e) {
-        Enumeration refs = e.references;
+        Enumeration<Persistent> refs = e.references;
         while (refs.hasMoreElements()) { 
           Object o = refs.nextElement();
           System.err.println("Failed to delete " + g + " due to " +o);
@@ -199,7 +199,7 @@ public class ProtectedPersistentTest extends PersistentTest {
    */
   public void testGetPrimaryDisplayField() {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Field f = p.getPrimaryDisplayField();
+    Field<?> f = p.getPrimaryDisplayField();
     assertEquals("id: 0", f.toString());
   }
 

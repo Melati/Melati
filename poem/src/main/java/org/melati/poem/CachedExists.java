@@ -57,9 +57,9 @@ public class CachedExists extends CachedCount {
    * @param whereClause SQL snippet
    * @param otherTables Array of other tables referred to in whereClause, if any
    */
-  public CachedExists(final Table table,
+  public CachedExists(final Table<?> table,
                            final String whereClause,
-                           final Table otherTables[]) {
+                           final Table<?> otherTables[]) {
     super(table, whereClause, otherTables);
   }
 
@@ -67,7 +67,7 @@ public class CachedExists extends CachedCount {
    * @param table the Table we are dealing with
    * @param whereClause SQL snippet
    */
-  public CachedExists(final Table table, final String whereClause) {
+  public CachedExists(final Table<?> table, final String whereClause) {
     this(table, whereClause, null);
   }
 

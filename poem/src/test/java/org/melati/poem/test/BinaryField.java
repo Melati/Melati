@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.BinaryFieldBase;
 
@@ -18,9 +21,10 @@ import org.melati.poem.test.generated.BinaryFieldBase;
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> binaryfield </td><td> byte[] </td><td> &nbsp; </td></tr> 
+ * <tr><td> unlimited </td><td> byte[] </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class BinaryField extends BinaryFieldBase {
 
@@ -32,9 +36,11 @@ public class BinaryField extends BinaryFieldBase {
   *   A table with only a binary field in it. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public BinaryField() { }
+  public BinaryField() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

@@ -73,7 +73,7 @@ public final class PersistentFactory {
    */
   public static Persistent fromInstance(Database db, Object pojo) {
     System.err.println("fromInstance - looking for " + pojo.getClass().getName());
-    Table table = null;
+    Table<?> table = null;
     Persistent p = null;
     if (pojo instanceof Persistent) {
       if (((Persistent)pojo).troid() != null) { 
@@ -86,7 +86,7 @@ public final class PersistentFactory {
     } else
       table = TableFactory.fromInstance(db, pojo);
     p = populatedPersistent(table, pojo);
-    Enumeration<Persistent> candidates = table.selection(p);
+    Enumeration<?> candidates = table.selection(p);
     while (candidates.hasMoreElements()) {
       Persistent candidate = (Persistent)candidates.nextElement();
       if (commonFieldsEqual(p, candidate)) { 
@@ -127,7 +127,7 @@ public final class PersistentFactory {
    *          the object to populate the Persistent from
    * @return A floating Persistent with fields populated from the given pojo
    */
-  public static Persistent populatedPersistent(Table table, Object pojo) {
+  public static Persistent populatedPersistent(Table<?> table, Object pojo) {
     if (pojo instanceof Persistent) 
       if (((Persistent)pojo).troid() != null)
         return table.getObject(((Persistent)pojo).troid().intValue());

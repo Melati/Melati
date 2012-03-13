@@ -5,18 +5,19 @@ import java.util.Enumeration;
 import java.util.Vector;
 import org.melati.example.contacts.generated.ContactBase;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.Persistent;
 import org.melati.poem.User;
 import org.melati.poem.PoemThread;
 import org.melati.poem.util.EnumUtils;
 import org.melati.admin.AnticipatedException;
 import org.melati.poem.Treeable;
 /**
- * A <code>Contact</code> object, embellished from the original,
- * Melati POEM generated, programmer modifiable stub.
- *
- * <p>
- * Description:
- *   A Contact.
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>Contact</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A Contact. 
  * </p>
  *
  * <table>
@@ -24,20 +25,20 @@ import org.melati.poem.Treeable;
  * Field summary for SQL table <code>Contact</code>
  * </th></tr>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
- * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr>
- * <tr><td> name </td><td> String </td><td> Contact Name </td></tr>
- * <tr><td> owner </td><td> Contact </td><td> Contact who owns this contact
- * </td></tr>
- * <tr><td> address </td><td> String </td><td> Contact Address </td></tr>
- * <tr><td> updates </td><td> Integer </td><td> How many times has this
- * record been updated? </td></tr>
- * <tr><td> lastupdated </td><td> Date </td><td> When was this last updated?
- * </td></tr>
- * <tr><td> lastupdateuser </td><td> User </td><td> Who last updated this?
- * </td></tr>
- * </table>
- *
- * @generator org.melati.poem.prepro.TableDef#generateMainJava
+ * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
+ * <tr><td> name </td><td> String </td><td> Contact Name </td></tr> 
+ * <tr><td> owner </td><td> Contact </td><td> Contact who owns this contact 
+ * </td></tr> 
+ * <tr><td> address </td><td> String </td><td> Contact Address </td></tr> 
+ * <tr><td> updates </td><td> Integer </td><td> How many times has this 
+ * record been updated? </td></tr> 
+ * <tr><td> lastupdated </td><td> Date </td><td> When was this last updated? 
+ * </td></tr> 
+ * <tr><td> lastupdateuser </td><td> User </td><td> Who last updated this? 
+ * </td></tr> 
+ * </table> 
+ * 
+ * see org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Contact extends ContactBase implements Treeable {
   /**
@@ -61,8 +62,8 @@ public class Contact extends ContactBase implements Treeable {
   * Description:
   *   A Contact.
   * </p>
-  *
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava
+  * 
+  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public Contact() { }
   // programmer's domain-specific code here
@@ -98,8 +99,8 @@ public class Contact extends ContactBase implements Treeable {
   /**
    * @return the ancestors
    */
-  public ArrayList getAncestors() {
-    ArrayList l = new ArrayList();
+  public ArrayList<Integer> getAncestors() {
+    ArrayList<Integer> l = new ArrayList<Integer>();
     Contact p = getOwner();
     while (p != null) {
         l.add(new Integer(p.troid().intValue()));
@@ -119,7 +120,7 @@ public class Contact extends ContactBase implements Treeable {
    * @param v vector of Treeables
    * @return an array of Treeables
    */
-  public static Treeable[] arrayOf(Vector v) {
+  public static Treeable[] arrayOf(Vector<Persistent> v) {
     Treeable[] arr;
     synchronized (v) {
       arr = new Treeable[v.size()];
@@ -131,10 +132,11 @@ public class Contact extends ContactBase implements Treeable {
    * @param e enumeration of Treeables
    * @return an array of Treeables
    */
-  public static Treeable[] arrayOf(Enumeration e) {
-    Vector v = EnumUtils.vectorOf(e);
+  public static Treeable[] arrayOf(Enumeration<Persistent> e) {
+    Vector<Persistent> v = EnumUtils.vectorOf(e);
     return arrayOf(v);
   }
 
+  // programmer's domain-specific code here
 }
 

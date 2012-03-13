@@ -26,11 +26,11 @@ public class Search extends ContactsServlet {
                                                 "field_category");
     String submit = Form.getFieldNulled(melati.getServletTemplateContext(),
                                               "submit");
-    Column nameColumn = db.getContactTable().getNameColumn();
-    Column contactColumn = db.getContactCategoryTable().getContactColumn();
-    Column categoryColumn = db.getContactCategoryTable().getCategoryColumn();
-    context.put("name",new Field(name, nameColumn));
-    context.put("category", new Field
+    Column<String> nameColumn = db.getContactTable().getNameColumn();
+    Column<Integer> contactColumn = db.getContactCategoryTable().getContactColumn();
+    Column<Integer> categoryColumn = db.getContactCategoryTable().getCategoryColumn();
+    context.put("name",new Field<String>(name, nameColumn));
+    context.put("category", new Field<Integer>
                (category, categoryColumn));
 
     String where = "";

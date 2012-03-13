@@ -10,6 +10,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.TimestampField;
 import org.melati.poem.test.TimestampFieldTable;
 
 
@@ -40,12 +41,14 @@ public abstract class TimestampFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the TimestampFieldTable
   */
-  public TimestampFieldTable getTimestampFieldTable() {
-    return (TimestampFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public TimestampFieldTable<TimestampField> getTimestampFieldTable() {
+    return (TimestampFieldTable<TimestampField>)getTable();
   }
 
-  private TimestampFieldTable _getTimestampFieldTable() {
-    return (TimestampFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private TimestampFieldTable<TimestampField> _getTimestampFieldTable() {
+    return (TimestampFieldTable<TimestampField>)getTable();
   }
 
   // Fields in this table 

@@ -55,10 +55,10 @@ public class NoTroidColumnException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Table we are dealing with. */
-  public Table table;
+  public Table<?> table;
 
   /** Constructor.*/
-  public NoTroidColumnException(Table table) {
+  public NoTroidColumnException(Table<?> table) {
     this.table = table;
   }
 

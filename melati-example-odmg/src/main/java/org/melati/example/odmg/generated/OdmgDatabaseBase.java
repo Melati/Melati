@@ -5,16 +5,27 @@ package org.melati.example.odmg.generated;
 
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.DefinitionSource;
+import org.melati.poem.User;
 import org.melati.poem.UserTable;
+import org.melati.poem.Group;
 import org.melati.poem.GroupTable;
+import org.melati.poem.Capability;
 import org.melati.poem.CapabilityTable;
+import org.melati.poem.GroupMembership;
 import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupCapability;
 import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.TableCategory;
 import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfo;
 import org.melati.poem.TableInfoTable;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.Setting;
 import org.melati.poem.SettingTable;
+import org.melati.example.odmg.Parent;
 import org.melati.example.odmg.ParentTable;
+import org.melati.example.odmg.Child;
 import org.melati.example.odmg.ChildTable;
 
 /**
@@ -22,30 +33,30 @@ import org.melati.example.odmg.ChildTable;
  */
 public class OdmgDatabaseBase extends PoemDatabase {
 
-  private UserTable tab_user = null;
-  private GroupTable tab_group = null;
-  private CapabilityTable tab_capability = null;
-  private GroupMembershipTable tab_groupmembership = null;
-  private GroupCapabilityTable tab_groupcapability = null;
-  private TableCategoryTable tab_tablecategory = null;
-  private TableInfoTable tab_tableinfo = null;
-  private ColumnInfoTable tab_columninfo = null;
-  private SettingTable tab_setting = null;
-  private ParentTable tab_parent = null;
-  private ChildTable tab_child = null;
+  private UserTable<User> tab_user = null;
+  private GroupTable<Group> tab_group = null;
+  private CapabilityTable<Capability> tab_capability = null;
+  private GroupMembershipTable<GroupMembership> tab_groupmembership = null;
+  private GroupCapabilityTable<GroupCapability> tab_groupcapability = null;
+  private TableCategoryTable<TableCategory> tab_tablecategory = null;
+  private TableInfoTable<TableInfo> tab_tableinfo = null;
+  private ColumnInfoTable<ColumnInfo> tab_columninfo = null;
+  private SettingTable<Setting> tab_setting = null;
+  private ParentTable<Parent> tab_parent = null;
+  private ChildTable<Child> tab_child = null;
 
   protected OdmgDatabaseBase() {
-    redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
-    redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
-    redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
-    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupMembership", DefinitionSource.dsd));
-    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupCapability", DefinitionSource.dsd));
-    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tableCategory", DefinitionSource.dsd));
-    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableInfo", DefinitionSource.dsd));
-    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columnInfo", DefinitionSource.dsd));
-    redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_parent = new ParentTable(this, "Parent", DefinitionSource.dsd));
-    redefineTable(tab_child = new ChildTable(this, "Child", DefinitionSource.dsd));
+    redefineTable(tab_user = new UserTable<User>(this, "user", DefinitionSource.dsd));
+    redefineTable(tab_group = new GroupTable<Group>(this, "group", DefinitionSource.dsd));
+    redefineTable(tab_capability = new CapabilityTable<Capability>(this, "capability", DefinitionSource.dsd));
+    redefineTable(tab_groupmembership = new GroupMembershipTable<GroupMembership>(this, "groupMembership", DefinitionSource.dsd));
+    redefineTable(tab_groupcapability = new GroupCapabilityTable<GroupCapability>(this, "groupCapability", DefinitionSource.dsd));
+    redefineTable(tab_tablecategory = new TableCategoryTable<TableCategory>(this, "tableCategory", DefinitionSource.dsd));
+    redefineTable(tab_tableinfo = new TableInfoTable<TableInfo>(this, "tableInfo", DefinitionSource.dsd));
+    redefineTable(tab_columninfo = new ColumnInfoTable<ColumnInfo>(this, "columnInfo", DefinitionSource.dsd));
+    redefineTable(tab_setting = new SettingTable<Setting>(this, "setting", DefinitionSource.dsd));
+    redefineTable(tab_parent = new ParentTable<Parent>(this, "Parent", DefinitionSource.dsd));
+    redefineTable(tab_child = new ChildTable<Child>(this, "Child", DefinitionSource.dsd));
   }
 
 
@@ -55,7 +66,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
-  public UserTable getUserTable() {
+  public UserTable<User> getUserTable() {
     return tab_user;
   }
 
@@ -66,7 +77,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
-  public GroupTable getGroupTable() {
+  public GroupTable<Group> getGroupTable() {
     return tab_group;
   }
 
@@ -77,7 +88,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
-  public CapabilityTable getCapabilityTable() {
+  public CapabilityTable<Capability> getCapabilityTable() {
     return tab_capability;
   }
 
@@ -88,7 +99,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
-  public GroupMembershipTable getGroupMembershipTable() {
+  public GroupMembershipTable<GroupMembership> getGroupMembershipTable() {
     return tab_groupmembership;
   }
 
@@ -99,7 +110,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
-  public GroupCapabilityTable getGroupCapabilityTable() {
+  public GroupCapabilityTable<GroupCapability> getGroupCapabilityTable() {
     return tab_groupcapability;
   }
 
@@ -110,7 +121,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
-  public TableCategoryTable getTableCategoryTable() {
+  public TableCategoryTable<TableCategory> getTableCategoryTable() {
     return tab_tablecategory;
   }
 
@@ -121,7 +132,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
-  public TableInfoTable getTableInfoTable() {
+  public TableInfoTable<TableInfo> getTableInfoTable() {
     return tab_tableinfo;
   }
 
@@ -133,7 +144,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
-  public ColumnInfoTable getColumnInfoTable() {
+  public ColumnInfoTable<ColumnInfo> getColumnInfoTable() {
     return tab_columninfo;
   }
 
@@ -144,7 +155,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
-  public SettingTable getSettingTable() {
+  public SettingTable<Setting> getSettingTable() {
     return tab_setting;
   }
 
@@ -155,7 +166,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ParentTable from this database
   */
-  public ParentTable getParentTable() {
+  public ParentTable<Parent> getParentTable() {
     return tab_parent;
   }
 
@@ -166,7 +177,7 @@ public class OdmgDatabaseBase extends PoemDatabase {
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ChildTable from this database
   */
-  public ChildTable getChildTable() {
+  public ChildTable<Child> getChildTable() {
     return tab_child;
   }
 }

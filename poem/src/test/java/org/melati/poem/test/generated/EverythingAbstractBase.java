@@ -11,6 +11,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.EverythingAbstract;
 import org.melati.poem.test.EverythingAbstractTable;
 import org.melati.poem.test.EverythingDatabaseTables;
 
@@ -42,12 +43,14 @@ public abstract class EverythingAbstractBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EverythingAbstractTable
   */
-  public EverythingAbstractTable getEverythingAbstractTable() {
-    return (EverythingAbstractTable)getTable();
+  @SuppressWarnings("unchecked")
+  public EverythingAbstractTable<EverythingAbstract> getEverythingAbstractTable() {
+    return (EverythingAbstractTable<EverythingAbstract>)getTable();
   }
 
-  private EverythingAbstractTable _getEverythingAbstractTable() {
-    return (EverythingAbstractTable)getTable();
+  @SuppressWarnings("unchecked")
+  private EverythingAbstractTable<EverythingAbstract> _getEverythingAbstractTable() {
+    return (EverythingAbstractTable<EverythingAbstract>)getTable();
   }
 
   // Fields in this table 

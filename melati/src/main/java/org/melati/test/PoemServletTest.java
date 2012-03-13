@@ -175,7 +175,7 @@ public class PoemServletTest extends PoemServlet {
      output.write("<table>");
      output.write("<tr><th colspan=2>Tables in the Database " + melati.getDatabaseName() + "</th></tr>\n");
 
-     for (Table t : melati.getDatabase().getDisplayTables()) { 
+     for (Table<?> t : melati.getDatabase().getDisplayTables()) { 
        output.write("<tr>\n <td>");
        output.write(t.getDisplayName());
        output.write("</td>\n <td>");

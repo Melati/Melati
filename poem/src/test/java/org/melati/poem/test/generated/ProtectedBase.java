@@ -9,10 +9,11 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.Protected;
 import org.melati.poem.test.ProtectedTable;
+import org.melati.poem.test.User;
 
 
 /**
@@ -42,12 +43,14 @@ public abstract class ProtectedBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ProtectedTable
   */
-  public ProtectedTable getProtectedTable() {
-    return (ProtectedTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ProtectedTable<Protected> getProtectedTable() {
+    return (ProtectedTable<Protected>)getTable();
   }
 
-  private ProtectedTable _getProtectedTable() {
-    return (ProtectedTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ProtectedTable<Protected> _getProtectedTable() {
+    return (ProtectedTable<Protected>)getTable();
   }
 
   // Fields in this table 
@@ -234,7 +237,7 @@ public abstract class ProtectedBase extends JdbcPersistent {
   public void setSpyTroid(Integer raw)
       throws AccessPoemException {
     setSpy(raw == null ? null : 
-        getEverythingDatabaseTables().getUserTable().getUserObject(raw));
+        (User)getEverythingDatabaseTables().getUserTable().getUserObject(raw));
   }
 
 
@@ -253,7 +256,7 @@ public abstract class ProtectedBase extends JdbcPersistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getSpyTroid();
     return troid == null ? null :
-        getEverythingDatabaseTables().getUserTable().getUserObject(troid);
+        (User)getEverythingDatabaseTables().getUserTable().getUserObject(troid);
   }
 
 

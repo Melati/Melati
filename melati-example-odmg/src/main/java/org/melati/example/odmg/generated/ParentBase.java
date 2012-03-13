@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 import org.melati.example.odmg.Child;
 import org.melati.example.odmg.OdmgDatabaseTables;
+import org.melati.example.odmg.Parent;
 import org.melati.example.odmg.ParentTable;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.CachedSelection;
@@ -45,12 +46,14 @@ public abstract class ParentBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ParentTable
   */
-  public ParentTable getParentTable() {
-    return (ParentTable)getTable();
+  @SuppressWarnings("unchecked")
+  public ParentTable<Parent> getParentTable() {
+    return (ParentTable<Parent>)getTable();
   }
 
-  private ParentTable _getParentTable() {
-    return (ParentTable)getTable();
+  @SuppressWarnings("unchecked")
+  private ParentTable<Parent> _getParentTable() {
+    return (ParentTable<Parent>)getTable();
   }
 
   // Fields in this table 

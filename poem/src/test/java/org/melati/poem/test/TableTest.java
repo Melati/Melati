@@ -10,10 +10,12 @@ import java.util.Vector;
 
 import org.melati.poem.CachedCount;
 import org.melati.poem.CachedExists;
+import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.Group;
 import org.melati.poem.GroupTable;
 import org.melati.poem.Initialiser;
 import org.melati.poem.NoSuchColumnPoemException;
@@ -81,7 +83,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getName()
    */
   public void testGetName() {
-    Table ut = getDb().getUserTable();
+    UserTable<User> ut = getDb().getUserTable();
     assertEquals("user", ut.getName());
   }
 
@@ -89,7 +91,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#quotedName()
    */
   public void testQuotedName() {
-    Table ut = getDb().getUserTable();
+    UserTable<User> ut = getDb().getUserTable();
     assertEquals(getDb().getDbms().getQuotedName("user"), ut.quotedName());
 
   }
@@ -157,9 +159,9 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#columns()
    */
   public void testColumns() {
-    Enumeration<Table> en = getDb().tables();
+    Enumeration<Table<?>> en = getDb().tables();
     while(en.hasMoreElements()) { 
-      Table t = (Table)en.nextElement();
+      Table<?> t = en.nextElement();
       int colCount = EnumUtils.vectorOf(t.columns()).size();
       assertTrue("Table " + t.getName() + 
               " columns(): " + colCount + 
@@ -451,7 +453,7 @@ public class TableTest extends PoemTestCase {
     int count1 = getDb().getQueryCount();
     User u = getDb().guestUser();
     int count2 = getDb().getQueryCount();
-    UserTable ut = getDb().getUserTable();
+    UserTable<User> ut = getDb().getUserTable();
     int count3 = getDb().getQueryCount();
     User u2 = (User)ut.getObject(new Integer(0));
     int count4 = getDb().getQueryCount();
@@ -467,7 +469,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getObject(int)
    */
   public void testGetObjectInt() {
-    GroupTable t = getDb().getGroupTable();
+    GroupTable<Group> t = getDb().getGroupTable();
     Persistent p = t.getObject(0);
     assertEquals(new Integer(0),p.getTroid());
   }
@@ -556,12 +558,12 @@ public class TableTest extends PoemTestCase {
    */
   public void testSelectionPersistent() {
     User exemplar = (User)getDb().getUserTable().newPersistent();
-    Enumeration<Persistent> found  = getDb().getUserTable().selection(exemplar);
+    Enumeration<User> found  = getDb().getUserTable().selection(exemplar);
     int count = 0;
     User outcome = null;
     while (found.hasMoreElements()) {
       count++;
-      outcome = (User)found.nextElement();
+      outcome = found.nextElement();
       //System.err.println(result);
     }
     assertNotNull(outcome);
@@ -709,7 +711,7 @@ public class TableTest extends PoemTestCase {
             getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("password"),"FIXME") + "))";
     assertEquals(expected, cnf);
     cnf = getDb().getUserTable().cnfWhereClause(
-            new EmptyEnumeration<String>());
+            new EmptyEnumeration<User>());
     assertEquals("", cnf);
     Vector<User> v = new Vector<User>();
     v.addElement((User)getDb().getUserTable().newPersistent());
@@ -984,7 +986,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#toString()
    */
   public void testToString() {
-    Table ut = getDb().getUserTable();
+    Table<User> ut = getDb().getUserTable();
     assertEquals("user (from the data structure definition)", ut.toString());
 
   }
@@ -1250,8 +1252,8 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#hashCode()
    */
   public void testHashCode() {
-    Table ut = getDb().getUserTable();
-    Table ut2 = getDb().getUserTable();
+    Table<User> ut = getDb().getUserTable();
+    Table<User> ut2 = getDb().getUserTable();
     assertTrue(ut.equals(ut2));
     assertEquals(ut.hashCode(), ut2.hashCode());
   }
@@ -1260,10 +1262,10 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#equals(Object)
    */
   public void testEqualsObject() {
-    Table ut = getDb().getUserTable();
-    Table ct = getDb().getCapabilityTable();
+    Table<User> ut = getDb().getUserTable();
+    Table<Capability> ct = getDb().getCapabilityTable();
     assertFalse(ut.equals(ct));
-    Table ut2 = getDb().getUserTable();
+    Table<User> ut2 = getDb().getUserTable();
     assertTrue(ut.equals(ut2));
     assertTrue(ut2.equals(ut));
     assertTrue(ut.equals(ut));

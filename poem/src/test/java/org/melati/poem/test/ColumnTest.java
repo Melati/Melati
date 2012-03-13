@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import org.melati.poem.AppBugPoemException;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
@@ -361,8 +362,9 @@ public class ColumnTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Column#cachedSelectionWhereEq(Object)
    */
+  @SuppressWarnings("unchecked")
   public void testCachedSelectionWhereEq() {
-    CachedSelection cs = getDb().getColumnInfoTable().getHeightColumn().
+    CachedSelection<ColumnInfo> cs = getDb().getColumnInfoTable().getHeightColumn().
         cachedSelectionWhereEq(new Integer(1));
     if (getDb().getDbms().canDropColumns()) {
       assertEquals(69,cs.count());
@@ -441,7 +443,7 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#asEmptyField()
    */
   public void testAsEmptyField() {
-    Field f = getDb().getUserTable().troidColumn().asEmptyField();
+    Field<Integer> f = getDb().getUserTable().troidColumn().asEmptyField();
     assertEquals("id",f.getName());
     assertEquals("Id",f.getDisplayName());
     assertEquals("The Table Row Object ID",f.getDescription());
@@ -497,7 +499,7 @@ public class ColumnTest extends PoemTestCase {
     fred.setName("Fred");
     fred.setLogin("fred");
     fred.setPassword("fred");
-    Column userNameColumn = getDb().getUserTable().getColumn("name");
+    Column<?> userNameColumn = getDb().getUserTable().getColumn("name");
     User ensured = (User)userNameColumn.ensure(fred);
     assertEquals("Fred", ensured.getName());
     fred.delete();
@@ -507,11 +509,11 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#firstFree(String)
    */
   public void testFirstFree() {
-    Column userTroidColumn = getDb().getUserTable().troidColumn();
+    Column<?> userTroidColumn = getDb().getUserTable().troidColumn();
     assertEquals(2, userTroidColumn.firstFree(null));    
 
     try {
-      Column userNameColumn = getDb().getUserTable().getColumn("name");
+      Column<?> userNameColumn = getDb().getUserTable().getColumn("name");
       userNameColumn.firstFree(null);
       fail("Should have bombed");
     } catch (AppBugPoemException e) {

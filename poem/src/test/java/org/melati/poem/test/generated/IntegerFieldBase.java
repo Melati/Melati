@@ -9,6 +9,7 @@ import org.melati.poem.Field;
 import org.melati.poem.JdbcPersistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.IntegerField;
 import org.melati.poem.test.IntegerFieldTable;
 
 
@@ -39,12 +40,14 @@ public abstract class IntegerFieldBase extends JdbcPersistent {
   * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the IntegerFieldTable
   */
-  public IntegerFieldTable getIntegerFieldTable() {
-    return (IntegerFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  public IntegerFieldTable<IntegerField> getIntegerFieldTable() {
+    return (IntegerFieldTable<IntegerField>)getTable();
   }
 
-  private IntegerFieldTable _getIntegerFieldTable() {
-    return (IntegerFieldTable)getTable();
+  @SuppressWarnings("unchecked")
+  private IntegerFieldTable<IntegerField> _getIntegerFieldTable() {
+    return (IntegerFieldTable<IntegerField>)getTable();
   }
 
   // Fields in this table 

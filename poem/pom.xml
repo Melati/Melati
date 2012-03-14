@@ -188,6 +188,8 @@
        <exclude>**/throwing/*Test.java</exclude>
        <!--  too hungry  -->
        <exclude>**/CacheTest.java</exclude>
+       <!--  not insulated from other tests -->
+       <exclude>**/TableSortedMapTest.java</exclude>
        <!-- MSAccess problem -->
        <!-- exclude>**/DynamicTableTest.java</exclude -->
        <!-- exclude>**/MultiThreadedCachedSelectionTest.java</exclude-->

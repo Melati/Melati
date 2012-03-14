@@ -374,4 +374,8 @@ ${firstChar}${rest}#end
       <url>http://www.melati.org/maven2/</url>
     </repository>
   </repositories>
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+ </properties>
 </project>

@@ -11,4 +11,8 @@
   <packaging>jar</packaging>
   <name>Melati Archetype</name>
   <url>http://melati.org/melati-archetype/</url>
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+ </properties>
 </project>

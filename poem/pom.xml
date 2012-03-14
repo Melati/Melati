@@ -186,7 +186,8 @@
       </includes>
       <excludes>
        <exclude>**/throwing/*Test.java</exclude>
-
+       <!--  too hungry  -->
+       <exclude>**/CacheTest.java</exclude>
        <!-- MSAccess problem -->
        <!-- exclude>**/DynamicTableTest.java</exclude -->
        <!-- exclude>**/MultiThreadedCachedSelectionTest.java</exclude-->

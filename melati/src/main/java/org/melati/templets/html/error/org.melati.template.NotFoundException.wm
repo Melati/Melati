@@ -1,4 +1,3 @@
-#set $melati.ResponseContentType = "text/html"
 ##
 ## $Source$
 ## $Revision$
@@ -39,7 +38,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timp@paneris.org>
+##     Tim Pizey <timp AT paneris.org>
 ##
 
 
@@ -47,7 +46,7 @@
 
 <html><head><title>Melati Template Not Found Exception</title></head>
 
-<body bgcolor="white">
+<body>
 <h1><font color="green">Melati Template Not Found Exception</font></h1>
 <p>
 A template cannot be found.

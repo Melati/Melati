@@ -1,5 +1,4 @@
-<#assign melati.responseContentType = "text/html"><#--
---><#-- $Source$
+<#-- $Source$
 --><#-- $Revision$
 --><#--
 --><#-- Copyright (C) 2000 William Chesters
@@ -53,10 +52,10 @@
 
 <html><head><title>Melati Error Template</title></head>
 
-<body bgcolor="white">
+<body>
 <h1><font color="green">Melati Error Template</font></h1>
 <p>
-An error has occured in this application.
+An error has occurred in this application.
 </p>
 <#if sysAdminEmail><p>
 Please contact <a href='mailto:${sysAdminEmail}'>${sysAdminName}</a>

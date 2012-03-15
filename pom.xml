@@ -541,7 +541,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
-      <url>file://var/www/maven2/</url>
+      <url>file:/var/www/maven2/</url>
     </repository>
     <site>
       <id>melati_site</id>

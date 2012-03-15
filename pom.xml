@@ -483,7 +483,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <dependency>
          <groupId>org.apache.maven.wagon</groupId>
          <artifactId>wagon-ssh</artifactId>
-         <version>1.0-beta-7</version>
+         <version>2.2</version>
        </dependency>
      </dependencies>
     </plugin>
@@ -533,4 +533,23 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 -->
    </plugins>
   </build>
+  <profiles>
+   <profile>
+    <id>localRepo</id>
+
+  <distributionManagement>
+    <repository>
+      <id>melati</id>
+      <name>Melati M2 Repository</name>
+      <url>file://var/www/maven2/</url>
+    </repository>
+    <site>
+      <id>melati_site</id>
+      <url>file:/var/www/melati/</url>
+    </site>
+  </distributionManagement>
+    
+   </profile>
+  </profiles>
+
 </project>

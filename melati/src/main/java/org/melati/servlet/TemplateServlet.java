@@ -208,6 +208,8 @@ public abstract class TemplateServlet extends PoemServlet {
 
 
   /**
+   * Prepare context and establish name of template to interpolate against it. 
+   *
    * Override this method to build up your own output.
    *
    * @param melati the current Melati

@@ -60,6 +60,7 @@ import org.webmacro.util.Settings;
  * Modified to allow #if ($null).
  *
  * @author Tim Joyce
+ * @since 2001-11-05
  */
 
 public class PropagateEvaluationExceptionHandler 

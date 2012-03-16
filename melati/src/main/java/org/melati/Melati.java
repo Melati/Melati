@@ -660,7 +660,8 @@ public class Melati {
   /**
    * Use this method if you wish to use a different 
    * MarkupLanguage, WMLMarkupLanguage for example. 
-   * Cannot be set in MelatiConfig as does not have a noarg constructor.
+   * Cannot be set in MelatiConfig as MarkupLanguage 
+   * does not have a no argument constructor.
    * @param ml The ml to set.
    */
   public void setMarkupLanguage(MarkupLanguage ml) {

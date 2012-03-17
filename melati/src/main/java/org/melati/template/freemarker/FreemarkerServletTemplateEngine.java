@@ -55,6 +55,8 @@ import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateIOException;
+import org.melati.template.velocity.MelatiBufferedVelocityWriter;
+import org.melati.template.velocity.MelatiVelocityWriter;
 import org.melati.util.MelatiBufferedWriter;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiWriter;
@@ -118,13 +120,13 @@ public class FreemarkerServletTemplateEngine extends FreemarkerTemplateEngine
           boolean buffered) {
     if (buffered) {
       try {
-        return new MelatiBufferedWriter(response.getWriter());
+        return new MelatiBufferedVelocityWriter(response);
       } catch (IOException e) {
         throw new TemplateIOException(e);
       }
     } else {
       try {
-        return new MelatiSimpleWriter(response.getWriter());
+        return new MelatiVelocityWriter(response);
       } catch (IOException e) {
         throw new TemplateIOException(e);
       }

@@ -74,7 +74,7 @@
     #if ($ref.getReadable()) #begin
     <TD>
       <font size="-1" face="Arial, Helvetica">
-        <a href="$admin.EditURL($ref)?returnURL=$returnURL"
+        <a href="EditURL($ref)?returnURL=$returnURL"
           id="edit_$(ref.Table.Name)_$ref.Troid"
         >
         $ref.Troid

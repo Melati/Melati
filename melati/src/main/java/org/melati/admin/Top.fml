@@ -57,11 +57,11 @@
   <b><font face="Arial, Helvetica" size="3">Melati Database Admin Suite</font></b>
   <br>
   <font face="Arial, Helvetica" size="-1" >
-    ${melati.database.displayName} database
+    ${melati.getDatabase().getDisplayName()} database
   </font>
 </td>
 <td align="left" valign="middle">
-<form method="GET" id="gotoform" target="admin_bottom" action="${admin.bottomURL(melati)}">
+<form method="GET" id="gotoform" target="admin_bottom" action="${admin.getBottomURL(melati)}">
 <font size="-1" face="Arial, Helvetica">
 
 <select name="table" OnChange="submit();" title="Select table to edit">
@@ -76,13 +76,13 @@
   <#assign lasttype = table.tableInfo.category>
   <option value="${table.name}"
   <#if !selected>
-   <#if melati.getTable() != null>
+   <#if melati.getTable()??>
     <#if melati.getTable().equals(table)>
     selected="selected"
      <#assign selected = true>
    </#if> 
    <#else>
-    <#if table.getName().equals(admin.getPrimaryDisplayTable(melati))>
+    <#if table.getName().equals(admin.primaryDisplayTable(melati))>
      selected="selected"
       <#assign selected = true>
     </#if>
@@ -123,7 +123,7 @@
     >
  <input type="hidden"
      name="continuationURL"
-     value="${admin.mainURL(melati)}"
+     value="${admin.getMainURL(melati)}"
  />
  <input type="submit" 
         value=" Login " 

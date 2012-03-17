@@ -31,13 +31,13 @@
     value="Choose" 
     id="$ml.rendered($object.Name)_button" 
     name="$ml.rendered($object.Name)_button" 
-    onClick ="choosewindow = window.open('$admin.SelectionWindowURL($object.getType().targetTable())&returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
+    onClick ="choosewindow = window.open('$admin.getSelectionWindowURL($object.getType().targetTable())&returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
     />
 <input type="button" 
     value="Create" 
     id="$ml.rendered($object.Name)_button" 
     name="$ml.rendered($object.Name)_button" 
-    onClick ="createwindow = window.open('$admin.AddURL($object.getType().targetTable())?returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
+    onClick ="createwindow = window.open('$admin.getAddURL($object.getType().targetTable())?returnfield=field_$ml.rendered($object.Name)','$ml.rendered($object.Name)','width=400,height=500,scrollbars=yes'); return false;" 
     />
 #if ($object.Type.Nullable) #begin
   <input type="button" value="Clear" 

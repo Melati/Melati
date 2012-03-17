@@ -51,8 +51,8 @@
 </head>
 
 <frameset frameborder="no" cols="40%,60%">
-  <frame name="admin_left"   src="${admin.tableURL(melati.Table)}"  marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
-  <frame name="admin_record" src="${admin.recordURL(melati)}" marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
+  <frame name="admin_left"   src="${admin.getTableURL(melati.table)}"  marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
+  <frame name="admin_record" src="${admin.getTecordURL(melati)}" marginwidth="5" marginheight="0" scrolling="auto" frameborder="0">
 </frameset>
 
 <noframes>

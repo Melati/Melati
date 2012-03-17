@@ -48,22 +48,22 @@
  <meta name="version" content="CVS Id: Selection.vm,v 1.5 2010/02/12 09:52:28 timp Exp $">
  <link rel="stylesheet" title="Default" href="${admin.getScreenStylesheetURL(melati)}"
       type="text/css" media="screen">
-<#if inPopup><SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<#if inPopup??><SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
   function updateCaller(returnfield,id,value) {
     parent.opener.updateFromPopup(parent,returnfield,id,value)
   }
 //-->
 </SCRIPT>
-</#if><#if inPopup><#assign target = ""> <!-- inPopup -->
-<#else>  <#if inRight> <!-- inRight -->
+</#if><#if inPopup??><#assign target = ""> <!-- inPopup -->
+<#else>  <#if inRight??> <!-- inRight -->
    <#assign target = ""> <#else> <!-- inLeft -->
    <#assign target = "admin_record">  </#if></#if></HEAD>
 
 <BODY BGCOLOR="#eeeeee" id="selection">
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
-<#if results><#assign colSpan = melati.table.summaryDisplayColumnsCount-1>  <tr>
+<#if results??><#assign colSpan = melati.table.summaryDisplayColumnsCount-1>  <tr>
     <th>&nbsp;</th>
     <th align="center" colspan="${colSpan}">
   <#if results.prevPageStart>      <a title="Previous page" 

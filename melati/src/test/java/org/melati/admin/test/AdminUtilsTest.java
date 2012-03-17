@@ -96,7 +96,7 @@ public class AdminUtilsTest extends PoemTestCase {
     m.loadTableAndObject();
     
     assertEquals("melatitest/user/Selection?field_order-1=23&field_order-1-toggle=true", 
-        au.ToggledOrderSelectionURL(m, "field_order-1", "23"));    
+        au.getToggledOrderSelectionURL(m, "field_order-1", "23"));    
   }
 
   /**

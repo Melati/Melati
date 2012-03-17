@@ -1,4 +1,5 @@
-<#-- $Source$
+<#assign melati.responseContentType = "text/html"><#--
+--><#-- $Source$
 --><#-- $Revision$
 --><#--
 --><#-- Copyright (C) 2000 William Chesters
@@ -57,7 +58,7 @@
 <p>
 An error has occurred in this application.
 </p>
-<#if sysAdminEmail><p>
+<#if sysAdminEmail?hasContent><p>
 Please contact <a href='mailto:${sysAdminEmail}'>${sysAdminName}</a>
 giving the URL of this page and the information given below.
 </p>

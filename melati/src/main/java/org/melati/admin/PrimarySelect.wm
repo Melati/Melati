@@ -67,9 +67,9 @@
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
   function goto_page() {
 #if($inPopup) #begin
-    var url = "$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
+    var url = "$admin.getSelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield";
 #end #else #begin
-    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
+    var url = "$admin.getSelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
 #end
     $(selectionWindowJsName).location.href = url;
@@ -93,7 +93,7 @@
     #end 
   #end #else #begin 
   function goto_page() {
-    var url = "$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
+    var url = "$admin.getSelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=" + 
       document.forms[0].elements[0].value;
     $(selectionWindowJsName).location.href = url;
     return false;
@@ -101,7 +101,7 @@
   #end 
 #end #else #begin 
   function goto_page() {
-    $(selectionWindowJsName).location.href = "$admin.SelectionURL($melati.Table)";
+    $(selectionWindowJsName).location.href = "$admin.getSelectionURL($melati.Table)";
     return false;
   }
 #end
@@ -113,9 +113,9 @@
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" 
 #if($inPopup) #begin
-    action="$admin.SelectionWindowSelectionURL($melati.Table)" 
+    action="$admin.getSelectionWindowSelectionURL($melati.Table)" 
 #end #else #begin
-    action="$admin.SelectionURL($melati.Table)" 
+    action="$admin.getSelectionURL($melati.Table)" 
 #end
     target="$(selectionWindowTargetName)">
 
@@ -154,7 +154,7 @@
            type="button" 
            value="Choose"
            name="$(ml.rendered($primaryCriterion.Name))_button" 
-           onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
+           onClick ="choosewindow = window.open('$admin.getSelectionWindowURL($primaryCriterion.getType().targetTable())&returnfield=field_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;"
            title="Select $primaryCriterion.DisplayName using a popup selector" 
               />
        <input 
@@ -171,9 +171,9 @@
             OnChange="return(goto_page());">
       #foreach $poss in $primaryCriterion.First1000Possibilities #begin
 #if ($inPopup) #begin
-          <OPTION VALUE="$admin.SelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
+          <OPTION VALUE="$admin.getSelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
 #end #else #begin
-          <OPTION VALUE="$admin.SelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+          <OPTION VALUE="$admin.getSelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
 #end
         #if ($poss.sameRawAs($primaryCriterion)) #begin
             SELECTED
@@ -200,11 +200,11 @@
    <td>&nbsp;</td>
    <td align="right" valign="middle">
 #if ($inPopup)
-     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.SelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
+     <a href='$admin.getAddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.getSelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
         title="New $primaryCriterion.DisplayName" 
         target=selectionwindow_selection><IMG 
 #end #else #begin
-     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' 
+     <a href='$admin.getAddURL($primaryCriterion.getType().targetTable())' 
         title="New $primaryCriterion.DisplayName" 
         target="admin_record"><IMG 
 #end

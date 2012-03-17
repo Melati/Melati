@@ -64,8 +64,8 @@
   <td valign="top">
  <script type="text/javascript"> 
  <!--
-  document.write ("<a href='$admin.TreeURL($melati.Object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
-  document.write ("   target='$admin.EditFrameName($melati)' ");
+  document.write ("<a href='$admin.getTreeURL($melati.Object)?returnTarget=$returnTarget&amp;returnURL=$returnURL' ");
+  document.write ("   target='$admin.getEditFrameName($melati)' ");
   document.write ("   id='recordTree' ");
   document.write ("   title='Display tree view'><img ");
   document.write ("   src='$admin.StaticURL/tree.gif' ");
@@ -77,8 +77,8 @@
    &nbsp;<div style='display:inline;' #if($melati.Table.Description) #begin title='$melati.Table.Description' #end>
    <font face="Arial, Helvetica" size="2">$melati.Table.DisplayName</font></div><font 
      face="Arial, Helvetica" size="2">:
-<a href= "$admin.EditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="$admin.EditFrameName($melati)"
+<a href= "$admin.getEditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
+target="$admin.getEditFrameName($melati)"
 title="Display $ml.rendered($melati.Object.toString())">
 $ml.rendered($melati.Object.toString())</a>
    </font>
@@ -89,9 +89,9 @@ $ml.rendered($melati.Object.toString())</a>
    <p>
     <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
-[&nbsp;<a href="$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid)" 
-          target="$admin.EditFrameName($melati)"
-          id="$admin.EditFrameName($melati)"
+[&nbsp;<a href="$admin.getSelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($melati.Object.Troid)" 
+          target="$admin.getEditFrameName($melati)"
+          id="$admin.getEditFrameName($melati)"
           title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>

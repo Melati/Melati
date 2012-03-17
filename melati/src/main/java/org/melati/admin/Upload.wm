@@ -53,7 +53,7 @@
 <body bgcolor='#ffffff' onLoad="window.focus();" id="upload">
 <form enctype="multipart/form-data" 
       method="POST" 
-      action="$admin.UploadHandlerURL($melati.Table,$melati.Object,$field)">
+      action="$admin.getUploadHandlerURL($melati.Table,$melati.Object,$field)">
 <div align="center">
 <b>File to upload:</b>
 <br />

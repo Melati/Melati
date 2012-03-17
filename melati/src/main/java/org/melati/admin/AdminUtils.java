@@ -170,20 +170,20 @@ public class AdminUtils {
   
   
   /** @return The Main URL. */
-  public String MainURL(String ld) {
+  public String getMainURL(String ld) {
     String url = servletURL + "/" + ld;
     return url + "/Main";
   }
   /** @return The Main URL. */
-  public String MainURL(Melati melati) {
+  public String getMainURL(Melati melati) {
     return getURL(melati, "Main");
   }
   /** @return The Main URL after deletion of a tableinfo */
-  public String MainURL(Table<?> table) {
+  public String getMainURL(Table<?> table) {
     return getURL(table, "Main");
   }
   /** @return The Main URL after creation of a tableinfo */
-  public String MainURL(Table<?> table,Persistent p) {
+  public String getMainURL(Table<?> table,Persistent p) {
     String url = servletURL + "/" + logicalDatabase;
     url += "/" + table.getName();
     url += "/" + p.troid();
@@ -191,7 +191,7 @@ public class AdminUtils {
  }
   
   /** @return The Top URL. */
-  public String TopURL(Melati melati) {
+  public String getTopURL(Melati melati) {
     return getURL(melati, "Top");
   }
   
@@ -200,7 +200,7 @@ public class AdminUtils {
    */
   /*
    * Do not think this is used
-  public String BottomURL(Table<?> table, Melati melati) {
+  public String getBottomURL(Table<?> table, Melati melati) {
     return  servletURL + "/" + logicalDatabase + 
         "/" + table.getName() +
         (melati.getObject() != null &&  
@@ -213,7 +213,7 @@ public class AdminUtils {
   /**
    * @return The Bottom URL.
    */
-  public String BottomURL(Melati melati) {
+  public String getBottomURL(Melati melati) {
     String url =  servletURL + "/" + logicalDatabase + "/";
     if (melati.getTable() != null)
       url += melati.getTable().getName();
@@ -224,21 +224,18 @@ public class AdminUtils {
     url += "/Bottom";
     return url;
   }
-  public String bottomURL(Melati melati) {
-    return BottomURL(melati);
-  }
   
   /**
    * @return The Left URL.
    */
-  public String TableURL(Table<?> table) {
+  public String getTableURL(Table<?> table) {
     return getURL(table, "Table");
   }
   
   /**
    * @return The Right URL.
    */
-  public String RecordURL(Persistent object) throws AccessPoemException {
+  public String getRecordURL(Persistent object) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Record";
   }
@@ -246,7 +243,7 @@ public class AdminUtils {
   /**
    * @return The Right URL.
    */
-  public String RecordURL(Persistent object, String returnTarget, String returnURL) throws AccessPoemException {
+  public String getRecordURL(Persistent object, String returnTarget, String returnURL) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Record" + 
             "?returnTarget=" + returnTarget + 
@@ -256,28 +253,28 @@ public class AdminUtils {
   /**
    * @return The Right URL.
    */
-  public String RecordURL(Melati melati) throws AccessPoemException {
+  public String getRecordURL(Melati melati) throws AccessPoemException {
     return getURL(melati, "Record");
   }
 
   /**
    * @return The Primary Select URL.
    */
-  public String PrimarySelectURL(Melati melati) {
+  public String getPrimarySelectURL(Melati melati) {
     return getURL(melati, "PrimarySelect");
   }
 
   /**
    * @return The Selection URL.
    */
-  public String SelectionURL(Table<?> table) {
-    return SelectionURL(table,"admin_record");
+  public String getSelectionURL(Table<?> table) {
+    return getSelectionURL(table,"admin_record");
   }
   /**
    * @return The Selection URL.
    */
-  public String SelectionURL(Table<?> table, String returnTarget) {
-    return SelectionURL(table, "admin_record", returnTarget);
+  public String getSelectionURL(Table<?> table, String returnTarget) {
+    return getSelectionURL(table, "admin_record", returnTarget);
   }
   /**
    * @param table
@@ -285,7 +282,7 @@ public class AdminUtils {
    * @param returnTarget
    * @return the url
    */
-  public String SelectionURL(Table<?> table, String targetPane, String returnTarget) {
+  public String getSelectionURL(Table<?> table, String targetPane, String returnTarget) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection?" +
             "target=" + targetPane +  
@@ -296,7 +293,7 @@ public class AdminUtils {
    * Toggle the sort order of column.
    * @return the same url with the toggle field added or removed
    */
-  public String ToggledOrderSelectionURL(Melati melati, String field, String value) { 
+  public String getToggledOrderSelectionURL(Melati melati, String field, String value) { 
     String url = melati.sameURLWith(field,value);
     String toggleField = "&" + field + "-toggle=true";
     if (url.endsWith(toggleField))
@@ -309,14 +306,14 @@ public class AdminUtils {
    * @param melati
    * @return The Selection URL.
    */
-  public String SelectionURL(Melati melati) {
-    return SelectionURL(melati,"admin_record");    
+  public String getSelectionURL(Melati melati) {
+    return getSelectionURL(melati,"admin_record");    
   }
 
   /**
    * @return The Selection URL.
    */
-  public String SelectionURL(Melati melati, String returnTarget) {
+  public String getSelectionURL(Melati melati, String returnTarget) {
     return servletURL + "/" + 
         logicalDatabase + "/" + 
         melati.getTable().getName()
@@ -331,7 +328,7 @@ public class AdminUtils {
   /**
    * @return The Selection Right URL.
    */
-  public String SelectionRightURL(Table<?> table) {
+  public String getSelectionRightURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
     + "/SelectionRight";
   }
@@ -339,7 +336,7 @@ public class AdminUtils {
   /**
    * @return The Navigation URL.
    */
-  public String NavigationURL(Table<?> table) {
+  public String getNavigationURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
     + "/Navigation";
   }
@@ -347,7 +344,7 @@ public class AdminUtils {
   /**
    * @return The Edit Header URL.
    */
-  public String EditHeaderURL(Melati melati) throws AccessPoemException {
+  public String getEditHeaderURL(Melati melati) throws AccessPoemException {
     if (melati.getObject() == null)
       return getURL(melati, "blank");
     else
@@ -357,7 +354,7 @@ public class AdminUtils {
   /**
    * @return The Edit URL.
    */
-  public String EditURL(Melati melati) throws AccessPoemException {
+  public String getEditURL(Melati melati) throws AccessPoemException {
     if (melati.getObject() == null)
       return getURL(melati, "blank");
     else
@@ -366,7 +363,7 @@ public class AdminUtils {
   /**
    * @return The Edit URL.
    */
-  public String EditURL(Persistent object) throws AccessPoemException {
+  public String getEditURL(Persistent object) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Edit";
   }
@@ -375,7 +372,7 @@ public class AdminUtils {
    * @param melati
    * @return the name of the Record Fields frame
    */
-  public String EditFrameName(Melati melati) { 
+  public String getEditFrameName(Melati melati) { 
     String name = "admin_edit";
     name += "_" + melati.getTable().getName();
     if (melati.getObject() != null) 
@@ -385,7 +382,7 @@ public class AdminUtils {
   /**
    * @return The Tree URL.
    */
-  public String TreeURL(Persistent object) throws AccessPoemException {
+  public String getTreeURL(Persistent object) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Tree";
   }
@@ -393,7 +390,7 @@ public class AdminUtils {
   /**
    * @return The Tree URL.
    */
-  public String TreeURL(Table<?> table) throws AccessPoemException {
+  public String getTreeURL(Table<?> table) throws AccessPoemException {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             +  "/Tree";
   }
@@ -402,7 +399,7 @@ public class AdminUtils {
   /**
    * @return The Add URL.
    */
-  public String AddURL(Table<?> table) throws AccessPoemException {
+  public String getAddURL(Table<?> table) throws AccessPoemException {
     return servletURL
             + "/"
             + logicalDatabase
@@ -415,14 +412,14 @@ public class AdminUtils {
   /**
    * @return The Popup URL.
    */
-  public String PopUpURL(Table<?> table) {
+  public String getPopUpURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
   
   /**
    * @return The Selection Window URL.
    */
-  public String SelectionWindowURL(Table<?> table) {
+  public String getSelectionWindowURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindow?target=";
   }
@@ -430,7 +427,7 @@ public class AdminUtils {
   /**
    * @return The Selection Window Primary Select URL.
    */
-  public String SelectionWindowPrimarySelectURL(Table<?> table) {
+  public String getSelectionWindowPrimarySelectURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowPrimarySelect";
   }
@@ -438,7 +435,7 @@ public class AdminUtils {
   /**
    * @return The Selection Window Selection URL.
    */
-  public String SelectionWindowSelectionURL(Table<?> table) {
+  public String getSelectionWindowSelectionURL(Table<?> table) {
     return servletURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowSelection";
   }
@@ -446,21 +443,21 @@ public class AdminUtils {
   /**
    * @return The Status URL.
    */
-  public String StatusURL() {
+  public String getStatusURL() {
     return contextPath + "/org.melati.admin.Status/" + logicalDatabase;
   }
   
   /**
    * @return The Session Analysis URL.
    */
-  public String SessionURL() {
+  public String getSessionURL() {
     return contextPath + "/org.melati.test.SessionAnalysisServlet";
   }
   
   /**
    * @return The URL for DSD generation. 
    */
-  public String DsdURL() {
+  public String getDsdURL() {
     return servletURL + "/" + logicalDatabase + "/DSD";
   }
   
@@ -475,7 +472,7 @@ public class AdminUtils {
    * @param field the upload field
    * @return Upload Url
    */
-  public String UploadURL(Table<?> table, Persistent object, Field<?> field) {
+  public String getUploadURL(Table<?> table, Persistent object, Field<?> field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
   
@@ -487,7 +484,7 @@ public class AdminUtils {
    * @param field the upload field
    * @return Upload done URL
    */
-  public String UploadHandlerURL(Table<?> table, Persistent object, String field) {
+  public String getUploadHandlerURL(Table<?> table, Persistent object, String field) {
     return upload(table, object) + "/UploadDone?field=" + field;
   }
   private String upload(Table<?> table, Persistent object) {

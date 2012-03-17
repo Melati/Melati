@@ -50,10 +50,10 @@
 </head>
 
   <frameset frameborder="no" rows="46,*">
-    <frame name="admin_primaryselect" src="${admin.primarySelectURL(melati)}" marginwidth="0" marginheight="5" frameborder="0" scrolling="no">
+    <frame name="admin_primaryselect" src="${admin.getPrimarySelectURL(melati)}" marginwidth="0" marginheight="5" frameborder="0" scrolling="no">
     <frameset frameborder="no" cols="*,28">
-      <frame name="admin_selection" src="${admin.selectionURL(melati)}" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto">
-      <frame name="admin_navigation" src="${admin.navigationURL(melati.Table)}" marginwidth="0" marginheight="0" frameborder="0"  scrolling="no">
+      <frame name="admin_selection" src="${admin.getSelectionURL(melati)}" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto">
+      <frame name="admin_navigation" src="${admin.getNavigationURL(melati.table)}" marginwidth="0" marginheight="0" frameborder="0"  scrolling="no">
     </frameset>
   </frameset>
 

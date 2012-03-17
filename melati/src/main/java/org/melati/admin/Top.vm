@@ -81,7 +81,7 @@
      #set( $selected = true )
    #end
  #else 
-    #if( $table.getName().equals($admin.getPrimaryDisplayTable($melati)) )
+    #if( $table.getName().equals($admin.primaryDisplayTable($melati)) )
     selected="selected"
       #set( $selected = true )
     #end

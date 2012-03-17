@@ -64,7 +64,7 @@ $ml.inputAs($object, "org.melati.poem.StringPoemType")
    alt="Uploaded image thumbnail"
    title="Uploaded image thumbnail"
    border="0" /></a>
-<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)" 
+<a href="$admin.getUploadURL($melati.Table,$melati.Object,$field)" 
    onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
 
 
@@ -72,7 +72,7 @@ $ml.inputAs($object, "org.melati.poem.StringPoemType")
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
-    = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
+    = window.open('$admin.getUploadURL($melati.Table,$melati.Object,$field)',
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }

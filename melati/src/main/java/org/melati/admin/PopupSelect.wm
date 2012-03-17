@@ -67,7 +67,7 @@
 <table align="center" cellpadding="8" cellspacing="0">
  <tr>
   <td>
-<FORM METHOD="get" action="$admin.SelectionURL($melati.Table)" target="admin_selection">
+<FORM METHOD="get" action="$admin.getSelectionURL($melati.Table)" target="admin_selection">
   <input 
       type="hidden" 
       name="target" 

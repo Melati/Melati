@@ -21,6 +21,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.JSStaticTree;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.Tree;
@@ -228,7 +229,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
       ml.rendered(templated);
       fail("Should have bombed");
     } catch (TemplateEngineException e) { 
-      e = null;
+      e = null; // velocity template exists and bombs
+    } catch (MelatiBugMelatiException e) {
+      e = null; // velcity template bombs during creation from webmacro
     }
   }
   /**

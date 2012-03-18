@@ -55,14 +55,14 @@ $ml.inputAs($object, "org.melati.poem.StringPoemType")
 (<a href="$ml.Attr.rendered($field.RawString)">File contents</a>)
 #end
 
-<a href="$admin.UploadURL($melati.Table,$melati.Object,$field)"
+<a href="$admin.getUploadURL($melati.Table,$melati.Object,$field)"
    onclick="upload_$ml.escaped($field.Name)();return false">Upload a new file</a>
 
 <script language="JavaScript1.2" type="text/javascript">
   var uploadwin_$ml.escaped($field.Name);
   function upload_$ml.escaped($field.Name) () {
     uploadwin_$ml.escaped($field.Name)
-      = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
+      = window.open('$admin.getUploadURL($melati.Table,$melati.Object,$field)',
                     '$ml.escaped($field.Name)',
                     'width=400,height=100,resizable=yes,scrollbars=yes');
   }

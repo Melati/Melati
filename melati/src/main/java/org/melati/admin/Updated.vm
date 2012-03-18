@@ -27,14 +27,10 @@ $Form.returnURL
 
 -->
 
-#if( $melati.getTable().getName().equals("tableinfo") )
+#if( $melati.getTable().getName().equalsIgnoreCase("tableinfo") )
  <script type="text/javascript">
   function reload() {
-   #if( $object )
-    top.location.href="$object.troid()/Main";
-  #else
-    top.location.href="Main";
-   #end
+  top.location.href="$admin.getMainURL($melati)";
   }
  </script>
 #else
@@ -79,12 +75,8 @@ $Form.returnURL
 <h3 align="center">
   <font face="Arial, Helvetica">
     <a 
-#if( $melati.getTable().getName().equals("tableinfo") )
-   #if( $object )
-        href="$admin.MainURL($melati.Table,$object)"
-  #else
-        href="$admin.MainURL($melati.Table)"
-   #end
+#if( $melati.getTable().getName().equalsIgnoreCase("tableinfo") )
+        href="$admin.getMainURL($melati)"
         target="_top"
 #else
   #if( $Form.returnURL )

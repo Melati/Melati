@@ -57,7 +57,7 @@
   function openWindow() {
     top.admin_search = window.open("", "admin_search", "width=470,height=500,resizable=yes,scrollbars=yes");
     if (top.admin_search != null) {
-      top.admin_search.location.href = '$admin.PopUpURL($melati.Table)';
+      top.admin_search.location.href = '$admin.getPopUpURL($melati.Table)';
       top.admin_search.focus();
     }
     return false;
@@ -73,7 +73,7 @@
 <TR>
 <TD>
    <a onClick ='openWindow();'
-      href='$admin.PopUpURL($melati.Table)' 
+      href='$admin.getPopUpURL($melati.Table)' 
       id="search"
       target='admin_search'
       title='Open search window'><IMG 
@@ -84,7 +84,7 @@
 </TR>
 <TR>
   <TD>
-    <a href='$admin.AddURL($melati.Table)?returnTarget=parent.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")' 
+    <a href='$admin.getAddURL($melati.Table)?returnTarget=parent.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.getSelectionURL($melati.Table)")' 
        title="New $melati.Table.DisplayName" 
        id="add"
        target="admin_record"><IMG 
@@ -97,7 +97,7 @@
   <TD>
 <script type="text/javascript"> 
  <!--
-  document.write ("<a href='$admin.TreeURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")'");
+  document.write ("<a href='$admin.getTreeURL($melati.Table)?returnTarget=parent.parent.admin_bottom.admin_left.admin_selection&amp;returnURL=$ml.encoded("$admin.getSelectionURL($melati.Table)")'");
   document.write ("     target='admin_selection'");
   document.write ("     id='tableTree'");
   document.write ("     title='Display tree view'");

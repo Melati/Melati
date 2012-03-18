@@ -61,7 +61,7 @@
   </font>
 </td>
 <td align="left" valign="middle">
-<form method="GET" id="gotoform" target="admin_bottom" action="$admin.BottomURL($melati)">
+<form method="GET" id="gotoform" target="admin_bottom" action="$admin.getBottomURL($melati)">
 <font size="-1" face="Arial, Helvetica">
 <select name="table" OnChange="submit();" title="Select table to edit">
 #set( $lasttype = "" )
@@ -81,7 +81,7 @@
      #set( $selected = true )
    #end
  #else 
-    #if( $table.getName().equals($admin.primaryDisplayTable($melati)) )
+    #if( $table.getName().equals($admin.getPrimaryDisplayTable($melati)) )
     selected="selected"
       #set( $selected = true )
     #end
@@ -108,11 +108,11 @@
 <font size="-2" face="Arial, Helvetica">
  <a href="$admin.getSetupURL()?returnTarget=top&returnURL=Main" target="admin_bottom" 
     title="Database sessions available and in use">Setup</a>
- <a href="$admin.SessionURL()" target="admin_bottom" 
+ <a href="$admin.getSessionURL()" target="admin_bottom" 
     title="Database sessions available and in use">Sessions</a>
- <a href="$admin.StatusURL()" target="admin_bottom" 
+ <a href="$admin.getStatusURL()" target="admin_bottom" 
     title="Which records are currently stored in memory">Cache</a>
- <a href="$admin.DsdURL()" target="admin_bottom" 
+ <a href="$admin.getDsdURL()" target="admin_bottom" 
     title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
 </font>
 #end
@@ -125,7 +125,7 @@
     >
  <input type="hidden"
      name="continuationURL"
-     value="$admin.MainURL($melati)"
+     value="$admin.getMainURL($melati)"
  />
  <input type="submit" 
         value=" Login " 
@@ -141,7 +141,7 @@
       >
  <input type="hidden"
      name="continuationURL"
-     value="$admin.MainURL($melati)"
+     value="$admin.getMainURL($melati)"
  />
  <input type="submit" 
         value=" Logout "
@@ -183,7 +183,7 @@
 
 #set( $selected = false )
 #foreach( $dbName in $melati.KnownDatabaseNames )
-<option value="$admin.MainURL($dbName)"
+<option value="$admin.getMainURL($dbName)"
 #if( !$selected )
   #if( $melati.PoemContext.LogicalDatabase )
    #if( $melati.PoemContext.LogicalDatabase.equals($dbName) ) 

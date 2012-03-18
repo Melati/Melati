@@ -94,7 +94,7 @@
     </th>
 #if( $inRight || $inPopup )
     <th>
-      <a href='$admin.AddURL($melati.Table)?$whereClause' 
+      <a href='$admin.getAddURL($melati.Table)?$whereClause' 
          title="New $melati.Table.DisplayName"
          id="create_$melati.Table.Name"
        ><IMG
@@ -117,7 +117,7 @@
   #foreach( $column in $melati.Table.SummaryDisplayColumns )
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
-     <a href="$admin.ToggledOrderSelectionURL($melati,"field_order-1","$column.getColumnInfo().getTroid()")">$ml.rendered($column.DisplayName)</a>&nbsp;
+     <a href="$admin.getToggledOrderSelectionURL($melati,"field_order-1","$column.getColumnInfo().getTroid()")">$ml.rendered($column.DisplayName)</a>&nbsp;
     </font>
    </th>
   #end
@@ -136,9 +136,9 @@
           onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
 #else
   #if( $inRight )
-          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$melati.SameURL"))' 
+          href='$admin.getRecordURL($result,$Form.returnTarget,$ml.encoded("$melati.SameURL"))' 
   #else
-          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded($ml.encoded("$melati.SameURL")))' 
+          href='$admin.getRecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded($ml.encoded("$melati.SameURL")))' 
    #end      
           target="$target"
 #end
@@ -152,9 +152,9 @@
           onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
 #else
   #if( $inRight )
-          href='$admin.RecordURL($result,$Form.returnTarget,$ml.encoded("$admin.SelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
+          href='$admin.getRecordURL($result,$Form.returnTarget,$ml.encoded("$admin.getSelectionURL($melati.Table,$Form.returnTarget)&start=$results.PageStart&amp;$whereClause&amp;$orderClause"))' 
   #else
-          href='$admin.RecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded("$melati.SameURL"))' 
+          href='$admin.getRecordURL($result,"parent.parent.parent.admin_bottom.admin_left.admin_selection",$ml.encoded("$melati.SameURL"))' 
    #end      
           target="$target"
 #end

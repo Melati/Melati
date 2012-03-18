@@ -51,10 +51,10 @@
         #if( $melati.isReferencePoemType($field) )
          <a
           #if( $field.Raw )
- href="$admin.RecordURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.SelectionURL($melati.Table)")"
+ href="$admin.getRecordURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.getSelectionURL($melati.Table)")"
  title="Edit $ml.rendered($field.Type.targetTable().DisplayName) $ml.rendered($field.DisplayName)"
          #else
- href="$admin.SelectionURL($field.Type.targetTable())"
+ href="$admin.getSelectionURL($field.Type.targetTable())"
  title="Select $ml.rendered($field.Type.targetTable().DisplayName)"
           #end
  >

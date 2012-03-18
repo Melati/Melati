@@ -231,7 +231,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     } catch (TemplateEngineException e) { 
       e = null; // velocity template exists and bombs
     } catch (MelatiBugMelatiException e) {
-      e = null; // velcity template bombs during creation from webmacro
+      e = null; // velocity template bombs during creation from webmacro
     }
   }
   /**

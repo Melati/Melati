@@ -54,7 +54,7 @@
 
 <html><head><title>Melati Error Template</title></head>
 
-<body>
+<body >
 <h1><font color="green">Melati Error Template</font></h1>
 <p>
 An error has occurred in this application.

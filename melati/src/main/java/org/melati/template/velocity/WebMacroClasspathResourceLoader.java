@@ -67,6 +67,9 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 public class WebMacroClasspathResourceLoader 
     extends ClasspathResourceLoader {
   
+  private static final String MELATI_SRC_TEST_JAVA = "/dist/melati/melati/src/test/java/";
+  private static final String MELATI_SRC_MAIN_JAVA = "/dist/melati/melati/src/main/java/";
+
   /**
    * Get an InputStream so that the Velocity Runtime can build a
    * template with it, munge it if it is a WM template.
@@ -85,22 +88,18 @@ public class WebMacroClasspathResourceLoader
       InputStream converted = WebMacroConverter.convert(super.getResourceStream(templateName));
       
       try {
-        String wmName = "/dist/melati/melati/src/main/java/" + templateName;
+        String wmName = MELATI_SRC_MAIN_JAVA + templateName;
         File wmFile = new File(wmName);
         String vmName;
         if (wmFile.exists()) {
-          vmName = "/dist/melati/melati/src/main/java/" + 
-           (templateName.endsWith(".wm")?
-                templateName.substring(0,templateName.length() -3) + ".vm" :
-                  templateName);
+          vmName = MELATI_SRC_MAIN_JAVA + 
+                templateName.substring(0,templateName.length() -3) + ".vm";
         } else { 
-          wmName = "/dist/melati/melati/src/test/java/" + templateName;
+          wmName = MELATI_SRC_TEST_JAVA + templateName;
           wmFile = new File(wmName);
           if (wmFile.exists()) {
-            vmName = "/dist/melati/melati/src/test/java/" + 
-             (templateName.endsWith(".wm")?
-                  templateName.substring(0,templateName.length() -3) + ".vm" :
-                    templateName);
+            vmName = MELATI_SRC_TEST_JAVA + 
+                  templateName.substring(0,templateName.length() -3) + ".vm";
           } else 
             throw new RuntimeException("Cannot find file " + wmName);
         }

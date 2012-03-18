@@ -30,11 +30,11 @@ org.melati.MelatiConfig.accessHandler=org.melati.login.HttpSessionAccessHandler
 #
 
 #org.melati.MelatiConfig.templateEngine=org.melati.template.NoTemplateEngine
-org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
+#org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroServletTemplateEngine
 # For use with an App
 #org.melati.MelatiConfig.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
 #org.melati.MelatiConfig.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
-#org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
+org.melati.MelatiConfig.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
 
 #
 # --------------------------------------------

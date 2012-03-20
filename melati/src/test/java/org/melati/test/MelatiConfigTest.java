@@ -73,8 +73,7 @@ public class MelatiConfigTest extends TestCase {
       mc = new MelatiConfig("bad.MelatiConfig");
       fail("Should have blown up");
     } catch (ConfigException e) {
-      System.err.println(e);
-      assertTrue(e.getMessage().indexOf("is not a valid language tag")>= 0); 
+      assertTrue(e.getCause().getMessage().indexOf("is not a valid language tag")>= 0); 
     }
 
   }

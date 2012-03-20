@@ -68,13 +68,12 @@ import org.melati.util.PropertiesUtils;
 
 /**
  * A MelatiConfig loads and provides access to the configuration parameters for
- * melati. These are held in <TT>org.melati.MelatiConfig.properties</TT>.
+ * Melati. These are held in <TT>org.melati.MelatiConfig.properties</TT>.
  */
 public class MelatiConfig {
 
   private Properties configuration = null;
-  /** The properties file name. */
-  private String propertiesName = "org.melati.MelatiConfig";
+  private String propertiesPrefix = "org.melati.MelatiConfig";
 
   private AccessHandler accessHandler = null;
   private FormDataAdaptorFactory fdaFactory = null;
@@ -95,9 +94,9 @@ public class MelatiConfig {
    * params.
    */
   public MelatiConfig() {
+    propertiesPrefix = getClass().getCanonicalName();
     try {
-      configuration =
-        PropertiesUtils.fromResource(getClass(), propertiesName + ".properties");
+      configuration = PropertiesUtils.fromResource(getClass(), propertiesPrefix + ".properties");
     }
     catch (FileNotFoundException e) {
       configuration = new Properties();
@@ -105,38 +104,22 @@ public class MelatiConfig {
       // TimP: Naah
     }
     catch (IOException e) {
-      throw new ConfigException("The file " + propertiesName + ".properties" +
-                                " could not be read." +
-                                " Full Error: " + e.toString());
+      throw new ConfigException("The file " + propertiesPrefix + ".properties" +
+                                " could not be read.", e);
     }
-    init(propertiesName);
+    init(propertiesPrefix);
   }
 
   /**
    * Allows creation of a <code>MelatiConfig</code> with a specified
    * properties file.
    * 
-   * @param propertiesName
+   * @param propertiesFilename
    *        the name of a properties file
    */
-  public MelatiConfig(String propertiesName) {
-    this.propertiesName = propertiesName;
-    try {
-      configuration =
-        PropertiesUtils.fromResource(getClass(), propertiesName + ".properties");
-    }
-    catch (FileNotFoundException e) {
-      throw new ConfigException("The file " + propertiesName + "properties" +
-                                " could not be found." +
-                                " Is it in your CLASSPATH?  Full Error: " +
-                                e.toString());
-    }
-    catch (IOException e) {
-      throw new ConfigException("The file " + propertiesName + ".properties" +
-                                " could not be read." +
-                                " Full Error: " + e.toString());
-    }
-    init(propertiesName);
+  public MelatiConfig(String propertiesFilename) {
+    configuration = getProperties(propertiesFilename);
+    init(propertiesFilename);
   }
 
   /**
@@ -145,13 +128,32 @@ public class MelatiConfig {
    */
   public MelatiConfig(Properties properties) {
     configuration = properties;
-    init(propertiesName);
+    init(propertiesPrefix);
   }
 
+  
+  public static Properties getProperties() {
+    return getProperties(MelatiConfig.class.getCanonicalName());
+  }
+  public static Properties getProperties(String propertiesName) {
+    try {
+      return PropertiesUtils.fromResource(MelatiConfig.class, propertiesName + ".properties");
+    }
+    catch (FileNotFoundException e) {
+      throw new ConfigException("The file " + propertiesName + "properties" +
+                                " could not be found." +
+                                " Is it in your CLASSPATH?", e);
+    }
+    catch (IOException e) {
+      throw new ConfigException("The file " + propertiesName + ".properties" +
+                                " could not be read.", e);
+    }
+    
+  }
   @SuppressWarnings("unchecked")
   void init(String propertiesNameIn) {
-    this.propertiesName = propertiesNameIn;
-    String pref = propertiesName + ".";
+    this.propertiesPrefix = propertiesNameIn;
+    String pref = propertiesPrefix + ".";
     
     String accessHandlerProp              = pref + "accessHandler";
     String fdaFactoryProp                 = pref + "formDataAdaptorFactory";
@@ -241,8 +243,7 @@ public class MelatiConfig {
           logoutPageServletClassNameProp, logoutPageServletClassName));
     }
     catch (Exception e) {
-      throw new ConfigException("Melati could not be configured because: " +
-                                e.toString(), e);
+      throw new ConfigException("Melati could not be configured", e);
     }
 
   }

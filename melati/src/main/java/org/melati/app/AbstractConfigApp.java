@@ -49,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.util.Properties;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -149,26 +150,32 @@ public abstract class AbstractConfigApp implements App {
    *           if anything goes wrong with Melati
    */
   protected MelatiConfig melatiConfig() throws MelatiException {
-    MelatiConfig config = new MelatiConfig();
+    Properties servletProperties = MelatiConfig.getProperties();
 
-    if (config.getAccessHandler() instanceof HttpBasicAuthenticationAccessHandler
-            || config.getAccessHandler() instanceof HttpSessionAccessHandler)
-      try {
-        config.setAccessHandler((AccessHandler)OpenAccessHandler.class
-                .newInstance());
-      } catch (Exception e) {
-        throw new InstantiationPropertyException(OpenAccessHandler.class
-                .getName(), e);
-      }
-
-    if (config.getTemplateEngine() instanceof org.melati.template.webmacro.WebmacroServletTemplateEngine)
-      try {
-        config.setTemplateEngine((WebmacroTemplateEngine)WebmacroTemplateEngine.class
-                .newInstance());
-      } catch (Exception e) {
-        throw new InstantiationPropertyException(WebmacroTemplateEngine.class
-                .getName(), e);
-      }
+    if (servletProperties.getProperty("org.melati.MelatiConfig.templateEngine").equals(
+        "org.melati.template.webmacro.WebmacroServletTemplateEngine"))
+      servletProperties.setProperty("org.melati.MelatiConfig.templateEngine", 
+          "org.melati.template.webmacro.WebmacroTemplateEngine");
+    if (servletProperties.getProperty("org.melati.MelatiConfig.templateEngine").equals(
+        "org.melati.template.webmacro.VelocityServletTemplateEngine"))
+      servletProperties.setProperty("org.melati.MelatiConfig.templateEngine", 
+          "org.melati.template.webmacro.VelocityTemplateEngine");
+    if (servletProperties.getProperty("org.melati.MelatiConfig.templateEngine").equals(
+        "org.melati.template.webmacro.FreemarkerServletTemplateEngine"))
+      servletProperties.setProperty("org.melati.MelatiConfig.templateEngine", 
+          "org.melati.template.webmacro.FreemarkerTemplateEngine");
+       
+    if (servletProperties.getProperty("org.melati.MelatiConfig.accessHandler").equals(
+        "org.melati.login.HttpBasicAuthenticationAccessHandler"))
+      servletProperties.setProperty("org.melati.MelatiConfig.accessHandler", 
+          "org.melati.login.OpenAccessHandler");
+    if (servletProperties.getProperty("org.melati.MelatiConfig.accessHandler").equals(
+        "org.melati.login.HttpSessionAccessHandler"))
+      servletProperties.setProperty("org.melati.MelatiConfig.accessHandler", 
+          "org.melati.login.OpenAccessHandler");
+       
+    
+    MelatiConfig config = new MelatiConfig(servletProperties);
 
     return config;
   }

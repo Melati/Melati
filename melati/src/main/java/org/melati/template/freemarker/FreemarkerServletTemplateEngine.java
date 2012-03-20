@@ -57,8 +57,6 @@ import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateIOException;
 import org.melati.template.velocity.MelatiBufferedVelocityWriter;
 import org.melati.template.velocity.MelatiVelocityWriter;
-import org.melati.util.MelatiBufferedWriter;
-import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiWriter;
 
 /**

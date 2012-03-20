@@ -54,18 +54,11 @@ import java.util.Properties;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
-
-import org.melati.login.AccessHandler;
-import org.melati.login.HttpBasicAuthenticationAccessHandler;
-import org.melati.login.HttpSessionAccessHandler;
-import org.melati.login.OpenAccessHandler;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.util.ArrayUtils;
-import org.melati.template.webmacro.WebmacroTemplateEngine;
-import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
-import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiSimpleWriter;
+import org.melati.util.MelatiWriter;
 
 /**
  * ConfigApp is the simplest way to use Melati.

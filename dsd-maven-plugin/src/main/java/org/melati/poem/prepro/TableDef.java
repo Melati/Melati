@@ -321,7 +321,8 @@ public class TableDef {
         + dsd.databaseTablesClassName + "() {\n" + "    return ("
         + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
 
-    w.write("\n /**\n" + "  * Retrieves the  <code>" + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
+    w.write("\n /**\n" 
+        + "  * Retrieves the  <code>" + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
         + "  * see org.melati.poem.prepro.TableDef"
         + "#generatePersistentBaseJava \n" 
@@ -329,16 +330,19 @@ public class TableDef {
         + "  */\n");
     w.write("  @SuppressWarnings(\"unchecked\")\n");
     w.write("  public " + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+"> "
-        + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
-        + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+">)getTable();\n" + "  }\n\n");
+        + tableNamingInfo.tableAccessorMethod() + "() {\n" 
+        + "    return ("
+        + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+">)getTable();\n" 
+        + "  }\n\n");
       
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
       w.write("  @SuppressWarnings(\"unchecked\")\n");
-      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous()+"> _"
-          + tableNamingInfo.tableAccessorMethod() + "() {\n" + "    return ("
-          + tableNamingInfo.tableMainClassUnambiguous() + "<"+tableNamingInfo.mainClassUnambiguous()+">)getTable();\n" + "  }\n\n");
+      w.write("  protected " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous() + "> _" + tableNamingInfo.tableAccessorMethod() + "() {\n" 
+          + "    return ("
+          + tableNamingInfo.tableMainClassUnambiguous() + "<"+tableNamingInfo.mainClassUnambiguous()+">)getTable();\n" 
+          + "  }\n\n");
 
       w.write("  // Fields in this table \n");
       for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {

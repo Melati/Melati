@@ -92,7 +92,7 @@ import org.melati.poem.test.TableCategoryTest;
 import org.melati.poem.test.TableFactoryTest;
 import org.melati.poem.test.TableInfoTest;
 import org.melati.poem.test.TableMapTest;
-import org.melati.poem.test.TableSortedMapTest;
+//import org.melati.poem.test.TableSortedMapTest;
 import org.melati.poem.test.TableTest;
 import org.melati.poem.test.TailoredQueryTest;
 import org.melati.poem.test.TroidPoemTypeTest;

@@ -339,7 +339,7 @@ public class TableDef {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
       w.write("  @SuppressWarnings(\"unchecked\")\n");
-      w.write("  protected " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous() + "> _" + tableNamingInfo.tableAccessorMethod() + "() {\n" 
+      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous() + "> _" + tableNamingInfo.tableAccessorMethod() + "() {\n" 
           + "    return ("
           + tableNamingInfo.tableMainClassUnambiguous() + "<"+tableNamingInfo.mainClassUnambiguous()+">)getTable();\n" 
           + "  }\n\n");

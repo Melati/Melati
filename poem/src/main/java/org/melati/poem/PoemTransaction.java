@@ -95,8 +95,15 @@ public class PoemTransaction extends Transaction {
 
   protected void backingRollback() {
     try {
-      connection.rollback();
-      if (database.logCommits()) database.log(new RollbackLogEvent(this));
+      // MySQL closes idle connections by default
+      if(connection.isClosed()){
+        if (database.logCommits()) database.log(
+              "No rollback on closed connection for " 
+                  + new RollbackLogEvent(this));
+      } else {
+        connection.rollback();
+        if (database.logCommits()) database.log(new RollbackLogEvent(this));
+      }
     }
     catch (SQLException e) {
       throw new RollbackFailedPoemException(e);

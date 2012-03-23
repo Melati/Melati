@@ -19,7 +19,6 @@
  * b) any version of the Melati Software License, as published
  *    at http://melati.org
  *
- * You should have received a copy of the GNU General Public License and
  * the Melati Software License along with this program;
  * if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
@@ -214,10 +213,11 @@ table tableInfo
     (displaylevel = primary);
 
   String description 
-    (size = unlimited) 
     (nullable)
+    (size = unlimited) 
     (description = "A brief description of the table's function")
     (displaylevel = record) 
+    (width = 50) 
     (searchability = no);
 
   Integer displayorder
@@ -291,6 +291,7 @@ abstract table ValueInfo {
     (nullable)
     (description = "A brief description of the field's function")
     (displaylevel = record)
+    (width = 50) 
     (searchability = no);
 
   Boolean usereditable

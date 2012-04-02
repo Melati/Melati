@@ -158,6 +158,11 @@ public class Melati {
     this.config = config;
   }
 
+  /** Convenience constructor. */ 
+  public Melati(MelatiWriter writer) {
+    this.config = new MelatiConfig();
+    this.writer = writer;
+  }
   /**
    * Construct a Melati for use in 'stand alone' mode.
    * NB: you will not have access to servlet related stuff (eg sessions)

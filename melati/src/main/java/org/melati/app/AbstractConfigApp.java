@@ -242,7 +242,7 @@ public abstract class AbstractConfigApp implements App {
     return unnamedArguments;
   }
 
-  private void setOutput(String path) throws IOException {
+  public void setOutput(String path) throws IOException {
     File outputFile = new File(path).getCanonicalFile();
     File parent = new File(outputFile.getParent());
     parent.mkdirs();

@@ -249,7 +249,7 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
   }
 
   /**
-   * Captialise the first character of the input string.
+   * Capitalise the first character of the input string.
    * 
    * @param name
    * @return the capitalised string

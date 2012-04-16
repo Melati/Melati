@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <body>
 
@@ -19,16 +21,17 @@
 <section name=" CVS Access ">
 
 <p>Melati is available via anonymous CVS, which also has a 
-<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/${artifactId}/">web interface</A>. 
+<a href="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/${artifactId}/">web interface</a>. 
 </p>
-<p>With the command-line CVS client, you do:
+<p>
+With the command-line CVS client, you do:
+</p>
 <pre>
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
 (Logging in to anonymous@melati.org)
 CVS password: anonymous
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout ${artifactId}
 </pre>
-</p>
 
 <p>
  You will need a CVS client to perform the above procedure.  

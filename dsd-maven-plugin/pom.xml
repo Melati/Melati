@@ -23,12 +23,29 @@
     </dependency>
   </dependencies>
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
    <resources>
     <resource>
      <directory>${basedir}</directory>
      <targetPath>META-INF</targetPath>
      <includes>
       <include>NOTICE.txt</include>
+     </includes>
+    </resource>
+    <resource>
+     <directory>${basedir}/src/main/resources/m2e</directory>
+     <targetPath>META-INF/m2e</targetPath>
+     <includes>
+      <include>lifecycle-mapping-metadata.xml</include>
      </includes>
     </resource>
     <resource>

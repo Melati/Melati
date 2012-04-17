@@ -17,7 +17,6 @@ import org.melati.util.test.TreeDatabase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
-import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.JSStaticTree;
@@ -73,9 +72,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     m.setTemplateEngine(templateEngine);
     m.setPoemContext(new PoemContext());
     assertNotNull(m.getTemplateEngine());
-    TemplateContext templateContext =
-      templateEngine.getTemplateContext(m);
-    m.setTemplateContext(templateContext);
   }
   
   abstract protected void melatiConfig() throws MelatiException ;

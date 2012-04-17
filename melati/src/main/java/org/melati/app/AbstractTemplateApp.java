@@ -52,6 +52,7 @@ import org.melati.Melati;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiConfigurationException;
 import org.melati.util.MelatiException;
 
@@ -76,12 +77,13 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     templateEngine = melatiConfig.getTemplateEngine();
     TemplateContext templateContext = null;
     templateEngine.init(melatiConfig);
-    templateContext = templateEngine.getTemplateContext(melati);
-    if (templateContext == null) {
+    try { 
+     templateContext = templateEngine.getTemplateContext();
+    } catch (TemplateEngineException e) { 
       try {
         super.term(melati);
-      } catch (IOException e) {
-        e = null;
+      } catch (IOException ee) {
+        ee = null;
       }
       throw new MelatiConfigurationException(
           "Have you configured a template engine? " + 

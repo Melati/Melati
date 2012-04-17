@@ -55,9 +55,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
       super.testRenderedTreeable();
       fail("Should have bombed");
     } catch (TemplateEngineException e) { 
-      assertEquals("The template " + 
-              "org/melati/templets/html/org.melati.util.JSStaticTree.none" +  
-              " could not be found because you have not configured a template engine.", e.getMessage());
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
     }
   }
 
@@ -162,9 +160,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     try { 
       super.testRenderedAccessPoemException();
     } catch (TemplateEngineException e) { 
-      assertEquals("The template " + 
-              "org/melati/templets/html/org.melati.poem.AccessPoemException.none" +  
-              " could not be found because you have not configured a template engine.", e.getMessage());
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
     }
   }
 
@@ -200,9 +196,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     try { 
       super.testRenderedObject();
     } catch (TemplateEngineException e) { 
-      assertEquals("The template " + 
-              "org/melati/templets/html/java.lang.Integer.none" +  
-              " could not be found because you have not configured a template engine.", e.getMessage());
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
     }
   }
 
@@ -266,9 +260,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     try { 
       super.testTemplateFoundOnClasspath();
     } catch (TemplateEngineException e) { 
-      assertEquals("The template " + 
-              "org/melati/templets/html/org.melati.template.test.Templated.none" +  
-              " could not be found because you have not configured a template engine.", e.getMessage());
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
     }
   }
 
@@ -280,9 +272,7 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     try { 
       super.testUntemplatedObjectUsesToString();
     } catch (TemplateEngineException e) { 
-      assertEquals("The template " + 
-              "org/melati/templets/html/java.util.Properties.none" +  
-              " could not be found because you have not configured a template engine.", e.getMessage());
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
     }
   }
   /**

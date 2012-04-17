@@ -49,7 +49,6 @@ import java.util.Map;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
 
-import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.template.NotFoundException;
 import org.melati.template.Template;
@@ -95,10 +94,10 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
   }
 
   /**
-   * @see org.melati.template.TemplateEngine#getTemplateContext(org.melati.Melati)
+   * @see org.melati.template.TemplateEngine#getTemplateContext()
    */
   @Override
-  public TemplateContext getTemplateContext(Melati melati) throws TemplateEngineException {
+  public TemplateContext getTemplateContext() throws TemplateEngineException {
     Map<String, Object> context = new HashMap<String, Object>();
     return new FreemarkerServletTemplateContext(context);
   }

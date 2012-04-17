@@ -45,7 +45,6 @@
 package org.melati.template.webmacro;
 
 
-import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
@@ -98,10 +97,9 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   /**
    * Create a new, empty, Context for WebMacro.
    *
-   * @param melati the {@link Melati}
    * @return a {@link TemplateContext}
    */
-  public TemplateContext getTemplateContext(Melati melati) {
+  public TemplateContext getTemplateContext() {
     Context context = new Context(wm.getBroker());
     return new WebmacroTemplateContext(context);
   }

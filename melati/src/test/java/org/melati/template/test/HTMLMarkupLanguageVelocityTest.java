@@ -1,6 +1,7 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
+import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.velocity.VelocityTemplateEngine;
 import org.melati.util.MelatiBugMelatiException;
@@ -29,6 +30,9 @@ public class HTMLMarkupLanguageVelocityTest extends HTMLMarkupLanguageSpec {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    TemplateContext templateContext =
+        templateEngine.getTemplateContext();
+      m.setTemplateContext(templateContext);
   }
 
   protected void melatiConfig() throws MelatiException {

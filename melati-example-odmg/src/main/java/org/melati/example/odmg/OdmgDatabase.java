@@ -11,6 +11,7 @@ import org.melati.example.odmg.generated.OdmgDatabaseBase;
 public class OdmgDatabase extends OdmgDatabaseBase
                             implements OdmgDatabaseTables {
   // programmer's domain-specific code here
+  // Don't forget to delete first line to prevent overwriting
 }
 
 

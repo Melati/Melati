@@ -11,6 +11,7 @@ import org.melati.util.test.generated.TreeDatabaseBase;
 public class TreeDatabase extends TreeDatabaseBase
                             implements TreeDatabaseTables {
   // programmer's domain-specific code here
+  // Don't forget to delete first line to prevent overwriting
 }
 
 

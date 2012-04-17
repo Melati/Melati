@@ -97,7 +97,7 @@ public class TableNamingInfo {
    */
   public boolean hidden = false;
 
-  private String projectName;
+  public String projectName;
 
   public TableNamingInfo extended;
 
@@ -198,8 +198,8 @@ public class TableNamingInfo {
     return "import " + tableMainClassFQName() + ";\n";
   }
   String importPersistentString() {
-    return (hidesOther || hidden) ? 
-        "// import " + mainClassFQName() +  ";\n" 
+    return (hidden) ? 
+        "// hidden import " + mainClassFQName() +  ";\n" 
         : "import " + mainClassFQName() +  ";\n" ;
   }
 
@@ -274,6 +274,9 @@ public class TableNamingInfo {
   }
   String tableMainClassShortName() {
     return capitalisedShortName + "Table";
+  }
+  String subclassedTableMainClassShortName() {
+    return projectName + capitalisedShortName + "Table";
   }
 
   String tableMainClassUnambiguous() {

@@ -106,13 +106,12 @@ public class NoTemplateEngine extends AbstractTemplateEngine implements ServletT
   /**
    * Throw exception.
    *
-   * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
    * @return a {@link TemplateContext}
    */
-  public TemplateContext getTemplateContext(Melati melati)
+  public TemplateContext getTemplateContext()
       throws TemplateEngineException {
-    return melati.getTemplateContext();
+    throw new TemplateEngineException(message);
   }
 
   /**

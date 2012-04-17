@@ -1,6 +1,7 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
+import org.melati.template.TemplateContext;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.poem.AccessPoemException;
@@ -36,6 +37,9 @@ public class WMLMarkupLanguageWebmacroTest extends WMLMarkupLanguageSpec {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    TemplateContext templateContext =
+        templateEngine.getTemplateContext();
+      m.setTemplateContext(templateContext);
   }
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();

@@ -52,7 +52,7 @@ public class AdminUtilsTest extends PoemTestCase {
     m.setTemplateEngine(templateEngine);
     assertNotNull(m.getTemplateEngine());
     TemplateContext templateContext =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(templateContext);
     PoemContext pc = new PoemContext();
     pc.setLogicalDatabase("melatijunit");

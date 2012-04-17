@@ -5,13 +5,11 @@ package org.melati.template.test;
 
 import java.util.Enumeration;
 
-import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.util.MelatiStringWriter;
 
 /**
  * @author timp
@@ -58,13 +56,12 @@ public abstract class TemplateEngineSpec extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.template.TemplateEngine#getTemplateContext(org.melati.Melati)}.
+   * Test method for {@link org.melati.template.TemplateEngine#getTemplateContext()}.
    */
   public void testGetTemplateContext() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     templateEngine.init(mc);
-    Melati melati = new Melati(mc,new MelatiStringWriter());
-    templateEngine.getTemplateContext(melati); 
+    templateEngine.getTemplateContext(); 
   }
 
   /**
@@ -142,8 +139,7 @@ public abstract class TemplateEngineSpec extends PoemTestCase {
   public void testExpandedTemplate() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     templateEngine.init(mc);
-    Melati melati = new Melati(mc,new MelatiStringWriter());
-    TemplateContext templateContext = templateEngine.getTemplateContext(melati);
+    TemplateContext templateContext = templateEngine.getTemplateContext();
     Template template = templateEngine.template("org/melati/template/test/Templated" + 
         templateEngine.templateExtension());
     assertEquals("Hi, this is from a template.", templateEngine.expandedTemplate(template, templateContext));

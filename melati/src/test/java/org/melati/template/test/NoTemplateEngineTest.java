@@ -64,9 +64,8 @@ public class NoTemplateEngineTest extends ServletTemplateEngineSpec {
     MelatiConfig mc = new MelatiConfig();
     servletTemplateEngine.init(mc);
     Melati melati = new Melati(mc,new MelatiStringWriter());
-    servletTemplateEngine.getTemplateContext(melati); 
     try { 
-      servletTemplateEngine.expandTemplate(melati.getWriter(), (String)null, servletTemplateEngine.getTemplateContext(melati));
+      servletTemplateEngine.expandTemplate(melati.getWriter(), (String)null, servletTemplateEngine.getTemplateContext());
       fail("Should have blown up");
     } catch (TemplateEngineException e) { 
       e = null;
@@ -82,9 +81,8 @@ public class NoTemplateEngineTest extends ServletTemplateEngineSpec {
     MelatiConfig mc = new MelatiConfig();
     servletTemplateEngine.init(mc);
     Melati melati = new Melati(mc,new MelatiStringWriter());
-    servletTemplateEngine.getTemplateContext(melati); 
     try { 
-      servletTemplateEngine.expandTemplate(melati.getWriter(), (Template)null, servletTemplateEngine.getTemplateContext(melati));
+      servletTemplateEngine.expandTemplate(melati.getWriter(), (Template)null, servletTemplateEngine.getTemplateContext());
       fail("Should have blown up");
     } catch (TemplateEngineException e) { 
       e = null;
@@ -97,16 +95,27 @@ public class NoTemplateEngineTest extends ServletTemplateEngineSpec {
   public void testExpandedTemplate() throws Exception {
     MelatiConfig mc = new MelatiConfig();
     servletTemplateEngine.init(mc);
-    Melati melati = new Melati(mc,new MelatiStringWriter());
-    servletTemplateEngine.getTemplateContext(melati); 
     try { 
-      servletTemplateEngine.expandedTemplate(null, servletTemplateEngine.getTemplateContext(melati));
+      servletTemplateEngine.expandedTemplate(null, servletTemplateEngine.getTemplateContext());
       fail("Should have blown up");
     } catch (TemplateEngineException e) { 
       e = null;
     } 
   }
 
+  /**
+   * Test method for {@link org.melati.template.TemplateEngine#getTemplateContext()}.
+   */
+  public void testGetTemplateContext() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    templateEngine.init(mc);
+    try { 
+      templateEngine.getTemplateContext(); 
+      fail("Should have blown up");
+    } catch (TemplateEngineException e) { 
+      e = null;
+    } 
+  }
   /**
    * Test method for {@link org.melati.template.TemplateEngine#getEngine()}.
    */

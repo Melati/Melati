@@ -55,7 +55,7 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     m.setTemplateEngine(templateEngine);
     assertNotNull(m.getTemplateEngine());
     TemplateContext templateContext =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(templateContext);
     PoemContext poemContext = new PoemContext();
     poemContext.setLogicalDatabase("melatijunit");

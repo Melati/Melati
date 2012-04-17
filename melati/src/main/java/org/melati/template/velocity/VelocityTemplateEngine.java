@@ -45,7 +45,6 @@ package org.melati.template.velocity;
 
 import java.util.Properties;
 
-import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
@@ -113,11 +112,9 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
   /**
    * Get the template context for Velocity.
    * 
-   * @param melati
-   *        the {@link Melati}
    * @return a {@link TemplateContext}
    */
-  public TemplateContext getTemplateContext(Melati melati) {
+  public TemplateContext getTemplateContext() {
     VelocityContext context = new VelocityContext();
     return new VelocityServletTemplateContext(context);
   }

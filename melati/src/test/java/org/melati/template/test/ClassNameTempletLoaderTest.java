@@ -74,7 +74,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     Template t = ClassNameTempletLoader.getInstance().templet(
             templateEngine, ml, templated.getClass());
     TemplateContext tc =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(tc);
     tc.put("melati", m);
     tc.put("ml", ml);
@@ -146,7 +146,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     Template t = ClassNameTempletLoader.getInstance().templet(
             templateEngine, ml, new Object().getClass().getName());
     TemplateContext tc =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(tc);
     tc.put("melati", m);
     tc.put("ml", ml);
@@ -189,7 +189,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     Template t = ClassNameTempletLoader.getInstance().templet(
             templateEngine, ml, templated.getClass());
     TemplateContext tc =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(tc);
     tc.put("melati", m);
     tc.put("ml", ml);
@@ -214,7 +214,7 @@ public class ClassNameTempletLoaderTest extends PoemTestCase {
     m.setPoemContext(new PoemContext());
     assertNotNull(m.getTemplateEngine());
     TemplateContext templateContext =
-      templateEngine.getTemplateContext(m);
+      templateEngine.getTemplateContext();
     m.setTemplateContext(templateContext);
     MarkupLanguage ml = m.getMarkupLanguage();
     Template t = ClassNameTempletLoader.getInstance().templet(

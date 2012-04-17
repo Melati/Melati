@@ -71,11 +71,10 @@ public interface TemplateEngine {
   /**
    * Create a new Context for this engine.
    *
-   * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
    * @return a {@link TemplateContext}
    */
-  TemplateContext getTemplateContext(Melati melati)
+  TemplateContext getTemplateContext()
       throws TemplateEngineException;
 
   /**

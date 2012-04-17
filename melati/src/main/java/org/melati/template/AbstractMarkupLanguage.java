@@ -291,7 +291,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       throw new NullPointerException();
     else {
         TemplateContext vars =
-          melati.getTemplateEngine().getTemplateContext(melati);
+          melati.getTemplateEngine().getTemplateContext();
         Template templet =
           templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
         vars.put("object", o);
@@ -351,7 +351,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       templet = templetLoader.templet(melati.getTemplateEngine(), this, templetName);
 
     TemplateContext vars =
-        melati.getTemplateEngine().getTemplateContext(melati);
+        melati.getTemplateEngine().getTemplateContext();
 
     if (overrideNullable) {
       field = field.withNullable(true);

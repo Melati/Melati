@@ -43,12 +43,12 @@
  */
 package org.melati.template;
 
+import java.util.Map;
+
 
 /**
  * A Context for use by a {@link TemplateEngine} to expand a {@link Template} 
  * against.
- * 
- * TODO Extend Map
  * 
  * @see ServletTemplateContext
  */
@@ -87,5 +87,7 @@ public interface TemplateContext {
    */
   void setPropagateExceptionHandling();
 
+  /** Load from a Map */
+  void putAll(Map<String, Object> m);
 }
 

@@ -45,6 +45,8 @@
 package org.melati.template.webmacro;
 
 
+import java.util.Map;
+
 import org.melati.template.TemplateContext;
 import org.webmacro.Context;
 
@@ -117,6 +119,12 @@ public class WebmacroTemplateContext implements TemplateContext {
     context.setEvaluationExceptionHandler(
         new PropagateEvaluationExceptionHandler());
   }
+
+  @Override
+  public void putAll(Map<String, Object> m) {
+    context.putAll(m);
+  }
+
 }
 
 

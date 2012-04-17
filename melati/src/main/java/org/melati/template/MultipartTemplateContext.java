@@ -50,6 +50,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import org.melati.Melati;
@@ -200,6 +201,10 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     peer.setPropagateExceptionHandling();    
   }
 
+  @Override
+  public void putAll(Map<String, Object> m) {
+    peer.putAll(m);
+  }
 }
 
 

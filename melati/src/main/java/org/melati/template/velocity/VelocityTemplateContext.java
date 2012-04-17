@@ -43,6 +43,8 @@
 package org.melati.template.velocity;
 
 
+import java.util.Map;
+
 import org.apache.velocity.app.event.EventCartridge;
 import org.melati.template.TemplateContext;
 
@@ -115,4 +117,10 @@ public class VelocityTemplateContext implements TemplateContext {
     ec.addEventHandler(new PropagateEvaluationExceptionHandler());        
   }
 
+  @Override
+  public void putAll(Map<String, Object> m) {
+    for (String k : m.keySet()) { 
+      velocityContext.put(k,m.get(k));
+    }
+  }
 }

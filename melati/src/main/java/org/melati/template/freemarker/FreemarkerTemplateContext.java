@@ -83,10 +83,6 @@ public class FreemarkerTemplateContext implements TemplateContext {
     return context;    
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateContext#setPassbackExceptionHandling()
-   */
   @Override
   public void setPassbackExceptionHandling() {
   }
@@ -94,5 +90,10 @@ public class FreemarkerTemplateContext implements TemplateContext {
 
   @Override
   public void setPropagateExceptionHandling() {
+  }
+
+  @Override
+  public void putAll(Map<String, Object> m) {
+    context.putAll(m);
   }
 }

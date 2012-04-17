@@ -480,7 +480,6 @@ public class DSD {
       TableDef td = t.nextElement();
       if (td.isAbstract) w.write("// abstract ");
       if (td.tableNamingInfo.hidden) w.write ("// hidden ");
-      if (td.tableNamingInfo.hidesOther) w.write ("// hides ");
       w.write(td.tableNamingInfo.importTableString());
       if (td.isAbstract) w.write("// abstract ");
       w.write(td.tableNamingInfo.importPersistentString());

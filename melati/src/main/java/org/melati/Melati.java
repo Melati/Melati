@@ -68,7 +68,6 @@ import org.melati.poem.util.StringUtils;
 import org.melati.servlet.Form;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
-import org.melati.template.NotFoundException;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;

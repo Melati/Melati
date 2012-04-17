@@ -88,6 +88,6 @@ public interface TemplateContext {
   void setPropagateExceptionHandling();
 
   /** Load from a Map */
-  void putAll(Map<String, Object> m);
+  void putAll(Map<String, ?> m);
 }
 

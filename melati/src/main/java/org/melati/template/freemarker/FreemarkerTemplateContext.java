@@ -93,7 +93,7 @@ public class FreemarkerTemplateContext implements TemplateContext {
   }
 
   @Override
-  public void putAll(Map<String, Object> m) {
+  public void putAll(Map<String, ?> m) {
     context.putAll(m);
   }
 }

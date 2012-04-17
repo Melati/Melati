@@ -197,10 +197,16 @@ public class TableDef {
    */
   public void generateTableDeclarationJava(Writer w)
       throws IOException {
-    if (!isAbstract)
+    if (!isAbstract) {
+      w.write("  private " + tableNamingInfo.tableMainClassShortName() +
+          "<" + tableNamingInfo.mainClassShortName() + ">" +
+          " tab_" + name + " = null;\n");
+      /*
       w.write("  private " + tableNamingInfo.tableMainClassRootReturnClass() +
           "<" + tableNamingInfo.mainClassRootReturnClass() + ">" +
           " tab_" + name + " = null;\n");
+   */
+    }
   }
 
   /**
@@ -235,14 +241,20 @@ public class TableDef {
     if (isAbstract) 
       return;
 
-    generateTableAccessorDeclaration(w, false);
-    
+    generateTableAccessorDeclaration(w, false);    
     w.write(" {\n" + "    return ");
     // This cast is not actually required as ours is a subclass anyway
     // but with generics we need to :(
     if (!tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()))
       w.write("(" + tableNamingInfo.tableMainClassRootReturnClass() + ")");
     w.write("tab_" + name + ";\n  }\n");
+    
+    if (tableNamingInfo.hidesOther) {
+      generateSubclassedTableAccessorDeclaration(w, false);    
+      w.write(" {\n" + "    return ");
+      w.write("tab_" + name + ";\n  }\n");      
+    }
+
   }
 
 
@@ -259,20 +271,37 @@ public class TableDef {
 
     generateTableAccessorDeclaration(w, true);    
     w.write(";\n");
+    
+    if (tableNamingInfo.hidesOther) {
+      generateSubclassedTableAccessorDeclaration(w, true);    
+      w.write(";\n");
+    }
+
   }
 
   private void generateTableAccessorDeclaration(Writer w, boolean inInterface) throws IOException {
     w.write("\n /**\n"
-        + "  * Retrieves the " + tableNamingInfo.tableMainClassShortName() + " table.\n"
-        + "  *\n"
-        + "  * see " + "org.melati.poem.prepro.TableDef"
-        + "#generateTableAccessorJava \n"
-        + "  * @return the " + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n" + "  */\n");
+          + "  * Retrieves the " + tableNamingInfo.tableMainClassShortName() + " table.\n"
+          + "  *\n");
+    if (!tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()))
+      w.write("  * Deprecated: use get" + tableNamingInfo.projectName + tableNamingInfo.tableMainClassShortName() + "\n");
+    w.write("  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava \n"
+          + "  * @return the " + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n" + "  */\n");
     if (!inInterface)
      if (!tableNamingInfo.tableMainClassRootReturnClass().equals(tableNamingInfo.tableMainClassUnambiguous()))
         w.write("  @SuppressWarnings({ \"rawtypes\", \"unchecked\" })\n");
-    w.write("  public " + tableNamingInfo.tableMainClassRootReturnClass() + "<" + tableNamingInfo.mainClassRootReturnClass() + "> get"
-        + tableNamingInfo.tableMainClassShortName() + "()");
+    w.write("  public " + tableNamingInfo.tableMainClassRootReturnClass() + 
+        "<" + tableNamingInfo.mainClassRootReturnClass() + "> get" + tableNamingInfo.tableMainClassShortName() + "()");
+  }
+  /** Disambiguate a table with the same name as an inherited one eg User */
+  private void generateSubclassedTableAccessorDeclaration(Writer w, boolean inInterface) throws IOException {
+    w.write("\n /**\n"
+        + "  * Retrieves our (" + tableNamingInfo.projectName + ") " + tableNamingInfo.tableMainClassShortName() + " table.\n"
+        + "  *\n"
+        + "  * see org.melati.poem.prepro.TableDef#generateSubclassedTableAccessorDeclaration \n"
+        + "  * @return the " + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n" + "  */\n");
+    w.write("  public " + tableNamingInfo.tableMainClassShortName() + 
+        "<" + tableNamingInfo.mainClassShortName() + "> get" + tableNamingInfo.projectName + tableNamingInfo.tableMainClassShortName() + "()");
   }
 
   /**

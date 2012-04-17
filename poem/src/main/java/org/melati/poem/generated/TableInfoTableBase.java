@@ -292,6 +292,10 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
             return "A brief description of the table's function";
           }
 
+          public int defaultWidth() {
+            return 50;
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDescription_unsafe();

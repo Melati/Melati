@@ -202,7 +202,7 @@ public class MultipartTemplateContext implements ServletTemplateContext {
   }
 
   @Override
-  public void putAll(Map<String, Object> m) {
+  public void putAll(Map<String, ?> m) {
     peer.putAll(m);
   }
 }

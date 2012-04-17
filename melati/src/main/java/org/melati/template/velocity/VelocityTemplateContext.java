@@ -118,7 +118,7 @@ public class VelocityTemplateContext implements TemplateContext {
   }
 
   @Override
-  public void putAll(Map<String, Object> m) {
+  public void putAll(Map<String, ?> m) {
     for (String k : m.keySet()) { 
       velocityContext.put(k,m.get(k));
     }

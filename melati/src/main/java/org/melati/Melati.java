@@ -68,6 +68,7 @@ import org.melati.poem.util.StringUtils;
 import org.melati.servlet.Form;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
+import org.melati.template.NotFoundException;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
@@ -1013,5 +1014,15 @@ public class Melati {
   }
 
 
-  
+  /** 
+   * The result of interpolating the template against the context, 
+   * assuming context, engine and template all setup.  
+   * @throws NotFoundException
+   */
+  public String interpolated(String templateName) throws NotFoundException { 
+    return getTemplateEngine()
+        .expandedTemplate(
+            getTemplateEngine().template(templateName),
+            getTemplateContext());
+  }
 }

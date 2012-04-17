@@ -167,6 +167,10 @@ public class ValueInfoTableBase<T extends ValueInfo> extends PoemTable<T> {
             return "A brief description of the field's function";
           }
 
+          public int defaultWidth() {
+            return 50;
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getDescription_unsafe();

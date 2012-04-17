@@ -10,7 +10,7 @@ import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 
 /**
- * Melati POEM generated, programmer modifyable inheritance hook.
+ * Melati POEM generated, programmer modifiable inheritance hook.
  */
 public class OdmgTable<P extends Persistent> extends JdbcTable<P> {
 
@@ -31,6 +31,7 @@ public class OdmgTable<P extends Persistent> extends JdbcTable<P> {
   }
 
   // programmer's domain-specific code here
+  // Don't forget to delete first line to prevent overwriting
 }
 
 

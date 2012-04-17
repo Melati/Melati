@@ -5,7 +5,7 @@ package org.melati.poem.test.generated;
 
 // 28 tables in database
 // hidden import org.melati.poem.UserTable;
-// import org.melati.poem.User;
+// hidden import org.melati.poem.User;
 import org.melati.poem.GroupTable;
 import org.melati.poem.Group;
 import org.melati.poem.CapabilityTable;
@@ -58,8 +58,8 @@ import org.melati.poem.test.ProtectedTable;
 import org.melati.poem.test.Protected;
 import org.melati.poem.test.DynamicTable;
 import org.melati.poem.test.Dynamic;
-// hides import org.melati.poem.test.UserTable;
-// import org.melati.poem.test.User;
+import org.melati.poem.test.UserTable;
+import org.melati.poem.test.User;
 
 /**
  * Melati POEM generated base interface to the tables in 
@@ -255,10 +255,19 @@ public interface EverythingDatabaseTablesBase {
  /**
   * Retrieves the UserTable table.
   *
+  * Deprecated: use getEverythingUserTable
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the org.melati.poem.UserTable from this database
   */
   public org.melati.poem.UserTable<org.melati.poem.User> getUserTable();
+
+ /**
+  * Retrieves our (Everything) UserTable table.
+  *
+  * see org.melati.poem.prepro.TableDef#generateSubclassedTableAccessorDeclaration 
+  * @return the org.melati.poem.UserTable from this database
+  */
+  public UserTable<User> getEverythingUserTable();
 }
 
 

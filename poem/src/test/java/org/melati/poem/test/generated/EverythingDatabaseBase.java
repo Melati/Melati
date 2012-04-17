@@ -51,7 +51,7 @@ import org.melati.poem.test.Protected;
 import org.melati.poem.test.ProtectedTable;
 import org.melati.poem.test.Dynamic;
 import org.melati.poem.test.DynamicTable;
-// import org.melati.poem.test.User;
+import org.melati.poem.test.User;
 import org.melati.poem.test.UserTable;
 
 /**
@@ -82,7 +82,7 @@ public class EverythingDatabaseBase extends PoemDatabase {
   private TimestampFieldTable<TimestampField> tab_timestampfield = null;
   private ProtectedTable<Protected> tab_protected = null;
   private DynamicTable<Dynamic> tab_dynamic = null;
-  private org.melati.poem.UserTable<org.melati.poem.User> tab_user = null;
+  private UserTable<User> tab_user = null;
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   protected EverythingDatabaseBase() {
@@ -372,12 +372,23 @@ public class EverythingDatabaseBase extends PoemDatabase {
  /**
   * Retrieves the UserTable table.
   *
+  * Deprecated: use getEverythingUserTable
   * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the org.melati.poem.UserTable from this database
   */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public org.melati.poem.UserTable<org.melati.poem.User> getUserTable() {
     return (org.melati.poem.UserTable)tab_user;
+  }
+
+ /**
+  * Retrieves our (Everything) UserTable table.
+  *
+  * see org.melati.poem.prepro.TableDef#generateSubclassedTableAccessorDeclaration 
+  * @return the org.melati.poem.UserTable from this database
+  */
+  public UserTable<User> getEverythingUserTable() {
+    return tab_user;
   }
 }
 

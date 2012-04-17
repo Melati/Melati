@@ -1013,16 +1013,4 @@ public class Melati {
     return templateName;
   }
 
-
-  /** 
-   * The result of interpolating the template against the context, 
-   * assuming context, engine and template all setup.  
-   * @throws NotFoundException
-   */
-  public String interpolated(String templateName) throws NotFoundException { 
-    return getTemplateEngine()
-        .expandedTemplate(
-            getTemplateEngine().template(templateName),
-            getTemplateContext());
-  }
 }

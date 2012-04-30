@@ -10,8 +10,9 @@
 
 <section name=" Melati ">
 <p>
-  <a href="http://melati.org/">Melati</a> is a tool for building websites backed by a
-  database, accessing a database over <tt>HTTP</tt> or from the command line.
+  <a href="http://melati.org/">Melati</a> is a tool for building 
+  websites backed by a database, accessing a database over <tt>HTTP</tt> 
+  or from the command line.
 </p>
 </section>
 <section name=" Maven ">

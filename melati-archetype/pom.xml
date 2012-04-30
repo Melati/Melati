@@ -11,6 +11,10 @@
   <name>Melati Archetype</name>
   <url>http://melati.org/melati-archetype/</url>
   <properties>
+    <!-- Guess what, this does not work -->
+    <velocimacro.permissions.allow.inline.to.replace.global>true</velocimacro.permissions.allow.inline.to.replace.global>
+    <!--  nor is velocity.properties respected -->
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>

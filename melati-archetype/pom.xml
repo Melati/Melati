@@ -6,13 +6,12 @@
     <groupId>org.melati</groupId>
     <artifactId>melati-parent</artifactId>
     <version>0.7.9-SNAPSHOT</version>
-    <relativePath>../</relativePath>
   </parent>
   <packaging>jar</packaging>
   <name>Melati Archetype</name>
   <url>http://melati.org/melati-archetype/</url>
- <properties>
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
- </properties>
+  </properties>
 </project>

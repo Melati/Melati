@@ -1,0 +1,98 @@
+<archetype-descriptor 
+  xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+  name="melati-archetype" partial="false" >
+  <requiredProperties>
+    <requiredProperty key="groupId" >
+      <defaultValue/>
+    </requiredProperty>
+    <requiredProperty key="artifactId" >
+      <defaultValue/>
+    </requiredProperty>
+    <requiredProperty key="version" >
+      <defaultValue/>
+    </requiredProperty>
+  </requiredProperties>
+  <fileSets>
+    <fileSet filtered="true" packaged="false" encoding="utf-8" >
+      <directory>src/main/java/</directory>
+      <includes>
+       <include>NOTICE.txt</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="utf-8" >
+      <directory>src/main/java/</directory>
+      <includes>
+       <include>AppServlet.java</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="utf-8" >
+      <directory>src/main/java</directory>
+      <includes>
+       <include>poem/App.dsd</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="utf-8" >
+      <directory>src/test/java</directory>
+      <includes>
+       <include>poem/test/PoemTest.java</include>
+       <include>melati/test/JettyWebTestCase.java</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="utf-8" >
+      <directory>src/main/conf/org/melati/</directory>
+      <includes>
+       <include>org.melati.LogicalDatabase.properties</include>
+       <include>org.melati.MelatiConfig.properties</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="utf-8" >
+      <directory>src/main/webapp/</directory>
+      <includes>
+       <include>index.jsp</include>
+       <include>WEB-INF/web.xml</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="utf-8" >
+      <directory>src/site</directory>
+      <includes>
+       <include>site.xml</include>
+       <include>xdoc/LICENSE.txt</include>
+       <include>xdoc/index.xml</include>
+       <include>xdoc/Usage.xml</include>
+       <include>xdoc/Download.xml</include>
+      </includes>
+      <excludes/>
+    </fileSet>
+    
+    
+    
+  </fileSets>
+
+
+
+<!-- 
+  <modules>
+    <module id=.. dir=.. name=.. >
+      <fileSets>
+        <fileSet filtered=.. packaged=.. encoding=.. >
+          <directory/>
+          <includes/>
+          <excludes/>
+        </fileSet>
+      </fileSets>
+
+      <modules>
+        <module>...recursion...<module>
+      </modules>
+    </module>
+  </modules>
+ -->  
+</archetype-descriptor>

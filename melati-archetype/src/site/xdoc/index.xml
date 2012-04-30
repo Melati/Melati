@@ -27,8 +27,15 @@ This page last updated: $Date$ $Author$
 <section name=" Melati Maven Archetype">
 <subsection name=" Generate a prototypical Melati project ">
 <pre>
-<input type='text' size='180' 
-value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=0.7.9-SNAPSHOT -DgroupId=com.ical -Dversion=0.7.9-SNAPSHOT -DartifactId=art' />
+<textarea type='text' size='180' height='3'> 
+mvn archetype:generate -DarchetypeGroupId=org.melati \ 
+ -DarchetypeArtifactId=melati-archetype \
+ -DarchetypeVersion=${project.version} \
+ -DgroupId=com.ical \
+ -Dversion=${project.version} \ 
+ -DartifactId=art \
+ -DinteractiveMode=false
+</textarea>
 </pre>
 <p>
 This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the current working directory called <tt>art</tt>.

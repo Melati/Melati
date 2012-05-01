@@ -7,10 +7,13 @@
   <!-- HACK the version is set to the Melati version to use :( -->
   <version>${version}</version>
   <url>http://www.paneris.net/${artifactId}</url>
+   <description>
+   The ${groupId} ${artifactId}.
+   </description>
 
   <ciManagement>
     <system>Jenkins</system>
-    <url>http://jenkins.paneris.net/</url>
+    <url>http://jenkins.paneris.net/{$project.artifactId}/</url>
   </ciManagement>
 
   <scm>
@@ -114,14 +117,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.melati</groupId>
-      <artifactId>poem</artifactId>
+      <artifactId>melati</artifactId>
       <version>${version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
-      <artifactId>melati</artifactId>
+      <artifactId>poem</artifactId>
       <version>${version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
@@ -200,57 +203,16 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-compiler-plugin</artifactId>
+     <version>2.4</version>
      <configuration>
       <source>1.6</source>
       <target>1.6</target>
      </configuration>
     </plugin>
     <plugin>
-     <artifactId>maven-antrun-plugin</artifactId>
-     <!-- Delete this once it has run once -->
-     <!-- It is called twice as the pom is validated twice :( -->
-     <executions>
-      <execution>
-       <id>moveGeneratedFiles</id>
-       <phase>validate</phase>
-        <configuration>
-         <tasks>
-#set ($dollar = "$")
-#macro ( capitalise $stringIn )
-  #set ($firstChar = $stringIn.substring(0,1).toUpperCase())
-  #set ($rest = $stringIn.substring(1))
-${firstChar}${rest}#end
-
-    <move failonerror="false" 
-      file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/AppServlet.java" 
-      tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/#capitalise(${artifactId})Servlet.java" />
-    <move failonerror="false" 
-      file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem/App.dsd" 
-      tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd" />
-    <move failonerror="false" 
-      file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem/test/PoemTest.java" 
-      tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/test/PoemTest.java" />
-    <move failonerror="false" 
-      file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati/test/JettyWebTestCase.java" 
-      tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/melati/test/#capitalise(${artifactId})JettyWebTestCase.java" />
-    <delete failonerror="false" 
-      dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem" />
-    <delete failonerror="false" 
-      dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem" />
-    <delete failonerror="false" 
-      dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati" />
-
-         </tasks>
-       </configuration>
-       <goals>
-        <goal>run</goal>
-       </goals>
-      </execution>
-     </executions>
-    </plugin>
-    <plugin>
      <groupId>org.melati</groupId>
      <artifactId>maven-dsd-plugin</artifactId>
+     <version>${version}</version>
      <executions>
        <execution>
          <phase>generate-sources</phase>
@@ -271,55 +233,10 @@ ${firstChar}${rest}#end
       </dependency>
      </dependencies>
     </plugin>
-     <!-- Copy the images etc to melati-static, unwanted side effect is that the classes file end up there too :( -->
-     <plugin>
-       <groupId>org.codehaus.mojo</groupId>
-       <artifactId>dependency-maven-plugin</artifactId>
-       <executions>
-         <execution>
-           <id>unzip-resources</id>
-           <phase>generate-resources</phase>
-           <goals>
-             <goal>unpack</goal>
-           </goals>
-           <configuration>
-             <artifactItems>
-               <artifactItem>
-                 <groupId>org.melati</groupId>
-                 <artifactId>melati</artifactId>
-                 <version>${version}</version>
-               </artifactItem>
-             </artifactItems>
-             <outputDirectory>src/main/webapp</outputDirectory>
-           </configuration>
-         </execution>
-       </executions>
-     </plugin>
-     <plugin>
-       <groupId>org.codehaus.mojo</groupId>
-       <artifactId>exec-maven-plugin</artifactId>
-       <executions>
-         <execution>
-          <id>exportDSD</id>
-          <phase>test</phase>
-           <goals>
-             <goal>java</goal>
-           </goals>
-         </execution>
-       </executions>
-       <configuration>
-         <mainClass>org.melati.app.DSDApp</mainClass>
-         <arguments>
-           <argument>${artifactId}</argument>
-           <argument>DSD</argument>
-           <argument>-output</argument>
-           <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd</argument>
-         </arguments>
-       </configuration>
-    </plugin>
     <plugin>
      <groupId>org.mortbay.jetty</groupId>
      <artifactId>maven-jetty-plugin</artifactId>
+     <version>6.1.26</version>     
       <configuration>
         <contextPath>/</contextPath>
         <scanIntervalSeconds>3</scanIntervalSeconds>
@@ -374,8 +291,124 @@ ${firstChar}${rest}#end
       <url>http://www.melati.org/maven2/</url>
     </repository>
   </repositories>
- <properties>
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
- </properties>
+  </properties>
+  <profiles>
+    <profile>
+      <id>first</id>
+      <build>
+       <plugins>
+        <!-- Copy the images etc to melati-static, unwanted side effect is that the classes file end up there too :( -->
+        <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>dependency-maven-plugin</artifactId>
+         <executions>
+           <execution>
+             <id>unzip-resources</id>
+             <phase>generate-resources</phase>
+             <goals>
+               <goal>unpack</goal>
+             </goals>
+             <configuration>
+               <artifactItems>
+                 <artifactItem>
+                   <groupId>org.melati</groupId>
+                   <artifactId>melati</artifactId>
+                   <version>${version}</version>
+                 </artifactItem>
+               </artifactItems>
+               <outputDirectory>src/main/webapp</outputDirectory>
+             </configuration>
+           </execution>
+         </executions>
+        </plugin>
+        <plugin>
+         <artifactId>maven-antrun-plugin</artifactId>
+          <!-- Delete this once it has run once -->
+          <!-- It is called twice as the pom is validated twice :( -->
+         <executions>
+          <execution>
+           <id>moveGeneratedFiles</id>
+           <phase>validate</phase>
+           <configuration>
+             <tasks>
+#set ($dollar = "$")
+#macro ( capitalise $stringIn )
+  #set ($firstChar = $stringIn.substring(0,1).toUpperCase())
+  #set ($rest = $stringIn.substring(1))
+${firstChar}${rest}#end
+
+       <move failonerror="false" 
+         file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/AppServlet.java" 
+         tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/#capitalise(${artifactId})Servlet.java" />
+       <move failonerror="false" 
+         file="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem/App.dsd" 
+         tofile="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd" />
+       <move failonerror="false" 
+         file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem/test/PoemTest.java" 
+         tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/test/PoemTest.java" />
+       <move failonerror="false" 
+         file="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati/test/JettyWebTestCase.java" 
+         tofile="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/${artifactId}/melati/test/#capitalise(${artifactId})JettyWebTestCase.java" />
+       <delete failonerror="false" 
+          dir="${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/poem" />
+       <delete failonerror="false" 
+          dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/poem" />
+       <delete failonerror="false" 
+          dir="${dollar}{project.build.testSourceDirectory}/${groupId.replace(".","/")}/melati" />
+            </tasks>
+           </configuration>
+           <goals>
+            <goal>run</goal>
+           </goals>
+          </execution>
+         </executions>
+        </plugin>
+       </plugins>
+      </build>
+     </profile>
+     <profile>
+     <id>updateJava</id>
+     <dependencies>
+      <!--   
+       #set $melati.ResponseContentType = "text/plain"
+       This dependency is required due to introspection
+       in template DSD.wm -->
+      <dependency>
+       <groupId>javax.servlet</groupId>
+       <artifactId>servlet-api</artifactId>
+       <version>2.5</version>
+      </dependency>       
+     </dependencies>
+     <build>
+     <plugins>
+      <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>exec-maven-plugin</artifactId>
+       <version>1.2.1</version>
+       <executions>
+         <execution>
+          <id>exportDSD</id>
+          <phase>test</phase>
+           <goals>
+             <goal>java</goal>
+           </goals>
+         </execution>
+       </executions>
+       <configuration>
+         <mainClass>org.melati.app.DSDApp</mainClass>
+         <arguments>
+           <argument>${artifactId}</argument>
+           <argument>DSD</argument>
+           <argument>-output</argument>
+           <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd</argument>
+         </arguments>
+       </configuration>
+      </plugin>
+     </plugins>
+    </build>
+   </profile>
+ </profiles>
 </project>

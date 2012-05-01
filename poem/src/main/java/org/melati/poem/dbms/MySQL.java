@@ -137,7 +137,10 @@ public class MySQL extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#createTableOptionsSql()
    */
   public String createTableOptionsSql() {
-    return " TYPE='InnoDB' ";
+    //MySQL 5.5 doesn't support "type" table option, instead it uses ENGINE option.
+    //return " TYPE='InnoDB' "; 
+
+    return " ENGINE='InnoDB' ";
   }
 
 /**

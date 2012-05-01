@@ -41,11 +41,22 @@ mvn archetype:generate -DarchetypeGroupId=org.melati \
 This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the current working directory called <tt>art</tt>.
 </p>
 <p>
-Note that we are hacking the version to be the melati version. Also the pom will contain a one-off ant-run task which can be deleted.
+Note that we are hacking the version of the generated project to be 
+the current version of Melati.
+</p>
+<p> 
+The pom will contain a one-off ant-run task which must be run using <tt>-Pfirst</tt>.
+This does some file moving that cannot be done within the archetype itself. 
+It can be deleted after first run.
 </p>
 <pre>
 cd art
-mvn install
+mvn install -P first
+</pre>
+<p>
+Generate some eclipse configuration files:
+</p>
+<pre>
 mvn -DdownloadSources=true -DdownloadJavadoc=true eclipse:eclipse
 </pre>
 </subsection>
@@ -65,7 +76,10 @@ column definitions.
 When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
 </p>
 <p>
-New java files will be generated the next time you run <tt>mvn test</tt>.
+New java files will be generated the next time you run 
+<pre>
+mvn test -PupdateJava
+</pre>.
 </p>
 </subsection>
 </section>

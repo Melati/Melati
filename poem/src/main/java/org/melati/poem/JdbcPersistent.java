@@ -1107,8 +1107,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * @return an SQL snippet 
    */
   protected String fromClause() {
-    String result = getTable().quotedName();
-    return result;
+    return getTable().quotedName();
   }
 
   public Treeable[] getChildren() {

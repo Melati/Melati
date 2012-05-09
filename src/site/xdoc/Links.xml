@@ -92,7 +92,7 @@ This page last updated: $Date$ $Author$
  <li>
   <a href="http://jakarta.apache.org/tomcat/">Tomcat</a> is a
   more modern servlet runner, to which Melati and most Melati-driven sites are
-  migrating.
+  deployed.
  </li>
  <li><a href="http://www.cvshome.org/">CVS</a> Concurrent Versions System 
   is used by the Melati developers. 
@@ -110,6 +110,12 @@ This page last updated: $Date$ $Author$
  </li>
 </ul>
 </section>
+<section name=" Object Relational Mapping links ">
+<ul>
+<li>
+8 May 2012 <a href="http://martinfowler.com/bliki/OrmHate.html"> Martin Fowler - ORM Hate</a>
+</li>
+</ul>
 </body>
 </document>
 

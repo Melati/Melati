@@ -678,17 +678,23 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
           " ADD " + column.quotedName() +
           " " + column.getSQLType().sqlDefinition(dbms()));
     } else {
+      if (column.getUnique()) {
+        throw new UnificationPoemException("Cannot add new unique, non-nullable column " 
+             + column.getName() + " to table " + getName());
+      } else {
+        dbModifyStructure(
+            "ALTER TABLE " + quotedName() +
+            " ADD " + column.quotedName() +
+            " " + column.getSQLType().sqlTypeDefinition(dbms()));
+        dbModifyStructure(
+            "UPDATE " + quotedName() +
+            " SET " + column.quotedName() +
+            " = " + dbms().getQuotedValue(column.getSQLType(), 
+                    column.getSQLType().sqlDefaultValue(dbms())));
+      }
       dbModifyStructure(
-          "ALTER TABLE " + quotedName() +
-          " ADD " + column.quotedName() +
-          " " + column.getSQLType().sqlTypeDefinition(dbms()));
-      dbModifyStructure(
-          "UPDATE " + quotedName() +
-          " SET " + column.quotedName() +
-          " = " + dbms().getQuotedValue(column.getSQLType(), 
-                      column.getSQLType().sqlDefaultValue(dbms())));
-      dbModifyStructure(
-          dbms().alterColumnNotNullableSQL(name, column));      
+          dbms().alterColumnNotNullableSQL(name, column));
+      
     }
   }
 

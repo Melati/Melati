@@ -23,6 +23,7 @@ import org.melati.poem.Searchability;
 import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
+import org.melati.poem.UnificationPoemException;
 import org.melati.poem.util.EnumUtils;
 
 /**
@@ -113,7 +114,16 @@ public class DynamicTableTest extends EverythingTestCase {
     ci.setUsercreateable(true);
 
     ci.makePersistent();
+    try {
+      extra.addColumnAndCommit(ci);
+      fail("Should have bombed");
+    } catch (UnificationPoemException e) { 
+      e = null;
+    }
+    ci.setIndexed(false);
+    ci.setUnique(false);
     extra.addColumnAndCommit(ci);
+
     Persistent extraPersistent = extra.newPersistent();
     PoemThread.commit();
     assertNull(extraPersistent.getTroid());

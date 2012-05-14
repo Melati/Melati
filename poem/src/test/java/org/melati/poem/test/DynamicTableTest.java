@@ -235,8 +235,17 @@ public class DynamicTableTest extends EverythingTestCase {
     ci.setUsercreateable(true);
 
     ci.makePersistent();
-    extra.addColumnAndCommit(ci);
 
+    try {
+      extra.addColumnAndCommit(ci);
+      fail("Should have bombed");
+    } catch (UnificationPoemException e) { 
+      e = null;
+    }
+    ci.setIndexed(false);
+    ci.setUnique(false);
+    extra.addColumnAndCommit(ci);
+    
     Persistent extraInstance = extra.newPersistent();
     PoemThread.commit();
     assertNull(extraInstance.getTroid());

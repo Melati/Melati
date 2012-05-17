@@ -59,6 +59,7 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
+import org.melati.poem.TimestampPoemType;
 import org.melati.poem.util.StringUtils;
 
  /**
@@ -335,6 +336,9 @@ public class MySQL extends AnsiStandard {
       return new MySQLStringPoemType(nullable, md.getInt("COLUMN_SIZE"));
     else if(typeName.equals("smallint"))
       return new IntegerPoemType(nullable);
+    // See http://www.postgresql.org/docs/current/interactive/datatype-datetime.html
+    else if(typeName.equals("datetime"))
+      return new TimestampPoemType(nullable);
     else if(typeName.equals("set"))
       return new StringPoemType(nullable, md.getInt("COLUMN_SIZE"));
     

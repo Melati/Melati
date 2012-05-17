@@ -126,7 +126,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
                DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
-    // System.err.println("Creating table with name " + name + " from " + definitionSource);
+    // database.log("Creating table with name " + name + " from " + definitionSource);
     // Don't do this here as the database does not know about the dbms yet
     // this.quotedName = database.quotedName(name);
     // this is actually set the first time it is accessed in quotedName()
@@ -864,7 +864,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         }
         finally {
           try { rs.close(); } catch (Exception e) {
-            System.err.println("Cannot close resultset after exception.");  
+            database.log("Cannot close resultset after exception.");  
           }
         }
       }
@@ -2177,7 +2177,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
     // Set the new column up
 
-    System.err.println("Adding extra column from runtime " + 
+    database.log("Adding extra column from runtime " + 
         dbms().melatiName(infoP.getName_unsafe()) + 
         " to " + name);
     Column<?> column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
@@ -2259,7 +2259,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * POEM's cache for this table to stderr.
    */
   public void dumpCacheAnalysis() {
-    System.err.println("\n-------- Analysis of " + name + "'s cache\n");
+    database.log("\n-------- Analysis of " + name + "'s cache\n");
     cache.dumpAnalysis();
   }
 
@@ -2655,7 +2655,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column<?> column = _getColumn(columnInfo.getName());
       if (column == null) {
-        System.err.println("Adding extra column " 
+        database.log("Adding extra column " 
           + dbms().melatiName(columnInfo.getName_unsafe()) 
           + " to " + name + " from definition in columninfo table.");
         column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
@@ -2705,7 +2705,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
                 dbms().canRepresent(colType, DeletedPoemType.it) != null)
               colType = DeletedPoemType.it;
             
-            database.log("Adding extra column from sql meta data " + dbms().melatiName(colName));
+            database.log("Adding extra column from sql meta data " 
+                         + name + "." +dbms().melatiName(colName));
             column = new ExtraColumn(this, 
                                      dbms().melatiName(
                                              colName),
@@ -2731,7 +2732,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         throw new SQLSeriousPoemException(e);
       }
       
-    } else if (debug) System.err.println(
+    } else if (debug) database.log(
                         "Table.unifyWithDB called with null ResultsSet");
 
     if (colCount == 0) {
@@ -2741,7 +2742,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       // Create any columns which do not exist in the dbms but are defined in java or metadata 
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-          System.err.println("Adding column to underlying database : " + columns[c]);
+          database.log("Adding column to underlying database : " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }
@@ -2761,7 +2762,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       Hashtable<Column<?>,Boolean> dbHasIndexForColumn = new Hashtable<Column<?>,Boolean>();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
-      if (debug) System.err.println("Getting indexes for " + unreservedName + "(was " + getName() + ")");
+      if (debug) database.log("Getting indexes for " + unreservedName + "(was " + getName() + ")");
       ResultSet index;
       try {
         index = getDatabase().getCommittedConnection().getMetaData().
@@ -2785,17 +2786,17 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
                 column.unifyWithIndex(mdIndexName, index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);                  
-                if(debug)System.err.println("Found Expected Index:" + 
+                if(debug)database.log("Found Expected Index:" + 
                         expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               } else {
                 try { 
                   column.unifyWithIndex(mdIndexName, index);
                   dbHasIndexForColumn.put(column, Boolean.TRUE);                  
-                  if(debug) System.err.println("Not creating index because one exists with different name:" + 
+                  if(debug) database.log("Not creating index because one exists with different name:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
                 } catch (IndexUniquenessPoemException e) { 
                   // Do not add this column, so the correct index will be added later               
-                  if(debug) System.err.println("Creating index because existing on has different properties:" + 
+                  if(debug) database.log("Creating index because existing on has different properties:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
                 }
               }

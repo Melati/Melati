@@ -44,12 +44,14 @@
     </profile>
   </profiles>  
   <dependencies>
+  <!-- 
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>3.2.1</version>
       <scope>compile</scope>
     </dependency>
+ -->    
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
@@ -147,16 +149,13 @@
          </configuration>
        </execution>
      </executions>
-<!--
      <dependencies>
      <dependency>
         <groupId>org.melati</groupId>
         <artifactId>poem</artifactId>
         <version>${project.version}</version>
-        <scope>runtime</scope>
      </dependency>
      </dependencies>
--->
     </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

@@ -2657,7 +2657,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       if (column == null) {
         System.err.println("Adding extra column " 
           + dbms().melatiName(columnInfo.getName_unsafe()) 
-          + " to " + name + " from info tables.");
+          + " to " + name + " from definition in columninfo table.");
         column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
                                   DefinitionSource.infoTables);
         _defineColumn(column);
@@ -2741,7 +2741,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       // Create any columns which do not exist in the dbms but are defined in java or metadata 
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-          if (database.logSQL()) database.log("About to add missing column: " + columns[c]);
+          System.err.println("Adding column to underlying database : " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }

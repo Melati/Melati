@@ -49,6 +49,8 @@ package org.melati.poem.prepro;
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is a <tt>CompareOnly</tt> field.
  * 
+ * FIXME delete or implement
+ * 
  */
 public class CompareOnlyFieldQualifier extends FieldQualifier {
 

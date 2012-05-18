@@ -426,13 +426,15 @@ public abstract class Database implements TransactionPool {
     if (pk != null) {
       log(dbms.getJdbcMetadataName(dbms.unreservedName(pk)));
       ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), dbms.getJdbcMetadataName(dbms.unreservedName(pk)));
-      log("Got a troid column for discovered jdbc table :" + tableName + ":" + pk);
+      log("Discovered a primary key troid candidate column for jdbc table :" + tableName + ":" + pk);
       if (idCol.next()) {
         if (dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) == null)
-          if (pk.equals("id"))
-            throw new UnificationPoemException("Primary Key id cannot represent a Troid");
-          else
+          if (pk.equals("id")) // a non-numeric id column deserves an exception 
+            throw new UnificationPoemException("Primary Key " + pk + " cannot represent a Troid");
+          else {
             pk = null;
+            log("Column " + pk + " cannot represent troid as it has type " + defaultPoemTypeOfColumnMetaData(idCol));
+          }
       } else throw new UnexpectedExceptionPoemException("Found a primary key but no corresponding column");
           
       idCol.close();

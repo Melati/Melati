@@ -143,6 +143,8 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory DATE;
   /** Timestamp base-type factory. */
   public static final PoemTypeFactory TIMESTAMP;
+  /** Time base-type factory. */
+  public static final PoemTypeFactory TIME;
   /** Binary base-type factory. */
   public static final PoemTypeFactory BINARY;
 
@@ -152,9 +154,6 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory  SEARCHABILITY;
   /** Poem IntegrityFix factory. */
   public static final PoemTypeFactory  INTEGRITYFIX;
-
-  /** Time base-type factory. */
-  public static final PoemTypeFactory TIME;
 
   //   private static final void extractRange(Parameter info, BasePoemType type) {
   //     try {

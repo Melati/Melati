@@ -77,7 +77,7 @@ public class DatePoemType extends AtomPoemType<Date> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Date _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getDate(col);
   }
 

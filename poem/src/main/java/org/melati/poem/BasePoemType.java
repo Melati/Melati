@@ -138,18 +138,18 @@ public abstract class BasePoemType<T> implements SQLPoemType<T>, Cloneable {
     }
   }
 
-  protected abstract Object _getRaw(ResultSet rs, int col)
+  protected abstract T _getRaw(ResultSet rs, int col)
       throws SQLException;
 
   /**
    * {@inheritDoc}
    * @see org.melati.poem.SQLType#getRaw(java.sql.ResultSet, int)
    */
-  public final Object getRaw(ResultSet rs, int col)
+  public final T getRaw(ResultSet rs, int col)
       throws ValidationPoemException {
-    Object o;
+    T o;
     try {
-      o = _getRaw(rs, col);
+      o = (T) _getRaw(rs, col);
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);

@@ -164,7 +164,7 @@ public class Oracle extends AnsiStandard {
        super(nullable);
      }
      
-     protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+     protected Boolean _getRaw(ResultSet rs, int col) throws SQLException {
        synchronized (rs) {
          boolean v = rs.getBoolean(col);
          return rs.wasNull() ? null : (v ? Boolean.TRUE : Boolean.FALSE);

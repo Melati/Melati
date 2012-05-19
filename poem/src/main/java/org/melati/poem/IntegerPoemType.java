@@ -91,7 +91,7 @@ public class IntegerPoemType extends AtomPoemType<Integer> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Integer _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       int i = rs.getInt(col);
       return i == 0 && rs.wasNull() ? null : new Integer(i); }

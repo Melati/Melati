@@ -59,7 +59,7 @@ public class SqlExceptionPoemType extends AtomPoemType<Integer> {
    * 
    * @see org.melati.poem.BasePoemType#_getRaw(java.sql.ResultSet, int)
    */
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Integer _getRaw(ResultSet rs, int col) throws SQLException {
     throw new SQLException("Dummy");
   }
 

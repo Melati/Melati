@@ -80,7 +80,7 @@ public class StringPoemType extends SizedAtomPoemType<String> {
     }
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected String _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getString(col);
   }
 

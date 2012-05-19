@@ -96,7 +96,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType<BigDecimal> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected BigDecimal _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       BigDecimal x = rs.getBigDecimal(col);
       return rs.wasNull() ? null : x; }

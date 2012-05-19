@@ -82,7 +82,7 @@ public class BinaryPoemType extends SizedAtomPoemType<byte[]> {
     return new String(Base64.encodeBase64((byte[])raw));
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected byte[] _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getBytes(col);
   }
 

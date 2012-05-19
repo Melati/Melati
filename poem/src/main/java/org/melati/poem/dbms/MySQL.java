@@ -229,7 +229,7 @@ public class MySQL extends AnsiStandard {
       super(nullable);
     }
 
-    protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+    protected Boolean _getRaw(ResultSet rs, int col) throws SQLException {
       synchronized (rs) {
         int i = rs.getInt(col);
           return rs.wasNull() ? null :

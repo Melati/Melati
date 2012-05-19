@@ -85,7 +85,7 @@ public class TimePoemType extends AtomPoemType<Time> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Time _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getTime(col);
   }
 

@@ -143,8 +143,6 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory DATE;
   /** Timestamp base-type factory. */
   public static final PoemTypeFactory TIMESTAMP;
-  /** Time base-type factory. */
-  public static final PoemTypeFactory TIME;
   /** Binary base-type factory. */
   public static final PoemTypeFactory BINARY;
 
@@ -155,6 +153,12 @@ public abstract class PoemTypeFactory {
   /** Poem IntegrityFix factory. */
   public static final PoemTypeFactory  INTEGRITYFIX;
 
+  /** Time base-type factory. */
+  public static final PoemTypeFactory TIME;
+
+  // Add new types here, at the end, or types in columnInfo will break
+  
+  
   //   private static final void extractRange(Parameter info, BasePoemType type) {
   //     try {
   //       type.setRawRange(type.rawOfString(info.getRangelow_string()),

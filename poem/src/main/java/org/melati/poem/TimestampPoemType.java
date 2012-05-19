@@ -86,7 +86,7 @@ public class TimestampPoemType extends AtomPoemType<Timestamp> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Timestamp _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getTimestamp(col);
   }
 

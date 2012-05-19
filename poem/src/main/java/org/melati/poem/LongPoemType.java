@@ -92,7 +92,7 @@ public class LongPoemType extends AtomPoemType<Long> {
       throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+  protected Long _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       long i = rs.getLong(col);
       return i == 0 && rs.wasNull() ? null : new Long(i); }

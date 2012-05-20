@@ -652,9 +652,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         sqb.append(dbms().getForeignKeyDefinition(
                       getName(),
                       columns[c].getName(),
-                      ((ReferencePoemType)columns[c].getSQLType()).
+                      ((PersistentReferencePoemType)columns[c].getSQLType()).
                           targetTable().getName(),
-                      ((ReferencePoemType)columns[c].getSQLType()).
+                      ((PersistentReferencePoemType)columns[c].getSQLType()).
                           targetTable().troidColumn().getName(),
                        fix.getName()));
         try {
@@ -1891,8 +1891,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       new FilteredEnumeration<Column<?>>(columns()) {
         public boolean isIncluded(Column<?> column) {
           PoemType<?> type = ((Column<?>)column).getType();
-          return type instanceof ReferencePoemType &&
-                 ((ReferencePoemType)type).targetTable() == table;
+          return type instanceof PersistentReferencePoemType &&
+                 ((PersistentReferencePoemType)type).targetTable() == table;
         }
       };
   }
@@ -2512,7 +2512,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       if (reallyDoIt) {
         PoemType type = column.getType();
         if (type instanceof ReferencePoemType &&
-            ((ReferencePoemType)type).targetTable() ==
+            ((PersistentReferencePoemType)type).targetTable() ==
                  database.getCapabilityTable()) {
           if (column.getName().equals("canRead"))
             canReadColumn = (Column<Capability>) column;

@@ -94,7 +94,7 @@ public abstract class PoemTypeFactory {
   abstract <T>SQLPoemType<T> typeOf(Database database, Parameter info);
 
   /**
-   * @return the arbetary code for this type
+   * @return the arbitrary code for this type
    */
   public Integer getCode() {
     return code;
@@ -169,7 +169,7 @@ public abstract class PoemTypeFactory {
   //     }
   //   }
 
-  // YUCK this counter means you will need to add new types to the end of the list
+  // YUCK this counter means you will need to add new base types to the end of the list
   private static int n = -1;
   static final PoemTypeFactory[] atomTypeFactories =
     {
@@ -604,6 +604,7 @@ public abstract class PoemTypeFactory {
         return "...";
       }
     },
+    
     };
 
   /**

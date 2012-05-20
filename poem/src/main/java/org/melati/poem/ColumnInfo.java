@@ -185,7 +185,7 @@ public class ColumnInfo extends ColumnInfoBase {
           && !n.equals("typefactory")   
           && !n.equals("tableinfo") // The tableInfo of this columnInfo, not the target
           && !(n.equals("size") && !(column().getType() instanceof SizedAtomPoemType))
-          && !(n.equals("integrityfix") && !(column().getType() instanceof ReferencePoemType)) 
+          && !(n.equals("integrityfix") && !(column().getType() instanceof PersistentReferencePoemType)) 
           && !(n.equals("precision")    && !(column().getType() instanceof FixedPointAtomPoemType))
           && !(n.equals("scale")        && !(column().getType() instanceof FixedPointAtomPoemType)))
         v.addElement(f);

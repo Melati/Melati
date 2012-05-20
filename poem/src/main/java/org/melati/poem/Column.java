@@ -855,10 +855,15 @@ public abstract class Column<T> implements FieldAttributes<T> {
    * @return an Enumeration {@link Persistent}s referencing this Column of the Persistent
    */
   public Enumeration<Persistent> referencesTo(Persistent object) {
-    return (Enumeration<Persistent>) (getType() instanceof ReferencePoemType
-      && ((ReferencePoemType) getType()).targetTable() == object.getTable()
-        ? selectionWhereEq(object.troid())
-        : new EmptyEnumeration<Persistent>());
+    if (getType() instanceof PersistentReferencePoemType)
+      if(((PersistentReferencePoemType) getType()).targetTable() == object.getTable()) { 
+        if (getType() instanceof ReferencePoemType)
+          return selectionWhereEq(object.troid());
+        else if (getType() instanceof StringKeyReferencePoemType)
+          return selectionWhereEq(object.getField(((StringKeyReferencePoemType)getType()).targetKeyName()));
+        else throw new PoemBugPoemException("Unanticipated type " + getType());
+      }
+    return new EmptyEnumeration<Persistent>();
   }
 
   /**

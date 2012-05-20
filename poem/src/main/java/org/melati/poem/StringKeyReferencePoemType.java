@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2012 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,34 +38,46 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc At paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 
 package org.melati.poem;
 
 import java.util.Enumeration;
+
+import org.melati.poem.util.EmptyEnumeration;
 import org.melati.poem.util.StringUtils;
 
 /**
- * A data type that is a reference to a {@link Persistent} object.
+ * A data type that is a reference to a {@link Persistent} object via a 
+ * String key to a unique, non-nullable index.
+ *
+ * @author timp
+ * @since 2012-05-19
  */
-public class ReferencePoemType extends IndexPoemType implements PersistentReferencePoemType {
+public class StringKeyReferencePoemType extends StringKeyPoemType implements PersistentReferencePoemType {
 
   private Table<?> targetTable;
+  
+  private String targetKeyName;
 
   /**
    * Constructor.
    * 
    * @param targetTable the Table the type refers to 
+   * @param targetKeyName name of key both in this and target table
    * @param nullable whether this type may contain null values
    */
-  public ReferencePoemType(Table<?> targetTable, boolean nullable) {
-    super(nullable);
+  public StringKeyReferencePoemType(Table<?> targetTable, 
+      String targetKeyName, boolean nullable, int size) {
+    super(nullable, size);
     if (targetTable == null)
       throw new NullPointerException();
     this.targetTable = targetTable;
+    if (targetKeyName == null)
+      throw new NullPointerException();
+    this.targetKeyName = targetKeyName;
   }
 
   /**
@@ -76,13 +88,18 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
     return targetTable;
   }
 
+  /** @return the key name in target table, also this table */ 
+  public String targetKeyName() { 
+    return targetKeyName;
+  }
   /**
    * Returns an <code>Enumeration</code> of the possible raw values.
    * <p>
    * In this case the troids of rows in the referenced table.
    */
-  protected Enumeration<Integer> _possibleRaws() {
-    return targetTable.troidSelection(null, null, false);
+  protected Enumeration<String> _possibleRaws() {
+    //targetTable.getColumn(targetKeyName)
+    return new EmptyEnumeration<String>(); // FIXME targetTable.troidSelection(null, null, false);
   }
 
   protected void _assertValidCooked(Object cooked)
@@ -102,8 +119,12 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
     return targetTable.getObject((Integer)raw);
   }
 
-  protected Integer _rawOfCooked(Object cooked) {
-    return ((Persistent)cooked).troid();
+  /** 
+   * NOTE that it is expected that the targetKeyName is also 
+   * the name of the field in this persistent.
+   */
+  protected String  _rawOfCooked(Object cooked) {
+    return (String) ((Persistent)cooked).getField(targetKeyName).getRawString();
   }
 
   protected String _stringOfCooked(Object cooked, 
@@ -114,8 +135,8 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
 
   protected boolean _canRepresent(SQLPoemType<?> other) {
     return
-        other instanceof ReferencePoemType &&
-        ((ReferencePoemType)other).targetTable == targetTable;
+        other instanceof StringKeyReferencePoemType &&
+        ((StringKeyReferencePoemType)other).targetTable == targetTable;
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
@@ -129,7 +150,7 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
    */
   public String toString() {
     return
-        "reference to " + targetTable.getName() + 
+        "string key reference to " + targetTable.getName() + 
         " (" + super.toString() + ")";
   }
 
@@ -138,6 +159,6 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
    * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
-    return StringUtils.capitalised(targetTable.getName());
+    return StringUtils.capitalised(targetTable.getName() + " StringKeyReference ");
   }
 }

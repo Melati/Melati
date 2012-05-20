@@ -162,7 +162,7 @@ public final class PersistentFactory {
       }
       if (raw != null) {
         try {
-          if (col.getType() instanceof ReferencePoemType) {
+          if (col.getType() instanceof PersistentReferencePoemType) {
             p.setCooked(col.getName(), 
                         PersistentFactory.fromInstance(table.getDatabase(), raw));
           } else {

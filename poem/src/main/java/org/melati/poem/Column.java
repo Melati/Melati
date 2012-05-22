@@ -931,4 +931,29 @@ public abstract class Column<T> implements FieldAttributes<T> {
       throw new SQLSeriousPoemException(e);
     }
   }
+
+  /**
+   * @param colDescs returned from DatabaseMetaData.getColumns
+   * @throws SQLException 
+   */
+  public void unifyWithMetadata(ResultSet colDescs) throws SQLException {
+    if (info == null)
+      return;
+    String remarks = colDescs.getString("REMARKS");
+    if (getDescription() == null) {
+      if (remarks != null) {
+        info.setDescription(remarks);
+        getDatabase().log("Adding comment from SQL metadata:" + remarks);
+      }
+    } else {
+      if (!this.getDescription().equals(remarks)) {
+        String sql = this.dbms().alterColumnAddCommentSQL(this, null); 
+        if (sql != null)
+          this.getDatabase().modifyStructure(sql);          
+      }
+    }
+      
+    
+  }
+  
 }

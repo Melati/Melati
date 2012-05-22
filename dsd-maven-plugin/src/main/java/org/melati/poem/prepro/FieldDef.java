@@ -208,6 +208,13 @@ public abstract class FieldDef {
     if (tokens.nextToken() != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field name>", tokens);
     String name = tokens.sval;
+    boolean stringKeyReference = false;
+    if (name.equals("StringKeyReference")) {
+      stringKeyReference = true;
+      if (tokens.nextToken() != StreamTokenizer.TT_WORD)
+        throw new ParsingDSDException("<field name>", tokens);
+      name = tokens.sval;
+    }
     tokens.nextToken();
     readFieldQualifiers(qualifiers, tokens);
     DSD.expect(tokens, ';');
@@ -249,9 +256,14 @@ public abstract class FieldDef {
           qualifiers);
     else if (type.equals("byte[]"))
       return new BinaryFieldDef(lineNo, table, name, displayOrder, qualifiers);
-    else
-      return new ReferenceFieldDef(lineNo, table, name, displayOrder, type,
-          qualifiers);
+    else {
+      if (stringKeyReference)    
+        return new StringKeyReferenceFieldDef(lineNo, table, name, displayOrder, type,
+            qualifiers);
+      else
+        return new ReferenceFieldDef(lineNo, table, name, displayOrder, type,
+            qualifiers);
+    }
   }
 
   /**
@@ -264,22 +276,24 @@ public abstract class FieldDef {
    *           if something goes wrong with the file system
    */
   public void generateBaseMethods(Writer w) throws IOException {
-    w.write("\n /**\n" + "  * Retrieves the <code>" + capitalisedName
-        + "</code> value, without locking, \n" + "  * for this <code>"
-        + table.nameFromDsd + "</code> <code>Persistent</code>.\n" + "  *\n"
-        + "  * see org.melati.poem.prepro.FieldDef"
-        + "#generateBaseMethods \n" + "  * @return the " + rawType + " " + name
-        + "\n" + "  */\n");
+    w.write("\n /**\n" 
+        + "  * Retrieves the <code>" + capitalisedName + "</code> value, without locking, \n" 
+        + "  * for this <code>" + table.nameFromDsd + "</code> <code>Persistent</code>.\n" 
+        + "  *\n"
+        + "  * see org.melati.poem.prepro.FieldDef#generateBaseMethods \n" 
+        + "  * @return the " + rawType + " " + name + "\n" 
+        + "  */\n");
     w.write("  public " + rawType + " get" + capitalisedName + "_unsafe() {\n"
-        + "    return " + name + ";\n" + "  }\n" + "\n");
-    w.write("\n /**\n" + "  * Sets the <code>" + capitalisedName
-        + "</code> value directly, without checking, \n" + "  * for this "
-        + table.nameFromDsd + " <code>Persistent</code>.\n" + "  * \n"
-        + "  * see org.melati.poem.prepro.FieldDef"
-        + "#generateBaseMethods \n"
+        + "    return " + name + ";\n" + "  }\n" 
+        + "\n");
+    w.write("\n /**\n" + "  * Sets the <code>" + capitalisedName + "</code> value directly, without checking, \n" + 
+        "  * for this " + table.nameFromDsd + " <code>Persistent</code>.\n" 
+        + "  * \n"
+        + "  * see org.melati.poem.prepro.FieldDef#generateBaseMethods \n"
         + "  * @param cooked  the pre-validated value to set\n" + "  */\n");
-    w.write("  public void set" + capitalisedName + "_unsafe(" + rawType
-        + " cooked) {\n" + "    " + name + " = cooked;\n" + "  }\n");
+    w.write("  public void set" + capitalisedName + "_unsafe(" + rawType + " cooked) {\n" 
+        + "    " + name + " = cooked;\n" 
+        + "  }\n");
   }
 
   /**

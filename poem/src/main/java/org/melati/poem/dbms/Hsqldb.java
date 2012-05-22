@@ -49,6 +49,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 import org.melati.poem.BinaryPoemType;
+import org.melati.poem.Column;
 import org.melati.poem.PoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
@@ -287,5 +288,12 @@ public class Hsqldb extends AnsiStandard {
   public String getJdbcMetadataName(String name) {
     return name.toUpperCase();
   }
+  /**
+   * Our current version does not honour COMMENT. 
+   */
+   @Override
+   public String alterColumnAddCommentSQL(Column<?> column, String comment) {
+     return null;
+   }
 
 }

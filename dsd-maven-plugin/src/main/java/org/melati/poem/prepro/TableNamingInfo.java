@@ -303,8 +303,14 @@ public class TableNamingInfo {
               : tableMainClassUnambiguous();
   }
 
-  String tableAccessorMethod() {
+  String rootTableAccessorName() {
     return "get" + tableMainClassShortName();
+  }
+  public String leafTableAccessorName() {
+    if (hidesOther)
+      return "get" + projectName + tableMainClassShortName();
+    else 
+      return "get" + tableMainClassShortName();
   }
 
   /**
@@ -317,5 +323,6 @@ public class TableNamingInfo {
       curr = curr.superclass;
     return (curr != this) ? curr : null;
   }
+
 }
 

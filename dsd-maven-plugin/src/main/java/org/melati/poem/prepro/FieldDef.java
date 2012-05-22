@@ -78,7 +78,7 @@ public abstract class FieldDef {
 
   final String shortestUnambiguousClassname;
 
-  final String tableAccessorMethod;
+  final String rootTableAccessorMethod;
 
   protected String displayLevel = null;
 
@@ -142,7 +142,7 @@ public abstract class FieldDef {
     this.fieldQualifiers = qualifiers;
 
     this.shortestUnambiguousClassname = table.tableNamingInfo.mainClassUnambiguous();
-    this.tableAccessorMethod = table.tableNamingInfo.tableAccessorMethod();
+    this.rootTableAccessorMethod = table.tableNamingInfo.rootTableAccessorName();
 
     for (int q = 0; q < qualifiers.size(); ++q) {
       ((FieldQualifier)qualifiers.elementAt(q)).apply(this);
@@ -316,7 +316,7 @@ public abstract class FieldDef {
         + "  * @return the " + rawType + " " + name + "\n" 
         + "  */\n");
     w.write("  public Field<" + rawType + "> get" + capitalisedName + "Field() throws AccessPoemException {\n" 
-        + "    Column<"+rawType+"> c = _"+ tableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
+        + "    Column<"+rawType+"> c = _"+ rootTableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
         + "    return new Field<"+rawType+">(("+rawType+")c.getRaw(this), c);\n" 
         + "  }\n");
   }

@@ -88,9 +88,11 @@ public class SizeFieldQualifier extends FieldQualifier {
   */
   public void apply(FieldDef field) throws SizeApplicationException {
     if (field instanceof StringFieldDef)
-       ((StringFieldDef)field).setSize(size);
+     ((StringFieldDef)field).setSize(size);
     else if (field instanceof BinaryFieldDef)
-       ((BinaryFieldDef)field).setSize(size);
+      ((BinaryFieldDef)field).setSize(size);
+    else if (field instanceof StringKeyReferenceFieldDef)
+      ((StringKeyReferenceFieldDef)field).setSize(size);
     else
       throw new SizeApplicationException(field);
   }

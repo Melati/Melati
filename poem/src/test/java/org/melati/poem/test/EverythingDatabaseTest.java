@@ -57,6 +57,7 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "Protected (from the data structure definition)" +
     "Dynamic (from the data structure definition)" +
     "User (from the data structure definition)" + 
+    "Account (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 
     "groupMembership (from the data structure definition)" + 

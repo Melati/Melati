@@ -53,6 +53,8 @@ import org.melati.poem.test.Dynamic;
 import org.melati.poem.test.DynamicTable;
 import org.melati.poem.test.User;
 import org.melati.poem.test.UserTable;
+import org.melati.poem.test.Account;
+import org.melati.poem.test.AccountTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -83,6 +85,7 @@ public class EverythingDatabaseBase extends PoemDatabase {
   private ProtectedTable<Protected> tab_protected = null;
   private DynamicTable<Dynamic> tab_dynamic = null;
   private UserTable<User> tab_user = null;
+  private AccountTable<Account> tab_account = null;
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   protected EverythingDatabaseBase() {
@@ -110,6 +113,7 @@ public class EverythingDatabaseBase extends PoemDatabase {
     redefineTable(tab_protected = new ProtectedTable<Protected>(this, "Protected", DefinitionSource.dsd));
     redefineTable(tab_dynamic = new DynamicTable<Dynamic>(this, "Dynamic", DefinitionSource.dsd));
     redefineTable(tab_user = new org.melati.poem.test.UserTable(this, "User", DefinitionSource.dsd));
+    redefineTable(tab_account = new AccountTable<Account>(this, "Account", DefinitionSource.dsd));
   }
 
 
@@ -389,6 +393,17 @@ public class EverythingDatabaseBase extends PoemDatabase {
   */
   public UserTable<User> getEverythingUserTable() {
     return tab_user;
+  }
+
+
+ /**
+  * Retrieves the AccountTable table.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the AccountTable from this database
+  */
+  public AccountTable<Account> getAccountTable() {
+    return tab_account;
   }
 }
 

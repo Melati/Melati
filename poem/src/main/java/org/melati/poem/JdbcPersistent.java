@@ -785,7 +785,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * {@inheritDoc}
    * @see org.melati.poem.Persistent#delete(java.util.Map)
    */
-  public void delete(Map<Column<?>, IntegrityFix> integrityFixOfColumn) {
+  public void delete(Map<Column<?>, IntegrityFix> columnToIntegrityFix) {
     
     assertNotFloating();
 
@@ -799,12 +799,12 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
 
       IntegrityFix fix;
       try {
-        fix = integrityFixOfColumn == null ?
-                null : integrityFixOfColumn.get(column);
+        fix = columnToIntegrityFix == null ?
+                null : columnToIntegrityFix.get(column);
       }
       catch (ClassCastException e) {
         throw new AppBugPoemException(
-            "integrityFixOfColumn argument to Persistent.deleteAndCommit " +
+            "columnToIntegrityFix argument to Persistent.deleteAndCommit " +
                 "is meant to be a Map from Column to IntegrityFix",
             e);
       }
@@ -812,10 +812,22 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
       if (fix == null)
         fix = column.getIntegrityFix();
 
-      refEnumerations.addElement(
+      if (column.getType() instanceof ReferencePoemType)
+        refEnumerations.addElement(
           fix.referencesTo(this, column, column.selectionWhereEq(troid()),
-                           integrityFixOfColumn));
+                           columnToIntegrityFix));
+      else if (column.getType() instanceof StringKeyReferencePoemType) {
+        getDatabase().log("Found a StringKeyReferencePoemType " + getName());
+        String keyName = ((StringKeyReferencePoemType)column.getType()).targetKeyName();
+        String keyValue = (String)getRaw(keyName);
+        if (keyValue != null)
+          refEnumerations.addElement(
+              fix.referencesTo(this, column, column.selectionWhereEq(keyValue),
+                               columnToIntegrityFix));
 
+      } else 
+        throw new UnexpectedExceptionPoemException(
+            "Only expecting Reference or StringKeyReferences");
     }
 
     Enumeration<Persistent> refs = new FlattenedEnumeration<Persistent>(refEnumerations.elements());

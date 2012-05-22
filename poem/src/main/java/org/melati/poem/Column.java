@@ -437,8 +437,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
   }
 
   /**
-   * Get the IntegrityFix, if any.
-   * @return the IntegrityFix or default
+   * @return the specified or default IntegrityFix
    */
   public IntegrityFix getIntegrityFix() {
     IntegrityFix it = info.getIntegrityfix();

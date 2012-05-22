@@ -221,7 +221,7 @@ public interface Persistent extends Persistable, Treeable {
    * which is actually stored in the database, given to you as a basic Java
    * type; currently, the only fields for which this differs from the `true
    * value' returned from <TT>getCooked</TT> are reference fields with type
-   * <TT>ReferencePoemType</TT>.
+   * <TT>ReferencePoemType</TT> and <TT>StringKeyReferencePoemType</TT>.
    *
    * <P>
    *

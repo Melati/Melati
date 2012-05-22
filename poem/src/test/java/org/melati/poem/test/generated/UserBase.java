@@ -13,6 +13,7 @@ import org.melati.poem.Field;
 import org.melati.poem.GroupMembership;
 // import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.Account;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.Protected;
 // import org.melati.poem.test.User;
@@ -186,6 +187,28 @@ public abstract class UserBase extends org.melati.poem.User {
   /** References to this User in the Protected table via its spy field, as a List.*/
   public List<Protected> getSpyProtectedList() {
     return Collections.list(getSpyProtecteds());
+  }
+
+
+
+  private CachedSelection<Account> userAccounts = null;
+  /** References to this User in the Account table via its user field.*/
+  @SuppressWarnings("unchecked")
+  public Enumeration<Account> getUserAccounts() {
+    if (getTroid() == null)
+      return new EmptyEnumeration<Account>();
+    else {
+      if (userAccounts == null)
+        userAccounts =
+          getEverythingDatabaseTables().getAccountTable().getUserColumn().cachedSelectionWhereEq(getTroid());
+      return userAccounts.objects();
+    }
+  }
+
+
+  /** References to this User in the Account table via its user field, as a List.*/
+  public List<Account> getUserAccountList() {
+    return Collections.list(getUserAccounts());
   }
 
 

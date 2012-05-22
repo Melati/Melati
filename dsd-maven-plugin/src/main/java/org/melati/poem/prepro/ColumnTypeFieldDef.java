@@ -167,7 +167,7 @@ public class ColumnTypeFieldDef extends FieldDef {
     w.write("\n" +
             "  public void set" + capitalisedName + "Code(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
-            "    " + tableAccessorMethod + "().get" + capitalisedName + "Column()." +
+            "    " + rootTableAccessorMethod + "().get" + capitalisedName + "Column()." +
                      "getType().assertValidRaw(raw);\n" +
             "    writeLock();\n" +
             "    set" + capitalisedName + "_unsafe(raw);\n" +

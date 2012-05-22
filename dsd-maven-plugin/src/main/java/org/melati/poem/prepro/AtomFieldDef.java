@@ -165,7 +165,7 @@ public class AtomFieldDef extends FieldDef {
     w.write(
             "  public void set" + capitalisedName + "(" + typeShortName + " cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    _" + tableAccessorMethod + "().get" + capitalisedName + "Column().\n" +
+            "    _" + rootTableAccessorMethod + "().get" + capitalisedName + "Column().\n" +
             "      getType().assertValidCooked(cooked);\n" +
             "    writeLock();\n" +
             "    set" + capitalisedName + "_unsafe(cooked);\n" +

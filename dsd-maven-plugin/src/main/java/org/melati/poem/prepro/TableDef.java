@@ -300,8 +300,9 @@ public class TableDef {
         + "  *\n"
         + "  * see org.melati.poem.prepro.TableDef#generateSubclassedTableAccessorDeclaration \n"
         + "  * @return the " + tableNamingInfo.tableMainClassRootReturnClass() + " from this database\n" + "  */\n");
-    w.write("  public " + tableNamingInfo.tableMainClassShortName() + 
-        "<" + tableNamingInfo.mainClassShortName() + "> get" + tableNamingInfo.projectName + tableNamingInfo.tableMainClassShortName() + "()");
+    w.write("  public " + tableNamingInfo.tableMainClassShortName() 
+        + "<" + tableNamingInfo.mainClassShortName() + "> " 
+        + tableNamingInfo.leafTableAccessorName() + "()");
   }
 
   /**
@@ -331,7 +332,7 @@ public class TableDef {
 
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
-    String requiredReturnClass = tableNamingInfo.tableMainClassRootReturnClass();
+    String rootReturnClass = tableNamingInfo.tableMainClassRootReturnClass();
 
     w.write("\n" + "/**\n"
         + " * Melati POEM generated abstract base class for a "
@@ -346,29 +347,28 @@ public class TableDef {
             "  * Retrieves the Database object.\n" + "  * \n" + 
             "  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava \n" + 
             "  * @return the database\n" + "  */\n");
-    w.write("  public " + dsd.databaseTablesClassName + " get"
-        + dsd.databaseTablesClassName + "() {\n" + "    return ("
-        + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
+    w.write("  public " + dsd.databaseTablesClassName + " get" + dsd.databaseTablesClassName + "() {\n" 
+        + "    return (" + dsd.databaseTablesClassName + ")getDatabase();\n" 
+        + "  }\n" + "\n");
 
     w.write("\n /**\n" 
         + "  * Retrieves the  <code>" + tableNamingInfo.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
-        + "  * see org.melati.poem.prepro.TableDef"
-        + "#generatePersistentBaseJava \n" 
-        + "  * @return the " + requiredReturnClass + "\n" 
+        + "  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava \n" 
+        + "  * @return the " + rootReturnClass + "\n" 
         + "  */\n");
     w.write("  @SuppressWarnings(\"unchecked\")\n");
-    w.write("  public " + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+"> "
-        + tableNamingInfo.tableAccessorMethod() + "() {\n" 
+    w.write("  public " + rootReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+"> "
+        + tableNamingInfo.rootTableAccessorName() + "() {\n" 
         + "    return ("
-        + requiredReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+">)getTable();\n" 
+        + rootReturnClass + "<"+tableNamingInfo.mainClassRootReturnClass()+">)getTable();\n" 
         + "  }\n\n");
       
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
       w.write("  @SuppressWarnings(\"unchecked\")\n");
-      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous() + "> _" + tableNamingInfo.tableAccessorMethod() + "() {\n" 
+      w.write("  private " + tableNamingInfo.tableMainClassUnambiguous() +"<"+tableNamingInfo.mainClassUnambiguous() + "> _" + tableNamingInfo.rootTableAccessorName() + "() {\n" 
           + "    return ("
           + tableNamingInfo.tableMainClassUnambiguous() + "<"+tableNamingInfo.mainClassUnambiguous()+">)getTable();\n" 
           + "  }\n\n");

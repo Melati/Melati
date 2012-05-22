@@ -3,7 +3,7 @@
 package org.melati.poem.test.generated;
 
 
-// 28 tables in database
+// 29 tables in database
 // hidden import org.melati.poem.UserTable;
 // hidden import org.melati.poem.User;
 import org.melati.poem.GroupTable;
@@ -60,6 +60,8 @@ import org.melati.poem.test.DynamicTable;
 import org.melati.poem.test.Dynamic;
 import org.melati.poem.test.UserTable;
 import org.melati.poem.test.User;
+import org.melati.poem.test.AccountTable;
+import org.melati.poem.test.Account;
 
 /**
  * Melati POEM generated base interface to the tables in 
@@ -268,6 +270,14 @@ public interface EverythingDatabaseTablesBase {
   * @return the org.melati.poem.UserTable from this database
   */
   public UserTable<User> getEverythingUserTable();
+
+ /**
+  * Retrieves the AccountTable table.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the AccountTable from this database
+  */
+  public AccountTable<Account> getAccountTable();
 }
 
 

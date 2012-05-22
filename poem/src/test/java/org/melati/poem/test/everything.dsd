@@ -1570,7 +1570,7 @@ table User extends org.melati.poem.User
     (category = "User") {
     
     String email 
-      (size=unlimited) 
+      (size=unlimited)
       (nullable)
       (width=40)
       (description = "The user's email address")
@@ -1580,3 +1580,34 @@ table User extends org.melati.poem.User
 
 }
 
+table Account 
+    (displayorder = 2020)
+    (description = "An account owned by a User")
+    (category = "User") {
+    
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+    User user 
+      (description = "The owner")
+      (displaylevel = summary)
+      (displayorder = 60)
+      (searchability = yes);
+    User StringKeyReference email
+      (size=unlimited) 
+      (width=40)
+      (description = "The owner's email address")
+      (displaylevel = summary)
+      (displayorder = 50)
+      (searchability = yes);
+    String name
+      (size=unlimited) 
+      (nullable)
+      (width=40)
+      (description = "The user's email address")
+      (displaylevel = summary)
+      (displayorder = 150)
+      (searchability = yes)
+    ;
+}

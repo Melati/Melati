@@ -7,9 +7,9 @@
   <!-- HACK the version is set to the Melati version to use :( -->
   <version>${version}</version>
   <url>http://www.paneris.net/${artifactId}</url>
-   <description>
+  <description>
    The ${groupId} ${artifactId}.
-   </description>
+  </description>
 
   <ciManagement>
     <system>Jenkins</system>

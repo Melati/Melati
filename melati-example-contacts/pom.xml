@@ -44,7 +44,7 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.2.8</version>
+      <version>1.8.0.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -120,7 +120,7 @@
          <mainClass>net.sourceforge.schemaspy.Main</mainClass>
          <arguments>
           <argument>-t=src/site/schemaspy/properties/hsqldb-file.properties</argument>
-          <argument>-cp=hsqldb-2.2.8.jar </argument>
+          <argument>-cp=hsqldb-1.8.0.10.jar </argument>
           <argument>-db=contacts</argument>
           <argument>-desc=Melati Example Contacts Database Schema</argument>
           <argument>-dir=/dist/melati/db</argument>
@@ -138,7 +138,7 @@
         <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
-          <version>2.2.8</version>
+          <version>1.8.0.10</version>
         </dependency>
       </dependencies>
     </plugin>

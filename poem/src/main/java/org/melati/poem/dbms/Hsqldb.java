@@ -73,6 +73,9 @@ public class Hsqldb extends AnsiStandard {
    * <code>VARCHAR</code>.
    */
   public static int hsqldbTextHack = 266;
+  // Version 2.2.8 introduces a text field
+  public static int hsqldbTextSize1 = 1048576;
+  public static int hsqldbTextSize2 = 16777216;
 
   /**
    * Constructor.
@@ -173,7 +176,13 @@ public class Hsqldb extends AnsiStandard {
   @Override
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
-      if (((StringPoemType)storage).getSize() == hsqldbTextHack
+      if (
+          (((StringPoemType)storage).getSize() == hsqldbTextHack
+          || 
+          ((StringPoemType)storage).getSize() == hsqldbTextSize1
+          || 
+          ((StringPoemType)storage).getSize() == hsqldbTextSize2
+          )
               && ((StringPoemType)type).getSize() == -1
               && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
       ) {

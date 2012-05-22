@@ -2706,7 +2706,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
               colType = DeletedPoemType.it;
             
             database.log("Adding extra column from sql meta data " 
-                         + name + "." +dbms().melatiName(colName));
+                         + name + "." + dbms().melatiName(colName));
             column = new ExtraColumn(this, 
                                      dbms().melatiName(
                                              colName),
@@ -2726,12 +2726,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
           else {
             column.assertMatches(colDescs);
           }
+          column.unifyWithMetadata(colDescs);
           dbColumns.put(column, Boolean.TRUE);
         }
       } catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
-      
     } else if (debug) database.log(
                         "Table.unifyWithDB called with null ResultsSet");
 

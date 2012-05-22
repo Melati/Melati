@@ -737,5 +737,26 @@ public class AnsiStandard implements Dbms {
 
   }
 
+  @Override
+  public String alterColumnAddCommentSQL(Column<?> column, String comment) {
+    // FIREBIRD, ORACLE, postgresql
+    return "COMMENT ON COLUMN " 
+        + getQuotedName(column.getTable().getName()) 
+        +"." 
+        + getQuotedName(column.getName())
+        + " IS '" 
+        + comment 
+        + "'";
+  }
+
+  @Override
+  public String alterTableAddCommentSQL(Table<?> table, String comment) {
+    return "COMMENT ON TABLE " 
+        + getQuotedName(table.getName()) 
+        + " IS '" 
+        + comment 
+        + "'";
+  }
+
 }
 

@@ -376,6 +376,20 @@ public interface Dbms {
   String alterColumnNotNullableSQL(String tableName, Column<?> column);
 
   /**
+   * @param column the target to add a remark to
+   * @param comment the remark to add
+   * @return an update SQL command or null 
+   */
+  String alterColumnAddCommentSQL(Column<?> column, String comment);
+  
+  /**
+   * @param table the target to add a remark to
+   * @param comment the remark to add
+   * @return an update SQL command or null 
+   */
+  String alterTableAddCommentSQL(Table<?> table, String comment);
+  
+  /**
    * Accomodate different limiting syntax.
    * 
    * @param querySelection main body of query

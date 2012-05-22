@@ -530,12 +530,10 @@ public abstract class Database implements TransactionPool {
       String troidColumnName = null;
       if (tableName != null) { 
         table = getTableIgnoringCase(tableName);
-        if (table == null) {  // We do not know about this table
+        if (table == null) {  // POEM does not know about this table
           if (debug) log("Unknown to POEM, with JDBC name " + tableName);
 
           // but we only want to include them if they have a plausible troid:
-//          ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
-//              dbms.getJdbcMetadataName(dbms.unreservedName("id")));
           troidColumnName = getTroidColumnName(m,dbms.unreservedName(tableName));
           if(debug) log("Primary key:"+ troidColumnName);
           if (troidColumnName != null) { 
@@ -569,7 +567,7 @@ public abstract class Database implements TransactionPool {
     for (Table<?> table : tables) {
       if (debug) log("Unifying:" + table.getName() + "(" + dbms.unreservedName(table.getName()) + ")");
 
-      // bit yukky using getColumns ...
+      // bit yukky using getColumns to determine if this table exists in underlying db
       ResultSet colDescs = columnsMetadata(m,
                                dbms.unreservedName(table.getName()));
       if (!colDescs.next()) {

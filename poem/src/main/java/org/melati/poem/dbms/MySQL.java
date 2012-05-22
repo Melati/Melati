@@ -496,5 +496,12 @@ public class MySQL extends AnsiStandard {
     column.getSQLType().sqlDefinition(this);
   }
   
+ /**
+  * Flaming MySQL does not do the normal thing. 
+  */
+  @Override
+  public String alterColumnAddCommentSQL(Column<?> column, String comment) {
+    return null;
+  }
   
 }

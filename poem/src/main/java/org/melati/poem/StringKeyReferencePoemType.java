@@ -68,6 +68,7 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
    * @param targetTable the Table the type refers to 
    * @param targetKeyName name of key both in this and target table
    * @param nullable whether this type may contain null values
+   * @param size the size of the key string
    */
   public StringKeyReferencePoemType(Table<?> targetTable, 
       String targetKeyName, boolean nullable, int size) {

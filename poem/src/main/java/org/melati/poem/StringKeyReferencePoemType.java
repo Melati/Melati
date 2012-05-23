@@ -117,7 +117,7 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
   }
 
   protected Object _cookedOfRaw(Object raw) throws NoSuchRowPoemException {
-    return targetTable.getObject((Integer)raw);
+    return targetTable.getColumn(targetKeyName).firstWhereEq(raw);
   }
 
   /** 

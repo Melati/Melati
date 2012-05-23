@@ -554,6 +554,11 @@ public class TableDef {
         "  }\n" + 
         "\n"); 
     Enumeration<FieldDef> fs = fields.elements(); 
+    w.write("\n /**\n" 
+        + "  * Initialise this table by defining its columns.\n" 
+        + "  *\n"
+        + "  * see org.melati.poem.prepro.TableDef#generateTableBaseJava \n" 
+        + "  */\n");
     w.write(
         "  public void init() throws PoemException {\n" + 
         "    super.init();\n");

@@ -315,7 +315,8 @@ public abstract class FieldDef {
         + "  *         does not confer write access rights\n"
         + "  * @return the " + rawType + " " + name + "\n" 
         + "  */\n");
-    w.write("  public Field<" + rawType + "> get" + capitalisedName + "Field() throws AccessPoemException {\n" 
+    w.write(
+          "  public Field<" + rawType + "> get" + capitalisedName + "Field() throws AccessPoemException {\n" 
         + "    Column<"+rawType+"> c = _"+ rootTableAccessorMethod + "()." + "get" + capitalisedName + "Column();\n"
         + "    return new Field<"+rawType+">(("+rawType+")c.getRaw(this), c);\n" 
         + "  }\n");
@@ -359,8 +360,10 @@ public abstract class FieldDef {
         + "  * see org.melati.poem.prepro.FieldDef#generateColAccessor \n" 
         + "  * @return the " + name + " <code>Column</code>\n" 
         + "  */\n");
-    w.write("  public final Column<"+rawType+"> get" + capitalisedName + "Column() {\n"
-        + "    return col_" + name + ";\n" + "  }\n");
+    w.write(
+          "  public final Column<"+rawType+"> get" + capitalisedName + "Column() {\n"
+        + "    return col_" + name + ";\n" 
+        + "  }\n");
   }
 
   /**
@@ -395,23 +398,13 @@ public abstract class FieldDef {
    */
   public void generateColDefinition(Writer w) throws IOException {
     w
-        .write("    defineColumn(col_"
-            + name
-            + " =\n"
-            + "        new Column<"+rawType +">(this, \""
-            + name
-            + "\",\n"
-            + "                   "
-            + poemTypeJava()
-            + ",\n"
+        .write("    defineColumn(col_" + name + " =\n"
+            + "        new Column<"+rawType +">(this, \"" + name + "\",\n"
+            + "                   " + poemTypeJava() + ",\n"
             + "                   DefinitionSource.dsd) { \n"
             + "          public Object getCooked(Persistent g)\n"
             + "              throws AccessPoemException, PoemException {\n"
-            + "            return (("
-            + shortestUnambiguousClassname
-            + ")g).get"
-            + capitalisedName
-            + "();\n"
+            + "            return ((" + shortestUnambiguousClassname + ")g).get" + capitalisedName + "();\n"
             + "          }\n"
             + "\n"
             + "          public void setCooked(Persistent g, Object cooked)\n"
@@ -447,43 +440,57 @@ public abstract class FieldDef {
 
     if (sortDescending)
       w.write("          public boolean defaultSortDescending() {\n"
-          + "            return true;\n" + "          }\n" + "\n");
+          + "            return true;\n" 
+          + "          }\n" 
+          + "\n");
 
     if (displayName != null)
       w.write("          public String defaultDisplayName() {\n"
           + "            return " + StringUtils.quoted(displayName, '"')
-          + ";\n" + "          }\n" + "\n");
+          + ";\n" 
+          + "          }\n" 
+          + "\n");
 
-    w
-        .write("          public int defaultDisplayOrder() {\n"
-            + "            return " + displayOrder + ";\n" + "          }\n"
-            + "\n");
+    w.write("          public int defaultDisplayOrder() {\n"
+          + "            return " + displayOrder + ";\n" 
+          + "          }\n"
+          + "\n");
 
     if (description != null)
       w.write("          public String defaultDescription() {\n"
           + "            return " + StringUtils.quoted(description, '"')
-          + ";\n" + "          }\n" + "\n");
+          + ";\n" + "          }\n" 
+          + "\n");
 
     if (isIndexed)
       w.write("          public boolean defaultIndexed() {\n"
-          + "            return true;\n" + "          }\n" + "\n");
+          + "            return true;\n" 
+          + "          }\n" 
+          + "\n");
 
     if (isUnique)
       w.write("          public boolean defaultUnique() {\n"
-          + "            return true;\n" + "          }\n" + "\n");
+          + "            return true;\n" 
+          + "          }\n" 
+          + "\n");
 
     if (width != -1)
       w.write("          public int defaultWidth() {\n"
-          + "            return " + width + ";\n" + "          }\n" + "\n");
+          + "            return " + width + ";\n" 
+          + "          }\n" 
+          + "\n");
 
     if (height != -1)
       w.write("          public int defaultHeight() {\n"
-          + "            return " + height + ";\n" + "          }\n" + "\n");
+          + "            return " + height + ";\n" 
+          + "          }\n" 
+          + "\n");
 
     if (renderinfo != null)
       w.write("          public String defaultRenderinfo() {\n"
           + "            return " + StringUtils.quoted(renderinfo, '"') + ";\n"
-          + "          }\n" + "\n");
+          + "          }\n" 
+          + "\n");
 
     generateColRawAccessors(w);
 

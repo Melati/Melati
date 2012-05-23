@@ -176,9 +176,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
       "    if (key == null)\n " + 
       "      return null;\n" + 
       "    else\n" +
-      // This cast is necessary when the target table is
-      // an "extends"
-      "      return " + db + "." + targetTableAccessorMethod + "()." +
+      "      return (" + typeShortName + ")" + db + "." + targetTableAccessorMethod + "()." +
       "get"+capitalisedName+"Column().firstWhereEq(key).troid();\n" +
       "  }\n" +
       "\n");
@@ -199,11 +197,9 @@ public class StringKeyReferenceFieldDef extends FieldDef {
       "      throws AccessPoemException {\n" +
       "    set" + capitalisedName + "(" +
       "key == null ? null : \n" +
-      // This cast is necessary when the target table is
-      // an "extends"
-      "        " + targetCast() +
-      db + "." + targetTableAccessorMethod + "()." +
-      "get" +capitalisedName+"Column().firstWhereEq(key));\n" +
+      "        (" + typeShortName + ")"+
+      db + "." + targetTableAccessorMethod + "().\n" +
+      "            get" +capitalisedName+"Column().firstWhereEq(key));\n" +
       "  }\n" +
       "\n");
     w.write(

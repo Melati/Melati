@@ -318,10 +318,10 @@ public abstract class AccountBase extends JdbcPersistent {
 
   public Integer getEmailTroid()
       throws AccessPoemException {
-    String key = getEmail_unsafe();    if (key == null)
+    String keyValue = getEmail_unsafe();    if (keyValue == null)
        return null;
     else
-      return getEverythingDatabaseTables().getEverythingUserTable().getEmailColumn().firstWhereEq(key).troid();
+      return getEverythingDatabaseTables().getEverythingUserTable().getEmailColumn().firstWhereEq(keyValue).troid();
   }
 
 
@@ -334,10 +334,11 @@ public abstract class AccountBase extends JdbcPersistent {
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights
   */
-  public void setEmail(String key)
+  public void setEmail(String keyValue)
       throws AccessPoemException {
-    setEmail(key == null ? null : 
-        (User)getEverythingDatabaseTables().getEverythingUserTable().getEmailColumn().firstWhereEq(key));
+    setEmail(keyValue == null ? null : 
+        (User)getEverythingDatabaseTables().getEverythingUserTable().
+            getEmailColumn().firstWhereEq(keyValue));
   }
 
 
@@ -348,17 +349,30 @@ public abstract class AccountBase extends JdbcPersistent {
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
-  * @throws NoSuchRowPoemException  
-  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Email</code> as a <code>User</code> 
   */
-  public User getEmail()
+  public String getEmail()
       throws AccessPoemException, NoSuchRowPoemException {
-    String key = getEmail_unsafe();    if (key == null)
+    String keyValue = getEmail_unsafe();
+    if (keyValue == null)
        return null;
     else
       return 
-        (User)getEverythingDatabaseTables().getEverythingUserTable().getEmailColumn().firstWhereEq(key);
+        (String)getEverythingDatabaseTables()
+            .getEverythingUserTable()
+                .getEmailColumn()
+                    .firstWhereEq(keyValue)
+                        .getCooked("email");
+  }
+
+  public User getEmailReferee()
+      throws AccessPoemException, NoSuchRowPoemException {
+    String keyValue = getEmail_unsafe();
+    if (keyValue == null)
+       return null;
+    else
+      return 
+        (User)getEverythingDatabaseTables().getEverythingUserTable().getEmailColumn().firstWhereEq(keyValue);
   }
 
 

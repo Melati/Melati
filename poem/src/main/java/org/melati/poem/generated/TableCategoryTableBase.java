@@ -59,6 +59,12 @@ public class TableCategoryTableBase<T extends TableCategory> extends PoemTable<T
     return (PoemDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Initialise this table by defining its columns.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  */
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =

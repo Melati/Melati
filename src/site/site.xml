@@ -25,7 +25,7 @@
   </poweredBy>
   <body>
     <links>
-      <item name="TimP"                  href="http://www.context-computing.co.uk/~timp/" />
+      <item name="TimP"                  href="http://www.paneris.org/~timp/" />
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
@@ -45,7 +45,9 @@
         <item name="Documentation"     href="Documentation.html"/>
         <item name="Road Map"          href="RoadMap.html"/>
         <item name="Contribute"        href="Contribute.html"/>
+<!--
         <item name="Hire"              href="Hire.html"/>
+-->
         <item name="Licence"           href="Licence.html"/>
         <item name="Release History"   href="Releases.html"/>
         <item name="Links"             href="Links.html"/>

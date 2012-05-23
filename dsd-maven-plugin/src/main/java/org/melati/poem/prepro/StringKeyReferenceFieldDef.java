@@ -224,7 +224,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     w.write(
       "  public " + typeShortName + " get" + capitalisedName + "()\n" +
       "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-      "    String key = get" + capitalisedName + "_unsafe();" +
+      "    String key = get" + capitalisedName + "_unsafe();\n" +
       "    if (key == null)\n " + 
       "      return null;\n" + 
       "    else\n" +

@@ -172,12 +172,12 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     w.write("\n" +
       "  public Integer get" + capitalisedName + "Troid()\n" +
       "      throws AccessPoemException {\n" +
-      "    String key = get" + capitalisedName + "_unsafe();" +
-      "    if (key == null)\n " + 
+      "    String keyValue = get" + capitalisedName + "_unsafe();" +
+      "    if (keyValue == null)\n " + 
       "      return null;\n" + 
       "    else\n" +
       "      return " + db + "." + targetTableAccessorMethod + "()." +
-      "get"+capitalisedName+"Column().firstWhereEq(key).troid();\n" +
+      "get"+capitalisedName+"Column().firstWhereEq(keyValue).troid();\n" +
       "  }\n" +
       "\n");
     w.write(
@@ -193,13 +193,13 @@ public class StringKeyReferenceFieldDef extends FieldDef {
       + "  *         does not confer write access rights\n"
       + "  */\n");
     w.write(
-      "  public void set" + capitalisedName + "(String key)\n" +
+      "  public void set" + capitalisedName + "(String keyValue)\n" +
       "      throws AccessPoemException {\n" +
       "    set" + capitalisedName + "(" +
-      "key == null ? null : \n" +
+      "keyValue == null ? null : \n" +
       "        (" + typeShortName + ")"+
       db + "." + targetTableAccessorMethod + "().\n" +
-      "            get" +capitalisedName+"Column().firstWhereEq(key));\n" +
+      "            get" +capitalisedName+"Column().firstWhereEq(keyValue));\n" +
       "  }\n" +
       "\n");
     w.write(
@@ -220,29 +220,29 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     w.write(
         "  public String get" + capitalisedName + "()\n" +
         "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-        "    String key = get" + capitalisedName + "_unsafe();\n" +
-        "    if (key == null)\n " + 
+        "    String keyValue = get" + capitalisedName + "_unsafe();\n" +
+        "    if (keyValue == null)\n " + 
         "      return null;\n" + 
         "    else\n" +
         "      return \n" + 
         "        (String)" + db + "\n" +
         "            ." + targetTableAccessorMethod + "()\n" + 
         "                .get"+capitalisedName+"Column()\n" + 
-        "                    .firstWhereEq(key)\n" + 
+        "                    .firstWhereEq(keyValue)\n" + 
         "                        .getCooked(\"" + name + "\");\n" +
         "  }\n" +
         "\n");
     w.write(
         "  public " + typeShortName + " get" + capitalisedName + "Referee()\n" +
         "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-        "    String key = get" + capitalisedName + "_unsafe();\n" +
-        "    if (key == null)\n " + 
+        "    String keyValue = get" + capitalisedName + "_unsafe();\n" +
+        "    if (keyValue == null)\n " + 
         "      return null;\n" + 
         "    else\n" +
         "      return \n" + 
         "        (" + typeShortName + ")" +
         db + "." + targetTableAccessorMethod + "()." +
-        "get"+capitalisedName+"Column().firstWhereEq(key);\n" +
+        "get"+capitalisedName+"Column().firstWhereEq(keyValue);\n" +
         "  }\n" +
         "\n");
     w.write(

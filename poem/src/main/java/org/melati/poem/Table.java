@@ -50,6 +50,7 @@ import org.melati.poem.util.Cache;
 import java.util.Enumeration;
 import java.io.PrintStream;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * A table.
@@ -1146,11 +1147,17 @@ public interface Table<P extends Persistent>  {
      */
     void unifyWithColumnInfo() throws PoemException;
 
+    /** Unify SQL REMARKS with table.description.
+     * 
+     * @param tableDescriptions a JDBC {@link java.sql.ResultSet} with cursor at current row
+     */
+    void unifyWithMetadata(ResultSet tableDescriptions) throws SQLException;
+    
     /**
-     * Unify the JDBC description of this table with the
+     * Unify the JDBC description of this tables columns with the
      * meta data held in the {@link org.melati.poem.TableInfo}
      *
-     * @param colDescs a JDBC {@link java.sql.ResultSet} describing the columns
+     * @param colDescs a JDBC {@link java.sql.ResultSet} describing the columns with cursor at current row
      * @param primaryKey name of primary key column
      */
     void unifyWithDB(ResultSet colDescs, String primaryKey)

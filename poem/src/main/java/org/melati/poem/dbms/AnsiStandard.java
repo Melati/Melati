@@ -737,6 +737,7 @@ public class AnsiStandard implements Dbms {
 
   }
 
+  /** TODO test on something which actually uses this */
   @Override
   public String alterColumnAddCommentSQL(Column<?> column, String comment) {
     // FIREBIRD, ORACLE, postgresql
@@ -749,6 +750,7 @@ public class AnsiStandard implements Dbms {
         + "'";
   }
 
+  /** TODO test on something which actually uses this */
   @Override
   public String alterTableAddCommentSQL(Table<?> table, String comment) {
     return "COMMENT ON TABLE " 

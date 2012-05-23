@@ -497,10 +497,18 @@ public class MySQL extends AnsiStandard {
   }
   
  /**
-  * Flaming MySQL does not do the normal thing. 
+  * MySQL does not do the normal thing. 
   */
   @Override
   public String alterColumnAddCommentSQL(Column<?> column, String comment) {
+    return null;
+  }
+
+  /**
+  * MySQL does not do the normal thing. 
+   */
+  @Override
+  public String alterTableAddCommentSQL(Table<?> table, String comment) {
     return null;
   }
   

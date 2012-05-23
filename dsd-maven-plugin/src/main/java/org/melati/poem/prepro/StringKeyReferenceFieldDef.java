@@ -229,7 +229,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
         "            ." + targetTableAccessorMethod + "()\n" + 
         "                .get"+capitalisedName+"Column()\n" + 
         "                    .firstWhereEq(key)\n" + 
-        "                        .getCooked(" + name + ");\n" +
+        "                        .getCooked(\"" + name + "\");\n" +
         "  }\n" +
         "\n");
     w.write(

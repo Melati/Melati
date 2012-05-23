@@ -114,8 +114,8 @@ public class ReferencePoemType extends IndexPoemType implements PersistentRefere
 
   protected boolean _canRepresent(SQLPoemType<?> other) {
     return
-        other instanceof ReferencePoemType &&
-        ((ReferencePoemType)other).targetTable == targetTable;
+        other instanceof PersistentReferencePoemType &&
+        ((PersistentReferencePoemType)other).targetTable() == targetTable();
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

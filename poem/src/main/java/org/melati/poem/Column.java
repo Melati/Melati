@@ -932,7 +932,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
   }
 
   /**
-   * @param colDescs returned from DatabaseMetaData.getColumns
+   * @param colDescs from DatabaseMetaData.getColumns, with cursor at current row
    * @throws SQLException 
    */
   public void unifyWithMetadata(ResultSet colDescs) throws SQLException {
@@ -940,9 +940,10 @@ public abstract class Column<T> implements FieldAttributes<T> {
       return;
     String remarks = colDescs.getString("REMARKS");
     if (getDescription() == null) {
-      if (remarks != null) {
+      if (remarks != null && !remarks.trim().equals("")) {
         info.setDescription(remarks);
-        getDatabase().log("Adding comment from SQL metadata:" + remarks);
+        getDatabase().log("Adding comment to column " + table + "." + name + 
+            " from SQL metadata:" + remarks);
       }
     } else {
       if (!this.getDescription().equals(remarks)) {

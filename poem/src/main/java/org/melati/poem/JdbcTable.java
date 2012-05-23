@@ -2669,12 +2669,34 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       c.nextElement().createColumnInfo();
   }
 
+  @Override
+  public void unifyWithMetadata(ResultSet tableDescriptions) throws SQLException {
+    if (info == null)
+      return;
+    String remarks = tableDescriptions.getString("REMARKS");
+    if (getDescription() == null) {
+      if (remarks != null && !remarks.trim().equals("")) {
+        info.setDescription(remarks);
+        getDatabase().log("Adding comment to table " + name + 
+            " from SQL metadata:" + remarks);
+      }
+    } else {
+      if (!this.getDescription().equals(remarks)) {
+        String sql = this.dbms().alterTableAddCommentSQL(this, null); 
+        if (sql != null)
+          this.getDatabase().modifyStructure(sql);          
+      }
+    }    
+  }
+
   /**
-   * Unify the JDBC description of this table with the 
-   * meta data held in the {@link TableInfo}
+   * Unify the JDBC description of this tables columns with the
+   * meta data held in the {@link org.melati.poem.TableInfo}
    *
-   * @param colDescs a JDBC {@link ResultSet} describing the columns
+   * @param colDescs a JDBC {@link java.sql.ResultSet} describing the columns with cursor at current row
+   * @param primaryKey name of primary key column
    */
+  @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {

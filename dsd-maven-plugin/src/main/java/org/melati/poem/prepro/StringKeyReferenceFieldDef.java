@@ -176,7 +176,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
       "    if (key == null)\n " + 
       "      return null;\n" + 
       "    else\n" +
-      "      return (" + typeShortName + ")" + db + "." + targetTableAccessorMethod + "()." +
+      "      return " + db + "." + targetTableAccessorMethod + "()." +
       "get"+capitalisedName+"Column().firstWhereEq(key).troid();\n" +
       "  }\n" +
       "\n");
@@ -229,9 +229,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
       "      return null;\n" + 
       "    else\n" +
       "      return \n" + 
-      // This cast is necessary when the target table is
-      // an "extends"
-      "        " + targetCast() +
+      "        (" + typeShortName + ")" +
       db + "." + targetTableAccessorMethod + "()." +
       "get"+capitalisedName+"Column().firstWhereEq(key);\n" +
       "  }\n" +

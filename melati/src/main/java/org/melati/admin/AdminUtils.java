@@ -128,6 +128,13 @@ public class AdminUtils {
     return servletURL + "/" + logicalDatabase + 
         "/setting/setup";
   }
+  /**
+   * @return the summary url
+   */
+  public String getSummaryURL() {
+    return servletURL + "/" + logicalDatabase + 
+        "/Summary";
+  }
   
   
   /**

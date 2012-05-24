@@ -104,8 +104,10 @@
 </div>
 </noscript>
 <div style="white-space:nowrap;">
-#if ($melati.User.isAdministrator()) #begin
 <font size="-2" face="Arial, Helvetica">
+ <a href="$admin.getSummaryURL()" target="admin_bottom" 
+    title="Display A Summary of the database">Summary</a>
+#if ($melati.User.isAdministrator()) #begin
  <a href="$admin.getSetupURL()?returnTarget=top&returnURL=Main" target="admin_bottom" 
     title="Database sessions available and in use">Setup</a>
  <a href="$admin.getSessionURL()" target="admin_bottom" 
@@ -114,8 +116,8 @@
     title="Which records are currently stored in memory">Cache</a>
  <a href="$admin.getDsdURL()" target="admin_bottom" 
     title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
-</font>
 #end
+</font>
 &nbsp;
  #if ($melati.User.isGuest()) #begin
 <form method="GET" 

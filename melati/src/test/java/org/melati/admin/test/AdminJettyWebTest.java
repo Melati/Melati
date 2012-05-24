@@ -47,7 +47,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   /**
    * There appears to be a problem with gargoyle javascript such that 
    * we cannot begin at the Main page as this throws NullPointerException, 
-   * The work around is to begin at the server top and then got the Main page.
+   * The work around is to begin at the server top and then go to the Main page.
    * 
    * {@inheritDoc}
    * @see org.melati.JettyWebTestCase#setUp()

@@ -92,21 +92,21 @@
    
     <td bgcolor="$color" class="$class">
      <font face="Arial, Helvetica" size="-1">
- <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
+ <a target="admin_bottom" href="$admin.getBottomURL($melati)?table=$table.Name">
  $ml.rendered($table.DisplayName)
  </a>
      </font>
     </td>
     <td bgcolor="$color" class="$class" align="right">
      <font face="Arial, Helvetica" size="-1">
- <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
+ <a target="admin_bottom" href="$admin.getBottomURL($melati)?table=$table.Name">
  $table.getColumnsCount()    
  </a>
      </font>
     </td>
     <td bgcolor="$color" class="$class" align="right">
      <font face="Arial, Helvetica" size="-1">
- <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
+ <a target="admin_bottom" href="$admin.getBottomURL($melati)?table=$table.Name">
  $table.count()    
  </a>
      </font>

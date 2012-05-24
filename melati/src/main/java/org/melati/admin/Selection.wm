@@ -43,11 +43,11 @@
 ##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
-<HEAD>
+<head>
  <title>$ml.rendered($melati.Table.DisplayName) Table Record Selection</title>
- <meta name="version" content="CVS \$Id$">
+ <meta name="version" content="CVS \$Id$" />
  <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
-      type="text/css" media="screen">
+      type="text/css" media="screen" />
 #if($inPopup) #begin
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
@@ -69,9 +69,9 @@
    #set $target = "admin_record"
   #end
 #end
-</HEAD>
+</head>
 
-<BODY BGCOLOR="#eeeeee" id="selection">
+<body BGCOLOR="#eeeeee" id="selection">
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if ($results) #begin
@@ -97,14 +97,14 @@
       <a href='$admin.getAddURL($melati.Table)?$whereClause' 
          title="New $melati.Table.DisplayName"
          id="create_$melati.Table.Name"
-       ><IMG
+       ><img
          src="$admin.StaticURL/edit_file.gif" border="0" alt="New $melati.Table.DisplayName" /></a>
 #else
     <th align="right">
     <a href='$melati.sameURLWith("template","CSV")' 
        title="Selection as CSV" 
        id="csv"
-       target="_$(melati.Table.Name)csv"><IMG 
+       target="_$(melati.Table.Name)csv"><img 
            src="$admin.StaticURL/csv.png" 
            border="0" 
            alt="$melati.Table.DisplayName selecton as CSV" /></a>
@@ -113,7 +113,7 @@
     </th>    
   </tr>
   <tr>
-   <th><font size="-1">&nbsp;</FONT></th>
+   <th><font size="-1">&nbsp;</font></th>
   #foreach $column in $melati.Table.SummaryDisplayColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
@@ -129,8 +129,8 @@
   #set $color = $color1
   #set $class = $class2
   #foreach $result in $results #begin
-  <TR>
-    <TD bgcolor="$color" class="$class">
+  <tr>
+    <td bgcolor="$color" class="$class">
       <a 
 #if($inPopup) #begin
           onClick ="updateCaller('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"
@@ -142,10 +142,10 @@
    #end      
           target="$target"
 #end
-          title="Choose"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
-    </TD>
+          title="Choose"><img src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
+    </td>
     #foreach $field in $result.SummaryDisplayFields #begin
-    <TD bgcolor="$color" class="$class">
+    <td bgcolor="$color" class="$class">
      <font face="Arial, Helvetica" size="-1">
       <a 
 #if($inPopup) #begin
@@ -163,11 +163,11 @@
      </a>
      &nbsp;
     </font>
-   </TD>
+   </td>
     #end
-   <TD>&nbsp;
-   </TD>
-  </TR>
+   <td>&nbsp;
+   </td>
+  </tr>
     #if ($color == $color1) #begin
       #set $color = $color2
       #set $class = $class2
@@ -184,5 +184,5 @@
 
 </table>
 </form>
-</BODY>
+</body>
 </HTML>

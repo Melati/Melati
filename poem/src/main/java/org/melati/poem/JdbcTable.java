@@ -2377,6 +2377,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
+   * @return a cached count of all records in the table, 
+   * obeying includedDeleted and other exclusions
+   */
+  public CachedCount cachedCount() {
+    return cachedCount((String)null);
+  }
+
+  /**
    * A mechanism for caching an existance.
    * 
    * It is the programmer's responsibility to ensure that the where clause 

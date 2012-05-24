@@ -1007,7 +1007,25 @@ public abstract class Database implements TransactionPool {
   public List<Column<?>> getColumns() { 
     return EnumUtils.list(columns());
   }
-   
+  public int tableCount() { 
+    return tables.size();
+  }
+  public int columnCount() { 
+    return getColumns().size();
+  }
+  public int recordCount() { 
+    Enumeration<Integer> counts = new MappedEnumeration<Integer, Table<?>>(tables()) {
+      public Integer mapped(Table<?> table) {
+        return new Integer(table.count());
+      }
+    };
+    int total = 0;
+    while(counts.hasMoreElements())
+      total = total + counts.nextElement().intValue();
+    
+    return total;
+  }
+  
   /**    
    * @param columnInfoID   
    * @return the Column with the given troid   
@@ -1019,7 +1037,8 @@ public abstract class Database implements TransactionPool {
         return column;   
     }  
     return null;   
-  }  
+  }
+  
 
   /**
    * @return The metadata table with information about all tables in the database.

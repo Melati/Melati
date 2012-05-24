@@ -50,15 +50,24 @@
  <link rel="stylesheet" title="Default" 
       href="$admin.getScreenStylesheetURL($melati)"
       type="text/css" media="screen" />
-<script src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript" />
+<script src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript" ></script>
 </head>
 <body bgcolor="#dddddd" >
+<h2 align="center">$ml.rendered($melati.Database.DisplayName) Database Summary</h2>
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="summaryTable">
   <tr>
     <th>&nbsp;</th>
+    
     <th align="center">
-     Table Name
+     Tables
     </th>
+    <th align="center">
+     Fields
+    </th>
+    <th align="center">
+     Records
+    </th>
+
     <th>&nbsp;</th>
   </tr>
 
@@ -68,7 +77,8 @@
   #set $class2 = "row2"
   #set $color = $color1
   #set $class = $class2
-  #foreach $table in $melati.Database.DisplayTables #begin
+#foreach $table in $melati.Database.DisplayTables #begin
+  
   #if (!$table.TableInfo.Category.equals($lasttype)) #begin
     <tr><td colspan='5'><hr /></td></tr>
     <tr><td colspan='5'>$table.TableInfo.Category.Name</td></tr>
@@ -78,6 +88,8 @@
   
   <tr>
    <td>&nbsp;</td>
+   
+   
     <td bgcolor="$color" class="$class">
      <font face="Arial, Helvetica" size="-1">
  <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
@@ -85,6 +97,21 @@
  </a>
      </font>
     </td>
+    <td bgcolor="$color" class="$class" align="right">
+     <font face="Arial, Helvetica" size="-1">
+ <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
+ $table.getColumnsCount()    
+ </a>
+     </font>
+    </td>
+    <td bgcolor="$color" class="$class" align="right">
+     <font face="Arial, Helvetica" size="-1">
+ <a target="admin_bottom" action="$admin.getBottomURL($melati)?table=$table.Name">
+ $table.count()    
+ </a>
+     </font>
+    </td>
+    
    <td>&nbsp;</td>
   </tr>
     
@@ -95,7 +122,16 @@
       #set $color = $color1
       #set $class = $class1
     #end
-  #end      
+#end      
+    <tr><td colspan='5'><hr /></td></tr>
+    <tr>
+     <td>&nbsp</td>
+     <td>$melati.Database.tableCount()</td>
+     <td align="right">$melati.Database.columnCount()</td>
+     <td align="right">$melati.Database.recordCount()</td>
+     <td>&nbsp</td>
+    </tr>
+    <tr><td colspan='5'><hr /></td></tr>
 </table>
 
 </body>

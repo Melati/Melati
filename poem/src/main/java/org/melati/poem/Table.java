@@ -1026,6 +1026,12 @@ public interface Table<P extends Persistent>  {
     CachedCount cachedCount(String whereClause);
 
     /**
+     * @return a cached count of all records in the table, 
+     * obeying includedDeleted and other exclusions
+     */
+    CachedCount cachedCount();
+
+    /**
      * A mechanism for caching an existance.
      *
      * It is the programmer's responsibility to ensure that the where clause

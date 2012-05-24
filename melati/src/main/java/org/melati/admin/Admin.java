@@ -235,7 +235,7 @@ public class Admin extends TemplateServlet {
   }
 
   /**
-   * Modifies the context in preparation for serving a template to view a
+   * Prepares the context in preparation for serving a template to view a
    * selection of rows.
    * <p>
    * Any form fields in the context with names starting "field_" are assumed to
@@ -248,7 +248,7 @@ public class Admin extends TemplateServlet {
    * row in the result set. The default is zero. The next 20 rows are selected
    * and added as to the context as "results".
    * 
-   * @return The modified context.
+   * @return The prepared context.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   protected static ServletTemplateContext selection(
@@ -680,6 +680,8 @@ public class Admin extends TemplateServlet {
       return adminTemplate("Main");
     if (melati.getMethod().equals("Top"))
       return adminTemplate("Top");
+    if (melati.getMethod().equals("Summary"))
+      return adminTemplate("Summary");
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context);
     if (melati.getMethod().equals("Record"))

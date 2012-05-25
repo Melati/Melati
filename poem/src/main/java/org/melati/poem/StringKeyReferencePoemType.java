@@ -143,6 +143,7 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactoryCode(targetTable.tableInfoID());
+    columnInfo.setSize(getSize());
   }
 
   /**

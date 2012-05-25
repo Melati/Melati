@@ -56,7 +56,7 @@ import java.io.IOException;
  */ 
 public class StringKeyReferenceFieldDef extends FieldDef {
 
-  private String integrityfix;
+  private String integrityFix;
   private int size;
   
 
@@ -83,7 +83,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
                       "table");
     table.addImport("org.melati.poem.NoSuchRowPoemException", 
                       "persistent");
-    if (integrityfix != null) {
+    if (integrityFix != null) {
       table.addImport("org.melati.poem.StandardIntegrityFix", 
                         "table");
     }
@@ -122,12 +122,12 @@ public class StringKeyReferenceFieldDef extends FieldDef {
                    rawType + ")raw);\n" +
       "          }\n");
 
-    if (integrityfix != null) {
+    if (integrityFix != null) {
       w.write(
         "\n" +
         "          public StandardIntegrityFix defaultIntegrityFix() {\n" +
         "            return StandardIntegrityFix." + 
-        integrityfix + ";\n" +
+        integrityFix + ";\n" +
         "          }\n");
     }
   }
@@ -314,4 +314,9 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     if (sizeP == 0) throw new RuntimeException("wtf");
     this.size = sizeP;
   }
+
+  public void setIntegrityFix(String integrityFixIn) {
+    this.integrityFix = integrityFixIn;
+  }
+
 }

@@ -114,7 +114,9 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
   */
   public void apply(FieldDef field) throws IllegalityException {
     if (field instanceof ReferenceFieldDef)
-      ((ReferenceFieldDef)field).integrityfix = integrityfix;
+      ((ReferenceFieldDef)field).setIntegrityFix(integrityfix);
+    else if (field instanceof StringKeyReferenceFieldDef)
+      ((StringKeyReferenceFieldDef)field).setIntegrityFix(integrityfix);
     else
       throw new ApplicationException(field);
   }

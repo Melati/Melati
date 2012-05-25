@@ -57,7 +57,7 @@ import java.io.IOException;
  */ 
 public class ReferenceFieldDef extends FieldDef {
 
-  String integrityfix;
+  String integrityFix;
   
 
  /**
@@ -81,7 +81,7 @@ public class ReferenceFieldDef extends FieldDef {
                       "table");
     table.addImport("org.melati.poem.NoSuchRowPoemException", 
                       "persistent");
-    if (integrityfix != null) {
+    if (integrityFix != null) {
       table.addImport("org.melati.poem.StandardIntegrityFix", 
                         "table");
     }
@@ -120,12 +120,12 @@ public class ReferenceFieldDef extends FieldDef {
                    rawType + ")raw);\n" +
       "          }\n");
 
-    if (integrityfix != null) {
+    if (integrityFix != null) {
       w.write(
         "\n" +
         "          public StandardIntegrityFix defaultIntegrityFix() {\n" +
         "            return StandardIntegrityFix." + 
-        integrityfix + ";\n" +
+        integrityFix + ";\n" +
         "          }\n");
     }
   }
@@ -284,5 +284,9 @@ public class ReferenceFieldDef extends FieldDef {
         "new ReferencePoemType(" + db + ".\n" + 
         "                                             " +
         targetTableAccessorMethod + "(), " + isNullable() + ")";
+  }
+
+  public void setIntegrityFix(String integrityFixIn) {
+    this.integrityFix = integrityFixIn;
   }
 }

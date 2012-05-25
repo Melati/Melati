@@ -1464,9 +1464,9 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * The default {@link PoemType} corresponding to a ResultSet of JDBC metadata.
+   * The default {@link PoemType} corresponding to a ResultSet of JDBC column metadata.
    *  
-   * @param md the JDBC metadata
+   * @param md A result set of the JDBC columns metadata
    * @return The appropriatePoemType
    */
   final SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)

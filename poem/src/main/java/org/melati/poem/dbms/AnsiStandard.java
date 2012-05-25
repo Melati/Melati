@@ -374,28 +374,28 @@ public class AnsiStandard implements Dbms {
   /**
    * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet columnsMetaData)
       throws SQLException {
-    int typeCode = md.getShort("DATA_TYPE");
-    boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-    int width = md.getInt("COLUMN_SIZE");
-    int scale = md.getInt("DECIMAL_DIGITS");
+    int typeCode = columnsMetaData.getShort("DATA_TYPE");
+    boolean nullable = columnsMetaData.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+    int width = columnsMetaData.getInt("COLUMN_SIZE");
+    int scale = columnsMetaData.getInt("DECIMAL_DIGITS");
 
     //System.err.println("defaultPoemTypeOfColumnMetaData:" + typeCode);
     switch (typeCode) {
       case Types.BIT :
         return new BooleanPoemType(nullable);
       case Types.TINYINT :
-        return unsupported("TINYINT", md);
+        return unsupported("TINYINT", columnsMetaData);
       case Types.SMALLINT :
-        return unsupported("SMALLINT", md);
+        return unsupported("SMALLINT", columnsMetaData);
       case Types.INTEGER :
         return new IntegerPoemType(nullable);
       case Types.BIGINT :
         return new LongPoemType(nullable);
 
       case Types.FLOAT :
-        return unsupported("FLOAT", md);
+        return unsupported("FLOAT", columnsMetaData);
       case Types.REAL :
         return new DoublePoemType(nullable);
       case Types.DOUBLE :
@@ -407,7 +407,7 @@ public class AnsiStandard implements Dbms {
         return new BigDecimalPoemType(nullable, width, scale);
 
       case Types.CHAR :
-        return unsupported("CHAR", md);
+        return unsupported("CHAR", columnsMetaData);
       case Types.VARCHAR :
         return new StringPoemType(nullable, width == 0 ? -1 : width);
       case Types.LONGVARCHAR :
@@ -421,41 +421,41 @@ public class AnsiStandard implements Dbms {
         return new TimestampPoemType(nullable);
 
       case Types.BINARY :
-        return unsupported("BINARY", md);
+        return unsupported("BINARY", columnsMetaData);
       case Types.VARBINARY :
         return new BinaryPoemType(nullable, width);
       case Types.LONGVARBINARY :
         return new BinaryPoemType(nullable, width);
 
       case Types.NULL :
-        return unsupported("NULL", md);
+        return unsupported("NULL", columnsMetaData);
 
       case Types.OTHER :
-        return unsupported("OTHER", md);
+        return unsupported("OTHER", columnsMetaData);
 
 
         // Following introduced since 1.1
       case Types.JAVA_OBJECT : 
-        return unsupported("JAVA_OBJECT", md);
+        return unsupported("JAVA_OBJECT", columnsMetaData);
       case Types.DISTINCT : 
-        return unsupported("DISTINCT", md);
+        return unsupported("DISTINCT", columnsMetaData);
       case Types.STRUCT : 
-        return unsupported("STRUCT", md);
+        return unsupported("STRUCT", columnsMetaData);
       case Types.ARRAY : 
-        return unsupported("ARRAY", md);
+        return unsupported("ARRAY", columnsMetaData);
       case Types.BLOB : 
-        return unsupported("BLOB", md);
+        return unsupported("BLOB", columnsMetaData);
       case Types.CLOB : 
-        return unsupported("CLOB", md);
+        return unsupported("CLOB", columnsMetaData);
       case Types.REF : 
-        return unsupported("REF", md);
+        return unsupported("REF", columnsMetaData);
       case Types.DATALINK : 
-        return unsupported("DATLINK", md);
+        return unsupported("DATLINK", columnsMetaData);
 
       case Types.BOOLEAN : 
         return new BooleanPoemType(nullable);
       default :
-        return unsupported("<code not in Types.java!>", md);
+        return unsupported("<code not in Types.java!>", columnsMetaData);
     }
   }
 

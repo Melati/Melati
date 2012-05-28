@@ -2825,8 +2825,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
                   if(debug) database.log("Not creating index because one exists with different name:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
                 } catch (IndexUniquenessPoemException e) { 
-                  // Do not add this column, so the correct index will be added later               
-                  if(debug) database.log("Creating index because existing on has different properties:" + 
+                  // Do not add this column, so the correct index will be added below               
+                  if(debug) database.log("Creating index because existing one has different properties:" + 
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
                 }
               }

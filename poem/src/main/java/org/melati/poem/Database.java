@@ -1617,7 +1617,7 @@ public abstract class Database implements TransactionPool {
       PoemThread.commit();
   
     try {
-      if (logSQL()) log("about to execute:" + sql);
+      log("Modifying structure:" + sql);
   
       Statement updateStatement = getCommittedConnection().createStatement();
       updateStatement.executeUpdate(sql);

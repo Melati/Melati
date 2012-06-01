@@ -48,6 +48,7 @@ package org.melati.poem;
 import org.melati.poem.util.Cache;
 
 import java.util.Enumeration;
+import java.util.List;
 import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -164,6 +165,11 @@ public interface Table<P extends Persistent>  {
      */
     Enumeration<Column<?>> columns();
 
+    /**
+     * A list of all the table's columns.
+     */
+    List<Column<?>> getColumns(); 
+    
     /**
      * @return the number of columns in this table.
      */

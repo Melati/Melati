@@ -50,8 +50,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import org.melati.poem.dbms.Dbms;
@@ -280,6 +284,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return new ArrayEnumeration<Column<?>>(columns);
   }
 
+  public final List<Column<?>> getColumns() { 
+    return Arrays.asList(columns);
+  }
+  
  /**
   * @return the number of columns in this table.
   */

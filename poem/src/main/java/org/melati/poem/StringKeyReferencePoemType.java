@@ -46,7 +46,6 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 
-import org.melati.poem.util.EmptyEnumeration;
 import org.melati.poem.util.MappedEnumeration;
 import org.melati.poem.util.StringUtils;
 

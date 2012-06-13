@@ -47,6 +47,7 @@ package org.melati.poem;
 import java.util.Enumeration;
 
 import org.melati.poem.util.EmptyEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -96,11 +97,15 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
   /**
    * Returns an <code>Enumeration</code> of the possible raw values.
    * <p>
-   * In this case the troids of rows in the referenced table.
+   * In this case the key values of rows in the referenced table.
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   protected Enumeration<String> _possibleRaws() {
-    //targetTable.getColumn(targetKeyName)
-    return new EmptyEnumeration<String>(); // FIXME targetTable.troidSelection(null, null, false);
+    return new MappedEnumeration(targetTable.selection()) {
+      public String mapped(Object p) {
+        return (String)((Persistent)p).getRaw(targetKeyName);
+      }
+    };
   }
 
   protected void _assertValidCooked(Object cooked)

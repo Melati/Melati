@@ -208,11 +208,20 @@ public abstract class FieldDef {
     if (tokens.nextToken() != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field name>", tokens);
     String name = tokens.sval;
+    String targetKeyName = null;
     boolean stringKeyReference = false;
+    // handle Type StringKeyReference on targetKeyName localKeyName
     if (name.equals("StringKeyReference")) {
       stringKeyReference = true;
       if (tokens.nextToken() != StreamTokenizer.TT_WORD)
-        throw new ParsingDSDException("<field name>", tokens);
+        throw new ParsingDSDException("keyword 'on'", tokens);
+      if (!tokens.sval.equals("on"))
+        throw new ParsingDSDException("keyword 'on'", tokens);
+      if (tokens.nextToken() != StreamTokenizer.TT_WORD)
+        throw new ParsingDSDException("<target key field name>", tokens);
+      targetKeyName = tokens.sval;
+      if (tokens.nextToken() != StreamTokenizer.TT_WORD)
+        throw new ParsingDSDException("<target key field name>", tokens);
       name = tokens.sval;
     }
     tokens.nextToken();
@@ -258,7 +267,7 @@ public abstract class FieldDef {
       return new BinaryFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else {
       if (stringKeyReference)    
-        return new StringKeyReferenceFieldDef(lineNo, table, name, displayOrder, type,
+        return new StringKeyReferenceFieldDef(lineNo, table, name, targetKeyName, displayOrder, type,
             qualifiers);
       else
         return new ReferenceFieldDef(lineNo, table, name, displayOrder, type,

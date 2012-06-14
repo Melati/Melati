@@ -157,6 +157,7 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
   public String toString() {
     return
         "string key reference to " + targetTable.getName() + 
+        " on " + targetKeyName +
         " (" + super.toString() + ")";
   }
 
@@ -165,6 +166,6 @@ public class StringKeyReferencePoemType extends StringKeyPoemType implements Per
    * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
-    return StringUtils.capitalised(targetTable.getName() + " StringKeyReference ");
+    return StringUtils.capitalised(targetTable.getName() + " StringKeyReference on " + targetKeyName);
   }
 }

@@ -52,11 +52,12 @@ import org.melati.poem.util.StringUtils;
 /**
  * A data type that is a reference to a {@link Persistent} object via a 
  * String key to a unique, non-nullable index.
+ * NOTE: The field may be a different size to the field in the target table. 
  *
  * @author timp
  * @since 2012-05-19
  */
-public class StringKeyReferencePoemType extends StringKeyPoemType implements PersistentReferencePoemType {
+public class StringKeyReferencePoemType extends StringKeyPoemType implements PersistentReferencePoemType, PoemType<String> {
 
   private Table<?> targetTable;
   

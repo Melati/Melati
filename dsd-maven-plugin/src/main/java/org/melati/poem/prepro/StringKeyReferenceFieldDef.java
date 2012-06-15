@@ -252,7 +252,7 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     w.write(
       "  public void set" + capitalisedName + "(" + typeShortName + " cooked)\n" +
       "      throws AccessPoemException {\n" +
-      "    _" + targetTableAccessorMethod + "().\n" + 
+      "    " + db + "." + targetTableAccessorMethod + "().\n" + 
       "      get" + capitalisedTargetFieldName + "Column().\n" +
       "        getType().assertValidCooked(cooked);\n" +
       "    writeLock();\n" +

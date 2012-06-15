@@ -191,7 +191,7 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
     defineColumn(col_email =
         new Column<String>(this, "email",
                    new StringKeyReferencePoemType(getEverythingDatabaseTables().
-                                             getUserTable(), "email", false, -1),
+                                             getEverythingUserTable(), "email", false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
@@ -279,7 +279,7 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
           }
 
           public String defaultDescription() {
-            return "The user's email address";
+            return "The user's name";
           }
 
           public int defaultWidth() {

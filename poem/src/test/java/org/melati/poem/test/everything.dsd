@@ -1594,7 +1594,7 @@ table Account
       (displaylevel = summary)
       (displayorder = 60)
       (searchability = yes);
-    User StringKeyReference email
+    User StringKeyReference on email email
       (size=unlimited) 
       (width=40)
       (description = "The owner's email address")
@@ -1605,7 +1605,7 @@ table Account
       (size=unlimited) 
       (nullable)
       (width=40)
-      (description = "The user's email address")
+      (description = "The user's name")
       (displaylevel = summary)
       (displayorder = 150)
       (searchability = yes)

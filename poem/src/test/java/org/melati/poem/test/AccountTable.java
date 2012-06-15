@@ -26,8 +26,7 @@ import org.melati.poem.PoemException;
  * <tr><td> user </td><td> User </td><td> The owner </td></tr> 
  * <tr><td> email </td><td> User </td><td> The owner's email address 
  * </td></tr> 
- * <tr><td> name </td><td> String </td><td> The user's email address 
- * </td></tr> 
+ * <tr><td> name </td><td> String </td><td> The user's name </td></tr> 
  * </table> 
  * 
  * see  org.melati.poem.prepro.TableDef#generateTableJava 

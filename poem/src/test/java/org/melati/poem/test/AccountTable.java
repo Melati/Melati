@@ -24,7 +24,7 @@ import org.melati.poem.PoemException;
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> user </td><td> User </td><td> The owner </td></tr> 
- * <tr><td> email </td><td> User </td><td> The owner's email address 
+ * <tr><td> emailAddress </td><td> User </td><td> The owner's email address 
  * </td></tr> 
  * <tr><td> name </td><td> String </td><td> The user's name </td></tr> 
  * </table> 

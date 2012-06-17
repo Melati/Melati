@@ -35,7 +35,7 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
 
   private Column<Integer> col_id = null;
   private Column<Integer> col_user = null;
-  private Column<String> col_email = null;
+  private Column<String> col_emailAddress = null;
   private Column<String> col_name = null;
 
  /**
@@ -188,23 +188,23 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
           }
         });
 
-    defineColumn(col_email =
-        new Column<String>(this, "email",
+    defineColumn(col_emailAddress =
+        new Column<String>(this, "emailAddress",
                    new StringKeyReferencePoemType(getEverythingDatabaseTables().
                                              getEverythingUserTable(), "email", false, -1),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Account)g).getEmail();
+            return ((Account)g).getEmailAddress();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Account)g).setEmail((User)cooked);
+            ((Account)g).setEmailAddress((User)cooked);
           }
 
           public Field<String> asField(Persistent g) {
-            return ((Account)g).getEmailField();
+            return ((Account)g).getEmailAddressField();
           }
 
           public DisplayLevel defaultDisplayLevel() {
@@ -229,22 +229,22 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Account)g).getEmail_unsafe();
+            return ((Account)g).getEmailAddress_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Account)g).setEmail_unsafe((String)raw);
+            ((Account)g).setEmailAddress_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Account)g).getEmail();
+            return ((Account)g).getEmailAddress();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Account)g).setEmail((String)raw);
+            ((Account)g).setEmailAddress((String)raw);
           }
         });
 
@@ -334,14 +334,14 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
 
 
  /**
-  * Retrieves the <code>Email</code> <code>Column</code> for this 
+  * Retrieves the <code>EmailAddress</code> <code>Column</code> for this 
   * <code>Account</code> <code>Table</code>.
   * 
   * see org.melati.poem.prepro.FieldDef#generateColAccessor 
-  * @return the email <code>Column</code>
+  * @return the emailAddress <code>Column</code>
   */
-  public final Column<String> getEmailColumn() {
-    return col_email;
+  public final Column<String> getEmailAddressColumn() {
+    return col_emailAddress;
   }
 
 

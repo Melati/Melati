@@ -225,7 +225,9 @@ abstract public class SQLPoemTypeSpec<T> extends PoemTestCase {
       e = null;
     } 
     try {
-      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType<T>)it).sqlDefaultValue(getDb().getDbms()))));
+      it.assertValidCooked(
+          it.cookedOfRaw(
+              it.rawOfString(((SQLPoemType<T>)it).sqlDefaultValue(getDb().getDbms()))));
     } catch (ClassCastException e){
       assertTrue(it instanceof NonSQLPoemType);
     }

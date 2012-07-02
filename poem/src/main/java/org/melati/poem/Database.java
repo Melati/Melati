@@ -230,66 +230,58 @@ public abstract class Database implements TransactionPool {
       connecting[0] = true;
     }
 
+    if (committedConnection != null)
+      throw new ReconnectionPoemException(this);
+
+    setDbms(DbmsFactory.getDbms(dbmsclass));
+
+    setTransactionsMax(transactionsMaxP);
+    committedConnection = getDbms().getConnection(url, username, password);
+    transactions = new Vector<Transaction>();
+    for (int s = 0; s < transactionsMax(); ++s)
+      transactions.add(
+        new PoemTransaction(
+            this,
+            getDbms().getConnection(url, username, password),
+            s));
+
+    freeTransactions = (Vector<Transaction>)transactions.clone();
+
     try {
-      setDbms(DbmsFactory.getDbms(dbmsclass));
+      // Perform any table specific initialisation, none by default
+      init();
 
-      if (committedConnection != null)
-        throw new ReconnectionPoemException(this);
+      // Bootstrap: set up the tableinfo and columninfo tables
+      DatabaseMetaData m = committedConnection.getMetaData();
+      getTableInfoTable().unifyWithDB(
+          m.getColumns(null, dbms.getSchema(),
+                       dbms.unreservedName(getTableInfoTable().getName()), null), dbms.unreservedName("id"));
+      getColumnInfoTable().unifyWithDB(
+          m.getColumns(null, dbms.getSchema(),
+                       dbms.unreservedName(getColumnInfoTable().getName()), null), dbms.unreservedName("id"));
+      getTableCategoryTable().unifyWithDB(
+          m.getColumns(null, dbms.getSchema(),
+                       dbms.unreservedName(getTableCategoryTable().getName()), null), dbms.unreservedName("id"));
 
-      setTransactionsMax(transactionsMaxP);
-      committedConnection = getDbms().getConnection(url, username, password);
-      transactions = new Vector<Transaction>();
-      for (int s = 0; s < transactionsMax(); ++s)
-        transactions.add(
-          new PoemTransaction(
-              this,
-              getDbms().getConnection(url, username, password),
-              s));
-
-      freeTransactions = (Vector<Transaction>)transactions.clone();
-
-      try {
-        // Perform any table specific initialisation, none by default
-        init();
-
-        // Bootstrap: set up the tableinfo and columninfo tables
-        DatabaseMetaData m = committedConnection.getMetaData();
-        getTableInfoTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(),
-                         dbms.unreservedName(getTableInfoTable().getName()), null), dbms.unreservedName("id"));
-        getColumnInfoTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(),
-                         dbms.unreservedName(getColumnInfoTable().getName()), null), dbms.unreservedName("id"));
-        getTableCategoryTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(),
-                         dbms.unreservedName(getTableCategoryTable().getName()), null), dbms.unreservedName("id"));
-
-        inSession(AccessToken.root,
-                  new PoemTask() {
-                    public void run() throws PoemException {
-                      try {
-                        _this.unifyWithDB();
-                      }
-                      catch (SQLException e) {
-                        throw new SQLPoemException(e);
-                      }
+      inSession(AccessToken.root,
+                new PoemTask() {
+                  public void run() throws PoemException {
+                    try {
+                      _this.unifyWithDB();
                     }
-
-                    public String toString() {
-                      return "Unifying with DB";
+                    catch (SQLException e) {
+                      throw new SQLPoemException(e);
                     }
-                  });
-      }
-      catch (SQLException e) {
+                  }
+
+                  public String toString() {
+                    return "Unifying with DB";
+                  }
+                });
+    } catch (Exception e) {
         if (committedConnection != null) disconnect();
         throw new UnificationPoemException(e);
-      }
-    } 
-    catch (SQLPoemException e) { 
-      if (committedConnection != null) disconnect();
-      throw e;
-    }
-    finally {
+    } finally {
       synchronized (connecting) {
         connecting[0] = false;
       }

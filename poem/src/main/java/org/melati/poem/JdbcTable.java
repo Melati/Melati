@@ -137,6 +137,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
+   * Override this to perform pre-unification initialisation.
+   */
+  public void init() {
+  }
+
+  /**
    * Do stuff immediately after table initialisation.
    * <p>
    * This base method clears the column info caches and adds a listener
@@ -2883,12 +2889,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
-  }
-
-  /**
-   * Override this to perform pre-unification initialisation.
-   */
-  public void init() {
   }
 
   /**

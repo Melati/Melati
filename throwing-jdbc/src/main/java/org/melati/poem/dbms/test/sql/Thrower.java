@@ -69,7 +69,8 @@ public abstract class Thrower {
     throwers.put(fullName, new Integer(1));
   }
   /**
-   * Tell named method to start throwing exceptions.
+   * Tell named method to start throwing exceptions after 
+   * being called a number of times.
    * @param i Interface class object
    * @param methodName name in class.methodName format
    */

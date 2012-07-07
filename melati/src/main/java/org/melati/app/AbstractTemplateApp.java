@@ -75,6 +75,7 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
   public Melati init(String[] args) throws MelatiException {
     Melati melati = super.init(args);
     templateEngine = melatiConfig.getTemplateEngine();
+    melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext = null;
     templateEngine.init(melatiConfig);
     try { 

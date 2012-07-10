@@ -62,7 +62,7 @@ public class DatabaseTest extends TestCase {
       db.connect("m2", "org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
         "sa", "", 8);
       assertEquals(8, db.getFreeTransactionsCount());
-      assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
+      assertTrue(db.getClass().getName().equals("org.melati.poem.PoemDatabase"));
       return db;
     }
   }

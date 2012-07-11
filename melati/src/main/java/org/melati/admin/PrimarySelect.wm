@@ -170,10 +170,11 @@
         <SELECT NAME="goto" 
             OnChange="return(goto_page());">
       #foreach $poss in $primaryCriterion.First1000Possibilities #begin
+      <option 
 #if ($inPopup) #begin
-          <OPTION VALUE="$admin.getSelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
+          VALUE="$admin.getSelectionURL($melati.Table)&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)&returnfield=$Form.returnfield"
 #end #else #begin
-          <OPTION VALUE="$admin.getSelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+          VALUE="$admin.getSelectionURL($melati.Table,"parent.parent.parent.admin_bottom.admin_left.admin_selection")&field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
 #end
         #if ($poss.sameRawAs($primaryCriterion)) #begin
             SELECTED
@@ -199,18 +200,18 @@
    </td>
    <td>&nbsp;</td>
    <td align="right" valign="middle">
-#if ($inPopup)
+#if ($inPopup) #begin
      <a href='$admin.getAddURL($primaryCriterion.getType().targetTable())?returnTarget=selectionwindow_selection&returnURL=$ml.encoded("$admin.getSelectionWindowSelectionURL($melati.Table)&returnfield=$Form.returnfield")' 
         title="New $primaryCriterion.DisplayName" 
-        target=selectionwindow_selection><IMG 
+        target=selectionwindow_selection> 
 #end #else #begin
      <a href='$admin.getAddURL($primaryCriterion.getType().targetTable())' 
         title="New $primaryCriterion.DisplayName" 
-        target="admin_record"><IMG 
+        target="admin_record">
 #end
-            src="$admin.StaticURL/new_dir.gif" 
+        <img src="$admin.StaticURL/new_dir.gif" 
             border="0" 
-            alt="New $primaryCriterion.DisplayName"></a>
+            alt="New $primaryCriterion.DisplayName" /></a>
   #end #else #begin
      <font face="Arial, Helvetica" size="-1">
       $ml.input($primaryCriterion)

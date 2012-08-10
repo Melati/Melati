@@ -71,15 +71,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <developer>
       <name>Tim Pizey</name>
       <id>timp</id>
-      <email>timp At paneris.org</email>
-      <organization>PanEris</organization>
+      <email>timp At sourceforge.net</email>
       <roles>
         <role>Maintainer</role>
         <role>Maven maven</role>
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
-      <url>http://paneris.org/~timp</url>
+      <url>http://tim.pizey.net/</url>
     </developer>
   </developers>
 
@@ -128,6 +127,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <version>${version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.10</version>
+     <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -290,6 +295,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <name>Melati M2 Repository</name>
       <url>http://www.melati.org/maven2/</url>
     </repository>
+    <repository>
+      <id>org.webmacro</id>
+      <name>Webmacro repo</name>
+      <url>http://webmacro.sourceforge.net/maven2/</url>
+    </repository>
   </repositories>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -302,9 +312,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
        <plugins>
         <!-- Copy the images etc to melati-static, unwanted side effect is that the classes file end up there too :( -->
         <plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>dependency-maven-plugin</artifactId>
-         <version>2.4</version>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-dependency-plugin</artifactId>
+         <version>2.5</version>
          <executions>
            <execution>
              <id>unzip-resources</id>
@@ -373,46 +383,46 @@ ${firstChar}${rest}#end
       </build>
      </profile>
      <profile>
-     <id>updateJava</id>
-     <dependencies>
-      <!--   
-       #set $melati.ResponseContentType = "text/plain"
-       This dependency is required due to introspection
-       in template DSD.wm -->
-      <dependency>
-       <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
-       <version>2.5</version>
-       <scope>provided</scope>
-      </dependency>       
-     </dependencies>
-     <build>
-     <plugins>
-      <plugin>
-       <groupId>org.codehaus.mojo</groupId>
-       <artifactId>exec-maven-plugin</artifactId>
-       <version>1.2.1</version>
-       <executions>
-         <execution>
-          <id>exportDSD</id>
-          <phase>test</phase>
-           <goals>
-             <goal>java</goal>
-           </goals>
-         </execution>
-       </executions>
-       <configuration>
-         <mainClass>org.melati.app.DSDApp</mainClass>
-         <arguments>
-           <argument>${artifactId}</argument>
-           <argument>DSD</argument>
-           <argument>-output</argument>
-           <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd</argument>
-         </arguments>
-       </configuration>
-      </plugin>
-     </plugins>
-    </build>
-   </profile>
- </profiles>
+       <id>updateJava</id>
+       <dependencies>
+        <!--   
+         #set $melati.ResponseContentType = "text/plain"
+         This dependency is required due to introspection
+         in template DSD.wm -->
+        <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>servlet-api</artifactId>
+         <version>2.5</version>
+         <scope>provided</scope>
+        </dependency>       
+       </dependencies>
+       <build>
+        <plugins>
+         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2.1</version>
+          <executions>
+            <execution>
+             <id>exportDSD</id>
+             <phase>test</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <mainClass>org.melati.app.DSDApp</mainClass>
+            <arguments>
+              <argument>${artifactId}</argument>
+              <argument>DSD</argument>
+              <argument>-output</argument>
+              <argument>${dollar}{project.build.sourceDirectory}/${groupId.replace(".","/")}/${artifactId}/poem/${artifactId}.dsd</argument>
+            </arguments>
+          </configuration>
+         </plugin>
+        </plugins>
+       </build>
+     </profile>
+  </profiles>
 </project>

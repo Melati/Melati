@@ -46,6 +46,8 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.AbstractTemplateEngine;
 
@@ -55,6 +57,8 @@ import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.velocity.VelocityTemplate;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
@@ -126,12 +130,27 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine implements 
     freemarker.template.Template t;
     try {
       t = config.getTemplate(templateName);
+      return new FreemarkerTemplate(t);
     } catch (FileNotFoundException e) {
-      throw new NotFoundException("Could not find template " + templateName, e);
+      if (templateName.endsWith(templateExtension())) {
+        // have a go at loading the velocity template and converting it, 
+        // which may entail its creation from wm
+        String velocityTemplateName = templateName.substring(0, templateName
+            .lastIndexOf(templateExtension()))
+            + ".vm";
+        try {
+          return new VelocityTemplate(velocityTemplateName);
+        } catch (ParseErrorException p) {
+          throw new MelatiBugMelatiException(
+              "Problem converting a Velocity template to a Freemarker template: " + velocityTemplateName,
+              p);
+        } catch (ResourceNotFoundException e2) {
+            throw new NotFoundException("Could not find template " + templateName + " or " + velocityTemplateName);
+        } 
+      } else throw new NotFoundException("Could not find template " + templateName, e);
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
-    return new FreemarkerTemplate(t);
   }
 
 

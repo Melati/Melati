@@ -11,7 +11,7 @@
     <module>melati-example-contacts</module>
     <module>courteouspoem</module>
     <module>melati-example-odmg</module>
-    <module>maven-dsd-plugin</module>
+    <module>dsd-maven-plugin</module>
     <module>melati-webapp</module>
     <module>melati-archetype</module>
 <!--

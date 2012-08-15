@@ -186,7 +186,7 @@ Needed by jwebunit 3.0
    <plugins>
     <plugin>
      <groupId>org.melati</groupId>
-     <artifactId>maven-dsd-plugin</artifactId>
+     <artifactId>dsd-maven-plugin</artifactId>
      <version>${project.version}</version>   
      <executions>
        <execution>
@@ -397,7 +397,7 @@ Needed by jwebunit 3.0
          <pluginExecution>
           <pluginExecutionFilter>
            <groupId>org.melati</groupId>
-           <artifactId>maven-dsd-plugin</artifactId>
+           <artifactId>dsd-maven-plugin</artifactId>
            <versionRange>[0.7.9-SNAPSHOT,)</versionRange>
            <goals>
             <goal>generate</goal>

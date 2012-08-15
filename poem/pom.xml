@@ -275,7 +275,7 @@
          <pluginExecution>
           <pluginExecutionFilter>
            <groupId>org.melati</groupId>
-           <artifactId>maven-dsd-plugin</artifactId>
+           <artifactId>dsd-maven-plugin</artifactId>
            <versionRange>[0.7.9-SNAPSHOT,)</versionRange>
            <goals>
             <goal>generate</goal>

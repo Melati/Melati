@@ -6,7 +6,7 @@
     <artifactId>melati-parent</artifactId>
     <version>0.7.9-SNAPSHOT</version>
   </parent>
-  <artifactId>maven-dsd-plugin</artifactId>
+  <artifactId>dsd-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>DSD Processor</name>
   <url>http://melati.org/maven-dsd-plugin/</url>

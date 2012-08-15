@@ -135,7 +135,7 @@
       </plugin>
       <plugin>
         <groupId>org.melati</groupId>
-        <artifactId>maven-dsd-plugin</artifactId>
+        <artifactId>dsd-maven-plugin</artifactId>
         <version>${project.version}</version>
         <executions>
           <execution>

@@ -9,7 +9,7 @@
   <artifactId>dsd-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>DSD Processor</name>
-  <url>http://melati.org/maven-dsd-plugin/</url>
+  <url>http://melati.org/dsd-maven-plugin/</url>
   <description>
   A processor of the Data Structure Definition (DSD) language which can run as an application or as a 
   Maven plugin.

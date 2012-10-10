@@ -49,6 +49,7 @@ package org.melati.util;
  * Convert the checked exception IOException to a RuntimeException.
  * 
  * @since 21 Jul 2009
+ * @author timp
  *
  */
 public class MelatiIOException extends MelatiRuntimeException {

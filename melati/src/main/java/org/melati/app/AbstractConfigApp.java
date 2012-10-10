@@ -45,6 +45,7 @@
 package org.melati.app;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -57,6 +58,7 @@ import org.melati.PoemContext;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.util.MelatiException;
+import org.melati.util.MelatiIOException;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiWriter;
 
@@ -225,15 +227,10 @@ public abstract class AbstractConfigApp implements App {
     for (int i = 0; i < arguments.length; i++) {
       if (arguments[i].startsWith("-o"))
         nextIsOutput = true;
-      else if (nextIsOutput)
-        try {
-          setOutput(arguments[i]);
-          nextIsOutput = false;
-        } catch (IOException e) {
-          throw new RuntimeException("Problem setting output to "
-                  + arguments[i], e);
-        }
-      else {
+      else if (nextIsOutput) {
+        setOutput(arguments[i]);
+        nextIsOutput = false;
+      } else {
         unnamedArguments = (String[])ArrayUtils.added(unnamedArguments,
                 arguments[i]);
       }
@@ -242,12 +239,25 @@ public abstract class AbstractConfigApp implements App {
     return unnamedArguments;
   }
 
-  public void setOutput(String path) throws IOException {
-    File outputFile = new File(path).getCanonicalFile();
+  public void setOutput(String path) {
+    File outputFile;
+    try {
+      outputFile = new File(path).getCanonicalFile();
+    } catch (IOException e) {
+      throw new MelatiIOException(e);
+    }
     File parent = new File(outputFile.getParent());
     parent.mkdirs();
-    outputFile.createNewFile();
-    setOutput(new PrintStream(new FileOutputStream(outputFile)));
+    try {
+      outputFile.createNewFile();
+    } catch (IOException e) {
+      throw new MelatiIOException(e);
+    }
+    try {
+      setOutput(new PrintStream(new FileOutputStream(outputFile)));
+    } catch (FileNotFoundException e) {
+      throw new MelatiIOException(e);
+    }
   }
 
   /**

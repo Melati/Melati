@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java"/>
+  <classpathentry kind="src" path="." including="NOTICE.txt" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources/m2e" including="lifecycle-mapping-metadata.xml" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-plugin-api/3.0.3/maven-plugin-api-3.0.3.jar" sourcepath="M2_REPO/org/apache/maven/maven-plugin-api/3.0.3/maven-plugin-api-3.0.3-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-model/3.0.3/maven-model-3.0.3.jar" sourcepath="M2_REPO/org/apache/maven/maven-model/3.0.3/maven-model-3.0.3-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/2.0.6/plexus-utils-2.0.6.jar" sourcepath="M2_REPO/org/codehaus/plexus/plexus-utils/2.0.6/plexus-utils-2.0.6-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-artifact/3.0.3/maven-artifact-3.0.3.jar" sourcepath="M2_REPO/org/apache/maven/maven-artifact/3.0.3/maven-artifact-3.0.3-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sonatype/sisu/sisu-inject-plexus/2.1.1/sisu-inject-plexus-2.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar" sourcepath="M2_REPO/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.jar" sourcepath="M2_REPO/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sonatype/sisu/sisu-inject-bean/2.1.1/sisu-inject-bean-2.1.1.jar" sourcepath="M2_REPO/org/sonatype/sisu/sisu-inject-bean/2.1.1/sisu-inject-bean-2.1.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sonatype/sisu/sisu-guice/2.9.4/sisu-guice-2.9.4-no_aop.jar"/>
+</classpath>

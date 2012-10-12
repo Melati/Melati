@@ -77,7 +77,7 @@ public abstract class TemplateServlet extends PoemServlet {
   protected ServletTemplateEngine templateEngine;
 
   /**
-   * Inititialise the template engine.
+   * Initialise the template engine.
    *
    * @param config a <code>ServletConfig</code>
    * @throws ServletException if the ServletTemplateEngine has a problem

@@ -251,7 +251,8 @@ public abstract class AbstractConfigApp implements App {
     try {
       outputFile.createNewFile();
     } catch (IOException e) {
-      throw new MelatiIOException(e);
+      throw new MelatiIOException(
+          "Could not create " + outputFile.getAbsolutePath(), e);
     }
     try {
       setOutput(new PrintStream(new FileOutputStream(outputFile)));

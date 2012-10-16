@@ -107,15 +107,6 @@ public class PoemContext implements Cloneable {
            "method = " + method;
   }
 
- /**
-  * Clone me.
-  * @return a duplicate of this
-  * @throws CloneNotSupportedException cannot be thrown 
-  */
-  public Object clone() throws CloneNotSupportedException {
-      return super.clone();
-  }
-  
 
  /**
   * @return the logical database name.

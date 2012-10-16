@@ -48,7 +48,7 @@ public class DelimitedBufferedInputStreamTest extends TestCase {
   /**
    * Test method for {@link org.melati.util.DelimitedBufferedInputStream#DelimitedBufferedInputStream(java.io.InputStream)}.
    */
-  public void testDelimitedBufferedInputStreamInputStream() {
+  public void testDelimitedBufferedInputStreamInputStream() throws Exception {
     DelimitedBufferedInputStream testDBIS =
       new DelimitedBufferedInputStream(
               new ByteArrayInputStream(arr1));
@@ -64,6 +64,7 @@ public class DelimitedBufferedInputStreamTest extends TestCase {
             testDBIS.indexOf(arr1, arr4, 0) == -1);
     assertTrue("potentialMatch (expect 2): ",
             testDBIS.getPotentialMatch() == 2);
+    testDBIS.close();
   }
 
   /**
@@ -75,6 +76,7 @@ public class DelimitedBufferedInputStreamTest extends TestCase {
             new ByteArrayInputStream(arr1), 1);
      assertTrue("reading upto arr3 (expect 4): " ,
              testDBIS.readToDelimiter(sink, 0, 10, arr3) == 4);
+     testDBIS.close();
   }
 
   /**

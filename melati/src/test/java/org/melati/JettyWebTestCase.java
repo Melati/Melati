@@ -156,6 +156,7 @@ public class JettyWebTestCase extends WebTestCase {
     } else { 
       FileOutputStream file = new FileOutputStream(referenceFile);
       file.write(generated.getBytes());
+      file.close();
       fail("Reference output file generated: " + referenceFile.getCanonicalPath() + " modify generateCached and rerun");
     }
   }

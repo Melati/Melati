@@ -859,7 +859,9 @@ public abstract class Column<T> implements FieldAttributes<T> {
         if (getType() instanceof ReferencePoemType)
           return selectionWhereEq(object.troid());
         else if (getType() instanceof StringKeyReferencePoemType)
-          return selectionWhereEq(object.getField(((StringKeyReferencePoemType)getType()).targetKeyName()));
+          return selectionWhereEq(
+              object.getField(
+                  ((StringKeyReferencePoemType)getType()).targetKeyName()).getRawString());
         else throw new PoemBugPoemException("Unanticipated type " + getType());
       }
     return new EmptyEnumeration<Persistent>();

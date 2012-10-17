@@ -66,18 +66,6 @@ public class PoemContextTest extends TestCase {
   }
 
   /**
-   * Appears not to be used in anger.
-   * @throws Exception 
-   * @see org.melati.PoemContext#clone()
-   */
-  public void testClone() throws Exception {
-    PoemContext pc = new PoemContext();
-    pc.setLogicalDatabase("test");
-    PoemContext pc2 = (PoemContext)pc.clone();
-    assertEquals("test",pc2.getLogicalDatabase());
-  }
-
-  /**
    * @see org.melati.PoemContext#getLogicalDatabase()
    */
   public void testGetLogicalDatabase() {

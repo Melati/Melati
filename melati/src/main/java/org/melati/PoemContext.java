@@ -55,7 +55,7 @@ import org.melati.poem.util.StringUtils;
  * whole database.
  */
 
-public class PoemContext implements Cloneable {
+public class PoemContext {
 
   /** The database in use */
   String logicalDatabase;

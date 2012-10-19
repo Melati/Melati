@@ -937,7 +937,7 @@ public class Melati {
       try {
         writer.close();
       } catch (IOException e) {
-        throw new MelatiIOException(e);
+        System.err.println("Melati output already closed");
       }
   }
 

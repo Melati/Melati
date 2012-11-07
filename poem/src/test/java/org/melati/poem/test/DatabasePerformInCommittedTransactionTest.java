@@ -187,7 +187,7 @@ public class DatabasePerformInCommittedTransactionTest
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
   /**
-   * @returnthe databse defs
+   * @return the database defs
    */
   public  Properties databaseDefs() {
     if (databaseDefs == null)

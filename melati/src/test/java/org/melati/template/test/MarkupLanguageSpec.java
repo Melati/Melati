@@ -10,12 +10,10 @@ import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
-import org.melati.poem.PoemLocale;
 import org.melati.poem.PoemThread;
 import org.melati.util.test.Node;
 import org.melati.util.test.TreeDatabase;
 import org.melati.template.AttributeMarkupLanguage;
-import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
@@ -247,13 +245,12 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   
   /**
    * Test that toString is used if no template found.
+   * FIXME a template is always used, to this test is ill conceived
    */
   public void testUntemplatedObjectUsesToString() throws Exception { 
-    
-    String rendered = ml.rendered(new Properties());
-    // Webmacro, incorrectly, puts a newline at front
-    assertEquals("[{}]", rendered.trim());
+    assertEquals("[{}]", ml.rendered(new Properties()).trim());
   }
+
   /**
    * Test that special templets are found.
    */

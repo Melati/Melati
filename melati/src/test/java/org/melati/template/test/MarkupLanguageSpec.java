@@ -107,24 +107,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   }
 
-  /**
-   * Test method for Constructor. 
-   * 
-   * @see org.melati.template.HTMLMarkupLanguage#
-   *   HTMLMarkupLanguage(Melati, TempletLoader, PoemLocale)
-   */
-  public void testHTMLMarkupLanguageMelatiTempletLoaderPoemLocale() {
-
-  }
-
-  /**
-   * Test method for Constructor 
-   * @see org.melati.template.HTMLMarkupLanguage#
-   *          HTMLMarkupLanguage(String, HTMLMarkupLanguage)
-   */
-  public void testHTMLMarkupLanguageStringHTMLMarkupLanguage() {
-
-  }
 
   /**
    * Test method for getAttr().

@@ -100,21 +100,6 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
     super.testGetAttr();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.template.test.MarkupLanguageSpec#testHTMLMarkupLanguageMelatiTempletLoaderPoemLocale()
-   */
-  public void testHTMLMarkupLanguageMelatiTempletLoaderPoemLocale() {
-    super.testHTMLMarkupLanguageMelatiTempletLoaderPoemLocale();
-  }
-
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.template.test.MarkupLanguageSpec#testHTMLMarkupLanguageStringHTMLMarkupLanguage()
-   */
-  public void testHTMLMarkupLanguageStringHTMLMarkupLanguage() {
-    super.testHTMLMarkupLanguageStringHTMLMarkupLanguage();
-  }
 
   /** 
    * {@inheritDoc}

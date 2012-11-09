@@ -126,9 +126,6 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   }
   
-  /**
-   * Test entity substitution.
-   */
   public void testEntitySubstitution() throws Exception { 
     char pound[] = {163};
     assertEquals("&pound;", ml.rendered(new String(pound)));

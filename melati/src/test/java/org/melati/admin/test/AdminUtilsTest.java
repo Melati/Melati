@@ -74,12 +74,6 @@ public class AdminUtilsTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.admin.AdminUtils#AdminUtils(Melati)
-   */
-  public void testAdminUtils() throws Exception {
-  }
-
-  /**
    * @see org.melati.admin.AdminUtils#
    *          specialFacilities(Melati, MarkupLanguage, Persistent)
    */

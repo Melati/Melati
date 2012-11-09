@@ -1,0 +1,10 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2012 Tim Pizey
+##
+{
+ "class":"$object.Class.Name",
+ "asString":"$ml.rendered($object.toString())"
+}

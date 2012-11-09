@@ -1,0 +1,4 @@
+{
+ "class":"$object.Class.Name",
+ "asString":"$ml.rendered($object.toString())"
+}

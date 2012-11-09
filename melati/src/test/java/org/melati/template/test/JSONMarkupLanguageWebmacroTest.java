@@ -1,14 +1,19 @@
 package org.melati.template.test;
 
+import java.util.Properties;
+
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Capability;
-import org.melati.template.test.MarkupLanguageSpec.Bomber;
+import org.melati.poem.Field;
+import org.melati.poem.PoemThread;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
+import org.melati.util.JSStaticTree;
 import org.melati.util.MelatiException;
+import org.melati.util.Tree;
 import org.melati.util.test.Node;
-
+import org.melati.util.test.TreeDatabase;
 
 /**
  * Test the HTMLMarkupLanguage and its AttributeMarkupLanguage.
@@ -17,78 +22,147 @@ import org.melati.util.test.Node;
  * @since 18-May-2006
  */
 public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
-  
+
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     mc.setTemplateEngine(new WebmacroTemplateEngine());
   }
- 
-  public void testRenderedAccessPoemException() throws Exception {
-    
-    assertEquals("\n{\n \"class\":\"java.lang.Exception\",\n \"asString\":\"java.lang.Exception\"\n}\n",ml.rendered(new Exception()));
 
-    AccessPoemException ape = new AccessPoemException(
-          getDb().getUserTable().guestUser(), new Capability("Cool"));
-    assertTrue(ml.rendered(ape),ml.rendered(ape).indexOf("You need the capability Cool but ") != -1);
+  public void testRenderedAccessPoemException() throws Exception {
+
+    assertEquals(
+        "\n{\n \"class\":\"java.lang.Exception\",\n \"asString\":\"java.lang.Exception\"\n}\n",
+        ml.rendered(new Exception()));
+
+    AccessPoemException ape = new AccessPoemException(getDb().getUserTable()
+        .guestUser(), new Capability("Cool"));
+    assertTrue(ml.rendered(ape),
+        ml.rendered(ape).indexOf("You need the capability Cool but ") != -1);
     ape = new AccessPoemException();
     System.err.println(m.getWriter().toString());
     assertEquals("", m.getWriter().toString());
-    ape = new AccessPoemException(
-          getDb().getUserTable().guestUser(), new Capability("Cool"));
+    ape = new AccessPoemException(getDb().getUserTable().guestUser(),
+        new Capability("Cool"));
   }
-  
+
   public void testGetAttr() {
     // we don't have one
   }
-  public void testEntitySubstitution() throws Exception { 
-    char pound[] = {163};
+
+  public void testEntitySubstitution() throws Exception {
+    char pound[] = { 163 };
     assertEquals(new String(pound), ml.rendered(new String(pound)));
   }
+
   public void testEscapedPersistent() {
     // not implemented yet
-    try { 
+    try {
       ml.escaped(getDb().getUserTable().getUserObject(0));
-    } catch (RuntimeException e) { 
+    } catch (RuntimeException e) {
       e = null;
     }
   }
+
   public void testEncoded() {
-    try { 
+    try {
       ml.encoded(" ");
-    } catch (RuntimeException e) { 
+    } catch (RuntimeException e) {
       e = null;
     }
   }
+
   public void testRenderedObject() throws Exception {
     assertEquals("Fredd$", ml.rendered("Fredd$"));
     // Note velocity seems to leave the line end on
-    //assertEquals("[1]", ml.rendered(new Integer("1")).trim());
-    
-    //assertEquals("1", ml.getAttr().rendered(new Integer("1")));
-    try { 
+    // assertEquals("[1]", ml.rendered(new Integer("1")).trim());
+
+    // assertEquals("1", ml.getAttr().rendered(new Integer("1")));
+    try {
       ml.getAttr().rendered(new Bomber());
       fail("Should have bombed");
     } catch (RuntimeException e) {
       assertEquals("Not expected to be called in JSON", e.getMessage());
       e = null;
     }
-    
-    try { 
+
+    try {
       ml.rendered(new Bomber());
       fail("Should have bombed");
     } catch (RuntimeException e) {
       assertTrue(e.getMessage().indexOf("Bomber bombed") > -1);
       e = null;
     }
-    
-    Node persistent = (Node)getDb().getTable("node").newPersistent();
+
+    Node persistent = (Node) getDb().getTable("node").newPersistent();
     persistent.setName("Mum");
     persistent.makePersistent();
     m.setPoemContext(new PoemContext());
-     
-    String renderedPersistent = ml.rendered(persistent);
-    //System.err.println(renderedPersistent);
-    assertEquals("{\n \"class\":\"org.melati.util.test.Node\",\n \"asString\":\"Node\\/0\"\n}\n", renderedPersistent);
 
+    String renderedPersistent = ml.rendered(persistent);
+    // System.err.println(renderedPersistent);
+    assertEquals(
+        "{\n \"class\":\"org.melati.util.test.Node\",\n \"asString\":\"Node\\/0\"\n}\n",
+        renderedPersistent);
+
+  }
+
+  /**
+   * @see org.melati.template.MarkupLanguage#renderedMarkup
+   */
+  public void testRenderedMarkupString() throws Exception {
+    try {
+      ml.renderedMarkup("</a>");
+      fail("Should have bombed");
+    } catch (RuntimeException e) {
+      assertEquals("Not expected to be called in JSON", e.getMessage());
+      e = null;
+    }
+    assertEquals("<\\/a>", ml.rendered("</a>"));
+  }
+  
+  /**
+   * Test that toString is used if no template found.
+   * FIXME a template has to be found as there is always an Object template
+   * What is this test meant to be about?
+   */
+  public void testUntemplatedObjectUsesToString() throws Exception { 
+    assertEquals("{\n \"class\":\"java.util.Properties\",\n \"asString\":\"{}\"\n}\n", ml.rendered(new Properties()));
+  }
+
+  public void testSpecialTemplateFound() throws Exception { 
+    // not applicable
+  }
+  public void testInputField() throws Exception {
+    // not applicable
+  }
+  public void testInputFieldSelection() throws Exception {
+    // not applicable
+  }
+  public void testSelectionWindowField() throws Exception {
+    // not applicable
+  }
+  public void testInputFieldForRestrictedField() throws Exception { 
+    PoemThread.setAccessToken(getDb().getUserTable().guestUser());
+    Field<?> password = getDb().getUserTable().getPasswordColumn().asEmptyField();
+    System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
+    System.err.println(ml.input(password));
+    assertEquals("{\n \"class\":\"org.melati.poem.Field\",\n" + 
+                    " \"asString\":\"password: \"\n}\n", ml.input(password));
+    assertEquals("", ml.rendered(password));
+    try { 
+      assertEquals("", ml.rendered(ml.rendered(getDb().getUserTable().administratorUser().getField("password"))));
+      fail("Should have bombed");
+    } catch (AccessPoemException e) { 
+      e = null;
+    } 
+  }
+  
+  public void testInputAs() throws Exception {
+  }
+
+  public void testSearchInput() throws Exception {
+  }
+
+  public void testRenderedTreeable() throws Exception {
   }
 }

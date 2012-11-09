@@ -86,7 +86,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testRenderedAccessPoemException() throws Exception {
     
     assertEquals("java.lang.Exception",aml.rendered(new Exception()));
-    assertEquals("\n[java.lang.Exception]\n",ml.rendered(new Exception()));
+    assertEquals("[java.lang.Exception]",ml.rendered(new Exception()));
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));

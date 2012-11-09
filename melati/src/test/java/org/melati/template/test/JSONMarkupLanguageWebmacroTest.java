@@ -9,11 +9,8 @@ import org.melati.poem.Capability;
 import org.melati.poem.Field;
 import org.melati.poem.PoemThread;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
-import org.melati.util.JSStaticTree;
 import org.melati.util.MelatiException;
-import org.melati.util.Tree;
 import org.melati.util.test.Node;
-import org.melati.util.test.TreeDatabase;
 
 /**
  * Test the HTMLMarkupLanguage and its AttributeMarkupLanguage.

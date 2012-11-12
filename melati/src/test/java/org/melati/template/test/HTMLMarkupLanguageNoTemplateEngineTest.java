@@ -3,6 +3,8 @@
  */
 package org.melati.template.test;
 
+import java.util.ArrayList;
+
 import org.melati.MelatiConfig;
 import org.melati.template.NoTemplateEngine;
 import org.melati.template.TemplateEngineException;
@@ -284,6 +286,14 @@ public class HTMLMarkupLanguageNoTemplateEngineTest extends
    * @see org.melati.template.test.MarkupLanguageSpec#testInputFieldSelection()
    */
   public void testInputFieldSelection() throws Exception {
+  }
+
+  public void testRenderedList() { 
+    try { 
+      super.testRenderedList();
+    } catch (TemplateEngineException e) { 
+      assertEquals("No Template engine is Configured, please specify an engine in org.melati.MelatiConfig.properties", e.getMessage());
+    }
   }
 
 }

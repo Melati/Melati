@@ -3,12 +3,6 @@
  */
 package org.melati.template.test;
 
-import java.util.ArrayList;
-
-import org.melati.MelatiConfig;
-import org.melati.template.NoTemplateEngine;
-import org.melati.template.TemplateEngineException;
-import org.melati.util.MelatiException;
 
 /**
  * @author timp

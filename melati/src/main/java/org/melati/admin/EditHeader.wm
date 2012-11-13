@@ -79,7 +79,7 @@
      face="Arial, Helvetica" size="2">:
 <a href= "$admin.getEditURL($melati)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="$admin.getEditFrameName($melati)"
-title="Display $ml.rendered($melati.Object.toString())">
+title="Display $ml.rendered($melati.Object)">
 $ml.rendered($melati.Object.toString())</a>
    </font>
   </td>

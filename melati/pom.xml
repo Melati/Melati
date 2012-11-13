@@ -326,9 +326,10 @@ Needed by jwebunit 3.0
     </plugin>
    <plugin>
     <groupId>org.mortbay.jetty</groupId>
-    <artifactId>maven-jetty-plugin</artifactId>
+    <artifactId>jetty-maven-plugin</artifactId>
+    <version>7.5.1.v20110908</version>
     <configuration>
-     <webAppSourceDirectory>${basedir}/src/test/webapp</webAppSourceDirectory>
+     <webAppSourceDirectory>src/test/webapp</webAppSourceDirectory>
      <scanIntervalSeconds>2</scanIntervalSeconds>
     </configuration>
     </plugin>
@@ -384,35 +385,6 @@ Needed by jwebunit 3.0
      </excludes>
     </resource>
    </resources>
-   <pluginManagement>
-    <plugins>
-     <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-     <plugin>
-      <groupId>org.eclipse.m2e</groupId>
-      <artifactId>lifecycle-mapping</artifactId>
-      <version>1.0.0</version>
-      <configuration>
-       <lifecycleMappingMetadata>
-        <pluginExecutions>
-         <pluginExecution>
-          <pluginExecutionFilter>
-           <groupId>org.melati</groupId>
-           <artifactId>dsd-maven-plugin</artifactId>
-           <versionRange>[0.7.9-SNAPSHOT,)</versionRange>
-           <goals>
-            <goal>generate</goal>
-           </goals>
-          </pluginExecutionFilter>
-          <action>
-           <ignore></ignore>
-          </action>
-         </pluginExecution>
-        </pluginExecutions>
-       </lifecycleMappingMetadata>
-      </configuration>
-     </plugin>
-    </plugins>
-   </pluginManagement>
   </build>
   <reporting>
     <plugins>

@@ -1,6 +1,8 @@
 package org.melati.template.test;
 
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Vector;
 
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -96,11 +98,9 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
     m.setPoemContext(new PoemContext());
 
     String renderedPersistent = ml.rendered(persistent);
-    // System.err.println(renderedPersistent);
     assertEquals(
-        "{\n \"class\":\"org.melati.util.test.Node\",\n \"asString\":\"Node\\/0\"\n}\n",
+        "{\n \"class\":\"org.melati.util.test.Node\",\n \"value\":\"Mum\"\n}",
         renderedPersistent);
-
   }
 
   /**
@@ -161,5 +161,42 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
   }
 
   public void testRenderedTreeable() throws Exception {
+  }
+  
+  /**
+   * Test NPE not thrown.
+   */
+  public void testNull() throws Exception {
+    assertEquals("null",ml.rendered(null));
+  }
+  public void testRenderedList() { 
+    ArrayList<Object>l = new ArrayList<Object>();
+    assertEquals("[]\n", ml.rendered(l));
+    l.add(null);
+    assertEquals("[null]\n", ml.rendered(l));
+    l.add(null);
+    assertEquals("[null,null]\n", ml.rendered(l));
+    l.add(Boolean.TRUE);
+    assertEquals("[null,null,true]\n", ml.rendered(l));
+    l.add(Boolean.FALSE);
+    assertEquals("[null,null,true,false]\n", ml.rendered(l));
+    l.add(null);
+    assertEquals("[null,null,true,false,null]\n", ml.rendered(l));
+    l.add("test");
+    assertEquals("[null,null,true,false,null,\"test\"]\n", ml.rendered(l));
+    
+    Vector<Object> v = new Vector<Object>();
+    assertEquals("[]\n", ml.rendered(v));
+    v.add("one");
+    assertEquals("[\"one\"]\n", ml.rendered(v));
+    v.add("one");
+    assertEquals("[\"one\",\"one\"]\n", ml.rendered(v));
+    assertEquals("[\"one\",\"one\"]\n", ml.rendered(v.elements()));    
+  }
+
+  public void testRenderedSelection() { 
+
+    assertEquals("[{\n \"class\":\"org.melati.poem.User\",\n \"value\":\"Melati guest user\"\n}"+
+        ",{\n \"class\":\"org.melati.poem.User\",\n \"value\":\"Melati database administrator\"\n}]\n", ml.rendered(getDb().getUserTable().selection())); 
   }
 }

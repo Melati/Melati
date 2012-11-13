@@ -90,7 +90,7 @@ public class TableSortedMapTest extends TableMapTest {
     Integer troid =  it.firstKey();
     Setting s2 = getDb().getSettingTable().ensure("s2", "s2", "S2", "test setting S2");
     s1.delete();
-    assertEquals(new Integer(troid.intValue() + 1), noArg.firstKey());
+    assertEquals(new Integer(troid.intValue()), it.firstKey());
     s2.delete();
     try { 
       noArg.firstKey();

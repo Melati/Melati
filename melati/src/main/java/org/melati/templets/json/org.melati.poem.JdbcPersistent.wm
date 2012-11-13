@@ -1,0 +1,4 @@
+{
+ "class":"$object.Class.Name",
+ "value":"$object.displayString($melati.PoemLocale)"
+}

@@ -121,7 +121,7 @@ public abstract class PoemTypeFactory {
   public static final PoemTypeFactory TROID;
   /** Deleted column factory. */
   public static final PoemTypeFactory DELETED;
-  /** Type column factory. */
+  /** Type column factory. Used to denote a column which contains a PoemTypeFactory. */
   public static final PoemTypeFactory TYPE;
     
   /* Base type factories. */

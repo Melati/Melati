@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.admin.test;
 
 
@@ -17,13 +14,14 @@ import org.melati.template.TemplateEngine;
 
 /**
  * @author timp
- *
+ * @since 2006-03-11
  */
 public class AdminUtilsTest extends PoemTestCase {
   protected static MelatiConfig mc = null;
   protected static TemplateEngine templateEngine = null;
   protected static Melati m = null;
   protected AdminUtils au;
+
   /**
    * Constructor for AdminUtilsTest.
    * @param name
@@ -32,9 +30,6 @@ public class AdminUtilsTest extends PoemTestCase {
     super(name);
   }
 
-  /*
-   * @see TestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
@@ -63,14 +58,9 @@ public class AdminUtilsTest extends PoemTestCase {
     au = new AdminUtils(m);
   }
 
-  /*
-   * @see TestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
-    // Do not check whether db has changed 
-    // as it has not even been initialised
-    //super.tearDown();
+    super.tearDown();
   }
 
   /**

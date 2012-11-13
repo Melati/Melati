@@ -138,7 +138,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","org.melati.poem.PoemDatabase",
-            "org.melati.poem.dbms.Hsqldb",true,true,false,4);
+            "org.melati.poem.dbms.Hsqldb",true,true,false,8);
   }
   /**
    * @return the everything db
@@ -148,7 +148,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "jdbc:hsqldb:mem:" + EverythingTestCase.databaseName,
             "sa",
             "","org.melati.poem.test.EverythingDatabase",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+            "org.melati.poem.dbms.Hsqldb",false,false,false,8);
   }
 
   /**

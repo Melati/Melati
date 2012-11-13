@@ -48,7 +48,7 @@ public class CachedSelectionTest extends
    * @see org.melati.poem.test.PoemTestCase#getDatabase(java.lang.String)
    */
   public Database getDatabase(String name) {
-    maxTrans = 4;
+    maxTrans = 8;
     Database db = PoemDatabaseFactory.getDatabase(name, 
         "jdbc:hsqldb:mem:" + name,
         "sa", 

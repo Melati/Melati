@@ -43,33 +43,43 @@
 ##
 #set $seenCol=0
 {
- cols: [
+ "cols": [
+ 
   #foreach $column in $melati.Table.SummaryDisplayColumns #begin
     #if ($seenCol==1) #begin
 ,
-     #set $seenCol=1
     #end 
-  {id: '$column.Name', 
-   label: '$ml.rendered($column.DisplayName)', type: $melati.MarkupLanguage.jsonType($column.Type)
+    #set $seenCol=1
+  {
+   id: '$column.Name', 
+   label: '$ml.rendered($column.DisplayName)', 
+   type: 'string'
   }
   #end
   ], 
   #set $seenRow=0
- rows: [ 
-  #foreach $result in $results #begin
-  {c: [
+
+ "rows": 
+ [ 
+  #foreach $result in $melati.Table.selection() #begin
+  
     #if ($seenRow==1) #begin
-  ,
-     #set $seenRow=1
+,
     #end 
+    #set $seenRow=1
+
+  {c: [ 
     #set $seenField=0
     #foreach $field in $result.SummaryDisplayFields #begin
       #if ($seenField==1) #begin
-      ,
-       #set $seenField=1
+,
       #end 
+      #set $seenField=1
+    {
        v : '$ml.renderedStart($field)'
-    #end}
+     }
+    #end
+]}
   #end
-  ]
+]
 }

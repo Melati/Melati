@@ -36,7 +36,7 @@ public class DynamicTableTest extends org.melati.poem.test.DynamicTableTest {
 
   public Database getDatabase(String name) {
 
-    maxTrans = 4;
+    maxTrans = 8;
     Database db = PoemDatabaseFactory.getDatabase(name, 
         "jdbc:hsqldb:mem:" + name,
         "sa", 

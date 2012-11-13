@@ -54,9 +54,9 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
             "jdbc:hsqldb:mem:m2", 
             "sa", 
             "",
-            4);
+            8);
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
-    assertEquals(4, db.getFreeTransactionsCount());
+    assertEquals(8, db.getFreeTransactionsCount());
     return db;
   }
 

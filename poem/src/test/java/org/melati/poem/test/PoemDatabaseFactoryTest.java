@@ -74,7 +74,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","org.melati.poem.PoemDatabaseNOT",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+            "org.melati.poem.dbms.Hsqldb",false,false,false,8);
     } catch (DatabaseInitialisationPoemException e) { 
       assertTrue(e.innermostException() instanceof ClassNotFoundException);
     }
@@ -83,7 +83,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","java.lang.Exception",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+            "org.melati.poem.dbms.Hsqldb",false,false,false,8);
     } catch (DatabaseInitialisationPoemException e) { 
       assertTrue(e.innermostException() instanceof ClassCastException);
     }

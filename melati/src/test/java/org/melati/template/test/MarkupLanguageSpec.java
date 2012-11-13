@@ -1,5 +1,6 @@
 package org.melati.template.test;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.melati.Melati;
@@ -245,7 +246,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   
   /**
    * Test that toString is used if no template found.
-   * FIXME a template is always used, to this test is ill conceived
+   * FIXME a template is always used, so this test is ill conceived
    */
   public void testUntemplatedObjectUsesToString() throws Exception { 
     assertEquals("[{}]", ml.rendered(new Properties()).trim());
@@ -296,9 +297,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
       fail("should have bombed");      
     } catch (NullPointerException e) { 
       e = null;
-    }
-    
+    }    
   }
+  
   /**
    * Test method for rendered(String, int).
    * 
@@ -446,5 +447,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    
   }
   
-  
+  public void testRenderedList() { 
+    assertEquals("[[]]", ml.rendered(new ArrayList<String>()));
+  }
 }

@@ -45,7 +45,7 @@
 {
  "cols": [
  
-  #foreach $column in $melati.Table.SummaryDisplayColumns #begin
+  #foreach $column in $inclusionColumns #begin
     #if ($seenCol==1) #begin
 ,
     #end 
@@ -61,7 +61,7 @@
 
  "rows": 
  [ 
-  #foreach $result in $melati.Table.selection() #begin
+  #foreach $result in $results #begin
   
     #if ($seenRow==1) #begin
 ,
@@ -70,7 +70,7 @@
 
   {c: [ 
     #set $seenField=0
-    #foreach $field in $result.SummaryDisplayFields #begin
+    #foreach $field in $result.fieldsOfColumns($inclusionColumns.elements()) #begin
       #if ($seenField==1) #begin
 ,
       #end 

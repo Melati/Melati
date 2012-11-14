@@ -63,6 +63,8 @@ import org.melati.servlet.FormDataAdaptor;
 import org.melati.servlet.InvalidUsageException;
 import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
+import org.melati.template.ClassNameTempletLoader;
+import org.melati.template.JSONMarkupLanguage;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.FormParameterException;
 
@@ -83,6 +85,7 @@ import org.melati.poem.FieldAttributes;
 import org.melati.poem.Initialiser;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ReferencePoemType;
@@ -206,20 +209,36 @@ public class Admin extends TemplateServlet {
   }
 
 
-  /**
-   * Return template for a selection of records from a table.
-   */
-  protected static String selectionTemplate(ServletTemplateContext context,
-      Melati melati) {
-    String templateName = context.getFormField("template");
-    if (templateName == null) {
-      selection(context, melati, true);
-      return adminTemplate("Selection");
-    } else { 
-      selection(context, melati, false);
-      return adminTemplate(templateName);
-    }
-  }
+   /**
+    * Return template for a selection of records from a table.
+    */
+   protected static String selectionTemplate(ServletTemplateContext context,
+       Melati melati) {
+     String templateName = context.getFormField("template");
+     if (templateName == null) {
+       selection(context, melati, true);
+       return adminTemplate("Selection");
+     } else { 
+       selection(context, melati, false);
+       return adminTemplate(templateName);
+     }
+   }
+   
+   /**
+    * Select records based upon query parameters and return JSON template.
+    */
+   protected static String selectionJsonTemplate(ServletTemplateContext context,
+       Melati melati) {
+     melati.setMarkupLanguage(new JSONMarkupLanguage(
+         melati, 
+         ClassNameTempletLoader.getInstance(), 
+         PoemLocale.HERE));
+     melati.getResponse().setContentType("application/json");
+     melati.setResponseContentType("application/json");
+     selection(context, melati, false);
+     return adminTemplate("SelectionJSON");
+   }
+   
 
   /**
    * Implements request to display a selection of records from a table in the
@@ -284,10 +303,10 @@ public class Admin extends TemplateServlet {
     ReferencePoemType searchColumnsType = getSearchColumnsType(database, table);
 
     Vector<Object> orderings = new Vector<Object>();
-    Vector<Object> orderClause = new Vector<Object>();
+    Vector<Object> orderQuery = new Vector<Object>();
 
     
-    for (int o = 1; o <= table.displayColumnsCount(DisplayLevel.summary); ++o) {
+    for (int o = 0; o <= table.displayColumnsCount(DisplayLevel.summary); ++o) {
       String name = "field_order-" + o;
       String orderColumnIDString = Form.getFieldNulled(context, name);
       Integer orderColumnID;
@@ -305,16 +324,45 @@ public class Admin extends TemplateServlet {
             .equals(toggle) ? "" : " DESC")
             : (Boolean.TRUE.equals(toggle) ? " DESC" : "");
         orderings.addElement(database.quotedName(info.getName()) + desc);
-        orderClause.addElement(name + "=" + orderColumnIDString);
+        orderQuery.addElement(name + "=" + orderColumnIDString);
       }
     }
 
     String orderBySQL = null;
     if (orderings.elements().hasMoreElements())
       orderBySQL = EnumUtils.concatenated(", ", orderings.elements());
-    context.put("orderClause", EnumUtils.concatenated("&", orderClause
+    context.put("orderClause", EnumUtils.concatenated("&", orderQuery
         .elements()));
 
+    // find out which columns to return, default to summary columns
+    ReferencePoemType recordColumnsType = getRecordColumnsType(database, table);
+
+    Vector<String> inclusions = new Vector<String>();
+    Vector<String> inclusionQuery = new Vector<String>();
+    Vector<Column<?>> inclusionColumns = new Vector<Column<?>>();
+    for (int inc = 0; inc <= table.displayColumnsCount(DisplayLevel.record); ++inc) {
+      String name = "field_include-" + inc;
+      String includeColumnIDString = Form.getFieldNulled(context, name);
+      Integer includeColumnID;
+
+      if (includeColumnIDString != null) {
+        includeColumnID = (Integer)recordColumnsType
+            .rawOfString(includeColumnIDString);
+        ColumnInfo info = (ColumnInfo)recordColumnsType
+            .cookedOfRaw(includeColumnID);
+        inclusionColumns.add(table.getColumn(info.getName()));
+        inclusions.addElement(database.quotedName(info.getName()));
+        inclusionQuery.addElement(name + "=" + includeColumnIDString);
+      }
+    }
+    if (inclusionColumns.size() == 0){ 
+      context.put("inclusionColumns", EnumUtils.vectorOf(table.getSummaryDisplayColumns()));
+    } else { 
+      context.put("inclusionColumns", inclusionColumns);      
+    }
+     
+
+    
     int start = 0;
     String startString = Form.getFieldNulled(context, "start");
     if (startString != null) {
@@ -392,6 +440,22 @@ public class Admin extends TemplateServlet {
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
         return new MappedEnumeration<Integer, Column<?>>(table.getSearchCriterionColumns()) {
+          public Integer mapped(Column<?> column) {
+            return column.getColumnInfo().getTroid();
+          }
+        };
+      }
+    };
+  }
+
+  /**
+   * @return a type whose whose possible members are the search columns of the table
+   */
+  private static ReferencePoemType getRecordColumnsType(final Database database, final Table<?> table) {
+    return new ReferencePoemType(database
+        .getColumnInfoTable(), false) {
+      protected Enumeration<Integer> _possibleRaws() {
+        return new MappedEnumeration<Integer, Column<?>>(table.getRecordDisplayColumns()) {
           public Integer mapped(Column<?> column) {
             return column.getColumnInfo().getTroid();
           }
@@ -688,6 +752,8 @@ public class Admin extends TemplateServlet {
       return adminTemplate("Record");
     if (melati.getMethod().equals("Selection"))
       return selectionTemplate(context, melati);
+    if (melati.getMethod().equals("SelectionJSON"))
+      return selectionJsonTemplate(context, melati);
 
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Update"))

@@ -75,7 +75,7 @@
 <form action="">
 <table cellspacing="0" cellpadding="1" border="0" width="100%" id="selectionTable">
 #if ($results) #begin
-#set $colSpan = $melati.Table.SummaryDisplayColumnsCount - 1
+#set $colSpan = $inclusionColumns.size() - 1
   <tr>
     <th>&nbsp;</th>
     <th align="center" colspan="$colSpan">
@@ -114,7 +114,7 @@
   </tr>
   <tr>
    <th><font size="-1">&nbsp;</font></th>
-  #foreach $column in $melati.Table.SummaryDisplayColumns #begin
+  #foreach $column in $inclusionColumns #begin
    <th align="left" valign="bottom">
     <font face="Arial, Helvetica" size="-1">
      <a href="$admin.getToggledOrderSelectionURL($melati,"field_order-1","$column.getColumnInfo().getTroid()")">$ml.rendered($column.DisplayName)</a>&nbsp;
@@ -144,7 +144,7 @@
 #end
           title="Choose"><img src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a>&nbsp;
     </td>
-    #foreach $field in $result.SummaryDisplayFields #begin
+    #foreach $field in $result.fieldsOfColumns($inclusionColumns.elements()) #begin
     <td bgcolor="$color" class="$class">
      <font face="Arial, Helvetica" size="-1">
       <a 

@@ -1,0 +1,20 @@
+{
+ "cols": [
+   {
+   "id":"name", 
+   "label":"Full name", 
+   "type":"string"
+   }
+   ], 
+ "rows": 
+ [   {"c": [ {
+ "v" : "Melati database administrator"
+}
+   ]}
+ ,
+     {"c": [ {
+ "v" : "Melati guest user"
+}
+   ]}
+ ]
+}

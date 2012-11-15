@@ -235,6 +235,7 @@ public class Admin extends TemplateServlet {
          PoemLocale.HERE));
      melati.getResponse().setContentType("application/json");
      melati.setResponseContentType("application/json");
+     context.put("typeConverter", new PoemGvisTypeConverter());
      selection(context, melati, false);
      return adminTemplate("SelectionJSON");
    }

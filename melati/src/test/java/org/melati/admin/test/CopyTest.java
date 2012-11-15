@@ -15,29 +15,11 @@ import org.melati.poem.test.StringField;
  * Test Copy.
  */
 public class CopyTest extends TestCase {
-  /**
-   * Constructor for CopyTest.
-   * @param name
-   */
+
   public CopyTest(String name) {
     super(name);
   }
 
-  /**
-   * @see junit.framework.TestCase#setUp()
-   */
-  protected void setUp() throws Exception {
-  }
-
-  /**
-   * @see junit.framework.TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-  }
-
-  /**
-   * 
-   */
   public void testCopyDissimilarDbs() { 
     try { 
       Copy.copy("everything", "melatitest");
@@ -47,15 +29,18 @@ public class CopyTest extends TestCase {
     }
   }
   
-  /**
-   * 
-   */
+  public void testCopyOntoItself() { 
+    try { 
+      Copy.copy("everything", "everything");
+      fail("Should have bombed");
+    } catch (AnticipatedException e) { 
+      e = null;
+    }
+  }
+  
   public void testRecordsActuallyCopied() {
     final EverythingDatabase edb = (EverythingDatabase)LogicalDatabase.getDatabase("everything");
     final EverythingDatabase edb2 = (EverythingDatabase)LogicalDatabase.getDatabase("everything2");
-    System.err.println("From " + edb);
-    System.err.println("To " + edb2);
-    System.err.println("");
     edb.inSessionAsRoot( 
         new PoemTask() {
           public void run() {
@@ -74,15 +59,9 @@ public class CopyTest extends TestCase {
         });
   }
     
-  /**
-   * 
-   */
   public void  testRecordsNotCopiedIfAnyPresent() {
     final EverythingDatabase edb = (EverythingDatabase)LogicalDatabase.getDatabase("everything");
     final EverythingDatabase edb2 = (EverythingDatabase)LogicalDatabase.getDatabase("everything2");
-    System.err.println("From " + edb);
-    System.err.println("To " + edb2);
-    System.err.println("");
     edb.inSessionAsRoot( 
         new PoemTask() {
           public void run() {

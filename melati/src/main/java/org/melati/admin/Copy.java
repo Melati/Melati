@@ -68,10 +68,6 @@ import org.melati.template.ServletTemplateContext;
  */
 public class Copy extends TemplateServlet {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
   static Database fromDb = null;
   static Database toDb = null;
   
@@ -84,7 +80,8 @@ public class Copy extends TemplateServlet {
     super.prePoemSession(melati);
     String[] parts = melati.getPathInfoParts();
     if (parts.length != 2)
-      throw new PathInfoException("Two database names expecetd");
+      throw new PathInfoException(melati.getRequest().getPathInfo(),
+          new RuntimeException("Two database names expected"));
     String fromDbName = parts[0];
     String toDbName = parts[1];
 
@@ -139,47 +136,40 @@ public class Copy extends TemplateServlet {
       throw new AnticipatedException("Both from(" + fromDb.getClass() + ") and " + 
                                      "to(" + toDb.getClass() + ") databases " + 
                                      "must be of the same class");
+    if (fromDb == toDb) 
+      throw new AnticipatedException("A database cannot be copied onto itself");
     toDb.inSessionAsRoot( 
-            new PoemTask() {
-              public void run() {
-                System.err.println("PoemThread " + PoemThread.database().getDisplayName());
-                try {
-                  Enumeration<Table<?>> en = fromDb.displayTables(null);
-                  while(en.hasMoreElements()) { 
-                    Table<?> fromTable = en.nextElement();
-                    String fromTableName = fromTable.getName();
-                    System.err.println("From " + fromDb + " table " + fromTableName); 
-                    Table<?> toTable = toDb.getTable(fromTableName);
-                    int count = toTable.count();
-                    if (count != 0 ) {
-                      System.err.println("Skipping " + toTable.getName() + " as it contains " + count + " records." );
-                    } else { 
-                      System.err.println(toTable.getName() + " in both and empty in destination.");
-                      Enumeration<Persistent> recs = objectsFromTroids(
-                              fromTable.troidSelection((String)null, 
-                                                       (String)null, false, null), 
-                                                       fromTable);
-                      while (recs.hasMoreElements()) {
-                        Persistent p = (Persistent)recs.nextElement();
-                        Persistent p2 = toTable.newPersistent();
-                        Enumeration<Field<?>> fields = p.getFields();
-                        while (fields.hasMoreElements()) { 
-                          Field<?> f = fields.nextElement();
-                          p2.setRaw(f.getName(), f.getRaw());
-                        }
-                        p2.makePersistent();
-                        System.err.println("Created:" + p2.displayString());
+          new PoemTask() {
+            public void run() {
+              System.err.println("PoemThread " + PoemThread.database().getDisplayName());
+                Enumeration<Table<?>> en = fromDb.displayTables(null);
+                while(en.hasMoreElements()) { 
+                  Table<?> fromTable = en.nextElement();
+                  String fromTableName = fromTable.getName();
+                  System.err.println("From " + fromDb + " table " + fromTableName); 
+                  Table<?> toTable = toDb.getTable(fromTableName);
+                  int count = toTable.count();
+                  if (count != 0 ) {
+                    System.err.println("Skipping " + toTable.getName() + " as it contains " + count + " records." );
+                  } else { 
+                    System.err.println(toTable.getName() + " in both and empty in destination.");
+                    Enumeration<Persistent> recs = objectsFromTroids(
+                            fromTable.troidSelection((String)null, 
+                                                     (String)null, false, null), 
+                                                     fromTable);
+                    while (recs.hasMoreElements()) {
+                      Persistent p = (Persistent)recs.nextElement();
+                      Persistent p2 = toTable.newPersistent();
+                      Enumeration<Field<?>> fields = p.getFields();
+                      while (fields.hasMoreElements()) { 
+                        Field<?> f = fields.nextElement();
+                        p2.setRaw(f.getName(), f.getRaw());
                       }
+                      p2.makePersistent();
+                      System.err.println("Created:" + p2.displayString());
                     }
-                   }
-                } catch (Throwable e) {
-                  e.printStackTrace();
-                  e.fillInStackTrace();
-                  throw new RuntimeException(e);
+                  }
                 }
-              }
-              public String toString() { 
-                return "Copying";
               }
             });
     return toDb;

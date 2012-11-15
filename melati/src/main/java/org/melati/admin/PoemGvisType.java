@@ -15,11 +15,13 @@ import org.melati.poem.PoemTypeFactory;
 public enum PoemGvisType {
   TROID(PoemTypeFactory.TROID.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
 
     @Override
+    public
     String jsonValue(Object value) { 
       if (value == null )
         return "null";
@@ -29,10 +31,11 @@ public enum PoemGvisType {
   },
   DELETED(PoemTypeFactory.DELETED.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "boolean";
     }
-    String jsonValue(Object value) { 
+    public String jsonValue(Object value) { 
       if (value == null )
         return "null";
       else
@@ -41,6 +44,7 @@ public enum PoemGvisType {
   },
   TYPE(PoemTypeFactory.TYPE.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
@@ -49,17 +53,20 @@ public enum PoemGvisType {
   /* Base type factories. */
    BOOLEAN(PoemTypeFactory.BOOLEAN.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "boolean";
     }
   },
    INTEGER(PoemTypeFactory.INTEGER.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
 
     @Override
+    public
     String jsonValue(Object value) { 
       if (value == null )
         return "null";
@@ -69,11 +76,12 @@ public enum PoemGvisType {
   },
    DOUBLE(PoemTypeFactory.DOUBLE.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
     @Override
-    String jsonValue(Object value) { 
+    public String jsonValue(Object value) { 
       if (value == null )
         return "null";
       else
@@ -82,11 +90,12 @@ public enum PoemGvisType {
   },
    LONG(PoemTypeFactory.LONG.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
     @Override
-    String jsonValue(Object value) { 
+    public String jsonValue(Object value) { 
       if (value == null )
         return "null";
       else
@@ -95,11 +104,12 @@ public enum PoemGvisType {
   },
    BIGDECIMAL(PoemTypeFactory.BIGDECIMAL.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
     @Override
-    String jsonValue(Object value) { 
+    public String jsonValue(Object value) { 
       if (value == null )
         return "null";
       else
@@ -108,36 +118,42 @@ public enum PoemGvisType {
   },
    STRING(PoemTypeFactory.STRING.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "string";
     }
   },
    PASSWORD(PoemTypeFactory.PASSWORD.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "string";
     }
   },
    DATE(PoemTypeFactory.DATE.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "date";
     }
   },
    TIMESTAMP(PoemTypeFactory.TIMESTAMP.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "datetime";
     }
   },
    TIME(PoemTypeFactory.TIME.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "timeofday";
     }
   },
    BINARY(PoemTypeFactory.BINARY.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       throw new IllegalArgumentException("Binary poem type cannot be exported to google viualisation API.");
     }
@@ -146,18 +162,21 @@ public enum PoemGvisType {
    /** Poem factories. */
    DISPLAYLEVEL(PoemTypeFactory.DISPLAYLEVEL.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
   },
    SEARCHABILITY(PoemTypeFactory.SEARCHABILITY.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
   },
    INTEGRITYFIX(PoemTypeFactory.INTEGRITYFIX.getCode()) {
     @Override
+    public
     String gvisJsonTypeName() {
       return "number";
     }
@@ -175,9 +194,9 @@ public enum PoemGvisType {
     return PoemTypeFactory.forCode(null, poemType);
   }
   
-  abstract String gvisJsonTypeName(); 
+  public abstract String gvisJsonTypeName(); 
   
-  String jsonValue(Object value) { 
+  public String jsonValue(Object value) { 
     if (value == null )
       return "null";
     else

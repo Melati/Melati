@@ -46,7 +46,8 @@
 <head>
  <title>Anticipated Melati Error</title>
  <meta name="version" content="CVS \$Id$">
- <link rel="stylesheet" title="Default" href="$admin.getScreenStylesheetURL($melati)"
+ <link rel="stylesheet" title="Default" 
+       href="melati-static/admin/static/admin.css"
        type="text/css" media="screen">
 <style type="text/css">
 H1 {

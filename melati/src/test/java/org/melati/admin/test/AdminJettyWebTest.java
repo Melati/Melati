@@ -212,6 +212,12 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   
   public void  testSelectionJSON() throws Exception { 
     assertPageEqual("/Admin/admintest/user/SelectionJSON", "/Admin/admintest/user/SelectionJSON");
+    assertPageEqual("/Admin/admintest/user/SelectionJSON?field_include-0=name", "/Admin/admintest/user/SelectionJSON_include_name");
+    try { 
+      gotoPage("/Admin/admintest/user/SelectionJSON?field_include-0=11");
+    } catch (TestingEngineResponseException e) { 
+      e = null; 
+    }
   }
   /**
    * 

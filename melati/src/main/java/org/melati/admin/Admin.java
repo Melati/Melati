@@ -84,6 +84,7 @@ import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.FieldAttributes;
 import org.melati.poem.Initialiser;
+import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.PoemLocale;
@@ -371,11 +372,14 @@ public class Admin extends TemplateServlet {
       String formFieldName = "field_include-" + inc;
       String includeColumnName = Form.getFieldNulled(context, formFieldName);
       if (includeColumnName != null) {
-        if (table.getColumn(includeColumnName) != null) {
-          inclusionColumns.add(table.getColumn(includeColumnName));
-        } else 
+        Column<?> c;
+        try {
+          c = table.getColumn(includeColumnName);          
+          inclusionColumns.add(c);
+        } catch (NoSuchColumnPoemException e) { 
           throw new IllegalArgumentException(
-              "Field named '" + includeColumnName + "' not found in table " + table.getName());
+              "Field named '" + includeColumnName + "' not found in table " + table.getName(),e);          
+        }
       }
     }
     

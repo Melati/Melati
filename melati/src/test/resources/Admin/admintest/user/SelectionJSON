@@ -1,0 +1,48 @@
+{
+ "cols": [
+   {
+   "id":"name", 
+   "label":"Full name", 
+   "type":"string"
+   }
+ ,
+     {
+   "id":"login", 
+   "label":"Login", 
+   "type":"string"
+   }
+ ,
+     {
+   "id":"email", 
+   "label":"Email", 
+   "type":"string"
+   }
+   ], 
+ "rows": 
+ [   {"c": [ {
+ "v" : "Melati database administrator"
+}
+   ,
+     {
+ "v" : "_administrator_"
+}
+   ,
+     {
+ "v" : ""
+}
+   ]}
+ ,
+     {"c": [ {
+ "v" : "Melati guest user"
+}
+   ,
+     {
+ "v" : "_guest_"
+}
+   ,
+     {
+ "v" : ""
+}
+   ]}
+ ]
+}

@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>All Examples</title>
-  <!--Load the AJAX API-->
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> 
-  <script type="text/javascript">
-
+<title>All Examples</title>
+<style type="text/css">
+body { 
+  font-family:sans-serif;
+}
+</style>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript">
   // Load the Visualization API and the ready-made Google table visualization.
-  google.load('visualization', '1', {'packages':['table,piechart,orgchart,barchart,corechart']});
+  google.load('visualization', '1', {
+    'packages' : [ 'table,piechart,orgchart,barchart,corechart' ]
+  });
 
   // Set a callback to run when the API is loaded.
   google.setOnLoadCallback(init);
 
-  function getDataTableFromJsonUrl(url) { 
-    var jsonData = $.ajax({
-          url: url,
-          dataType:"json",
-          async: false
-          }).responseText;
-    alert("GOT:" + jsonData);
-    return new google.visualization.DataTable(jsonData, 0.6 );
-  }
   // Send the queries to the data sources.
   function init() {
     var data = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?field_include-0=40&field_include-1=41&field_include-2=42");
     var table = new google.visualization.Table(document.getElementById('poem_table_div'));
 
-    table.draw(data, 
-    		{
-    	page: 'enable', 
-    	pageSize: 10, 
-    	pagingSymbols: {prev: 'prev', next: 'next'}, 
-    	pagingButtonsConfiguration: 'auto'
-    	});
-      
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
-    chart.draw(data, {width: 400, height: 240});
+    table.draw(data, {
+      page : 'enable',
+      pageSize : 10,
+      pagingSymbols : {
+        prev : 'prev',
+        next : 'next'
+      },
+      pagingButtonsConfiguration : 'auto'
+    });
 
-    var areaChart = new google.visualization.AreaChart(
-    		document.getElementById('poem_area_chart_div'));
-    areaChart.draw(data, 
-    		{
-    	title: 'Area Chart',
-    	height: 200
-    	});
-    
-    var barChart = new google.visualization.BarChart(
-    		document.getElementById('poem_bar_chart_div'));
-    barChart.draw(data, 
-    		{
-    	title: 'Bar Chart',
-    	height: 200
-    	});
-    
-    var bubbleChart = new google.visualization.BubbleChart(
-    		document.getElementById('poem_bubble_chart_div'));
-    bubbleChart.draw(data, 
-    		{
-    	title: 'Bubble Chart',
-    	height: 600
-    	});
+    var pie = new google.visualization.PieChart(getContainer('pie'));
+    var pieData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=42");
+    pie.draw(pieData, {
+      width : 500,
+      height : 340
+    });
+
+    var areaData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=43&field_include-1=44&field_include-2=41");
+    var areaChart = new google.visualization.AreaChart(getContainer('area'));
+    areaChart.draw(areaData, {
+      title : 'Area Chart',
+      height : 200
+    });
+
+    var barChart = new google.visualization.BarChart(getContainer('bar'));
+    barChart.draw(areaData, {
+      title : 'Bar Chart',
+      height : 200
+    });
+
+    var bubbleChart = new google.visualization.BubbleChart(getContainer('bubble'));
+    bubbleChart.draw(areaData, {
+      title : 'Bubble Chart',
+      height : 600
+    });
   }
-
-  
-  </script>
+  function getDataTableFromJsonUrl(url) {
+    var jsonData = $.ajax({
+      url : url,
+      dataType : "json",
+      async : false
+    }).responseText;
+    return new google.visualization.DataTable(jsonData, 0.6);
+  }
+  function getContainer(name) { 
+    var c = document.getElementById('poem_' + name + '_chart_div');
+    c.style.border="1px solid green";
+    return c;
+  }
+</script>
 </head>
 <body>
-  <h1>POEM Data Source</h1>
-  <div id="selection_div"></div>
-  <div id="poem_table_div"></div>
-  <div id="pie_chart_div"></div>
-  <div id="poem_area_chart_div"></div>
-  <div id="poem_bar_chart_div"></div>
-  <div id="poem_bubble_chart_div"></div>
-
-
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+ <h1>POEM Data Source</h1>
+ 
+ <div id="poem_table_div"></div>
+ <div id="poem_pie_chart_div"></div>
+ <div id="poem_area_chart_div"></div>
+ <div id="poem_bar_chart_div"></div>
+ <div id="poem_bubble_chart_div"></div>
+ <p>&nbsp;</p>
 </body>
 </html>
 

@@ -54,7 +54,7 @@
    "id":"$column.Name", 
    "label":"$ml.rendered($column.DisplayName)", 
    "type":"$typeConverter.convert($column.ColumnInfo.getTypefactoryCode())"
-  }
+   }
   #end
   ], 
   #set $seenRow=0
@@ -62,12 +62,10 @@
  "rows": 
  [ 
   #foreach $result in $results #begin
-  
     #if ($seenRow==1) #begin
 ,
     #end 
     #set $seenRow=1
-
   {"c": [ 
     #set $seenField=0
     #foreach $field in $result.fieldsOfColumns($inclusionColumns.elements()) #begin
@@ -75,9 +73,9 @@
 ,
       #end 
       #set $seenField=1
-    {
-       "v" : "$ml.renderedStart($field)"
-     }
+{
+ "v" : "$ml.renderedStart($field)"
+}
     #end
 ]}
   #end

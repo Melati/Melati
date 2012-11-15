@@ -65,6 +65,7 @@ import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.JSONMarkupLanguage;
+import org.melati.template.MarkupLanguage;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.FormParameterException;
 
@@ -229,11 +230,12 @@ public class Admin extends TemplateServlet {
     */
    protected static String selectionJsonTemplate(ServletTemplateContext context,
        Melati melati) {
-     melati.setMarkupLanguage(new JSONMarkupLanguage(
+     MarkupLanguage ml = new JSONMarkupLanguage(
          melati, 
          ClassNameTempletLoader.getInstance(), 
-         PoemLocale.HERE));
-     melati.getResponse().setContentType("application/json");
+         PoemLocale.HERE);
+     melati.setMarkupLanguage(ml);
+     context.put("ml", ml); // an HTML ml has already been put into context
      melati.setResponseContentType("application/json");
      context.put("typeConverter", new PoemGvisTypeConverter());
      selection(context, melati, false);
@@ -335,34 +337,7 @@ public class Admin extends TemplateServlet {
     context.put("orderClause", EnumUtils.concatenated("&", orderQuery
         .elements()));
 
-    // find out which columns to return, default to summary columns
-    ReferencePoemType recordColumnsType = getRecordColumnsType(database, table);
-
-    Vector<String> inclusions = new Vector<String>();
-    Vector<String> inclusionQuery = new Vector<String>();
-    Vector<Column<?>> inclusionColumns = new Vector<Column<?>>();
-    for (int inc = 0; inc <= table.displayColumnsCount(DisplayLevel.record); ++inc) {
-      String name = "field_include-" + inc;
-      String includeColumnIDString = Form.getFieldNulled(context, name);
-      Integer includeColumnID;
-
-      if (includeColumnIDString != null) {
-        includeColumnID = (Integer)recordColumnsType
-            .rawOfString(includeColumnIDString);
-        ColumnInfo info = (ColumnInfo)recordColumnsType
-            .cookedOfRaw(includeColumnID);
-        inclusionColumns.add(table.getColumn(info.getName()));
-        inclusions.addElement(database.quotedName(info.getName()));
-        inclusionQuery.addElement(name + "=" + includeColumnIDString);
-      }
-    }
-    if (inclusionColumns.size() == 0){ 
-      context.put("inclusionColumns", EnumUtils.vectorOf(table.getSummaryDisplayColumns()));
-    } else { 
-      context.put("inclusionColumns", inclusionColumns);      
-    }
-     
-
+    context.put("inclusionColumns", inclusionColumns(context, table));      
     
     int start = 0;
     String startString = Form.getFieldNulled(context, "start");
@@ -386,6 +361,28 @@ public class Admin extends TemplateServlet {
       context.put("results", table.selection(criteria, orderBySQL, false, false));
     }
     return context;
+  }
+
+  static Vector<Column<?>> inclusionColumns(
+      ServletTemplateContext context, final Table<?> table) {
+    // find out which columns to return, default to summary columns
+    Vector<Column<?>> inclusionColumns = new Vector<Column<?>>();
+    for (int inc = 0; inc <= table.displayColumnsCount(DisplayLevel.record); ++inc) {
+      String formFieldName = "field_include-" + inc;
+      String includeColumnName = Form.getFieldNulled(context, formFieldName);
+      if (includeColumnName != null) {
+        if (table.getColumn(includeColumnName) != null) {
+          inclusionColumns.add(table.getColumn(includeColumnName));
+        } else 
+          throw new IllegalArgumentException(
+              "Field named '" + includeColumnName + "' not found in table " + table.getName());
+      }
+    }
+    
+    if (inclusionColumns.size() == 0){ 
+      inclusionColumns = EnumUtils.vectorOf(table.getSummaryDisplayColumns());
+    }
+    return inclusionColumns;
   }
 
   /**
@@ -441,22 +438,6 @@ public class Admin extends TemplateServlet {
         .getColumnInfoTable(), false) {
       protected Enumeration<Integer> _possibleRaws() {
         return new MappedEnumeration<Integer, Column<?>>(table.getSearchCriterionColumns()) {
-          public Integer mapped(Column<?> column) {
-            return column.getColumnInfo().getTroid();
-          }
-        };
-      }
-    };
-  }
-
-  /**
-   * @return a type whose whose possible members are the search columns of the table
-   */
-  private static ReferencePoemType getRecordColumnsType(final Database database, final Table<?> table) {
-    return new ReferencePoemType(database
-        .getColumnInfoTable(), false) {
-      protected Enumeration<Integer> _possibleRaws() {
-        return new MappedEnumeration<Integer, Column<?>>(table.getRecordDisplayColumns()) {
           public Integer mapped(Column<?> column) {
             return column.getColumnInfo().getTroid();
           }

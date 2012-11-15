@@ -16,7 +16,6 @@ import org.melati.JettyWebTestCase;
 import org.melati.util.HTMLUtils;
 
 /**
- * 
  *  
  * @author timp
  * @since 2008/01/01
@@ -24,15 +23,9 @@ import org.melati.util.HTMLUtils;
 public class AdminJettyWebTest extends JettyWebTestCase {
    private String dbName = "admintest";
   
-  /**
-   * 
-   */
   public AdminJettyWebTest() {
     super();
   }
-  /**
-   * @param name
-   */
   public AdminJettyWebTest(String name) {
     super(name);
   }
@@ -44,6 +37,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   public static void main(String[] args) throws Exception {
     startServer(8080);
   }
+
   /**
    * There appears to be a problem with gargoyle javascript such that 
    * we cannot begin at the Main page as this throws NullPointerException, 
@@ -214,6 +208,10 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     gotoPage("/Admin/admintest/user/Selection?target=admin_record&returnTarget=admin_record&field_id=0&field_order-1=1&field_order-1-toggle=true");
     gotoPage("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
     gotoPage("/Admin/admintest/uploadedfile/Selection?target=admin_record&returnTarget=admin_record&field_order-1=70&field_order-1-toggle=true");
+  }
+  
+  public void  testSelectionJSON() throws Exception { 
+    assertPageEqual("/Admin/admintest/user/SelectionJSON", "/Admin/admintest/user/SelectionJSON");
   }
   /**
    * 
@@ -736,5 +734,22 @@ public class AdminJettyWebTest extends JettyWebTestCase {
     setTextField("field_password", "FIXME");
     checkCheckbox("rememberme");
     submit("action");
+  }
+  
+  
+  public void testCopy() throws Exception { 
+    try { 
+      gotoPage("/Copy/everything");
+    } catch (TestingEngineResponseException e) { 
+      e = null; // cannot copy onto itself
+    }
+    try { 
+      gotoPage("/Copy/everything/everything");
+    } catch (TestingEngineResponseException e) { 
+      e = null; // cannot copy onto itself
+    }
+    
+    gotoPage("/Copy/everything/everything2");
+
   }
 }

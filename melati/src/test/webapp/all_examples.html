@@ -21,7 +21,7 @@ body {
 
   // Send the queries to the data sources.
   function init() {
-    var data = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?field_include-0=40&field_include-1=41&field_include-2=42");
+    var data = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?field_include-0=tableinfo&field_include-1=name&field_include-2=displayname");
     var table = new google.visualization.Table(document.getElementById('poem_table_div'));
 
     table.draw(data, {
@@ -35,13 +35,13 @@ body {
     });
 
     var pie = new google.visualization.PieChart(getContainer('pie'));
-    var pieData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=42");
+    var pieData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=tableinfo");
     pie.draw(pieData, {
       width : 500,
       height : 340
     });
 
-    var areaData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=43&field_include-1=44&field_include-2=41");
+    var areaData = getDataTableFromJsonUrl("Admin/melatitest/columnInfo/SelectionJSON?&field_include-0=displayname&field_include-1=id&field_include-2=displayorder");
     var areaChart = new google.visualization.AreaChart(getContainer('area'));
     areaChart.draw(areaData, {
       title : 'Area Chart',

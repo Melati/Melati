@@ -108,7 +108,7 @@ public abstract class TemplateServlet extends PoemServlet {
 
   protected void doPoemRequest(Melati melati) throws Exception {
     ServletTemplateContext templateContext = melati.getServletTemplateContext();
-    // If we have an multipart form, we use a different template context
+    // If we have a multi-part form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
     // This used to be in prePoemSession, but the use case was pretty thin,
     // the main Adaptor is PoemFileFormDataAdaptor, which needs to be in session.

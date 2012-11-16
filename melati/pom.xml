@@ -285,6 +285,7 @@ Needed by jwebunit 3.0
           <exclude reason="Not used anywhere">**/UnindexableLogEvent.class</exclude>
           <exclude reason="Not used yet">**/XMLMarkupLanguage.class</exclude>
           <exclude reason="Not completely tested unless set in config">**/velocity/*</exclude>
+          <exclude reason="Not completely tested unless set in config">**/freemarker/*</exclude>
           <exclude reason="Not used yet">**/XMLAttributeMarkupLanguage.class</exclude>
         </excludes>
        </instrumentation>

@@ -28,10 +28,6 @@ public class JSONMarkupLanguage extends AbstractMarkupLanguage implements Markup
     super("json", melati, templetLoader, locale);
   }
 
-  public JSONMarkupLanguage(String name, AbstractMarkupLanguage other) {
-    super(name, other);
-  }
-
   @Override
   public AttributeMarkupLanguage getAttr() {
     throw new RuntimeException("Not expected to be called in JSON");

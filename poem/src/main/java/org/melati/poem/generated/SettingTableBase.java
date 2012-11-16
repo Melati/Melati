@@ -191,6 +191,7 @@ public class SettingTableBase<T extends Setting> extends ValueInfoTable<T> {
             ((Setting)g).setValue((String)cooked);
           }
 
+          @SuppressWarnings("unchecked")
           public Field<String> asField(Persistent g) {
             return ((Setting)g).getValueField();
           }

@@ -639,7 +639,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * Constraints are not used in POEM, but you might want to use them if 
    * exporting the db or using schema visualisation tools.
    */
-  @SuppressWarnings("deprecation")
   public void dbAddConstraints() {
     StringBuffer sqb = new StringBuffer();
     for (int c = 0; c < columns.length; ++c) {
@@ -682,7 +681,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   }
 
-  @SuppressWarnings("deprecation")
   private void dbAddColumn(Column<?> column) {
     if (column.getType().getNullable()) {
       dbModifyStructure(
@@ -711,7 +709,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   
-  @SuppressWarnings("deprecation")
   private void dbCreateIndex(Column<?> column) {
     if (column.getIndexed()) {
       if (!dbms().canBeIndexed(column)) {
@@ -2223,7 +2220,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * @param columnInfo metadata about the column to delete, which is itself deleted
    */
-  @SuppressWarnings("deprecation")
   public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
     database.beginStructuralModification();
     try {

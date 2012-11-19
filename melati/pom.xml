@@ -332,6 +332,7 @@ Needed by jwebunit 3.0
     <configuration>
      <webAppSourceDirectory>src/test/webapp</webAppSourceDirectory>
      <scanIntervalSeconds>2</scanIntervalSeconds>
+     <useTestClasspath>true</useTestClasspath>
     </configuration>
     </plugin>
    </plugins>

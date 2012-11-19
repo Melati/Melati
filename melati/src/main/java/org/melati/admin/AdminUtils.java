@@ -185,17 +185,6 @@ public class AdminUtils {
   public String getMainURL(Melati melati) {
     return getURL(melati, "Main");
   }
-  /** @return The Main URL after deletion of a tableinfo */
-  public String getMainURL(Table<?> table) {
-    return getURL(table, "Main");
-  }
-  /** @return The Main URL after creation of a tableinfo */
-  public String getMainURL(Table<?> table,Persistent p) {
-    String url = servletURL + "/" + logicalDatabase;
-    url += "/" + table.getName();
-    url += "/" + p.troid();
-    return url + "/" + "Main";
- }
   
   /** @return The Top URL. */
   public String getTopURL(Melati melati) {

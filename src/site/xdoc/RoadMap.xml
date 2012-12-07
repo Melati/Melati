@@ -48,14 +48,6 @@ The following gives the items which would be nice to have before a 1.0 release.
     </td>
     <td></td>
   </tr>
-  <tr>
-    <td>1.1</td>
-    <td>
-    Upgrade to JSDK 1.5
-    </td>
-    <td>Ongoing</td>
-  </tr>
-
 
 
   <tr>
@@ -63,7 +55,7 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td><b>MDK (Melati Developer's Kit)</b> <br />
         Support and use of <a href="http://maven.apache.org/">Maven</a> . <br />
         Bundled with Jetty and HSQLDB. <br />
-        Hudson CI. <br />
+        Build under Jenkins CI. <br />
         Support for <a href="http://www.eclipse.org/">Eclipse</a> (No warnings shown).<br />
         Archetype supports iterative modelling. <br />
     </td>
@@ -81,6 +73,8 @@ The following gives the items which would be nice to have before a 1.0 release.
     Flushing works with velocity <br />
     Velocity translation as Maven plugin <br />
     Works with Derby <br />
+    Replace all Enumerations with Lists <br />
+    Generate ensure() methods
     </td>
     <td></td>
   </tr>
@@ -88,10 +82,15 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td>0.7.9</td>
     <td>
     Unify webmacro and velocity templet directories <br /> 
+    Generate generic classes <br />
+    Generate referencesToThis() methods <br />
+    Add String Key Reference Types <br />
+    Addition of JSON as an output language <br />    
     </td>
+    <td><b>done</b></td>
   </tr>
   <tr> 
-    <td>0.7.9</td>
+    <td>0.7.8</td>
     <td>
     Flushing fixed <br />
     Caching fixed <br />
@@ -102,7 +101,6 @@ The following gives the items which would be nice to have before a 1.0 release.
     Distinguish between markup fragments and Strings in rendering<br />
     Add copy from one database to another <br />
     Fix file uploading <br />
-    
     </td>
     <td><b>done</b></td>
   </tr>

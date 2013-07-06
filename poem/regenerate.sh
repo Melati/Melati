@@ -1,0 +1,36 @@
+cd ../maven-dsd-plugin
+mvn install
+cd ../poem
+rm src/main/java/org/melati/poem/generated/*.java
+rm src/test/java/org/melati/poem/test/generated/*.java
+rm src/test/java/org/melati/poem/test/EverythingTable.java
+rm src/test/java/org/melati/poem/test/EverytTable.java
+rm src/test/java/org/melati/poem/test/EAExtendedTable.java
+rm src/test/java/org/melati/poem/test/ENExtendedTable.java
+rm src/test/java/org/melati/poem/test/EverythingNormalTable.java
+rm src/test/java/org/melati/poem/test/EverythingAbstractTable.java
+rm src/test/java/org/melati/poem/test/BigDecimalField.java
+rm src/test/java/org/melati/poem/test/BigDecimalFieldTable.java
+rm src/test/java/org/melati/poem/test/LongField.java
+rm src/test/java/org/melati/poem/test/LongFieldTable.java
+rm src/test/java/org/melati/poem/test/StringField.java
+rm src/test/java/org/melati/poem/test/StringFieldTable.java
+rm src/test/java/org/melati/poem/test/BooleanField.java
+rm src/test/java/org/melati/poem/test/BooleanFieldTable.java
+rm src/test/java/org/melati/poem/test/DoubleField.java
+rm src/test/java/org/melati/poem/test/DoubleFieldTable.java
+rm src/test/java/org/melati/poem/test/TimestampField.java
+rm src/test/java/org/melati/poem/test/TimestampFieldTable.java
+rm src/test/java/org/melati/poem/test/DateField.java
+rm src/test/java/org/melati/poem/test/DateFieldTable.java
+rm src/test/java/org/melati/poem/test/IntegerField.java
+rm src/test/java/org/melati/poem/test/IntegerFieldTable.java
+rm src/test/java/org/melati/poem/test/PasswordField.java
+rm src/test/java/org/melati/poem/test/PasswordFieldTable.java
+rm src/test/java/org/melati/poem/test/BinaryField.java
+rm src/test/java/org/melati/poem/test/BinaryFieldTable.java
+rm src/test/java/org/melati/poem/test/EmptyAbstractTableTable.java
+rm src/test/java/org/melati/poem/test/ProtectedTable.java
+
+
+mvn install

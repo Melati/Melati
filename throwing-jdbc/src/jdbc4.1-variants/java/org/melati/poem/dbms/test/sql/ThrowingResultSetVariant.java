@@ -50,6 +50,6 @@ package org.melati.poem.dbms.test.sql;
  *
  */
 public abstract class ThrowingResultSetVariant 
-    extends ThrowingResultSetJdbc4 {
+    extends ThrowingResultSetJdbc4_1 {
 
 }

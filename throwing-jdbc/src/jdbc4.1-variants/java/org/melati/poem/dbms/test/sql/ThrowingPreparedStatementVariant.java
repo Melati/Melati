@@ -50,6 +50,6 @@ package org.melati.poem.dbms.test.sql;
  *
  */
 public abstract class ThrowingPreparedStatementVariant extends
-    ThrowingPreparedStatementJdbc4 {
+    ThrowingPreparedStatementJdbc4_1 {
 
 }

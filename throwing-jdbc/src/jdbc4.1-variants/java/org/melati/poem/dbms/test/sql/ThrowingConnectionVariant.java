@@ -49,6 +49,6 @@ package org.melati.poem.dbms.test.sql;
  * @since 2013/07/07
  *
  */
-public abstract class ThrowingConnectionVariant extends ThrowingConnectionJdbc4 {
+public abstract class ThrowingConnectionVariant extends ThrowingConnectionJdbc4_1 {
 
 }

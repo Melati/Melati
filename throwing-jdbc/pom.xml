@@ -77,7 +77,7 @@
             <version>1.7</version>
             <configuration>
               <sources>
-                <source>src/jdbc3/java</source>
+                <source>src/jdbc3-variants/java</source>
               </sources>
             </configuration>
             <executions>
@@ -109,6 +109,7 @@
     <profile>
       <id>jdbc4</id>
       <activation>
+        <activeByDefault>false</activeByDefault>
         <jdk>1.6</jdk>
       </activation>
       <build>
@@ -141,6 +142,58 @@
             <configuration>
               <sources>
                 <source>src/jdbc4/java</source>
+                <source>src/jdbc4-variants/java</source>
+              </sources>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jdbc41</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <jdk>1.7</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <executions>
+              <execution>
+                <configuration>
+                  <classifier>jdbc4.1</classifier>
+                </configuration>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>1.7</source>
+              <target>1.7</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <configuration>
+              <sources>
+                <source>src/jdbc4/java</source>
+                <source>src/jdbc4.1/java</source>
+                <source>src/jdbc4.1-variants/java</source>
               </sources>
             </configuration>
             <executions>

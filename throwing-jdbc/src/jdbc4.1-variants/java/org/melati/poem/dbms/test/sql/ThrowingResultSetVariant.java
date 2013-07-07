@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2008 Tim Pizey
+ * Copyright (C) 2013 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -46,7 +46,7 @@ package org.melati.poem.dbms.test.sql;
 
 /**
  * @author timp
- * @since  5 Feb 2008
+ * @since  2013/07/07
  *
  */
 public abstract class ThrowingResultSetVariant 

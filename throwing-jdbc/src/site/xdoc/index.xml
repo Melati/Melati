@@ -173,6 +173,47 @@ to that method in your test's trajectory to the method under test.
 </pre>
 </blockquote>
 </subsection>
+
+<subsection name="JDBC3, JDBC4 and JDK7 compatibility">
+<p>
+The java.sql API has changed quite a bit. There were many new methods added in JDBC4. 
+This library produced two different out put jars. 
+</p>
+<p>
+The JDK7 <tt>java.sql</tt> breaks backwards compatibility by adding new methods and 
+and one new class. As <strong>Oracle</strong> put it in their <a href="http://www.oracle.com/technetwork/java/javase/compatibility-417013.html#incompatibilities">Incompatibility notes</a>:
+</p>
+<p>
+<strong>RFE:</strong> 2164549  
+</p>
+<p>
+<strong>Area:</strong> API: JDBC<br />
+<strong>Synopsis:</strong> New <code>RowSetFactory</code> Interface 
+to allow Creation of a <code>RowSetFactory</code><br />
+<strong>Description:</strong> New API was introduced to support RowSet 1.1 and,
+ specifically, the ability to write more portable code by creating 
+a <code>RowSetFactory</code>. 
+As part of this update, the definition of some constants has changed slightly, 
+but should not affect most users.<br />     
+<strong>Nature of Incompatibility:</strong> source<br />
+</p>
+<p>
+<strong>RFE:</strong> 6843995</p>
+
+<p><strong>Area:</strong> API: JDBC<br />
+<strong>Synopsis:</strong> New JDBC Methods, Including new Methods in Interfaces<br />
+<strong>Description:</strong> For the Java SE 7 release, 
+there are new methods to support JDBC 4.1. 
+This includes methods added to the <code>java.sql.Connection</code>, 
+<code>java.sql.Driver</code>, 
+<code>javax.sql.CommonDatasource</code>, and <code>java.sql.Statement</code> interfaces. 
+Because all methods of an interface must be implemented, 
+previous code that uses these interfaces will not compile on Java SE 7 
+unless you add the new methods.  
+See the JDBC documentation for more information.<br />
+     <strong>Nature of Incompatibility:</strong> source<br />  
+</p>
+</subsection>
 <p>
 Do send feedback to TimP at this address.
 </p>

@@ -140,6 +140,7 @@ import org.melati.util.MelatiRuntimeException;
 
 public class Admin extends TemplateServlet {
 
+  private static final long serialVersionUID = 8451412887121581757L;
   private static String screenStylesheetURL = null;
   private static String primaryDisplayTable = null;
   private static String homepageURL = null;

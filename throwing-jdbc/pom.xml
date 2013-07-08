@@ -6,7 +6,9 @@
     ~
     ~ gotchas:
     ~
-    ~    * can't build them both in one go. This would be done by having a -core, -jdbc3 and -jdbc4 library instead
+    ~    * can't build them both in one go. 
+    ~      This would be done by having a 
+    ~         -core, -jdbc3 and -jdbc4 library instead
     ~    * you end up with a jdbc-$version.jar as well as the per-jdbc versions
     ~    * doesn't run tests
     ~

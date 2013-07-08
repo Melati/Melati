@@ -61,7 +61,7 @@ import org.melati.poem.util.CachedIndexFactory;
  * Execution of the statement in a transaction reflects uncommitted
  * changes in that transaction.
  * <p>
- * The supertype dictates that connections can be indentified
+ * The supertype dictates that connections can be identified
  * by index, but this is slightly complicated and the additional
  * methods rely on transactions instead.
  */
@@ -88,7 +88,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
    * Obtain a fresh <code>PreparedStatement</code> for a connection
    * identified by an index.
    * <p>
-   * The index is zero for the commited connection and the
+   * The index is zero for the committed connection and the
    * transaction index plus 1 for current transactions.
    */
   protected Object reallyGet(int index) {

@@ -93,6 +93,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
    */
   protected Object reallyGet(int index) {
     try {
+      @SuppressWarnings("resource") // this is wrong, IMHO
       Connection c =
         index == 0 ? database.getCommittedConnection()
                    : database.poemTransaction(index - 1).getConnection();

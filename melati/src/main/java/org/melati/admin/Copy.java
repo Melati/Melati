@@ -68,6 +68,7 @@ import org.melati.template.ServletTemplateContext;
  */
 public class Copy extends TemplateServlet {
 
+  private static final long serialVersionUID = -3659643334509606759L;
   static Database fromDb = null;
   static Database toDb = null;
   

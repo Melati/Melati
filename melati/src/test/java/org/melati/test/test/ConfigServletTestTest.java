@@ -44,6 +44,8 @@
 
 package org.melati.test.test;
 
+import java.io.File;
+
 import org.melati.JettyWebTestCase;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -113,6 +115,7 @@ public class ConfigServletTestTest extends JettyWebTestCase {
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");
+    assertTrue(new File("/dist/melati/LICENSE-GPL.txt").exists());
     setTextField("file","/dist/melati/LICENSE-GPL.txt");
     submit();
     gotoWindow("Upload");

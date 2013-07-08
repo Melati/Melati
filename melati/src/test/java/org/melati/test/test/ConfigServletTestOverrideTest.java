@@ -44,6 +44,8 @@
 
 package org.melati.test.test;
 
+import java.io.File;
+
 /**
  * @author timp
  * @since  28 Feb 2008
@@ -83,6 +85,7 @@ public class ConfigServletTestOverrideTest extends ConfigServletTestTest{
     setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");
+    assertTrue(new File("/dist/melati/LICENSE-GPL.txt").exists());
     setTextField("file","/dist/melati/LICENSE-GPL.txt");
     submit();
     gotoWindow("Upload");

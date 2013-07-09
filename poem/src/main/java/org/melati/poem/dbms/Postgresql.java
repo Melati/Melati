@@ -70,6 +70,16 @@ import org.melati.poem.SQLPoemException;
  /**
   * A Driver for Postgresql.
   * See http://www.postgresql.org/
+  * 
+  * Backwards compatabilty
+  * 
+  *
+  * Previous (7.4) versions allowed single quotes to be quoted using C style escaping.
+  * In version 9.1 you need to explicitly allow this escaping by configuring the server:
+  * <code>
+  * backslash_quote = on
+  * standard_conforming_strings = off
+  * </code>
   **/
 
 public class Postgresql extends AnsiStandard {
@@ -87,10 +97,9 @@ public class Postgresql extends AnsiStandard {
    * 
    * Postgresql has been able to since 7.4
    * 
-   * @param con the current connection
    * @return true if we can
    * @throws SQLException
-   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
+   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns()
    */
   @Override
   public boolean canDropColumns() {

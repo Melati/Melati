@@ -71,9 +71,7 @@ import org.melati.poem.SQLPoemException;
   * A Driver for Postgresql.
   * See http://www.postgresql.org/
   * 
-  * Backwards compatabilty
-  * 
-  *
+  * <h4>Backwards compatabilty</h4>
   * Previous (7.4) versions allowed single quotes to be quoted using C style escaping.
   * In version 9.1 you need to explicitly allow this escaping by configuring the server:
   * <code>

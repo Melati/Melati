@@ -106,4 +106,9 @@ public class Group extends GroupBase {
   * @param token any {@link AccessToken}
   */
   public void assertCanRead(AccessToken token) {}
+  
+  public GroupMembership ensureMember(User u) { 
+    GroupMembershipTable<GroupMembership> gmt = getDatabase().getGroupMembershipTable();
+    return gmt.ensure(this, u);
+  }
 }

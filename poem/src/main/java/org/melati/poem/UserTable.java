@@ -125,7 +125,7 @@ public class UserTable<T extends User> extends UserTableBase<T> {
   }
 
   /**
-   * Defaults to the db's administraor capability.
+   * Defaults to the db's administrator capability.
    * @return the Capability required to read a password
    */
   public Capability canReadPasswords() {

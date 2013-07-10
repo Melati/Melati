@@ -45,6 +45,8 @@
 
 package org.melati.poem;
 
+import java.util.Enumeration;
+
 import org.melati.poem.generated.GroupMembershipTableBase;
 
 /**
@@ -106,4 +108,23 @@ public class GroupMembershipTable<T extends GroupMembership> extends GroupMember
     if (!exists(admin))
       create(admin);
   }
+  /**
+   * Make sure that a record exists.
+   *
+   * @return the existing or newly created {@link GroupMembership}
+   */
+  public GroupMembership ensure(Group group, User user) {
+     GroupMembership p = (GroupMembership)newPersistent();
+     p.setGroup(group);
+     p.setUser(user);
+     Enumeration<T> them = selection(p);
+     if (them.hasMoreElements()) 
+       return them.nextElement();
+     else {
+       p.makePersistent();
+       return p;
+     }
+   }
+
+
 }

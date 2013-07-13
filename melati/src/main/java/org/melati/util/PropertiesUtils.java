@@ -203,11 +203,13 @@ public final class PropertiesUtils {
     if (cached != null)
       return cached;
     try {
-      Class<?> interfaceClass = Class.forName(interfaceClassName);
       Class<?> clazz = Class.forName(className);
-      if (!interfaceClass.isAssignableFrom(clazz))
-        throw new ClassCastException(
+      if (interfaceClassName != null) {
+        Class<?> interfaceClass = Class.forName(interfaceClassName);
+        if (!interfaceClass.isAssignableFrom(clazz))
+          throw new ClassCastException(
                 clazz + " is not descended from " + interfaceClass);
+      }
       Object it = clazz.newInstance();
       instantiatedClassesCache.put(className, it);
       return it;
@@ -232,18 +234,6 @@ public final class PropertiesUtils {
                                             String defaultName)
   throws InstantiationPropertyException {
     String className =  (String)properties.get(propertyName);
-    if (className == null)
-      try {
-        Class<?> defaultClass = Class.forName(defaultName);
-        return defaultClass.newInstance();
-      } catch (Exception e) {
-        throw new RuntimeException("Problem creating new instance of " + 
-                defaultName + " :" + e.toString());
-      } catch (Error e) { 
-        throw new RuntimeException("Problem creating new instance of " + 
-                defaultName + " :" + e.toString());
-      }
-      
-    return instanceOfNamedClass(className, interfaceClassName);
+    return instanceOfNamedClass(className == null ? defaultName : className, interfaceClassName);
   }
 }

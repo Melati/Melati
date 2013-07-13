@@ -9,8 +9,6 @@ import org.melati.MelatiConfig;
 import org.melati.app.TemplateApp;
 import org.melati.login.AccessHandler;
 import org.melati.login.CommandLineAccessHandler;
-import org.melati.login.OpenAccessHandler;
-import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
 
 /**
@@ -38,8 +36,7 @@ public class ConfiguredTemplateApp extends TemplateApp {
             (AccessHandler)CommandLineAccessHandler.class
                 .newInstance());
       } catch (Exception e) {
-        throw new InstantiationPropertyException(CommandLineAccessHandler.class
-                .getName(), e);
+        throw new RuntimeException(e);
       }
 
 

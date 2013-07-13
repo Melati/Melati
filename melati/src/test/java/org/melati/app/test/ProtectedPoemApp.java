@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.app.test;
 
 import java.io.InputStream;
@@ -15,17 +12,16 @@ import org.melati.login.CommandLineAccessHandler;
 import org.melati.login.OpenAccessHandler;
 import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
+import org.melati.util.MelatiRuntimeException;
 
 /**
  * @author timp
+ * @since 2007-12-06
  *
  */
 public class ProtectedPoemApp extends PoemApp {
 
   InputStream in = null;
-  /**
-   * 
-   */
   public ProtectedPoemApp() {
     super();
     in = null;
@@ -40,8 +36,7 @@ public class ProtectedPoemApp extends PoemApp {
       config.setAccessHandler((AccessHandler)CommandLineAccessHandler.class
               .newInstance());
     } catch (Exception e) {
-      throw new InstantiationPropertyException(OpenAccessHandler.class
-              .getName(), e);
+      throw new RuntimeException(e);
     }
     return config;
     

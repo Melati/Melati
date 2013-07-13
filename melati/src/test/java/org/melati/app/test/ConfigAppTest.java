@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.app.test;
 
 import java.io.BufferedReader;
@@ -14,7 +11,7 @@ import junit.framework.TestCase;
 
 /**
  * @author timp
- *
+ * @since 2007-12-06
  */
 public class ConfigAppTest extends TestCase {
 

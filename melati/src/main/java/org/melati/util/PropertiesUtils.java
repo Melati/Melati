@@ -79,6 +79,12 @@ public final class PropertiesUtils {
 
     return them;
   }
+  
+  public static Properties fromResource(Class<?> clazz)
+        throws IOException {
+    String name = clazz.getCanonicalName() + ".properties";
+    return fromResource(clazz, name);
+  }
 
   /**
    * Get a {@link Properties} object from a {@link Class}.

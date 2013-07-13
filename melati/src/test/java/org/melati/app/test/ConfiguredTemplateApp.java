@@ -34,10 +34,11 @@ public class ConfiguredTemplateApp extends TemplateApp {
     MelatiConfig config = super.melatiConfig();
 
       try {
-        config.setAccessHandler((AccessHandler)CommandLineAccessHandler.class
+        config.setAccessHandler(
+            (AccessHandler)CommandLineAccessHandler.class
                 .newInstance());
       } catch (Exception e) {
-        throw new InstantiationPropertyException(OpenAccessHandler.class
+        throw new InstantiationPropertyException(CommandLineAccessHandler.class
                 .getName(), e);
       }
 

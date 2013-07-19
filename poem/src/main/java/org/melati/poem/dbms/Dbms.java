@@ -95,7 +95,7 @@ public interface Dbms {
   void shutdown(Connection connection) throws SQLException;
   
   /**
-   * Accomodate different quoting strategies.
+   * Accommodate different quoting strategies.
    * 
    * @param name the unquoted name
    * @return the name quoted (or not) appropriate for this Dbms

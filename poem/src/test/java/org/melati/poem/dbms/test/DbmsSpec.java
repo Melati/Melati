@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.dbms.test;
 
 import java.sql.Connection;

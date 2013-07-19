@@ -167,7 +167,7 @@ public interface Dbms {
   String getSqlDefinition(String sqlTypeName);
 
   /**
-   * Accomodate String / Text distinction.
+   * Accommodate String / Text distinction.
    * 
    * @param size the string length (-1 means no limit)
    * @return the SQL definition for a string of this size 
@@ -176,20 +176,20 @@ public interface Dbms {
   String getStringSqlDefinition(int size) throws SQLException;
 
   /**
-   * Accomodate Long / Bigint deviants.
+   * Accommodate Long / Bigint deviants.
    * @return the keyword to use.
    */
   String getLongSqlDefinition();
 
   /**
-   * Accomodate different true and false values. 
+   * Accommodate different true and false values. 
    * 
    * @return the DBMS specific truth and false values 
    */
   String sqlBooleanValueOfRaw(Object raw);
   
   /**
-   * Accomodate different treatment of different sized binary data.
+   * Accommodate different treatment of different sized binary data.
    * 
    * @param size how big the field is
    * @return the keyword to use
@@ -198,7 +198,7 @@ public interface Dbms {
   String getBinarySqlDefinition(int size) throws SQLException;
   
   /**
-   * Accomodate differing Fixed Point notations.
+   * Accommodate differing Fixed Point notations.
    * 
    * @param scale the number of places to right of decimal point
    * @param precision how many digits in total
@@ -297,12 +297,12 @@ public interface Dbms {
    * Reverse the mapping in <tt>unreservedName</tt>.
    * 
    * @param name an SQL name
-   * @return the coresponding name to use within Melati
+   * @return the corresponding name to use within Melati
    */
   String melatiName(String name);
 
   /**
-   * Accomodate DBMS which require a length for BLOBS.
+   * Accommodate DBMS which require a length for BLOBS.
    * 
    * @param column the POEM Column we are dealing with
    * @return SQL length string
@@ -327,7 +327,7 @@ public interface Dbms {
   String givesCapabilitySQL(Integer userTroid, String capabilityExpr);
 
   /**
-   * Accomodate the variety of ways of ignoring case.
+   * Accommodate the variety of ways of ignoring case.
    * 
    * @param term1 the term to find in 
    * @param term2 the quoted term to find 
@@ -390,7 +390,7 @@ public interface Dbms {
   String alterTableAddCommentSQL(Table<?> table, String comment);
   
   /**
-   * Accomodate different limiting syntax.
+   * Accommodate different limiting syntax.
    * 
    * @param querySelection main body of query
    * @param limit number to limit to
@@ -399,9 +399,9 @@ public interface Dbms {
   String selectLimit(String querySelection, int limit);
 
   /**
-   * Accomodate lack of boolean types.
+   * Accommodate lack of boolean types.
    * @param booleanColumn
-   * @return an expresion that evaluates to True ie the column name or column name = 1
+   * @return an expression that evaluates to True ie the column name or column name = 1
    */
   String booleanTrueExpression(Column<Boolean> booleanColumn);
 

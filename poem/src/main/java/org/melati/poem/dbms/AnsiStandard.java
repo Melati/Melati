@@ -88,6 +88,8 @@ import org.melati.poem.TimestampPoemType;
 import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.util.StringUtils;
 
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
 /**
  * An SQL 92 compliant Database Management System. 
  * <p>
@@ -742,9 +744,9 @@ public class AnsiStandard implements Dbms {
   public String alterColumnAddCommentSQL(Column<?> column, String comment) {
     // FIREBIRD, ORACLE, postgresql
     return "COMMENT ON COLUMN " 
-        + getQuotedName(column.getTable().getName()) 
+        + getQuotedName(unreservedName(column.getTable().getName())) 
         +"." 
-        + getQuotedName(column.getName())
+        + getQuotedName(unreservedName(column.getName()))
         + " IS '" 
         + comment 
         + "'";

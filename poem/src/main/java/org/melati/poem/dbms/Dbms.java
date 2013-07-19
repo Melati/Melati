@@ -103,7 +103,7 @@ public interface Dbms {
   String getQuotedName(String name);
 
   /**
-   * Accomodate different quoting strategies for values.
+   * Accommodate different quoting strategies for values.
    * 
    * @param sqlType the SQLType of the value
    * @param value the value

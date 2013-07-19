@@ -125,7 +125,7 @@ org.melati.LogicalDatabase.myproj.class=org.paneris.myproj.model.MyprojDatabase
 <p>
 At the command line type:
 <pre>
-mvn org.melati:maven-dsd-plugin:1.0-SNAPSHOT:generate
+mvn org.melati:dsd-maven-plugin:0.7.9-SNAPSHOT:generate
 </pre>
 </p>
 </subsection>

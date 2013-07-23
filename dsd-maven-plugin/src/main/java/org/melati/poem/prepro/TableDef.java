@@ -654,6 +654,11 @@ public class TableDef {
       }
     }
     if (uniqueNonNullableField != null) { 
+      w.write("\n");
+      w.write("  /**\n");
+      w.write("   * @return a newly created or existing " 
+              + tableNamingInfo.mainClassShortName() + "\n");
+      w.write("   **/\n");
       w.write("  public " + tableNamingInfo.mainClassShortName() + " ensure(");
       boolean seenOne = false;
       for (FieldDef f : requiredFields){

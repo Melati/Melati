@@ -54,8 +54,6 @@ import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.io.IOException;
 
-import org.paneris.bibliomania.Book;
-
 /**
  * A Table Definition holding information from a DSD.
  * 
@@ -661,12 +659,14 @@ public class TableDef {
       for (FieldDef f : requiredFields){
         if (seenOne)
           w.write(", ");
-        w.write(f.rawType);
+        w.write(f.typeShortName);
+        w.write(" ");
         w.write(f.name);
+        seenOne = true;
       }
       w.write(") {\n");
       //Book p = (Book)getTitleColumn().firstWhereEq(title);
-      w.write("  " 
+      w.write("    " 
           + tableNamingInfo.mainClassShortName() + " p = ("
           + tableNamingInfo.mainClassShortName() +")get"
           + uniqueNonNullableField.capitalisedName + "Column().firstWhereEq("
@@ -677,12 +677,13 @@ public class TableDef {
             + "      p = (" + tableNamingInfo.mainClassShortName() + ")newPersistent();\n");
       //      p.setTitle(title);
       for (FieldDef f : requiredFields){
-        w.write("    p.set");
+        w.write("      p.set");
         w.write(f.capitalisedName);
         w.write("(");
         w.write(f.name);
         w.write(");\n");
       }
+      w.write("    }\n");
       //      return (Book)getTitleColumn().ensure(p);
       w.write("    return (" + tableNamingInfo.mainClassShortName() 
           + ")get" + uniqueNonNullableField.capitalisedName + "Column().ensure(p);\n");

@@ -313,20 +313,26 @@ public class TableDef {
    */
   public void generatePersistentBaseJava(Writer w)
       throws IOException {
-    for (Enumeration<String> e = persistentBaseImports.elements(); e.hasMoreElements();) {
-      String packageName = e.nextElement();
-      TableNamingInfo tni = dsd.tableNamingStore.tableInfoByTableOrPersistentFQName.get(packageName);
-      //if (tni != null) w.write("// tni " + tni.objectFQName + ";\n");
+    for (Enumeration<String> e = persistentBaseImports.elements(); 
+         e.hasMoreElements();) {
+      String importedClassName = e.nextElement();
+      TableNamingInfo tni = dsd.tableNamingStore.tableInfoByTableOrPersistentFQName.get(importedClassName);
       if (tableNamingInfo.extended != null) { 
-        if (tni!=null)
-          if (tni.equals(tableNamingInfo) || tni.equals(tableNamingInfo.extended))
-            w.write("// import " + packageName + ";\n");
+        if (tni != null)
+          if (tni.equals(tableNamingInfo)) 
+            w.write("// ours\n//import " + importedClassName + ";\n");
           else 
-            w.write("import " + packageName + ";\n");                 
+            if (tni.equals(tableNamingInfo.extended))
+              if (tableNamingInfo.extended.extended != null)
+                w.write("// extends extended\n//import " + importedClassName + ";\n");
+              else
+                w.write("// base extension\nimport " + importedClassName + ";\n");
+            else
+              w.write("import " + importedClassName + ";\n");              
         else 
-          w.write("import " + packageName + ";\n");                 
+          w.write("import " + importedClassName + ";\n");                 
       } else
-        w.write("import " + packageName + ";\n");
+        w.write("import " + importedClassName + ";\n");
     }
     w.write("\n");
 
@@ -495,7 +501,7 @@ public class TableDef {
     for (Enumeration<String> e = tableBaseImports.elements(); e.hasMoreElements();) {
       String packageName = e.nextElement();
       if (ambiguous(packageName)) 
-        w.write("// FIXME extended table \nimport " + packageName + ";\n");
+        w.write("// Extended table \nimport " + packageName + ";\n");
       else
         w.write("import " + packageName + ";\n");
     }
@@ -585,7 +591,7 @@ public class TableDef {
         + requiredReturnClass + "</code>.\n" 
         + "  *\n" 
         + "  * see org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
-        + "  * @param troid a Table Row Oject ID\n"
+        + "  * @param troid a Table Row Object ID\n"
         + "  * @return the <code>Persistent</code> identified "
         + "by the <code>troid</code>\n" + "  */\n");
     w.write("  public " + requiredReturnClass + " get"
@@ -773,7 +779,7 @@ public class TableDef {
     addImport("org.melati.poem.DefinitionSource", "table");
     addImport("org.melati.poem.PoemException", "table");
 
-    if (!isAbstract)
+    if (!isAbstract && definesColumns)
       addImport("org.melati.poem.Persistent", "table");
 
     if (tableNamingInfo.superclassTableUnambiguous().equals("Table")) {

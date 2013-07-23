@@ -45,6 +45,7 @@
 
 package org.melati.poem.prepro;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Hashtable;
@@ -53,6 +54,7 @@ import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.io.IOException;
 
+import org.paneris.bibliomania.Book;
 
 /**
  * A Table Definition holding information from a DSD.
@@ -559,7 +561,7 @@ public class TableDef {
         "    return (" + dsd.databaseTablesClassName + ")getDatabase();\n" + 
         "  }\n" + 
         "\n"); 
-    Enumeration<FieldDef> fs = fields.elements(); 
+
     w.write("\n /**\n" 
         + "  * Initialise this table by defining its columns.\n" 
         + "  *\n"
@@ -569,7 +571,7 @@ public class TableDef {
         "  public void init() throws PoemException {\n" + 
         "    super.init();\n");
 
-    for (; fs.hasMoreElements();) {
+    for (Enumeration<FieldDef> fs = fields.elements(); fs.hasMoreElements();) {
       (fs.nextElement()).generateColDefinition(w);
       if (fs.hasMoreElements())
         w.write('\n');
@@ -577,8 +579,8 @@ public class TableDef {
 
     w.write("  }\n" + "\n");
 
-    for (Enumeration<FieldDef> f = fields.elements(); f.hasMoreElements();) {
-      (f.nextElement()).generateColAccessor(w);
+    for (Enumeration<FieldDef> fs = fields.elements(); fs.hasMoreElements();) {
+      (fs.nextElement()).generateColAccessor(w);
       w.write('\n');
     }
 
@@ -641,6 +643,55 @@ public class TableDef {
     w.write("  public int defaultDisplayOrder() {\n" + "    return "
         + displayOrder + ";\n" + "  }\n");
 
+    FieldDef uniqueNonNullableField = null; 
+    ArrayList<FieldDef> requiredFields = new ArrayList<FieldDef>();
+    for (Enumeration<FieldDef> fs = fields.elements(); fs.hasMoreElements();) {
+      FieldDef f = fs.nextElement();
+      if (!f.isNullable() && f.isUnique() && !f.isTroidColumn() 
+          && uniqueNonNullableField == null){
+        uniqueNonNullableField = f;
+      }
+      if (!f.isNullable() && !f.isTroidColumn()){
+        requiredFields.add(f);
+      }
+    }
+    if (uniqueNonNullableField != null) { 
+      w.write("  public " + tableNamingInfo.mainClassShortName() + " ensure(");
+      boolean seenOne = false;
+      for (FieldDef f : requiredFields){
+        if (seenOne)
+          w.write(", ");
+        w.write(f.rawType);
+        w.write(f.name);
+      }
+      w.write(") {\n");
+      //Book p = (Book)getTitleColumn().firstWhereEq(title);
+      w.write("  " 
+          + tableNamingInfo.mainClassShortName() + " p = ("
+          + tableNamingInfo.mainClassShortName() +")get"
+          + uniqueNonNullableField.capitalisedName + "Column().firstWhereEq("
+          + uniqueNonNullableField.name + ");\n");
+      //    if (p == null) { 
+      //      p = (Book)newPersistent();
+      w.write("    if (p == null) {\n"
+            + "      p = (" + tableNamingInfo.mainClassShortName() + ")newPersistent();\n");
+      //      p.setTitle(title);
+      for (FieldDef f : requiredFields){
+        w.write("    p.set");
+        w.write(f.capitalisedName);
+        w.write("(");
+        w.write(f.name);
+        w.write(");\n");
+      }
+      //      return (Book)getTitleColumn().ensure(p);
+      w.write("    return (" + tableNamingInfo.mainClassShortName() 
+          + ")get" + uniqueNonNullableField.capitalisedName + "Column().ensure(p);\n");
+
+      
+      w.write("  }\n");
+    }
+    
+  
     w.write("}\n");
   }
 

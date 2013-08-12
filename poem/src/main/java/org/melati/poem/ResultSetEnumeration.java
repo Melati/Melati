@@ -70,7 +70,14 @@ public abstract class ResultSetEnumeration<T> implements SkipEnumeration<T> {
   }
 
   private int resultSetNext() throws SQLException {
-    if (resultSet.next())
+    boolean hasNext;
+    try { 
+      hasNext = resultSet.next();
+    } catch (SQLException e) { 
+      // Assumed to be closed resultset
+      return 0;
+    }
+    if (hasNext)
       return 1;
     else {
       try {

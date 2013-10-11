@@ -240,7 +240,7 @@ public class DateFieldTableBase<T extends DateField> extends EverythingTable<T> 
   * Retrieve the <code>DateField</code> as a <code>DateField</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public DateField getDateFieldObject(Integer troid) {

@@ -14,11 +14,11 @@ import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-// FIXME extended table 
+// Extended table 
 import org.melati.poem.UserTable;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
-// FIXME extended table 
+// Extended table 
 import org.melati.poem.test.User;
 
 
@@ -144,7 +144,7 @@ public class UserTableBase<T extends User> extends UserTable<T> {
   * Retrieve the <code>User</code> as a <code>org.melati.poem.User</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public org.melati.poem.User getUserObject(Integer troid) {

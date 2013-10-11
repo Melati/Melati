@@ -14,6 +14,7 @@ import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
+import org.melati.poem.StringPoemType;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
@@ -239,7 +240,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
   * Retrieve the <code>PasswordField</code> as a <code>PasswordField</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public PasswordField getPasswordFieldObject(Integer troid) {

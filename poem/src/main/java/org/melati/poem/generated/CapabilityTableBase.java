@@ -219,7 +219,7 @@ public class CapabilityTableBase<T extends Capability> extends PoemTable<T> {
   * Retrieve the <code>Capability</code> as a <code>Capability</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Capability getCapabilityObject(Integer troid) {
@@ -255,6 +255,18 @@ public class CapabilityTableBase<T extends Capability> extends PoemTable<T> {
 
   public int defaultDisplayOrder() {
     return 2030;
+  }
+
+  /**
+   * @return a newly created or existing Capability
+   **/
+  public Capability ensure(String name) {
+    Capability p = (Capability)getNameColumn().firstWhereEq(name);
+    if (p == null) {
+      p = (Capability)newPersistent();
+      p.setName(name);
+    }
+    return (Capability)getNameColumn().ensure(p);
   }
 }
 

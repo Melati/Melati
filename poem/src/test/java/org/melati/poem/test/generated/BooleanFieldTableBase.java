@@ -239,7 +239,7 @@ public class BooleanFieldTableBase<T extends BooleanField> extends EverythingTab
   * Retrieve the <code>BooleanField</code> as a <code>BooleanField</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public BooleanField getBooleanFieldObject(Integer troid) {

@@ -962,7 +962,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
   * Retrieve the <code>TableInfo</code> as a <code>TableInfo</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public TableInfo getTableInfoObject(Integer troid) {
@@ -1006,6 +1006,22 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
 
   public int defaultDisplayOrder() {
     return 3010;
+  }
+
+  /**
+   * @return a newly created or existing TableInfo
+   **/
+  public TableInfo ensure(String name, String displayname, Integer displayorder, Boolean seqcached, TableCategory category) {
+    TableInfo p = (TableInfo)getNameColumn().firstWhereEq(name);
+    if (p == null) {
+      p = (TableInfo)newPersistent();
+      p.setName(name);
+      p.setDisplayname(displayname);
+      p.setDisplayorder(displayorder);
+      p.setSeqcached(seqcached);
+      p.setCategory(category);
+    }
+    return (TableInfo)getNameColumn().ensure(p);
   }
 }
 

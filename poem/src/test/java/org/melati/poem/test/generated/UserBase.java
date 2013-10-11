@@ -11,13 +11,16 @@ import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.GroupMembership;
-// import org.melati.poem.User;
+// base extension
+import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.Account;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.Protected;
-// import org.melati.poem.test.User;
-// import org.melati.poem.test.UserTable;
+// ours
+//import org.melati.poem.test.User;
+// ours
+//import org.melati.poem.test.UserTable;
 import org.melati.poem.util.EmptyEnumeration;
 
 

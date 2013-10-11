@@ -191,7 +191,6 @@ public class SettingTableBase<T extends Setting> extends ValueInfoTable<T> {
             ((Setting)g).setValue((String)cooked);
           }
 
-          @SuppressWarnings("unchecked")
           public Field<String> asField(Persistent g) {
             return ((Setting)g).getValueField();
           }
@@ -267,7 +266,7 @@ public class SettingTableBase<T extends Setting> extends ValueInfoTable<T> {
   * Retrieve the <code>Setting</code> as a <code>Setting</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Setting getSettingObject(Integer troid) {
@@ -307,6 +306,18 @@ public class SettingTableBase<T extends Setting> extends ValueInfoTable<T> {
 
   public int defaultDisplayOrder() {
     return 3040;
+  }
+
+  /**
+   * @return a newly created or existing Setting
+   **/
+  public Setting ensure(String name) {
+    Setting p = (Setting)getNameColumn().firstWhereEq(name);
+    if (p == null) {
+      p = (Setting)newPersistent();
+      p.setName(name);
+    }
+    return (Setting)getNameColumn().ensure(p);
   }
 }
 

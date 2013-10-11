@@ -239,7 +239,7 @@ public class DoubleFieldTableBase<T extends DoubleField> extends EverythingTable
   * Retrieve the <code>DoubleField</code> as a <code>DoubleField</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public DoubleField getDoubleFieldObject(Integer troid) {

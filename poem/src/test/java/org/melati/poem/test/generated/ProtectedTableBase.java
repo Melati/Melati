@@ -22,7 +22,7 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingTable;
 import org.melati.poem.test.Protected;
-// FIXME extended table 
+// Extended table 
 import org.melati.poem.test.User;
 
 
@@ -621,7 +621,7 @@ public class ProtectedTableBase<T extends Protected> extends EverythingTable<T> 
   * Retrieve the <code>Protected</code> as a <code>Protected</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Protected getProtectedObject(Integer troid) {

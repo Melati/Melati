@@ -364,7 +364,7 @@ public class UserTableBase<T extends User> extends PoemTable<T> {
   * Retrieve the <code>User</code> as a <code>User</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public User getUserObject(Integer troid) {
@@ -400,6 +400,20 @@ public class UserTableBase<T extends User> extends PoemTable<T> {
 
   public int defaultDisplayOrder() {
     return 2010;
+  }
+
+  /**
+   * @return a newly created or existing User
+   **/
+  public User ensure(String name, String login, String password) {
+    User p = (User)getLoginColumn().firstWhereEq(login);
+    if (p == null) {
+      p = (User)newPersistent();
+      p.setName(name);
+      p.setLogin(login);
+      p.setPassword(password);
+    }
+    return (User)getLoginColumn().ensure(p);
   }
 }
 

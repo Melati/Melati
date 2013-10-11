@@ -62,7 +62,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
   * Retrieve the <code>EmptyAbstractTable</code> as a <code>EmptyAbstractTable</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public EmptyAbstractTable getEmptyAbstractTableObject(Integer troid) {

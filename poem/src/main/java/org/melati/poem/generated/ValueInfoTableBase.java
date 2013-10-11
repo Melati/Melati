@@ -1021,7 +1021,7 @@ public class ValueInfoTableBase<T extends ValueInfo> extends PoemTable<T> {
   * Retrieve the <code>ValueInfo</code> as a <code>ValueInfo</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public ValueInfo getValueInfoObject(Integer troid) {

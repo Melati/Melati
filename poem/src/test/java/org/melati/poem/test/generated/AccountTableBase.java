@@ -21,7 +21,7 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.Account;
 import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.EverythingTable;
-// FIXME extended table 
+// Extended table 
 import org.melati.poem.test.User;
 
 
@@ -361,7 +361,7 @@ public class AccountTableBase<T extends Account> extends EverythingTable<T> {
   * Retrieve the <code>Account</code> as a <code>Account</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Account getAccountObject(Integer troid) {

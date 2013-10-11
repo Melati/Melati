@@ -215,7 +215,7 @@ public class TableCategoryTableBase<T extends TableCategory> extends PoemTable<T
   * Retrieve the <code>TableCategory</code> as a <code>TableCategory</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public TableCategory getTableCategoryObject(Integer troid) {
@@ -259,6 +259,18 @@ public class TableCategoryTableBase<T extends TableCategory> extends PoemTable<T
 
   public int defaultDisplayOrder() {
     return 3030;
+  }
+
+  /**
+   * @return a newly created or existing TableCategory
+   **/
+  public TableCategory ensure(String name) {
+    TableCategory p = (TableCategory)getNameColumn().firstWhereEq(name);
+    if (p == null) {
+      p = (TableCategory)newPersistent();
+      p.setName(name);
+    }
+    return (TableCategory)getNameColumn().ensure(p);
   }
 }
 

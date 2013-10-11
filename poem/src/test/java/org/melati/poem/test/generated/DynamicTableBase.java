@@ -219,7 +219,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
   * Retrieve the <code>Dynamic</code> as a <code>Dynamic</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Dynamic getDynamicObject(Integer troid) {

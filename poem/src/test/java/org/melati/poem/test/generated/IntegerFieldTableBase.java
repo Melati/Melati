@@ -239,7 +239,7 @@ public class IntegerFieldTableBase<T extends IntegerField> extends EverythingTab
   * Retrieve the <code>IntegerField</code> as a <code>IntegerField</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public IntegerField getIntegerFieldObject(Integer troid) {

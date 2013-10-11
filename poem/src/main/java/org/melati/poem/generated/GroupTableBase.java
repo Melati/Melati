@@ -219,7 +219,7 @@ public class GroupTableBase<T extends Group> extends PoemTable<T> {
   * Retrieve the <code>Group</code> as a <code>Group</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Group getGroupObject(Integer troid) {
@@ -255,6 +255,18 @@ public class GroupTableBase<T extends Group> extends PoemTable<T> {
 
   public int defaultDisplayOrder() {
     return 2020;
+  }
+
+  /**
+   * @return a newly created or existing Group
+   **/
+  public Group ensure(String name) {
+    Group p = (Group)getNameColumn().firstWhereEq(name);
+    if (p == null) {
+      p = (Group)newPersistent();
+      p.setName(name);
+    }
+    return (Group)getNameColumn().ensure(p);
   }
 }
 

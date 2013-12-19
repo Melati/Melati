@@ -64,9 +64,6 @@ import javax.mail.internet.MimeMultipart;
  */
 public final class Email {
 
-  /** Property key for the SMTP server.*/
-  public static String SMTPSERVER = "SMTPServer";
-
   private Email() {
   }
 

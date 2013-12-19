@@ -72,18 +72,6 @@ public final class Email {
   }
 
   /**
-   * deprecated try to disentangle poem and utils
-   */
-/*  
-  public static void send(Database database, String from, String to,
-                          String replyto, String subject, String text) 
-      throws EmailException, IOException {
-    File[] empty = {};
-    String smtpServer = database.getSettingTable().get(SMTPSERVER);
-    sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
-  }
-*/
-  /**
    * Send the email.
    * @param smtpServer name of SMTP server to use
    * @param from email address and optionally name of sender
@@ -99,17 +87,6 @@ public final class Email {
     sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
   }
 
- /*
-  public static void sendToList(Database database, String from,
-          String[] toList, String apparentlyTo, String replyto, String subject,
-          String message) throws EmailException, IOException {
-    File[] empty = {};
-
-    String smtpServer = database.getSettingTable().get(SMTPSERVER);
-    for (int i = 0; i < toList.length; i++)
-      sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
-  }
-*/
   /**
    * Send the email to a list of recipients.
    * 

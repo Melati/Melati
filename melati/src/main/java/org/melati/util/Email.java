@@ -45,6 +45,9 @@ package org.melati.util;
 
 import java.io.File;
 import java.io.IOException;
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -55,10 +58,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-//import org.melati.poem.Database;
-
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 
 /**
  * Send an email to one or more recipients with or without attachments.

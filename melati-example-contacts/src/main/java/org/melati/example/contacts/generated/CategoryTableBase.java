@@ -59,6 +59,12 @@ public class CategoryTableBase<T extends Category> extends ContactsTable<T> {
     return (ContactsDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Initialise this table by defining its columns.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  */
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -213,7 +219,7 @@ public class CategoryTableBase<T extends Category> extends ContactsTable<T> {
   * Retrieve the <code>Category</code> as a <code>Category</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Category getCategoryObject(Integer troid) {

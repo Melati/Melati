@@ -1,0 +1,4 @@
+target
+*.log
+*~
+melati/src/test/webapp/melati-static/admin/static/*

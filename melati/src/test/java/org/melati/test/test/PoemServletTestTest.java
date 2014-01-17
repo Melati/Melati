@@ -43,6 +43,8 @@
  */
 package org.melati.test.test;
 
+import java.io.File;
+
 import org.melati.JettyWebTestCase;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -146,14 +148,17 @@ public class PoemServletTestTest extends JettyWebTestCase {
     submit("action");
     gotoPage("/" + servletName + "/admintest/");
 
-    setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
+    assertTrue("Cannot find file src/main/java/org/melati/admin/static/file.gif",
+        new File("src/main/java/org/melati/admin/static/file.gif").exists());
+    setTextField("file","src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");
-    setTextField("file","/dist/melati/LICENSE-GPL.txt");
+    assertTrue("Cannot find file pom.xml", new File("pom.xml").exists());
+    setTextField("file", "pom.xml");
     submit();
     gotoWindow("Upload");
-    assertTextPresent("GNU GENERAL PUBLIC LICENSE");
-    
+    assertTextPresent("<groupId>org.melati</groupId>");
+
   }
   /**
    * Fill and click upload.

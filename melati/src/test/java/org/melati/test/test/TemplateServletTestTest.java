@@ -135,14 +135,16 @@ public class TemplateServletTestTest extends JettyWebTestCase {
     checkCheckbox("rememberme");
     submit();
     gotoPage(servletName);
-    setTextField("file","/dist/melati/melati/src/main/java/org/melati/admin/static/file.gif");
+    assertTrue("Cannot find file src/main/java/org/melati/admin/static/file.gif",
+        new File("src/main/java/org/melati/admin/static/file.gif").exists());
+    setTextField("file","src/main/java/org/melati/admin/static/file.gif");
     submit();
     assertWindowPresent("Upload");
-    assertTrue(new File("/dist/melati/LICENSE-GPL.txt").exists());
-    setTextField("file","/dist/melati/LICENSE-GPL.txt");
+    assertTrue("Cannot find file pom.xml", new File("pom.xml").exists());
+    setTextField("file","pom.xml");
     submit();
     gotoWindow("Upload");
-    assertTextPresent("GNU GENERAL PUBLIC LICENSE");
+    assertTextPresent("<groupId>org.melati</groupId>");
     
   }
 

@@ -57,6 +57,12 @@ public class ParentTableBase<T extends Parent> extends OdmgTable<T> {
     return (OdmgDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Initialise this table by defining its columns.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  */
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -183,7 +189,7 @@ public class ParentTableBase<T extends Parent> extends OdmgTable<T> {
   * Retrieve the <code>Parent</code> as a <code>Parent</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Parent getParentObject(Integer troid) {

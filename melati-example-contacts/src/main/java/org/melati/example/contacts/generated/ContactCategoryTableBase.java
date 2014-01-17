@@ -63,6 +63,12 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
     return (ContactsDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Initialise this table by defining its columns.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  */
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -294,7 +300,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
   * Retrieve the <code>ContactCategory</code> as a <code>ContactCategory</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public ContactCategory getContactCategoryObject(Integer troid) {

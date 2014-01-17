@@ -61,6 +61,12 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
     return (TreeDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Initialise this table by defining its columns.
+  *
+  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  */
   public void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -287,7 +293,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
   * Retrieve the <code>Node</code> as a <code>Node</code>.
   *
   * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param troid a Table Row Oject ID
+  * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
   public Node getNodeObject(Integer troid) {

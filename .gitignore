@@ -1,4 +1,6 @@
 target
 *.log
 *~
+*.iml
 melati/src/test/webapp/melati-static/admin/static/*
+.idea

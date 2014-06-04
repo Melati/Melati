@@ -21,9 +21,8 @@
       <dependencies>
        <dependency>
         <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc</artifactId>
+        <artifactId>throwing-jdbc-3.0</artifactId>
         <version>${project.version}</version>
-        <classifier>jdbc3</classifier>
         <scope>test</scope>
        </dependency>
       </dependencies>
@@ -36,9 +35,8 @@
       <dependencies>
        <dependency>
         <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc</artifactId>
+        <artifactId>throwing-jdbc-4.0</artifactId>
         <version>${project.version}</version>
-        <classifier>jdbc4</classifier>
         <scope>test</scope>
        </dependency>
       </dependencies>
@@ -51,9 +49,8 @@
       <dependencies>
        <dependency>
         <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc</artifactId>
+        <artifactId>throwing-jdbc-4.1</artifactId>
         <version>${project.version}</version>
-        <classifier>jdbc4.1</classifier>
         <scope>test</scope>
        </dependency>
       </dependencies>

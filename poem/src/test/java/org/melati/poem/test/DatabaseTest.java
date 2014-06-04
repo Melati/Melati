@@ -124,7 +124,7 @@ public class DatabaseTest extends TestCase {
     tableInfo.setDescription(name + " element table");
     tableInfo.setDisplayorder(13);
     tableInfo.setSeqcached(Boolean.FALSE);
-    tableInfo.setCategory(TableCategoryTable.NORMAL);
+    tableInfo.setCategory(db.getTableCategoryTable().NORMAL);
     tableInfo.setCachelimit(555);
     tableInfo.makePersistent();
     assertEquals(9, EnumUtils.vectorOf(getDb().tables()).size());

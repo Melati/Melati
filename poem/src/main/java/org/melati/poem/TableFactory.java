@@ -120,7 +120,7 @@ public final class TableFactory {
     tableInfo.setDescription(simpleName + " introspected table");
     tableInfo.setDisplayorder(13);
     tableInfo.setSeqcached(Boolean.FALSE);
-    tableInfo.setCategory(TableCategoryTable.NORMAL);
+    tableInfo.setCategory(db.getTableCategoryTable().NORMAL);
     tableInfo.setCachelimit(555);
     tableInfo.makePersistent();
 

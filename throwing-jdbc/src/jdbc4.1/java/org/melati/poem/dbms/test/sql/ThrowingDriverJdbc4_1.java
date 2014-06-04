@@ -60,11 +60,11 @@ public abstract class ThrowingDriverJdbc4_1
     extends ThrowingDriverJdbc4 
     implements Driver {
 
- @Override
- public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-     if (shouldThrow(this.getClass().getInterfaces()[0], "getParentLogger"))
-         throw new SQLFeatureNotSupportedException("Driver.getParentLogger() bombed");
-  return it.getParentLogger();
- }
+  @Override
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    if (shouldThrow(this.getClass().getInterfaces()[0], "getParentLogger"))
+      throw new SQLFeatureNotSupportedException("Driver.getParentLogger() bombed");
+    return it.getParentLogger();
+  }
 
 }

@@ -92,7 +92,7 @@ public class TableCategoryTable<T extends TableCategory> extends TableCategoryTa
   /** Category name for normal tables. */
   public static final String normalTableCategoryName = "Normal";
   /** The category for ordinary data tables.   */
-  public static TableCategory NORMAL;
+  public TableCategory NORMAL;
  /**
   * Create an entry with the given name if it doesn't exist.
   * @param name the name of the Category

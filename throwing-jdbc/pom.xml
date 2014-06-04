@@ -33,7 +33,7 @@
     <version>0.7.9-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>throwing-jdbc</artifactId>
+  <artifactId>throwing-jdbc-${jdbc.version}</artifactId>
   <name>Throwing JDBC</name>
   <description>A set of decorators of the JDBC API.</description>
   <developers>
@@ -186,7 +186,6 @@
   </dependencies>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
-    <finalName>${artifactId}-${jdbc.version}-${version}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

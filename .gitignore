@@ -1,6 +1,10 @@
 target
 *.log
 *~
+<<<<<<< HEAD
 *.iml
 melati/src/test/webapp/melati-static/admin/static/*
 .idea
+=======
+melati/src/test/webapp/melati-static/admin/static/*
+>>>>>>> 02bf8f7af0bba621d651e3f5a1ffc75fd04f7f76

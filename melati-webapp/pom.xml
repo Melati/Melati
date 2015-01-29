@@ -9,6 +9,9 @@
   <packaging>war</packaging>
   <name>Melati Webapp</name>
   <url>http://melati.org/webapp</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <build>
     <finalName>melati-webapp</finalName>
      <plugins>

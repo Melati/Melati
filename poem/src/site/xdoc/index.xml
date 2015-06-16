@@ -7,31 +7,23 @@
     <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
+      Objects, Object Oriented, ORM, J2EE replacement
     </keywords>
   </properties>
 
   <body>
 
 
-<!--
-<p align="center">
- <font size="-1"><i>
-This page last updated: $Date$ $Author$
- </i></font>
-</p>
--->
-  
-<!-- menu -->
-
 <section name=" POEM (Persistent Object Engine for Melati)">
-<P>
+<p>
   POEM provides:
    <ul>
     <li>
-    industrial-strength open source object database technology, delivering 
-    <b><a href="http://www.odmg.org/">ODMG 3.0</a></b> compliant Java
-    support.
+    generated java classes to support Object Releational Mapping (ORM) 
+    </li>
+    <li>
+    a richer Domain Specific Language (DSL) to descibe database structure 
+    which can be generated from existing databases or generate new from scratch. 
     </li>
     <li>
     an API which enables the database to be seen as a collection of 
@@ -47,16 +39,16 @@ This page last updated: $Date$ $Author$
     jdbc, sql and java metadata.
     </li>
     <li>
-    A type system which enables string fields to be polymorphic.
+    a type system which enables string fields to be polymorphic.
     </li>
     <li>
-    A transaction system which enables insulated sessions.
+    a transaction system which enables insulated sessions.
     </li>
     <li>
-    Rich metadata and code generation which enables attractive rendering.
+    rich metadata which enables object rendering.
     </li>
 </ul>
-</P>
+</p>
 </section>
 </body>
 </document>

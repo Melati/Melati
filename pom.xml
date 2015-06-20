@@ -79,6 +79,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>https://github.com/Melati/Melati</url>
       <connection>scm:git:git://github.com/Melati/Melati.git</connection>
       <developerConnection>scm:git:git@github.com:Melati/Melati.git</developerConnection>
+    <tag>melati-parent-0.7.9</tag>
   </scm>
   <mailingLists>
     <mailingList>

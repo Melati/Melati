@@ -78,7 +78,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
+            <version>[1.7,1.8]</version>
             <configuration>
               <sources>
                 <source>src/jdbc3-variants/java</source>
@@ -138,7 +138,7 @@
       <id>jdbc41</id>
       <activation>
         <activeByDefault>false</activeByDefault>
-        <jdk>1.7</jdk>
+        <jdk>[1.7,1.8]</jdk>
       </activation>
       <properties>
         <jdbc.version>4.1</jdbc.version>

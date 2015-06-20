@@ -19,31 +19,29 @@ to create a release:
 2.  Change Last Updated and Updated By and add a new paragraph to 
     src/site/resources/RELEASE-NOTES.html
 3.  Add a paragraph about this release to src/site/xdoc/Releases.xml
-    Update src/site/xdoc/Download.ahtml
-    Review src/site/xdoc/Roadmap.ahtml
-4.  CVS commit all of the above
+    Update src/site/xdoc/Download.xml
+    Review src/site/xdoc/Roadmap.xml
+4.  git commit all of the above
 
-5a.  Change the version number and date in pom.xml
-5b. Remove SNAPSHOT from currentVersion in pom.xml 
-    and increment it. 
-5c.  CVS tag this release (cvs tag Melati-0-7-8)
-5d.  Test everything
+5a. Change the version number and date in pom.xml
+5b. Remove SNAPSHOT from version in pom.xml
+5c. Tag this release (git tag Melati-0-7-9)
+5d. Test everything
 
 or 
 
 6. Run mvn release:prepare mvn release:perform
 
-7. 
-8. On rama:
+7. On hanuman:
     cd /dist/melati
-    cvs update
+    git pull origin master
     mvn install
-9. Update sourceforge
+8. Update sourceforge
 cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
 cvs -d:ext:developername@melati.org:/usr/cvsroot export melati
 cvs commit
 
-10. Email 
+9. Email
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,
        melati-users@lists.sourceforge.net,
@@ -58,17 +56,16 @@ cvs commit
        wafer-developer@lists.sourceforge.net
        post to news://easysoft.public.da2k.jdbc-odbc-bridge
 
-11. Notify Melati project boards:
+10. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
        wvm@messageboards.paneris.org
-12. Add an item to the Sourceforge news
+11. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
-13. Add SNAPSHOT to currentVersion in ../pom.xml
+12. Add SNAPSHOT to currentVersion in ../pom.xml
 
 
 
-$Id$
 
 
 

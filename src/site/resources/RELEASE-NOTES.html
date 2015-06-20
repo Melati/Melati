@@ -8,32 +8,100 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 29/01/2007 - timp</h4>
+  <h4 align="center">last updated 2015/06/20 - timp</h4>
 
-  <h4 align="center">Release 0.7.5-RC6</h4>
-  <h2 align="left">Release 0.7.5-RC6</h2>
-  <h4 align="left">29/01/2007</h4>
-  <p>
-   Major refactoring of org.melati.utils such that all dependencies are now on 
-   poem.utils if the particular util is used in POEM at all.
-   <br />
-   The main work is in moving StringUtils, which is used extensivley in and
-   outside of POEM.
-   <br>
-   The other gotcha is the move of org.melati.util.MelatiLocale to
-   org.melati.poem.PoemLocale, so check your templates as well as your code.
-   <br />
-   The transaction api has moved to org.melati.poem.transaction.
-   <br/ > 
-   org.melati.LogicalDatabase now relies upon 
-   org.melati.poem.PoemDatabaseFactory.
-   <br/ > 
-   The enclosed class Persistent.Saved has been removed.
-   <br /> 
-   The LogSQL, LogCommits and AddConstaints properties are applied from the
-   properties file.
-  </p>
-  <hr>
+    <h4 align="center">Release 0.7.9</h4>
+    <h2 align="left">Release 0.7.9</h2>
+    <h4 align="left">2015/06/20</h4>
+    <ul>
+        <li>
+            <p>
+                Migrate to git and host on github
+            </p>
+            <p>
+                No more CVS
+            </p>
+        </li>
+        <li>
+            <p>
+                Unify webmacro and velocity templet directories
+            </p>
+            <p>The templets of both flavours are now sored in the same directory.</p>
+        </li>
+        <li>
+            <p>
+                Generate generic classes
+            </p>
+            <p>
+                Generated classes now use generics.
+            </p>
+        </li>
+        <li>
+            <p>
+                Generate referencesToThis() methods
+            </p>
+            <p>This method is so prevalent that it moved into the generated classes.</p>
+
+        </li>
+        <li>
+            <p>
+                Add String Key Reference Types
+            </p>
+            <p>
+                Sometimes you fall from the one true way and use string key references,
+            now you can in POEM too, but don't.
+            </p>
+        </li>
+        <li>
+            <p>
+                Addition of JSON as an output language
+            </p>
+            <p>
+                An initial stab at a json putput.
+            </p>
+        </li>
+        <li>
+            <p>
+                Generation ensure() methods.
+            </p>
+            <>
+                A simple method to ensure that a table has a row is now
+            generated from the known required fields.
+            </p>
+        </li>
+        <li>
+            <p>
+                Test with Java 8 <br/ >
+            </p>
+        </li>
+
+
+    </ul>
+    <hr>
+    <h4 align="center">Release 0.7.5-RC6</h4>
+    <h2 align="left">Release 0.7.5-RC6</h2>
+    <h4 align="left">29/01/2007</h4>
+    <p>
+        Major refactoring of org.melati.utils such that all dependencies are now on
+        poem.utils if the particular util is used in POEM at all.
+        <br />
+        The main work is in moving StringUtils, which is used extensivley in and
+        outside of POEM.
+        <br>
+        The other gotcha is the move of org.melati.util.MelatiLocale to
+        org.melati.poem.PoemLocale, so check your templates as well as your code.
+        <br />
+        The transaction api has moved to org.melati.poem.transaction.
+        <br/ >
+        org.melati.LogicalDatabase now relies upon
+        org.melati.poem.PoemDatabaseFactory.
+        <br/ >
+        The enclosed class Persistent.Saved has been removed.
+        <br />
+        The LogSQL, LogCommits and AddConstaints properties are applied from the
+        properties file.
+    </p>
+    <hr>
   <h4 align="center">Release 0.7.5</h4>
   <h2 align="left">Release 0.7.5</h2>
   <h4 align="left">06/02/2005</h4>

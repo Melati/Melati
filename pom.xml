@@ -19,7 +19,7 @@
 -->
     <module>throwing-jdbc</module>
   </modules>
-  <version>0.7.9-SNAPSHOT</version>
+  <version>0.7.9</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -76,15 +76,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </repositories>
 
   <scm>
-    <connection>
-      scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
-    </connection>
-    <developerConnection>
-     scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
-    </developerConnection>
-    <url>
-      http://melati.org/cgi-bin/cvsweb.cgi/melati/
-    </url>
+      <url>https://github.com/Melati/Melati</url>
+      <connection>scm:git:git://github.com/Melati/Melati.git</connection>
+      <developerConnection>scm:git:git@github.com:Melati/Melati.git</developerConnection>
   </scm>
   <mailingLists>
     <mailingList>
@@ -341,7 +335,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <plugins>
       <plugin>
        <artifactId>maven-site-plugin</artifactId>
-       <version>2.2</version>
+       <version>3.2</version>
        <configuration>
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
@@ -349,7 +343,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.3.1</version>
+        <version>2.8</version>
        <reportSets>
         <reportSet>
          <reports>
@@ -375,17 +369,17 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
-       <version>2.8.1</version>
+       <version>2.18.1</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0-beta-2</version>
+        <version>2.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.5</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -459,19 +453,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>2.2</version>
+          <version>3.4</version>
           <dependencies>
            <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-ssh</artifactId>
-            <version>2.2</version>
+            <version>2.9</version>
            </dependency>
          </dependencies>          
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.8</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -479,7 +473,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-compiler-plugin</artifactId>
-       <version>2.3.2</version>
+       <version>3.3</version>
        <configuration>
         <source>1.6</source>
         <target>1.6</target>
@@ -488,7 +482,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-source-plugin</artifactId>
-       <version>2.1.2</version>
+       <version>2.4</version>
        <executions>
         <execution>
          <id>attach-sources</id>
@@ -523,31 +517,31 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.5.2</version>
       </plugin>
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-deploy-plugin</artifactId>
-       <version>2.7</version>
+       <version>2.8.2</version>
        <dependencies>
         <dependency>
          <groupId>org.apache.maven.wagon</groupId>
          <artifactId>wagon-ssh</artifactId>
-         <version>2.2</version>
+         <version>2.9</version>
         </dependency>
        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.4</version>
         <configuration>
           <outputEncoding>UTF-8</outputEncoding>
           <reportPlugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-project-info-reports-plugin</artifactId>
-              <version>2.2</version>
+              <version>2.8</version>
               <configuration>
                 <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
@@ -569,12 +563,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-surefire-report-plugin</artifactId>
-              <version>2.8.1</version>
+              <version>2.18.1</version>
             </plugin>
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>cobertura-maven-plugin</artifactId>
-              <version>2.5.1</version>
+              <version>2.6</version>
               <configuration>
                 <formats>
                   <format>xml</format>

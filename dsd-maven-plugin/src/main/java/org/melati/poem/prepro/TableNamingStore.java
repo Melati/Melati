@@ -69,8 +69,7 @@ public class TableNamingStore {
    * @param name        the name of this table
    * @param superclass  not null if table extends another
    * @param packageName fully qualified java package name
-   * @param projectNameIn short name of project
-   * @throws HiddenTableException if this table has the same name as 
+   * @throws HiddenTableException if this table has the same name as
    *                    one already encountered but does not extend it 
    * @return a newly created <code>TableNamingInfo</code> 
    */

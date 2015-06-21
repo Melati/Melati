@@ -51,7 +51,7 @@ package org.melati.poem.prepro;
  *
  * A Table Row Object Id field is expected in every <tt>Table</tt>.
  *
- * @see org.melati.poem.TroidPoemType 
+ * See org.melati.poem.TroidPoemType
  */
 
 public class TroidFieldQualifier extends FieldQualifier {

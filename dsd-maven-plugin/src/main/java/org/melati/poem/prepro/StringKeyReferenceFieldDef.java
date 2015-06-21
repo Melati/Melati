@@ -100,7 +100,9 @@ public class StringKeyReferenceFieldDef extends FieldDef {
     
   }
   
-  /** Due to possible forward references this could be null until we finish parse */
+  /** Due to possible forward references this could be null until we finish parse
+   * @return the possibly null TableNamingInfo
+   */
   public TableNamingInfo getTargetTableNamingInfo() {
     return table.dsd.tableNamingStore.tableInfoByPersistentShortName.get(typeShortName);
   }

@@ -47,7 +47,7 @@ import java.sql.ResultSetMetaData;
 
 
 /**
- * A {@link ResultSetMetaData} decorated to throw an {@SQLException} on command.
+ * A {@link ResultSetMetaData} decorated to throw an SQLException on command.
  * 
  * @author timp
  * @since 12 Feb 2007

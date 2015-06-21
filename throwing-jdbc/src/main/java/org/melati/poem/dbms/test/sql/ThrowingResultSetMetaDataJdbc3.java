@@ -48,13 +48,15 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
- * The JDBC3 methods of a {@link ResultSetMetaData}, decorated to throw an {@SQLException} on command.
+ * The JDBC3 methods of a {@link ResultSetMetaData},
+ * decorated to throw an {@link SQLException} on command.
  * 
  * @author timp
  * @since  5 Feb 2008
  *
  */
-public abstract class ThrowingResultSetMetaDataJdbc3 extends Thrower implements ResultSetMetaData {
+public abstract class ThrowingResultSetMetaDataJdbc3
+        extends Thrower implements ResultSetMetaData {
 
   ResultSetMetaData it = null;
 

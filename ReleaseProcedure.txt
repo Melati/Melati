@@ -25,12 +25,16 @@ to create a release:
 
 5a. Change the version number and date in pom.xml
 5b. Remove SNAPSHOT from version in pom.xml
+    NOTE There is a circular dependency on poem.jar in poem/pom.xml 
 5c. Tag this release (git tag Melati-0-7-9)
 5d. Test everything
 
 or 
 
-6. Run mvn release:prepare mvn release:perform
+6. Run 
+
+    mvn release:prepare 
+    mvn release:perform
 
 7. On hanuman:
     cd /dist/melati

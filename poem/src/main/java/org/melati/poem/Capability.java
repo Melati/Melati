@@ -81,7 +81,7 @@ public class Capability extends CapabilityBase {
   *   data. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava
   */
   public Capability() {
   }

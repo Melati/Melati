@@ -129,7 +129,9 @@ public interface PoemType<T> {
 
   /**
    * A localised String representation of the oject.
-   * 
+   *
+   * @param cooked the PoemType to be stringified
+   * @param locale to be used for dates
    * @param style as in <TT>java.text.DateFormat.SHORT</TT>, ...
    * @return a String representation of an Object
    * @throws TypeMismatchPoemException if the raw is of the wrong type
@@ -148,7 +150,8 @@ public interface PoemType<T> {
   /**
    * Return a PoemType which can can represent another, 
    * or null.
-   * 
+   *
+   * @param <O> the type of the PoemType
    * @param other the other type to check
    * @return other or null 
    */

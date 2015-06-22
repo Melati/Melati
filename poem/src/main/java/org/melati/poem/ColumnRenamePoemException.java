@@ -48,7 +48,7 @@ package org.melati.poem;
 /**
  * Column renaming is not supported by Postgresql.
  * 
- * @todo Allow column renaming for those dbms which allow it.
+ * TODO Allow column renaming for those dbms which allow it.
  */
 public class ColumnRenamePoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;

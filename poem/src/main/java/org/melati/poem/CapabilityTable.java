@@ -109,7 +109,7 @@ public class CapabilityTable<T extends Capability> extends CapabilityTableBase<T
   * as they are referrred to in column definition.
   *
   * @param colDescs the {@link Column} descriptions
-  * @see org.melati.poem.Table#defineColumn(Column, boolean) 
+  * @see org.melati.poem.Table#defineColumn(Column)
   */
   public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {

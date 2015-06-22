@@ -723,7 +723,7 @@ public interface Table<P extends Persistent>  {
      * subtypes can append elements of a join but there is no filtering
      * by canselect columns.
      *
-     * @todo Add mechanism for searching for Nulls (that would be query
+     * TODO Add mechanism for searching for Nulls (that would be query
      * constructs as per SQL parse tree, but efferent not afferent)
      *
      * @see #notifyColumnInfo(org.melati.poem.ColumnInfo)

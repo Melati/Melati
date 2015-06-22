@@ -55,7 +55,6 @@ import org.melati.poem.util.StringUtils;
 public class BinaryLengthValidationPoemException
     extends ValidationPoemException {
   
-  /** Constructor. */
   public BinaryLengthValidationPoemException(PoemType<?> type, byte[] value) {
     super(type, value);
   }

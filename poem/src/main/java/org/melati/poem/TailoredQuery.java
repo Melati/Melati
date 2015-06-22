@@ -312,8 +312,8 @@ public class TailoredQuery {
    * &nbsp;#foreach $fieldSet in $tailoredQuery.selection() #begin<BR>
    * &nbsp;&nbsp;&lt;TR&gt;<BR>
    * &nbsp;&nbsp;&nbsp;#foreach $field in $fieldSet #begin<BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field.DisplayName)&lt;/TD><BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field)&lt;/TD><BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD&gt;$ml.rendered($field.DisplayName)&lt;/TD&gt;<BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD&gt;$ml.rendered($field)&lt;/TD&gt;<BR>
    * &nbsp;&nbsp;&nbsp;#end<BR>
    * &nbsp;&nbsp;&lt;/TR&gt;<BR>
    * &nbsp;#end<BR>
@@ -353,8 +353,8 @@ public class TailoredQuery {
    * @see FieldSet#elements()
    * @see FieldSet#get(java.lang.String)
    * @see PoemThread#accessToken()
-   * @see org.melati.template.MarkupLanguage#rendered(Object)
    * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
+   * Used in org.melati.template.MarkupLanguage#rendered(Object)
    *
    * @return 
    * An <TT>Enumeration</TT> of <TT>FieldSet</TT>s, one per row returned from

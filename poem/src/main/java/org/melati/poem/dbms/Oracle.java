@@ -64,7 +64,7 @@ import org.melati.poem.StringPoemType;
 /**
  * A Driver for Oracle (http://www.oracle.com/).
  * 
- * @todo Testing required, code has been added to keep up with the interface 
+ * TODO Testing required, code has been added to keep up with the interface
  * without testing.
  * 
  **/

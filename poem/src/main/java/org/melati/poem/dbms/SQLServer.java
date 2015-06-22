@@ -107,11 +107,9 @@ public class SQLServer extends AnsiStandard {
 
   /**
    * Get the user we are connected as and return that as the schema.
-   * {@inheritDoc}
-   * 
+   *
    * @see org.melati.poem.dbms.Dbms#getSchema()
    * @see org.melati.poem.dbms.AnsiStandard#getSchema()
-   * @see org.melati.poem.dbms.Ansistandard#getConnection()
    */
   public String getSchema() {
     return null;
@@ -446,9 +444,7 @@ public class SQLServer extends AnsiStandard {
   }
 
   /**
-   * Slightly different - embrace and extend. {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
+   * Slightly different - embrace and extend.
    */
   public String getForeignKeyDefinition(String tableName, String fieldName,
           String targetTableName, String targetTableFieldName, String fixName) {
@@ -466,10 +462,7 @@ public class SQLServer extends AnsiStandard {
   }
 
   /**
-   * Accommodate SQLServer syntax. {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
-   *      java.lang.String)
+   * Accommodate SQLServer syntax.
    */
   public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
@@ -509,10 +502,6 @@ public class SQLServer extends AnsiStandard {
     return super.getSqlDefaultValue(sqlType);
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
-   */
   public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BinaryPoemType) {
       return value;

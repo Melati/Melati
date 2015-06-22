@@ -62,7 +62,6 @@ public class AccessPoemException extends PoemException {
   // This is required to report the exception outside of a session.
   private String capabilityString;
 
-  /** Constructor. */
   public AccessPoemException(Exception problem,
                              AccessToken token, Capability capability) {
     super(problem);
@@ -72,17 +71,14 @@ public class AccessPoemException extends PoemException {
                              null : capability.toString());
   }
 
-  /** Constructor. */
   public AccessPoemException(AccessToken token, Capability capability) {
     this(null, token, capability);
   }
 
-  /** Constructor. */
   public AccessPoemException(AccessPoemException e) {
     this(e, e.token, e.capability);
   }
 
-  /** Constructor. */
   public AccessPoemException() {
     this(null, null);
   }

@@ -492,10 +492,6 @@ public class AnsiStandard implements Dbms {
     return b.toString();
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
-   */
   public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BooleanPoemType) {
       return value;

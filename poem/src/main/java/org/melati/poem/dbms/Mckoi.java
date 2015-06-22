@@ -103,9 +103,7 @@ public class Mckoi extends AnsiStandard {
   }
 
  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
-   * @todo Check against modern McKoi 
+   * TODO Check against modern McKoi
    */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("INT")) {

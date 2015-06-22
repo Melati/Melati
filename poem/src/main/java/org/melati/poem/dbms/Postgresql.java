@@ -71,7 +71,7 @@ import org.melati.poem.SQLPoemException;
   * A Driver for Postgresql.
   * See http://www.postgresql.org/
   * 
-  * <h4>Backwards compatabilty</h4>
+  * <b>Backwards compatabilty</b>
   * Previous (7.4) versions allowed single quotes to be quoted using C style escaping.
   * In version 9.1 you need to explicitly allow this escaping by configuring the server:
   * <code>
@@ -96,8 +96,6 @@ public class Postgresql extends AnsiStandard {
    * Postgresql has been able to since 7.4
    * 
    * @return true if we can
-   * @throws SQLException
-   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns()
    */
   @Override
   public boolean canDropColumns() {
@@ -110,7 +108,6 @@ public class Postgresql extends AnsiStandard {
    *  
    * @param type the type to cast
    * @return the place holder string
-   * @see org.melati.poem.dbms.AnsiStandard#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
   @Override
   public String preparedStatementPlaceholder(PoemType<?> type) {
@@ -140,10 +137,6 @@ public class Postgresql extends AnsiStandard {
        return super.getStringSqlDefinition(size);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
-   */
   @Override
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "BYTEA";
@@ -178,11 +171,6 @@ public class Postgresql extends AnsiStandard {
   }
 */
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#
-   *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
-   */
   @Override
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -197,10 +185,6 @@ public class Postgresql extends AnsiStandard {
 //           super.defaultPoemTypeOfColumnMetaData(md);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
-   */
   @Override
   public SQLPoemException exceptionForUpdate(
       Table<?> table, String sql, boolean insert, SQLException e) {

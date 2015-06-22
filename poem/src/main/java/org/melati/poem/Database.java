@@ -1054,9 +1054,9 @@ public abstract class Database implements TransactionPool {
    * members of groups.
    *
    * @return the CapabilityTable
-   * @see Persistent#getCanRead
-   * @see Persistent#getCanWrite
-   * @see Persistent#getCanDelete
+   * @see Persistent#assertCanRead()
+   * @see Persistent#assertCanWrite()
+   * @see Persistent#assertCanDelete()
    * @see JdbcTable#getDefaultCanRead
    * @see JdbcTable#getDefaultCanWrite
    * @see User
@@ -1209,7 +1209,7 @@ public abstract class Database implements TransactionPool {
   }
 
  /**
-  * @todo Use a prepared statement to get Capabilities
+  * TODO Use a prepared statement to get Capabilities
   */
   private boolean dbGivesCapability(User user, Capability capability) {
 

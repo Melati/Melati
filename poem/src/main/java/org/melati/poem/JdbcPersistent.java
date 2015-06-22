@@ -171,8 +171,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * Called if not uptodate.
    * 
    * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   load(org.melati.poem.transaction.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#load(org.melati.poem.transaction.Transaction)
    */
   protected void load(Transaction transaction) {
     if (troid == null) // I cannot contrive a test to cover this case, but hey
@@ -188,8 +187,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * Return the inherited validity flag.
    * 
    * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   upToDate(org.melati.poem.transaction.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#upToDate(org.melati.poem.transaction.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {
     return valid;
@@ -239,8 +237,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * as deleteAndCommit was the only deletion mechanism. 
    * 
    * {@inheritDoc}
-   * @see org.melati.poem.transaction.Transactioned#
-   *   commit(org.melati.poem.transaction.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#commit(org.melati.poem.transaction.Transaction)
    */
   protected void commit(Transaction transaction) {
     //if (status != DELETED) {
@@ -575,7 +572,7 @@ public class JdbcPersistent extends Transactioned implements Persistent, Cloneab
    * this stale token stuff!
    *
    * @return the capability the user needs to select this record
-   * @todo document use-case or delete
+   * TODO document use-case or delete
    */
   protected Capability getCanSelect() {
     return null;

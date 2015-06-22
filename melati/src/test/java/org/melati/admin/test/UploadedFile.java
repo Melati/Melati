@@ -51,7 +51,7 @@ public class UploadedFile
   *   A file uploaded by a user. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava
   */
   public UploadedFile() { }
 

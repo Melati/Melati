@@ -33,7 +33,7 @@ public class Node extends NodeBase {
   *   A Tree Node. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava
   */
   public Node() { }
 

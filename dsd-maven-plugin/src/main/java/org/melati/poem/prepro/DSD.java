@@ -552,7 +552,7 @@ public class DSD {
             "<P extends Persistent> extends JdbcTable<P> {\n");
     
     w.write("\n /**\n" + "  * Constructor. \n" + "  * \n" 
-            + "  * @see " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
+            + "  * See " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
             + "  * @param database          the POEM database we are using\n"
             + "  * @param name              the name of this <code>Table</code>\n"
             + "  * @param definitionSource  which definition is being used\n"
@@ -565,7 +565,7 @@ public class DSD {
             + "    super(database, name, definitionSource);\n" + "  }\n" + "\n");
 
     //w.write("\n /**\n" + "  * Constructor.\n" + "  *\n" 
-    //        + "  * @see " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
+    //        + "  * See " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
     //        + "  * @param database          the POEM database we are using\n"
     //        + "  * @param name              the name of this <code>Table</code>\n"
     //        + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");

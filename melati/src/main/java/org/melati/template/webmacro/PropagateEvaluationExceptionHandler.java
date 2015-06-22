@@ -74,21 +74,13 @@ public class PropagateEvaluationExceptionHandler
 
   /**
    * Forced upon us by the interface, but unused.
-   * 
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#
-   *        init(org.webmacro.Broker, org.webmacro.util.Settings)
    */
+  @Override
   public void init(Broker b, Settings config) {
    }
 
-   /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#
-   *          evaluate(org.webmacro.engine.Variable, 
-   *                   org.webmacro.Context, java.lang.Exception)
-   */
-  public void evaluate(Variable variable, 
+  @Override
+  public void evaluate(Variable variable,
                         Context context, 
                         Exception problem) 
    throws PropertyException {

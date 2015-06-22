@@ -62,31 +62,31 @@ import org.melati.template.TemplateContext;
  * 
  * From within Maven try: 
  * 
-     <plugin>
-       <groupId>org.codehaus.mojo</groupId>
-       <artifactId>exec-maven-plugin</artifactId>
-       <executions>
-         <execution>
-          <id>generate</id>
-          <phase>test</phase>
-          <goals>
-           <goal>java</goal>
-          </goals>
-          <configuration>
-           <mainClass>org.melati.app.TemplateApp</mainClass>
-           <arguments>
-             <argument>mydb</argument>
-             <argument>mytable</argument>
-             <argument>mytroid</argument>
-             <argument>mytemplate</argument>
-             <argument>-output</argument>
-             <argument>${basedir}/src/main/webapp/WEB-INF/web.xml</argument>
-           </arguments>
-           <cleanupDaemonThreads>true</cleanupDaemonThreads>
-          </configuration>
-         </execution>
-       </executions>
-    </plugin>
+     &lt;plugin&gt;
+       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+       &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+       &lt;executions&gt;
+         &lt;execution&gt;
+          &lt;id&gt;generate&lt;/id&gt;
+          &lt;phase&gt;test&lt;/phase&gt;
+          &lt;goals&gt;
+           &lt;goal&gt;java&lt;/goal&gt;
+          &lt;/goals&gt;
+          &lt;configuration&gt;
+           &lt;mainClass&gt;org.melati.app.TemplateApp&lt;/mainClass&gt;
+           &lt;arguments&gt;
+             &lt;argument&gt;mydb&lt;/argument&gt;
+             &lt;argument&gt;mytable&lt;/argument&gt;
+             &lt;argument&gt;mytroid&lt;/argument&gt;
+             &lt;argument&gt;mytemplate&lt;/argument&gt;
+             &lt;argument&gt;-output&lt;/argument&gt;
+             &lt;argument&gt;${basedir}/src/main/webapp/WEB-INF/web.xml&lt;/argument&gt;
+           &lt;/arguments&gt;
+           &lt;cleanupDaemonThreads&gt;true&lt;/cleanupDaemonThreads&gt;
+          &lt;/configuration&gt;
+         &lt;/execution&gt;
+       &lt;/executions&gt;
+    &lt;/plugin&gt;
 
  * 
  * 

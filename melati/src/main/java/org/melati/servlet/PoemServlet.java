@@ -82,6 +82,7 @@ import org.melati.poem.util.StringUtils;
  * (which is also copied automatically into <TT>context</TT> so that it is
  * easily available in templates): 
  * <TABLE>
+ *   <caption>Path context elements</caption>
  * <TR>
  * <TD><TT><I>h</I></TT></TD>
  * <TD>host name, such as <TT>www.melati.org</TT></TD>

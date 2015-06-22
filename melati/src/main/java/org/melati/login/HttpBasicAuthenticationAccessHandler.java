@@ -103,9 +103,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   *
   * @param melati the Melati
   * @param accessException the particular access exception to handle
-  * @see org.melati.login.AccessHandler#
-  *   handleAccessException(org.melati.Melati,
-  *                         org.melati.poem.AccessPoemException)
+  * @see org.melati.login.AccessHandler#handleAccessException
   */
   public void handleAccessException(Melati melati,
                                     AccessPoemException accessException)
@@ -116,12 +114,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
-  /**
-   * Get the users details.
-   *
-   * {@inheritDoc}
-   * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
-   */
+  @Override
   public Melati establishUser(Melati melati) {
 
     HttpAuthorization auth = HttpAuthorization.from(melati.getRequest());
@@ -191,12 +184,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     }
   }
 
-  /**
-   * If we are allowed in then no need to change request.
-   *
-   * {@inheritDoc}
-   * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
-   */
+  @Override
   public void buildRequest(Melati melati)
       throws IOException {
   }

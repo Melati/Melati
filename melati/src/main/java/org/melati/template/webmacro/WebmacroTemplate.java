@@ -75,7 +75,6 @@ public class WebmacroTemplate implements Template {
   /**
    * Write to the given output.
    * @param out a {@link MelatiWebmacroWriter}.
-   * @throws IOException If WebMacro does
    */
   public void write(MelatiWriter out, TemplateContext templateContext) {
     try {

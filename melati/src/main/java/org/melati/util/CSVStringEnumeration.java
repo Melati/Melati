@@ -51,7 +51,7 @@ import java.util.NoSuchElementException;
  * well.
  *
  * <PRE>
- *   foo, bar om,,"baz, ,oof",xyz,   ->
+ *   foo, bar om,,"baz, ,oof",xyz,   -&lt;
  *     "foo", " bar om", "", "baz, , oof", "xyz", ""
  * </PRE>
  *

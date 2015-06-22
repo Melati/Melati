@@ -59,18 +59,10 @@ import org.webmacro.util.Settings;
 public class PassbackEvaluationExceptionHandler 
   implements EvaluationExceptionHandler {
 
-  /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#
-   *      init(org.webmacro.Broker, org.webmacro.util.Settings)
-   */
+  @Override
   public void init(Broker b, Settings config) {}
 
-  /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#
-   * evaluate(org.webmacro.engine.Variable, org.webmacro.Context, java.lang.Exception)
-   */
+  @Override
   public void evaluate(Variable variable, 
                         Context context, 
                         Exception problem) 
@@ -83,12 +75,7 @@ public class PassbackEvaluationExceptionHandler
      variable.getVariableName() + ": " + problem,problem);
    }
 
-  /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#
-   * expand(org.webmacro.engine.Variable, 
-   *        org.webmacro.Context, java.lang.Exception)
-   */
+  @Override
   public String expand(Variable variable, 
                         Context context, 
                         Exception problem) 
@@ -110,18 +97,12 @@ public class PassbackEvaluationExceptionHandler
      return ml.rendered(underlying);
    }
 
-   /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#warningString(java.lang.String)
-   */
+  @Override
   public String warningString(String warningText) throws PropertyException {
       throw new PropertyException("Evaluation warning: " + warningText);
    }
 
-   /**
-   * {@inheritDoc}
-   * @see org.webmacro.engine.EvaluationExceptionHandler#errorString(java.lang.String)
-   */
+  @Override
   public String errorString(String errorText) throws PropertyException {
       throw new PropertyException("Evaluation error: " + errorText);
    }

@@ -81,6 +81,7 @@ import org.melati.util.UnexpectedExceptionException;
  * your application code in the {@link Melati} parameter.
  *
  * <TABLE>
+ *   <caption>Arguments</caption>
  *   <TR>
  *     <TD><TT><I>db</I></TT></TD>
  *     <TD>
@@ -357,7 +358,7 @@ public abstract class AbstractPoemApp extends AbstractConfigApp implements  App 
    * <PRE>
    * protected PoemContext poemContext(Melati melati) 
    *     throws InvalidArgumentsException {
-   *   return poemContextWithLDB(melati,"<your logical database name>");
+   *   return poemContextWithLDB(melati,"&lt;your logical database name&gt;");
    * }
    * </PRE>
    *

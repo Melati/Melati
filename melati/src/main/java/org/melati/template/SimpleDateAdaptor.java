@@ -73,11 +73,7 @@ public class SimpleDateAdaptor implements TempletAdaptor {
   private static SimpleDateFormat dateFormatter2 =
       new SimpleDateFormat("yyyyMMdd");
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TempletAdaptor#
-   *          rawFrom(org.melati.template.ServletTemplateContext, java.lang.String)
-   */
+  @Override
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String value = Form.getFieldNulled(context,fieldName);
     if (value == null) return null;

@@ -17,15 +17,12 @@
   </ciManagement>
 
   <scm>
-    <connection>
-      scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:${artifactId}
-    </connection>
-    <developerConnection>
-scm:cvs:ext:timp@paneris.net:/usr/cvsroot:${artifactId}
-    </developerConnection>
-
+      <url>https://github.com/timp/{$artifactId}</url>
+      <connection>scm:git:git://github.com/timp/{$artifactId}.git</connection>
+      <developerConnection>scm:git:git@github.com:timp/{$artifactId}.git</developerConnection>
+    <tag>HEAD</tag>
     <url>
-      http://paneris.net/cgi-bin/cvsweb.cgi/${artifactId}/
+      https://github.com/timp/{$artifactId}/
     </url>
   </scm>
   <mailingLists>

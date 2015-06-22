@@ -36,7 +36,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>EAExtended</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstractTable<T> {
@@ -56,7 +56,7 @@ public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstrac
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -73,7 +73,7 @@ public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstrac
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -84,7 +84,7 @@ public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstrac
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -990,7 +990,7 @@ public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstrac
  /**
   * Retrieve the <code>EAExtended</code> as a <code>EAExtended</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -1003,7 +1003,7 @@ public class EAExtendedTableBase<T extends EAExtended> extends EverythingAbstrac
   * Retrieve the <code>EAExtended</code> 
   * as a <code>EAExtended</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public EAExtended getEAExtendedObject(int troid) {

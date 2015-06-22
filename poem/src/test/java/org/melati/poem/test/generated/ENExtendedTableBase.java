@@ -35,7 +35,7 @@ import org.melati.poem.test.EverythingNormalTable;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>ENExtended</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalTable<T> {
@@ -54,7 +54,7 @@ public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalT
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -71,7 +71,7 @@ public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalT
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -82,7 +82,7 @@ public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalT
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -893,7 +893,7 @@ public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalT
  /**
   * Retrieve the <code>ENExtended</code> as a <code>ENExtended</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -906,7 +906,7 @@ public class ENExtendedTableBase<T extends ENExtended> extends EverythingNormalT
   * Retrieve the <code>ENExtended</code> 
   * as a <code>ENExtended</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public ENExtended getENExtendedObject(int troid) {

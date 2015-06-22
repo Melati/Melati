@@ -15,15 +15,15 @@ import org.melati.poem.test.generated.BigdecimalFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>BigdecimalField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> bigdecimalfield </td><td> BigDecimal </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class BigdecimalField extends BigdecimalFieldBase {
 
@@ -35,7 +35,7 @@ public class BigdecimalField extends BigdecimalFieldBase {
   *   A table with only a big decimal field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public BigdecimalField() { 
     super();

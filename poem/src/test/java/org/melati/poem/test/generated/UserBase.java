@@ -28,7 +28,7 @@ import org.melati.poem.util.EmptyEnumeration;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>User</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class UserBase extends org.melati.poem.User {
 
@@ -36,7 +36,7 @@ public abstract class UserBase extends org.melati.poem.User {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -48,7 +48,7 @@ public abstract class UserBase extends org.melati.poem.User {
   * Retrieves the  <code>UserTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the org.melati.poem.UserTable
   */
   @SuppressWarnings("unchecked")

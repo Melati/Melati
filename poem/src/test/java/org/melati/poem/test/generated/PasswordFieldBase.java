@@ -17,7 +17,7 @@ import org.melati.poem.test.PasswordFieldTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>PasswordField</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class PasswordFieldBase extends JdbcPersistent {
 
@@ -25,7 +25,7 @@ public abstract class PasswordFieldBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -37,7 +37,7 @@ public abstract class PasswordFieldBase extends JdbcPersistent {
   * Retrieves the  <code>PasswordFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the PasswordFieldTable
   */
   @SuppressWarnings("unchecked")

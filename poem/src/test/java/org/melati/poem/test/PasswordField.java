@@ -15,15 +15,15 @@ import org.melati.poem.test.generated.PasswordFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>PasswordField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> passwordfield </td><td> String </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class PasswordField extends PasswordFieldBase {
 
@@ -35,7 +35,7 @@ public class PasswordField extends PasswordFieldBase {
   *   A table with only a password field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public PasswordField() { 
     super();

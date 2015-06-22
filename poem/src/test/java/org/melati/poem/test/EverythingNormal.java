@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.EverythingNormalBase;
 
@@ -12,9 +15,9 @@ import org.melati.poem.test.generated.EverythingNormalBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>EverythingNormal</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> binaryfield </td><td> byte[] </td><td> &nbsp; </td></tr> 
@@ -27,9 +30,10 @@ import org.melati.poem.test.generated.EverythingNormalBase;
  * <tr><td> longfield </td><td> Long </td><td> &nbsp; </td></tr> 
  * <tr><td> bigdecimalfield </td><td> BigDecimal </td><td> &nbsp; </td></tr> 
  * <tr><td> timestampfield </td><td> Timestamp </td><td> &nbsp; </td></tr> 
+ * <tr><td> deletedfield </td><td> Boolean </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class EverythingNormal extends EverythingNormalBase {
 
@@ -41,9 +45,11 @@ public class EverythingNormal extends EverythingNormalBase {
   *   Every datatype in one table. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public EverythingNormal() { }
+  public EverythingNormal() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

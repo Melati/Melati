@@ -15,15 +15,15 @@ import org.melati.poem.test.generated.LongFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>LongField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> longfield </td><td> Long </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class LongField extends LongFieldBase {
 
@@ -35,7 +35,7 @@ public class LongField extends LongFieldBase {
   *   A table with only a long field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public LongField() { 
     super();

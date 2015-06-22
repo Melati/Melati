@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.ENExtendedBase;
 
@@ -12,9 +15,9 @@ import org.melati.poem.test.generated.ENExtendedBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>ENExtended</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> binaryfield2 </td><td> byte[] </td><td> Second Binary Field 
  * </td></tr> 
@@ -36,7 +39,7 @@ import org.melati.poem.test.generated.ENExtendedBase;
  * Field </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class ENExtended extends ENExtendedBase {
 
@@ -48,9 +51,11 @@ public class ENExtended extends ENExtendedBase {
   *   Every datatype inheritted from a normal table and normally defined. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public ENExtended() { }
+  public ENExtended() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

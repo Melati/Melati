@@ -15,9 +15,9 @@ import org.melati.poem.test.generated.AccountBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Account</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> user </td><td> User </td><td> The owner </td></tr> 
@@ -26,7 +26,7 @@ import org.melati.poem.test.generated.AccountBase;
  * <tr><td> name </td><td> String </td><td> The user's name </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Account extends AccountBase {
 
@@ -38,7 +38,7 @@ public class Account extends AccountBase {
   *   An account owned by a User. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public Account() { 
     super();

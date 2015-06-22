@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.EmptyAbstractTableBase;
 
@@ -12,13 +15,13 @@ import org.melati.poem.test.generated.EmptyAbstractTableBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>EmptyAbstractTable</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class EmptyAbstractTable extends EmptyAbstractTableBase {
 
@@ -30,9 +33,11 @@ public class EmptyAbstractTable extends EmptyAbstractTableBase {
   *   Empty abstract table to create a stub. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public EmptyAbstractTable() { }
+  public EmptyAbstractTable() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

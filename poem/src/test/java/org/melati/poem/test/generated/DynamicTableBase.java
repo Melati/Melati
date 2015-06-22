@@ -24,7 +24,7 @@ import org.melati.poem.test.EverythingTable;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>Dynamic</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
@@ -35,7 +35,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -52,7 +52,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -63,7 +63,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -218,7 +218,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
  /**
   * Retrieve the <code>Dynamic</code> as a <code>Dynamic</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -231,7 +231,7 @@ public class DynamicTableBase<T extends Dynamic> extends EverythingTable<T> {
   * Retrieve the <code>Dynamic</code> 
   * as a <code>Dynamic</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Dynamic getDynamicObject(int troid) {

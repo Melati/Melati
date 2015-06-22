@@ -18,20 +18,20 @@ import org.melati.poem.PoemException;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>EmptyAbstractTable</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * </table> 
  * 
- * see  org.melati.poem.prepro.TableDef#generateTableJava 
+ * See org.melati.poem.prepro.TableDef#generateTableJava 
  */
 public class EmptyAbstractTableTable<T extends EmptyAbstractTable> extends EmptyAbstractTableTableBase<EmptyAbstractTable> {
 
  /**
   * Constructor.
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableJava 
+  * See org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

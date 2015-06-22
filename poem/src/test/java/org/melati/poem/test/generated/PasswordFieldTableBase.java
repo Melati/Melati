@@ -25,7 +25,7 @@ import org.melati.poem.test.PasswordField;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>PasswordField</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class PasswordFieldTableBase<T extends PasswordField> extends EverythingTable<T> {
@@ -36,7 +36,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -53,7 +53,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -64,7 +64,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -239,7 +239,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
  /**
   * Retrieve the <code>PasswordField</code> as a <code>PasswordField</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -252,7 +252,7 @@ public class PasswordFieldTableBase<T extends PasswordField> extends EverythingT
   * Retrieve the <code>PasswordField</code> 
   * as a <code>PasswordField</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public PasswordField getPasswordFieldObject(int troid) {

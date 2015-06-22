@@ -15,15 +15,15 @@ import org.melati.poem.test.generated.IntegerFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>IntegerField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> integerfield </td><td> Integer </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class IntegerField extends IntegerFieldBase {
 
@@ -35,7 +35,7 @@ public class IntegerField extends IntegerFieldBase {
   *   A table with only an integer field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public IntegerField() { 
     super();

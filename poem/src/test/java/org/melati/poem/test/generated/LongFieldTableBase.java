@@ -24,7 +24,7 @@ import org.melati.poem.test.LongField;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>LongField</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> {
@@ -35,7 +35,7 @@ public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> 
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -52,7 +52,7 @@ public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> 
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -63,7 +63,7 @@ public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> 
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -238,7 +238,7 @@ public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> 
  /**
   * Retrieve the <code>LongField</code> as a <code>LongField</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -251,7 +251,7 @@ public class LongFieldTableBase<T extends LongField> extends EverythingTable<T> 
   * Retrieve the <code>LongField</code> 
   * as a <code>LongField</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public LongField getLongFieldObject(int troid) {

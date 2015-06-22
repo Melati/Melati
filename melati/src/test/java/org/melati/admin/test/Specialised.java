@@ -15,15 +15,15 @@ import org.melati.template.MarkupLanguage;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Specialised</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> name </td><td> String </td><td> The name of the thing </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava
  */
 public class Specialised 
     extends SpecialisedBase 
@@ -37,7 +37,7 @@ public class Specialised
   *   An AdminSpecialised object. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava
   */
   public Specialised() { }
 

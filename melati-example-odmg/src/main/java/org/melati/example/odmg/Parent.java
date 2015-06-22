@@ -11,15 +11,15 @@ import org.melati.example.odmg.generated.ParentBase;
  * 
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Parent</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> name </td><td> String </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Parent extends ParentBase {
 
@@ -27,7 +27,7 @@ public class Parent extends ParentBase {
   * Constructor 
   * for a <code>Persistent</code> <code>Parent</code> object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public Parent() { 
     super();

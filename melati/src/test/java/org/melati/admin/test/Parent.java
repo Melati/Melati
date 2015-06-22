@@ -15,16 +15,16 @@ import org.melati.admin.test.generated.ParentBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Parent</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> name </td><td> String </td><td> The name </td></tr> 
  * <tr><td> image </td><td> UploadedImage </td><td> The image </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Parent extends ParentBase {
 
@@ -36,7 +36,7 @@ public class Parent extends ParentBase {
   *   A node with zero or more children. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public Parent() { 
     super();

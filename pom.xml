@@ -19,7 +19,7 @@
 -->
     <module>throwing-jdbc</module>
   </modules>
-    <version>0.7.9-SNAPSHOT</version>
+    <version>0.7.9</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -79,7 +79,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>https://github.com/Melati/Melati</url>
       <connection>scm:git:git://github.com/Melati/Melati.git</connection>
       <developerConnection>scm:git:git@github.com:Melati/Melati.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>melati-parent-0.7.9</tag>
   </scm>
   <mailingLists>
     <mailingList>

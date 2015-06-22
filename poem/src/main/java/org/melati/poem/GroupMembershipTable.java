@@ -65,9 +65,9 @@ import org.melati.poem.generated.GroupMembershipTableBase;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>GroupMembership</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> user </td><td> User </td><td> The user who belongs to the group 
@@ -76,7 +76,7 @@ import org.melati.poem.generated.GroupMembershipTableBase;
  * belongs </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * See  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 
 public class GroupMembershipTable<T extends GroupMembership> extends GroupMembershipTableBase<T> {
@@ -84,7 +84,7 @@ public class GroupMembershipTable<T extends GroupMembership> extends GroupMember
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * See org.melati.poem.prepro.TableDef#generateTableMainJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

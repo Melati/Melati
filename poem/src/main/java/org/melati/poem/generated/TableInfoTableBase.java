@@ -30,7 +30,7 @@ import org.melati.poem.ValidationPoemException;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>tableInfo</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
@@ -51,7 +51,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -68,7 +68,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -79,7 +79,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -961,7 +961,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
  /**
   * Retrieve the <code>TableInfo</code> as a <code>TableInfo</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -974,7 +974,7 @@ public class TableInfoTableBase<T extends TableInfo> extends PoemTable<T> {
   * Retrieve the <code>TableInfo</code> 
   * as a <code>TableInfo</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public TableInfo getTableInfoObject(int troid) {

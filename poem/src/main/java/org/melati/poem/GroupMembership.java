@@ -59,9 +59,9 @@ import org.melati.poem.generated.GroupMembershipBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>GroupMembership</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> user </td><td> User </td><td> The user who belongs to the group 
@@ -70,7 +70,7 @@ import org.melati.poem.generated.GroupMembershipBase;
  * belongs </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 
 public class GroupMembership extends GroupMembershipBase {
@@ -83,7 +83,7 @@ public class GroupMembership extends GroupMembershipBase {
   *   A record that a given user is a member of a given group. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava 
   */
   public GroupMembership() { }
 

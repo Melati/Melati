@@ -64,9 +64,9 @@ import java.sql.ResultSet;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>User</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> name </td><td> String </td><td> The user's real name </td></tr> 
@@ -75,7 +75,7 @@ import java.sql.ResultSet;
  * </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * See  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class UserTable<T extends User> extends UserTableBase<T> {
 

@@ -68,7 +68,7 @@ import org.melati.poem.generated.CapabilityBase;
  * capability </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava
  */
 public class Capability extends CapabilityBase {
 

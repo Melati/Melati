@@ -92,7 +92,7 @@ import org.melati.poem.generated.ColumnInfoBase;
  * to is deleted </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class ColumnInfo extends ColumnInfoBase {
 

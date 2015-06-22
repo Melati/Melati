@@ -89,7 +89,7 @@ import org.melati.poem.generated.TableInfoBase;
  * table falls into </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 
 public class TableInfo extends TableInfoBase {
@@ -102,7 +102,7 @@ public class TableInfo extends TableInfoBase {
   *   Configuration information about a table in the database. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava 
   */
   public TableInfo() { }
 

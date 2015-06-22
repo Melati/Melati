@@ -92,14 +92,14 @@ import org.melati.poem.generated.ColumnInfoTableBase;
  * to is deleted </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * See  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class ColumnInfoTable<T extends ColumnInfo> extends ColumnInfoTableBase<T> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * See org.melati.poem.prepro.TableDef#generateTableMainJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

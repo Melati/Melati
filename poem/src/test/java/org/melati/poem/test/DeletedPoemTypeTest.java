@@ -13,23 +13,10 @@ import org.melati.poem.IntegerPoemType;
  */
 public class DeletedPoemTypeTest extends NotNullableBooleanPoemTypeTest {
 
-  /**
-   * 
-   */
-  public DeletedPoemTypeTest() {
-  }
-
-  /**
-   * @param name
-   */
   public DeletedPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new DeletedPoemType();
   }

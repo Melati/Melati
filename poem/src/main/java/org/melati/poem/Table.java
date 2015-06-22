@@ -176,7 +176,7 @@ public interface Table<P extends Persistent>  {
     int getColumnsCount();
 
     /**
-     * @param columnInfoID
+     * @param columnInfoID the Id for the Column table
      * @return the Column with a TROID equal to columnInfoID
      */
     Column<?> columnWithColumnInfoID(int columnInfoID);
@@ -646,7 +646,7 @@ public interface Table<P extends Persistent>  {
 
 
     /**
-     * @param whereClause
+     * @param whereClause the SQL fragment to count the results of
      * @return the SQL string for the current SQL dialect
      */
     String countSQL(String whereClause);
@@ -786,7 +786,7 @@ public interface Table<P extends Persistent>  {
     /**
      * All the columns in the table which refer to the given table.
      *
-     * @param table
+     * @param table the table to count the references within
      * @return an Enumeration of Columns referring to the specified Table
      */
     Enumeration<Column<?>> referencesTo(Table<?> table);

@@ -10,26 +10,14 @@ package org.melati.poem.test;
  */
 public class GroupCapabilityTableTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public GroupCapabilityTableTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

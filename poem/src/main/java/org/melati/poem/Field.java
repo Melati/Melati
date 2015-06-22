@@ -244,8 +244,8 @@ public class Field<T> implements FieldAttributes<T>, Cloneable {
     return getCookedString(PoemLocale.HERE,java.text.DateFormat.SHORT); 
   }
   /**
-   * @param locale
-   * @param style
+   * @param locale used in date rendering
+   * @param style  used in date rendering
    * @return a String representation of the Object represented by the raw
    * @throws AccessPoemException if the current AccessToken does not permit reading
    */

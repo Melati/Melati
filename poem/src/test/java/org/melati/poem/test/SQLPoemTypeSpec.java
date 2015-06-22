@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.sql.PreparedStatement;
@@ -23,35 +20,19 @@ abstract public class SQLPoemTypeSpec<T> extends PoemTestCase {
 
   protected PoemType<T> it = null;
 
-  /**
-   * @param name
-   */
   public SQLPoemTypeSpec() {
     super();
   }
 
-  /**
-   * @param name
-   */
   public SQLPoemTypeSpec(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
     setObjectUnderTest();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -75,7 +56,7 @@ abstract public class SQLPoemTypeSpec<T> extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.SQLType#sqlDefaultValue()}.
+   * Test method for {@link org.melati.poem.SQLType#sqlDefaultValue}.
    */
   public void testSqlDefaultValue() {
 

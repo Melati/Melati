@@ -1,8 +1,4 @@
-/**
- * 
- */
 package org.melati.poem.test;
-
 
 import java.util.Enumeration;
 
@@ -19,26 +15,17 @@ import org.melati.poem.ValidationPoemException;
  */
 public class NotNullableReferencePoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
-  /**
-   * 
-   */
   public NotNullableReferencePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableReferencePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new ReferencePoemType(getDb().getCapabilityTable(), false);
   }
+
   /**
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */

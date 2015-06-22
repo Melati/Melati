@@ -65,7 +65,7 @@ public class IntegerEnumerationTest extends TestCase {
     assertEquals(1, count);
   }
   /**
-   * Test for {@link org.melati.poem.util.IntegerEnumeration#max()}.
+   * Test for {@link org.melati.poem.util.IntegerEnumeration}.
    */
   public void testIntegerEnumerationMax() {
     int max = 9;

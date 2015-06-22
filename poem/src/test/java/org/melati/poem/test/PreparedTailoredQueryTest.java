@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -13,7 +10,6 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PreparedTailoredQuery;
 import org.melati.poem.Table;
-import org.melati.poem.test.User;
 import org.melati.poem.util.EnumUtils;
 
 /**
@@ -23,29 +19,14 @@ import org.melati.poem.util.EnumUtils;
  */
 public class PreparedTailoredQueryTest extends EverythingTestCase {
 
-  /**
-   * Constructor.
-   * 
-   * @param name
-   */
   public PreparedTailoredQueryTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

@@ -17,13 +17,10 @@ import org.melati.poem.dbms.test.sql.Thrower;
  */
 public class DynamicTableTest extends org.melati.poem.test.DynamicTableTest {
 
-  /**
-   * Constructor. 
-   * @param arg0
-   */
   public DynamicTableTest(String arg0) {
     super(arg0);
   }
+
   protected void setUp() throws Exception {
     PoemDatabaseFactory.removeDatabase(getDatabaseName());
     super.setUp();

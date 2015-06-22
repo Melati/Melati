@@ -53,29 +53,14 @@ package org.melati.poem.test;
  */
 public class BinaryTest extends EverythingTestCase {
 
-  /**
-   * Constructor for BinaryTest.
-   * 
-   * @param arg0
-   */
   public BinaryTest(String arg0) {
     super(arg0);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.EverythingTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.EverythingTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

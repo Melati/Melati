@@ -65,7 +65,7 @@ public final class PoemThread {
   private static Vector<Integer> freeSessionTokenIndices = new Vector<Integer>();
 
   /**
-   * The maximum number of Threads. Must be < Char.MAX_VALUE = 64k
+   * The maximum number of Threads. Must be &lt; Char.MAX_VALUE = 64k
    */
   public static final int threadsMax = 100;
 

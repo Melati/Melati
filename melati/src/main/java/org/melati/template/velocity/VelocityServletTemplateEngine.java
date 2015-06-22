@@ -123,7 +123,7 @@ public class VelocityServletTemplateEngine extends VelocityTemplateEngine
    * 
    * @param melati
    *        the {@link Melati}
-   * @return a {@link TemplateContext}
+   * @return a {@link ServletTemplateContext}
    * @see org.melati.template.ServletTemplateEngine#getServletTemplateContext(org.melati.Melati)
    */
   @Override

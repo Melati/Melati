@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.dbms.test;
 
 import org.melati.poem.BigDecimalPoemType;
@@ -21,26 +18,14 @@ import org.melati.poem.dbms.DbmsFactory;
  */
 public class OracleTest extends DbmsSpec {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public OracleTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -189,6 +174,5 @@ public class OracleTest extends DbmsSpec {
   public void testGetPrimaryKeyDefinition() {
     assertEquals(" ADD (CONSTRAINT PK_name PRIMARY KEY(\"NAME\"))", it.getPrimaryKeyDefinition("name"));
   }
-    
-  
+
 }

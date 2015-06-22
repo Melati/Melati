@@ -1,8 +1,4 @@
-/**
- * 
- */
 package org.melati.poem.test;
-
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -22,17 +18,10 @@ public class TableMapTest extends PoemTestCase {
   private TableMap<User> it;
   private TableMap<Setting> noArg;
 
-  /**
-   * @param name
-   */
   public TableMapTest(String name) {
     super(name);
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
     createObjectsUnderTest();

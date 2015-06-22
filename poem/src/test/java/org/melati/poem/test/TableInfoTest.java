@@ -1,9 +1,8 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.Capability;
+import org.melati.poem.DeletionIntegrityPoemException;
+import org.melati.poem.TableInfo;
 import org.melati.poem.TableRenamePoemException;
 
 /**
@@ -12,25 +11,14 @@ import org.melati.poem.TableRenamePoemException;
  */
 public class TableInfoTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public TableInfoTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -101,5 +89,14 @@ public class TableInfoTest extends PoemTestCase {
     assertNull(getDb().getUserTable().getTableInfo().getDefaultcanread());
     
   }
-  
+
+  public void testDeleteMap() {
+    TableInfo ti = getDb().getUserTable().getTableInfo();
+    try {
+      ti.delete();
+      fail("Should have bombed");
+    } catch (DeletionIntegrityPoemException e) {
+      e = null;
+    }
+  }
 }

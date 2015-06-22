@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.io.ByteArrayOutputStream;
@@ -11,7 +8,6 @@ import java.util.Enumeration;
 import org.melati.poem.AccessToken;
 import org.melati.poem.CreationAccessPoemException;
 import org.melati.poem.DeletePersistentAccessPoemException;
-import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.DoubleCreatePoemException;
 import org.melati.poem.Field;
 import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
@@ -23,7 +19,6 @@ import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.Setting;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
-import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.WritePersistentAccessPoemException;
 import org.melati.poem.PoemLocale;
@@ -34,25 +29,15 @@ import org.melati.poem.PoemLocale;
  */
 public class PersistentTest extends EverythingTestCase {
 
-  /**
-   * Constructor for PersistentTest.
-   * @param name
-   */
   public PersistentTest(String name) {
     super(name);
   }
 
-  /**
-   * @see PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /**
-   * @see PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();
@@ -131,14 +116,14 @@ public class PersistentTest extends EverythingTestCase {
 
 
   /**
-   * @see org.melati.poem.Persistent#Persistent()
+   * @see org.melati.poem.JdbcPersistent()
    */
   public void testPersistent() {
 
   }
 
   /**
-   * @see org.melati.poem.Persistent#Persistent(String, String)
+   * @see org.melati.poem.JdbcPersistent(String)
    */
   public void testPersistentStringString() {
     Persistent p = new JdbcPersistent("user", "0");
@@ -158,7 +143,7 @@ public class PersistentTest extends EverythingTestCase {
   }
 
   /**
-   * @see org.melati.poem.Persistent#Persistent(Table, Integer)
+   * @see org.melati.poem.JdbcPersistent(Table, Integer)
    */
   public void testPersistentTableInteger() {
     Persistent p = new JdbcPersistent(getDb().getUserTable(), new Integer(0));
@@ -177,19 +162,6 @@ public class PersistentTest extends EverythingTestCase {
     }
   }
 
-  /**
-   * @see org.melati.poem.Persistent#setStatusNonexistent()
-   */
-  public void testSetStatusNonexistent() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#setStatusExistent()
-   */
-  public void testSetStatusExistent() {
-
-  }
 
   /**
    * @see org.melati.poem.Persistent#statusNonexistent()
@@ -220,12 +192,6 @@ public class PersistentTest extends EverythingTestCase {
 
   }
 
-  /**
-   * @see org.melati.poem.Persistent#setTable(Table, Integer)
-   */
-  public void testSetTable() {
-
-  }
 
   /**
    * @see org.melati.poem.Persistent#getDatabase()
@@ -567,19 +533,6 @@ public class PersistentTest extends EverythingTestCase {
   public void testGetPrimaryDisplayField() {
   }
 
-  /**
-   * @see org.melati.poem.Persistent#delete(Map)
-   */
-  public void testDeleteMap() {
-    TableInfo ti = getDb().getUserTable().getTableInfo();
-    try { 
-      ti.delete();
-      fail("Should have bombed");
-    } catch (DeletionIntegrityPoemException e) { 
-      e = null;
-    }
-
-  }
 
   /**
    * @see org.melati.poem.Persistent#delete()

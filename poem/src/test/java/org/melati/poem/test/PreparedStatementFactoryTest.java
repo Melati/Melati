@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.sql.PreparedStatement;
@@ -17,25 +14,14 @@ import org.melati.poem.UserTable;
  */
 public class PreparedStatementFactoryTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public PreparedStatementFactoryTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

@@ -8,21 +8,7 @@ import java.io.PrintStream;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import org.melati.poem.CachedCount;
-import org.melati.poem.CachedExists;
-import org.melati.poem.Capability;
-import org.melati.poem.Column;
-import org.melati.poem.ColumnInfo;
-import org.melati.poem.DisplayLevel;
-import org.melati.poem.Field;
-import org.melati.poem.Group;
-import org.melati.poem.GroupTable;
-import org.melati.poem.Initialiser;
-import org.melati.poem.NoSuchColumnPoemException;
-import org.melati.poem.Persistent;
-import org.melati.poem.PoemThread;
-import org.melati.poem.Table;
-import org.melati.poem.TableInfo;
+import org.melati.poem.*;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
 import org.melati.poem.util.EmptyEnumeration;
@@ -34,24 +20,14 @@ import org.melati.poem.util.EnumUtils;
  */
 public class TableTest extends PoemTestCase {
 
-  /**
-   * Constructor for PoemTest.
-   * @param arg0
-   */
   public TableTest(String arg0) {
     super(arg0);
   }
 
-  /**
-   * @see TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * @see TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -59,7 +35,7 @@ public class TableTest extends PoemTestCase {
   
   
   /**
-   * @see org.melati.poem.Table#Table(Database, String, DefinitionSource)
+   * @see org.melati.poem.Table
    */
   public void testTable() {
 
@@ -145,12 +121,6 @@ public class TableTest extends PoemTestCase {
     }
   }
 
-  /**
-   * @see org.melati.poem.Table#_getColumn(String)
-   */
-  public void test_getColumn() {
-
-  }
 
   /**
    * Assert that all columns are currently returned at the detail level.
@@ -354,12 +324,6 @@ public class TableTest extends PoemTestCase {
     assertEquals(3, getDb().getUserTable().getSearchCriterionColumnsCount());
   }
 
-  /**
-   * @see #MISSING()
-   */
-  public void testDbModifyStructure() {
-
-  }
 
   /**
    * @see org.melati.poem.Table#load(PoemTransaction, Persistent)
@@ -376,7 +340,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#writeDown(PoemTransaction, Persistent)
+   * @see PoemThread#commit()
    */
   public void testWriteDown() {
     User u = getDb().administratorUser();
@@ -475,7 +439,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#selectionSQL(String, String, boolean)
+   * @see org.melati.poem.Table#selectionSQL
    */
   public void testSelectionSQLStringStringBoolean() {
   }
@@ -773,13 +737,6 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#_newPersistent()
-   */
-  public void test_newPersistent() {
-
-  }
-
-  /**
    * Looks like you can sucessfully delete 
    * the same record twice.
    * @see org.melati.poem.Table#delete_unsafe(String)
@@ -962,7 +919,6 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see DynamicTableTest#testAddColumnAndCommitDisplayLevel()
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDisplaylevel() {
@@ -1150,12 +1106,6 @@ public class TableTest extends PoemTestCase {
     assertEquals(new Integer(0), userTableFields.getRaw());
   }
 
-  /**
-   * @see org.melati.poem.Table#defineColumn(Column, boolean)
-   */
-  public void testDefineColumnColumnBoolean() {
-
-  }
 
   /**
    * @see org.melati.poem.Table#defineColumn(Column)
@@ -1231,13 +1181,6 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#unifyWithColumnInfo()
    */
   public void testUnifyWithColumnInfo() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Table#unifyWithDB(ResultSet)
-   */
-  public void testUnifyWithDB() {
 
   }
 

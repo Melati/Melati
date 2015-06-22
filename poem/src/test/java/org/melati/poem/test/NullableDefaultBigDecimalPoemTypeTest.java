@@ -12,17 +12,10 @@ public class NullableDefaultBigDecimalPoemTypeTest extends NotNullableDefaultBig
   public NullableDefaultBigDecimalPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableDefaultBigDecimalPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(true);
   }

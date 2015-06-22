@@ -64,18 +64,11 @@ public class PoemTestCase extends TestCase implements Test {
     fName = null;
   }
 
-  /**
-   * Constructor.
-   * 
-   * @param name
-   */
   public PoemTestCase(String name) {
     super(name);
     fName = name;
   }
-  /**
-   * @see TestCase#setUp()
-   */
+
   protected void setUp() throws Exception {
     super.setUp();
     problem = false;
@@ -83,9 +76,6 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals("Not all transactions free", maxTrans, freeTrans);
   }
 
-  /**
-   * @see TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     if (!problem) {
       checkDbUnchanged();
@@ -375,7 +365,7 @@ public class PoemTestCase extends TestCase implements Test {
   }
 
   /**
-   * @param propertiesFileName the name to set
+   * @param propertiesFileNameIn the name to set
    */
   public void setPropertiesFileName(String propertiesFileNameIn) {
     PoemTestCase.propertiesFileName = propertiesFileNameIn;

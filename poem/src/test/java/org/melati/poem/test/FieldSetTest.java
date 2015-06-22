@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Hashtable;
@@ -16,25 +13,14 @@ import org.melati.poem.FieldSet;
  */
 public class FieldSetTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public FieldSetTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

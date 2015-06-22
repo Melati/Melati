@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import org.melati.poem.CachedCount;
+import org.melati.poem.Table;
 import org.melati.poem.User;
 
 /**
@@ -12,27 +13,15 @@ import org.melati.poem.User;
  */
 public class CachedCountTest extends PoemTestCase {
 
-  /**
-   * Constructor for CachedCountTest.
-   * @param name
-   */
   public CachedCountTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();
@@ -57,7 +46,7 @@ public class CachedCountTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.CachedCount#CachedCount(Persistent, boolean, boolean)
+   * @see org.melati.poem.CachedCount#CachedCount
    */
   public void testCachedCountPersistentBooleanBoolean() {
     int queries = getDb().getQueryCount();

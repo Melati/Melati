@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.SizedAtomPoemType;
@@ -12,32 +9,18 @@ import org.melati.poem.SizedAtomPoemType;
  */
 public abstract class SizedAtomPoemTypeSpec<T> extends SQLPoemTypeSpec<T> {
 
-  /**
-   * @param name
-   */
   public SizedAtomPoemTypeSpec() {
     super();
   }
 
-  /**
-   * @param name
-   */
   public SizedAtomPoemTypeSpec(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

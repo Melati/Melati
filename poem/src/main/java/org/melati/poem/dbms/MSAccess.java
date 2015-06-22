@@ -100,19 +100,13 @@ public class MSAccess extends AnsiStandard {
   }
 
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#shutdown(java.sql.Connection)
-   */
+  @Override
   public void shutdown(Connection connection) throws SQLException {
     // FIXME Something wrong here
     connection.commit();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
-   */
+  @Override
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("GROUP")) name = "MELATI_" + name.toUpperCase();
     if(name.equalsIgnoreCase("USER")) name = "MELATI_" + name.toUpperCase();
@@ -122,9 +116,8 @@ public class MSAccess extends AnsiStandard {
   /**
    * Ignore tables starting with '~', which should 
    * probably have a jdbc type of 'SYSTEM TABLE'.
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
+  @Override
   public String melatiName(String name) {
     if (name == null) return name;
     if (name.startsWith("~"))
@@ -135,10 +128,7 @@ public class MSAccess extends AnsiStandard {
   }
 
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
-   */
+  @Override
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
@@ -154,19 +144,13 @@ public class MSAccess extends AnsiStandard {
     }
     return super.getSqlDefinition(sqlTypeName);
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getLongSqlDefinition()
-   */
+
+  @Override
   public String getLongSqlDefinition() {
     return "INTEGER";
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
-   */
+
+  @Override
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       // Don't use TEXT as it doesn't seem to work as documented
@@ -177,9 +161,8 @@ public class MSAccess extends AnsiStandard {
   
   /**
    * Cludge?
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getFixedPtSqlDefinition(int, int)
    */
+  @Override
   public String getFixedPtSqlDefinition(int scale, int precision)
   throws SQLException {
     if (scale < 0 || precision <= 0)
@@ -187,21 +170,15 @@ public class MSAccess extends AnsiStandard {
       "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
     return "NUMERIC";
   }
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
-   */
+
+  @Override
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
       return "BINARY"; // 512
     return "BINARY(" + size + ")";
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.AnsiStandard#sqlBooleanValueOfRaw(java.lang.Object)
-   */
+  @Override
   public String sqlBooleanValueOfRaw(Object raw) {
     if (((Boolean)raw).booleanValue())
       return "1";
@@ -209,12 +186,7 @@ public class MSAccess extends AnsiStandard {
       return "0";
   }
 
-  
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
-   */
+  @Override
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == msAccessTextHack
@@ -250,6 +222,7 @@ public class MSAccess extends AnsiStandard {
       return storage.canRepresent(type);
     }
   }
+
   /**
    * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
    */
@@ -269,10 +242,8 @@ public class MSAccess extends AnsiStandard {
              getSize() == msAccessTextHack || 
              getSize() >= ((StringPoemType) other).getSize());
     }
-    /**
-     * {@inheritDoc}
-     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
-     */
+
+    @Override
     public <O>PoemType<O> canRepresent(PoemType<O> other) {
       return other instanceof StringPoemType
               && _canRepresent((StringPoemType) other)
@@ -280,10 +251,8 @@ public class MSAccess extends AnsiStandard {
               : null;
     }
   }
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
-   */
+
+  @Override
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     /*<pre>
@@ -337,12 +306,8 @@ public class MSAccess extends AnsiStandard {
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
-  
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
-   */
+
+  @Override
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
@@ -355,30 +320,21 @@ public class MSAccess extends AnsiStandard {
   
   /**
    * Accommodate SQLServer syntax. {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
-   *      java.lang.String)
    */
+  @Override
   public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
             + getQuotedName(column.getName()) + " "
             + column.getSQLType().sqlDefinition(this);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.dbms.Dbms#selectLimit(java.lang.String, int)
-   */
+  @Override
   public String selectLimit(String querySelection, int limit) {
     return "SELECT TOP " + limit + " " + querySelection;
   }
 
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
-   */
+
+  @Override
   public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("0");

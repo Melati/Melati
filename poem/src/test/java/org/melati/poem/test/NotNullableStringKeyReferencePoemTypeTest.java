@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 
@@ -19,23 +16,13 @@ import org.melati.poem.ValidationPoemException;
  */
 public class NotNullableStringKeyReferencePoemTypeTest extends SQLPoemTypeSpec<String> {
 
-  /**
-   * 
-   */
   public NotNullableStringKeyReferencePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableStringKeyReferencePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new StringKeyReferencePoemType(getDb().getCapabilityTable(), 
         "name", 
@@ -109,7 +96,7 @@ public class NotNullableStringKeyReferencePoemTypeTest extends SQLPoemTypeSpec<S
   }
 
   /**
-Test with wrong parameters.   * 
+   * Test with wrong parameters.
    */
   public void testBadConstructor() {
     try {

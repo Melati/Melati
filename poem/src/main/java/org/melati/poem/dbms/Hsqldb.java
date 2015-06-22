@@ -87,8 +87,6 @@ public class Hsqldb extends AnsiStandard {
 
   /**
    * Shut the db down nicely.
-   * 
-   * @see org.melati.poem.dbms.Dbms#disconnect()
    */
   @Override
   public void shutdown(Connection connection)  throws SQLException { 
@@ -110,9 +108,6 @@ public class Hsqldb extends AnsiStandard {
    * The default is to keep everything in memory,
    * this allows for the db to be written to the disk.
    * 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#createTableSql()
-   * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
   @Override
   public String createTableTypeQualifierSql(Table<?> table) {

@@ -67,7 +67,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * @return a <code>FastWriter</code> that can be used for a while.
    *
    * {@inheritDoc}
-   * @see #stopUsingFastWriter(FastWriter)
+   * @see #stopUsingFastWriter
    * @see org.melati.template.webmacro.MelatiWebmacroWriter#getFastWriter
    *         (org.melati.template.TemplateEngine)
    */

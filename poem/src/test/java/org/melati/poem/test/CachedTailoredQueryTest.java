@@ -79,8 +79,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.CachedTailoredQuery# CachedTailoredQuery(String,
-   *      Column[], Table[], String, String)
+   * @see org.melati.poem.CachedTailoredQuery#CachedTailoredQuery
    */
   public void testCachedTailoredQueryStringColumnArrayTableArrayStringString() {
     Column<?>[] colsInQuery = new Column[2];

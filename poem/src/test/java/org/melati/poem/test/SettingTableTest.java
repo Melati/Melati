@@ -12,26 +12,15 @@ import org.melati.poem.SettingTable.UnsetException;
  */
 public class SettingTableTest extends PoemTestCase {
 
-  /**
-   * Constructor for SettingTableTest.
-   * 
-   * @param name
-   */
   public SettingTableTest(String name) {
     super(name);
   }
 
-  /*
-   * @see PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /*
-   * @see PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();
@@ -45,8 +34,7 @@ public class SettingTableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.SettingTable#SettingTable(Database, String,
-   *      DefinitionSource)
+   * @see org.melati.poem.SettingTable#SettingTable
    */
   public void testSettingTable() {
 

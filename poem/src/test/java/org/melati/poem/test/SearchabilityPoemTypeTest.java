@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.text.DateFormat;
@@ -19,23 +16,13 @@ import org.melati.poem.PoemLocale;
  */
 public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
-  /**
-   * 
-   */
   public SearchabilityPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public SearchabilityPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new SearchabilityPoemType();
   }

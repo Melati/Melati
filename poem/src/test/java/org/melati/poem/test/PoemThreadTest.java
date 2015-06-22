@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -19,26 +16,14 @@ import org.melati.poem.transaction.ToTidyList;
  */
 public class PoemThreadTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public PoemThreadTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -54,6 +39,7 @@ public class PoemThreadTest extends PoemTestCase {
       e = null;
     }
   }
+
   /**
    * Called in SessionAnalysisServlet.
    * Test method for {@link org.melati.poem.PoemThread#openSessions()}.

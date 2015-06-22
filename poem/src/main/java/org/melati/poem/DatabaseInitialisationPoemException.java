@@ -68,13 +68,10 @@ public class DatabaseInitialisationPoemException extends PoemException {
     this.name = name;
   }
 
-  /**
-   * Constructor.
-   * @param message
-   */
   public DatabaseInitialisationPoemException(String message) {
     super(message);
   }
+
   /** @return The detail message. */
   public String getMessage() {
     return

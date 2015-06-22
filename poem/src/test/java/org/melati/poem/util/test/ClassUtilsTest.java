@@ -36,14 +36,14 @@ public class ClassUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.util.ClassUtils#getOneArgumentMethods(java.lang.Object, java.lang.String)}.
+   * Test method for {@link org.melati.poem.util.ClassUtils#getOneArgumentMethods(Class, String)}
    */
   public void testSuitableSetterMethods() {
     
   }
 
   /**
-   * Test method for {@link org.melati.poem.util.ClassUtils#getNoArgMethod(java.lang.Object, java.lang.String)}.
+   * Test method for {@link org.melati.poem.util.ClassUtils#getNoArgMethod}
    */
   public void testSuitableGetterMethods() {
     

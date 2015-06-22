@@ -24,17 +24,10 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeSpec<Date> {
   public NotNullableDatePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableDatePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new DatePoemType(false);
   }

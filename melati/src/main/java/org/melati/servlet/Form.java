@@ -79,7 +79,7 @@ public final class Form {
    * This is currently used for dates.
    *
    * @param context the current {@link ServletTemplateContext} to get values from
-   * @param persistent  the {@link Persistent} to update
+   * @param object  the {@link Persistent} to update
    */
   public static void extractFields(ServletTemplateContext context, 
                                    Persistent object) {

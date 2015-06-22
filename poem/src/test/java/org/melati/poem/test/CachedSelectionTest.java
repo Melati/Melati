@@ -64,26 +64,14 @@ public class CachedSelectionTest extends PoemTestCase {
     super();
   }
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public CachedSelectionTest(String name) {
     super(name);
   }
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();
@@ -101,7 +89,7 @@ public class CachedSelectionTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.CachedSelection#nth()
+   * @see org.melati.poem.CachedSelection#nth(int)
    */
   public void testNth() {
     CachedSelection<TableInfo> cachedSelection = new CachedSelection<TableInfo>(getDb().getTableInfoTable(), null, null, null);

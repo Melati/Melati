@@ -893,7 +893,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
    * This is not used in Melati, but is used in Bibliomania. 
    * Throws AppBugPoemException if this Column is not an Integer column.
    * 
-   * @param whereClause
+   * @param whereClause the SQL fragment to use
    * @return the incremented value 
    * @since 04/05/2000
    */

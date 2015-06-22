@@ -101,11 +101,11 @@ public class Setting extends SettingBase {
   /**
    * Constructor with reasonable defaults for a String setting
    * Use SettingTable.create to persist this.
-   * @param typefactory
-   * @param name
-   * @param value
-   * @param displayname
-   * @param description
+   * @param typefactory The type factory integer code
+   * @param name the name of the setting
+   * @param value the string value
+   * @param displayname the name to display
+   * @param description the description to display
    */
   public Setting(Integer typefactory, String name, String value,
                  String displayname, String description) {

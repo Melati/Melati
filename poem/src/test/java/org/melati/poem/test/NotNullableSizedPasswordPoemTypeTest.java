@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.PasswordPoemType;
@@ -18,17 +15,10 @@ public class NotNullableSizedPasswordPoemTypeTest extends SizedAtomPoemTypeSpec<
   public NotNullableSizedPasswordPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableSizedPasswordPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new PasswordPoemType(false, 20);
   }

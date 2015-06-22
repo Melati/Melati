@@ -4,17 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
-import org.melati.poem.AccessToken;
-import org.melati.poem.Capability;
-import org.melati.poem.Column;
-import org.melati.poem.ExecutingSQLPoemException;
-import org.melati.poem.Persistent;
-import org.melati.poem.PoemTask;
-import org.melati.poem.Table;
+import org.melati.poem.*;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
 import org.melati.poem.dbms.Dbms;
-import org.melati.poem.Database;
 
 /**
  * Test the features of all Poem databases.
@@ -23,25 +16,14 @@ import org.melati.poem.Database;
  */
 public class PoemDatabaseTest extends PoemTestCase {
 
-  /**
-   * Constructor for PoemTest.
-   * 
-   * @param arg0
-   */
   public PoemDatabaseTest(String arg0) {
     super(arg0);
   }
 
-  /**
-   * @see TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * @see TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
     getDb().setLogCommits(false);
@@ -144,7 +126,6 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.test.DatabaseTest#administerCapability()
    * @see org.melati.poem.Database#administerCapability()
    */
   public void testAdministerCapability() {
@@ -224,7 +205,6 @@ public class PoemDatabaseTest extends PoemTestCase {
 
   /**
    * @see org.melati.poem.test.DatabaseTest#testConnect()
-   * @see Database#connect(String, String, String, String, int)
    */
   public void testConnect() {
 
@@ -238,7 +218,7 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Database#shutdown()
+   * @see Database#disconnect()
    */
   public void testShutdown() {
     // getDb().shutdown();

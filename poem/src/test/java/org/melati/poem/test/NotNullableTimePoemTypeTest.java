@@ -81,11 +81,6 @@ public class NotNullableTimePoemTypeTest extends SQLPoemTypeSpec<Time> {
   }
   class MyTimePoemType extends TimePoemType {
 
-    /**
-     * @param sqlTypeCode
-     * @param sqlTypeName
-     * @param nullable
-     */
     public MyTimePoemType(boolean nullable) {
       super(Types.TIME, "TIME", nullable);
     }

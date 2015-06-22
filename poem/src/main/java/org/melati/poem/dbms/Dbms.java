@@ -122,9 +122,9 @@ public interface Dbms {
   String getJdbcMetadataName(String name);
 
   /**
-   * Accomodate casting in placeholders.
+   * Accommodate casting in placeholders.
    * 
-   * @param type
+   * @param type the PoemType
    * @return the place holder
    * @see Postgresql
    */
@@ -149,7 +149,6 @@ public interface Dbms {
   String createTableOptionsSql();
 
   /**
-   * @param table
    * @return SQL to be run after creation or null
    */
   String tableInitialisationSql(Table<?> table);
@@ -399,8 +398,8 @@ public interface Dbms {
   String selectLimit(String querySelection, int limit);
 
   /**
-   * Accommodate lack of boolean types.
-   * @param booleanColumn
+   * Accommodate lack of boolean types in underlying DBMS.
+   * @param booleanColumn the column which should be a boolean
    * @return an expression that evaluates to True ie the column name or column name = 1
    */
   String booleanTrueExpression(Column<Boolean> booleanColumn);

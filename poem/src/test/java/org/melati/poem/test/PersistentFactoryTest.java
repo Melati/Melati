@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Properties;
@@ -21,30 +18,20 @@ import org.melati.poem.test.pojo.ClassWithStringId;
  */
 public class PersistentFactoryTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public PersistentFactoryTest(String name) {
     super(name);
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     getDb().disconnect();
     PoemDatabaseFactory.removeDatabase(getDatabaseName());
   }
-  protected void databaseUnchanged() { 
+
+  protected void databaseUnchanged() {
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
@@ -65,7 +52,7 @@ public class PersistentFactoryTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PersistentFactory#fromInstance(java.lang.Object)}.
+   * Test method for {@link org.melati.poem.PersistentFactory#fromInstance}.
    */
   public void testFromKnownInstance() {
     assertEquals(getDb().getUserTable().administratorUser(), 
@@ -73,7 +60,7 @@ public class PersistentFactoryTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PersistentFactory#fromInstance(java.lang.Object)}.
+   * Test method for {@link org.melati.poem.PersistentFactory#fromInstance}.
    */
   public void testFromFloatingPersistent() {
     User u = (User)getDb().getUserTable().newPersistent();

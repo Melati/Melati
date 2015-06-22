@@ -57,7 +57,8 @@ import java.sql.ResultSet;
  * {@link Table#selection()} on the one hand, and the low-level
  * <TT>ResultSet</TT> on the other.
  *
- * <p><quote>
+ *
+ * <blockquote>
  * 
  * TailoredQuery is specifically for when you want a few fields back
  * (possibly joined from several tables) rather than whole objects.
@@ -71,7 +72,9 @@ import java.sql.ResultSet;
  * POEM---e.g. access control, rich metadata that makes rendering
  * trivial---you can use a TailoredQuery.
  *
- * </quote><P>
+ * </blockquote>
+ *
+ * <p>
  *
  * If Postgresql's <TT>ResultSetMetaData</TT> supported <TT>getTableName</TT>
  * even approximately, this would all be "even simpler" to use and somewhat

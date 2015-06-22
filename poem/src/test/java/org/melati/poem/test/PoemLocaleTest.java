@@ -17,26 +17,14 @@ import junit.framework.TestCase;
  */
 public class PoemLocaleTest extends TestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public PoemLocaleTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

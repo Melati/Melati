@@ -19,15 +19,9 @@ import org.melati.poem.TimestampPoemType;
  */
 public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec<Timestamp> {
 
-  /**
-   * 
-   */
   public NotNullableTimestampPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableTimestampPoemTypeTest(String name) {
     super(name);
   }
@@ -90,11 +84,6 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeSpec<Timestamp>
   }
   class MyTimestampPoemType extends TimestampPoemType {
 
-    /**
-     * @param sqlTypeCode
-     * @param sqlTypeName
-     * @param nullable
-     */
     public MyTimestampPoemType(boolean nullable) {
       super(Types.TIMESTAMP, "TIMESTAMP", nullable);
     }

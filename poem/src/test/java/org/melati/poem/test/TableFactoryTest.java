@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 
@@ -17,21 +14,15 @@ import org.melati.poem.test.pojo.ClassWithStringId;
  */
 public class TableFactoryTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public TableFactoryTest(String name) {
     super(name);
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
-  protected void databaseUnchanged() { 
+
+  protected void databaseUnchanged() {
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());

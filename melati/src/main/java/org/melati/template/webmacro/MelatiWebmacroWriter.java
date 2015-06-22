@@ -54,7 +54,7 @@ public interface MelatiWebmacroWriter {
   /**
    * Return a <code>FastWriter</code> that can be used for a while.
    *
-   * @see #stopUsingFastWriter(FastWriter)
+   * @see #stopUsingFastWriter
    * @return a FastWriter
    */
   org.webmacro.FastWriter getFastWriter();

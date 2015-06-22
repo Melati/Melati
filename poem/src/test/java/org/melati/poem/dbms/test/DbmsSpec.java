@@ -121,7 +121,7 @@ public abstract class DbmsSpec extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql}.
    */
   public void testCreateTableSql() {
     if (getDb().getDbms() == it)

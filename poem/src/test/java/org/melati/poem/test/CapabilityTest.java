@@ -12,26 +12,14 @@ import org.melati.poem.Capability;
  */
 public class CapabilityTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public CapabilityTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

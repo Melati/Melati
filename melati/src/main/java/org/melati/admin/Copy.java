@@ -120,8 +120,6 @@ public class Copy extends TemplateServlet {
     return copy();
   }
   /**
-   * @param fromDb
-   * @param toDb
    * @return the updated db
    */
   public static Database copy(Database fromDbIn, final Database toDbIn) {

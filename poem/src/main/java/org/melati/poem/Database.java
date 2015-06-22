@@ -1599,7 +1599,6 @@ public abstract class Database implements TransactionPool {
    * Postgresql in particular does not like DDL statements being executed within a transaction.
    * 
    * @param sql the SQL DDL statement to execute
-   * @throws StructuralModificationFailedPoemException
    */
   public void modifyStructure(String sql)
       throws StructuralModificationFailedPoemException {

@@ -39,7 +39,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the UserTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
   public UserTable<User> getUserTable();
@@ -47,7 +47,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the GroupTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
   public GroupTable<Group> getGroupTable();
@@ -55,7 +55,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the CapabilityTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
   public CapabilityTable<Capability> getCapabilityTable();
@@ -63,7 +63,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the GroupMembershipTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
   public GroupMembershipTable<GroupMembership> getGroupMembershipTable();
@@ -71,7 +71,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the GroupCapabilityTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
   public GroupCapabilityTable<GroupCapability> getGroupCapabilityTable();
@@ -79,7 +79,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the TableCategoryTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
   public TableCategoryTable<TableCategory> getTableCategoryTable();
@@ -87,7 +87,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the TableInfoTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
   public TableInfoTable<TableInfo> getTableInfoTable();
@@ -95,7 +95,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the ColumnInfoTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
   public ColumnInfoTable<ColumnInfo> getColumnInfoTable();
@@ -103,7 +103,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the SettingTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
   public SettingTable<Setting> getSettingTable();
@@ -111,7 +111,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the ParentTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ParentTable from this database
   */
   public ParentTable<Parent> getParentTable();
@@ -119,7 +119,7 @@ public interface OdmgDatabaseTablesBase {
  /**
   * Retrieves the ChildTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ChildTable from this database
   */
   public ChildTable<Child> getChildTable();

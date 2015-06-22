@@ -24,7 +24,7 @@ import org.melati.poem.ValidationPoemException;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>Child</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ChildTableBase<T extends Child> extends OdmgTable<T> {
@@ -36,7 +36,7 @@ public class ChildTableBase<T extends Child> extends OdmgTable<T> {
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -53,7 +53,7 @@ public class ChildTableBase<T extends Child> extends OdmgTable<T> {
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public OdmgDatabaseTables getOdmgDatabaseTables() {
@@ -64,7 +64,7 @@ public class ChildTableBase<T extends Child> extends OdmgTable<T> {
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -247,7 +247,7 @@ public class ChildTableBase<T extends Child> extends OdmgTable<T> {
  /**
   * Retrieve the <code>Child</code> as a <code>Child</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -260,7 +260,7 @@ public class ChildTableBase<T extends Child> extends OdmgTable<T> {
   * Retrieve the <code>Child</code> 
   * as a <code>Child</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Child getChildObject(int troid) {

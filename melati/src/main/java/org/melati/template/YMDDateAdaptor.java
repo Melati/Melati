@@ -179,11 +179,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
     return value;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.template.TempletAdaptor#
-   *          rawFrom(org.melati.template.ServletTemplateContext, java.lang.String)
-   */
+  @Override
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);
     String month = getFormOrDie(context, fieldName, monthSuffix);

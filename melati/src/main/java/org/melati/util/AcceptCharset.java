@@ -261,11 +261,7 @@ public class AcceptCharset extends HttpHeader {
    */
   protected static class Comparator<T> implements java.util.Comparator<T> {
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see java.util.Comparator#compare(T, T)
-     */
+    @Override
     public final int compare(Object one, Object two) {
       return compareCharsetAndQValue((CharsetAndQValue) one,
           (CharsetAndQValue) two);

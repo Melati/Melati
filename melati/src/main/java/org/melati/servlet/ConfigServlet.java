@@ -85,6 +85,7 @@ import org.melati.util.MelatiWriter;
  * <TT>PoemContext</TT> parameter
  *
  * <TABLE>
+ *   <caption>Path context elements</caption>
  *   <TR>
  *     <TD><TT><I>h</I></TT></TD>
  *     <TD>host name, such as <TT>www.melati.org</TT></TD>

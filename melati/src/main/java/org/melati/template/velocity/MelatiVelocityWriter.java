@@ -78,7 +78,6 @@ public class MelatiVelocityWriter extends MelatiWriter {
    * Constructor.
    * @param output OutputStream to write to
    * @param encoding character encoding to use
-   * @throws IOException if getOutputStream throws one
    */
   public MelatiVelocityWriter(OutputStream output, String encoding) {
     // need to make this accessible to subclasses

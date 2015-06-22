@@ -27,7 +27,7 @@ import org.melati.poem.ValidationPoemException;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>ContactCategory</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ContactCategoryTableBase<T extends ContactCategory> extends ContactsTable<T> {
@@ -39,7 +39,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -56,7 +56,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {
@@ -67,7 +67,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -299,7 +299,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
  /**
   * Retrieve the <code>ContactCategory</code> as a <code>ContactCategory</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -312,7 +312,7 @@ public class ContactCategoryTableBase<T extends ContactCategory> extends Contact
   * Retrieve the <code>ContactCategory</code> 
   * as a <code>ContactCategory</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public ContactCategory getContactCategoryObject(int troid) {

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.9</version>
+    <version>0.8.1-SNAPSHOT</version>
   </parent>
   <artifactId>courteouspoem</artifactId>
   <name>Courteous POEM</name>
@@ -13,7 +13,7 @@
     <connection>scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:courteouspoem</connection>
     <developerConnection>scm:cvs:ext:timp@paneris.net:/usr/cvsroot:courteouspoem</developerConnection>
     <url>http://paneris.net/cgi-bin/cvsweb.cgi/courteouspoem/</url>
-    <tag>melati-parent-0.7.9</tag>
+    <tag>HEAD</tag>
   </scm>
   <dependencies>
     <dependency>

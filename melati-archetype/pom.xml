@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.melati</groupId>
     <artifactId>melati-parent</artifactId>
-    <version>0.7.9</version>
+    <version>0.8.1-SNAPSHOT</version>
   </parent>
   <packaging>jar</packaging>
   <name>Melati Archetype</name>

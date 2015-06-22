@@ -57,9 +57,6 @@ public class ThrowingPreparedStatement
     implements PreparedStatement {
   
 
-  /**
-   * @param statement
-   */
   public ThrowingPreparedStatement(PreparedStatement statement) {
     this.it = statement;
   }

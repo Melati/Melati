@@ -25,17 +25,10 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec<Long> {
   public NotNullableLongPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableLongPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new LongPoemType(false);
   }
@@ -117,11 +110,6 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeSpec<Long> {
   }
   class MyLongPoemType extends LongPoemType {
 
-    /**
-     * @param sqlTypeCode
-     * @param sqlTypeName
-     * @param nullable
-     */
     public MyLongPoemType(boolean nullable) {
       super(Types.BIGINT, "INT8", nullable);
     }

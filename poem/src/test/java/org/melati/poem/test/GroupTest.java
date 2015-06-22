@@ -11,25 +11,14 @@ import org.melati.poem.Group;
  */
 public class GroupTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public GroupTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

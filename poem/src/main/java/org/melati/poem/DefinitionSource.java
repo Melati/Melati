@@ -51,7 +51,7 @@ package org.melati.poem;
  *
  * The definition sources are unified during Poem initialisation.
  *
- * @see Database#unifyWithIndex
+ * @see Database#unifyWithDB
  * @see Table#unifyWithDB
  * @see Column#unifyWithIndex
  *

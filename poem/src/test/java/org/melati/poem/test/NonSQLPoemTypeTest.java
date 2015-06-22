@@ -10,23 +10,13 @@ package org.melati.poem.test;
  */
 public class NonSQLPoemTypeTest extends SQLPoemTypeSpec<Object> {
 
-  /**
-   * 
-   */
   public NonSQLPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NonSQLPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new NonSQLPoemType();
   }

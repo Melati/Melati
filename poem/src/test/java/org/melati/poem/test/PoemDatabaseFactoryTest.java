@@ -17,26 +17,14 @@ public class PoemDatabaseFactoryTest extends TestCase {
   /** Default db name */
   private String databaseName = "melatijunit";  // change to poemtest
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public PoemDatabaseFactoryTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

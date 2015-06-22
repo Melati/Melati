@@ -59,9 +59,9 @@ import org.melati.poem.generated.GroupCapabilityBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>GroupCapability</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> group </td><td> Group </td><td> The user-group which has the 
@@ -70,7 +70,7 @@ import org.melati.poem.generated.GroupCapabilityBase;
  * </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava
  */
 public class GroupCapability extends GroupCapabilityBase {
 
@@ -83,7 +83,7 @@ public class GroupCapability extends GroupCapabilityBase {
   *   capability. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava
   */
   public GroupCapability() { }
 

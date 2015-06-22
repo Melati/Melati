@@ -27,25 +27,14 @@ import junit.framework.TestCase;
  */
 public class DatabaseTest extends TestCase {
 
-  /**
-   * @param name
-   */
   public DatabaseTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -75,7 +64,7 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   * Test method for {@link org.melati.poem.Database#connect}.
    */
   public void testConnect() { 
     try { 
@@ -101,12 +90,6 @@ public class DatabaseTest extends TestCase {
   }
 
 
-  /**
-   * Test method for {@link org.melati.poem.Database#shutdown()}.
-   */
-  public void testShutdown() {
-    
-  }
   /**
    * Test method for {@link org.melati.poem.Database
    * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
@@ -530,7 +513,7 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#incrementQueryCount()}.
+   * Test method for {@link org.melati.poem.Database#incrementQueryCount}.
    */
   public void testIncrementQueryCount() {
     

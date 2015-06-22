@@ -24,20 +24,10 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
   protected static EverythingDatabase db;
 
-  /**
-   * Constructor.
-   * 
-   * @param arg0
-   */
   public MultiThreadedCachedSelectionTest(String arg0) {
     super(arg0);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
     db = (EverythingDatabase)getDb();

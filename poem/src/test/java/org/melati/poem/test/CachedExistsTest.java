@@ -11,34 +11,22 @@ import org.melati.poem.CachedExists;
  */
 public class CachedExistsTest extends PoemTestCase {
 
-  /**
-   * Constructor for CachedExistsTest.
-   * @param name
-   */
   public CachedExistsTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();
   }
 
   /**
-   * @see org.melati.poem.CachedExists#CachedExists(Table, String, Table[])
+   * @see org.melati.poem.CachedExists#CachedExists
    */
   public void testCachedExistsTableStringTableArray() {
     // FIXME work out good use case
@@ -57,7 +45,7 @@ public class CachedExistsTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.CachedExists#CachedExists(Table, String)
+   * @see org.melati.poem.CachedExists#CachedExists
    */
   public void testCachedExistsTableString() {
     int queries = getDb().getQueryCount();

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.Database;
@@ -13,26 +10,14 @@ import org.melati.poem.PoemTypeFactory;
  */
 public class PoemTypeFactoryTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public PoemTypeFactoryTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

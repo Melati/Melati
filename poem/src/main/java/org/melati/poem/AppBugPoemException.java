@@ -47,28 +47,24 @@ package org.melati.poem;
 
 /**
  * Thrown when the error is likely to be caused by an error in 
- * the application programmers code, such as mistypeing a class name or 
+ * the application programmers code, such as mis-typing a class name or
  * mis-configuring a property.  
  */
 public class AppBugPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** Constructor. */
   public AppBugPoemException(String message, Exception subException) {
     super(message, subException);
   }
 
-  /** Constructor. */
   public AppBugPoemException(String message) {
     super(message);
   }
   
-  /** Constructor. */
   public AppBugPoemException(Exception subException) {
     super(subException);
   }
 
-  /** Constructor. */
   public AppBugPoemException() {
   }
 }

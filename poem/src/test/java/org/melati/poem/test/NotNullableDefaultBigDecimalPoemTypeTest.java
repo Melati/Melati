@@ -1,8 +1,4 @@
-/**
- * 
- */
 package org.melati.poem.test;
-
 
 import java.math.BigDecimal;
 
@@ -18,23 +14,13 @@ import org.melati.poem.SQLSeriousPoemException;
  */
 public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeSpec<BigDecimal> {
 
-  /**
-   * 
-   */
   public NotNullableDefaultBigDecimalPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableDefaultBigDecimalPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(false);
   }

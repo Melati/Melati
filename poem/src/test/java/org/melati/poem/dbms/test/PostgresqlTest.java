@@ -73,7 +73,7 @@ public class PostgresqlTest extends DbmsSpec {
   }
 
   /**
-   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql}.
    */
   public void testCreateTableSql() {
     if (getDb().getDbms() == it)

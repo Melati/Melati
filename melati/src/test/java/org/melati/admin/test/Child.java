@@ -15,9 +15,9 @@ import org.melati.admin.test.generated.ChildBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Child</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> parent </td><td> Parent </td><td> The parent </td></tr> 
@@ -26,7 +26,7 @@ import org.melati.admin.test.generated.ChildBase;
  * <tr><td> deleted </td><td> Boolean </td><td> Whether deleted </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class Child extends ChildBase {
 
@@ -38,7 +38,7 @@ public class Child extends ChildBase {
   *   A node with a parent. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public Child() { 
     super();

@@ -22,17 +22,11 @@ public class FieldTest extends PoemTestCase {
 
   Field<String> stringField = null;
   Field<Integer> integerField = null;
-  /**
-   * Constructor for FieldTest.
-   * @param name
-   */
+
   public FieldTest(String name) {
     super(name);
   }
 
-  /**
-   * @see PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
@@ -58,9 +52,6 @@ public class FieldTest extends PoemTestCase {
         ));
   }
 
-  /**
-   * @see PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();

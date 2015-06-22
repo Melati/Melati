@@ -64,10 +64,7 @@ public class DatePoemType extends AtomPoemType<Date> {
   public DatePoemType(boolean nullable) {
     super(Types.DATE, "DATE", nullable);
   }
- /**
-  * Constructor.
-  * @see org.melati.poem.dbms.SQLServer.SQLServerDatePoemType
-  */
+
   public DatePoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
     super(sqlTypeCode, sqlTypeName, nullable);
   }

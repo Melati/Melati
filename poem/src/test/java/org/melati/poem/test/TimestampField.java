@@ -15,15 +15,15 @@ import org.melati.poem.test.generated.TimestampFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>TimestampField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> timestampfield </td><td> Timestamp </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class TimestampField extends TimestampFieldBase {
 
@@ -35,7 +35,7 @@ public class TimestampField extends TimestampFieldBase {
   *   A table with only a timestamp field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public TimestampField() { 
     super();

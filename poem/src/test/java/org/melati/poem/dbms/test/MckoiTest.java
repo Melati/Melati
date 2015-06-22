@@ -3,15 +3,7 @@
  */
 package org.melati.poem.dbms.test;
 
-import org.melati.poem.BigDecimalPoemType;
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.DatePoemType;
-import org.melati.poem.DoublePoemType;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.TimestampPoemType;
+import org.melati.poem.*;
 import org.melati.poem.dbms.DbmsFactory;
 import org.melati.poem.dbms.Mckoi;
 
@@ -175,7 +167,7 @@ public class MckoiTest extends DbmsSpec {
 
   }
   /**
-   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql(Table)}.
    */
   public void testCreateTableSql() {
     if (getDb().getDbms() == it)

@@ -76,7 +76,7 @@ public class WebmacroServletTemplateContext
   /**
    * Returns null if not present, empty string if empty.
    * {@inheritDoc}
-   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
+   * @see org.melati.template.ServletTemplateContext#getFormField(java.lang.String)
    */
   public String getFormField(String k) {
     return webContext.getForm(k);
@@ -85,7 +85,7 @@ public class WebmacroServletTemplateContext
   /**
    * Throws an exception as this is not a multi part form.
    * Should perhaps throw an exception.
-   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
+   * @see org.melati.template.ServletTemplateContext#getMultipartFormField(String)
    */
   public MultipartFormField getMultipartFormField(String s) {
     throw new MelatiBugMelatiException("Cannot return a multi-part field from a non-multi-part form");

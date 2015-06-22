@@ -23,11 +23,6 @@ public abstract class EverythingTestCase extends PoemTestCase implements Test {
     super();
   }
 
-  /**
-   * Constructor.
-   * 
-   * @param name
-   */
   public EverythingTestCase(String name) {
     super(name);
   }

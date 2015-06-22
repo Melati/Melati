@@ -21,9 +21,9 @@ import org.melati.poem.Treeable;
  * </p>
  *
  * <table>
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Contact</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> name </td><td> String </td><td> Contact Name </td></tr> 

@@ -15,16 +15,16 @@ import org.melati.poem.test.generated.BinaryFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>BinaryField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> binaryfield </td><td> byte[] </td><td> &nbsp; </td></tr> 
  * <tr><td> unlimited </td><td> byte[] </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class BinaryField extends BinaryFieldBase {
 
@@ -36,7 +36,7 @@ public class BinaryField extends BinaryFieldBase {
   *   A table with only a binary field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public BinaryField() { 
     super();

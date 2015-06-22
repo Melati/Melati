@@ -88,67 +88,43 @@ public abstract class PagedEnumerationBase<T> implements PagedEnumeration<T> {
   //  PagedEnumeration
   // -----------------
   // 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getPageStart()
-   */
+  @Override
   public int getPageStart() {
     return pageStart;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getPageEnd()
-   */
+  @Override
   public int getPageEnd() {
     return pageStart + page.size() - 1;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getTotalCount()
-   */
+  @Override
   public int getTotalCount() {
     return totalCount;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getPrevPageStart()
-   */
+  @Override
   public Integer getPrevPageStart() {
     int it = pageStart - pageSize;
     return it < 0 ? null : new Integer(it);
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getCurrentPosition()
-   */
+  @Override
   public int getCurrentPosition() {
     return currentPosition;
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getNextPosition()
-   */
+  @Override
   public int getNextPosition() {
     return hasMoreElements() ? currentPosition + 1 : 0;
   }
-  
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#nextElementOnThisPage()
-   */
+
+  @Override
   public boolean nextElementOnThisPage() {
     return hasMoreElements() && getPageEnd() >= getNextPosition();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getPageSize()
-   */
+  @Override
   public int getPageSize() {
     return page.size();
   }

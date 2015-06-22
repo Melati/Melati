@@ -23,7 +23,7 @@ import org.melati.poem.util.EmptyEnumeration;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Category</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class CategoryBase extends JdbcPersistent {
 
@@ -31,7 +31,7 @@ public abstract class CategoryBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {
@@ -43,7 +43,7 @@ public abstract class CategoryBase extends JdbcPersistent {
   * Retrieves the  <code>CategoryTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the CategoryTable
   */
   @SuppressWarnings("unchecked")

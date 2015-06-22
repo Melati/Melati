@@ -51,36 +51,20 @@ package org.melati.util;
  */
 public class MelatiConfigurationException extends MelatiRuntimeException {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @param message
-   * @param subException
-   */
   public MelatiConfigurationException(String message, Exception subException) {
     super(message, subException);
   }
 
-  /**
-   * @param message
-   */
   public MelatiConfigurationException(String message) {
     super(message);
   }
 
-  /**
-   * @param subException
-   */
   public MelatiConfigurationException(Exception subException) {
     super(subException);
   }
 
-  /**
-   * 
-   */
   public MelatiConfigurationException() {
     super();
   }

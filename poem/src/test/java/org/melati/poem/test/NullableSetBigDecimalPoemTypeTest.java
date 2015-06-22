@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.BigDecimalPoemType;
@@ -13,23 +10,13 @@ import org.melati.poem.DoublePoemType;
  */
 public class NullableSetBigDecimalPoemTypeTest extends NotNullableSetBigDecimalPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableSetBigDecimalPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableSetBigDecimalPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(true, 22, 2);
   }
@@ -41,6 +28,5 @@ public class NullableSetBigDecimalPoemTypeTest extends NotNullableSetBigDecimalP
     assertNotNull(it.canRepresent(DoublePoemType.it));
     assertNotNull(it.canRepresent(new DoublePoemType(false)));
   }
-  
 
 }

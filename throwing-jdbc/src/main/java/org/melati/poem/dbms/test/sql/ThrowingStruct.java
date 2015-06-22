@@ -49,10 +49,10 @@ import java.sql.Struct;
 import java.util.Map;
 
 /**
- *  A {@link Stuct} decorated to throw SQLException on command.
+ *  A {@link Struct} decorated to throw {@link SQLException} on command.
+ *
  * @author timp
  * @since 5 Feb 2008
- *
  */
 public class ThrowingStruct 
     extends Thrower 
@@ -61,10 +61,6 @@ public class ThrowingStruct
 
   Struct it = null;
   
-
-  /**
-   * Constructor.
-   */
   public ThrowingStruct(Struct s) {
     it = s;
   }

@@ -56,9 +56,7 @@ import java.sql.Statement;
 public final class DebugMckoiConnection {
 
     private DebugMckoiConnection () {}
-    /**
-     * @param args
-     */
+
     public static void main(String[] args) {
 
       // Register the Mckoi JDBC Driver

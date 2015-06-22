@@ -62,9 +62,9 @@ import org.melati.poem.generated.ColumnInfoBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>ColumnInfo</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> tableinfo </td><td> TableInfo </td><td> The table to which the 
@@ -92,7 +92,7 @@ import org.melati.poem.generated.ColumnInfoBase;
  * to is deleted </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class ColumnInfo extends ColumnInfoBase {
 

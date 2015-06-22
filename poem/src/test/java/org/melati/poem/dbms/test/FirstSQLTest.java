@@ -12,26 +12,14 @@ import org.melati.poem.dbms.DbmsFactory;
  */
 public class FirstSQLTest extends DbmsSpec {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public FirstSQLTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

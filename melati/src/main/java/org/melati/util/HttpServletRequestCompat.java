@@ -677,7 +677,7 @@ public static Enumeration<String> getAttributeNames(HttpServletRequest it) {
    * if the servlet container cannot return a <code>RequestDispatcher</code>.
    * 
    * The difference between this method and 
-   * {@link ServletContext#getRequestDispatcher} is that this method can take a
+   * {@link javax.servlet.ServletContext#getRequestDispatcher} is that this method can take a
    * relative path.
    * 
    * @param it
@@ -724,7 +724,7 @@ public static Enumeration<String> getAttributeNames(HttpServletRequest it) {
    * @param arg
    *        a <code>String</code> specifying the name of the attribute to
    *        remove
-   * @see javax.servlet.http.HttpServletRequest#removeAttribute()
+   * @see javax.servlet.http.HttpServletRequest#removeAttribute
    * @since 2.2
    */
   public static void removeAttribute(HttpServletRequest it, String arg) {

@@ -80,12 +80,12 @@ public class DefaultFileFormDataAdaptor extends BaseFileFormDataAdaptor {
   /**
    * Constructor.
    * 
-   * @param melatiP    The current melati
+   * @param melatiP     The current melati
    * @param uploadDirP  The directory to save this file in
    * @param uploadURLP  A URL pointing to this directory  (null if there
-   *                   isn't an appropriate URL)
-   * @param makeUnique Whether we should make sure the new file has a unique
-   *                   name within the <code>uploadDir</code> directory
+   *                    isn't an appropriate URL)
+   * @param makeUniqueP Whether we should make sure the new file has a unique
+   *                    name within the <code>uploadDir</code> directory
    */
 
   public DefaultFileFormDataAdaptor(Melati melatiP, String uploadDirP, String uploadURLP,

@@ -15,16 +15,16 @@ import org.melati.example.contacts.generated.ContactCategoryBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>ContactCategory</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> category </td><td> Category </td><td> Category </td></tr> 
  * <tr><td> contact </td><td> Contact </td><td> Contact </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class ContactCategory extends ContactCategoryBase {
 
@@ -36,7 +36,7 @@ public class ContactCategory extends ContactCategoryBase {
   *   Contacts Categories. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public ContactCategory() { 
     super();

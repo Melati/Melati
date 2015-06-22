@@ -53,12 +53,12 @@ import java.util.NoSuchElementException;
  * variables.  We allow for fields having returns in them.
  *
  * <PRE>
- *   foo, bar om,,"baz, ,oof",xyz,   ->
+ *   foo, bar om,,"baz, ,oof",xyz,   -&gt;
  *     "foo", " bar om", "", "baz, , oof", "xyz", ""
  *
  *   foo, "bar
  *   bar
- *   bar", baz ->
+ *   bar", baz -&gt;
  *   "foo", "bar\u0015bar\u0015bar", "baz"
  * </PRE>
  *

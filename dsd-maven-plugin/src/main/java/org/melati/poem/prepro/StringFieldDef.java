@@ -59,20 +59,13 @@ public class StringFieldDef extends AtomFieldDef {
 
   /**
    * Constructor.
-   * 
-   * @param lineNo
-   *          the line number in the DSD file
-   * @param table
-   *          the {@link TableDef} that this <code>Field</code> is part of
-   * @param name
-   *          the name of this field
-   * @param displayOrder
-   *          where to place this field in a list
-   * @param qualifiers
-   *          all the qualifiers of this field
-   * 
-   * @throws IllegalityException
-   *           if a semantic inconsistency is detected
+   *
+   * @param lineNo       the line number in the DSD file
+   * @param table        the {@link TableDef} that this <code>Field</code> is part of
+   * @param name         the name of this field
+   * @param displayOrder where to place this field in a list
+   * @param qualifiers   all the qualifiers of this field
+   * @throws IllegalityException if a semantic inconsistency is detected
    */
   public StringFieldDef(int lineNo, TableDef table, String name,
       int displayOrder, Vector<FieldQualifier> qualifiers) throws IllegalityException {

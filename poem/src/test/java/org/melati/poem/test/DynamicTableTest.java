@@ -44,16 +44,10 @@ public class DynamicTableTest extends EverythingTestCase {
     super(arg0);
   }
 
-  /**
-   * @see TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * @see TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     // Do not do super or we will create a db again
     // super.tearDown();

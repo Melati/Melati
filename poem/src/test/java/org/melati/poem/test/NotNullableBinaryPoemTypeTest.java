@@ -20,23 +20,13 @@ import org.melati.poem.dbms.AnsiStandard;
  */
 public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeSpec<byte[]> {
 
-  /**
-   * 
-   */
   public NotNullableBinaryPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableBinaryPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BinaryPoemType(false, 20);
   }

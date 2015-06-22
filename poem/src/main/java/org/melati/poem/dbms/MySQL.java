@@ -100,7 +100,7 @@ import org.melati.poem.util.StringUtils;
   *  BDB tables is still improved.
   *
   *  As I tested MySQL-Max 3.23.49, InnoDB has correct transactions,
-  *  however database size must be specified & reserved in advance
+  *  however database size must be specified and reserved in advance
   *  in one file, that is share by all InnoDB tables.
   *  Set in /etc/my.cnf by line like:
   *     innodb_data_file_path=ibdata1:30M
@@ -111,7 +111,7 @@ import org.melati.poem.util.StringUtils;
   * After it created and initialised dB file /var/lib/mysql/ibdata1
   * of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
   * and ib_logfile1, both of size 5MB.
-  * <br/>
+  * <br>
   * The table type is currently hardcoded in <tt>createTableOptions</tt>.
   *
   * </li>
@@ -156,10 +156,7 @@ public class MySQL extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
-   */
+   @Override
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       return "text";
@@ -169,18 +166,13 @@ public class MySQL extends AnsiStandard {
 
   /**
    * Ignores size.
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
+  @Override
   public String getBinarySqlDefinition(int size) {
     return "BLOB"; 
   }
 
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
-   */
+   @Override
   public String getQuotedName(String name) {
     return unreservedName(name);
   }
@@ -295,10 +287,7 @@ public class MySQL extends AnsiStandard {
       return other instanceof BinaryPoemType;
     }
 
-   /**
-    * {@inheritDoc}
-    * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
-    */
+    @Override
     public <O>PoemType<O> canRepresent(PoemType<O> other) {
       return other instanceof BinaryPoemType &&
           !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
@@ -306,10 +295,7 @@ public class MySQL extends AnsiStandard {
     }
   }
 
- /**
-  * {@inheritDoc}
-  * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
-  */
+   @Override
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> other) {
     if (storage instanceof IntegerPoemType &&
         other instanceof BooleanPoemType
@@ -321,11 +307,7 @@ public class MySQL extends AnsiStandard {
     }
   }
 
- /**
-  * {@inheritDoc}
-  * @see org.melati.poem.dbms.AnsiStandard#
-  *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
-  */
+   @Override
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
@@ -352,10 +334,6 @@ public class MySQL extends AnsiStandard {
   }
 
 
- /**
-  * {@inheritDoc}
-  * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
-  */
   @Override
   public SQLPoemException exceptionForUpdate(
         Table<?> table, String sql, boolean insert, SQLException e) {
@@ -414,10 +392,6 @@ public class MySQL extends AnsiStandard {
     return super.exceptionForUpdate(table, sql, insert, e);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
-   */
   @Override
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("group")) name = "poem_" + name;
@@ -426,9 +400,6 @@ public class MySQL extends AnsiStandard {
     return name;
   }
 
-  /**
-   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
-   */
   @Override
   public String melatiName(String name) {
     if (name == null) return name;
@@ -451,12 +422,9 @@ public class MySQL extends AnsiStandard {
         ((StringPoemType)t).getSize() < 0) return "(" + indexSize + ")";
     if (t instanceof BinaryPoemType) return "(" + indexSize + ")";
     return "";
-  }  
+  }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#givesCapabilitySQL
-   */
+   @Override
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return
         "SELECT groupMembership.* " + 
@@ -468,13 +436,7 @@ public class MySQL extends AnsiStandard {
         "AND capability = " + capabilityExpr;
   }
 
-
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#
-   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
-   */
+   @Override
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
@@ -484,11 +446,7 @@ public class MySQL extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#
-   * alterColumnNotNullableSQL(java.lang.String, org.melati.poem.Column)
-   */
+   @Override
   public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) +
     " CHANGE " + getQuotedName(column.getName()) + " " + getQuotedName(column.getName()) +

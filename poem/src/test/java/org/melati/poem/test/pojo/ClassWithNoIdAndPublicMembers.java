@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test.pojo;
 
 import java.math.BigDecimal;
@@ -19,10 +16,7 @@ public class ClassWithNoIdAndPublicMembers {
   public ClassWithNoIdAndPublicMembers() { 
     
   }
-  /**
-   * @param name
-   */
-  public ClassWithNoIdAndPublicMembers(String name) { 
+  public ClassWithNoIdAndPublicMembers(String name) {
     this.name = name;
   }
   /** The name.  */

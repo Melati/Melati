@@ -23,7 +23,7 @@ import org.melati.util.test.TreeDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Node</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class NodeBase extends JdbcPersistent {
 
@@ -31,7 +31,7 @@ public abstract class NodeBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public TreeDatabaseTables getTreeDatabaseTables() {
@@ -43,7 +43,7 @@ public abstract class NodeBase extends JdbcPersistent {
   * Retrieves the  <code>NodeTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the NodeTable
   */
   @SuppressWarnings("unchecked")

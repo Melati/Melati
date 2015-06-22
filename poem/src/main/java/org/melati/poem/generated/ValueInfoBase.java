@@ -18,7 +18,7 @@ import org.melati.poem.ValueInfoTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>ValueInfo</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class ValueInfoBase extends JdbcPersistent {
 
@@ -26,7 +26,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public PoemDatabaseTables getPoemDatabaseTables() {
@@ -38,7 +38,7 @@ public abstract class ValueInfoBase extends JdbcPersistent {
   * Retrieves the  <code>ValueInfoTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ValueInfoTable
   */
   @SuppressWarnings("unchecked")

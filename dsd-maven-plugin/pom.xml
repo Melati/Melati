@@ -32,6 +32,39 @@
           <target>1.6</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <!-- See
+          https://maven.apache.org/plugins/maven-javadoc-plugin/examples/tag-configuration.html
+          http://maven.apache.org/plugin-tools/maven-plugin-tools-java/
+          -->
+          <tags>
+            <tag>
+              <name>requiresDependencyResolution</name>
+              <placement>t</placement>
+              <head>Dependencies to be resolved during phase:</head>
+            </tag>
+            <tag>
+              <name>goal</name>
+              <placement>t</placement>
+              <head>Goal:</head>
+            </tag>
+            <tag>
+              <name>description</name>
+              <placement>t</placement>
+              <head>So as to:</head>
+            </tag>
+            <tag>
+              <name>phase</name>
+              <placement>t</placement>
+              <head>Invoked during phase:</head>
+            </tag>
+          </tags>
+        </configuration>
+      </plugin>
     </plugins>
    <resources>
     <resource>

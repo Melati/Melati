@@ -84,7 +84,7 @@ public class FreemarkerServletTemplateContext
   
   /**
    * Constructor.
-   * @param vc context containing RESPONSE and REQUEST
+   * @param c context containing RESPONSE and REQUEST
    */
   public FreemarkerServletTemplateContext(Map<String, Object>  c) {
     super(c);

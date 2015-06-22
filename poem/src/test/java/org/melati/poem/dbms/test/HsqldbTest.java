@@ -12,26 +12,14 @@ import org.melati.poem.dbms.DbmsFactory;
  */
 public class HsqldbTest extends DbmsSpec {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public HsqldbTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.test.DbmsSpec#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
@@ -41,7 +29,7 @@ public class HsqldbTest extends DbmsSpec {
   }
 
   /**
-   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql}.
    */
   public void testCreateTableSql() {
     if (getDb().getDbms() == it)

@@ -80,10 +80,7 @@ public class DumbPagedEnumeration<T> extends PagedEnumerationBase<T> {
     currentPosition = pageStart - 1; 
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumerationBase#getNextPageStart()
-   */
+  @Override
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
     return (totalCountIsMinimum || it <= totalCount) ? new Integer(it) : null;

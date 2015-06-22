@@ -18,9 +18,9 @@ import org.melati.poem.PoemException;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>ENExtended</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> binaryfield2 </td><td> byte[] </td><td> Second Binary Field 
  * </td></tr> 
@@ -42,14 +42,14 @@ import org.melati.poem.PoemException;
  * Field </td></tr> 
  * </table> 
  * 
- * see  org.melati.poem.prepro.TableDef#generateTableJava 
+ * See org.melati.poem.prepro.TableDef#generateTableJava 
  */
 public class ENExtendedTable<T extends ENExtended> extends ENExtendedTableBase<ENExtended> {
 
  /**
   * Constructor.
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableJava 
+  * See org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

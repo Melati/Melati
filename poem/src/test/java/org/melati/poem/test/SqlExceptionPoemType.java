@@ -97,7 +97,7 @@ public class SqlExceptionPoemType extends AtomPoemType<Integer> {
   /**
    * {@inheritDoc}
    * 
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   * @see org.melati.poem.SQLType#sqlDefaultValue
    */
   public String sqlDefaultValue(Dbms dbms) {
     return "1";

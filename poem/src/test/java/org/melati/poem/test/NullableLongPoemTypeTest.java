@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.LongPoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.LongPoemType;
  */
 public class NullableLongPoemTypeTest extends NotNullableLongPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableLongPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableLongPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new LongPoemType(true);
   }

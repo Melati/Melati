@@ -9,35 +9,21 @@ import org.melati.poem.Capability;
 import org.melati.poem.Table;
 import org.melati.poem.TailoredQuery;
 import org.melati.poem.PoemLocale;
-import org.melati.poem.test.User;
 
 /**
  * @author timp
  */
 public class TailoredQueryTest extends EverythingTestCase {
 
-  /**
-   * Constructor for TailoredQueryTest.
-   * 
-   * @param name
-   */
   public TailoredQueryTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown()
       throws Exception {
     super.tearDown();

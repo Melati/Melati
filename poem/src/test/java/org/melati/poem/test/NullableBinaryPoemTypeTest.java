@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.BinaryPoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.BinaryPoemType;
  */
 public class NullableBinaryPoemTypeTest extends NotNullableBinaryPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableBinaryPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableBinaryPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BinaryPoemType(true, 20);
   }

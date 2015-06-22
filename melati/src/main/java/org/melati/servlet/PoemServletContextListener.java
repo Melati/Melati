@@ -54,7 +54,7 @@ import org.melati.poem.PoemDatabaseFactory;
  * 
  * @author timp
  * @since 30 May 2007
- * @see org.melati.poem.PoemDatbaseFactory
+ * @see org.melati.poem.PoemDatabaseFactory
  */
 public final class PoemServletContextListener implements ServletContextListener {
 

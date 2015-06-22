@@ -64,9 +64,9 @@ import org.melati.poem.generated.SettingBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Setting</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> name </td><td> String </td><td> A code name for this setting 
@@ -75,7 +75,7 @@ import org.melati.poem.generated.SettingBase;
  * </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  * @author WilliamC@paneris.org
  */
 
@@ -88,7 +88,7 @@ public class Setting extends SettingBase {
   *   A configurable setting for the application. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava 
   */
   public Setting() { }
 
@@ -101,11 +101,11 @@ public class Setting extends SettingBase {
   /**
    * Constructor with reasonable defaults for a String setting
    * Use SettingTable.create to persist this.
-   * @param typefactory
-   * @param name
-   * @param value
-   * @param displayname
-   * @param description
+   * @param typefactory The type factory integer code
+   * @param name the name of the setting
+   * @param value the string value
+   * @param displayname the name to display
+   * @param description the description to display
    */
   public Setting(Integer typefactory, String name, String value,
                  String displayname, String description) {

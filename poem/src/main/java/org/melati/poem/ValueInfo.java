@@ -56,9 +56,9 @@ import org.melati.poem.generated.ValueInfoBase;
  * 
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>ValueInfo</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> displayname </td><td> String </td><td> A user-friendly name for 
  * the field </td></tr> 
@@ -90,7 +90,7 @@ import org.melati.poem.generated.ValueInfoBase;
  * limit of the range of permissible values for the field </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class ValueInfo extends ValueInfoBase {
 
@@ -98,7 +98,7 @@ public class ValueInfo extends ValueInfoBase {
   * Constructor 
   * for a <code>Persistent</code> <code>ValueInfo</code> object.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava 
   */
   public ValueInfo() { }
 

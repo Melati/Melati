@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.DoublePoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.DoublePoemType;
  */
 public class NullableDoublePoemTypeTest extends NotNullableDoublePoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableDoublePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableDoublePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new DoublePoemType(true);
   }

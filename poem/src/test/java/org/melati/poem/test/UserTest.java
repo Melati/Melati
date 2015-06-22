@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.Column;
@@ -20,28 +17,16 @@ import org.melati.poem.WritePersistentAccessPoemException;
  */
 public class UserTest extends PoemTestCase {
 
-  /**
-   * @param name
-   */
   public UserTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
-    
   }
 
   protected void databaseUnchanged() { 

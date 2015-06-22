@@ -116,8 +116,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
   /**
    * Get a templet by name, with optional purpose. 
    * 
-   * {@inheritDoc}
-   * @see TempletLoader#templet(TemplateEngine, AbstractMarkupLanguage, String, String)
+   * @see TempletLoader#templet
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,

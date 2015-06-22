@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test.throwing;
 
 import java.sql.ResultSet;
@@ -18,9 +15,6 @@ import org.melati.poem.dbms.test.sql.Thrower;
 public class ResultSetEnumerationTest extends
     org.melati.poem.test.ResultSetEnumerationTest {
 
-  /**
-   * @param name
-   */
   public ResultSetEnumerationTest(String name) {
     super(name);
   }

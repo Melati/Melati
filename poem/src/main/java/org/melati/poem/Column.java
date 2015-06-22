@@ -59,7 +59,7 @@ import org.melati.poem.util.StringUtils;
  * Abstract {@link Table} column which is extended by the generated classes.
  *
  * @author WilliamC At paneris.org
- * @param <P>
+ * @param <T> The type of the Column
  * 
  */
 public abstract class Column<T> implements FieldAttributes<T> {
@@ -738,7 +738,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
   /**
    * Load a Persistent field from a column of a ResultSet.
    * 
-   * @todo Double validation
+   * TODO Double validation
    * @param rs A <code>ResultSet</code>containing the value(s) to load
    * @param rsCol The index in the <tt>ResultSet</tt> of this {link column}
    * @param g The {@link Persistent} to load db values into
@@ -755,11 +755,11 @@ public abstract class Column<T> implements FieldAttributes<T> {
 
   /**
    * Set value in a PreparedStatement which is to be used to save to database.
-   * 
+   *
+   * TODO Double validation
    * @param g The {@link Persistent} containing unsaved values
    * @param ps <tt>PreparedStatement</tt> to save this column
    * @param psCol index of this Column in the PreparedStatement
-   * @todo Double validation
    */
   void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
     try {
@@ -893,7 +893,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
    * This is not used in Melati, but is used in Bibliomania. 
    * Throws AppBugPoemException if this Column is not an Integer column.
    * 
-   * @param whereClause
+   * @param whereClause the SQL fragment to use
    * @return the incremented value 
    * @since 04/05/2000
    */

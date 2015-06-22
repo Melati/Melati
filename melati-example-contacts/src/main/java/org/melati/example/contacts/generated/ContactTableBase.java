@@ -29,7 +29,7 @@ import org.melati.poem.ValidationPoemException;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>Contact</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
@@ -45,7 +45,7 @@ public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -62,7 +62,7 @@ public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {
@@ -73,7 +73,7 @@ public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -609,7 +609,7 @@ public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
  /**
   * Retrieve the <code>Contact</code> as a <code>Contact</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -622,7 +622,7 @@ public class ContactTableBase<T extends Contact> extends ContactsTable<T> {
   * Retrieve the <code>Contact</code> 
   * as a <code>Contact</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Contact getContactObject(int troid) {

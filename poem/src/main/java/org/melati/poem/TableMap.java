@@ -152,7 +152,7 @@ public class TableMap<P extends Persistent> implements Map<Integer, P> {
   }
 
   /** 
-   * @see java.util.Map#put(K, V)
+   * @see java.util.Map#put
    */
   @Override
   public P put(Integer arg0, Persistent arg1) {

@@ -59,26 +59,20 @@ public class ConsEnumeration<T> implements SkipEnumeration<T> {
 
   /**
    * Constructor with head and tail.
-   * @param head
-   * @param tail
+   * @param head single element
+   * @param tail the rest
    */
   public ConsEnumeration(T head, Enumeration<T> tail) {
     this.hd = head;
     this.tl = tail == null ?(Enumeration<T>) new EmptyEnumeration<T>() : tail;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see java.util.Enumeration#hasMoreElements()
-   */
+  @Override
   public synchronized boolean hasMoreElements() {
     return !hadHd || tl.hasMoreElements();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see java.util.Enumeration#nextElement()
-   */
+  @Override
   public synchronized T nextElement() {
     if (!hadHd) 
       try {
@@ -91,10 +85,7 @@ public class ConsEnumeration<T> implements SkipEnumeration<T> {
       return tl.nextElement();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.util.SkipEnumeration#skip()
-   */
+  @Override
   public synchronized void skip() {
     if (!hadHd)
       hadHd = true;

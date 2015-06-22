@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.SQLPoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.SQLPoemType;
  */
 public class SqlExceptionPoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
-  /**
-   * 
-   */
   public SqlExceptionPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public SqlExceptionPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new SqlExceptionPoemType(false);
   }

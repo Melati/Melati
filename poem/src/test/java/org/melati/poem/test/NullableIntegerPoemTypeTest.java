@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.IntegerPoemType;
@@ -14,31 +11,19 @@ import org.melati.poem.dbms.Dbms;
  */
 public class NullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableIntegerPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableIntegerPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new RangedIntegerPoemType(true, new Integer(2), new Integer(13));
   }
- 
-  
+
   public void testToDsdType() {
   }
-
 
   public void testAssertValidRaw() {
     super.testAssertValidRaw();
@@ -59,20 +44,11 @@ public class NullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest 
 
 
   class RangedIntegerPoemType extends IntegerPoemType {
-    /**
-     * @param nullableP
-     * @param low
-     * @param limit
-     */
     RangedIntegerPoemType(boolean nullableP, Integer low, Integer limit) {
       super(nullableP);
       setRawRange(low, limit);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see org.melati.poem.IntegerPoemType#sqlDefaultValue()
-     */
     public String sqlDefaultValue(Dbms Any) {
       return "2";
     }

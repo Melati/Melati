@@ -103,11 +103,10 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   *
   * @param melati the Melati
   * @param accessException the particular access exception to handle
-   * {@inheritDoc}
-   * @see org.melati.login.AccessHandler#
-   *   handleAccessException(org.melati.Melati, 
-   *                         org.melati.poem.AccessPoemException)
-   */
+  * @see org.melati.login.AccessHandler#
+  *   handleAccessException(org.melati.Melati,
+  *                         org.melati.poem.AccessPoemException)
+  */
   public void handleAccessException(Melati melati,
                                     AccessPoemException accessException)
       throws Exception {

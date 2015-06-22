@@ -113,21 +113,14 @@ public abstract class FieldDef {
   /**
    * Constructor.
    *
-   * @param table
-   *          the {@link TableDef} that this <code>Field</code> is part of
-   * @param name
-   *          the name of this field
-   * @param type
-   *          the POEM type of this field
-   * @param rawType
-   *          the underlying java type of this field
-   * @param displayOrder
-   *          where to place this field in a list
-   * @param qualifiers
-   *          all the qualifiers to be applied to this field
-   *
-   * @throws IllegalityException
-   *           if a semantic inconsistency is detected
+   * @param lineNo       the line number in the DSD file
+   * @param table        the {@link TableDef} that this <code>Field</code> is part of
+   * @param name         the name of this field
+   * @param type         the POEM type of this field
+   * @param rawType      the underlying java type of this field
+   * @param displayOrder where to place this field in a list
+   * @param qualifiers   all the qualifiers to be applied to this field
+   * @throws IllegalityException if a semantic inconsistency is detected
    */
   public FieldDef(int lineNo, TableDef table, String name, String type,
       String rawType, int displayOrder, Vector<FieldQualifier> qualifiers)
@@ -594,8 +587,7 @@ public abstract class FieldDef {
 
   /**
    * Set the sortDescending property.
-   *
-   * @param sortDescending
+   * @param sortDescending whether to sort in a descending order
    */
   public void setSortDescending(boolean sortDescending) {
     if (this.sortDescending)

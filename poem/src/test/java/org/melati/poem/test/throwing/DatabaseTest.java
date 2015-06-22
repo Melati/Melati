@@ -161,7 +161,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   * Test method for {@link org.melati.poem.Database#connect}.
    */
   public void testConnectThrowing3() {
     db = getDb();

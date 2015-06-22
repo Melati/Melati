@@ -69,9 +69,6 @@ public class HsqldbText extends Hsqldb {
    * The default is to keep everything in memory,
    * this allows for the db to be written to the disk.
    * 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#createTableSql()
-   * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
   public String createTableTypeQualifierSql(Table<?> table) {
     String tableType;

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.PoemTask;
@@ -15,26 +12,14 @@ import org.melati.poem.SessionToken;
  */
 public class SessionTokenTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public SessionTokenTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

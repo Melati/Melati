@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.Enumeration;
@@ -27,26 +24,14 @@ import org.melati.poem.util.StringUtils;
  */
 public class ProtectedPersistentTest extends PersistentTest {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public ProtectedPersistentTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PersistentTest#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PersistentTest#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

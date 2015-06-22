@@ -24,9 +24,6 @@ import org.melati.poem.dbms.test.sql.Thrower;
  */
 public class TableTest extends org.melati.poem.test.TableTest {
 
-  /**
-   * @param arg0
-   */
   public TableTest(String arg0) {
     super(arg0);
   }

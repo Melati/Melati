@@ -12,9 +12,8 @@ import org.melati.poem.test.generated.ProtectedBase;
  * </p>
  * 
  * <table>
- * <tr>
- * <th colspan='3'> Field summary for SQL table <code>Protected</code> </th>
- * </tr>
+ * <caption> Field summary for SQL table <code>Protected</code>
+ * </caption>
  * <tr>
  * <th>Name</th>
  * <th>Type</th>
@@ -42,7 +41,7 @@ import org.melati.poem.test.generated.ProtectedBase;
  * </tr>
  * </table>
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava
+ * See org.melati.poem.prepro.TableDef#generateMainJava
  */
 public class Protected extends ProtectedBase {
 
@@ -53,7 +52,7 @@ public class Protected extends ProtectedBase {
    * Description: A protected table.
    * </p>
    * 
-   * @generator org.melati.poem.prepro.TableDef#generateMainJava
+   * See org.melati.poem.prepro.TableDef#generateMainJava
    */
   public Protected() {
   }

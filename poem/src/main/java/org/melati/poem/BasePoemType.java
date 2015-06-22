@@ -210,6 +210,8 @@ public abstract class BasePoemType<T> implements SQLPoemType<T>, Cloneable {
   /**
    * Converts a non-null string to an appropriate value 
    * for insertion into the underlying DBMS.
+   * @param string the String to parse
+   * @return a converted type
    */
   protected abstract T _rawOfString(String string)
       throws ParsingPoemException;

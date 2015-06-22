@@ -73,6 +73,7 @@ public abstract class Thrower {
    * being called a number of times.
    * @param i Interface class object
    * @param methodName name in class.methodName format
+   * @param goes number of time method can be called before throwing
    */
   public static void startThrowingAfter(Class<?> i, String methodName, int goes) {
     String fullName = i.getName() + "." + methodName;

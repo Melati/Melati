@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.IntegerPoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.IntegerPoemType;
  */
 public class RangedNullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
-  /**
-   * 
-   */
   public RangedNullableIntegerPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public RangedNullableIntegerPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new IntegerPoemType(true);
   }

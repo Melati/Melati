@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.util.NoSuchElementException;
@@ -18,17 +15,10 @@ public class TableSortedMapTest extends TableMapTest {
   private TableSortedMap<org.melati.poem.User> it;
   private TableSortedMap<Setting> noArg;
 
-  /**
-   * @param name
-   */
   public TableSortedMapTest(String name) {
     super(name);
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.test.TableMapTest#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }

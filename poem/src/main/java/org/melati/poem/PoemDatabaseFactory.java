@@ -270,7 +270,7 @@ public final class PoemDatabaseFactory {
    * 
    * @author timp
    * @since 23 May 2007
-   * @see org.melati.servlet.PoemServletContextListener
+   * See org.melati.servlet.PoemServletContextListener
    * 
    */
   public static class PoemShutdownThread extends Thread {

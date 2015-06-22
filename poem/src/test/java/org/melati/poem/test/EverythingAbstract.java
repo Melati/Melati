@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.EverythingAbstractBase;
 
@@ -12,9 +15,9 @@ import org.melati.poem.test.generated.EverythingAbstractBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>EverythingAbstract</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> binaryfield </td><td> byte[] </td><td> &nbsp; </td></tr> 
  * <tr><td> stringfield </td><td> String </td><td> &nbsp; </td></tr> 
@@ -28,7 +31,7 @@ import org.melati.poem.test.generated.EverythingAbstractBase;
  * <tr><td> timestampfield </td><td> Timestamp </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class EverythingAbstract extends EverythingAbstractBase {
 
@@ -40,9 +43,11 @@ public class EverythingAbstract extends EverythingAbstractBase {
   *   Every datatype in one abstract table. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public EverythingAbstract() { }
+  public EverythingAbstract() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

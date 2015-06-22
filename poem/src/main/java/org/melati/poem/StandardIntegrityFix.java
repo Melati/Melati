@@ -98,10 +98,10 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
 
   /**
    * Each {@link StandardIntegrityFix} differs from another by the 
-   * way they implement {@link #referencesTo}.
+   * way they implement {#referencesTo}.
    *
-   * <b>delete</b> deletes all references to this {@link Persistent}. <br/>
-   * <b>clear</b> sets the references to null. <br/>
+   * <b>delete</b> deletes all references to this {@link Persistent}. <br>
+   * <b>clear</b> sets the references to null. <br>
    * <b>prevent</b> returns the references, which prevokes an exception
    * 
    * @see Persistent#delete(Map)

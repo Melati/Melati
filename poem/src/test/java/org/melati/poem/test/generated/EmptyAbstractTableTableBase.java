@@ -14,7 +14,7 @@ import org.melati.poem.test.EverythingTable;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>EmptyAbstractTable</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends EverythingTable<T> {
@@ -23,7 +23,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -40,7 +40,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public EverythingDatabaseTables getEverythingDatabaseTables() {
@@ -51,7 +51,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -61,7 +61,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
  /**
   * Retrieve the <code>EmptyAbstractTable</code> as a <code>EmptyAbstractTable</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -74,7 +74,7 @@ public class EmptyAbstractTableTableBase<T extends EmptyAbstractTable> extends E
   * Retrieve the <code>EmptyAbstractTable</code> 
   * as a <code>EmptyAbstractTable</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public EmptyAbstractTable getEmptyAbstractTableObject(int troid) {

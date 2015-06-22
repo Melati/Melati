@@ -37,7 +37,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the UserTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the UserTable from this database
   */
   public UserTable<User> getUserTable();
@@ -45,7 +45,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the GroupTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupTable from this database
   */
   public GroupTable<Group> getGroupTable();
@@ -53,7 +53,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the CapabilityTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the CapabilityTable from this database
   */
   public CapabilityTable<Capability> getCapabilityTable();
@@ -61,7 +61,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the GroupMembershipTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupMembershipTable from this database
   */
   public GroupMembershipTable<GroupMembership> getGroupMembershipTable();
@@ -69,7 +69,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the GroupCapabilityTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the GroupCapabilityTable from this database
   */
   public GroupCapabilityTable<GroupCapability> getGroupCapabilityTable();
@@ -77,7 +77,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the TableCategoryTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableCategoryTable from this database
   */
   public TableCategoryTable<TableCategory> getTableCategoryTable();
@@ -85,7 +85,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the TableInfoTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the TableInfoTable from this database
   */
   public TableInfoTable<TableInfo> getTableInfoTable();
@@ -93,7 +93,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the ColumnInfoTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the ColumnInfoTable from this database
   */
   public ColumnInfoTable<ColumnInfo> getColumnInfoTable();
@@ -101,7 +101,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the SettingTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the SettingTable from this database
   */
   public SettingTable<Setting> getSettingTable();
@@ -109,7 +109,7 @@ public interface TreeDatabaseTablesBase {
  /**
   * Retrieves the NodeTable table.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * See org.melati.poem.prepro.TableDef#generateTableAccessorJava 
   * @return the NodeTable from this database
   */
   public NodeTable<Node> getNodeTable();

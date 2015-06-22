@@ -1,4 +1,7 @@
+// Delete this line to prevent overwriting of this file
+
 package org.melati.poem.test;
+
 
 import org.melati.poem.test.generated.EAExtendedBase;
 
@@ -8,13 +11,13 @@ import org.melati.poem.test.generated.EAExtendedBase;
  * 
  * <p> 
  * Description: 
- *   Every datatype inheritted from an abstract table and a normally defined. 
+ *   Every datatype inheritted from an abstract table and normally defined. 
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>EAExtended</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> binaryfield2 </td><td> byte[] </td><td> Second Binary Field 
@@ -37,7 +40,7 @@ import org.melati.poem.test.generated.EAExtendedBase;
  * Field </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class EAExtended extends EAExtendedBase {
 
@@ -46,13 +49,14 @@ public class EAExtended extends EAExtendedBase {
   * for a <code>Persistent</code> <code>EAExtended</code> object.
   * <p>
   * Description: 
-  *   Every datatype inheritted from an abstract table and a normally 
-  *   defined. 
+  *   Every datatype inheritted from an abstract table and normally defined. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
-  public EAExtended() { }
+  public EAExtended() { 
+    super();
+}
 
   // programmer's domain-specific code here
 }

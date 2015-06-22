@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.StandardIntegrityFix;
@@ -13,26 +10,14 @@ import org.melati.poem.StandardIntegrityFix.NameUnrecognisedException;
  */
 public class StandardIntegrityFixTest extends PoemTestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public StandardIntegrityFixTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

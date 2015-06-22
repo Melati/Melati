@@ -72,17 +72,13 @@ public class TableSortedMap<P extends Persistent> extends TableMap<P>
 
   /**
    * We use native ordering. 
-   * {@inheritDoc}
-   * @see java.util.SortedMap#comparator()
    */
+  @Override
   public Comparator<Integer> comparator() {
     return null;
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.util.SortedMap#firstKey()
-   */
+  @Override
   public Integer firstKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
@@ -102,6 +98,7 @@ public class TableSortedMap<P extends Persistent> extends TableMap<P>
    * account of deletion as mostRecentTroid is never decremented 
    * @see java.util.SortedMap#lastKey()
    */
+  @Override
   public Integer lastKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
@@ -109,25 +106,17 @@ public class TableSortedMap<P extends Persistent> extends TableMap<P>
     return them.nextElement().troid();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.util.SortedMap#subMap(K fromKey, K toKey)
-   */
+  @Override
   public SortedMap<Integer, P> subMap(Integer fromKey, Integer toKey) {
     throw new UnsupportedOperationException();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see java.util.SortedMap#headMap(K)
-   */
+  @Override
   public SortedMap<Integer, P> headMap(Integer toKey) {
     throw new UnsupportedOperationException();
   }
-  /** 
-   * {@inheritDoc}
-   * @see java.util.SortedMap#tailMap(K)
-   */
+
+  @Override
   public SortedMap<Integer, P> tailMap(Integer arg0) {
     throw new UnsupportedOperationException();
   }

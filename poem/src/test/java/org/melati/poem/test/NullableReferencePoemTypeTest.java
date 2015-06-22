@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.ReferencePoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.ReferencePoemType;
  */
 public class NullableReferencePoemTypeTest extends NotNullableReferencePoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableReferencePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableReferencePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new ReferencePoemType(getDb().getCapabilityTable(), true);
   }

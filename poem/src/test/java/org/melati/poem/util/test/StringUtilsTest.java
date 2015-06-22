@@ -55,7 +55,7 @@ import org.melati.poem.util.StringUtils;
 public class StringUtilsTest extends TestCase {
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#split(String, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#split}.
    */
   public void testSplit() {
     String them = "one,two,three";
@@ -64,7 +64,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#appendEscaped(StringBuffer, String, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#appendEscaped(StringBuffer, String, char)}.
    */
   public void testAppendEscaped() {
     StringBuffer buff = new StringBuffer();
@@ -78,7 +78,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#appendQuoted(StringBuffer, String, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#appendQuoted(StringBuffer, String, char)}.
    */
   public void testAppendQuoted() {
     StringBuffer buff = new StringBuffer();
@@ -90,7 +90,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#quoted(String, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#quoted(String, char)}.
    */
   public void testQuoted() {
     assertEquals("\"a\"", StringUtils.quoted("a",'"'));
@@ -98,7 +98,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#escaped(String, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#escaped(String, char)}.
    */
   public void testEscaped() {
  // deprecated
@@ -106,14 +106,14 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#capitalised(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#capitalised(String)}.
    */
   public void testCapitalised() {
     assertEquals("Capitalised", StringUtils.capitalised("capitalised"));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#uncapitalised(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#uncapitalised(String)}.
    */
   public void testUncapitalised() {
     assertEquals("capitalised", StringUtils.uncapitalised("Capitalised"));
@@ -121,14 +121,14 @@ public class StringUtilsTest extends TestCase {
 
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#tr(String, String, String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#tr(String, String, String)}.
    */
   public void testTrStringStringString() {
     assertEquals("Muther", StringUtils.tr("Mother","o","u"));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#tr(String, char, char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#tr(String, char, char)}.
    */
   @SuppressWarnings("deprecation")
   public void testTrStringCharChar() {
@@ -136,7 +136,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#concatenated(String, String[])}.
+   * Test method for {@link org.melati.poem.util.StringUtils#concatenated(String, String[])}.
    */
   public void testConcatenated() {
     String[] them = {"one", "two", "three"};
@@ -146,14 +146,14 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#randomString(int)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#randomString(int)}.
    */
   public void testRandomString() {
     assertEquals(5, StringUtils.randomString(5).length());
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#nulled(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#nulled(String)}.
    */
   public void testNulled() {
     assertEquals(null, StringUtils.nulled(""));
@@ -162,7 +162,7 @@ public class StringUtilsTest extends TestCase {
 
   
   /**
-   * Test method for {@link org.melati.util.StringUtils#unNulled(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#unNulled(String)}.
    */
   public void testUnNulled() {
     String expected = "a";
@@ -171,7 +171,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#unNulled(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#unNulled(String)}.
    */
   public void testUnNulledNull() {
     String expected = "";
@@ -181,7 +181,8 @@ public class StringUtilsTest extends TestCase {
 
   /**
    * Test hex encoding and decoding.
-   * Test method for 'org.melati.util.StringUtils.hexEncoding(byte[])'
+   * Test method for {@link org.melati.poem.util.StringUtils#hexEncoding(byte[])}
+   *
    */
   public void testHexEncoding() {
     String[] strings = {"01234567", "abcdef", "f1234bcd"};
@@ -194,7 +195,7 @@ public class StringUtilsTest extends TestCase {
 
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#hexDecoding(char)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#hexDecoding(char)}.
    */
   public void testHexDecodingChar() {
     assertEquals(new Integer(10), new Integer(StringUtils.hexDecoding('A')));
@@ -210,7 +211,7 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#hexDecoding(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#hexDecoding(String)}.
    */
   public void testHexDecodingString() {
     byte[] b = StringUtils.hexDecoding("41");
@@ -224,42 +225,42 @@ public class StringUtilsTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuoted() {
     assertTrue(StringUtils.isQuoted("\"a\""));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuotedNull() {
     assertTrue(!StringUtils.isQuoted(null));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuotedBlank() {
     assertTrue(!StringUtils.isQuoted(""));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuotedNot() {
     assertTrue(!StringUtils.isQuoted("a"));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuotedDouble() {
     assertTrue(StringUtils.isQuoted("\"a\""));
   }
 
   /**
-   * Test method for {@link org.melati.util.StringUtils#isQuoted(String)}.
+   * Test method for {@link org.melati.poem.util.StringUtils#isQuoted(String)}.
    */
   public void testIsQuotedSingle() {
     assertTrue(StringUtils.isQuoted("\'a\'"));

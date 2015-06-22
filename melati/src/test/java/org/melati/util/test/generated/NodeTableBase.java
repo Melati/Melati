@@ -25,7 +25,7 @@ import org.melati.util.test.TreeTable;
 /**
  * Melati POEM generated base class for <code>Table</code> <code>Node</code>.
  *
- * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+ * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class NodeTableBase<T extends Node> extends TreeTable<T> {
@@ -37,7 +37,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
  /**
   * Constructor. 
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -54,7 +54,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
  /**
   * Get the database tables.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
   public TreeDatabaseTables getTreeDatabaseTables() {
@@ -65,7 +65,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
  /**
   * Initialise this table by defining its columns.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   */
   public void init() throws PoemException {
     super.init();
@@ -292,7 +292,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
  /**
   * Retrieve the <code>Node</code> as a <code>Node</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
@@ -305,7 +305,7 @@ public class NodeTableBase<T extends Node> extends TreeTable<T> {
   * Retrieve the <code>Node</code> 
   * as a <code>Node</code>.
   *
-  * see org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * See org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
   public Node getNodeObject(int troid) {

@@ -15,16 +15,16 @@ import org.melati.poem.test.generated.StringFieldBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>StringField</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> stringfield </td><td> String </td><td> &nbsp; </td></tr> 
  * <tr><td> unlimited </td><td> String </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
- * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava 
  */
 public class StringField extends StringFieldBase {
 
@@ -36,7 +36,7 @@ public class StringField extends StringFieldBase {
   *   A table with only a string field in it. 
   * </p>
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava 
   */
   public StringField() { 
     super();

@@ -47,41 +47,25 @@ import org.melati.util.MelatiRuntimeException;
 
 /**
  * Thrown when an exception is not handled or authentication fails.
+ *
  * @author timp
  * @since 17/12/2007
  */
 public class UnhandledExceptionException extends MelatiRuntimeException {
-
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @param message
-   * @param subException
-   */
   public UnhandledExceptionException(String message, Exception subException) {
     super(message, subException);
   }
 
-  /**
-   * @param message
-   */
   public UnhandledExceptionException(String message) {
     super(message);
   }
 
-  /**
-   * @param subException
-   */
   public UnhandledExceptionException(Exception subException) {
     super(subException);
   }
 
-  /**
-   * 
-   */
   public UnhandledExceptionException() {
   }
 

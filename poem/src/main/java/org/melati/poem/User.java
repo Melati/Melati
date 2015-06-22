@@ -60,9 +60,9 @@ import org.melati.poem.generated.UserBase;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>User</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> name </td><td> String </td><td> The user's real name </td></tr> 
@@ -71,7 +71,7 @@ import org.melati.poem.generated.UserBase;
  * </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * See org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class User extends UserBase implements AccessToken {
 
@@ -84,7 +84,7 @@ public class User extends UserBase implements AccessToken {
   *   A registered user of the database. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * See org.melati.poem.prepro.TableDef#generateMainJava 
   */
   public User() { }
 

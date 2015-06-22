@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.sql.Date;
@@ -17,25 +14,14 @@ import org.melati.poem.Setting.SettingValidationException;
  */
 public class SettingTest extends EverythingTestCase {
 
-  /**
-   * Constructor for SettingTest.
-   * 
-   * @param name
-   */
   public SettingTest(String name) {
     super(name);
   }
 
-  /**
-   * @see PoemTestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /**
-   * @see PoemTestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

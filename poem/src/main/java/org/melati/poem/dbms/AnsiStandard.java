@@ -238,10 +238,7 @@ public class AnsiStandard implements Dbms {
     return "?";
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#createTableSql()
-   */
+  @Override
   public String createTableSql(Table<?> table) {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE " + createTableTypeQualifierSql(table) + 
@@ -492,10 +489,6 @@ public class AnsiStandard implements Dbms {
     return b.toString();
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
-   */
   public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BooleanPoemType) {
       return value;
@@ -663,11 +656,7 @@ public class AnsiStandard implements Dbms {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#
-   *      alterColumnNotNullableSQL(java.lang.String, java.lang.String)
-   */
+  @Override
   public String alterColumnNotNullableSQL(String tableName, Column<?> column) {
     return "ALTER TABLE " + getQuotedName(tableName) +
     " ALTER COLUMN " + getQuotedName(column.getName()) +
@@ -689,10 +678,7 @@ public class AnsiStandard implements Dbms {
     return booleanColumn.fullQuotedName();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getSqlDefaultValue(java.lang.String)
-   */
+  @Override
   public String getSqlDefaultValue(SQLType<?> sqlType) {
     if (sqlType instanceof BooleanPoemType) {
       return ("false");

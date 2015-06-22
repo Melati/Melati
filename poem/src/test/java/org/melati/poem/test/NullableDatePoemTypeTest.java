@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.DatePoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.DatePoemType;
  */
 public class NullableDatePoemTypeTest extends NotNullableDatePoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableDatePoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableDatePoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new DatePoemType(true);
   }

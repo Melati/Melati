@@ -57,7 +57,8 @@ import java.sql.ResultSet;
  * {@link Table#selection()} on the one hand, and the low-level
  * <TT>ResultSet</TT> on the other.
  *
- * <p><quote>
+ *
+ * <blockquote>
  * 
  * TailoredQuery is specifically for when you want a few fields back
  * (possibly joined from several tables) rather than whole objects.
@@ -71,7 +72,9 @@ import java.sql.ResultSet;
  * POEM---e.g. access control, rich metadata that makes rendering
  * trivial---you can use a TailoredQuery.
  *
- * </quote><P>
+ * </blockquote>
+ *
+ * <p>
  *
  * If Postgresql's <TT>ResultSetMetaData</TT> supported <TT>getTableName</TT>
  * even approximately, this would all be "even simpler" to use and somewhat
@@ -312,8 +315,8 @@ public class TailoredQuery {
    * &nbsp;#foreach $fieldSet in $tailoredQuery.selection() #begin<BR>
    * &nbsp;&nbsp;&lt;TR&gt;<BR>
    * &nbsp;&nbsp;&nbsp;#foreach $field in $fieldSet #begin<BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field.DisplayName)&lt;/TD><BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field)&lt;/TD><BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD&gt;$ml.rendered($field.DisplayName)&lt;/TD&gt;<BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD&gt;$ml.rendered($field)&lt;/TD&gt;<BR>
    * &nbsp;&nbsp;&nbsp;#end<BR>
    * &nbsp;&nbsp;&lt;/TR&gt;<BR>
    * &nbsp;#end<BR>
@@ -353,8 +356,8 @@ public class TailoredQuery {
    * @see FieldSet#elements()
    * @see FieldSet#get(java.lang.String)
    * @see PoemThread#accessToken()
-   * @see org.melati.template.MarkupLanguage#rendered(Object)
    * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
+   * Used in org.melati.template.MarkupLanguage#rendered(Object)
    *
    * @return 
    * An <TT>Enumeration</TT> of <TT>FieldSet</TT>s, one per row returned from

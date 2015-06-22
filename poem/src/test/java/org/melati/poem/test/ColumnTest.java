@@ -57,8 +57,7 @@ public class ColumnTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Column#
-   *      Column(Table, String, SQLPoemType, DefinitionSource)
+   * @see org.melati.poem.Column#Column(Table, String, SQLPoemType, DefinitionSource)
    */
   public void testColumn() {
 

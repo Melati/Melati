@@ -22,23 +22,16 @@ public class DisplayLevelPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   public DisplayLevelPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public DisplayLevelPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new DisplayLevelPoemType();
   }
 
   /**
-   * Test tString.
+   * Test toString.
    */
   public void testToString() {
     assertEquals("display level (INT (org.melati.poem.DisplayLevelPoemType))", it.toString());

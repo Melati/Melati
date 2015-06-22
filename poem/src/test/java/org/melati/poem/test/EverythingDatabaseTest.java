@@ -10,21 +10,14 @@ import org.melati.poem.UserTable;
  */
 public class EverythingDatabaseTest extends EverythingTestCase {
 
-  
-  /**
-   * Constructor for PoemTest.
-   * @param arg0
-   */
   public EverythingDatabaseTest(String arg0) {
     super(arg0);
   }
 
-  /*
-   * @see TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
+
   /**
    * Test method for 'org.melati.poem.test.generated.EverythingDatabaseBase.getUserTable()'
    * Test method for 'org.melati.poem.Database.getTable(String)'
@@ -75,6 +68,5 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     //System.err.println(result);
     assertEquals(expected, outcome);
   }
-
 
 }

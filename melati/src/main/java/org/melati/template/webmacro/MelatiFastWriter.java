@@ -86,7 +86,7 @@ public class MelatiFastWriter extends MelatiWriter
   /**
    * Return a <code>FastWriter</code> that can be used for a while instead.
    *
-   * @see #stopUsingFastWriter(FastWriter)
+   * @see #stopUsingFastWriter
    */
   public org.webmacro.FastWriter getFastWriter() {
     // as we can write to the underlying peer, the Flusher may not get started
@@ -100,7 +100,7 @@ public class MelatiFastWriter extends MelatiWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    *
-   * @see #getFastWriter(TemplateEngine)
+   * @see #getFastWriter
    */
   public void stopUsingFastWriter(org.webmacro.FastWriter fw) {
     // Do nothing

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.Searchability;
@@ -14,26 +11,14 @@ import junit.framework.TestCase;
  */
 public class SearchabilityTest extends TestCase {
 
-  /**
-   * Constructor.
-   * @param name
-   */
   public SearchabilityTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#setUp()
-   */
   protected void setUp() throws Exception {
     super.setUp();
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see junit.framework.TestCase#tearDown()
-   */
   protected void tearDown() throws Exception {
     super.tearDown();
   }

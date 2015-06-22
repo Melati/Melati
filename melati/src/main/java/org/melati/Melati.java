@@ -393,7 +393,7 @@ public class Melati {
   /**
    * Set the aruments array from the commandline.
    *
-   * @param args
+   * @param args the arguments to set
    */
   public void setArguments(String[] args) {
     arguments = args;

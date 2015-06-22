@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.text.DateFormat;
@@ -18,27 +15,16 @@ import org.melati.poem.PoemLocale;
  */
 public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
-  /**
-   * 
-   */
   public NotNullablelntegrityFixPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullablelntegrityFixPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new IntegrityFixPoemType(false);
   }
-
 
   public void testPossibleRaws() {
     super.testPossibleRaws();

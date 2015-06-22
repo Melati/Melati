@@ -120,7 +120,7 @@ public final class StringUtils {
   /**
    * Captialise the first character of the input string.
    *
-   * @param name
+   * @param name the string to be capitalised
    * @return the capitalised string
    */
   public static String capitalised(String name) {

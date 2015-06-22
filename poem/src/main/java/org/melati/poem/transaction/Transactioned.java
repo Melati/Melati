@@ -117,7 +117,7 @@ public abstract class Transactioned {
   /**
    * We don't synchronize this; under the one-thread-per-transaction 
    * parity it can't happen, and at worst it means loading twice sometimes.
-   * @param transaction
+   * @param transaction the transaction to check
    */
   private void ensureValid(Transaction transaction) {
     if (!valid) {

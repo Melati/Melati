@@ -15,9 +15,9 @@ import org.melati.template.MarkupLanguage;
  * </p>
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>UploadedFile</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> filename </td><td> String </td><td> The name of the file, as 
@@ -37,7 +37,7 @@ import org.melati.template.MarkupLanguage;
  * deleted or not </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentJava
  */
 public class UploadedFile 
     extends UploadedFileBase 
@@ -51,7 +51,7 @@ public class UploadedFile
   *   A file uploaded by a user. 
   * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generatePersistentJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentJava
   */
   public UploadedFile() { }
 

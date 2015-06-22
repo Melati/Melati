@@ -26,7 +26,7 @@ import org.melati.poem.util.EmptyEnumeration;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Contact</code> Object.
  *
- * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+ * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class ContactBase extends JdbcPersistent {
 
@@ -34,7 +34,7 @@ public abstract class ContactBase extends JdbcPersistent {
  /**
   * Retrieves the Database object.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the database
   */
   public ContactsDatabaseTables getContactsDatabaseTables() {
@@ -46,7 +46,7 @@ public abstract class ContactBase extends JdbcPersistent {
   * Retrieves the  <code>ContactTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * see org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
+  * See org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ContactTable
   */
   @SuppressWarnings("unchecked")

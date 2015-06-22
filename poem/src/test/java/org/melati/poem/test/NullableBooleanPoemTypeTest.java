@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.BooleanPoemType;
@@ -12,23 +9,13 @@ import org.melati.poem.BooleanPoemType;
  */
 public class NullableBooleanPoemTypeTest extends NotNullableBooleanPoemTypeTest {
 
-  /**
-   * 
-   */
   public NullableBooleanPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NullableBooleanPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new BooleanPoemType(true);
   }

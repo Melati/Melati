@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.sql.Types;
@@ -19,23 +16,13 @@ import org.melati.poem.TypeMismatchPoemException;
  */
 public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec<Integer> {
 
-  /**
-   * 
-   */
   public NotNullableIntegerPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableIntegerPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new IntegerPoemType(false);
   }
@@ -121,11 +108,6 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeSpec<Integer> {
   }
   class MyIntegerPoemType extends IntegerPoemType {
 
-    /**
-     * @param sqlTypeCode
-     * @param sqlTypeName
-     * @param nullable
-     */
     public MyIntegerPoemType(boolean nullable) {
       super(Types.INTEGER, "INT", nullable);
     }

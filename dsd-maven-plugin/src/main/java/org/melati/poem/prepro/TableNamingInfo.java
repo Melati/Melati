@@ -314,7 +314,8 @@ public class TableNamingInfo {
   }
 
   /**
-   * Find the top-most superclass of this table which has the same (short) name
+   * Find the top-most superclass of this table which has the same (short) name.
+   * @return the TableNamingInfo of the superclass or null if there is none
    */
   protected TableNamingInfo getRootSameNamedSuperclass() {
     TableNamingInfo curr = this;

@@ -629,7 +629,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * @return A type string eg "TEXT"
-   * @see {@link org.melati.poem.dbms.Hsqldb}
+   * @see org.melati.poem.dbms.Hsqldb
    */
   public String getDbmsTableType() {
     return null;
@@ -1187,7 +1187,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * @param orderByClause Comma separated list
    * @param includeDeleted Flag as to whether to include soft deleted records
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
-   * @todo Should work within some kind of limit
+   * TODO Should work within some kind of limit
    * @return an SQL SELECT statement put together from the arguments and
    * default order by clause.
    */
@@ -1761,7 +1761,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * subtypes can append elements of a join but there is no filtering
    * by canselect columns.
    * 
-   * @todo Add mechanism for searching for Nulls (that would be query
+   * TODO Add mechanism for searching for Nulls (that would be query
    * constructs as per SQL parse tree, but efferent not afferent)
    *
    * @see #notifyColumnInfo(ColumnInfo)
@@ -2710,7 +2710,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * meta data held in the {@link org.melati.poem.TableInfo}
    *
    * @param colDescs a JDBC {@link java.sql.ResultSet} describing the columns with cursor at current row
-   * @param primaryKey name of primary key column
+   * @param troidColumnName name of primary key column
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -2889,9 +2889,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Ensure tables can be used as hashtable keys.
-   * <p>
-   * {@link Persistent#hashCode()} is defined in terms of this
-   * but not used at the time of writing.
    * {@inheritDoc}
    * @see java.lang.Object#hashCode()
    */

@@ -64,23 +64,23 @@ import java.sql.ResultSet;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Capability</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
  * <tr><td> name </td><td> String </td><td> A human-readable name for the 
  * capability </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * See  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class CapabilityTable<T extends Capability> extends CapabilityTableBase<T> {
 
  /**
   * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * See org.melati.poem.prepro.TableDef#generateTableMainJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -109,7 +109,7 @@ public class CapabilityTable<T extends Capability> extends CapabilityTableBase<T
   * as they are referrred to in column definition.
   *
   * @param colDescs the {@link Column} descriptions
-  * @see org.melati.poem.Table#defineColumn(Column, boolean) 
+  * @see org.melati.poem.Table#defineColumn(Column)
   */
   public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {

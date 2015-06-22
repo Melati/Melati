@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import org.melati.poem.StringLengthValidationPoemException;
@@ -13,23 +10,13 @@ import org.melati.poem.StringPoemType;
  */
 public class NotNullableSizedStringPoemTypeTest extends SizedAtomPoemTypeSpec<String> {
 
-  /**
-   * 
-   */
   public NotNullableSizedStringPoemTypeTest() {
   }
 
-  /**
-   * @param name
-   */
   public NotNullableSizedStringPoemTypeTest(String name) {
     super(name);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.test.SQLPoemTypeSpec#setObjectUnderTest()
-   */
   void setObjectUnderTest() {
     it = new StringPoemType(false, 20);
   }
@@ -43,6 +30,5 @@ public class NotNullableSizedStringPoemTypeTest extends SizedAtomPoemTypeSpec<St
       e = null;
     }
   }
-  
 
 }

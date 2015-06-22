@@ -18,9 +18,9 @@ import org.melati.poem.PoemException;
  *
  * 
  * <table> 
- * <tr><th colspan='3'>
+ * <caption>
  * Field summary for SQL table <code>Protected</code>
- * </th></tr>
+ * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> spy </td><td> User </td><td> Spy </td></tr> 
@@ -37,14 +37,14 @@ import org.melati.poem.PoemException;
  * existant  </td></tr> 
  * </table> 
  * 
- * see  org.melati.poem.prepro.TableDef#generateTableJava 
+ * See org.melati.poem.prepro.TableDef#generateTableJava 
  */
 public class ProtectedTable<T extends Protected> extends ProtectedTableBase<Protected> {
 
  /**
   * Constructor.
   * 
-  * see org.melati.poem.prepro.TableDef#generateTableJava 
+  * See org.melati.poem.prepro.TableDef#generateTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

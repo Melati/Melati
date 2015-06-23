@@ -17,7 +17,7 @@ public class OdmgTable<P extends Persistent> extends JdbcTable<P> {
  /**
   * Constructor. 
   * 
-  * See org.melati.poem.prepro.DSD#generateProjectTableJava
+  * See org.melati.poem.prepro.DSD#generateProjectTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used

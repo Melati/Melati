@@ -1,150 +1,161 @@
 <?xml version="1.0"?>
-
-<document>
-
-  <properties>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
     <title>Melati - Java SQL Website Development Engine</title>
+  </head>
+  <properties>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      ORM, Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
 
 
-<!--
-<p align="center">
- <font size="-1"><i>
-This page last updated: $Date$ $Author$
- </i></font>
-</p>
--->
-  
-<!-- menu -->
+    <!--
+    <p align="center">
+     <font size="-1"><i>
+    This page last updated: $Date$ $Author$
+     </i></font>
+    </p>
+    -->
 
-<section name=" Database Design ">
-<p>
-POEM makes some assumptions about database design best practice.
-</p>
-<subsection name=" Table and Field Naming ">
-<p>
-Ideally database table names are all lowercase, the java class name 
-will be all lowercase with first letter capitalised.
-</p>
-<p>
-Whatever case you use in the DSD will be respected and reflected in the 
-java class names, method names and database table names created.
-</p>
-<p>
-Names cannot start with a number.
-</p>
-</subsection>
-<subsection name=" Keys ">
-<p>
-All tables are expected to have a unique field called <tt>id</tt>, it is this field 
-that is used when this record is referred to in another record.
-</p>
-<p>
-Keys are dataless, unchanging, unique and unambiguous (DU<sup>3</sup>)
-</p>
-</subsection>
-<subsection name=" Indexing ">
-<p>
-All fields designated as searchable have an index created on them if they do not already have one. 
-Melati assumes that the dbms will plan queries effectively using whatever keys it has available.
-</p>
-</subsection>
-</section>
-<section name=" The database application balance ">
-<p>
-The balance of responsibility between an application and its datastore is a key consideration 
-in the architecture of a system.
-</p>
-<p>
-POEM is designed to enable rapid prototyping and to be database agnostic. This means that 
-POEM attempts to make as little use as possible of the underlying database management system (DBMS). 
-The DBMS syntax required is split out into the <tt>dbms</tt> package where each dbms idiosyncrasy 
-is made explicit.
-This makes switching applications from one dbms to another trivial and often effortless.
-</p>
-<p>
-The project however may require more extensive use of the underlying DBMS, perhaps the 
-care and maintenance of the database is to be handed over to a dedicated DBA or there may be a 
-a desire to use a schema graphing tools (such as 
-<a href="http://schemaspy.sourceforge.net" title="Cool schema graphing tool">Schema Spy</a>).
-To enable this there is an optional property on a Melati <tt>LogicalDatabase</tt> to add constraints.
-When set primary key constraints, foreign key constraints and referential integrity constraints 
-are added to the database. 
-</p>
-<p>
-Constraints are added after the database has been initialised, to avoid the problem of 
-referring to a table in a foreign key before it has been created.
-</p>
-<p>
-Note that there may be a downside to adding constraints. It may mean that you need to manually 
-delete these constraints before being able to alter your table structure.
-</p>
-<subsection name=" Primary Key Constraints ">
-<p>
-POEM only ensures that primary keys are indexed and unique and creates such an index if it is missing.
-</p>
-<p>
-When the <tt>AddConstraints</tt> property is set then Primary Key constraints are added to 
-the Table Row Id (TROID) column of all tables.
-</p>
-</subsection>
-<subsection name=" Foreign Key Constraints ">
-<p>
-POEM does not use the DBMS' Foreign Keys, as it maintains its own metadata in the 
-<tt>ColumnInfo</tt> table, but for schema export or reporting this metadata needs to be 
-known by the DBMS.
-</p>
-<p>
-The <tt>AddConstraints</tt> property allows the setting of these constraints.
-</p>
-<p>
-Foreign Keys should not have any impact upon a Melati system, though there is a chance of 
-increased or decreased performance depending upon your DBMS.
-</p>
-</subsection>
-<subsection name=" Referential Integrity Constraints ">
-<p>
-POEM has its own mechanism for ensuring referential integrity. 
-The standard referential integrity policies correspond to those found in most modern DBMS.
-</p>
-<table>
-<tr>
-<th>
-POEM
-</th>
-<th>SQL</th>
-</tr>
-<tr>
-<td>prevent</td>
-<td>RESTRICT</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>CASCADE</td>
-</tr>
-<tr>
-<td>clear</td>
-<td>SET NULL</td>
-</tr>
-</table>
-<p>
-Of course if you have written your own POEM <tt>IntegrityFix</tt> fix then 
-this will not be communicated to the DBMS.
-</p>
-<p>
-Note that POEM does not have an equivalent of <tt>ON UPDATE</tt> as POEM keys are 
-intended to be unchanging.
-</p>
-</subsection>
-</section>
-</body>
+    <!-- menu -->
+
+    <section name=" Database Design ">
+      <p>
+        POEM makes some assumptions about database design best practice.
+      </p>
+      <subsection name=" Table and Field Naming ">
+        <p>
+          Ideally database table names are all lowercase, the java class name
+          will be all lowercase with first letter capitalised.
+        </p>
+        <p>
+          Whatever case you use in the DSD will be respected and reflected in the
+          java class names, method names and database table names created.
+        </p>
+        <p>
+          Names cannot start with a number.
+        </p>
+      </subsection>
+      <subsection name=" Keys ">
+        <p>
+          All tables are expected to have a unique field called<tt>id</tt>, it is this field
+          that is used when this record is referred to in another record.
+        </p>
+        <p>
+          Keys are dataless, unchanging, unique and unambiguous (DU<sup>3</sup>)
+        </p>
+      </subsection>
+      <subsection name=" Indexing ">
+        <p>
+          All fields designated as searchable have an index created on them if they do not already have one.
+          Melati assumes that the dbms will plan queries effectively using whatever keys it has available.
+        </p>
+      </subsection>
+    </section>
+    <section name=" The database application balance ">
+      <p>
+        The balance of responsibility between an application and its datastore is a key consideration
+        in the architecture of a system.
+      </p>
+      <p>
+        POEM is designed to enable rapid prototyping and to be database agnostic. This means that
+        POEM attempts to make as little use as possible of the underlying database management system (DBMS).
+        The DBMS syntax required is split out into the
+        <tt>dbms</tt>
+        package where each dbms idiosyncrasy
+        is made explicit.
+        This makes switching applications from one dbms to another trivial and often effortless.
+      </p>
+      <p>
+        The project however may require more extensive use of the underlying DBMS, perhaps the
+        care and maintenance of the database is to be handed over to a dedicated DBA or there may be a
+        a desire to use a schema graphing tools (such as
+        <a href="http://schemaspy.sourceforge.net" title="Cool schema graphing tool">Schema Spy</a>).
+        To enable this there is an optional property on a Melati
+        <tt>LogicalDatabase</tt>
+        to add constraints.
+        When set primary key constraints, foreign key constraints and referential integrity constraints
+        are added to the database.
+      </p>
+      <p>
+        Constraints are added after the database has been initialised, to avoid the problem of
+        referring to a table in a foreign key before it has been created.
+      </p>
+      <p>
+        Note that there may be a downside to adding constraints. It may mean that you need to manually
+        delete these constraints before being able to alter your table structure.
+      </p>
+      <subsection name=" Primary Key Constraints ">
+        <p>
+          POEM only ensures that primary keys are indexed and unique and creates such an index if it is missing.
+        </p>
+        <p>
+          When the
+          <tt>AddConstraints</tt>
+          property is set then Primary Key constraints are added to
+          the Table Row Id (TROID) column of all tables.
+        </p>
+      </subsection>
+      <subsection name=" Foreign Key Constraints ">
+        <p>
+          POEM does not use the DBMS' Foreign Keys, as it maintains its own metadata in the
+          <tt>ColumnInfo</tt>
+          table, but for schema export or reporting this metadata needs to be
+          known by the DBMS.
+        </p>
+        <p>
+          The
+          <tt>AddConstraints</tt>
+          property allows the setting of these constraints.
+        </p>
+        <p>
+          Foreign Keys should not have any impact upon a Melati system, though there is a chance of
+          increased or decreased performance depending upon your DBMS.
+        </p>
+      </subsection>
+      <subsection name=" Referential Integrity Constraints ">
+        <p>
+          POEM has its own mechanism for ensuring referential integrity.
+          The standard referential integrity policies correspond to those found in most modern DBMS.
+        </p>
+        <table>
+          <tr>
+            <th>
+              POEM
+            </th>
+            <th>SQL</th>
+          </tr>
+          <tr>
+            <td>prevent</td>
+            <td>RESTRICT</td>
+          </tr>
+          <tr>
+            <td>delete</td>
+            <td>CASCADE</td>
+          </tr>
+          <tr>
+            <td>clear</td>
+            <td>SET NULL</td>
+          </tr>
+        </table>
+        <p>
+          Of course if you have written your own POEM
+          <tt>IntegrityFix</tt>
+          fix then
+          this will not be communicated to the DBMS.
+        </p>
+        <p>
+          Note that POEM does not have an equivalent of
+          <tt>ON UPDATE</tt>
+          as POEM keys are
+          intended to be unchanging.
+        </p>
+      </subsection>
+    </section>
+  </body>
 </document>
 
 

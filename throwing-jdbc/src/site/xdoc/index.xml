@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-
-<document>
-
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>Throwing JDBC - java.sql error injector </title>
-    <author email="timp At paneris.org">Tim Pizey</author>
-    <keywords>
-      JDBC, JDBC3, JDBC4, ORM, Persistence, Java, SQL, Database, Object Relational Mapping,
-      error injection, java.sql 
-    </keywords>
+    <author email="timp@paneris.org">Tim Pizey</author>
   </properties>
+
+  <head>
+    <title>Throwing JDBC - java.sql error injector </title>
+  </head>
 
   <body>
 

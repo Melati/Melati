@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-
-<document>
-
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
+
+  <head>
+    <title>Melati - Java SQL Website Development Engine</title>
+  </head>
 
   <body>
 
@@ -35,73 +34,73 @@ The DSD processor is used to generate java code from a Data Structure Definition
 </p>
 <subsection name=" Outline ">
 
-<UL>
-  <LI> <B>Think about your schema.</B>
-       <P>
+<ul>
+  <li> <b>Think about your schema.</b>
+       <p>
          Melati POEM encourages you to think about your relational database in
          an object-oriented way.  A table row corresponds to a Java
          object and can be given Java methods.
-       </P>
-       <P>
+       </p>
+       <p>
           If you database SQL definition contains repetition,
           say every table contains the fields <tt>changetime</tt> and
           <tt>changedbyuser</tt> these fields can be separated out into a
           an abstract table which all your other tables extend.
-       </P>
-  </LI>
-  <LI> <B>Write your data structure definition.</B>
-       <P>
+       </p>
+  </li>
+  <li> <b>Write your data structure definition.</b>
+       <p>
           POEM's DSD grammar is simple (similar to Java's syntax for defining
           class fields) and provides a convenient way of specifying display
           attributes for your objects' fields.
-       </P>
-  </LI>
-  <LI> <B>Run the DSD preprocessor.</B>
-       <P>
+       </p>
+  </li>
+  <li> <b>Run the DSD preprocessor.</b>
+       <p>
          The DSD processor turns your DSD file into boilerplate classes which
          implement a type-safe API for your schema, and automatically
          create/validate your database at application startup time.
-       </P>
-  </LI>
-  <LI> <B>Compile and inspect your schema.</B>
-       <P>
+       </p>
+  </li>
+  <li> <b>Compile and inspect your schema.</b>
+       <p>
          Before going any further you can look at your schema using the
          Melati Admin system.
-       </P>
-       <P>
+       </p>
+       <p>
          Use the Admin system to fill in data in your schema.
-       </P>
-  </LI>
-  <LI> <B>Add Java methods.</B>
-       <P>
+       </p>
+  </li>
+  <li> <b>Add Java methods.</b>
+       <p>
          The DSD also outputs stub classes to which you can add any special
          Java methods you wish to attach to your row-objects.
-       </P>
-       <P>
+       </p>
+       <p>
          It is a good idea to use <tt>ensure</tt> methods to prepopulate
          code tables with values which are essential to the working of the
          system;
          see for example <a href="/melati/apidocs/org/melati/poem/CapabilityTable.html#ensure(java.lang.String)">CapabilityTable.ensure(java.lang.String)</a>
-       </P>
-  </LI>
-  <LI> <B>Review you DSD by exporting it</B>
-       <P>
+       </p>
+  </li>
+  <li> <b>Review you DSD by exporting it</b>
+       <p>
          You may wish to use the DSD export function to review your DSD,
          <A href="/db/org.melati.admin.Admin/melatitest/DSD?comments">
          http://www.melati.org/db/org.melati.admin.Admin/melatitest/DSD?comments</A>
          though be aware that this function does not preserve abstract tables
          and enforces the <b>only first letter capitalised</b> rule for table
          names.
-       </P>
-  </LI>
-</UL>
+       </p>
+  </li>
+</ul>
 
 </subsection>
 <subsection name=" Notes ">
-<P>
+<p>
   You might like to look at <a href="/melati-static/poem/Poem.dsd">POEM's own DSD</a>.
-</P>
-<P>
+</p>
+<p>
   The <tt>package</tt> statement should be changed to the name of your
   package eg <tt>org.paneris.myproj.model</tt>.
   <br/>
@@ -113,12 +112,12 @@ org.melati.LogicalDatabase.myproj.class=org.paneris.myproj.model.MyprojDatabase
 </tt>
 </pre>
 
-</P>
+</p>
 
-<P>
+<p>
   It will only overwrite files in the generated directory, once it has created a stub 
   it will not overwrite it.
-</P>
+</p>
 
 </subsection>
 <subsection name=" Command line ">

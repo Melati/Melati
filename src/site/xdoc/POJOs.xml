@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Melati - Java SQL Website Development Engine</title>
+  </head>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      ORM, Objects, Object Oriented, J2EE replacement
-    </keywords>
+    <author email="timp@paneris.org">Tim Pizey</author>
   </properties>
 
   <body>
@@ -26,7 +25,7 @@ This page last updated: $Date$ $Author$
 
 <section name=" Working with Plain Old Java Objects (POJOs) ">
 <p>
-The <it>'flexibility'</it> afforded by working with 
+The <i>'flexibility'</i> afforded by working with
 Plain Old Java Objects is bought at a price, 
 namely the use of introspection. 
 </p>

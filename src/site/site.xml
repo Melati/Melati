@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Melati">
   <skin>
-    <groupId>org.melati</groupId>
-    <artifactId>melati-skin</artifactId>
-    <version>1.0</version>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.4</version>
   </skin>
   <bannerLeft>
     <name>Melati</name>
-    <src>http://www.melati.org/images/logo.jpg</src> 
+    <src>images/logo.jpg</src>
     <href>http://www.melati.org/</href>
     <alt>Melati - The flower of Java</alt>
   </bannerLeft>
   <bannerRight>
     <name>Melati</name>
-    <src>http://www.melati.org/images/logo.jpg</src> 
+    <src>images/logo.jpg</src>
     <href>http://www.melati.org/</href>
     <alt>Melati - The flower of Java</alt>
   </bannerRight>
@@ -24,6 +24,11 @@
           img="/images/logos/javanet_button_90.gif"/>
   </poweredBy>
   <body>
+    <head>
+      <meta name="keyword" content="Persistence, Java, SQL, Database, Templates, Object Relational Mapping, ORM, Objects, Object Oriented, J2EE replacement" />
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
     <links>
       <item name="TimP"                  href="http://www.paneris.org/~timp/" />
       <item name="PanEris.org"           href="http://www.paneris.org" />

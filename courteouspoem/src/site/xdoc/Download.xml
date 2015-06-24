@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <author email="timp@paneris.org">Tim Pizey</author>
+  </properties>
 
-<document>
+  <head>
+    <title>CourteousPoemDatabase - Melati Maven derived site</title>
+  </head>
 
   <body>
 
@@ -18,7 +26,7 @@
 <section name=" CVS Access ">
 
 <p>Melati is available via anonymous CVS, which also has a 
-<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/courteouspoem/">web interface</A>. 
+<a href="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/courteouspoem/">web interface</a>.
 </p>
 <p>With the command-line CVS client, you do:
 <pre>

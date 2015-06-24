@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-
-<document>
-
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>CourteousPoemDatabase - Melati Maven derived site</title>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-melati-example-contacts Maven Melati
-    </keywords>
   </properties>
+
+  <head>
+    <title>CourteousPoemDatabase - Melati Maven derived site</title>
+  </head>
 
   <body>
 
@@ -16,7 +16,6 @@ melati-example-contacts Maven Melati
 <!-- menu -->
 
 <section name=" Courteous Poem Database ">
-<table border="12" align="center"><tr><td>
 <p>
 To use POEM you need to have write access to your database.
 POEM is very well behaved and leaves no trace of its interaction, 
@@ -55,7 +54,6 @@ the possibility of it having been altered still remains,
 not least by your application, but there will not be a bunch of 
 new POEM-specific tables left behind. 
 </p>
-</td></tr></table>
 </section>
 </body>
 </document>

@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Melati - Java SQL Website Development Engine</title>
+  </head>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
     <author email="timp At paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
@@ -190,11 +189,11 @@ The following gives the items which would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.6.1</td>
-    <td>Support for McKoiDB.  <BR />
-        Support for HSQLDB.   <BR />
-        Support for JSDK 2.3. <BR />
-        Removal of all deprecated methods. <BR />
-        Removal of all javadoc errors. <BR />
+    <td>Support for McKoiDB.  <br />
+        Support for HSQLDB.   <br />
+        Support for JSDK 2.3. <br />
+        Removal of all deprecated methods. <br />
+        Removal of all javadoc errors. <br />
     </td>
     <td><b>done</b></td>
   </tr>

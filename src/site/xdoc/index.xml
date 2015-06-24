@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Java SQL Website Development Engine</title>
+  </head>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
@@ -25,16 +24,16 @@ This page last updated: $Date$ $Author$
 <!-- menu -->
 
 <section name=" Melati ">
-<P>
+<p>
   Melati is a tool for producing documents from databases.
   This is particularly good for building websites backed by a
   database.
   It is written in Java and provides the following features:
-</P>
+</p>
 <ul>
   <li>a generic 
-    <A href="/melati-webapp/org.melati.admin.Admin/contacts/Main">
-    database administration system</A>, allowing the site manager to edit 
+    <a href="/melati-webapp/org.melati.admin.Admin/contacts/Main">
+    database administration system</a>, allowing the site manager to edit
     both the contents and the structure of the database through 
     a simple web interface.
   </li>
@@ -70,13 +69,13 @@ This page last updated: $Date$ $Author$
    </ul>
   </li> 
 </ul>
-<P>
+<p>
   Melati's design builds on our experience with previous systems we
   have deployed successfully on a number of 
-  <A href="ShowCase.html">commercial sites</A>: 
+  <a href="ShowCase.html">commercial sites</a>:
   we feel that it enables a particularly 
   elegant and productive way of working. 
-</P>
+</p>
 
 </section>
 </body>

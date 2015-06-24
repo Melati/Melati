@@ -1,68 +1,79 @@
 <?xml version="1.0"?>
-
-<document>
-
-  <properties>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
     <title>Melati - Java SQL Website Development Engine</title>
+  </head>
+  <properties>
     <author email="timp At paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
 
 
-<!--
-  <p align=center>
-   <font size=-1><i>
-This page last updated: $Date$ $Author$
-   </i></font>
-  </p>
--->
-  
-<!-- menu -->
+    <!--
+      <p align=center>
+       <font size=-1><i>
+    This page last updated: $Date$ $Author$
+       </i></font>
+      </p>
+    -->
 
-<section name=" Contribute ">
-<p>
-  I would greatly appreciate <a href="MailingList.html">feedback</a>
-  from new users of Melati. 
-</p>
-<p>
-  If you would like to contribute to the Melati code, please join the 
-  <a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">
-   development mailing list
-  </a>.
-</p>
-<p>
-  Please review the <a href="RoadMap.html">RoadMap</a> 
-  for things that need to be done. 
-  Smaller tasks  can be found on the <a
-  href="http://maven.melati.org/melati/taglist.html"><b>todo</b> list</a>. 
-</p>
-<p>
-  In principle I would give CVS write access to anyone who asks.
-</p>
-<p>
-  There are now extensive junit tests. 
-  You should, ideally, ensure that your changes do not break the tests. 
-</p>
-<p>
-  It is also good if you do not introduce new problems to the 
-  Checkstyle Report for the element you are changing.
-</p>
-<subsection name="Change procedure" >
-<ol>
- <li>Email <a href="MailingList.html">Developer List</a> detailing 
-     what you plan to do.  </li>
- <li>Make changes and commit them to CVS. </li>
- <li>Email <a href="MailingList.html">Developer List</a> detailing 
-     what you have done.  </li>
-</ol>
-</subsection>
-</section>
-</body>
+    <!-- menu -->
+
+    <section name=" Contribute ">
+      <p>
+        I would greatly appreciate
+        <a href="MailingList.html">feedback</a>
+        from new users of Melati.
+      </p>
+      <p>
+        If you would like to contribute to the Melati code, please join the
+        <a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">
+          development mailing list
+        </a>.
+      </p>
+      <p>
+        Please review the
+        <a href="RoadMap.html">RoadMap</a>
+        for things that need to be done.
+        Smaller tasks can be found on the
+        <a
+            href="http://maven.melati.org/melati/taglist.html">
+          <b>todo</b>
+          list
+        </a>
+        .
+      </p>
+      <p>
+        In principle I would give CVS write access to anyone who asks.
+      </p>
+      <p>
+        There are now extensive junit tests.
+        You should, ideally, ensure that your changes do not break the tests.
+      </p>
+      <p>
+        It is also good if you do not introduce new problems to the
+        Checkstyle Report for the element you are changing.
+      </p>
+      <subsection name="Change procedure">
+        <ol>
+          <li>Email
+            <a href="MailingList.html">Developer List</a>
+            detailing
+            what you plan to do.
+          </li>
+          <li>Make changes and commit them to CVS.</li>
+          <li>Email
+            <a href="MailingList.html">Developer List</a>
+            detailing
+            what you have done.
+          </li>
+        </ol>
+      </subsection>
+    </section>
+  </body>
 </document>
 
 

@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
-
-<document>
-
-  <properties>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
     <title>Melati - Java SQL Website Development Engine</title>
+  </head>
+  <properties>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
@@ -27,31 +25,31 @@ This page last updated: $Date$ $Author$
 <section name=" Documentation ">
 <h3>Current Documentation.</h3>
 <ul>
- <LI><A HREF="doc/Overview.html">Overview of Melati</A>  </LI>
- <LI><A HREF="README.html">README</A>  </LI>
- <LI><A HREF="RELEASE-NOTES.html">RELEASE-NOTES</A>  </LI>
- <LI><A HREF="doc/PoemUserGuide.html">Poem User Guide</A> </LI>
- <!-- LI><A HREF="doc/PoemPreproUserGuide.html">Preprocessor User Guide</A> </LI -->
- <LI><A HREF="doc/ODMGPoemUserGuide.html">ODMG Poem User Guide</A> </LI>
- <LI><A HREF="/melati/apidocs/index.html">Java Docs</A></LI>
+ <li><a HREF="doc/Overview.html">Overview of Melati</a>  </li>
+ <li><a HREF="README.html">README</a>  </li>
+ <li><a HREF="RELEASE-NOTES.html">RELEASE-NOTES</a>  </li>
+ <li><a HREF="doc/PoemUserGuide.html">Poem User Guide</a> </li>
+ <!-- li><a HREF="doc/PoemPreproUserGuide.html">Preprocessor User Guide</a> </LI -->
+ <li><a HREF="doc/ODMGPoemUserGuide.html">ODMG Poem User Guide</a> </li>
+ <li><a HREF="/melati/apidocs/index.html">Java Docs</a></li>
 </ul>
 <h3>The original specification documents for Melati.</h3>
 <p>
 Mostly of historical interest.
 </p>
 <ul>
- <LI><A 
-      HREF="doc/RelatedProducts.html">Related Products Report</A> </LI>
- <LI><A 
-      HREF="doc/Requirements.html">Requirements Specification</A> </LI>
- <LI><A 
-      HREF="doc/QA.html">Master Quality Document</A> </LI>
- <LI><A 
-      HREF="doc/FunctionalSpecification.html">Functional Specification</A></LI>
- <LI><A 
-      HREF="doc/ImplementationPlan.html">Implementation Plan</A> </LI>
- <LI><A 
-      HREF="doc/Internals.html">Internals Document</A> </LI>
+ <li><a 
+      HREF="doc/RelatedProducts.html">Related Products Report</a> </li>
+ <li><a 
+      HREF="doc/Requirements.html">Requirements Specification</a> </li>
+ <li><a 
+      HREF="doc/QA.html">Master Quality Document</a> </li>
+ <li><a 
+      HREF="doc/FunctionalSpecification.html">Functional Specification</a></li>
+ <li><a 
+      HREF="doc/ImplementationPlan.html">Implementation Plan</a> </li>
+ <li><a 
+      HREF="doc/Internals.html">Internals Document</a> </li>
 </ul>
 </section>
 </body>

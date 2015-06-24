@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Melati - Java SQL Website Development Engine</title>
+  </head>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
@@ -58,10 +57,10 @@ This page last updated: $Date$ $Author$
 
 <p>
 <ol>
- <li><A
-  HREF="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-GPL.txt">LICENSE-GPL.txt</A>.</li>
- <li><A HREF="http://www.gnu.org/copyleft/gpl.txt">http://www.gnu.org/copyleft/gpl.txt</A>.</li>
- <li><A HREF="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-MSL.txt">LICENSE-MSL.txt</A>.</li>
+ <li><a
+  href="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-GPL.txt">LICENSE-GPL.txt</a>.</li>
+ <li><a href="http://www.gnu.org/copyleft/gpl.txt">http://www.gnu.org/copyleft/gpl.txt</a>.</li>
+ <li><a href="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-MSL.txt">LICENSE-MSL.txt</a>.</li>
 </ol>
 </p>
 

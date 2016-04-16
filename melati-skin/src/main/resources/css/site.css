@@ -4,7 +4,8 @@
 /* Built in HTML Elements */
 
 BODY {
-  COLOR: #b42d00;
+  COLOR: #aa3300;
+  background-color: white;
 }
 
 PRE { 
@@ -57,6 +58,7 @@ h6 {
 } 
 
 .created {
+  COLOR: #aa3300;
   background-color: lime;
 }
 

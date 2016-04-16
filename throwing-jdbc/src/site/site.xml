@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="throwing-jdbc">
-  <skin>
-    <groupId>org.melati</groupId>
-    <artifactId>melati-skin</artifactId>
-    <version>1.0</version>
-  </skin>
   <bannerLeft>
     <name>Melati</name>
     <src>http://www.melati.org/images/logo.jpg</src> 
@@ -15,13 +10,8 @@
     <src>http://www.paneris.org/images/corporate/pelogo.png</src> 
     <href>http://www.paneris.org/</href>
   </bannerRight>
-
   <body>
-    <links>
-      <item name="TimP"                  href="http://www.context-computing.co.uk/~timp/" />
-      <item name="PanEris.org"           href="http://www.paneris.org" />
-      <item name="PanEris.net"           href="http://www.paneris.net" />
-    </links>
+
     <menu ref="parent" inherit="top" />
     <menu name="Throwing JDBC">
         <item name="About" href="index.html"/>

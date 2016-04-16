@@ -1,105 +1,121 @@
 <?xml version="1.0"?>
-
-<document>
-
-  <properties>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
     <title>Melati - Java SQL Website Development Engine</title>
+  </head>
+  <properties>
     <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
 
+    <a href="https://github.com/Melati/Melati"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" /></a>
 
-<!--
-<p align=center>
- <font size=-1><i>
-This page last updated: $Date$ $Author$
- </i></font>
-</p>
--->
-  
-<!-- menu -->
-
-<section name=" Features ">
+    <section name=" Features ">
 
 
-<UL>
-  <LI> An easy-to-use transparent <B>persistence layer</B> over a JDBC
-       relational database.  The programmer can <A
-       HREF="doc/FunctionalSpecification.html#data-def">define</A>
-       table rows to be extensible Java objects, without having to
-       write any more code than she would for an equivalent non-persistent
-       object.
-  </LI>
-  <LI> Implicit <B>permissions checks</B> on accesses to persistent
-       objects (table rows), based on a flexible and efficient
-       user/group/capability
-       <A HREF="doc/FunctionalSpecification.html#access">authentication system</A>.
+      <ul>
+        <li>An easy-to-use transparent
+          <b>persistence layer</b>
+          over a JDBC
+          relational database. The programmer can
+          <a
+              href="doc/FunctionalSpecification.html#data-def">define
+          </a>
+          table rows to be extensible Java objects, without having to
+          write any more code than she would for an equivalent non-persistent
+          object.
+        </li>
+        <li>Implicit
+          <b>permissions checks</b>
+          on accesses to persistent
+          objects (table rows), based on a flexible and efficient
+          user/group/capability
+          <a href="doc/FunctionalSpecification.html#access">authentication system</a>.
 
-  </LI>
-  <LI>
-       A self-trimming, (LRU/1), cache of persistent objects such that available memory 
-       is efficiently used but reclaimed when needed by the JVM. Thsi ensures that databse accesses 
-       are reduced to a minimum.
-  </LI>
-  <LI> Support for <A
-       HREF="doc/FunctionalSpecification.html#transactions"><B>transactions</B></A>,
-       either explicitly or transparently, with a simple default pattern
-       appropriate for servicing typical HTTP requests; and behind that, of
-       course, `connection pooling'.
+        </li>
+        <li>
+          A self-trimming, (LRU/1), cache of persistent objects such that available memory
+          is efficiently used but reclaimed when needed by the JVM. Thsi ensures that databse accesses
+          are reduced to a minimum.
+        </li>
+        <li>Support for
+          <a
+              href="doc/FunctionalSpecification.html#transactions">
+            <b>transactions</b>
+          </a>
+          ,
+          either explicitly or transparently, with a simple default pattern
+          appropriate for servicing typical HTTP requests; and behind that, of
+          course, `connection pooling'.
 
-  </LI>
-  <LI> Transparent (and transaction-safe) <A
-       HREF="doc/FunctionalSpecification.html#cacheing"><B>cacheing</B></A> of rows 
-       from the most intensively used tables, such as lookups or localisation phrases.
+        </li>
+        <li>Transparent (and transaction-safe)
+          <a
+              href="doc/FunctionalSpecification.html#cacheing">
+            <b>cacheing</b>
+          </a>
+          of rows
+          from the most intensively used tables, such as lookups or localisation phrases.
 
-  </LI>
-  <LI> Convenient and flexible <A
-       HREF="doc/FunctionalSpecification.html#templating"><B>templating</B></A> 
-       of persistent objects.
+        </li>
+        <li>Convenient and flexible
+          <a
+              href="doc/FunctionalSpecification.html#templating">
+            <b>templating</b>
+          </a>
+          of persistent objects.
 
-  </LI>
-  <LI> CSV utilities to initialise a database from CSV files.
+        </li>
+        <li>CSV utilities to initialise a database from CSV files.
 
-  </LI>
-  <LI> A comprehensive <A
-       HREF="/melati-webapp/org.melati.admin.Admin/contacts/Main"><B>administration
-       system</B></A>, supporting the following operations on any Melati
-       database without requiring configuration:
+        </li>
+        <li>A comprehensive
+          <a
+              href="/melati-webapp/org.melati.admin.Admin/contacts/Main">
+            <b>administration
+              system
+            </b>
+          </a>
+          , supporting the following operations on any Melati
+          database without requiring configuration:
 
-       <UL>
-	 <LI> list records in a table matching a template </LI>
-	 <LI> add/edit/delete records </LI>
-	 <LI> list records linked to (or linking to) a record </LI>
-         <LI> change the capabilities required to read/write a record </LI>
-	 <LI> add/delete tables and fields </LI>
-	 <LI> upload files </LI>
-	 <LI> cascading deletes </LI>
-         <LI> Javascript form validation </LI>
-         <LI> Javascript client side tree browsing </LI>
-       </UL>
-  </LI>
-</UL>
-<p>
-  Code for a generic 
-  <A HREF="http://boards.paneris.net/">Messageboard System</A>, 
-  a generic <A HREF="http://shopping.paneris.net/">Shopping Trolley</A> 
-  and a <A HREF="http://paneris.net/site/">CMS</A> are also available.
-</p>
-<p>
-For a detailed exposition of Melati see <a href="http://caml.inria.fr/pub/ml-archives/caml-list/2001/07/42ab620c33c8755f9fea1a4ea8814063.en.html">William's post to the OCAML list</a>.
-</p>
-<!--P>
-  For a comparison of Melati with J2EE see 
-  <A href="http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/">
-  MylesC's post to melati-developers</A>.
-</P -->
-</section>
-</body>
+          <ul>
+            <li>list records in a table matching a template</li>
+            <li>add/edit/delete records</li>
+            <li>list records linked to (or linking to) a record</li>
+            <li>change the capabilities required to read/write a record</li>
+            <li>add/delete tables and fields</li>
+            <li>upload files</li>
+            <li>cascading deletes</li>
+            <li>Javascript form validation</li>
+            <li>Javascript client side tree browsing</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        Code for a generic
+        <a href="http://boards.paneris.net/">Messageboard System</a>,
+        a generic
+        <a href="http://shopping.paneris.net/">Shopping Trolley</a>
+        and a
+        <a href="http://paneris.net/site/">CMS</a>
+        are also available.
+      </p>
+      <p>
+        For a detailed exposition of Melati see<a
+          href="http://caml.inria.fr/pub/ml-archives/caml-list/2001/07/42ab620c33c8755f9fea1a4ea8814063.en.html">
+        William's post to the OCAML list</a>.
+      </p>
+      <!--P>
+        For a comparison of Melati with J2EE see
+        <a href="http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/">
+        MylesC's post to melati-developers</a>.
+      </P -->
+    </section>
+  </body>
 </document>
 
 

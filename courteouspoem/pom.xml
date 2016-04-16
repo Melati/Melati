@@ -4,7 +4,7 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.8.1-SNAPSHOT</version>
+    <version>0.8.0-SNAPSHOT</version>
   </parent>
   <artifactId>courteouspoem</artifactId>
   <name>Courteous POEM</name>

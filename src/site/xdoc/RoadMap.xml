@@ -1,28 +1,18 @@
 <?xml version="1.0"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Melati - Java SQL Website Development Engine</title>
+  </head>
 
   <properties>
-    <title>Melati - Java SQL Website Development Engine</title>
     <author email="timp At paneris.org">Tim Pizey</author>
-    <keywords>
-      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
-      Objects, Object Oriented, J2EE replacement
-    </keywords>
   </properties>
 
   <body>
 
-
-<!--
-<p align="center">
- <font size="-1"><i>
-This page last updated: $Date$ $Author$
- </i></font>
-</p>
--->
-  
-<!-- menu -->
+    <a href="https://github.com/Melati/Melati"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" /></a>
 
 <section name=" Roadmap to 1.0 ">
 <p>
@@ -190,11 +180,11 @@ The following gives the items which would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.6.1</td>
-    <td>Support for McKoiDB.  <BR />
-        Support for HSQLDB.   <BR />
-        Support for JSDK 2.3. <BR />
-        Removal of all deprecated methods. <BR />
-        Removal of all javadoc errors. <BR />
+    <td>Support for McKoiDB.  <br />
+        Support for HSQLDB.   <br />
+        Support for JSDK 2.3. <br />
+        Removal of all deprecated methods. <br />
+        Removal of all javadoc errors. <br />
     </td>
     <td><b>done</b></td>
   </tr>

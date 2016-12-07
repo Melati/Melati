@@ -104,7 +104,7 @@ public class WebMacroClasspathResourceLoader
             throw new RuntimeException("Cannot find file " + wmName);
         }
         File convertedFile = new File(vmName).getCanonicalFile();
-        System.err.println(vmName);
+        // System.err.println(vmName);
         convertedFile.createNewFile();
         PrintStream ps = new PrintStream(new FileOutputStream(convertedFile));
         int nextChar = converted.read();

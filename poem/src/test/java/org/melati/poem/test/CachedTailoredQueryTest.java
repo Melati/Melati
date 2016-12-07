@@ -99,15 +99,12 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     getDb().setLogSQL(true);
     
     Enumeration<FieldSet> results = ctq.selection();
-    System.err.println(ctq.toString());
     while (results.hasMoreElements()) {
-      //System.err.println("Found:" + ((FieldSet)results.nextElement()).toString());
       results.nextElement();
     }
     results = ctq.selection();
     assertEquals(1,EnumUtils.vectorOf(results).size());
     while (results.hasMoreElements()) {
-      //System.err.println("Found:" + results.nextElement());
       results.nextElement();
     }
     getDb().setLogSQL(false);

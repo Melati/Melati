@@ -67,7 +67,7 @@ public abstract class WMLMarkupLanguageSpec extends MarkupLanguageSpec {
     // This is the bit that differs from HTML, not sure how
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    System.err.println(ml.rendered(ape));
+    // System.err.println(ml.rendered(ape));
     assertTrue(ml.rendered(ape).indexOf(
           "org.melati.poem.AccessPoemException: " + 
           "You need the capability Cool but " + 

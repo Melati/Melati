@@ -71,7 +71,7 @@ public class WMLMarkupLanguageWebmacroTest extends WMLMarkupLanguageSpec {
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    System.err.println(ml.rendered(ape));
+    // System.err.println(ml.rendered(ape));
     assertTrue(ml.rendered(ape).indexOf(
           "org.melati.poem.AccessPoemException: " + 
           "You need the capability Cool but " + 

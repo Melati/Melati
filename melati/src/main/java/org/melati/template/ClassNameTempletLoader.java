@@ -188,7 +188,6 @@ public final class ClassNameTempletLoader implements TempletLoader {
     // We should have at last found Object template    
     //if (templet == null)
     //  throw new MelatiBugMelatiException("Cannot even find template for Object");
-    System.err.println(lookupCacheKey);
     if (fromCache == null)
       templetForClassCache.put(originalCacheKey, templet);
     if (!lookupCacheKey.equals(originalCacheKey)) { 

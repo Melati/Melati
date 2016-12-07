@@ -74,7 +74,6 @@ public class NotNullableStringKeyReferencePoemTypeTest extends SQLPoemTypeSpec<S
       while (them2.hasMoreElements()) {
         String raw = them2.nextElement();
         System.err.println(raw);
-        
       }
      assertEquals(5,count);
     }

@@ -45,8 +45,6 @@ public abstract class CourteouspoemServlet extends TemplateServlet {
         pathInfo = "";
     }
     if (pathInfo != "") {
-      System.err.println("pathinfo:" + pathInfo);
-      System.err.println("Ref:" + melati.getRequest().getHeader("Referer"));
       String referer = melati.getRequest().getHeader("Referer");
       if (referer != null &&
           referer.indexOf(pathInfo) == -1) {
@@ -61,7 +59,6 @@ public abstract class CourteouspoemServlet extends TemplateServlet {
     if (filename.equals("/")) return false;
     String fsName = "/dist/courteouspoem/www" + filename;
     File it = new File(fsName);
-    System.err.println("FS:" + fsName + " " + it.exists());
     return it.exists();
   }
 
@@ -75,7 +72,6 @@ public abstract class CourteouspoemServlet extends TemplateServlet {
     int index = templateName.indexOf(".wm");
     if (index == -1)
       templateName = templateName + ".wm";
-    System.err.println("Template:" + templateName);
     return templateName;
   }
 

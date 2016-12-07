@@ -100,7 +100,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
           getDb().getUserTable().guestUser(), new Capability("Cool"));
     assertEquals("", aml.rendered(ape));
       // NB Not at all sure how this value changed 
-    System.err.println(m.getWriter().toString());
+      // System.err.println(m.getWriter().toString());
       //assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);
 
@@ -366,7 +366,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   public void testInputFieldSelection() throws Exception {
     //Selection dropdown of references    
     Field<?> group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
-    System.err.println(ml.input(group));
+    // System.err.println(ml.input(group));
     assertTrue(ml.input(group).indexOf("name=\"field_group\"") != -1);
     assertTrue(ml.input(group).indexOf("id=\"field_group\"") != -1);
     assertTrue(ml.input(group).indexOf("<select") != -1);

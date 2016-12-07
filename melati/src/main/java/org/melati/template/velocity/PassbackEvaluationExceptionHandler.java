@@ -73,7 +73,7 @@ public class PassbackEvaluationExceptionHandler
 
   @Override
   public Object methodException(@SuppressWarnings("rawtypes") Class claz, String method, Exception problem) throws Exception {
-    System.err.println(method + " " + problem);
+    // System.err.println(method + " " + problem);
     MarkupLanguage ml = (MarkupLanguage)velContext.get("ml");
     if (ml == null) throw new PropertyException(
       "Error, to use the Passback Evaluation Exception Handler, you must " +

@@ -108,7 +108,6 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     }
     c.close();
     PoemDatabase db = new PoemDatabase();
-    //db.setLogSQL(true);
     db.connect("unifiable", "org.melati.poem.dbms.Hsqldb",
         url, "sa", "", 22);
     assertEquals(22, db.getFreeTransactionsCount());
@@ -184,7 +183,6 @@ public class DatabaseUnifyWithDBTest extends TestCase {
     }
     c.close();
     PoemDatabase db = new PoemDatabase();
-    //db.setLogSQL(true);
     db.connect("unifiable", "org.melati.poem.dbms.Hsqldb",
         url, "sa", "", 22);
     assertEquals(22, db.getFreeTransactionsCount());

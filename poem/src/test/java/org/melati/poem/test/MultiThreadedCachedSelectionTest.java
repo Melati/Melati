@@ -209,7 +209,6 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
   public void testThem() throws Exception {
     System.err.println("Start of test method");
     theResult = "";
-    // db.setLogSQL(true);
 
     Setter setter = new Setter(db.getStringFieldTable());
     Getter getter = new Getter(db.getStringFieldTable());

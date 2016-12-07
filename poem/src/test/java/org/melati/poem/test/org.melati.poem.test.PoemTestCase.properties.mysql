@@ -6,7 +6,7 @@ org.melati.poem.test.PoemTestCase.everything.user=melati
 org.melati.poem.test.PoemTestCase.everything.password=melati
 org.melati.poem.test.PoemTestCase.everything.maxtransactions=4
 org.melati.poem.test.PoemTestCase.everything.addconstraints=false
-org.melati.poem.test.PoemTestCase.everything.logsql=true
+org.melati.poem.test.PoemTestCase.everything.logsql=false
 org.melati.poem.test.PoemTestCase.everything.logcommits=true
 
 org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase

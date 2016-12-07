@@ -67,7 +67,6 @@ public class CachedTailoredQueryTest extends PoemTestCase {
                                                       null);
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
-    //getDb().setLogSQL(true);
     assertEquals(3,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries3 = getDb().getQueryCount();
     // Hmm looks like the cache is working

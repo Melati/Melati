@@ -135,7 +135,6 @@ public class CachedSelectionTest extends PoemTestCase {
     CachedSelection<User> cachedSelection = new CachedSelection<User>(
         getDb().getUserTable(), query, null, others);
     assertEquals(count + 4, getDb().getQueryCount());    
-    //getDb().setLogSQL(true);
     assertEquals("_administrator_", cachedSelection.nth(0).toString());
     assertEquals(count + 6, getDb().getQueryCount());    
     assertEquals("_administrator_", cachedSelection.nth(0).toString());

@@ -85,7 +85,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    *      rendered(AccessPoemException)
    */
   public void testRenderedAccessPoemException() throws Exception {
-    
+
     assertEquals("java.lang.Exception",aml.rendered(new Exception()));
     assertEquals("[java.lang.Exception]\n",ml.rendered(new Exception()));
 
@@ -99,7 +99,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
     assertEquals("", aml.rendered(ape));
-      // NB Not at all sure how this value changed 
+      // NB Not at all sure how this value changed
       // System.err.println(m.getWriter().toString());
       //assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);

@@ -1,0 +1,4 @@
+## Copyright (C) 2017 Tim Pizey
+public class $object.Class.Name {
+ String value = "$ml.rendered($object.toString())";
+}

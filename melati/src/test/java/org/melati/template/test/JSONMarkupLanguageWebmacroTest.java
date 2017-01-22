@@ -15,7 +15,7 @@ import org.melati.util.MelatiException;
 import org.melati.util.test.Node;
 
 /**
- * Test the HTMLMarkupLanguage and its AttributeMarkupLanguage.
+ * Test the JSONMarkupLanguage and its AttributeMarkupLanguage.
  * 
  * @author timp
  * @since 18-May-2006

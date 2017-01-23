@@ -44,22 +44,12 @@
 
 package org.melati.poem.dbms;
 
+import org.melati.poem.*;
+
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.melati.poem.BigDecimalPoemType;
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.Column;
-import org.melati.poem.DoublePoemType;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemType;
-import org.melati.poem.SQLType;
-import org.melati.poem.StringPoemType;
 
 /**
  * A Driver for Oracle (http://www.oracle.com/).
@@ -84,17 +74,6 @@ public class Oracle extends AnsiStandard {
     setDriverClassName("oracle.jdbc.OracleDriver");
   }
 
-  /**
-   *  Get the user we are connected as and return that as the schema.
-   * 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getSchema()
-   * @see org.melati.poem.dbms.Dbms#getSchema()
-   */
-  public String getSchema() {
-    return schema;
-  }
-  
   /*
 
   public String preparedStatementPlaceholder(PoemType type) {
@@ -152,68 +131,6 @@ public class Oracle extends AnsiStandard {
   }
 
   /**
-   * Translates an Oracle Boolean into a Poem <code>BooleanPoemType</code>.
-   */
-  public static class OracleBooleanPoemType extends BooleanPoemType {
-
-    /**
-     * Constructor.
-     * @param nullable nullability
-     */
-    public OracleBooleanPoemType(boolean nullable) {
-       super(nullable);
-     }
-     
-     protected Boolean _getRaw(ResultSet rs, int col) throws SQLException {
-       synchronized (rs) {
-         boolean v = rs.getBoolean(col);
-         return rs.wasNull() ? null : (v ? Boolean.TRUE : Boolean.FALSE);
-       }
-     }
-
-     protected void _setRaw(PreparedStatement ps, int col, Object bool) 
-         throws SQLException {
-       ps.setInt(col, ((Boolean) bool).booleanValue() ? 1 : 0);
-     }
-
-   }
-
-   /**
-    * Translates a Oracle String into a Poem <code>StringPoemType</code>.
-    */ 
-  public static class OracleStringPoemType extends StringPoemType {
-
-    /**
-     * Constructor.
-     * @param nullable nullability
-     * @param size size
-     */
-      public OracleStringPoemType(boolean nullable, int size) {
-        super(nullable, size);
-      }
-
-      protected boolean _canRepresent(SQLPoemType<?> other) {
-        return sqlTypeCode() == other.sqlTypeCode() &&
-               (getSize() == oracleTextHack && 
-               ((StringPoemType)other).getSize() == -1)
-               ||
-               (getSize() >= ((StringPoemType)other).getSize());
-      }
-
-      /**
-       * {@inheritDoc}
-       * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
-       */
-      public <O>PoemType<O> canRepresent(PoemType<O> other) {
-        return other instanceof StringPoemType &&
-               _canRepresent((StringPoemType)other) &&
-               !(!getNullable() && ((StringPoemType)other).getNullable()) ?
-                 other : null;
-      }
-
-    }
-
-  /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
@@ -243,40 +160,18 @@ public class Oracle extends AnsiStandard {
   }
 
   /**
-   * An Object Id <code>PoemType</code>.
-   */
-  /*
-
-  public static class BlobPoemType extends IntegerPoemType {
-      public BlobPoemType(boolean nullable) {
-          super(Types.INTEGER, "BLOB", nullable);
-      }
-
-      protected boolean _canRepresent(SQLPoemType other) {
-          return other instanceof BinaryPoemType;
-      }
-
-      public PoemType canRepresent(PoemType other) {
-          return other instanceof BinaryPoemType &&
-                 !(!getNullable() && 
-       ((BinaryPoemType)other).getNullable()) ? other : null;
-      }
-  }
-*/
-
-  /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    *          (org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     if ((storage instanceof IntegerPoemType &&
-        type instanceof BigDecimalPoemType) && 
+        type instanceof BigDecimalPoemType) &&
         !(!storage.getNullable() && type.getNullable())){
       return type;
     }
     if ((storage instanceof IntegerPoemType &&
-          type instanceof LongPoemType) && 
+        type instanceof LongPoemType) &&
           !(!storage.getNullable() && type.getNullable())) {
         return type;
     } else {
@@ -309,12 +204,12 @@ public class Oracle extends AnsiStandard {
     //}
 
     if(md.getString("TYPE_NAME").equals("VARCHAR2"))
-      return 
+      return
           new OracleStringPoemType(md.getInt("NULLABLE")==
-                                      DatabaseMetaData.columnNullable, 
+              DatabaseMetaData.columnNullable,
                                   md.getInt("COLUMN_SIZE"));
     if(md.getString("TYPE_NAME").equals("CHAR"))
-      return 
+      return
           new OracleBooleanPoemType(md.getInt("NULLABLE")==
                                       DatabaseMetaData.columnNullable);
     if(md.getString("TYPE_NAME").equals("BLOB"))
@@ -324,7 +219,7 @@ public class Oracle extends AnsiStandard {
     if(md.getString("TYPE_NAME").equals("FLOAT"))
       return new DoublePoemType(
                     md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    SQLPoemType<?> t = 
+    SQLPoemType<?> t =
       md.getString("TYPE_NAME").equals("NUMBER") ?
           new IntegerPoemType(md.getInt("NULLABLE") ==
                               DatabaseMetaData.columnNullable) :
@@ -332,25 +227,47 @@ public class Oracle extends AnsiStandard {
     //System.err.println("SQLType:"+t);
     return t;
   }
-  
+
+  /**
+   * An Object Id <code>PoemType</code>.
+   */
+  /*
+
+  public static class BlobPoemType extends IntegerPoemType {
+      public BlobPoemType(boolean nullable) {
+          super(Types.INTEGER, "BLOB", nullable);
+      }
+
+      protected boolean _canRepresent(SQLPoemType other) {
+          return other instanceof BinaryPoemType;
+      }
+
+      public PoemType canRepresent(PoemType other) {
+          return other instanceof BinaryPoemType &&
+                 !(!getNullable() && 
+       ((BinaryPoemType)other).getNullable()) ? other : null;
+      }
+  }
+*/
+
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
+  public String getForeignKeyDefinition(String tableName, String fieldName,
+                                        String targetTableName, String targetTableFieldName, String fixName) {
     StringBuffer sb = new StringBuffer();
-    sb.append(" ADD (CONSTRAINT FK_" + tableName + "_" + fieldName + 
-        ") FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
+    sb.append(" ADD (CONSTRAINT FK_" + tableName + "_" + fieldName +
+        ") FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " +
         getQuotedName(targetTableName) + "(" + getQuotedName(targetTableFieldName) + ")");
-    // Not currently implemented by Oracle, 
+    // Not currently implemented by Oracle,
     // another reason for not using the DB to control these things
     //if (fixName.equals("prevent"))
     //  sb.append(" ON DELETE NO ACTION");
     if (fixName.equals("delete"))
-      sb.append(" ON DELETE CASCADE");      
+      sb.append(" ON DELETE CASCADE");
     if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
+      sb.append(" ON DELETE SET NULL");
     return sb.toString();
   }
 
@@ -360,7 +277,7 @@ public class Oracle extends AnsiStandard {
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     StringBuffer sb = new StringBuffer();
-    sb.append(" ADD (CONSTRAINT PK_" + fieldName + 
+    sb.append(" ADD (CONSTRAINT PK_" + fieldName +
         " PRIMARY KEY(" + getQuotedName(fieldName) + "))");
     return sb.toString();
   }
@@ -382,6 +299,71 @@ public class Oracle extends AnsiStandard {
       return ("0");
     }
     return super.getSqlDefaultValue(sqlType);
+  }
+
+  /**
+   * Translates an Oracle Boolean into a Poem <code>BooleanPoemType</code>.
+   */
+  public static class OracleBooleanPoemType extends BooleanPoemType {
+
+    /**
+     * Constructor.
+     *
+     * @param nullable nullability
+     */
+    public OracleBooleanPoemType(boolean nullable) {
+      super(nullable);
+    }
+
+    protected Boolean _getRaw(ResultSet rs, int col) throws SQLException {
+      synchronized (rs) {
+        boolean v = rs.getBoolean(col);
+        return rs.wasNull() ? null : (v ? Boolean.TRUE : Boolean.FALSE);
+      }
+    }
+
+    protected void _setRaw(PreparedStatement ps, int col, Object bool)
+        throws SQLException {
+      ps.setInt(col, ((Boolean) bool).booleanValue() ? 1 : 0);
+    }
+
+  }
+
+  /**
+   * Translates a Oracle String into a Poem <code>StringPoemType</code>.
+   */
+  public static class OracleStringPoemType extends StringPoemType {
+
+    /**
+     * Constructor.
+     *
+     * @param nullable nullability
+     * @param size     size
+     */
+    public OracleStringPoemType(boolean nullable, int size) {
+      super(nullable, size);
+    }
+
+    protected boolean _canRepresent(SQLPoemType<?> other) {
+      return sqlTypeCode() == other.sqlTypeCode() &&
+          (getSize() == oracleTextHack &&
+              ((StringPoemType) other).getSize() == -1)
+          ||
+          (getSize() >= ((StringPoemType) other).getSize());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
+     */
+    public <O> PoemType<O> canRepresent(PoemType<O> other) {
+      return other instanceof StringPoemType &&
+          _canRepresent((StringPoemType) other) &&
+          !(!getNullable() && ((StringPoemType) other).getNullable()) ?
+          other : null;
+    }
+
   }
 
 }

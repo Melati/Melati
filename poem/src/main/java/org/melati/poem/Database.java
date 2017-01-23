@@ -554,10 +554,10 @@ public abstract class Database implements TransactionPool {
 
   }
 
-  private List<HashMap<String, String>> getRelevantTables(DatabaseMetaData m) throws SQLException {
+  protected List<HashMap<String, String>> getRelevantTables(DatabaseMetaData m) throws SQLException {
     List<HashMap<String, String>> tableMetaData = new ArrayList<HashMap<String, String>>();
     String[] normalTables = {"TABLE"};
-    ResultSet tables = m.getTables(null, "EWII", null, normalTables);
+    ResultSet tables = m.getTables(null, null, null, normalTables);
     while (tables.next()) {
       HashMap<String, String> t = new HashMap<String, String>();
 

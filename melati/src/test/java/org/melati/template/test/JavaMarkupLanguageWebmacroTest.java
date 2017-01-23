@@ -78,11 +78,11 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     m.setPoemContext(new PoemContext());
 
     String renderedPersistent = ml.rendered(persistent);
-    assertEquals(
+    assertEquals(String.format(
         "\npublic class org.melati.util.test.Node {\n" +
-            " String value = \"Node\\/0\";\n" +
+            " String value = \"Node\\/%d\";\n" +
             " String displayValue = \"Mum\";\n" +
-            "}\n",
+            "}\n", persistent.getId()),
         renderedPersistent);
   }
 

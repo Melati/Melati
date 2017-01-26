@@ -1,7 +1,4 @@
 /*
- * $Source$
- * $Revision$
- *
  * Copyright (C) 2000 William Chesters
  *
  * Part of Melati (http://melati.org), a framework for the rapid
@@ -224,14 +221,14 @@ public abstract class Database implements TransactionPool {
       // Bootstrap: set up the tableinfo and columninfo tables
       DatabaseMetaData m = committedConnection.getMetaData();
       getTableInfoTable().unifyWithDB(
-          m.getColumns(null, dbms.getSchema(),
-                       dbms.unreservedName(getTableInfoTable().getName()), null), dbms.unreservedName("id"));
+          m.getColumns(null, getSchema(),
+              unreservedName(getTableInfoTable().getName()), null), unreservedName("id"));
       getColumnInfoTable().unifyWithDB(
-          m.getColumns(null, dbms.getSchema(),
-                       dbms.unreservedName(getColumnInfoTable().getName()), null), dbms.unreservedName("id"));
+          m.getColumns(null, getSchema(),
+              unreservedName(getColumnInfoTable().getName()), null), unreservedName("id"));
       getTableCategoryTable().unifyWithDB(
-          m.getColumns(null, dbms.getSchema(),
-                       dbms.unreservedName(getTableCategoryTable().getName()), null), dbms.unreservedName("id"));
+          m.getColumns(null, getSchema(),
+              unreservedName(getTableCategoryTable().getName()), null), unreservedName("id"));
 
       inSession(AccessToken.root,
                 new PoemTask() {
@@ -311,9 +308,24 @@ public abstract class Database implements TransactionPool {
 
   private ResultSet columnsMetadata(DatabaseMetaData m, String tableName)
       throws SQLException {
-    return m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
+    return m.getColumns(null, getSchema(), unreservedName(tableName), null);
   }
 
+  protected String getSchema() {
+    return dbms.getSchema();
+  }
+
+  protected String unreservedName(String name) {
+    return dbms.unreservedName(name);
+  }
+
+  protected String getJdbcMetadataName(String unreservedName) {
+    return dbms.getJdbcMetadataName(unreservedName);
+  }
+
+  protected String melatiName(String name) {
+    return dbms.melatiName(name);
+  }
   /**
    * Add a Table to this Database and commit the Transaction.
    * @param info Table metadata object
@@ -375,17 +387,17 @@ public abstract class Database implements TransactionPool {
 
   private String getTroidColumnName(DatabaseMetaData m, String tableName) throws SQLException {
     String troidColumnName = null;
-    System.err.println("Looking for " + dbms.unreservedName(tableName));
-    ResultSet tables = m.getTables(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
+    System.err.println("Looking for " + unreservedName(tableName));
+    ResultSet tables = m.getTables(null, getSchema(), unreservedName(tableName), null);
     if (tables.next()) {
-      ResultSet r = m.getPrimaryKeys(null, dbms.getSchema(), dbms.unreservedName(tableName));
+      ResultSet r = m.getPrimaryKeys(null, getSchema(), unreservedName(tableName));
       while (r.next())
         troidColumnName = r.getString("COLUMN_NAME");
       r.close();
 
       if (troidColumnName != null) {
-        log(dbms.getJdbcMetadataName(dbms.unreservedName(troidColumnName)));
-        ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), dbms.getJdbcMetadataName(dbms.unreservedName(troidColumnName)));
+        log(getJdbcMetadataName(unreservedName(troidColumnName)));
+        ResultSet idCol = m.getColumns(null, getSchema(), unreservedName(tableName), getJdbcMetadataName(unreservedName(troidColumnName)));
         log("Discovered a primary key troid candidate column for jdbc table :" + tableName + ":" + troidColumnName);
         if (idCol.next()) {
           if (dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) == null)
@@ -397,9 +409,9 @@ public abstract class Database implements TransactionPool {
               ResultSet u;
               try {
                 u = m.getIndexInfo
-                    (null, dbms.getSchema(), dbms.unreservedName(tableName), true, false);
+                    (null, getSchema(), unreservedName(tableName), true, false);
               } catch (SQLException e) {
-                throw new RuntimeException("IndexInfo not found for " + dbms.unreservedName(tableName), e);
+                throw new RuntimeException("IndexInfo not found for " + unreservedName(tableName), e);
               }
               String unusableKey = troidColumnName;
               troidColumnName = null;
@@ -409,9 +421,9 @@ public abstract class Database implements TransactionPool {
                 uniqueKey = u.getString("COLUMN_NAME");
                 if (!uniqueKey.equals(unusableKey)) {
                   ResultSet idColNotPrimeKey = m.getColumns(null,
-                      dbms.getSchema(),
-                      dbms.unreservedName(tableName),
-                      dbms.getJdbcMetadataName(dbms.unreservedName(uniqueKey)));
+                      getSchema(),
+                      unreservedName(tableName),
+                      getJdbcMetadataName(unreservedName(uniqueKey)));
                   if (idColNotPrimeKey.next()) {
                     if (idColNotPrimeKey.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls) {
                       idColNotPrimeKey.close();
@@ -500,7 +512,7 @@ public abstract class Database implements TransactionPool {
       tableCount++;
       if (debug) log("Table:" + tableDesc.get("TABLE_NAME") +
           " Type:" + tableDesc.get("TABLE_TYPE"));
-      String tableName = dbms.melatiName(tableDesc.get("TABLE_NAME"));
+      String tableName = melatiName(tableDesc.get("TABLE_NAME"));
       if (debug) log("Melati Table name :" + tableName);
       Table<?> table = null;
       String troidColumnName = null;
@@ -510,7 +522,7 @@ public abstract class Database implements TransactionPool {
           if (debug) log("Unknown to POEM, with JDBC name " + tableName);
 
           // but we only want to include them if they have a plausible troid:
-          troidColumnName = getTroidColumnName(m,dbms.unreservedName(tableName));
+          troidColumnName = getTroidColumnName(m, unreservedName(tableName));
           if(debug) log("Primary key:"+ troidColumnName);
           if (troidColumnName != null) {
             if (debug) log("Got a troid column for discovered jdbc table :" + tableName + ":" + troidColumnName);
@@ -542,15 +554,15 @@ public abstract class Database implements TransactionPool {
     // ... and create any tables that simply don't exist in the db
 
     for (Table<?> table : tables) {
-      if (debug) log("Unifying:" + table.getName() + "(" + dbms.unreservedName(table.getName()) + ")");
+      if (debug) log("Unifying:" + table.getName() + "(" + unreservedName(table.getName()) + ")");
 
       // bit yukky using getColumns to determine if this table exists in underlying db
       ResultSet colDescs = columnsMetadata(m,
-                               dbms.unreservedName(table.getName()));
+          unreservedName(table.getName()));
       if (!colDescs.next()) {
         // System.err.println("Table has no columns in dbms:" +
-        //                    dbms.unreservedName(table.getName()));
-        table.unifyWithDB(null, getTroidColumnName(m,dbms.unreservedName(table.getName())));
+        //                    unreservedName(table.getName()));
+        table.unifyWithDB(null, getTroidColumnName(m, unreservedName(table.getName())));
       }
     }
 

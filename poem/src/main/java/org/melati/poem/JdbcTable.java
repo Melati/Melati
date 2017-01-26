@@ -701,12 +701,16 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       if (!dbms().canBeIndexed(column)) {
         database.log(new UnindexableLogEvent(column));
       } else {
-        dbModifyStructure(
-            "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
-            indexName(column) +
-            " ON " + quotedName() + " " +
-                "(" + column.quotedName() +
-             dbms().getIndexLength(column) + ")");
+        try {
+          dbModifyStructure(
+              "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
+                  indexName(column) +
+                  " ON " + quotedName() + " " +
+                  "(" + column.quotedName() +
+                  dbms().getIndexLength(column) + ")");
+        } catch (StructuralModificationFailedPoemException e) {
+          database.log(new UnindexableLogEvent(column));
+        }
       }
     }
   }
@@ -2824,9 +2828,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       database.incrementQueryCount(sql);
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
-      if (maxTroid.next())
+      if (maxTroid.next()) {
         mostRecentTroid = maxTroid.getInt(1) + 1;
-      else
+      } else
         mostRecentTroid = 0;
       maxTroid.close();
       selectionStatement.close();

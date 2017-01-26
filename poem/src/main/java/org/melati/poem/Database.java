@@ -394,8 +394,13 @@ public abstract class Database implements TransactionPool {
               throw new UnificationPoemException("Primary Key " + troidColumnName + " cannot represent a Troid");
             else {
               log("Column " + troidColumnName + " cannot represent troid as it has type " + defaultPoemTypeOfColumnMetaData(idCol));
-              ResultSet u = m.getIndexInfo
-                  (null, dbms.getSchema(), dbms.unreservedName(tableName), true, false);
+              ResultSet u;
+              try {
+                u = m.getIndexInfo
+                    (null, dbms.getSchema(), dbms.unreservedName(tableName), true, false);
+              } catch (SQLException e) {
+                throw new RuntimeException("IndexInfo not found for " + dbms.unreservedName(tableName), e);
+              }
               String unusableKey = troidColumnName;
               troidColumnName = null;
               String uniqueKey = null;

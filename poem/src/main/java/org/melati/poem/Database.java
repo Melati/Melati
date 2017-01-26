@@ -312,7 +312,7 @@ public abstract class Database implements TransactionPool {
   }
 
   protected String getSchema() {
-    return dbms.getSchema();
+    return null;
   }
 
   protected String unreservedName(String name) {

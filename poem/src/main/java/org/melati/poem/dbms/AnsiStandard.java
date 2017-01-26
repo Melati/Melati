@@ -1,7 +1,4 @@
 /*
- * $Source$
- * $Revision$
- *
  * Copyright (C) 2000 David Warnock
  * 
  * Part of Melati (http://melati.org), a framework for the rapid
@@ -49,46 +46,14 @@
 
 package org.melati.poem.dbms;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.Enumeration;
-import java.util.Properties;
-
-import org.melati.poem.BigDecimalPoemType;
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.Column;
-import org.melati.poem.DatePoemType;
-import org.melati.poem.DoublePoemType;
-import org.melati.poem.ExecutingSQLPoemException;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.IntegrityFixPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.PasswordPoemType;
-import org.melati.poem.PoemBugPoemException;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemException;
-import org.melati.poem.SQLPoemType;
+import org.melati.poem.*;
 import org.melati.poem.SQLType;
-import org.melati.poem.StandardIntegrityFix;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
-import org.melati.poem.TimePoemType;
-import org.melati.poem.TimestampPoemType;
-import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.util.StringUtils;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * An SQL 92 compliant Database Management System. 
@@ -98,16 +63,12 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
  * far have needed to extend the standard with their own variations.
  */
 public class AnsiStandard implements Dbms {
-  
+
+  protected String schema;
   private boolean driverLoaded = false;
   private String driverClassName = null;
   private Driver driver = null;
-  protected String schema;
 
-  protected synchronized void setDriverClassName(String name) {
-    driverClassName = name;
-  }
-  
   protected synchronized String getDriverClassName() {
     if (driverClassName == null)
       throw new PoemBugPoemException(
@@ -116,48 +77,40 @@ public class AnsiStandard implements Dbms {
     return driverClassName;
   }
 
-  protected synchronized void setDriverLoaded(boolean loaded) {
-    driverLoaded = loaded;
+  protected synchronized void setDriverClassName(String name) {
+    driverClassName = name;
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#unloadDriver()
-   */
+  @Override
   public void unloadDriver() {
     driver = null;
     setDriverLoaded(false);
   }
-  
+
   protected synchronized boolean getDriverLoaded() {
     return driverLoaded;
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#getSchema()
-   */
-  public String getSchema() {
-    return null;
+  protected synchronized void setDriverLoaded(boolean loaded) {
+    driverLoaded = loaded;
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#shutdown(java.sql.Connection)
-   */
+  @Override
+  public String getSchema() {
+    return schema;
+  }
+
+  @Override
   public void shutdown(Connection connection)  
     throws SQLException{    
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#canDropColumns()
-   */
+  @Override
   public boolean canDropColumns(){
     return true;
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#canStoreBlobs()
-   */
+  @Override
   public boolean canStoreBlobs(){
     return true;
   }
@@ -185,17 +138,15 @@ public class AnsiStandard implements Dbms {
    * The default windows installation of MySQL has autocommit set true, 
    * which throws an SQLException when one issues a commit.
    * 
-   * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
    */
+  @Override
   public Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException {
     schema = user;
-    try { 
-      synchronized (driverClassName) {
-        if (!getDriverLoaded()) loadDriver();
-      }
+    try {
+      if (!getDriverLoaded()) loadDriver();
 
-      Connection c = null;
+      Connection c;
       if (driver != null) {
         Properties info = new Properties();
         if (user != null)
@@ -229,11 +180,8 @@ public class AnsiStandard implements Dbms {
       throw new ConnectionFailurePoemException(e);
     }
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
-   */
+
+  @Override
   public String preparedStatementPlaceholder(PoemType<?> type) {
     return "?";
   }
@@ -258,75 +206,51 @@ public class AnsiStandard implements Dbms {
     sqb.append(createTableOptionsSql());
     return sqb.toString();
   }
-  
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#createTableTypeQualifierSql(org.melati.poem.Table)
-   */
+
+  @Override
   public String createTableTypeQualifierSql(Table<?> table) {
     return "";
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#createTableOptionsSql()
-   */
+  @Override
   public String createTableOptionsSql() {
     return "";
   }
 
-  /** 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#tableInitialisationSql(org.melati.poem.Table)
-   */
+  @Override
   public String tableInitialisationSql(Table<?> table) {
     return null;
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
-   */
+
+  @Override
   public String getSqlDefinition(String sqlTypeName) {
     return sqlTypeName;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
-   */
+  @Override
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0)
       throw new SQLException(
-          "unlimited length not supported in AnsiStandard STRINGs");
+          "Unlimited length not supported in AnsiStandard STRINGs");
 
     return "VARCHAR(" + size + ")";
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
-   */
+  @Override
   public String getLongSqlDefinition() {
     return "INT8";
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
-   */
+  @Override
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
       throw new SQLException(
-          "unlimited length not supported in AnsiStandard BINARYs");
+          "Unlimited length not supported in AnsiStandard BINARYs");
 
     return "LONGVARBINARY(" + size + ")";
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getFixedPtSqlDefinition(int, int)
-   */
+  @Override
   public String getFixedPtSqlDefinition(int scale, int precision)
       throws SQLException {
     if (scale < 0)
@@ -341,16 +265,12 @@ public class AnsiStandard implements Dbms {
     return "DECIMAL(" + precision + "," + scale + ")";
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
-   */
+  @Override
   public String sqlBooleanValueOfRaw(Object raw) {
     return raw.toString();
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
-   */
+  @Override
   public <S,O>PoemType<O> canRepresent(PoemType<S> storage, PoemType<O> type) {
     return storage.canRepresent(type);
   }
@@ -370,9 +290,7 @@ public class AnsiStandard implements Dbms {
     throw e;
   }
 
-  /**
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
-   */
+  @Override
   public SQLPoemType<?> defaultPoemTypeOfColumnMetaData(ResultSet columnsMetaData)
       throws SQLException {
     int typeCode = columnsMetaData.getShort("DATA_TYPE");
@@ -380,7 +298,6 @@ public class AnsiStandard implements Dbms {
     int width = columnsMetaData.getInt("COLUMN_SIZE");
     int scale = columnsMetaData.getInt("DECIMAL_DIGITS");
 
-    //System.err.println("defaultPoemTypeOfColumnMetaData:" + typeCode);
     switch (typeCode) {
       case Types.BIT :
         return new BooleanPoemType(nullable);
@@ -444,9 +361,9 @@ public class AnsiStandard implements Dbms {
         return unsupported("ARRAY", columnsMetaData);
       case Types.BLOB : 
         return unsupported("BLOB", columnsMetaData);
-      case Types.CLOB : 
-        return unsupported("CLOB", columnsMetaData);
-      case Types.REF : 
+      case Types.CLOB:
+        return new StringPoemType(nullable, width == 0 ? -1 : width);
+      case Types.REF:
         return unsupported("REF", columnsMetaData);
       case Types.DATALINK : 
         return unsupported("DATLINK", columnsMetaData);
@@ -458,37 +375,27 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate
-   */
+  @Override
   public SQLPoemException exceptionForUpdate(Table<?> table, String sql,
       boolean insert, SQLException e) {
     return new ExecutingSQLPoemException(sql, e);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see Dbms#exceptionForUpdate(org.melati.poem.Table, 
-   *                              java.sql.PreparedStatement, 
-   *                              boolean, java.sql.SQLException)
-   */
+  @Override
   public SQLPoemException exceptionForUpdate(Table<?> table, PreparedStatement ps,
       boolean insert, SQLException e) {
     return exceptionForUpdate(table, ps == null ? null : ps.toString(), insert,
         e);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getQuotedName(java.lang.String)
-   */
+  @Override
   public String getQuotedName(String name) {
     StringBuffer b = new StringBuffer();
     StringUtils.appendQuoted(b, unreservedName(name), '"');
     return b.toString();
   }
-  
+
+  @Override
   public String getQuotedValue(SQLType<?> sqlType, String value) {
     if (sqlType instanceof BooleanPoemType) {
       return value;
@@ -530,10 +437,7 @@ public class AnsiStandard implements Dbms {
     
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
-   */
+  @Override
   public String getJdbcMetadataName(String name) {
     return name;
   }
@@ -550,11 +454,8 @@ public class AnsiStandard implements Dbms {
   public String unreservedName(String name) {
     return name;
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
-   */
+
+  @Override
   public String melatiName(String name) {
     return name;
   }
@@ -563,10 +464,9 @@ public class AnsiStandard implements Dbms {
    * MySQL requires a length argument when creating an index on a BLOB or TEXT
    * column.
    * 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getIndexLength(org.melati.poem.Column)
    * @see org.melati.poem.dbms.MySQL#getIndexLength
    */
+  @Override
   public String getIndexLength(Column<?> column) {
     return "";
   }
@@ -574,10 +474,8 @@ public class AnsiStandard implements Dbms {
   /**
    * MSSQL cannot index a TEXT column. But neither can it compare them so we
    * don't use it, we use VARCHAR(255).
-   *  
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#canBeIndexed(org.melati.poem.Column)
    */
+  @Override
   public boolean canBeIndexed(Column<?> column) {
     return true;
   }
@@ -586,10 +484,10 @@ public class AnsiStandard implements Dbms {
    * MySQL had no EXISTS keyword, from 4.1 onwards it does.
    * NOTE There is a bootstrap problem here, we need to use the 
    * unchecked troid, otherwise we get a stack overflow.
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#givesCapabilitySQL
+   *
    * @see org.melati.poem.dbms.MySQL#givesCapabilitySQL
    */
+  @Override
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return "SELECT * FROM " + getQuotedName("groupMembership") + " WHERE "
         + getQuotedName("user") + " = " + userTroid + " AND "
@@ -604,9 +502,8 @@ public class AnsiStandard implements Dbms {
 
   /**
    * This is the Postgresql syntax.
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(String, String)
    */
+  @Override
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
@@ -616,42 +513,27 @@ public class AnsiStandard implements Dbms {
     return term1 + " ILIKE " + term2;
   }
 
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Object#toString()
-   */
+  @Override
   public String toString() {
     return this.getClass().getName();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   */
+  @Override
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
-    StringBuffer sb = new StringBuffer();
-    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
-              getQuotedName(targetTableName) + 
-              "(" + getQuotedName(targetTableFieldName) + ")");
+    String q = " ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") " +
+        "REFERENCES " + getQuotedName(targetTableName) +
+        "(" + getQuotedName(targetTableFieldName) + ")";
     if (fixName.equals("prevent"))
-      sb.append(" ON DELETE RESTRICT");
+      q += " ON DELETE RESTRICT";
     if (fixName.equals("delete"))
-      sb.append(" ON DELETE CASCADE");      
+      q += " ON DELETE CASCADE";
     if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
-    return sb.toString();
+      q += " ON DELETE SET NULL";
+    return q;
   }
 
-  /**
-   * Return the PRIMARY KEY definition string for this dbms. 
-   * 
-   * @param fieldName the table Troid column, often id, unquoted
-   * @return The definition string
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition(java.lang.String)
-   */
+  @Override
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
@@ -662,18 +544,13 @@ public class AnsiStandard implements Dbms {
     " ALTER COLUMN " + getQuotedName(column.getName()) +
     " SET NOT NULL";
   }
-  
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#selectLimit(java.lang.String, int)
-   */
+
+  @Override
   public String selectLimit(String querySelection, int limit) {
     return "SELECT " + querySelection + " LIMIT " + limit;
   }
-  
-  /**
-   * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
-   */
+
+  @Override
   public String booleanTrueExpression(Column<Boolean> booleanColumn) {
     return booleanColumn.fullQuotedName();
   }

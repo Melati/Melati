@@ -1,14 +1,6 @@
 package org.melati.poem.dbms.test;
 
-import org.melati.poem.BigDecimalPoemType;
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.DatePoemType;
-import org.melati.poem.DoublePoemType;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.TimestampPoemType;
+import org.melati.poem.*;
 import org.melati.poem.dbms.DbmsFactory;
 
 /**
@@ -39,8 +31,8 @@ public class OracleTest extends DbmsSpec {
    * getStringSqlDefinition(java.lang.String)}.
    */
   public void testGetStringSqlDefinition() throws Exception {
-    assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
-    assertEquals("VARCHAR(266)",  it.getStringSqlDefinition(-1));
+    assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));
+    assertEquals("CLOB", it.getStringSqlDefinition(-1));
   }
   
   /**

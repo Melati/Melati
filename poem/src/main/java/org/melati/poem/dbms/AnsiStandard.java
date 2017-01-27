@@ -97,7 +97,7 @@ public class AnsiStandard implements Dbms {
 
   @Override
   public String getSchema() {
-    return schema;
+    return null;
   }
 
   @Override

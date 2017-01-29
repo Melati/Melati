@@ -1,5 +1,0 @@
-## Copyright (C) 2017 Tim Pizey
-public class $object.Class.Name {
- String value = "$ml.rendered($object.toString())";
- String displayValue = "$ml.rendered($object.displayString($melati.PoemLocale))";
-}

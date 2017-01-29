@@ -2,6 +2,7 @@ package org.melati.app.test;
 
 import junit.framework.TestCase;
 import org.melati.app.DSDApp;
+import org.melati.app.JavinatorApp;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,8 +29,8 @@ public class JavinatorAppTest extends TestCase {
 
   public void testRun() throws Exception {
     String fileName = "t1.tmp";
-    String[] args = { "appjunit", "-o", fileName };
-    DSDApp.main(args);
+    String[] args = { "appjunit", "tableinfo", "8", "-o", fileName };
+    JavinatorApp.main(args);
     String output = "";
     File fileIn = new File(fileName);
     BufferedReader in = new BufferedReader( 
@@ -38,14 +39,15 @@ public class JavinatorAppTest extends TestCase {
     int line = 0;
     while (in.ready()) {
       line++;
-      if (line == 2)
+      if (line == 1)
         output += in.readLine();
       else 
         in.readLine();
     }
     in.close();
-    fileIn.delete();
-    assertEquals(" * DSD for jdbc:hsqldb:mem:appjunit (org.melati.poem.PoemDatabase)" , output);
+//    fileIn.delete();
+    assertEquals(
+        "// Delete this line to prevent overwriting of this file", output);
   }
 
 }

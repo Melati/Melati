@@ -1,0 +1,57 @@
+// Delete this line to prevent overwriting of this file
+## Copyright (C) 2017 Tim Pizey
+
+package $package;
+
+
+import $(package).generated.$(object.Table.Name)TableBase;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Database;
+import org.melati.poem.PoemException;
+
+/**
+ * Melati generated, programmer modifiable stub
+ * for a POEM <code>$(object.Table.Name)Table</code> object.
+ * <p>
+ * Description:
+ *   $object.Table.Description
+ * </p>
+ *
+ *
+ * <table>
+ * <caption>
+ * Field summary for SQL table <code>$object.Table.Name</code>
+ * </caption>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+#foreach $column in $object.Table.Columns #begin
+ * <tr><td> $column.Name </td><td> $column.Type </td><td> $column.Description </td></tr>
+#end
+ * </table>
+ *
+ * See org.melati.poem.prepro.TableDef#generateTableJava
+ *
+ * Copyright (C) 2017 Tim Pizey
+ */
+public class $(object.Table.Name)Table<T extends $object.Table.defaultDisplayName()>
+    extends $(object.Table.Name)TableBase<$object.Table.Name> {
+
+ String value = "$object.toString()";
+
+ /**
+  * Constructor.
+  *
+  * See org.melati.poem.prepro.TableDef#generateTableJava
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+  public $object.Table.getName()Table(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
+  // programmer's domain-specific code here
+}
+

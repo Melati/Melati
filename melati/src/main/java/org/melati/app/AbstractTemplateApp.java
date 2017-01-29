@@ -65,8 +65,6 @@ import org.melati.util.MelatiException;
 public abstract class AbstractTemplateApp extends AbstractPoemApp implements App {
 
   protected TemplateEngine templateEngine;
-  
-  
 
   /** 
    * {@inheritDoc}
@@ -76,7 +74,7 @@ public abstract class AbstractTemplateApp extends AbstractPoemApp implements App
     Melati melati = super.init(args);
     templateEngine = melatiConfig.getTemplateEngine();
     melati.setTemplateEngine(templateEngine);
-    TemplateContext templateContext = null;
+    TemplateContext templateContext;
     templateEngine.init(melatiConfig);
     try { 
      templateContext = templateEngine.getTemplateContext();

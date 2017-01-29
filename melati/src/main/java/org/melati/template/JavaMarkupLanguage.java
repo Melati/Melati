@@ -20,6 +20,10 @@ import java.util.List;
  */
 public class JavaMarkupLanguage extends AbstractMarkupLanguage implements MarkupLanguage {
 
+  public JavaMarkupLanguage(Melati melati) {
+    super("java", melati, ClassNameTempletLoader.getInstance(), PoemLocale.HERE);
+  }
+
   public JavaMarkupLanguage(Melati melati, TempletLoader templetLoader, PoemLocale locale) {
     super("java", melati, templetLoader, locale);
   }

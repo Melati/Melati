@@ -1,5 +1,8 @@
 // Delete this line to prevent overwriting of this file
 ## Copyright (C) 2017 Tim Pizey
+#if (!$package) #begin
+#set $package = "org.melati.poem"
+#end
 
 package $package;
 
@@ -24,7 +27,7 @@ import org.melati.poem.PoemException;
  * </caption>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 #foreach $column in $object.Table.Columns #begin
- * <tr><td> $column.Name </td><td> $column.Type </td><td> $column.Description </td></tr>
+ * <tr><td> $column.Name </td><td> $column.Type </td><td> #if ($column.Description) #begin $column.Description #end #else #begin &nbsp; #end #end </td></tr>
 #end
  * </table>
  *

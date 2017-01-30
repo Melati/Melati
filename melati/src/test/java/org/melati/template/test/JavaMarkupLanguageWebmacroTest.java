@@ -12,7 +12,7 @@ import java.util.Vector;
 
 /**
  * Test the JavaMarkupLanguage and its AttributeMarkupLanguage using WebMacro.
- * 
+ *
  * @author timp
  * @since 2017-01-21
  */
@@ -29,7 +29,7 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
   }
 
   public void testEntitySubstitution() throws Exception {
-    char pound[] = { 163 };
+    char pound[] = {163};
     assertEquals(new String(pound), ml.rendered(new String(pound)));
   }
 
@@ -38,7 +38,7 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     try {
       ml.escaped(getDb().getUserTable().getUserObject(0));
     } catch (RuntimeException e) {
-      e = null;
+      // expected
     }
   }
 
@@ -78,12 +78,9 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     m.setPoemContext(new PoemContext());
 
     String renderedPersistent = ml.rendered(persistent);
-    assertEquals(String.format(
-        "\npublic class org.melati.util.test.Node {\n" +
-            " String value = \"Node\\/%d\";\n" +
-            " String displayValue = \"Mum\";\n" +
-            "}\n", persistent.getId()),
-        renderedPersistent);
+    assertTrue(renderedPersistent.startsWith("// Delete this line to prevent overwriting of this file\n" +
+        "package org.melati.poem")
+    );
   }
 
   public void testRenderedAccessPoemException() throws Exception {
@@ -103,33 +100,37 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     }
     assertEquals("<\\/a>", ml.rendered("</a>"));
   }
-  
+
   /**
    * Test that toString is used if no template found.
    * FIXME a template has to be found as there is always an Object template
    * What is this test meant to be about?
    */
-  public void testUntemplatedObjectUsesToString() throws Exception { 
+  public void testUntemplatedObjectUsesToString() throws Exception {
     assertEquals("\npublic class java.util.Properties {\n" +
         "  String value = \"{}\";\n}\n", ml.rendered(new Properties()));
   }
 
-  public void testSpecialTemplateFound() throws Exception { 
+  public void testSpecialTemplateFound() throws Exception {
     // not applicable
   }
+
   public void testInputField() throws Exception {
     // not applicable
   }
+
   public void testInputFieldSelection() throws Exception {
     // not applicable
   }
+
   public void testSelectionWindowField() throws Exception {
     // not applicable
   }
+
   public void testInputFieldForRestrictedField() throws Exception {
     // not applicable
   }
-  
+
   public void testInputAs() throws Exception {
   }
 
@@ -138,15 +139,16 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
 
   public void testRenderedTreeable() throws Exception {
   }
-  
+
   /**
    * Test NPE not thrown.
    */
   public void testNull() throws Exception {
-    assertEquals("null",ml.rendered(null));
+    assertEquals("null", ml.rendered(null));
   }
-  public void testRenderedList() { 
-    ArrayList<Object>l = new ArrayList<Object>();
+
+  public void testRenderedList() {
+    ArrayList<Object> l = new ArrayList<Object>();
     assertEquals("[]\n", ml.rendered(l));
     l.add(null);
     assertEquals("[null]\n", ml.rendered(l));
@@ -160,14 +162,14 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     assertEquals("[null,null,true,false,null]\n", ml.rendered(l));
     l.add("test");
     assertEquals("[null,null,true,false,null,\"test\"]\n", ml.rendered(l));
-    
+
     Vector<Object> v = new Vector<Object>();
     assertEquals("[]\n", ml.rendered(v));
     v.add("one");
     assertEquals("[\"one\"]\n", ml.rendered(v));
     v.add("one");
     assertEquals("[\"one\",\"one\"]\n", ml.rendered(v));
-    assertEquals("[\"one\",\"one\"]\n", ml.rendered(v.elements()));    
+    assertEquals("[\"one\",\"one\"]\n", ml.rendered(v.elements()));
   }
 
   public void testRenderedSelection() {

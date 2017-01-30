@@ -1,8 +1,5 @@
 package org.melati.template.test;
 
-import org.melati.poem.PoemLocale;
-import org.melati.template.ClassNameTempletLoader;
-import org.melati.template.JSONMarkupLanguage;
 import org.melati.template.JavaMarkupLanguage;
 
 /**
@@ -22,10 +19,7 @@ public abstract class JavaMarkupLanguageSpec extends MarkupLanguageSpec {
 
   protected void setUp() throws Exception {
     super.setUp();
-    ml = new JavaMarkupLanguage(
-            m, 
-            ClassNameTempletLoader.getInstance(), 
-            PoemLocale.HERE);
+    ml = new JavaMarkupLanguage(m);
     m.setMarkupLanguage(ml);
   }
 

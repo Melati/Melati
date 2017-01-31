@@ -158,7 +158,12 @@ public class Melati {
     this.config = config;
   }
 
-  /** Convenience constructor. */ 
+  /** Convenience constructor. */
+  public Melati() {
+    this.config = new MelatiConfig();
+    this.writer = new MelatiStringWriter();
+  }
+  /** Convenience constructor. */
   public Melati(MelatiWriter writer) {
     this.config = new MelatiConfig();
     this.writer = writer;

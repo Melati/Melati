@@ -1,7 +1,11 @@
 package org.melati.template.test;
 
 import org.melati.MelatiConfig;
-import org.melati.PoemContext;
+import org.melati.poem.JdbcPersistent;
+import org.melati.template.ClassNameTempletLoader;
+import org.melati.template.JavaMarkupLanguage;
+import org.melati.template.Template;
+import org.melati.template.TemplateContext;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.util.test.Node;
@@ -23,6 +27,29 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
     mc.setTemplateEngine(new WebmacroTemplateEngine());
   }
 
+
+  public void testExpandedTemplate() {
+    MelatiConfig mc = new MelatiConfig();
+    templateEngine.init(mc);
+    TemplateContext templateContext = templateEngine.getTemplateContext();
+
+
+    Node persistent = (Node) getDb().getTable("node").newPersistent();
+    persistent.setName("Mum");
+    persistent.makePersistent();
+
+    templateContext.put("object", persistent);
+
+    Template template = ClassNameTempletLoader.getInstance().templet(
+        templateEngine, new JavaMarkupLanguage(), null, JdbcPersistent.class);
+    String renderedPersistent = templateEngine.expandedTemplate(
+        template,
+        templateContext);
+    assertTrue(renderedPersistent.startsWith("// Delete this line to prevent overwriting of this file\n" +
+        "package org.melati.poem")
+    );
+
+  }
 
   public void testGetAttr() {
     // we don't have one
@@ -72,15 +99,6 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
       e = null;
     }
 
-    Node persistent = (Node) getDb().getTable("node").newPersistent();
-    persistent.setName("Mum");
-    persistent.makePersistent();
-    m.setPoemContext(new PoemContext());
-
-    String renderedPersistent = ml.rendered(persistent);
-    assertTrue(renderedPersistent.startsWith("// Delete this line to prevent overwriting of this file\n" +
-        "package org.melati.poem")
-    );
   }
 
   public void testRenderedAccessPoemException() throws Exception {

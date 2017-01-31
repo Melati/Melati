@@ -60,7 +60,7 @@ public class WebmacroTemplateContext implements TemplateContext {
 
   /**
    * Constructor.
-   * 
+   *
    * @param c a {@link Context} to use to evaluate against
    */
   public WebmacroTemplateContext(Context c) {

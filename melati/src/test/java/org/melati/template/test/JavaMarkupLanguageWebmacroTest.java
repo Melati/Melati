@@ -51,6 +51,28 @@ public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
 
   }
 
+  public void testExpandedTemplatePurpose() {
+    MelatiConfig mc = new MelatiConfig();
+    templateEngine.init(mc);
+    TemplateContext templateContext = templateEngine.getTemplateContext();
+
+
+    Node persistent = (Node) getDb().getTable("node").newPersistent();
+    persistent.setName("Mum");
+    persistent.makePersistent();
+
+    templateContext.put("object", persistent);
+
+    Template template = ClassNameTempletLoader.getInstance().templet(
+        templateEngine, new JavaMarkupLanguage(), "DAO", JdbcPersistent.class);
+    String renderedPersistent = templateEngine.expandedTemplate(
+        template,
+        templateContext);
+    assertTrue(renderedPersistent.startsWith("// Delete this line to prevent overwriting of this file\n" +
+        "package org.melati.poem")
+    );
+    System.err.println(renderedPersistent);
+  }
   public void testGetAttr() {
     // we don't have one
   }

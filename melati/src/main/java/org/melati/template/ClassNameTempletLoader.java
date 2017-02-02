@@ -110,9 +110,17 @@ public final class ClassNameTempletLoader implements TempletLoader {
         templateEngine.templateExtension();
   }
 
-  protected static String classpathTempletPath(Class<?> clazz, TemplateEngine templateEngine) { 
-    return clazz.getName().replace('.', '/') + templateEngine.templateExtension();
+  protected static String classpathTempletPath(Class<?> clazz, String purpose, TemplateEngine templateEngine) {
+    if (purpose == null) {
+      return clazz.getName().replace('.', '/') + templateEngine.templateExtension();
+    } else {
+      return clazz.getPackage().getName().replace('.', '/')
+          + "/" + purpose
+          + "/" + clazz.getSimpleName()
+          + templateEngine.templateExtension();
+    }
   }
+
   /**
    * Get a templet by name, with optional purpose. 
    * 
@@ -160,11 +168,13 @@ public final class ClassNameTempletLoader implements TempletLoader {
       if (fromCache != null) {
         templet = fromCache;
         break;
-      } 
-      //templet = getSpecialTemplate(lookupClass, lookupPurpose, markupLanguage, templateEngine);
-      //if (templet != null)
-      //  break;
-      
+      }
+      /*
+      templet = getSpecialTemplate(lookupClass, lookupPurpose, markupLanguage, templateEngine);
+      if (templet != null) {
+        break;
+      }
+      */
       // Try to find one in the templets directory
       String templetPath = templetsTempletPath(templateEngine, markupLanguage,
               lookupPurpose, lookupClass.getName());
@@ -172,7 +182,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
       if (templet != null)
         break;
       // Try to find one on classpath
-      templetPath = classpathTempletPath(lookupClass, templateEngine);
+      templetPath = classpathTempletPath(lookupClass, purpose, templateEngine);
       templet = getTemplate(templateEngine, templetPath);
       if (templet != null)
         break;

@@ -46,23 +46,30 @@
 package org.melati.poem;
 
 /**
- * Thrown during {@link Column} unification if there is a contradiction 
+ * Thrown during {@link Column} unification if there is a contradiction
  * between two of the possible {@link DefinitionSource}s.
  *
  * @author WilliamC AT paneris.org
- * 
  */
 public class TypeDefinitionMismatchException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** Column in which problem occurred. */
+  /**
+   * Column in which problem occurred.
+   */
   public Column<?> column;
-  /** Type we are trying to assign. */
+  /**
+   * Type we are trying to assign.
+   */
   public PoemType<?> newType;
-  /** Where the new type came from. */
+  /**
+   * Where the new type came from.
+   */
   public DefinitionSource newTypeSource;
 
-  /** Constructor. */
+  /**
+   * Constructor.
+   */
   public TypeDefinitionMismatchException(Column<?> column,
                                          PoemType<?> newType,
                                          DefinitionSource newTypeSource) {
@@ -77,7 +84,9 @@ public class TypeDefinitionMismatchException extends SeriousPoemException {
    */
   public String getMessage() {
     return
-        "Column " + column + " has its type overridden " +
-        "incompatibly in " + newTypeSource + ": (" + newType.getClass() + ")" + newType;
+        "Column " + column + " has its type " +
+            "(" + column.getType().getClass() + ") [" + column.getType() +
+            "] overridden incompatibly in " + newTypeSource +
+            ": (" + newType.getClass() + ") [" + newType + "]";
   }
 }

@@ -45,10 +45,10 @@
 
 package org.melati.template;
 
-import java.util.Hashtable;
-
 import org.melati.poem.FieldAttributes;
 import org.melati.util.MelatiBugMelatiException;
+
+import java.util.Hashtable;
 
 /**
  * Load a template to render an object based upon the object's class.
@@ -79,11 +79,11 @@ public final class ClassNameTempletLoader implements TempletLoader {
   protected static String templetsPath(TemplateEngine templateEngine, 
                                 MarkupLanguage markupLanguage) {
     /*
-    // Fails to find templates in jars!!
-    return "org" + File.separatorChar + 
-           "melati" + File.separatorChar + 
-           "template" + File.separatorChar + 
-            templateEngine.getName() + File.separatorChar + 
+    // Fails to find templates in jars on Windows!!
+    return "org" + File.separatorChar +
+           "melati" + File.separatorChar +
+           "template" + File.separatorChar +
+            templateEngine.getName() + File.separatorChar +
            "templets" + File.separatorChar +
             markupLanguage.getName() + File.separatorChar;
     */
@@ -170,6 +170,7 @@ public final class ClassNameTempletLoader implements TempletLoader {
         break;
       }
       /*
+      // FIXME currently we only have specialised templets for fields
       templet = getSpecialTemplate(lookupClass, lookupPurpose, markupLanguage, templateEngine);
       if (templet != null) {
         break;

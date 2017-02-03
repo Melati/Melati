@@ -1,7 +1,4 @@
 /*
- * $Source$
- * $Revision$
- *
  * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
@@ -45,20 +42,14 @@
 
 package org.melati.servlet;
 
-import java.io.IOException;
+import org.melati.Melati;
+import org.melati.PoemContext;
+import org.melati.poem.*;
+import org.melati.poem.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
-import org.melati.Melati;
-import org.melati.PoemContext;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.Field;
-import org.melati.poem.NoSuchColumnPoemException;
-import org.melati.poem.PoemThread;
-import org.melati.poem.PoemTask;
-import org.melati.poem.AccessToken;
-import org.melati.poem.util.StringUtils;
+import java.io.IOException;
 
 /**
  * Base class to use Poem with Servlets.
@@ -229,13 +220,13 @@ public abstract class PoemServlet extends ConfigServlet {
     melati.getDatabase().inSession(AccessToken.root, new PoemTask() {
       @SuppressWarnings("unchecked")
       public void run() {
-        String poemAdministratorsName = null;
-        String poemAdministratorsEmail = null;
+        String poemAdministratorsName;
+        String poemAdministratorsEmail;
 
         try {
           try {
             poemAdministratorsName = melati.getDatabase().administratorUser().getName();
-            Field<String> emailField = null;
+            Field<String> emailField;
             try {
               emailField = (Field<String>)melati.getDatabase().administratorUser().getField("email");
               poemAdministratorsEmail = emailField.toString();
@@ -244,7 +235,6 @@ public abstract class PoemServlet extends ConfigServlet {
             }
             _this.setSysAdminName(poemAdministratorsName);
             _this.setSysAdminEmail(poemAdministratorsEmail);
-            
           } catch (Exception e) {
             _handleException(melati, e);
           }
@@ -310,12 +300,12 @@ public abstract class PoemServlet extends ConfigServlet {
    */
   protected void handleException(Melati melati, Exception exception)
       throws Exception {
-
     if (exception instanceof AccessPoemException) {
       melati.getConfig().getAccessHandler().handleAccessException(melati,
           (AccessPoemException) exception);
-    } else
+    } else {
       throw exception;
+    }
   }
 
   protected final void _handleException(Melati melati, Exception exception)
@@ -427,8 +417,6 @@ public abstract class PoemServlet extends ConfigServlet {
 
   /**
    * Override this method to build up your own output.
-   * 
-   * @param melati
    */
   protected abstract void doPoemRequest(Melati melati) throws Exception;
 

@@ -1,30 +1,20 @@
 package org.melati.template.test;
 
-import java.util.ArrayList;
-import java.util.Properties;
-
+import junit.framework.TestCase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.BaseFieldAttributes;
-import org.melati.poem.Capability;
-import org.melati.poem.Column;
-import org.melati.poem.Field;
-import org.melati.poem.PoemThread;
-import org.melati.util.test.Node;
-import org.melati.util.test.TreeDatabase;
+import org.melati.poem.*;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
-import org.melati.util.JSStaticTree;
-import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.MelatiException;
-import org.melati.util.MelatiStringWriter;
-import org.melati.util.Tree;
+import org.melati.util.*;
+import org.melati.util.test.Node;
+import org.melati.util.test.TreeDatabase;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.Properties;
 
 
 /**
@@ -85,25 +75,26 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    *      rendered(AccessPoemException)
    */
   public void testRenderedAccessPoemException() throws Exception {
-    
-    assertEquals("java.lang.Exception",aml.rendered(new Exception()));
-    assertEquals("[java.lang.Exception]\n",ml.rendered(new Exception()));
+
+    assertEquals("java.lang.Exception",
+        aml.rendered(new Exception()));
+    assertEquals("[java.lang.Exception]",
+        ml.rendered(new Exception()).trim());
 
     AccessPoemException ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
-    assertTrue(ml.rendered(ape),ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
+    assertTrue(ml.rendered(ape),
+        ml.rendered(ape).indexOf("[Access denied to Melati guest user]") != -1);
     ape = new AccessPoemException();
     assertEquals("", aml.rendered(ape));
-    //System.err.println(m.getWriter().toString());
     assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
     ape = new AccessPoemException(
           getDb().getUserTable().guestUser(), new Capability("Cool"));
     assertEquals("", aml.rendered(ape));
-      // NB Not at all sure how this value changed 
+      // NB Not at all sure how this value changed
       // System.err.println(m.getWriter().toString());
       //assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     assertTrue(m.getWriter().toString().indexOf("[Access denied to _guest_]") != -1);
-
   }
 
 
@@ -265,23 +256,8 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   }
 
   /**
-   * An object which throws an exception when its toString method is called.
-   */
-  class Bomber {
-    /**
-     * Constructor.
-     */
-    public Bomber() {}
-    /** 
-     * Throw exception.
-     */
-    public String toString() {
-      throw new RuntimeException("Bomber bombed.");
-    }
-  }
-  /**
    * Test method for rendered(String).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(String)
    */
   public void testRenderedString() throws Exception {
@@ -292,17 +268,17 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
    * Test NPE thrown.
    */
   public void testNull() throws Exception {
-    try { 
+    try {
       ml.rendered(null);
-      fail("should have bombed");      
-    } catch (NullPointerException e) { 
+      fail("should have bombed");
+    } catch (NullPointerException e) {
       e = null;
-    }    
+    }
   }
-  
+
   /**
    * Test method for rendered(String, int).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(String, int)
    */
   public void testRenderedStringInt() throws Exception {
@@ -311,16 +287,17 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   /**
    * Test method for rendered(Field).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(Field)
    */
   public void testRenderedField() throws Exception {
     Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertEquals("_guest_", ml.rendered(userName));
   }
+
   /**
    * Test method for rendered(Field, int).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(Field, int)
    */
   public void testRenderedFieldInt() throws Exception {
@@ -330,7 +307,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   /**
    * Test method for rendered(Field, int, int).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(Field, int, int)
    */
   public void testRenderedFieldIntInt() throws Exception {
@@ -338,10 +315,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertEquals("_gu...", ml.rendered(userName,3,3));
   }
 
-
   /**
    * Test method for renderedStart(Field).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#renderedStart(Field)
    */
   public void testRenderedStart() throws Exception {
@@ -351,29 +327,31 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   /**
    * Test method for input(Field).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testInputField() throws Exception {
     Field<?> userName = getDb().getUserTable().getUserObject(0).getField("login");
     assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
+
   /**
    * Test method for input(Field) where field to be rendered as a dropdown.
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testInputFieldSelection() throws Exception {
-    //Selection dropdown of references    
+    //Selection dropdown of references
     Field<?> group = getDb().getGroupMembershipTable().getGroupMembershipObject(0).getField("group");
     // System.err.println(ml.input(group));
     assertTrue(ml.input(group).indexOf("name=\"field_group\"") != -1);
     assertTrue(ml.input(group).indexOf("id=\"field_group\"") != -1);
     assertTrue(ml.input(group).indexOf("<select") != -1);
   }
+
   /**
    * Test method for input(Field) where the renderinfo is selectionWindow.
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testSelectionWindowField() throws Exception {
@@ -386,16 +364,16 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
   /**
    * Test access to password field.
    */
-  public void testInputFieldForRestrictedField() throws Exception { 
+  public void testInputFieldForRestrictedField() throws Exception {
     PoemThread.setAccessToken(getDb().getUserTable().guestUser());
     Field<?> password = getDb().getUserTable().getPasswordColumn().asEmptyField();
     assertTrue(ml.input(password).toLowerCase().indexOf("name=\"field_password\"") != -1);
     //System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
   }
-  
+
   /**
    * Test method for inputAs(Field, String).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#inputAs(Field, String)
    */
   public void testInputAs() throws Exception {
@@ -411,7 +389,7 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
 
   /**
    * Test method for searchInput(Field, String).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#searchInput(Field, String)
    */
   public void testSearchInput() throws Exception {
@@ -419,10 +397,9 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
   }
 
-
   /**
    * Test method for rendered(Treeable).
-   * 
+   *
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    */
   public void testRenderedTreeable() throws Exception {
@@ -440,14 +417,32 @@ abstract public class MarkupLanguageSpec extends TreeTestCase {
     Tree testTree = new Tree(parent);
     JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin/static");
     m.setPoemContext(new PoemContext());
-      
+
     String renderedTree = ml.rendered(tree);
     //System.err.println(":" + renderedTree + ":");
     assertTrue(renderedTree.indexOf("init") != -1);
-   
+
   }
-  
-  public void testRenderedList() { 
+
+  public void testRenderedList() {
     assertEquals("[[]]", ml.rendered(new ArrayList<String>()));
+  }
+
+  /**
+   * An object which throws an exception when its toString method is called.
+   */
+  class Bomber {
+    /**
+     * Constructor.
+     */
+    public Bomber() {
+    }
+
+    /**
+     * Throw exception.
+     */
+    public String toString() {
+      throw new RuntimeException("Bomber bombed.");
+    }
   }
 }

@@ -1,27 +1,12 @@
 package org.melati.poem.test;
 
+import org.melati.poem.*;
+import org.melati.poem.User;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Enumeration;
-
-import org.melati.poem.AccessToken;
-import org.melati.poem.CreationAccessPoemException;
-import org.melati.poem.DeletePersistentAccessPoemException;
-import org.melati.poem.DoubleCreatePoemException;
-import org.melati.poem.Field;
-import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
-import org.melati.poem.JdbcPersistent;
-import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Persistent;
-import org.melati.poem.PoemThread;
-import org.melati.poem.RowDisappearedPoemException;
-import org.melati.poem.Setting;
-import org.melati.poem.Table;
-import org.melati.poem.TableCategory;
-import org.melati.poem.User;
-import org.melati.poem.WritePersistentAccessPoemException;
-import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -843,7 +828,9 @@ public class PersistentTest extends EverythingTestCase {
       e = null;
     }
     // Some gets written before blowing up
-    assertEquals(baos.toString(),"User/0\n  ",baos.toString());
+    assertEquals(baos.toString(),
+        "User/0\n  ",
+        baos.toString().replace("\r", ""));
     
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);

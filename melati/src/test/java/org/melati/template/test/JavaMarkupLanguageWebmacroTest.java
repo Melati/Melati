@@ -2,10 +2,6 @@ package org.melati.template.test;
 
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.Capability;
-import org.melati.poem.Field;
-import org.melati.poem.PoemThread;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.util.test.Node;
@@ -15,33 +11,18 @@ import java.util.Properties;
 import java.util.Vector;
 
 /**
- * Test the JSONMarkupLanguage and its AttributeMarkupLanguage.
+ * Test the JavaMarkupLanguage and its AttributeMarkupLanguage using WebMacro.
  * 
  * @author timp
- * @since 18-May-2006
+ * @since 2017-01-21
  */
-public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
+public class JavaMarkupLanguageWebmacroTest extends JavaMarkupLanguageSpec {
 
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     mc.setTemplateEngine(new WebmacroTemplateEngine());
   }
 
-  public void testRenderedAccessPoemException() throws Exception {
-    assertEquals(
-        "\n{\n \"class\":\"java.lang.Exception\",\n \"asString\":\"java.lang.Exception\"\n}\n",
-        ml.rendered(new Exception()).replace("\r", ""));
-
-    AccessPoemException ape = new AccessPoemException(getDb().getUserTable()
-        .guestUser(), new Capability("Cool"));
-    assertTrue(ml.rendered(ape),
-        ml.rendered(ape).indexOf("You need the capability Cool but ") != -1);
-    ape = new AccessPoemException();
-    System.err.println(m.getWriter().toString());
-    assertEquals("", m.getWriter().toString());
-    ape = new AccessPoemException(getDb().getUserTable().guestUser(),
-        new Capability("Cool"));
-  }
 
   public void testGetAttr() {
     // we don't have one
@@ -79,7 +60,7 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
       ml.getAttr().rendered(new Bomber());
       fail("Should have bombed");
     } catch (RuntimeException e) {
-      assertEquals("Not expected to be called in JSON", e.getMessage());
+      assertEquals("Not expected to be called in Java", e.getMessage());
       e = null;
     }
 
@@ -97,9 +78,16 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
     m.setPoemContext(new PoemContext());
 
     String renderedPersistent = ml.rendered(persistent);
-    assertEquals(
-        "{\n \"class\":\"org.melati.util.test.Node\",\n \"value\":\"Mum\"\n}",
-        renderedPersistent.replace("\r", ""));
+    assertEquals(String.format(
+        "\npublic class org.melati.util.test.Node {\n" +
+            " String value = \"Node\\/%d\";\n" +
+            " String displayValue = \"Mum\";\n" +
+            "}\n", persistent.getId()),
+        renderedPersistent);
+  }
+
+  public void testRenderedAccessPoemException() throws Exception {
+    // not applicable
   }
 
   /**
@@ -110,7 +98,7 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
       ml.renderedMarkup("</a>");
       fail("Should have bombed");
     } catch (RuntimeException e) {
-      assertEquals("Not expected to be called in JSON", e.getMessage());
+      assertEquals("Not expected to be called in Java", e.getMessage());
       e = null;
     }
     assertEquals("<\\/a>", ml.rendered("</a>"));
@@ -121,9 +109,9 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
    * FIXME a template has to be found as there is always an Object template
    * What is this test meant to be about?
    */
-  public void testUntemplatedObjectUsesToString() throws Exception {
-    assertEquals("{\n \"class\":\"java.util.Properties\",\n \"asString\":\"{}\"\n}\n",
-        ml.rendered(new Properties()).replace("\r", ""));
+  public void testUntemplatedObjectUsesToString() throws Exception { 
+    assertEquals("\npublic class java.util.Properties {\n" +
+        "  String value = \"{}\";\n}\n", ml.rendered(new Properties()));
   }
 
   public void testSpecialTemplateFound() throws Exception { 
@@ -138,21 +126,8 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
   public void testSelectionWindowField() throws Exception {
     // not applicable
   }
-  public void testInputFieldForRestrictedField() throws Exception { 
-    PoemThread.setAccessToken(getDb().getUserTable().guestUser());
-    Field<?> password = getDb().getUserTable().getPasswordColumn().asEmptyField();
-    System.err.println(ml.rendered(getDb().getUserTable().administratorUser()));
-    System.err.println(ml.input(password));
-    assertEquals("{\n \"class\":\"org.melati.poem.Field\",\n" +
-            " \"asString\":\"password: \"\n}\n",
-        ml.input(password).replace("\r", ""));
-    assertEquals("", ml.rendered(password));
-    try { 
-      assertEquals("", ml.rendered(ml.rendered(getDb().getUserTable().administratorUser().getField("password"))));
-      fail("Should have bombed");
-    } catch (AccessPoemException e) { 
-      e = null;
-    } 
+  public void testInputFieldForRestrictedField() throws Exception {
+    // not applicable
   }
   
   public void testInputAs() throws Exception {
@@ -196,8 +171,6 @@ public class JSONMarkupLanguageWebmacroTest extends JSONMarkupLanguageSpec {
   }
 
   public void testRenderedSelection() {
-    assertEquals("[{\n \"class\":\"org.melati.poem.User\",\n \"value\":\"Melati guest user\"\n}"+
-            ",{\n \"class\":\"org.melati.poem.User\",\n \"value\":\"Melati database administrator\"\n}]\n",
-        ml.rendered(getDb().getUserTable().selection()).replace("\r", ""));
+    // not applicable
   }
 }

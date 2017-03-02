@@ -77,7 +77,10 @@ public class ConfigServletTestOverrideTest extends ConfigServletTestTest{
     super.tearDown();
   }
 
-  public void testUpload() { 
+  public void testUpload() {
+    if (System.getProperty("os.name").startsWith("Windows")) {
+      return;
+    }
     setScriptingEnabled(false);
     beginAt("/org.melati.test.ConfigServletTestOverride");
     assertTextPresent("DefaultFileFormDataAdaptorFactory");

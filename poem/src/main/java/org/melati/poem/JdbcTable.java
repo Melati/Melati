@@ -44,33 +44,14 @@
 
 package org.melati.poem;
 
-import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Vector;
-
 import org.melati.poem.dbms.Dbms;
 import org.melati.poem.transaction.Transactioned;
 import org.melati.poem.transaction.TransactionedSerial;
-import org.melati.poem.util.ArrayEnumeration;
-import org.melati.poem.util.ArrayUtils;
-import org.melati.poem.util.Cache;
-import org.melati.poem.util.CachedIndexFactory;
-import org.melati.poem.util.EnumUtils;
-import org.melati.poem.util.MappedEnumeration;
-import org.melati.poem.util.Procedure;
-import org.melati.poem.util.FilteredEnumeration;
-import org.melati.poem.util.FlattenedEnumeration;
-import org.melati.poem.util.Order;
-import org.melati.poem.util.SortUtils;
-import org.melati.poem.util.StringUtils;
+import org.melati.poem.util.*;
+
+import java.io.PrintStream;
+import java.sql.*;
+import java.util.*;
 
 /**
  * A Table.
@@ -81,21 +62,21 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /** Default limit for row cache. */
   private static final int CACHE_LIMIT_DEFAULT = 100;
   private static final int DISPLAY_ORDER_DEFAULT = 100;
-
-  private JdbcTable<P> _this = this;
-
+  private static final Procedure invalidator =
+      new Procedure() {
+        public void apply(Object arg) {
+          ((Transactioned) arg).invalidate();
+        }
+      };
   Database database;
+  private JdbcTable<P> _this = this;
   private String name;
   private String quotedName;
   private DefinitionSource definitionSource;
-
   private TableInfo info = null;
-
   private TableListener[] listeners = {};
-
   private Column<?>[] columns = {};
   private Hashtable<String, Column<?>> columnsByName = new Hashtable<String, Column<?>>();
-
   private Column<Integer> troidColumn = null;
   private Column<Boolean> deletedColumn = null;
   private Column<Capability> canReadColumn = null;
@@ -104,23 +85,32 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   private Column<Capability> canDeleteColumn = null;
   private Column<?> displayColumn = null;
   private Column<?> searchColumn = null;
-
   private String defaultOrderByClause = null;
-
   private Column<?>[][] displayColumns = new Column[DisplayLevel.count()][];
   private Column<?>[] searchColumns = null;
-
   private TransactionedSerial serial;
-
   private CachedSelection<P> allTroids = null;
   private Hashtable<String, CachedSelection<P>> cachedSelections = new Hashtable<String, CachedSelection<P>>();
   private Hashtable<String, CachedCount> cachedCounts = new Hashtable<String, CachedCount>();
   private Hashtable<String, CachedExists> cachedExists = new Hashtable<String, CachedExists>();
-
   private int mostRecentTroid = -1;
   private int extrasIndex = 0;
+  private CachedIndexFactory transactionStuffs = new CachedIndexFactory() {
+    public Object reallyGet(int index) {
+      // "Table.this" is attempt to work around Dietmar's problem with JDK1.3.1
+      return new TransactionStuff(
+          JdbcTable.this.database.poemTransaction(index).getConnection());
+    }
+  };
+  private TransactionStuff committedTransactionStuff = null;
 
-  
+  // 
+  // ===========
+  //  Accessors
+  // ===========
+  // 
+  private Cache cache = new Cache(CACHE_LIMIT_DEFAULT);
+
   /**
    * Constructor.
    */
@@ -170,12 +160,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         });
   }
 
-  // 
-  // ===========
-  //  Accessors
-  // ===========
-  // 
-
   /**
    * The database to which the table is attached.
    * @return the db
@@ -184,11 +168,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return database;
   }
 
-  /** 
+  /**
    * The table's programmatic name.  Identical with its name in the DSD (if the
    * table was defined there) and in its <TT>tableinfo</TT> entry.
-   * This will normally be the same as the name in the RDBMS itself, however that name 
-   * may be translated to avoid DBMS specific name clashes. 
+   * This will normally be the same as the name in the RDBMS itself, however that name
+   * may be translated to avoid DBMS specific name clashes.
    *
    * @return the table name, case as defined in the DSD
    * @see org.melati.poem.dbms.Dbms#melatiName(String)
@@ -229,14 +213,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * The category of this table.  POEM itself doesn't use
    * this, but it's available to applications and Melati's generic admin system
    * as a default label for the table and caption for its records.
-   * 
+   *
    * @return the category
    */
   public final TableCategory getCategory() {
      return info.getCategory();
   }
 
- /**
+  /**
   * @return the {@link TableInfo} for this table
   */
   public final TableInfo getInfo() {
@@ -247,7 +231,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
   * table.  It will always have one (except during initialisation, which the
   * application programmer will never see).
-  * 
+  *
   * @return id in TableInfo metadata table
   */
   public final Integer tableInfoID() {
@@ -267,17 +251,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * @throws NoSuchColumnPoemException if there is no column with that name
    */
   public final Column<?> getColumn(String nameP) throws NoSuchColumnPoemException {
-    Column<?> column = _getColumn(nameP); 
+    Column<?> column = _getColumn(nameP);
     if (column == null)
       throw new NoSuchColumnPoemException(this, nameP);
     else
       return column;
   }
+
   protected final Column<?> _getColumn(String nameP) {
-    Column<?> column = columnsByName.get(nameP.toLowerCase());    
+    Column<?> column = columnsByName.get(nameP.toLowerCase());
     return column;
   }
-  
+
   /**
    * All the table's columns.
    *
@@ -288,10 +273,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return new ArrayEnumeration<Column<?>>(columns);
   }
 
-  public final List<Column<?>> getColumns() { 
+  public final List<Column<?>> getColumns() {
     return Arrays.asList(columns);
   }
-  
+
  /**
   * @return the number of columns in this table.
   */
@@ -334,9 +319,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * The table's primary display column, the Troid column if not set.  
-   * This is the column used to represent records from the table 
-   * concisely in reports or whatever.  It is determined 
+   * The table's primary display column, the Troid column if not set.
+   * This is the column used to represent records from the table
+   * concisely in reports or whatever.  It is determined
    * at initialisation time by examining the <TT>Column</TT>s
    * <TT>getPrimaryDisplay()</TT> flags.
    *
@@ -359,10 +344,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
  /**
-  * In a similar manner to the primary display column, each table can have 
+  * In a similar manner to the primary display column, each table can have
   * one primary criterion column.
   * <p>
-  * The Primary Criterion is the main grouping field of the table, 
+  * The Primary Criterion is the main grouping field of the table,
   * ie the most important non-unique type field.
   * <p>
   * For example the Primary Criterion for a User table might be Nationality.
@@ -383,7 +368,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * If the troidColumn has yet to be set then returns an empty string.
-   *  
+   *
    * @return comma separated list of the columns to order by
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -433,7 +418,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Clears columnInfo caches, normally a no-op.
-   * 
+   *
    * @param infoP the possibly null ColumnInfo meta-data persistent
    */
   public void notifyColumnInfo(ColumnInfo infoP) {
@@ -444,10 +429,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Get an Array of columns meeting the criteria of whereClause.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause an SQL snippet
    * @return an array of Columns
    */
@@ -455,7 +440,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     // get the col IDs from the committed session
     Enumeration<Integer> colIDs =
         getDatabase().getColumnInfoTable().troidSelection(
-            database.quotedName("tableinfo") + " = " + tableInfoID() + 
+            database.quotedName("tableinfo") + " = " + tableInfoID() +
               " AND (" + whereClause + ")",
             null, false, PoemThread.inSession() ? PoemThread.transaction() : null);
 
@@ -478,13 +463,13 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    *
    * @param level the {@link DisplayLevel} to select
    * @return an Enumeration of columns at the given level
-   */ 
+   */
   public final Enumeration<Column<?>> displayColumns(DisplayLevel level) {
     Column<?>[] columnsLocal = displayColumns[level.getIndex().intValue()];
 
     if (columnsLocal == null) {
       columnsLocal =
-        columnsWhere(database.quotedName("displaylevel") + " <= " + 
+          columnsWhere(database.quotedName("displaylevel") + " <= " +
                                                          level.getIndex());
       displayColumns[level.getIndex().intValue()] = columnsLocal;
     }
@@ -494,11 +479,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * @param level the {@link DisplayLevel} to select
    * @return the number of columns at a display level.
-   */ 
+   */
   public final int displayColumnsCount(DisplayLevel level) {
     int l = level.getIndex().intValue();
     if (displayColumns[l] == null)
-      // FIXME Race 
+      // FIXME Race
       displayColumns(level);
 
     return displayColumns[l].length;
@@ -518,7 +503,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * @return the number of columns at display level <tt>Detail</tt>
-   */ 
+   */
   public final int getDetailDisplayColumnsCount() {
     return displayColumnsCount(DisplayLevel.detail);
   }
@@ -537,7 +522,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * @return the number of columns at display level <tt>Record</tt>
-   */ 
+   */
   public final int getRecordDisplayColumnsCount() {
     return displayColumnsCount(DisplayLevel.record);
   }
@@ -554,10 +539,22 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public final Enumeration<Column<?>> getSummaryDisplayColumns() {
     return displayColumns(DisplayLevel.summary);
   }
-  
+
+  // 
+  // =========================
+  //  Low-level DB operations
+  // =========================
+  // 
+
+  // 
+  // -----------
+  //  Structure
+  // -----------
+  // 
+
   /**
    * @return the number of columns at display level <tt>Summary</tt>
-   */ 
+   */
   public final int getSummaryDisplayColumnsCount() {
     return displayColumnsCount(DisplayLevel.summary);
   }
@@ -573,7 +570,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     Column<?>[] columnsLocal = searchColumns;
 
     if (columnsLocal == null) {
-      columnsLocal = 
+      columnsLocal =
          columnsWhere(database.quotedName("searchability") + " <= " +
                                           Searchability.yes.getIndex());
       searchColumns = columnsLocal;
@@ -583,30 +580,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * @return the number of columns which are searchable
-   */ 
+   */
   public final int getSearchCriterionColumnsCount() {
     if (searchColumns == null)
-      // FIXME Race 
+      // FIXME Race
       getSearchCriterionColumns();
-      
+
     return searchColumns.length;
   }
 
   private Dbms dbms() {
     return getDatabase().getDbms();
   }
-
-  // 
-  // =========================
-  //  Low-level DB operations
-  // =========================
-  // 
-
-  // 
-  // -----------
-  //  Structure
-  // -----------
-  // 
 
   /**
    * @deprecated Use {@link org.melati.poem.Database#modifyStructure(String)} instead
@@ -619,13 +604,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   private void dbCreateTable() {
     String createTableSql = dbms().createTableSql(this);
     database.modifyStructure(createTableSql);
-    String tableSetup = database.getDbms().tableInitialisationSql(this); 
-    if (tableSetup != null) { 
+    String tableSetup = database.getDbms().tableInitialisationSql(this);
+    if (tableSetup != null) {
       database.modifyStructure(tableSetup);
     }
   }
-  
-    
 
   /**
    * @return A type string eg "TEXT"
@@ -634,9 +617,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public String getDbmsTableType() {
     return null;
   }
+  // 
+  // -------------------------------
+  //  Standard `PreparedStatement's
+  // -------------------------------
+  // 
 
   /**
-   * Constraints are not used in POEM, but you might want to use them if 
+   * Constraints are not used in POEM, but you might want to use them if
    * exporting the db or using schema visualisation tools.
    */
   public void dbAddConstraints() {
@@ -649,8 +637,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         try {
           dbModifyStructure(sqb.toString());
         } catch (StructuralModificationFailedPoemException e) {
-          // It is more expensive to only add constaints 
-          // if they are missing than to ignore exceptions.  
+          // It is more expensive to only add constaints
+          // if they are missing than to ignore exceptions.
           e = null;
         }
       }
@@ -671,9 +659,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         try {
           dbModifyStructure(sqb.toString());
         } catch (StructuralModificationFailedPoemException e) {
-          // It is more expensive to only add constaints 
-          // if they are missing than to ignore exceptions.  
-          e = null;          
+          // It is more expensive to only add constaints
+          // if they are missing than to ignore exceptions.
+          e = null;
         }
       }
     }
@@ -689,7 +677,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
           " " + column.getSQLType().sqlDefinition(dbms()));
     } else {
       if (column.getUnique()) {
-        throw new UnificationPoemException("Cannot add new unique, non-nullable column " 
+        throw new UnificationPoemException("Cannot add new unique, non-nullable column "
              + column.getName() + " to table " + getName());
       } else {
         dbModifyStructure(
@@ -699,16 +687,15 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         dbModifyStructure(
             "UPDATE " + quotedName() +
             " SET " + column.quotedName() +
-            " = " + dbms().getQuotedValue(column.getSQLType(), 
+                " = " + dbms().getQuotedValue(column.getSQLType(),
                     column.getSQLType().sqlDefaultValue(dbms())));
       }
       dbModifyStructure(
           dbms().alterColumnNotNullableSQL(name, column));
-      
+
     }
   }
 
-  
   private void dbCreateIndex(Column<?> column) {
     if (column.getIndexed()) {
       if (!dbms().canBeIndexed(column)) {
@@ -718,25 +705,26 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
             "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
             indexName(column) +
             " ON " + quotedName() + " " +
-            "(" + column.quotedName() + 
+                "(" + column.quotedName() +
              dbms().getIndexLength(column) + ")");
       }
     }
   }
 
-  private String indexName(Column<?> column) { 
-    return database.quotedName(
-            dbms().unreservedName(name) + "_" + 
-            dbms().unreservedName(column.getName()) + "_index");
-  }
   // 
-  // -------------------------------
-  //  Standard `PreparedStatement's
-  // -------------------------------
+  // -----------------------------
+  //  Transaction-specific things
+  // -----------------------------
   // 
 
+  private String indexName(Column<?> column) {
+    return database.quotedName(
+        dbms().unreservedName(name) + "_" +
+            dbms().unreservedName(column.getName()) + "_i");
+  }
+
   /**
-   * 
+   *
    * @param connection the connection the PreparedStatement is tied to
    * @return a PreparedStatment to perform a simple INSERT
    */
@@ -800,37 +788,19 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     }
   }
 
-  // 
-  // -----------------------------
-  //  Transaction-specific things
-  // -----------------------------
-  // 
-
-  private class TransactionStuff {
-    PreparedStatement insert, modify, get;
-    TransactionStuff(Connection connection) {
-      insert = _this.simpleInsert(connection);
-      modify = _this.simpleModify(connection);
-      get = _this.simpleGet(connection);
-    }
-  }
-
-  private CachedIndexFactory transactionStuffs = new CachedIndexFactory() {
-    public Object reallyGet(int index) {
-      // "Table.this" is attempt to work around Dietmar's problem with JDK1.3.1
-      return new TransactionStuff(
-          JdbcTable.this.database.poemTransaction(index).getConnection());
-    }
-  };
-
-  private TransactionStuff committedTransactionStuff = null;
-
   /**
    * When deleting a table and used in tests.
    */
-  public void invalidateTransactionStuffs() { 
+  public void invalidateTransactionStuffs() {
     transactionStuffs.invalidate();
   }
+
+  // 
+  // --------------------
+  //  Loading and saving
+  // --------------------
+  // 
+
   /**
    * Called when working outside a Transaction.
    * @return the TransactionStuff for the committed transaction
@@ -842,12 +812,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
           new TransactionStuff(database.getCommittedConnection());
     return committedTransactionStuff;
   }
-
-  // 
-  // --------------------
-  //  Loading and saving
-  // --------------------
-  // 
 
   private void load(PreparedStatement select, Persistent p) {
     JdbcPersistent persistent = (JdbcPersistent)p;
@@ -873,7 +837,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         }
         finally {
           try { rs.close(); } catch (Exception e) {
-            database.log("Cannot close resultset after exception.");  
+            database.log("Cannot close resultset after exception.");
           }
         }
       }
@@ -929,7 +893,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   @SuppressWarnings("unchecked")
   private void insert(PoemTransaction transaction, Persistent persistent) {
-    
+
     PreparedStatement insert =
         ((TransactionStuff)transactionStuffs.get(transaction.index)).insert;
     synchronized (insert) {
@@ -949,7 +913,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * The Transaction cannot be null, as this is trapped in 
+   * The Transaction cannot be null, as this is trapped in
    * #deleteLock(SessionToken).
    * @param troid id of row to delete
    * @param transaction a non-null transaction
@@ -965,7 +929,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
       Statement deleteStatement = connection.createStatement();
       int deleted = deleteStatement.executeUpdate(sql);
-      if (deleted != 1) { 
+      if (deleted != 1) {
         throw new RowDisappearedPoemException(this,troid);
       }
       deleteStatement.close();
@@ -980,8 +944,20 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     }
   }
 
+  // 
+  // ============
+  //  Operations
+  // ============
+  // 
+
+  // 
+  // ----------
+  //  Cacheing
+  // ----------
+  // 
+
   /**
-   * @param transaction our PoemTransaction 
+   * @param transaction our PoemTransaction
    * @param p the Persistent to write
    */
   public void writeDown(PoemTransaction transaction, Persistent p) {
@@ -1004,30 +980,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     }
   }
 
-  // 
-  // ============
-  //  Operations
-  // ============
-  // 
-
-  // 
-  // ----------
-  //  Cacheing
-  // ----------
-  // 
-
-  private Cache cache = new Cache(CACHE_LIMIT_DEFAULT);
-
-  private static final Procedure invalidator =
-      new Procedure() {
-        public void apply(Object arg) {
-          ((Transactioned)arg).invalidate();
-        }
-      };
-
   /**
    * Invalidate table cache.
-   * 
+   *
    * NOTE Invalidated cache elements are reloaded when next read
    */
   public void uncache() {
@@ -1047,16 +1002,16 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Enable reporting of the status of the cache.
-   * 
+   *
    * @return the Cache Info object
-   */ 
+   */
   public Cache.Info getCacheInfo() {
     return cache.getInfo();
   }
 
   /**
    * Add a {@link TableListener} to this Table.
-   */ 
+   */
   public void addListener(TableListener listener) {
     listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
@@ -1064,7 +1019,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * Notify the table that one if its records is about to be changed in a
    * transaction.  You can (with care) use this to support cacheing of
-   * frequently-used facts about the table's records.  
+   * frequently-used facts about the table's records.
    *
    * @param transaction the transaction in which the change will be made
    * @param persistent  the record to be changed
@@ -1078,24 +1033,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * @return the Transaction serial 
-   */ 
+   * @return the Transaction serial
+   */
   public long serial(PoemTransaction transaction) {
     return serial.current(transaction);
   }
 
   /**
    * Lock this record.
-   */ 
+   */
   public void readLock() {
     serial(PoemThread.transaction());
   }
-
-  // 
-  // ----------
-  //  Fetching
-  // ----------
-  // 
 
   /**
    * The object from the table with a given troid.
@@ -1137,9 +1086,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         synchronized (cache) {
           JdbcPersistent tryAgain = (JdbcPersistent)cache.get(troid);
           if (tryAgain == null) {
-            try { 
+            try {
               cache.put(troid, persistent);
-            } catch (Cache.InconsistencyException e) { 
+            } catch (Cache.InconsistencyException e) {
               throw new PoemBugPoemException(
                   "Problem putting persistent " + persistent + " into cache:", e);
             }
@@ -1156,6 +1105,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return (P)persistent;
   }
 
+  // 
+  // ----------
+  //  Fetching
+  // ----------
+  // 
+
   /**
    * The object from the table with a given troid.  See previous.
    *
@@ -1168,6 +1123,31 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return getObject(new Integer(troid));
   }
 
+  /**
+   * The from clause has been added as an argument because it is
+   * inextricably linked to the where clause, but the default is
+   * {@link #quotedName()}.
+   *
+   * It is the programmer's responsibility to ensure that the where clause
+   * is suitable for the target DBMS.
+   *
+   * @param fromClause Comma separated list of table names or null for default.
+   * @param whereClause SQL fragment
+   * @param orderByClause Comma separated list
+   * @param includeDeleted Flag as to whether to include soft deleted records
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL
+   * TODO Should work within some kind of limit
+   * @return an SQL SELECT statement put together from the arguments and
+   * default order by clause.
+   */
+  public String selectionSQL(String fromClause, String whereClause,
+                             String orderByClause, boolean includeDeleted,
+                             boolean excludeUnselectable) {
+    return selectOrCountSQL(troidColumn().fullQuotedName(),
+                            fromClause, whereClause, orderByClause,
+                            includeDeleted, excludeUnselectable);
+  }
+
   // 
   // -----------
   //  Searching
@@ -1175,48 +1155,23 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   // 
 
   /**
-   * The from clause has been added as an argument because it is
-   * inextricably linked to the where clause, but the default is 
-   * {@link #quotedName()}.
+   * It is the programmer's responsibility to ensure that the where clause
+   * is suitable for the target DBMS.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
-   * is suitable for the target DBMS.
-   * 
-   * @param fromClause Comma separated list of table names or null for default.
-   * @param whereClause SQL fragment
-   * @param orderByClause Comma separated list
-   * @param includeDeleted Flag as to whether to include soft deleted records
-   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
-   * TODO Should work within some kind of limit
-   * @return an SQL SELECT statement put together from the arguments and
-   * default order by clause.
-   */
-  public String selectionSQL(String fromClause, String whereClause, 
-                             String orderByClause, boolean includeDeleted, 
-                             boolean excludeUnselectable) {
-    return selectOrCountSQL(troidColumn().fullQuotedName(),
-                            fromClause, whereClause, orderByClause,
-                            includeDeleted, excludeUnselectable);
-  }
-
-  /**
-   * It is the programmer's responsibility to ensure that the where clause 
-   * is suitable for the target DBMS.
-   * 
    * @param fromClause SQL fragment
    * @param whereClause SQL fragment
    * @param orderByClause comma separated list
    * @param includeDeleted flag as to whether to include soft deleted records
-   * @param excludeUnselectable whether to append unselectable exclusion SQL 
-   * @param transaction null now defaults to 
+   * @param excludeUnselectable whether to append unselectable exclusion SQL
+   * @param transaction null now defaults to
    *                    {@link PoemThread#transaction()} but
    *                    we do not rely on this much yet.
-   * @return a ResultSet                     
+   * @return a ResultSet
    * @throws SQLPoemException if necessary
    */
   private ResultSet selectionResultSet(String fromClause, String whereClause,
-                                       String orderByClause, 
-                                       boolean includeDeleted, 
+                                       String orderByClause,
+                                       boolean includeDeleted,
                                        boolean excludeUnselectable,
                                        PoemTransaction transaction)
       throws SQLPoemException {
@@ -1253,14 +1208,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @return an {@link Enumeration} of Troids satisfying the criteria.
-   */ 
+   */
   public Enumeration<Integer> troidSelection(String whereClause, String orderByClause,
-                                    boolean includeDeleted, 
-                                    PoemTransaction transaction) {
+                                             boolean includeDeleted,
+                                             PoemTransaction transaction) {
     return troidsFrom(selectionResultSet(null, whereClause, orderByClause,
                                          includeDeleted, true,
                                          transaction));
@@ -1270,15 +1225,15 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    *
    * @see #troidSelection(String, String, boolean, PoemTransaction)
    * @param criteria Represents selection criteria possibly on joined tables
-   * @param transaction A transaction or null for 
+   * @param transaction A transaction or null for
    *                    {@link PoemThread#transaction()}
    * @return a selection of troids given arguments specifying a query
    */
   public Enumeration<Integer> troidSelection(Persistent criteria, String orderByClause,
-                                    boolean includeDeleted, 
-                                    boolean excludeUnselectable,
-                                    PoemTransaction transaction) {
-    return troidsFrom(selectionResultSet(((JdbcPersistent)criteria).fromClause(), 
+                                             boolean includeDeleted,
+                                             boolean excludeUnselectable,
+                                             PoemTransaction transaction) {
+    return troidsFrom(selectionResultSet(((JdbcPersistent) criteria).fromClause(),
                                          whereClause(criteria),
                                          orderByClause,
                                          includeDeleted, excludeUnselectable,
@@ -1286,8 +1241,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * Return an enumeration of troids given 
-   * a result set where the first column is an int. 
+   * Return an enumeration of troids given
+   * a result set where the first column is an int.
    */
   private Enumeration<Integer> troidsFrom(ResultSet them) {
     return new ResultSetEnumeration<Integer>(them) {
@@ -1322,17 +1277,17 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
    * criteria.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "", then no ordering is 
+   * If the orderByClause is an empty string, ie "", then no ordering is
    * applied.
    *
    * @param whereClause an SQL snippet
    * @param orderByClause an SQL snippet
    * @param includeDeleted whether to include deleted records, if any
-   * 
+   *
    * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
    *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
    *         or you can just use <TT>selection</TT>
@@ -1347,7 +1302,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         (whereClause == null || whereClause.equals("")) &&
         (orderByClause == null || orderByClause.equals("") ||
         orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
-        !includeDeleted) 
+        !includeDeleted)
       return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
@@ -1376,8 +1331,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria.
    * This is one way to run a search against the database and return the
    * results as a series of typed POEM objects.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
    *
    * @param whereClause         SQL <TT>SELECT</TT>ion criteria for the search:
@@ -1400,14 +1355,13 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return selection(whereClause, null, false);
   }
 
-
  /**
   * Get an object satisfying the where clause.
-  * It is the programmer's responsibility to use this in a 
-  * context where only one result will be found, if more than one 
-  * actually exist only the first will be returned. 
-  * 
-  * It is the programmer's responsibility to ensure that the where clause 
+  * It is the programmer's responsibility to use this in a
+  * context where only one result will be found, if more than one
+  * actually exist only the first will be returned.
+  *
+  * It is the programmer's responsibility to ensure that the where clause
   * is suitable for the target DBMS.
   *
   * @param whereClause         SQL <TT>SELECT</TT>ion criteria for the search:
@@ -1425,18 +1379,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * possibly including those flagged as deleted.
    *
    * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "", then no ordering is 
+   * If the orderByClause is an empty string, ie "", then no ordering is
    * applied.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
    *                            <TT>deleted</TT> column)
-   * @return a ResultSet as an Enumeration 
+   * @return a ResultSet as an Enumeration
    * @see #selection(java.lang.String)
-   */   
+   */
   public Enumeration<P> selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
@@ -1453,10 +1407,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    */
   public Enumeration<P> selection(Persistent criteria)
       throws SQLPoemException {
-    return selection(criteria, 
+    return selection(criteria,
                        criteria.getTable().defaultOrderByClause(), false, true);
   }
-    
+
   /**
    * Return a selection of rows given arguments specifying a query.
    *
@@ -1469,7 +1423,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       throws SQLPoemException {
     return selection(criteria, orderByClause, false, true);
   }
-   
+
   /**
    * Return a selection of rows given arguments specifying a query.
    *
@@ -1477,13 +1431,13 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * @param criteria Represents selection criteria possibly on joined tables
    * @param orderByClause Comma separated list
    * @param excludeUnselectable Whether to append unselectable exclusion SQL
-   * @return an enumeration of like Persistents 
+   * @return an enumeration of like Persistents
    */
   public Enumeration<P> selection(Persistent criteria, String orderByClause,
                                 boolean includeDeleted, boolean excludeUnselectable)
       throws SQLPoemException {
     return objectsFromTroids(troidSelection(criteria, orderByClause,
-                                            includeDeleted, excludeUnselectable, 
+        includeDeleted, excludeUnselectable,
                                             null));
   }
 
@@ -1498,7 +1452,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       };
   }
 
-
   /**
    * @param whereClause
    * @return the SQL string for the current SQL dialect
@@ -1509,12 +1462,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Return an SQL statement to count rows put together from the arguments.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
    *
    * @param fromClause Comma separated list of table names
-   * @return the SQL query 
+   * @return the SQL query
    */
   public String countSQL(String fromClause, String whereClause,
                          boolean includeDeleted, boolean excludeUnselectable) {
@@ -1525,20 +1478,20 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * Return an SQL SELECT statement for selecting or counting rows.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param selectClause the columns to return
    * @param fromClause Comma separated list of table names or null for default.
    * @param whereClause SQL fragment
    * @param orderByClause Comma separated list
    * @param includeDeleted Flag as to whether to include soft deleted records
    * @param excludeUnselectable Whether to append unselectable exclusion SQL
-   * @return the SQL query 
+   * @return the SQL query
    */
   private String selectOrCountSQL(String selectClause, String fromClause,
                                   String whereClause, String orderByClause,
-                                  boolean includeDeleted, 
+                                  boolean includeDeleted,
                                   boolean excludeUnselectable) {
 
     if (fromClause == null) {
@@ -1547,7 +1500,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
     String result = "SELECT " + selectClause + " FROM " + fromClause;
 
-    whereClause = appendWhereClauseFilters(whereClause, includeDeleted, 
+    whereClause = appendWhereClauseFilters(whereClause, includeDeleted,
                                            excludeUnselectable);
 
     if (whereClause.length() > 0) {
@@ -1578,12 +1531,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * Despite the name this does not use a <code>StringBuffer</code>.
    * in the belief that the costs outweigh the benefits here.
    *
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause SQL fragment
    * @param includeDeleted Flag as to whether to include soft deleted records
-   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL
    */
   private String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
@@ -1628,7 +1581,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    */
   private String canSelectClause() {
     Column<Capability> canSelect = canSelectColumn();
-    AccessToken accessToken = PoemThread.inSession() ? 
+    AccessToken accessToken = PoemThread.inSession() ?
             PoemThread.sessionToken().accessToken : null;
     if (canSelect == null ||
         accessToken instanceof RootAccessToken) {
@@ -1662,11 +1615,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @return the number records satisfying criteria.
-   */ 
+   */
   public int count(String whereClause,
                    boolean includeDeleted, boolean excludeUnselectable)
       throws SQLPoemException {
@@ -1675,22 +1628,22 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @return the number records satisfying criteria.
-   */ 
+   */
   public int count(String whereClause, boolean includeDeleted)
       throws SQLPoemException {
     return count(whereClause, includeDeleted, true);
   }
 
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @return the number of records satisfying criteria.
-   */ 
+   */
   public int count(String whereClause)
       throws SQLPoemException {
 
@@ -1702,7 +1655,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         PoemTransaction transaction = PoemThread.transaction();
         transaction.writeDown();
         connection = transaction.getConnection();
-      } else 
+      } else
         connection = getDatabase().getCommittedConnection();
 
 
@@ -1724,28 +1677,27 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * @return the number records in this table.
-   */ 
+   */
   public int count()
       throws SQLPoemException {
     return count(null);
   }
 
-
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause the SQL criteria
    * @return whether any  records satisfy criteria.
-   */ 
+   */
   public boolean exists(String whereClause) throws SQLPoemException {
     return count(whereClause) > 0;
   }
 
   /**
-   * @param persistent a {@link Persistent} with some fields filled in 
+   * @param persistent a {@link Persistent} with some fields filled in
    * @return whether any  records exist with the same fields filled
-   */ 
+   */
   public boolean exists(Persistent persistent) {
     return exists(whereClause(persistent));
   }
@@ -1760,7 +1712,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * The column names are now qualified with the table name so that
    * subtypes can append elements of a join but there is no filtering
    * by canselect columns.
-   * 
+   *
    * TODO Add mechanism for searching for Nulls (that would be query
    * constructs as per SQL parse tree, but efferent not afferent)
    *
@@ -1841,7 +1793,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * Return a Conjunctive Normal Form (CNF) where clause.
    * See http://en.wikipedia.org/wiki/Conjunctive_normal_form.
-   *  
+   *
    * @return an SQL fragment
    */
   public String cnfWhereClause(Enumeration<P> persistents,
@@ -1867,11 +1819,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
                                     includeDeleted, excludeUnselectable);
   }
 
-
   /**
    * All the objects in the table which refer to a given object.  If none of
    * the table's columns are reference columns, the <TT>Enumeration</TT>
-   * returned will obviously be empty.  
+   * returned will obviously be empty.
    * <p>
    * It is not guaranteed to be quick to execute!
    *
@@ -1888,10 +1839,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
         });
   }
 
-
   /**
    * All the columns in the table which refer to the given table.
-   * 
+   *
    * @param table
    * @return an Enumeration of Columns referring to the specified Table
    */
@@ -1906,12 +1856,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       };
   }
 
-  // 
-  // ----------
-  //  Creation
-  // ----------
-  // 
-
   private void validate(Persistent persistent)
       throws FieldContentsPoemException {
     for (int c = 0; c < columns.length; ++c) {
@@ -1924,6 +1868,12 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       }
     }
   }
+
+  // 
+  // ----------
+  //  Creation
+  // ----------
+  // 
 
   /**
    * @return the current highest troid
@@ -2036,7 +1986,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   private void claim(Persistent p, Integer troid) {
     JdbcPersistent persistent = (JdbcPersistent)p;
     // We don't want to end up with two of this object in the cache
- 
+
     if (cache.get(troid) != null)
       throw new DuplicateTroidPoemException(this, troid);
 
@@ -2051,7 +2001,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * @return A freshly minted floating <TT>Persistent</TT> object for this table, 
+   * @return A freshly minted floating <TT>Persistent</TT> object for this table,
    * ie one without a troid set
    */
   public Persistent newPersistent() {
@@ -2071,14 +2021,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * It is the programmer's responsibility to ensure that the where clause 
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause the criteria
    */
   public void delete_unsafe(String whereClause) {
     serial.increment(PoemThread.transaction());
-    getDatabase().sqlUpdate("DELETE FROM " + quotedName + 
+    getDatabase().sqlUpdate("DELETE FROM " + quotedName +
             " WHERE " + whereClause);
     uncache();
   }
@@ -2089,12 +2039,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public int extrasCount() {
     return extrasIndex;
   }
-
-  // 
-  // ----------------
-  //  Access control
-  // ----------------
-  // 
 
   /**
    * The capability required for reading records from the table, unless
@@ -2107,12 +2051,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return info == null ? null : info.getDefaultcanread();
   }
 
+  // 
+  // ----------------
+  //  Access control
+  // ----------------
+  // 
+
   /**
    * The capability required for updating records in the table, unless
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
    *
-   * @return the default  {@link Capability} required to write  a 
+   * @return the default  {@link Capability} required to write  a
    *         {@link Persistent}, if any
    */
   public final Capability getDefaultCanWrite() {
@@ -2123,9 +2073,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * The capability required for deleting records in the table, unless
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
-   * @return the default  {@link Capability} required to delete a 
+   * @return the default  {@link Capability} required to delete a
    *         {@link Persistent}, if any
-   */ 
+   */
   public final Capability getDefaultCanDelete() {
     return info == null ? null : info.getDefaultcandelete();
   }
@@ -2134,7 +2084,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * The capability required for creating records in the table.  This simply
    * comes from the table's record in the <TT>tableinfo</TT> table.
    *
-   * @return the Capability required to write to this table 
+   * @return the Capability required to write to this table
    * @see #create(org.melati.poem.Initialiser)
    */
   public final Capability getCanCreate() {
@@ -2151,7 +2101,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   /**
    * @return the canSelectColumn or null
    */
-  
+
   public final Column<Capability> canSelectColumn() {
     return canSelectColumn;
   }
@@ -2170,24 +2120,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return canDeleteColumn;
   }
 
-  // 
-  // -----------
-  //  Structure
-  // -----------
-  // 
-
   /**
    * Add a {@link Column} to the database and the {@link TableInfo} table.
    *
-   * @param infoP the meta data about the {@link Column} 
+   * @param infoP the meta data about the {@link Column}
    * @return the newly added column
    */
   public Column<?> addColumnAndCommit(ColumnInfo infoP) throws PoemException {
 
     // Set the new column up
 
-    database.log("Adding extra column from runtime " + 
-        dbms().melatiName(infoP.getName_unsafe()) + 
+    database.log("Adding extra column from runtime " +
+        dbms().melatiName(infoP.getName_unsafe()) +
         " to " + name);
     Column<?> column = ExtraColumn.from(this, infoP, getNextExtrasIndex(),
                                      DefinitionSource.runtime);
@@ -2217,10 +2161,16 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     return column;
   }
 
+  // 
+  // -----------
+  //  Structure
+  // -----------
+  // 
+
   /**
    * @param columnInfo metadata about the column to delete, which is itself deleted
    */
-  public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException { 
+  public void deleteColumnAndCommit(ColumnInfo columnInfo) throws PoemException {
     database.beginStructuralModification();
     try {
       Column<?> column = columnInfo.column();
@@ -2230,7 +2180,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
             "ALTER TABLE " + quotedName() +
             " DROP " + column.quotedName());
       // else silently leave it
-      
+
       columns = (Column[])ArrayUtils.removed(columns, column);
       columnsByName.remove(column.getName().toLowerCase());
 
@@ -2243,13 +2193,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     finally {
       database.endStructuralModification();
     }
-    
+
   }
-  // 
-  // ===========
-  //  Utilities
-  // ===========
-  // 
 
   /**
    * A concise string to stand in for the table.  The table's name and a
@@ -2261,6 +2206,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public String toString() {
     return getName() + " (from " + definitionSource + ")";
   }
+  // 
+  // ===========
+  //  Utilities
+  // ===========
+  // 
 
   /**
    * Print some diagnostic information about the contents and consistency of
@@ -2279,8 +2229,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * Print information to PrintStream. 
-   * 
+   * Print information to PrintStream.
+   *
    * @param ps PrintStream to dump to
    */
   public void dump(PrintStream ps) {
@@ -2289,13 +2239,13 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     for (int c = 0; c < columns.length; ++c)
       columns[c].dump(ps);
   }
-  
+
   /**
    * A mechanism for caching a selection of records.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param orderByClause which field to order by or null
    * @return the results
@@ -2315,10 +2265,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching a record count.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param includeDeleted whether to include soft deleted records
    * @return a cached count
@@ -2329,16 +2279,16 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching a record count.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param includeDeleted whether to include soft deleted records
    * @param excludeUnselectable whether to exclude columns which cannot be selected
    * @return a cached count
    */
-  public CachedCount cachedCount(String whereClause, boolean includeDeleted, 
+  public CachedCount cachedCount(String whereClause, boolean includeDeleted,
                                  boolean excludeUnselectable) {
     return cachedCount(appendWhereClauseFilters(whereClause,
                                                 includeDeleted, excludeUnselectable));
@@ -2346,19 +2296,19 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching a record count.
-   * 
+   *
    * @param criteria a {@link Persistent} with selection fields filled
    * @param includeDeleted whether to include soft deleted records
    * @param excludeUnselectable whether to exclude columns which cannot be selected
    * @return a cached count
    */
-  public CachedCount cachedCount(Persistent criteria, boolean includeDeleted, 
+  public CachedCount cachedCount(Persistent criteria, boolean includeDeleted,
                                  boolean excludeUnselectable) {
     return cachedCount(whereClause(criteria, includeDeleted, excludeUnselectable));
   }
 
   /**
-   * @param criteria a Persistent to extract where clause from 
+   * @param criteria a Persistent to extract where clause from
    * @return a CachedCount of records matching Criteria
    */
   public CachedCount cachedCount(Persistent criteria) {
@@ -2367,10 +2317,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching a record count.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @return a cached count
    */
@@ -2385,7 +2335,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * @return a cached count of all records in the table, 
+   * @return a cached count of all records in the table,
    * obeying includedDeleted and other exclusions
    */
   public CachedCount cachedCount() {
@@ -2394,13 +2344,13 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching an existance.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
-   * NOTE It is possible for the count to be written simultaneously, 
+   *
+   * NOTE It is possible for the count to be written simultaneously,
    * but the cache will end up with the same result.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @return a cached exists
    */
@@ -2417,18 +2367,18 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * A mechanism for caching a record count.
-   * 
-   * It is the programmer's responsibility to ensure that the where clause 
+   *
+   * It is the programmer's responsibility to ensure that the where clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param orderByClause raw SQL order clause appropriate for this DBMS
    * @param nullable whether the ReferencePoemType is nullable
    * @return a {@link RestrictedReferencePoemType}
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public RestrictedReferencePoemType<?> cachedSelectionType(String whereClause, 
-                                   String orderByClause, boolean nullable) {
+  public RestrictedReferencePoemType<?> cachedSelectionType(String whereClause,
+                                                            String orderByClause, boolean nullable) {
     return new RestrictedReferencePoemType(
                cachedSelection(whereClause, orderByClause), nullable);
   }
@@ -2460,9 +2410,9 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
    * always reflect the state of affairs within your transaction even if you
    * haven't done a commit.
    *
-   * It is the programmer's responsibility to ensure that the WHERE clause 
+   * It is the programmer's responsibility to ensure that the WHERE clause
    * is suitable for the target DBMS.
-   * 
+   *
    * @param whereClause         an SQL expression (the bit after the
    *                            <TT>SELECT</TT> ... <TT>WHERE</TT>) for picking
    *                            out the records you want
@@ -2494,12 +2444,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
                                 cachedSelectionType(whereClause,
                                                     orderByClause, nullable)));
   }
-
-  // 
-  // ================
-  //  Initialization
-  // ================
-  // 
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   private synchronized void defineColumn(Column<?> column, boolean reallyDoIt)
@@ -2549,8 +2493,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     }
   }
 
+  // 
+  // ================
+  //  Initialization
+  // ================
+  // 
+
   /**
-   * Don't call this in your application code.  
+   * Don't call this in your application code.
    * Columns should be defined either in the DSD (in which
    * case the boilerplate code generated by the preprocessor will call this
    * method) or directly in the RDBMS (in which case the initialisation code
@@ -2576,10 +2526,17 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
 
   /**
-   * @return incremented extra columns index 
+   * @return incremented extra columns index
    */
-  public int getNextExtrasIndex() { 
+  public int getNextExtrasIndex() {
     return extrasIndex++;
+  }
+
+  /**
+   * @return the {@link TableInfo} for this table.
+   */
+  public TableInfo getTableInfo() {
+    return info;
   }
   
   /**
@@ -2592,13 +2549,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   }
   
   /**
-   * @return the {@link TableInfo} for this table.
-   */
-  public TableInfo getTableInfo() {
-    return info;
-  }
-
-  /**
    * The `factory-default' display name for the table.  By default this is the
    * table's programmatic name, capitalised.  Application-specialised tables
    * override this to return any <TT>(displayname = </TT>...<TT>)</TT> provided
@@ -2608,7 +2558,6 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
-  
 
   public int defaultDisplayOrder() {
     return DISPLAY_ORDER_DEFAULT;
@@ -2639,31 +2588,31 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Create the (possibly overridden) TableInfo if it has not yet been created.
-   * 
+   *
    * @throws PoemException
    */
   public void createTableInfo() throws PoemException {
     if (info == null) {
       info = getDatabase().getTableInfoTable().defaultTableInfoFor(this);
-      try { 
+      try {
         getDatabase().getTableInfoTable().create(info);
-      } catch (PoemException e) { 
+      } catch (PoemException e) {
         throw new UnificationPoemException(
                 "Problem creating new tableInfo for table " + getName() + ":", e);
-      }        
+      }
       setTableInfo(info);
     }
   }
 
   /**
    * Match columnInfo with this Table's columns.
-   * Conversely, create a ColumnInfo for any columns which don't have one. 
+   * Conversely, create a ColumnInfo for any columns which don't have one.
    */
   public synchronized void unifyWithColumnInfo() throws PoemException {
 
     if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");
-    
+
     for (Enumeration<?> ci =
              database.getColumnInfoTable().getTableinfoColumn().
                  selectionWhereEq(info.troid());
@@ -2671,8 +2620,8 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column<?> column = _getColumn(columnInfo.getName());
       if (column == null) {
-        database.log("Adding extra column " 
-          + dbms().melatiName(columnInfo.getName_unsafe()) 
+        database.log("Adding extra column "
+            + dbms().melatiName(columnInfo.getName_unsafe())
           + " to " + name + " from definition in columninfo table.");
         column = ExtraColumn.from(this, columnInfo, getNextExtrasIndex(),
                                   DefinitionSource.infoTables);
@@ -2693,16 +2642,16 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     if (getDescription() == null) {
       if (remarks != null && !remarks.trim().equals("")) {
         info.setDescription(remarks);
-        getDatabase().log("Adding comment to table " + name + 
+        getDatabase().log("Adding comment to table " + name +
             " from SQL metadata:" + remarks);
       }
     } else {
       if (!this.getDescription().equals(remarks)) {
-        String sql = this.dbms().alterTableAddCommentSQL(this, null); 
+        String sql = this.dbms().alterTableAddCommentSQL(this, null);
         if (sql != null)
-          this.getDatabase().modifyStructure(sql);          
+          this.getDatabase().modifyStructure(sql);
       }
-    }    
+    }
   }
 
   /**
@@ -2717,7 +2666,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   public synchronized void unifyWithDB(ResultSet colDescs, String troidColumnName)
       throws PoemException {
     boolean debug = false;
-    
+
     Hashtable<Column<?>, Boolean> dbColumns = new Hashtable<Column<?>, Boolean>();
 
     int colCount = 0;
@@ -2742,10 +2691,10 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
             if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
                 dbms().canRepresent(colType, DeletedPoemType.it) != null)
               colType = DeletedPoemType.it;
-            
-            database.log("Adding extra column from sql meta data " 
+
+            database.log("Adding extra column from sql meta data "
                          + name + "." + dbms().melatiName(colName));
-            column = new ExtraColumn(this, 
+            column = new ExtraColumn(this,
                                      dbms().melatiName(
                                              colName),
                                      colType, DefinitionSource.sqlMetaData,
@@ -2777,7 +2726,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       // No columns found in jdbc metadata, so table does not exist
       dbCreateTable();
     } else {
-      // Create any columns which do not exist in the dbms but are defined in java or metadata 
+      // Create any columns which do not exist in the dbms but are defined in java or metadata
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
           database.log("Adding column to underlying database : " + columns[c]);
@@ -2796,7 +2745,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
     if (info != null) {
 
-      // Ensure that column has at least one index of the correct type 
+      // Ensure that column has at least one index of the correct type
       Hashtable<Column<?>,Boolean> dbHasIndexForColumn = new Hashtable<Column<?>,Boolean>();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
@@ -2804,11 +2753,11 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
       ResultSet index;
       try {
         index = getDatabase().getCommittedConnection().getMetaData().
-        // null, "" means ignore catalog, 
+            // null, "" means ignore catalog,
         // only retrieve those without a schema
         // null, null means ignore both
-            getIndexInfo(null, dbms().getSchema(), 
-                         unreservedName, 
+            getIndexInfo(null, dbms().getSchema(),
+            unreservedName,
                          false, true);
         while (index.next()) {
           try {
@@ -2817,30 +2766,30 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
             if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
               String columnName = dbms().melatiName(mdColName);
               Column<?> column = getColumn(columnName);
-              
+
               // Deal with non-melati indices
-              String expectedIndex = indexName(column).toUpperCase(); 
+              String expectedIndex = indexName(column).toUpperCase();
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
                 column.unifyWithIndex(mdIndexName, index);
-                dbHasIndexForColumn.put(column, Boolean.TRUE);                  
-                if(debug)database.log("Found Expected Index:" + 
+                dbHasIndexForColumn.put(column, Boolean.TRUE);
+                if (debug) database.log("Found Expected Index:" +
                         expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               } else {
-                try { 
+                try {
                   column.unifyWithIndex(mdIndexName, index);
-                  dbHasIndexForColumn.put(column, Boolean.TRUE);                  
-                  if(debug) database.log("Not creating index because one exists with different name:" + 
+                  dbHasIndexForColumn.put(column, Boolean.TRUE);
+                  if (debug) database.log("Not creating index because one exists with different name:" +
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
-                } catch (IndexUniquenessPoemException e) { 
-                  // Do not add this column, so the correct index will be added below               
-                  if(debug) database.log("Creating index because existing one has different properties:" + 
+                } catch (IndexUniquenessPoemException e) {
+                  // Do not add this column, so the correct index will be added below
+                  if (debug) database.log("Creating index because existing one has different properties:" +
                           mdIndexName.toUpperCase() + " != " + expectedIndex);
                 }
               }
-            } 
+            }
             // else it is a compound index ??
-          
+
           }
           catch (NoSuchColumnPoemException e) {
             // will never happen
@@ -2863,7 +2812,7 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
     if (PoemThread.inSession())
       PoemThread.writeDown();
 
-    String sql = 
+    String sql =
         "SELECT " + troidColumn.fullQuotedName() +
         " FROM " + quotedName() +
         " ORDER BY " + troidColumn.fullQuotedName() + " DESC";
@@ -2898,14 +2847,24 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
 
   /**
    * Make sure that two equal table objects have the same name.
-   * 
+   *
    * {@inheritDoc}
    * @see java.lang.Object#equals(java.lang.Object)
    */
   public boolean equals(Object t) {
     return (t instanceof JdbcTable &&
             ((Table<?>)t).getName().equals(name));
-    
+
+  }
+
+  private class TransactionStuff {
+    PreparedStatement insert, modify, get;
+
+    TransactionStuff(Connection connection) {
+      insert = _this.simpleInsert(connection);
+      modify = _this.simpleModify(connection);
+      get = _this.simpleGet(connection);
+    }
   }
 
 

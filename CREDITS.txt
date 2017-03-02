@@ -9,11 +9,8 @@ current team is:
       Myles Chippendale       Core Developer 
       Tim Pizey               Core Developer 
       Dave Warnock            Core Developer 
+      Ian Wright              Core Developer
       Colin Rainsforth        Core Developer 
       Vasily Pozhidaev        Core Developer 
 
-If you would like to contribute to the Melati project please 
-join the developers mailing list at
-
-http://lists.sourceforge.net/mailman/listinfo/melati-developers
 

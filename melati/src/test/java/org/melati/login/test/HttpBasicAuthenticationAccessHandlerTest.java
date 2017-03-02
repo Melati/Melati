@@ -49,7 +49,7 @@ public class HttpBasicAuthenticationAccessHandlerTest extends AccessHandlerTestA
   /**
    * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
    */
-  public void testEstablishUserFromRequestWrongMethod() {
+  public void ignoreTestEstablishUserFromRequestWrongMethod() {
     ((MockHttpServletRequest)m.getRequest()).setHeader("Authorization", 
         "basic " + Base64.encodeBase64("_administrator_:FIXME".getBytes()));
     try { 

@@ -5,39 +5,42 @@
 <html>
 <head>
  <title>Contacts Example</title>
- <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+ <link
+   rel="stylesheet"
+   title="Default"
+   href="/melati-static/admin/static/blue.css"
+   type="text/css"
+   media="screen" />
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 </head>
 <body bgcolor="#ffffff">
-<h1>
+<h2>
   A very simple Melati Application
-</h1>
+</h2>
 <p>
-  It allows you to enter contacts into a database, and search them.
-</p>
-<p>
-  The source code is available in 
-  <a href=/melati-static/example/contacts/>
-     <tt>org/melati/example/contacts/</tt>
+  <a href="https://github.com/Melati/Melati/tree/master/melati-example-contacts">
+     Source on Github
   </a>
 </p>
-<p>
-  The database can also be viewed using the
-<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>Admin System</a>.
-</p>
-<hr>
-<table border=1 cellpadding=5 width="60%">
+<table border="1" cellpadding="5" width="60%">
 <tr>
  <td>
-  <a href=$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/Insert>Add a new Contact</a>
+  <a href="$melati.ZoneURL/org.melati.admin.Admin/contacts/category/Add"
+  >Add a new Contact Category</a>
  </td>
+</tr>
+<tr>
  <td>
-  <a href=$melati.ZoneURL/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
+  <a href="$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/Insert"
+  >Add a new Contact</a>
  </td>
 <tr>
 </table>
 
 <h2>Search the Contacts</h2>
-<form>
+<form
+  method="get"
+  action="org.melati.example.contacts.Search">
 <table>
  <tr>
   <td>$ml.rendered($name.DisplayName):</td>
@@ -48,8 +51,8 @@
   <td>$ml.searchInput($category,"Any")</td>
  </tr>
  <tr>
-  <td colspan=2 align=center>
-   <input type=submit name=submit value="submit">
+  <td colspan="2" align="center">
+   <input type="submit" name="search" value="Search">
   </td>
  </tr>
 </table>
@@ -58,13 +61,30 @@
 <table>
 #foreach $item in $results #begin
 <tr>
- <td><a href=$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
- <td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td>
+<th>
+Name
+</th>
+<th>
+Address
+</th>
+</tr>
+<tr>
+ <td><a href="$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/$item.Troid/View">edit</a></td>
+ <td>
+ $ml.rendered($item.Name)
+ </td>
+ <td>
+ $ml.rendered($item.Address)</td>
 </tr>
 #end
 </table>
 #end
 
+<hr>
+<p>
+  The database can also be viewed using the
+<a href="$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main">Admin System</a>.
+</p>
 </body>
 </html>
 

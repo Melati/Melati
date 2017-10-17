@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+  <!-- ============================================================= -->
+  <!--  A simple Servlet 2.3 setup for Melati                        -->
+  <!--                                                               -->
+  <!-- $Date$                                  -->
+  <!-- $Author$                                               -->
+  <!--                                                               -->
+  <!-- ============================================================= -->
+<web-app>
+
+  <display-name>Melati Contacts Example WebApp</display-name>
+
+<!-- Register every servlet used in the site -->
+<!-- I don't like this -->
+
+  <servlet>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <servlet-class>org.melati.admin.Admin</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <servlet-class>org.melati.admin.Display</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <servlet-class>org.melati.admin.Status</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <servlet-class>org.melati.test.SessionAnalysisServlet</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <servlet-class>org.melati.login.Login</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <servlet-class>org.melati.login.Logout</servlet-class>
+  </servlet>
+  
+<!-- examples/contacts setup -->
+  <servlet>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <servlet-class>org.melati.example.contacts.Search</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <servlet-class>org.melati.example.contacts.ContactView</servlet-class>
+  </servlet>
+
+<!-- Now map them to URLs -->
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Admin/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/org.melati.admin.Admin/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/Admin/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/Display/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/Status/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/org.melati.test.SessionAnalysisServlet/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/melati/org.melati.login.Login/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/org.melati.login.Login/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/Login/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/melati/org.melati.login.Logout/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/org.melati.login.Logout/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/Logout/*</url-pattern>
+  </servlet-mapping>
+
+<!-- examples/contacts setup -->
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.Search/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <url-pattern>/org.melati.example.contacts.Search/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.ContactView/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <url-pattern>/org.melati.example.contacts.ContactView/*</url-pattern>
+  </servlet-mapping>
+
+  <listener>
+    <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
+  </listener>
+</web-app>
+
+
+
+
+
+
+
+

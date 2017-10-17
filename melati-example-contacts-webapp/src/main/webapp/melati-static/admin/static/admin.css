@@ -1,0 +1,86 @@
+/* Default HTML 2 CSS */
+BODY {
+ font-family: "Arial", "Helvetica", "sans-serif";
+ border: none;
+ margin: 0px;
+ background-color: white;
+}
+A {
+ text-decoration: none;
+}
+
+
+#selectionTable, #recordFieldsTable { 
+  width: 98%;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#recordFieldsTable { 
+ background-color: #cccccc;
+}
+
+#blank,
+#anticipatedError,
+#addTable, 
+#addTableDone, 
+#login, logout, 
+#loginFailure, #loginSuccess, 
+#deleteFailure,
+#done,
+#status, 
+#upload, 
+#uploadDone { 
+ background-color: #cccccc;
+}
+#popupSelect, #primarySelect, #top,
+#navigation, popupSelect { 
+ background-color: #dddddd;
+}
+
+
+
+#selection, #add, #edit { 
+ background-color: #eeeeee;
+}
+#editHeader { 
+ background-color: #E9EDFD;
+}
+row1 { 
+ background-color: #E9EDFD;
+}
+row2 {
+ background-color: #FFFFFF;
+}
+/* Tree nodes*/
+A.node {
+ text-decoration: none;
+}
+#tree { 
+ background-color: #f0f0ff;
+}
+FRAME {
+ border: none;
+}
+FRAMESET {
+ border: none;
+}
+
+.errorMessage {
+  color: red;
+}
+.errorTrace {
+  background-color: white;
+  color:green;
+  border: 1px solid green;
+  width: auto;
+  margin: 4px;
+  padding: 3px;
+}
+#switch {
+}
+#switched {
+  display:none;
+}
+#switch:hover #switched {
+  display:block;
+}

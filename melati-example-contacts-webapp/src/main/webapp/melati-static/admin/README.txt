@@ -1,0 +1,1 @@
+The directory static is a symlink in the CVS repository

@@ -1,12 +1,12 @@
 package org.melati.example.contacts;
 
 import org.melati.Melati;
-import org.melati.template.ServletTemplateContext;
 import org.melati.PoemContext;
-import org.melati.servlet.Form;
-import org.melati.servlet.PathInfoException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.servlet.Form;
+import org.melati.servlet.PathInfoException;
+import org.melati.template.ServletTemplateContext;
 
 
  /**
@@ -24,8 +24,8 @@ public class Search extends ContactsServlet {
     "field_name");
     Integer category = Form.getIntegerField(melati.getServletTemplateContext(),
                                                 "field_category");
-    String submit = Form.getFieldNulled(melati.getServletTemplateContext(),
-                                              "submit");
+    String search = Form.getFieldNulled(melati.getServletTemplateContext(),
+        "search");
     Column<String> nameColumn = db.getContactTable().getNameColumn();
     Column<Integer> contactColumn = db.getContactCategoryTable().getContactColumn();
     Column<Integer> categoryColumn = db.getContactCategoryTable().getCategoryColumn();
@@ -44,8 +44,10 @@ public class Search extends ContactsServlet {
                " AND "  + contactColumn.quotedName() + " =  " + 
                    db.getContactTable().quotedName() + "." + db.getContactTable().troidColumn().quotedName() +")";
     }
-    if (submit != null) {
+    if (search != null) {
       context.put("results", db.getContactTable().selection(where));
+    } else {
+      System.err.println("search not clicked");
     }
     // The file extension is added by the ServletTemplateEngine
     return "org/melati/example/contacts/Search";

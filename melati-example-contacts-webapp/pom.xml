@@ -1,0 +1,140 @@
+<?xml version="1.0"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>melati-parent</artifactId>
+    <groupId>org.melati</groupId>
+    <version>0.8.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>melati-example-contacts-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>Melati Contacts Webapp</name>
+  <url>http://melati.org/webapp</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <finalName>melati-contacts-webapp</finalName>
+     <plugins>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>6.1.26</version>     
+        <configuration>
+          <contextPath>/</contextPath>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+          <scanTargets>
+            <scanTarget>
+             ${basedir}/src/main/java
+            </scanTarget>
+          </scanTargets>
+        </configuration>
+      </plugin>
+     </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.melati</groupId>
+      <artifactId>melati</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.melati</groupId>
+      <artifactId>melati-example-contacts</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.10</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <profiles>
+    <profile>
+<!--
+Modify catalina.sh if running tomcat as local user :
+
+   export CATALINA_PID=/var/run/tomcat6.pid
+
+   shift
+  
+  "$_RUNJAVA" $JAVA_OPTS \
+    -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
+    -Dcatalina.base="$CATALINA_BASE" \
+    -Dcatalina.home="$CATALINA_HOME" \
+    -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+    org.apache.catalina.startup.Bootstrap "$@" stop
+
+  if [ ! -z "$CATALINA_PID" ]; then
+     echo "Killing: `cat $CATALINA_PID`"
+     kill -9 `cat $CATALINA_PID`
+     echo rm $CATALINA_PID
+     rm $CATALINA_PID
+  else
+     echo "Kill failed: \$CATALINA_PID not set"
+  fi
+
+-->
+    
+      <id>tomcatRunning</id>
+      <activation>
+        <file>
+          <exists>/var/run/tomcat6.pid</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven2-plugin</artifactId>
+            <configuration>
+              <wait>true</wait>
+              <container>
+                <containerId>tomcat6x</containerId>
+                <type>remote</type>
+              </container>
+              <configuration>
+                <type>runtime</type> 
+                <properties>
+                    <cargo.tomcat.manager.url>http://localhost:8080/manager</cargo.tomcat.manager.url>
+                    <cargo.remote.username>admin</cargo.remote.username>
+                    <cargo.remote.password />
+                </properties>
+              </configuration>
+              <deployer>
+               <type>remote</type>
+               <deployables>
+                 <deployable>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <properties>
+                      <context>/</context>
+                    </properties>
+                    <type>war</type>
+                  </deployable>
+                </deployables>
+              </deployer>
+            </configuration>
+            <executions>
+               <execution>
+                 <id>do</id>
+                 <phase>pre-integration-test</phase>
+                 <goals>
+                    <goal>deployer-redeploy</goal>
+                 </goals>
+               </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

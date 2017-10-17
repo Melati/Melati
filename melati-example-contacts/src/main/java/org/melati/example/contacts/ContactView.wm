@@ -1,5 +1,4 @@
 #set $ml = $melati.HTMLMarkupLanguage
-$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 #set $melati.ResponseContentType = "text/html"
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 

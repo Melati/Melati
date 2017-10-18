@@ -1373,11 +1373,14 @@ public class JdbcTable <P extends Persistent>  implements Selectable<P>, Table<P
   *                            <TT>WHERE</TT> keyword
   * @return the first item satisfying criteria
   */
-  public P firstSelection(String whereClause) {
-    Enumeration<P> them = selection(whereClause);
+ public P firstSelection(String whereClause) {
+   Enumeration<P> them = selection(whereClause);
+   return maybeFirst(them);
+ }
+
+  public P maybeFirst(Enumeration<P> them) {
     return them.hasMoreElements() ? them.nextElement() : null;
   }
-
   /**
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
    * possibly including those flagged as deleted.

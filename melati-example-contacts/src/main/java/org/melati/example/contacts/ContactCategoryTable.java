@@ -1,11 +1,8 @@
-// Delete this line to prevent overwriting of this file
-
 package org.melati.example.contacts;
 
-
 import org.melati.example.contacts.generated.ContactCategoryTableBase;
-import org.melati.poem.DefinitionSource;
 import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
 import org.melati.poem.PoemException;
 
 /**
@@ -26,8 +23,12 @@ import org.melati.poem.PoemException;
  * <tr><td> category </td><td> Category </td><td> Category </td></tr> 
  * <tr><td> contact </td><td> Contact </td><td> Contact </td></tr> 
  * </table> 
- * 
- * See org.melati.poem.prepro.TableDef#generateTableJava 
+ *
+ * See org.melati.poem.prepro.TableDef#generateTableJava
+ *
+ * @author timp
+ * @since 2017-10-18
+ *
  */
 public class ContactCategoryTable<T extends ContactCategory> extends ContactCategoryTableBase<ContactCategory> {
 
@@ -47,5 +48,18 @@ public class ContactCategoryTable<T extends ContactCategory> extends ContactCate
   }
 
   // programmer's domain-specific code here
+
+  public ContactCategory ensure(Contact contact, Category c) {
+    ContactCategory it = (ContactCategory) newPersistent();
+    it.setCategory(c);
+    it.setContact(contact);
+    ContactCategory found = maybeFirst(selection(it));
+    if (found != null) {
+      return found;
+    } else {
+      it.makePersistent();
+      return it;
+    }
+  }
 }
 

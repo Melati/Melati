@@ -1,12 +1,7 @@
 package org.melati.example.contacts;
 
 import org.melati.example.contacts.Contact.DescendantParentException;
-import org.melati.poem.AccessToken;
-import org.melati.poem.Database;
-import org.melati.poem.PoemDatabaseFactory;
-import org.melati.poem.PoemTask;
-import org.melati.poem.PoemThread;
-import org.melati.poem.User;
+import org.melati.poem.*;
 import org.melati.poem.test.PoemTestCase;
 
 /**
@@ -16,7 +11,7 @@ public class ContactTest extends PoemTestCase {
 
   private static String databaseName = "contacts";
   
-  private Contact root = null;
+  private Contact rootContact = null;
   private Contact a = null;
   private Contact b = null;
   private Contact c = null;
@@ -41,14 +36,14 @@ public class ContactTest extends PoemTestCase {
         new PoemTask() {
           public void run() {
             try {
-              root = (Contact)((ContactsDatabase)getDb()).getContactTable().newPersistent();
-              root.setAddress("Oxford");
-              root.setName("root");
-              root = (Contact)((ContactsDatabase)getDb()).getContactTable().getNameColumn().ensure(root);
+              rootContact = (Contact) ((ContactsDatabase) getDb()).getContactTable().newPersistent();
+              rootContact.setAddress("Oxford");
+              rootContact.setName("rootContact");
+              rootContact = (Contact) ((ContactsDatabase) getDb()).getContactTable().getNameColumn().ensure(rootContact);
 
-              a = ((ContactsDatabase)getDb()).getContactTable().ensure("a", root, "Oxford");
-              b = ((ContactsDatabase)getDb()).getContactTable().ensure("b", root, "Oxford");
-              c = ((ContactsDatabase)getDb()).getContactTable().ensure("c", root, "Oxford");
+              a = ((ContactsDatabase) getDb()).getContactTable().ensure("a", rootContact, "Oxford");
+              b = ((ContactsDatabase) getDb()).getContactTable().ensure("b", rootContact, "Oxford");
+              c = ((ContactsDatabase) getDb()).getContactTable().ensure("c", rootContact, "Oxford");
 
               r = ((ContactsDatabase)getDb()).getContactTable().ensure("r", a, "Oxford");
               s = ((ContactsDatabase)getDb()).getContactTable().ensure("s", a, "Oxford");
@@ -111,8 +106,8 @@ public class ContactTest extends PoemTestCase {
    * Test setOwner.
    */
   public void testSetOwner() {
-    try { 
-      root.setOwner(z);
+    try {
+      rootContact.setOwner(z);
       fail("Should have bombed");
     } catch (DescendantParentException e) {
       e = null;
@@ -130,7 +125,7 @@ public class ContactTest extends PoemTestCase {
    * Test getChildren.
    */
   public void testGetChildren() {
-    assertTrue(root.getChildren().length == 3);
+    assertTrue(rootContact.getChildren().length == 3);
   }
 
   /**

@@ -1,16 +1,13 @@
 package org.melati.example.contacts;
 
+import org.melati.admin.AnticipatedException;
+import org.melati.example.contacts.generated.ContactBase;
+import org.melati.poem.*;
+import org.melati.poem.util.EnumUtils;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
-import org.melati.example.contacts.generated.ContactBase;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.Persistent;
-import org.melati.poem.User;
-import org.melati.poem.PoemThread;
-import org.melati.poem.util.EnumUtils;
-import org.melati.admin.AnticipatedException;
-import org.melati.poem.Treeable;
 /**
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>Contact</code> object.
@@ -137,6 +134,5 @@ public class Contact extends ContactBase implements Treeable {
     return arrayOf(v);
   }
 
-  // programmer's domain-specific code here
 }
 

@@ -77,10 +77,13 @@ public class CategoryTableTest extends PoemTestCase {
     Category c = (Category) ((ContactsDatabase) getDb()).getCategoryTable().newPersistent();
     c.setName("Cat");
     c.makePersistent();
-    Category c2 = ((ContactsDatabase) getDb()).getCategoryTable().ensure("Cat");
+    Category c2 = ((ContactsDatabase) getDb()).getCategoryTable()
+        .ensure("Cat");
     assertEquals(c, c2);
     Category d = ((ContactsDatabase) getDb()).getCategoryTable().ensure("Dog");
     assertNotNull(d);
+    c.delete();
+    d.delete();
   }
 
 }

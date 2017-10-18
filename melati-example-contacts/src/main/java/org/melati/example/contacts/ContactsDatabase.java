@@ -1,7 +1,7 @@
 package org.melati.example.contacts;
 
-import org.melati.poem.PoemTask;
 import org.melati.example.contacts.generated.ContactsDatabaseBase;
+import org.melati.poem.PoemTask;
 
 /**
  * Melati POEM generated, programmer modifiable stub.
@@ -17,20 +17,26 @@ public class ContactsDatabase extends ContactsDatabaseBase
     // as we need the troid to set lastupdateuser
     inSession(getUserTable().administratorUser(), new PoemTask() {
       public void run() {
-
+        Contact eve =
+            getContactTable().ensure(
+                "Eve",
+                null,
+                "Eden");
         Contact adam =
-          getContactTable().ensure(
-            "Adam",
-            null,
-            "Eden");
+            getContactTable().ensure(
+                "Adam",
+                null,
+                "Eden");
+        Contact seth =
         getContactTable().ensure(
             "Seth",
             adam,
             "Eden");
-        getContactTable().ensure(
-            "Abel",
-            adam,
-            "Eden");
+        Contact abel =
+            getContactTable().ensure(
+                "Abel",
+                adam,
+                "Eden");
         Contact lamech =
           getContactTable().ensure(
             "Lamech",
@@ -51,32 +57,52 @@ public class ContactsDatabase extends ContactsDatabaseBase
                 "Enoch"),
               "Enoch"),
             "Enoch");
-        getContactTable().ensure(
-            "Adah",
-            lamech,
-            "Enoch");
-        getContactTable().ensure(
-            "Jabal",
-            lamech,
-            "Enoch");
-        getContactTable().ensure(
-            "Jubal",
-            lamech,
-            "Enoch");
-        getContactTable().ensure(
-            "Naamah",
-            lamech,
-            "Enoch");
-        getContactTable().ensure(
-            "Tubal-cain",
-            lamech,
-            "Enoch");
-        getContactTable().ensure(
-            "Zilla",
-            lamech,
-            "Enoch");
+        Contact adah =
+            getContactTable().ensure(
+                "Adah",
+                lamech,
+                "Enoch");
+        Contact jabal =
+            getContactTable().ensure(
+                "Jabal",
+                lamech,
+                "Enoch");
+        Contact jubal =
+            getContactTable().ensure(
+                "Jubal",
+                lamech,
+                "Enoch");
+        Contact naamah =
+            getContactTable().ensure(
+                "Naamah",
+                lamech,
+                "Enoch");
+        Contact tc =
+            getContactTable().ensure(
+                "Tubal-cain",
+                lamech,
+                "Enoch");
+        Contact zilla =
+            getContactTable().ensure(
+                "Zilla",
+                lamech,
+                "Enoch");
 
+        Category son = getCategoryTable().ensure("son");
+        Category daughter = getCategoryTable().ensure("daughter");
+        Category other = getCategoryTable().ensure("other");
 
+        getContactCategoryTable().ensure(eve, other);
+        getContactCategoryTable().ensure(adam, other);
+        getContactCategoryTable().ensure(seth, son);
+        getContactCategoryTable().ensure(abel, son);
+        getContactCategoryTable().ensure(lamech, son);
+        getContactCategoryTable().ensure(adah, daughter);
+        getContactCategoryTable().ensure(jabal, son);
+        getContactCategoryTable().ensure(jubal, son);
+        getContactCategoryTable().ensure(naamah, son);
+        getContactCategoryTable().ensure(tc, son);
+        getContactCategoryTable().ensure(zilla, daughter);
 
       }
     });

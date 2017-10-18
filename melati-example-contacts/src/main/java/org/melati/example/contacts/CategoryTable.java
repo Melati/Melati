@@ -51,9 +51,9 @@ public class CategoryTable<T extends Category> extends CategoryTableBase<Categor
 
   public Category ensure(String name) {
     Category it = (Category) getNameColumn().firstWhereEq(name);
-    if (it != null)
+    if (it != null) {
       return it;
-    else {
+    } else {
       it = (Category) newPersistent();
       it.setName(name);
       return (Category) getNameColumn().ensure(it);

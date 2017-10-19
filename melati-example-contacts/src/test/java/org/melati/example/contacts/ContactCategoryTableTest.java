@@ -8,7 +8,7 @@ import org.melati.poem.test.PoemTestCase;
  * @since 2017-10-18
  */
 public class ContactCategoryTableTest extends PoemTestCase {
-  private static String databaseName = "contacts";
+  private static String databaseName = "ContactCategoryTableTest";
 
 
   protected void setUp() throws Exception {

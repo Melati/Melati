@@ -8,7 +8,7 @@ import org.melati.poem.test.PoemTestCase;
  * @since 2017-10-18
  */
 public class CategoryTableTest extends PoemTestCase {
-  private static String databaseName = "contacts";
+  private static String databaseName = "CategoryTableTest";
 
 
   protected void setUp() throws Exception {
@@ -75,10 +75,10 @@ public class CategoryTableTest extends PoemTestCase {
    */
   public void testEnsure() {
     Category c = (Category) ((ContactsDatabase) getDb()).getCategoryTable().newPersistent();
-    c.setName("Cat");
+    c.setName("Cat1");
     c.makePersistent();
     Category c2 = ((ContactsDatabase) getDb()).getCategoryTable()
-        .ensure("Cat");
+        .ensure("Cat1");
     assertEquals(c, c2);
     Category d = ((ContactsDatabase) getDb()).getCategoryTable().ensure("Dog");
     assertNotNull(d);

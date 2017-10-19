@@ -40,11 +40,11 @@ public class ContactView extends ContactsServlet {
                                getParameterValues("field_category");
       if (categories != null) {
         for (int i=0; i< categories.length; i++) {
-          ContactCategory cat =
+          ContactCategory contactCategory =
           (ContactCategory)db.getContactCategoryTable().newPersistent();
-          cat.setContact(contact);
-          cat.setCategoryTroid(new Integer(categories[i]));
-          db.getContactCategoryTable().create(cat);
+          contactCategory.setContact(contact);
+          contactCategory.setCategoryTroid(new Integer(categories[i]));
+          db.getContactCategoryTable().create(contactCategory);
         }
       }
       try {
@@ -73,7 +73,7 @@ public class ContactView extends ContactsServlet {
        throw new Exception("Invalid Method");
     }
     context.put("contact",contact);
-    context.put("categories",db.getContactCategoryTable().selection());
+    context.put("categories",db.getCategoryTable().selection());
     // The file extension is added by the template engine
     return "org/melati/example/contacts/ContactView";
   }

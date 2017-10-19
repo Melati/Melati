@@ -59,15 +59,15 @@
 </form>
 #if ($results) #begin
 <table>
-#foreach $item in $results #begin
 <tr>
-<th>
+ <th>
 Name
-</th>
-<th>
+ </th>
+ <th>
 Address
-</th>
+ </th>
 </tr>
+#foreach $item in $results #begin
 <tr>
  <td><a href="$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/$item.Troid/View">edit</a></td>
  <td>

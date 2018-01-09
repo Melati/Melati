@@ -103,7 +103,7 @@ public abstract class Column<T> implements FieldAttributes<T> {
     return getDatabase().getDbms();
   }
 
-  <O> void unifyType(SQLPoemType<O> storeType, DefinitionSource source) {
+  public <O> void unifyType(SQLPoemType<O> storeType, DefinitionSource source) {
     PoemType<T> unified = dbms().canRepresent(storeType, type);
     if (unified == null || !(unified instanceof SQLPoemType))
       throw new TypeDefinitionMismatchException(this, storeType, source);

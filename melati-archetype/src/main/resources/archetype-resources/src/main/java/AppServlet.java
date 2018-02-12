@@ -30,9 +30,7 @@ public abstract class #capitalise(${artifactId})Servlet extends TemplateServlet 
     return "timp@paneris.org";
   }
 
-  /**
-   * @see org.melati.servlet.ConfigServlet#doConfiguredRequest(org.melati.Melati)
-   */
+  @Override
   protected void doConfiguredRequest(final Melati melati)
       throws ServletException, IOException {
     String pathInfo = melati.getRequest().getPathInfo();
@@ -90,6 +88,7 @@ public abstract class #capitalise(${artifactId})Servlet extends TemplateServlet 
    * @param context
    * @return Template name
    */
+  @Override
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
     return ${artifactId}Template(reallyDoTemplateRequest(melati, context));
@@ -105,6 +104,7 @@ public abstract class #capitalise(${artifactId})Servlet extends TemplateServlet 
                             ServletTemplateContext templateContext)
       throws Exception;
 
+  @Override
   protected String getSetting(Melati melati, String settingName) {
     String returnString = melati.getDatabase().getSettingTable().get(settingName);
     if (returnString == null)

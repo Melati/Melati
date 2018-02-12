@@ -41,13 +41,7 @@ It can be deleted after first run.
 </p>
 <pre>
 cd art
-mvn install -P first
-</pre>
-<p>
-Generate some eclipse configuration files:
-</p>
-<pre>
-mvn -DdownloadSources=true -DdownloadJavadoc=true eclipse:eclipse
+mvn install -Pfirst
 </pre>
 </subsection>
 <subsection name=" Iterative modelling ">

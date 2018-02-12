@@ -16,17 +16,17 @@
 
 <section name=" Melati Maven Archetype">
 <subsection name=" Generate a prototypical Melati project ">
-<pre>
-<textarea type='text' size='180' height='3'> 
-mvn archetype:generate -DarchetypeGroupId=org.melati \ 
+<textarea type='text' size='180' height='3'>
+    <pre>
+mvn archetype:generate -DarchetypeGroupId=org.melati \
  -DarchetypeArtifactId=melati-archetype \
  -DarchetypeVersion=${project.version} \
- -DgroupId=com.ical \
- -Dversion=${project.version} \ 
+ -DgroupId=org.mine \
+ -Dversion=${project.version} \
  -DartifactId=art \
  -DinteractiveMode=false
+    </pre>
 </textarea>
-</pre>
 <p>
 This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the current working directory called <tt>art</tt>.
 </p>

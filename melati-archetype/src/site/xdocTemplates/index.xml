@@ -16,8 +16,7 @@
 
 <section name=" Melati Maven Archetype">
 <subsection name=" Generate a prototypical Melati project ">
-<textarea type='text' size='180' height='3'>
-    <pre>
+    <pre><textarea type='text' width='180' height='8'>
 mvn archetype:generate -DarchetypeGroupId=org.melati \
  -DarchetypeArtifactId=melati-archetype \
  -DarchetypeVersion=${project.version} \
@@ -25,14 +24,12 @@ mvn archetype:generate -DarchetypeGroupId=org.melati \
  -Dversion=${project.version} \
  -DartifactId=art \
  -DinteractiveMode=false
-    </pre>
-</textarea>
+</textarea></pre>
 <p>
-This will create a project with id <tt>art</tt> and a group <tt>com.ical</tt> in a directory below the current working directory called <tt>art</tt>.
+This will create a project with id <tt>art</tt> and a group <tt>org.mine</tt> in a directory below the current working directory called <tt>art</tt>.
 </p>
 <p>
-Note that we are hacking the version of the generated project to be 
-the current version of Melati.
+<b>Hack</b> Note that we are hacking the version of the generated project to be the current version of Melati.
 </p>
 <p> 
 The pom will contain a one-off ant-run task which must be run using <tt>-Pfirst</tt>.
@@ -56,6 +53,10 @@ This will create an empty database and allow you to edit it at <a href="http://l
 You should login using the username <tt>_administrator_</tt> and password <tt>FIXME</tt> then add table definitions and 
 column definitions.
 </p>
+    <p>
+        Add tables and columns.
+    </p>
+
 <p>
 When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
 </p>

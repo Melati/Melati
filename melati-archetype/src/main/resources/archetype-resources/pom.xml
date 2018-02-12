@@ -17,13 +17,12 @@
   </ciManagement>
 
   <scm>
-      <url>https://github.com/timp/{$artifactId}</url>
       <connection>scm:git:git://github.com/timp/{$artifactId}.git</connection>
       <developerConnection>scm:git:git@github.com:timp/{$artifactId}.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>
-      https://github.com/timp/{$artifactId}/
-    </url>
+      <tag>HEAD</tag>
+      <url>
+        https://github.com/timp/{$artifactId}/
+      </url>
   </scm>
   <mailingLists>
     <mailingList>
@@ -75,7 +74,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
-      <url>http://tim.pizey.net/</url>
+      <url>http://tim.pizey.uk/</url>
     </developer>
   </developers>
 
@@ -129,7 +128,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>1.8.0.10</version>
-     <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

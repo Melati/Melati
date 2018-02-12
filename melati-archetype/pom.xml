@@ -18,4 +18,25 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  <build>
+  <resources>
+    <resource>
+      <directory>src/site/xdocTemplates</directory>
+      <targetPath>generatedXdoc</targetPath>
+      <filtering>true</filtering>
+    </resource>
+  </resources>
+    <plugins>
+      <!-- See http://grokbase.com/t/maven/users/067hp0434q/m2-insert-variables-in-xdoc-apt-files -->
+      <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-site-plugin</artifactId>
+      <configuration>
+        <xdocDirectory>
+          ${project.build.outputDirectory}/generatedXdoc
+        </xdocDirectory>
+      </configuration>
+    </plugin>
+    </plugins>
+  </build>
 </project>

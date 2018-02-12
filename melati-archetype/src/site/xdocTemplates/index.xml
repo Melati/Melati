@@ -58,13 +58,14 @@ column definitions.
     </p>
 
 <p>
-When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
+When you have finished this iteration, stop Jetty with <tt>Ctrl-C</tt>.
 </p>
 <p>
 New java files will be generated the next time you run 
 <pre>
 mvn test -PupdateJava
-</pre>.
+</pre>
+    You can iterate around this loop until your modelling is complete.
 </p>
 </subsection>
 </section>

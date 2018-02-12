@@ -104,7 +104,6 @@ public abstract class #capitalise(${artifactId})Servlet extends TemplateServlet 
                             ServletTemplateContext templateContext)
       throws Exception;
 
-  @Override
   protected String getSetting(Melati melati, String settingName) {
     String returnString = melati.getDatabase().getSettingTable().get(settingName);
     if (returnString == null)

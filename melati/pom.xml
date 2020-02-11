@@ -343,7 +343,7 @@ Needed by jwebunit 3.0
    <repository>
     <id>melati</id>
     <name>Melati Maven Repository</name>
-    <url>http://melati.org/maven2/</url>
+    <url>https://melati.org/maven2/</url>
     <snapshots>
       <enabled>true</enabled>
     </snapshots>

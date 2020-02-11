@@ -77,14 +77,14 @@
     <repository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
-      <url>http://www.melati.org/maven2/</url>
+      <url>https://www.melati.org/maven2/</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
-      <url>http://www.melati.org/maven2/</url>
+      <url>https://www.melati.org/maven2/</url>
     </pluginRepository>
   </pluginRepositories>
   <build>

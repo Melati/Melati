@@ -8,10 +8,10 @@ Test XMLHtpRequest
 </title>
 </head>
 <body>
-<a href="../Admin/melatijunit/Proxy?http://google.com">google</a>
-<a href="javascript:checkUrl('HEAD','http://pizey.net/~timp/index.html');">check</a>
-<a href="javascript:checkUrl('GET','http://pizey.net/~timp/index.html');">Get</a>
-<a href="javascript:checkUrl('HEAD','http://pizey.net/~timp/index.htmlf');">404</a>
+<a href="../Admin/melatijunit/Proxy?http://tim.pizey.uk/CV.html">CV</a>
+<a href="javascript:checkUrl('HEAD','http://tim.pizey.uk/index.html');">check</a>
+<a href="javascript:checkUrl('GET','http://tim.pizey.uk/index.html');">Get</a>
+<a href="javascript:checkUrl('HEAD','http://tim.pizey.uk/index.htmlf');">404</a>
 
 <div id="scribble" style="border:1px solid red; width:auto;"></div>
 

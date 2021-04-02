@@ -110,16 +110,12 @@ public class TemplateServletTest extends TemplateServlet {
  * Set up the POEM context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  
  *
- * Useful when writing appications where you are typically only accessing
+ * Useful when writing applications where you are typically only accessing
  * a single database.
  */
   protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
-    String[] parts = melati.getPathInfoParts();
-    if (parts.length == 0) 
-      return poemContextWithLDB(melati,"melatitest");
-    else 
-      return super.poemContext(melati);
+    return poemContextWithLDB(melati,"melatitest");
   }
 
   /** 

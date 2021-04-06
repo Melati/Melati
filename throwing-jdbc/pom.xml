@@ -137,7 +137,7 @@
     <profile>
       <id>jdbc41</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <activeByDefault>true</activeByDefault>
         <jdk>[1.7,1.8]</jdk>
       </activation>
       <properties>

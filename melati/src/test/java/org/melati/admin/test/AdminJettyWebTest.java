@@ -112,7 +112,7 @@ public class AdminJettyWebTest extends JettyWebTestCase {
   }
   public void testProxy() { 
     beginAt("/Display/" + dbName + "?template=org.melati.admin.test.ProxyCaller");
-    clickLinkWithText("google");
+    clickLinkWithText("CV");
   }
   public void testHttpXmlRequestProxy() { 
     beginAt("/Display/" + dbName + "?template=org.melati.admin.test.ProxyCaller");

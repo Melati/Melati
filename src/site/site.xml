@@ -17,7 +17,7 @@
     <href>http://www.melati.org/</href>
     <alt>Melati - The flower of Java</alt>
   </bannerRight>
- <poweredBy>
+  <poweredBy>
     <logo name="Maven" href="http://maven.apache.org/"
           img="/images/logos/maven-feather.png"/>
     <logo name="java.net" href="http://www.java.net/"
@@ -25,9 +25,11 @@
   </poweredBy>
   <body>
     <head>
+<![CDATA[
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="keyword" content="Persistence, Java, SQL, Database, Templates, Object Relational Mapping, ORM, Objects, Object Oriented, J2EE replacement" />
       <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+]]>
     </head>
     <links>
       <item name="TimP"                  href="http://www.paneris.org/~timp/" />

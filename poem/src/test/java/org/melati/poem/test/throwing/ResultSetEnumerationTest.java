@@ -1,6 +1,7 @@
 package org.melati.poem.test.throwing;
 
 import java.sql.ResultSet;
+import java.util.NoSuchElementException;
 
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
@@ -56,14 +57,14 @@ public class ResultSetEnumerationTest extends
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
     Thrower.stopThrowing(ResultSet.class, "close");
-    Thrower.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "getInt");
     try { 
       super.testHasMoreElements();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    Thrower.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "getInt");
   }
   public void testNextElement() {
     Thrower.startThrowing(ResultSet.class, "close");
@@ -74,14 +75,14 @@ public class ResultSetEnumerationTest extends
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
     Thrower.stopThrowing(ResultSet.class, "close");
-    Thrower.startThrowing(ResultSet.class, "next");
+    Thrower.startThrowing(ResultSet.class, "getInt");
     try { 
       super.testNextElement();
       fail("Should have bombed");
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    Thrower.stopThrowing(ResultSet.class, "next");
+    Thrower.stopThrowing(ResultSet.class, "getInt");
   }
   public void testResultSetEnumeration() {
     super.testResultSetEnumeration();
@@ -91,8 +92,8 @@ public class ResultSetEnumerationTest extends
     try { 
       super.testSkip();
       fail("Should have bombed");
-    } catch (SQLSeriousPoemException e) { 
-      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    } catch (NoSuchElementException e) {
+      //assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
     Thrower.stopThrowing(ResultSet.class, "next");
   }

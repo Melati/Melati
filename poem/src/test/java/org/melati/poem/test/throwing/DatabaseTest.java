@@ -133,7 +133,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     try { 
       getDb();
       fail("Should have blown up");
-    } catch (SQLSeriousPoemException e) {
+    } catch (UnificationPoemException e) {
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
     Thrower.stopThrowing(ResultSet.class, "close");
@@ -152,7 +152,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
               "",
               4);
       fail("Should have blown up");
-    } catch (SQLPoemException e) {
+    } catch (UnificationPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
     assertEquals(0, db.getFreeTransactionsCount());

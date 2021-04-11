@@ -48,9 +48,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
-
 /**
  * Process a DSD file.
  * 
@@ -121,14 +118,6 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
     //Get the System Classloader
     ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
 
-    //Get the URLs
-    URL[] urls = ((URLClassLoader)sysClassLoader).getURLs();
-
-    for(int i=0; i< urls.length; i++)
-    {
-        System.out.println(urls[i].getFile());
-    }       
-    
     File f = null;
     if(isMain) 
       f = sourceDirectory;

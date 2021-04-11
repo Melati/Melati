@@ -94,7 +94,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
   public void testSkip() {
     ResultSetEnumeration<Persistent> rse = (ResultSetEnumeration<Persistent>)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
     rse.skip();
-    try { 
+    try {
       rse.nextElement();
       fail("Should have blown up");
     } catch (NoSuchElementException e) { 

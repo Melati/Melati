@@ -115,7 +115,10 @@ public class TemplateServletTest extends TemplateServlet {
  */
   protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
-    return poemContextWithLDB(melati,"melatitest");
+    PoemContext pc = super.poemContext(melati);
+    if (pc.getLogicalDatabase().equals(""))
+      pc = poemContextWithLDB(melati,"melatitest");
+    return pc;
   }
 
   /** 

@@ -11,6 +11,13 @@
   <description>
   Melati Java Website Development Suite. 
   </description>
+  <repositories>
+    <repository>
+      <id>org.webmacro</id>
+      <name>Webmacro repo</name>
+      <url>https://webmacro.sourceforge.net/maven2/</url>
+    </repository>
+  </repositories>
   <profiles>
     <profile>
       <id>nojetty</id>

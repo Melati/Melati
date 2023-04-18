@@ -63,19 +63,17 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.melati.org/maven2/</url>
     </pluginRepository>
   </pluginRepositories>
-  <repositories>
-    <repository>
-      <id>melati</id>
-      <name>Melati M2 Repository</name>
-      <url>http://www.melati.org/maven2/</url>
-    </repository>
-    <repository>
-     <id>org.webmacro</id>
-     <name>Webmacro repo</name>
-     <url>http://webmacro.sourceforge.net/maven2/</url>
-    </repository>
-  </repositories>
 -->
+  <repositories>
+      <!--
+      Needs https
+          <repository>
+            <id>melati</id>
+            <name>Melati M2 Repository</name>
+            <url>http://www.melati.org/maven2/</url>
+          </repository>
+            -->
+  </repositories>
   <scm>
       <url>https://github.com/Melati/Melati</url>
       <connection>scm:git:git://github.com/Melati/Melati.git</connection>

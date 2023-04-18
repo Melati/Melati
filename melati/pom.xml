@@ -118,13 +118,6 @@
       <scope>compile</scope>
     </dependency>
     <!-- Test dependencies -->
-    <dependency>
-      <groupId>org.melati</groupId>
-      <artifactId>poem</artifactId>
-      <version>${project.version}</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
 <!--
 Needed by jwebunit 3.0
     <dependency>

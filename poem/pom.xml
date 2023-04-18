@@ -75,7 +75,7 @@
       <artifactId>hsqldb</artifactId>
         <!-- Note this may have vulnerabilities but 2.7.1 does not close Threads properly -->
         <version>1.8.0.10</version>
-      <scope>test</scope>
+        <scope>test</scope>
     </dependency>
     <!--
       <dependency>

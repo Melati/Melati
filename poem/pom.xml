@@ -161,6 +161,9 @@
          </configuration>
        </execution>
      </executions>
+<!--
+Looks like I fixed the circular dependency but did not remove it
+Delete this if this is the case
      <dependencies>
       <dependency>
         <groupId>org.melati</groupId>
@@ -168,6 +171,7 @@
         <version>${project.version}</version>
       </dependency>
      </dependencies>
+     -->
     </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

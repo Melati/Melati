@@ -608,19 +608,31 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </build>
 
   <profiles>
-   <profile>
-    <id>localRepo</id>
-    <distributionManagement>
-      <repository>
-        <id>melati</id>
-        <name>Melati M2 Repository</name>
-        <url>file:/var/www/maven2/</url>
-      </repository>
-      <site>
-        <id>melati_site</id>
-        <url>file:/var/www/melati/</url>
-      </site>
-    </distributionManagement>
-   </profile>
+    <!-- Used since hsqldb 2.6.1 when jdk11 became default -->
+      <!--
+    <profile>
+      <id>jdk8</id>
+        <activation>
+            <jdk>1.8</jdk>
+        </activation>
+      <properties>
+          <hsql_jdk_classifier></hsql_jdk_classifier>
+      </properties>
+    </profile>
+    -->
+    <profile>
+      <id>localRepo</id>
+      <distributionManagement>
+        <repository>
+          <id>melati</id>
+          <name>Melati M2 Repository</name>
+          <url>file:/var/www/maven2/</url>
+        </repository>
+        <site>
+          <id>melati_site</id>
+          <url>file:/var/www/melati/</url>
+        </site>
+      </distributionManagement>
+    </profile>
   </profiles>
 </project>

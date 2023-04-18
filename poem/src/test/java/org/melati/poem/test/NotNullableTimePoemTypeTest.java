@@ -35,8 +35,12 @@ public class NotNullableTimePoemTypeTest extends SQLPoemTypeSpec<Time> {
     super.testStringOfCooked();
     long now = System.currentTimeMillis();
     Time nowT = new Time(now);
-    assertEquals(it.stringOfCooked(nowT, PoemLocale.HERE, DateFormat.MEDIUM),
-            21, it.stringOfCooked(nowT, PoemLocale.HERE, DateFormat.MEDIUM).length());
+    String result = it.stringOfCooked(nowT, PoemLocale.HERE, DateFormat.MEDIUM);
+    int expected = 20;
+    if (System.getProperty("java.version").startsWith("11")) {
+      expected = 21;
+    }
+    assertEquals(result,expected, result.length());
   }
 
   /**

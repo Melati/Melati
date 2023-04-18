@@ -55,6 +55,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>scp://melati.org:/var/www/melati/</url>
     </site>
   </distributionManagement>
+<!--
   <pluginRepositories>
     <pluginRepository>
       <id>melati_plugin</id>
@@ -74,7 +75,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <url>http://webmacro.sourceforge.net/maven2/</url>
     </repository>
   </repositories>
-
+-->
   <scm>
       <url>https://github.com/Melati/Melati</url>
       <connection>scm:git:git://github.com/Melati/Melati.git</connection>

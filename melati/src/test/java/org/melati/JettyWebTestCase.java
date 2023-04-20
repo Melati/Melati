@@ -23,7 +23,8 @@ public class JettyWebTestCase extends WebTestCase {
 
   private static Server server;
   private static boolean started = false;
-  protected static String contextName = "melatitest";
+  // manually keep in synch with MelatiConfig.properties
+  protected static String contextName = "";
   protected static String webAppDirName = "src/test/webapp";
   protected static String referenceOutputDir = "src/test/resources";
 

@@ -35,6 +35,7 @@
           <exclude>**/AdminJettyWebTest.java</exclude>
           <exclude>**/StatusJettyWebTest.java</exclude>
           <exclude>**/DisplayJettyWebTest.java</exclude>
+          <exclude>**/SessionAnalysisServletTest.java</exclude>
          </excludes>
         </configuration>
       </plugin>
@@ -290,6 +291,9 @@ Needed by jwebunit 3.0
     <artifactId>jetty-maven-plugin</artifactId>
     <version>7.5.1.v20110908</version>
     <configuration>
+      <webApp>
+        <contextPath>/</contextPath>
+      </webApp>
      <webAppSourceDirectory>src/test/webapp</webAppSourceDirectory>
      <scanIntervalSeconds>2</scanIntervalSeconds>
      <useTestClasspath>true</useTestClasspath>

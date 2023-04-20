@@ -22,7 +22,7 @@
     <profile>
       <id>nojetty</id>
       <activation>
-        <jdk>1.4</jdk>
+          <activeByDefault>true</activeByDefault>
       </activation>
       <build>
       <plugins>

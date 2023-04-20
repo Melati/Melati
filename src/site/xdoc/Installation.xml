@@ -63,7 +63,8 @@ To install and generate the site documentation:
 <pre>
 mvn install site
 </pre>
-That's it!
+<p>
+    That's it!
 </p>
 </subsection>
 <subsection name="Testing">

@@ -65,7 +65,12 @@ import org.melati.poem.Treeable;
  * @author Myles Chippendale
  **/
 
+/*
+Broken by java 11
+Some clues here https://stackoverflow.com/questions/51590571/java-10-migration-issue-related-to-collection-and-generics
+but not used anywhere.
 
+ */
 public class ChildrenDrivenMutableTree {
 
     /**

@@ -18,10 +18,13 @@
 <p>
   The Melati distribution includes a webserver (<a
   href="http://jetty.mortbay.org/" target="jetty">Jetty</a>), a database (<a
-  href="http://www.hsqldb.org/" target="hsqldb">HSQLDB</a>) and two 
+  href="http://www.hsqldb.org/" target="hsqldb">HSQLDB</a>) and three
   templating engines (<a
-  href="http://jakarta.apache.org/velocity/">Velocity</a> and 
-  <a href="http://www.webmacro.org/">WebMacro</a>) so that it works 
+  href="http://jakarta.apache.org/velocity/">Velocity</a>,
+  <a
+          href="https://freemarker.apache.org/">Freemarker</a>,
+  and
+  <a href="https://webmacro.sourceforge.net/">WebMacro</a>) so that it works
   straight out of the distribution with no configuration.
 </p>
 <p>
@@ -30,19 +33,34 @@
   is configured in the distribution.<br />
   This can be used as your local <a href="/melati-webapp/org.melati.admin.Admin/melatitest/Main">desktop database</a>.
 </p>
-<subsection name="Maven quick start">
-<p>
+  <subsection name="Maven quick start">
+    <p>
 Install Maven from <a href="http://maven.apache.org/">maven.apache.org</a>.
 </p>
 <p>
-Change directory to a suitable directory (/dist or C:) and download using maven:
+Change directory to a suitable directory clone using git:
+</p>
 <pre>
-mvn -DconnectionUrl=scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati -Dpassword=anon -DcheckoutDirectory=melati scm:checkout
+git clone git@github.com:Melati/Melati.git
 </pre>
-This will create a directory called melati containing the whole project.
+    <p>
+This will create a directory called Melati containing the whole project.
+    </p>
+    <pre>
+      cd Melati
+      mvn install
+      cd melati
+      mvn jetty:run
+    </pre>
+    <p>
+      Point your browser at http://localhost:8080/
+    </p>
+</subsection>
+<subsection name="Maven quick start">
+    <p>
 To install and generate the site documentation:
+    </p>
 <pre>
-cd melati
 mvn install site
 </pre>
 That's it!
@@ -73,15 +91,7 @@ Though the tests are automatically run during the install.
   To create a new Melati based project use the <a href="melati-archetype/">archetype</a>.
 </p>
 </subsection>
-<subsection name="Using ant still?">
-<p>
-Ant is a language, Maven is a build system : stop using Ant, we have.
-</p>
-<p>
-  Further installation instructions are in the <a
-  href="/README.html">README</a> file.
-</p>
-</subsection>
+
 </section>
 <section name="Database Setup"> 
 <subsection name="HSQLDB">
@@ -110,7 +120,7 @@ createdb melatijunit
 <subsection name="MySQL">
 <p>
 Install MySQL with support for transactions, to use InnoDb this involves 
-uncomenting the innodb section of my.cnf.
+uncommenting the innodb section of my.cnf.
 </p>
 <p>
 In Mysql create your databases:

@@ -28,7 +28,7 @@ Melati Java Web Development Suite
   <issueManagement>
    <system>SF List</system>
     <url>
-http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+        https://github.com/Melati/Melati/issues
     </url>
   </issueManagement>
 
@@ -71,6 +71,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
             <id>melati</id>
             <name>Melati M2 Repository</name>
             <url>http://www.melati.org/maven2/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
           </repository>
             -->
   </repositories>
@@ -359,7 +365,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         </reportSet>
        </reportSets>
        <configuration>
-        <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
         <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
        </configuration>
       </plugin>

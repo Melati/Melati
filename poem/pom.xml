@@ -262,21 +262,4 @@ Delete this if this is the case
     </resource>
    </resources>
   </build>
-  <repositories>
-   <repository>
-    <id>melati</id>
-    <name>Melati Maven Repository</name>
-    <url>http://melati.org/maven2/</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-    <releases>
-      <enabled>true</enabled>
-    </releases>
-   </repository>
-  </repositories>
- <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
- </properties>
 </project>

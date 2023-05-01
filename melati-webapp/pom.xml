@@ -68,24 +68,31 @@
       <version>8.0.16</version>
       <scope>runtime</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+       <!-- Note this may have vulnerabilities but 2.7.1 does not close Threads properly -->
+      <version>1.8.0.10</version>
+      <scope>runtime</scope>
+    </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-odmg</artifactId>
       <version>${project.version}</version>
-      <scope>compile</scope>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-contacts</artifactId>
       <version>${project.version}</version>
-      <scope>compile</scope>
+      <scope>runtime</scope>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
-      <scope>test</scope>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <profiles>

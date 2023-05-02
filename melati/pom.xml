@@ -155,13 +155,14 @@ Needed by jwebunit 3.0
     <dependency>
      <groupId>org.mortbay.jetty</groupId>
      <artifactId>jetty</artifactId>
+        <!-- TemplateServletTestOverrideTest from 6.1.6 onwards -->
      <version>6.1.5</version>
      <scope>test</scope>
     </dependency>
     <dependency>
      <groupId>org.mortbay.jetty</groupId>
      <artifactId>jsp-2.1</artifactId>
-     <version>6.1.5</version>
+     <version>6.1.9</version>
      <scope>test</scope>
     </dependency>
     <dependency>

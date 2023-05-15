@@ -450,7 +450,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <plugin>
          <groupId>org.jacoco</groupId>
          <artifactId>jacoco-maven-plugin</artifactId>
-         <version>0.8.9</version>
+         <version>0.8.10</version>
        </plugin>
        <plugin>
          <groupId>org.apache.maven.plugins</groupId>
@@ -579,7 +579,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.9</version>
+        <version>0.8.10</version>
         <executions>
           <execution>
             <id>pre-unit-test</id>

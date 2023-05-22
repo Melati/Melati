@@ -503,7 +503,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
            <dependency>
              <groupId>org.apache.velocity</groupId>
              <artifactId>velocity</artifactId>
-             <version>1.5</version>
+             <version>1.7</version>
            </dependency>
          </dependencies>          
         </plugin>

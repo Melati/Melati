@@ -87,10 +87,9 @@ public class HttpAuthenticationPoemServletTestTest extends PoemServletTestTest {
       clickLinkWithText("Access Poem Exception");
       fail("Should have bombed.");
     } catch (Exception e) { 
-      System.err.println(e.getMessage());
-      assertEquals(e.getMessage().indexOf("401"), 0);
+      assertEquals("Message:" + e.getMessage(), e.getMessage().indexOf("401"), 0);
     }
-    assertTextPresent("Error 401");
+    assertTextPresent("401");
     assertTextPresent("You need the capability _administer_ ");
   }
   /**

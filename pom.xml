@@ -498,7 +498,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
            <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-ssh</artifactId>
-            <version>2.9</version>
+            <version>3.5.3</version>
            </dependency>
            <dependency>
              <groupId>org.apache.velocity</groupId>
@@ -572,7 +572,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <dependency>
          <groupId>org.apache.maven.wagon</groupId>
          <artifactId>wagon-ssh</artifactId>
-         <version>2.9</version>
+         <version>3.5.3</version>
         </dependency>
        </dependencies>
       </plugin>

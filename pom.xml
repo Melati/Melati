@@ -349,7 +349,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.6.1</version>
+        <version>3.6.2</version>
        <reportSets>
         <reportSet>
          <reports>
@@ -455,7 +455,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <plugin>
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-project-info-reports-plugin</artifactId>
-         <version>3.6.1</version>
+         <version>3.6.2</version>
          <configuration>
            <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
            <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
@@ -510,7 +510,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.6.1</version>
+          <version>3.6.2</version>
         </plugin>
       </plugins>
     </pluginManagement>

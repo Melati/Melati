@@ -341,7 +341,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <plugins>
       <plugin>
        <artifactId>maven-site-plugin</artifactId>
-       <version>3.20.0</version>
+       <version>3.21.0</version>
        <configuration>
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
@@ -493,7 +493,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.20.0</version>
+          <version>3.21.0</version>
           <dependencies>
            <dependency>
             <groupId>org.apache.maven.wagon</groupId>

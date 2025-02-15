@@ -49,6 +49,7 @@ package org.melati.poem.dbms.test.sql;
  * From src/jdbc4
  *
  */
-public abstract class ThrowingArrayVariant extends ThrowingArrayJdbc4 {
+public abstract class ThrowingArrayVariant
+        extends ThrowingArrayJdbc4 {
 
 }

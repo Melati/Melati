@@ -49,7 +49,7 @@ package org.melati.poem.dbms.test.sql;
  * @since  2013/07/07
  *
  */
-public abstract class ThrowingPreparedStatementVariant extends
-    ThrowingPreparedStatementJdbc4_1 {
+public abstract class ThrowingPreparedStatementVariant
+        extends ThrowingPreparedStatementJdbc4_1 {
 
 }

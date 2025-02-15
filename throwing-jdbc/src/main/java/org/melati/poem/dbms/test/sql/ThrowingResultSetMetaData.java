@@ -54,7 +54,7 @@ import java.sql.ResultSetMetaData;
  *
  */
 public class ThrowingResultSetMetaData 
-    extends ThrowingResultSetMetaDataVariant 
+    extends ThrowingResultSetMetaDataJdbc4
     implements ResultSetMetaData {
   
   /**

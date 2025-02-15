@@ -54,7 +54,7 @@ import java.sql.Connection;
  *
  */
 public class ThrowingConnection 
-    extends ThrowingConnectionVariant 
+    extends ThrowingConnectionJdbc4_1
     implements Connection {
 
   

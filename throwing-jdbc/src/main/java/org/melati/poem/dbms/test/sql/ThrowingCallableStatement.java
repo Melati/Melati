@@ -53,7 +53,7 @@ import java.sql.CallableStatement;
  *
  */
 public class ThrowingCallableStatement 
-    extends ThrowingCallableStatementVariant 
+    extends ThrowingCallableStatementJdbc4_1
     implements CallableStatement {
 
 

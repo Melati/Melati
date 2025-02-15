@@ -192,7 +192,8 @@ Delete this if this is the case
      <configuration>
       <redirectTestOutputToFile>true</redirectTestOutputToFile>
        <testFailureIgnore>true</testFailureIgnore>
-      <forkMode>once</forkMode>
+      <!-- No longer supported - how is it done now? -->
+      <!-- forkMode>once</forkMode -->
       <!-- threadCount>1</threadCount-->
       <!-- childDelegation>false</childDelegation -->
       <useFile>true</useFile>

@@ -56,18 +56,24 @@ The following gives the items which would be nice to have before a 1.0 release.
     <td>Completion of Documentation - Manual, Howto's.</td>
     <td>In progess</td>
   </tr>
-  <tr> 
-    <td>0.8.0</td>
+  <tr>
+    <td>0.8.1</td>
     <td>
-    DSD rewritten in Melati<br />
-    Flushing works with velocity <br />
-    Velocity translation as Maven plugin <br />
-    Works with Derby <br />
-    Replace all Enumerations with Lists <br />
+      DSD rewritten in Melati<br />
+      Velocity translation as Maven plugin <br />
+      Replace all Enumerations with Lists <br />
     </td>
     <td></td>
   </tr>
-  <tr> 
+  <tr>
+    <td>0.8.0</td>
+    <td>
+      Handle JDBC3/4/4.1<br />
+      Flushing works with velocity <br />
+    </td>
+    <td>Done</td>
+  </tr>
+  <tr>
     <td>0.7.9</td>
     <td>
       Unify webmacro and velocity templet directories <br />

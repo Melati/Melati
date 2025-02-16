@@ -524,6 +524,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
               <target>1.8</target>
           </configuration>
       </plugin>
+<!--
+Running twice
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-source-plugin</artifactId>
@@ -538,6 +540,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         </execution>
        </executions>
       </plugin>
+      -->
 <!--
       <plugin>
        <artifactId>maven-assembly-plugin</artifactId>

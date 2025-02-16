@@ -505,7 +505,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
              <artifactId>velocity</artifactId>
              <version>1.7</version>
            </dependency>
-         </dependencies>          
+         </dependencies>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -520,8 +520,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <artifactId>maven-compiler-plugin</artifactId>
        <version>3.13.0</version>
           <configuration>
-              <source>1.8</source>
-              <target>1.8</target>
+              <release>11</release>
           </configuration>
       </plugin>
 <!--

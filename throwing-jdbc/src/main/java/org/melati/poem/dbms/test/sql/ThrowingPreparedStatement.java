@@ -53,7 +53,7 @@ import java.sql.PreparedStatement;
  * 
  */
 public class ThrowingPreparedStatement 
-    extends ThrowingPreparedStatementVariant
+    extends ThrowingPreparedStatementJdbc4_1
     implements PreparedStatement {
   
 

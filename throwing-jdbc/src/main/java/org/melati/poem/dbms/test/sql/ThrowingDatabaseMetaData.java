@@ -54,7 +54,7 @@ import java.sql.DatabaseMetaData;
  *
  */
 public class ThrowingDatabaseMetaData 
-    extends ThrowingDatabaseMetaDataVariant
+    extends ThrowingDatabaseMetaDataJdbc4_1
     implements DatabaseMetaData {
   
 

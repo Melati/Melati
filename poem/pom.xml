@@ -11,59 +11,13 @@
   <description>
   Persistent Object Engine for Melati.
   </description>
-  <profiles>
-    <profile>
-      <id>jdbc3</id>
-      <activation>
-        <jdk>[1.3,1.4,1.5]</jdk>
-      </activation>
-      <dependencies>
-       <dependency>
-        <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc-3.0</artifactId>
-        <version>${project.version}</version>
-        <scope>test</scope>
-       </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>jdbc4</id>
-      <activation>
-        <jdk>1.6</jdk>
-      </activation>
-      <dependencies>
-       <dependency>
-        <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc-4.0</artifactId>
-        <version>${project.version}</version>
-        <scope>test</scope>
-       </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>jdbc41</id>
-      <activation>
-        <jdk>[1.7,1.8,)</jdk>
-      </activation>
-      <dependencies>
-       <dependency>
-        <groupId>org.melati</groupId>
-        <artifactId>throwing-jdbc-4.1</artifactId>
-        <version>${project.version}</version>
-        <scope>test</scope>
-       </dependency>
-      </dependencies>
-    </profile>
-  </profiles>  
   <dependencies>
-  <!-- 
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
-      <scope>compile</scope>
-    </dependency>
- -->    
+      <dependency>
+          <groupId>org.melati</groupId>
+          <artifactId>throwing-jdbc</artifactId>
+          <version>${project.version}</version>
+          <scope>test</scope>
+      </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
@@ -192,7 +146,8 @@ Delete this if this is the case
      <configuration>
       <redirectTestOutputToFile>true</redirectTestOutputToFile>
        <testFailureIgnore>true</testFailureIgnore>
-      <forkMode>once</forkMode>
+      <!-- No longer supported - how is it done now? -->
+      <!-- forkMode>once</forkMode -->
       <!-- threadCount>1</threadCount-->
       <!-- childDelegation>false</childDelegation -->
       <useFile>true</useFile>

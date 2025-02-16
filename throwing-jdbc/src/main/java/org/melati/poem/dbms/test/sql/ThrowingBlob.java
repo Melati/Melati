@@ -53,7 +53,7 @@ import java.sql.Blob;
  * @since 5 Feb 2008
  *
  */
-public class ThrowingBlob extends ThrowingBlobVariant implements Blob {
+public class ThrowingBlob extends ThrowingBlobJdbc4 implements Blob {
 
 
   /**

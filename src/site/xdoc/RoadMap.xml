@@ -68,7 +68,7 @@ The following gives the items which would be nice to have before a 1.0 release.
   <tr>
     <td>0.8.0</td>
     <td>
-      Handle JDBC3/4/4.1<br />
+      Remove support for JDBC3/4/4.1<br />
       Flushing works with velocity <br />
     </td>
     <td>Done</td>

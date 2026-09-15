@@ -57,7 +57,7 @@ import java.sql.Statement;
  * 
  */
 public class ThrowingStatement 
-    extends ThrowingStatementVariant 
+    extends ThrowingStatementJdbc4_1
     implements Statement {
   
   /**

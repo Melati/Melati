@@ -54,7 +54,7 @@ import java.sql.Array;
  *
  */
 public class ThrowingArray  
-    extends ThrowingArrayVariant 
+    extends ThrowingArrayJdbc4
     implements Array {
 
   /**

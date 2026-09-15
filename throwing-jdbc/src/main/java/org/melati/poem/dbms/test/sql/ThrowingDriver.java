@@ -54,7 +54,7 @@ import java.sql.Driver;
  *
  */
 public class ThrowingDriver 
-    extends ThrowingDriverVariant 
+    extends ThrowingDriverJdbc4_1
     implements Driver {
 
   /**

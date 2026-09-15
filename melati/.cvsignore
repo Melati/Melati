@@ -1,8 +1,0 @@
-target
-maven.log
-velocity.log
-velocity.log.1
-*.ser
-maven-eclipse.xml
-\.settings
-\.externalToolBuilders

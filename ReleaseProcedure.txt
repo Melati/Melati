@@ -40,6 +40,7 @@ or
     cd /dist/melati
     git pull origin master
     mvn install
+
 8. Update sourceforge
 cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
 cvs -d:ext:developername@melati.org:/usr/cvsroot export melati

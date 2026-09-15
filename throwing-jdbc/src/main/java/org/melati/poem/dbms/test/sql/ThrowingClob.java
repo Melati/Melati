@@ -54,7 +54,7 @@ import java.sql.Clob;
  *
  */
 public class ThrowingClob 
-    extends ThrowingClobVariant 
+    extends ThrowingClobJdbc4
     implements Clob {
 
 

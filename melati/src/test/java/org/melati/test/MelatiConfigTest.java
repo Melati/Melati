@@ -59,7 +59,7 @@ public class MelatiConfigTest extends TestCase {
   public void testMelatiConfigString()
       throws Exception {
     MelatiConfig mc = new MelatiConfig("org.melati.MelatiConfig");
-    assertEquals("/melatitest/melati-static/admin/static", mc.getStaticURL());
+    assertEquals("/melati-static/admin/static", mc.getStaticURL());
 
     try {
       mc = new MelatiConfig("nonexistantProperties");

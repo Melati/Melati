@@ -53,7 +53,7 @@ import java.sql.ResultSet;
  *
  */
 public class ThrowingResultSet 
-    extends ThrowingResultSetVariant 
+    extends ThrowingResultSetJdbc4_1
     implements ResultSet {
 
   

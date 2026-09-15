@@ -45,6 +45,8 @@
 
 package org.melati.poem;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.text.DateFormat;
@@ -119,7 +121,8 @@ public class PoemLocale {
         DateFormat.getDateInstance(DateFormat.FULL, locale);
     dateFormats[DateFormat.LONG] =
         DateFormat.getDateInstance(DateFormat.LONG, locale);
-    dateFormats[DateFormat.MEDIUM] =
+    // Not happy about the change, even if it is an 'improvement' in java8
+    dateFormats[DateFormat.MEDIUM] = locale == Locale.UK ? new SimpleDateFormat("DD-MMM-YYYY") :
         DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
     dateFormats[DateFormat.SHORT] =
         DateFormat.getDateInstance(DateFormat.SHORT, locale);
